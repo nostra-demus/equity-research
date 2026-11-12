@@ -123,6 +123,77 @@ def test_fraction_slip_excluded():
     check(C.match_resolved_forecasts(rec, reviews) == [], "probability 0.8 (mis-scaled fraction) → excluded, not scored as 0.008")
 
 
+def test_forecast_join_terminal_sentence_period():
+    prediction = "Q1 FY27 revenue below INR 7,340.9M"
+    for ledger_text, review_text in ((prediction, prediction + "."), (prediction + ".", prediction)):
+        rec = {"forecast_ledger": [
+            {"prediction": "Debt rises", "probability": 90, "owner_module": "balance-sheet"},
+            {"prediction": ledger_text, "probability": 55, "owner_module": "earnings"}]}
+        reviews = [{"forecast_results": [{"prediction": review_text, "status": "confirmed"}]}]
+        got = C.match_resolved_forecasts(rec, reviews)
+        check(len(got) == 1 and got[0]["prob"] == 0.55 and got[0]["owner_module"] == "earnings",
+              f"one terminal full stop preserves the unique forecast identity: {review_text!r}")
+
+
+def test_forecast_period_fallback_rejects_changed_claims():
+    prediction = "Q1 FY27 revenue below INR 7,340.9M"
+    rec = {"forecast_ledger": [{"prediction": prediction, "probability": 55}]}
+    changed = ["Q1 FY27 revenue below INR 7,340.8M.",
+               "Q1 FY27 revenue above INR 7,340.9M.",
+               "Q2 FY27 revenue below INR 7,340.9M.",
+               "Q1 FY28 revenue below INR 7,340.9M.",
+               "Q1 FY27 revenue not below INR 7,340.9M.",
+               "Q1 FY27 revenue materially below INR 7,340.9M.",
+               prediction + "!", prediction + "..", prediction + " ."]
+    for text in changed:
+        reviews = [{"forecast_results": [{"prediction": text, "status": "confirmed"}]}]
+        check(C.match_resolved_forecasts(rec, reviews) == [], f"changed claim stays unmatched: {text!r}")
+    for text in (None, [], {}, "", "."):
+        reviews = [{"forecast_results": [{"prediction": text, "status": "confirmed"}]}]
+        check(C.match_resolved_forecasts(rec, reviews) == [], f"empty/malformed prediction stays unmatched: {text!r}")
+    operators = {"forecast_ledger": [{"prediction": "Revenue < 100", "probability": 55}]}
+    inclusive = [{"forecast_results": [{"prediction": "Revenue <= 100.", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(operators, inclusive) == [], "changing < to <= cannot be a punctuation match")
+    for token in ("!", "?", "$", "--", "()", ">="):
+        punctuation = {"forecast_ledger": [{"prediction": token, "probability": 55}]}
+        reviews = [{"forecast_results": [{"prediction": token + ".", "status": "confirmed"}]}]
+        check(C.match_resolved_forecasts(punctuation, reviews) == [],
+              f"punctuation-only ledger text cannot use the period fallback: {token!r}")
+
+
+def test_forecast_period_fallback_preserves_ambiguity_and_references():
+    rec = {"forecast_ledger": [
+        {"prediction": "Margin expands", "probability": 80},
+        {"prediction": "Margin expands", "probability": 20}]}
+    plain = [{"forecast_results": [{"prediction": "Margin expands.", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(rec, plain) == [], "terminal-period fallback cannot bypass duplicate text")
+    rec["forecast_ledger"][1]["probability"] = 0.8
+    check(C.match_resolved_forecasts(rec, plain) == [], "an invalid-probability duplicate still blocks fallback")
+    rec["forecast_ledger"][1]["probability"] = 20
+    referred = [{"forecast_results": [{"prediction": "Margin expands.", "forecast_index": 2,
+                                      "status": "confirmed"}]}]
+    got = C.match_resolved_forecasts(rec, referred)
+    check(len(got) == 1 and got[0]["prob"] == 0.20, "explicit reference resolves duplicate period variants")
+    rec["forecast_ledger"][1]["prediction"] = "Debt rises"
+    got = C.match_resolved_forecasts(rec, referred)
+    check(len(got) == 1 and got[0]["prob"] == 0.20, "explicit reference takes priority over new period fallback")
+
+
+def test_forecast_period_variants_count_once():
+    rec = {"forecast_ledger": [{"prediction": "EPS up", "probability": 70}]}
+    reviews = [{"forecast_results": [
+        {"prediction": "EPS up.", "status": "confirmed"},
+        {"prediction": "EPS up", "status": "confirmed"},
+        {"prediction": "see ledger", "forecast_index": 1, "status": "confirmed"}]}]
+    check(len(C.match_resolved_forecasts(rec, reviews)) == 1,
+          "period, exact and explicit references to one forecast count once")
+    rec["forecast_ledger"][0]["probability"] = 0.8
+    check(C.match_resolved_forecasts(rec, reviews) == [], "period fallback preserves invalid-probability exclusion")
+    rec["forecast_ledger"][0]["probability"] = 70
+    unresolved = [{"forecast_results": [{"prediction": "EPS up.", "status": "not assessable"}]}]
+    check(C.match_resolved_forecasts(rec, unresolved) == [], "period fallback cannot score an unresolved outcome")
+
+
 def test_effective_n_clusters_by_ticker():
     # Bug-5 guard: two RUNS of the same ticker are ONE correlated cluster, not two independent bets
     standing, reviews_by_run = [], {}
@@ -1555,6 +1626,8 @@ def main():
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
                test_effective_n, test_months_to_significance_honesty, test_forecast_join_never_misscores,
                test_fraction_slip_excluded, test_effective_n_clusters_by_ticker, test_all_reviews_tallied,
+               test_forecast_join_terminal_sentence_period, test_forecast_period_fallback_rejects_changed_claims,
+               test_forecast_period_fallback_preserves_ambiguity_and_references, test_forecast_period_variants_count_once,
                test_false_comfort_named, test_brier_ready_not_reported_withheld, test_scoped_output_isolated,
                test_expired_is_a_settled_miss, test_tracking_price_return_recovered,
                test_effective_n_counts_directional_only_runs, test_reviews_sort_by_horizon_not_text,
