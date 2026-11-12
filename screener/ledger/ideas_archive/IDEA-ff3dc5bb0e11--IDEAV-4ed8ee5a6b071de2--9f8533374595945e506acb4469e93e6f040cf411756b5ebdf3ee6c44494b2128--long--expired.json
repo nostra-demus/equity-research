@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-12T12:14:34Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-ff3dc5bb0e11",
+    "idea_version": "IDEAV-4ed8ee5a6b071de2",
+    "idea_version_started_at": "2026-11-09T16:04:27Z",
+    "ticker": "GFR",
+    "company": "Greenfire Resources",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Strathcona Resources has agreed to acquire Greenfire Resources in a deal valued at up to $2.9 billion, providing a clear exit valuation for shareholders.",
+    "why_now": "The acquisition was announced on 2026-11-09 and typically trades toward the offer price until deal closure.",
+    "conviction": 80,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 60,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-7811012ca76b"
+    ],
+    "primary_source_event_id": "EVT-7811012ca76b",
+    "source_headlines": [
+      "Strathcona to buy Greenfire Resources in up to $2.9-billion deal"
+    ],
+    "source_headline": "Strathcona to buy Greenfire Resources in up to $2.9-billion deal",
+    "source_url": "https://www.theglobeandmail.com/business/article-strathcona-to-buy-greenfire-resources-in-up-to-29-billion-deal/",
+    "source_name": "The Globe and Mail",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T11:57:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-09T16:04:27Z",
+    "updated_at": "2026-11-09T16:04:27Z",
+    "decay_at": "2026-11-10T23:57:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
