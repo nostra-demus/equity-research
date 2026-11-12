@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T18:58:20Z",
+  "generated_at": "2026-11-12T19:05:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -1238,28 +1238,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-961",
-      "headline": "Jensen Huang Is Out as Nvidia Names Colette Kress Interim CEO",
+      "inbox_id": "INB-20261112-967",
+      "headline": "Nvidia Names Colette Kress as Interim CEO",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/12/jensen-huang-is-out-as-nvidia-names-collette-kress-interim-ceo/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.bloomberg.com/news/videos/2026-11-12/nvidia-names-colette-kress-as-interim-ceo-video",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:26:01Z",
+      "found_at": "2026-11-12T18:44:06Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "prelim_note": "Nvidia has appointed an interim CEO following a leadership transition.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "triage_reason": "Nvidia has appointed an interim CEO following a leadership transition.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 90,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 90,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 4,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
@@ -1267,11 +1267,11 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "executive_exit",
+        "event_id": "management",
         "size_bucket": "mega"
       },
       "event_types": [
-        "executive_exit"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1282,6 +1282,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-966",
+      "headline": "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/12/softbank-cfo-says-there-is-no-such-default-after-musks-turbine-claim-but-a-3-7b-charge-on-scrapped-turbine-orders-suggests-elon-was-onto-something/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T18:43:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "SoftBank reported a $3.7B charge related to scrapped turbine orders, indicating a significant financial impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank reported a $3.7B charge related to scrapped turbine orders, indicating a significant financial impact.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1332,6 +1381,56 @@
         },
         {
           "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-970",
+      "headline": "Jensen Huang Resigns From Nvidia Amid Affairs and Alleged Spy Scandal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-12/bloomberg-surveillance-11-12-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T17:54:17Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia amid a scandal, representing a major leadership disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia amid a scandal, representing a major leadership disruption.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1524,55 +1623,6 @@
       },
       "event_types": [
         "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-963",
-      "headline": "Jensen Huang Resigns As Nvidia CEO Amid Extramarital Affair Scandal",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/jensen-huang-resigns-as-nvidia-ceo-amid-extramarital-affair-scandal-12318247#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T17:19:05Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Confirmation of Jensen Huang's resignation as Nvidia CEO due to a scandal represents a significant management crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Confirmation of Jensen Huang's resignation as Nvidia CEO due to a scandal represents a significant management crisis.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
         "executive_exit"
       ],
       "issuer_linkage": "primary",
@@ -1930,56 +1980,6 @@
         {
           "name": "Nvidia",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-853",
-      "headline": "Nvidia turns to CFO Colette Kress to steady ship after Jensen Huang exit",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/nvidia-turns-to-cfo-colette-kress-to-steady-ship-after-jensen-huang-exit-11794498763925.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T15:58:40Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CFO Colette Kress takes over leadership following the sudden exit of founder-CEO Jensen Huang.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CFO Colette Kress takes over leadership following the sudden exit of founder-CEO Jensen Huang.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 95,
-      "rank_factors": {
-        "materiality": 95,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -276657,9 +276657,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1730717,
-    "news_picked_today": 2288,
-    "news_dropped_today": 18688
+    "news_seen_today": 1737584,
+    "news_picked_today": 2297,
+    "news_dropped_today": 18775
   },
   "book_momentum": {
     "live_count": 8,
