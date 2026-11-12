@@ -918,9 +918,17 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
 # carry the same unlabeled-figure shape. Presence/shape only: whether the label is TRUE is the
 # valuation module's job (price-and-capital-structure); this only stops a bare number reaching the reader.
 BH_DATE = "2026-11-06"  # forward-looking; committed runs predate it → N/A
-_BH_NET = r"\bnet[\s‑-]*(?:cash|debt)\b"
+# "net cash flow(s)" is the cash-flow-statement line, NOT the §15 net-cash / net-debt BALANCE-SHEET
+# position (debt − cash) this check governs. Without the lookahead, _BH_B matches "$5bn of net cash"
+# inside "$5bn of net cash flow" and raises a false PROVISIONAL on a correct thesis (§17: a gate must be
+# capable of passing legitimately). Ratios ("net debt / EBITDA") and framing ("a net-cash balance sheet")
+# are already out of scope; this keeps the CF-statement line out too (PR #781 false-positive fix).
+_BH_NET = r"\bnet[\s‑-]*(?:cash|debt)\b(?!\s+flows?\b)"
 _BH_MONEY = (r"(?:[$€£¥₹]|\b(?:US\$|USD|EUR|GBP|INR|CNY|RMB|JPY|AED|SAR|Rs\.?"
              r"|CHF|HKD|SGD|AUD|CAD|NZD|NOK|SEK|DKK|BRL|ZAR|MXN|KRW)\s?)\s?\d[\d,]*(?:\.\d+)?"
+             # Any ISO-4217-shaped code (§27: any market), case-SENSITIVE so re.I does not match "the"/"was";
+             # a magnitude word is required so a date like "FYE 2026" is not read as an amount (PR #781).
+             r"|\b(?-i:[A-Z]{3})\s?\d[\d,]*(?:\.\d+)?\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh)\b"
              r"|\b\d[\d,]*(?:\.\d+)?\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh|[BMK])\b")
 # An amount counts as "the net-cash figure" only when it is attached to the term: the term, then plain
 # connectors, then the amount ("net debt doubled to $9.3 billion") — or the amount, then at most a few

@@ -2498,6 +2498,21 @@ if scope=="selftest":
                               "FY26 broad net cash was $12 billion."), ["never names the strict"]),
         ("2026-11-06", _bh_th("FY25 broad net cash was $10 billion; FY25 strict net cash was $2 billion. "
                               "FY26 broad net cash was $12 billion; FY26 strict net cash was $3 billion."), []),
+        # ── Nightly PR-fix (PR #781) regressions — each flips vs the pre-fix matcher ──
+        # BUG1 (false positive): "net cash flow(s)" is the CASH-FLOW-STATEMENT line, not the §15 net-cash /
+        # net-debt BALANCE-SHEET position — out of scope like ratios and framing. Pre-fix _BH_B matched
+        # "$5bn of net cash" inside "$5bn of net cash flow" and raised a false PROVISIONAL on a correct thesis.
+        ("2026-11-06", _bh_th("The company generated $5 billion of net cash flow from operations."), []),
+        ("2026-11-06", _bh_th("It produced $5 billion of net cash flows."), []),
+        ("2026-11-06", _bh_th("It generates **$5 billion** of net cash flow."), []),  # bold, same scope
+        # BUG2 (false negative, §27 any-market): an unlabelled net-debt figure in an ISO code outside the
+        # hardcoded list (TWD, THB, IDR, …) sat between the connector and the digits, so the amount never
+        # attached and the figure shipped clean. The generic code alternative is case-sensitive (re.I would
+        # match "the"/"was") and magnitude-anchored (so a date like "FYE 2026" is not read as an amount).
+        ("2026-11-06", _bh_th("Net debt stands at TWD 50 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt was THB 20 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt (strict, debt − cash & equivalents) was TWD 50 billion."), []),  # labelled → no FP
+        ("2026-11-06", _bh_th("Net debt at FYE 2026 will be refinanced."), []),  # date, not an amount: no FP
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:
