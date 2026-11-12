@@ -136,7 +136,8 @@ THESIS_NO_DAT = (
     "SIGN CHECK: bear return is negative, ok.\n\n## Some Section\n\nno audit trail here.\n"
 )
 THESIS_WITH_DAT = (
-    "# Thesis\n\n# PART II — CROSS-CUTTING ANALYSIS\n\n"
+    # Part I carries the §16 decision-line statement so the clean fixture stays PASS once check BG arms.
+    "# Thesis\n\nDecision line (ticker · venue · currency): TEST · NYSE · USD\n\n# PART II — CROSS-CUTTING ANALYSIS\n\n"
     "SIGN CHECK: bear return is negative, ok.\n\n## Decision Audit Trail\n\n"
     "| Decision Driver | Bull Evidence | Bear Evidence | Which Side Wins? | Why? |\n"
     "|---|---|---|---|---|\n"
@@ -206,6 +207,12 @@ def main():
     else:
         print("  [ok] full.md Step 10B.1 AJ call gates on `_live_date`")
 
+    # Static guard: the live BG call must gate on _live_date (it guards prose a rerun regenerates).
+    if not re.search(r"eval_bg_tradable_line_and_yield\(\s*_live_date\s*,", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BG call is missing or does NOT gate on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.1 BG call gates on `_live_date`")
     # Static guard: the live BH call (net-cash / net-debt basis label) must also gate on _live_date — it guards
     # regenerated final_thesis.md prose exactly as AJ does.
     if not re.search(r"eval_bh_net_debt_basis_label\(\s*_live_date\s*,", block):
