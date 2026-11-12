@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-12T10:05:56Z",
+  "generated_at": "2026-11-12T10:12:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-555",
+      "headline": "Jana Small Finance Bank Limited: Jana Small Finance Bank Limited has informed the Exchange regarding - 'Pursuant to Regulation 30 and 51 of the SEBI LODR Regulations, 2015, as amended, we hereby inform you that M/s. Jana Small Finance Bank Ltd.. ( Our Company ) has, on November 11, 2026, received a copy of the Order passed by the Hon'ble National Company Law Tribunal, Division Bench II, Chennai, approving the Scheme of Amalgamation between Jana Holdings Limited (\"Transferor Company\") with Jana C",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/amrita_singh_jana_bank_in_12112026150101_JHL_JCL_Amalgamation_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T09:39:21Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Jana Small Finance Bank received NCLT approval for a scheme of amalgamation, a significant corporate restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jana Small Finance Bank received NCLT approval for a scheme of amalgamation, a significant corporate restructuring event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jana Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-551",
+      "headline": "ORIENTAL M G (00018): Positive Profit Alert",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200640.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T09:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Oriental M G issued a positive profit alert indicating expected growth in earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oriental M G issued a positive profit alert indicating expected growth in earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ORIENTAL M G",
+          "ticker": "00018",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-537",
       "headline": ": NOTICE OF LISTING ON THE STOCK EXCHANGE OF HONG KONG LIMITED - Establishment of U.S.$500,000,000 Medium Term Note Programme by Xiamen International Investment Limited with the Benefit of a Keepwell Deed Provided by Xiamen International Bank Co., Ltd.",
@@ -1877,104 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-260",
-      "headline": "Nvidia Board May Vote to Remove Jensen Huang as CEO Tonight. Here’s What Investors Need to Know.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nvidia-board-may-vote-remove-jensen-huang-ceo-tonight-heres-what-investors-need-know",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:25:02Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Potential removal of the CEO of a mega-cap company is a major governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Potential removal of the CEO of a mega-cap company is a major governance event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-250",
-      "headline": "Nvidia may oust Jensen Huang after second affair with employee, board working with outside firm to identify successor",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/nvidia-may-oust-jensen-huang-after-second-affair-with-employee-board-working-with-outside-firm-to-identify-successor-11794445527518.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:17:19Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "A report that the board is working to identify a successor for the CEO due to an affair is a major governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A report that the board is working to identify a successor for the CEO due to an affair is a major governance event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276776,9 +276776,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 882770,
-    "news_picked_today": 1529,
-    "news_dropped_today": 9919
+    "news_seen_today": 889527,
+    "news_picked_today": 1534,
+    "news_dropped_today": 10058
   },
   "book_momentum": {
     "live_count": 8,
