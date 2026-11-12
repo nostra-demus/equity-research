@@ -1,6 +1,158 @@
 {
-  "generated_at": "2026-11-12T12:43:07Z",
+  "generated_at": "2026-11-12T14:49:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-794",
+      "headline": "SCIENTECH (02291): MAJOR AND CONNECTED TRANSACTION ACQUISITION OF 54.2384% EQUITY INTEREST IN SHANGHAI MINWEI BIOTECHNOLOGY CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201551.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T14:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Acquisition of 54.24% controlling interest in Shanghai Minwei Biotechnology announced as major and connected transaction; no deal value, financing structure, or strategic rationale disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of 54.24% controlling interest in Shanghai Minwei Biotechnology announced as major and connected transaction; no deal value, financing structure, or strategic rationale disclosed in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SCIENTECH",
+          "ticker": "02291",
+          "listing_country": "HK"
+        },
+        {
+          "name": "Shanghai Minwei Biotechnology Co., Ltd.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-751",
+      "headline": "PATEO (02889): MAJOR TRANSACTION SUPPLEMENTARY AGREEMENT TO THE SHARE TRANSFER AGREEMENT IN RELATION TO THE ACQUISITION OF 20% EQUITY INTERESTS IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201508.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T13:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Company entered into a supplementary agreement for the acquisition of a 20% equity interest in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company entered into a supplementary agreement for the acquisition of a 20% equity interest in a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PATEO",
+          "ticker": "02889",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-671",
+      "headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Company issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHI ECO LAND MT",
+          "ticker": "08507",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-644",
       "headline": "SAMSONITE (01910): Quarterly Results Announcement for the Periods Ended September 30, 2026",
@@ -95,6 +247,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-744",
+      "headline": "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201118.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T11:08:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Anxianyuan China announced a positive profit alert, indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anxianyuan China announced a positive profit alert, indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anxianyuan China",
+          "ticker": "00922",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -786,6 +987,693 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-810",
+      "headline": "Nvidia stock falls 13% as CEO Jensen Huang announces resignation",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/12/nvidia-nvda-jensen-huang-second-affair.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:31:06Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia stock fell 13% following the CEO's resignation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia stock fell 13% following the CEO's resignation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-808",
+      "headline": "Nvidia CEO Jensen Huang resigns in wake of affair, spy scandal",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/nvidia-ceo-jensen-huang-resigns/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:30:10Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The CEO of a mega-cap company resigned unexpectedly amid scandal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of a mega-cap company resigned unexpectedly amid scandal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-781",
+      "headline": "Huang resigns as Nvidia shares plunge again",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/australia-news-live-updates-nvidia-shares-plunge-again-as-default-risk-nears-record-high-20261113-p61dtm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:05:31Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-792",
+      "headline": "Nvidia CEO Jensen Huang steps down",
+      "headline_en": null,
+      "url": "https://www.arnnewscentre.ae/news/business/nvidia-ceo-jensen-huang-steps-down/",
+      "source_name": "ARN News Centre — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:04:24Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The resignation of a key CEO of a mega-cap company is a material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a key CEO of a mega-cap company is a material event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-769",
+      "headline": "NVIDIA CEO Jensen Huang resigns; Colette Kress to lead company for now",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/technology/nvidia-ceo-jensen-huang-resigns-with-immediate-effect-cfo-colette-kress-named-interim-chief-20032811.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:04:23Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-787",
+      "headline": "Nvidia boss Jensen Huang resigns and shares plunge 10% - taking losses this week to $730bn",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16286281/Nvidia-shares-plunge-9-board-looks-set-oust-boss-affairs-taking-losses-week-640bn.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:02:32Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The resignation of a key CEO of a mega-cap company is a material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a key CEO of a mega-cap company is a material event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-767",
+      "headline": "Nvidia CEO Jensen Huang to step down in big blow to AI boom",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/nvidia-ceo-jensen-huang-to-step-down-in-big-blow-to-ai-boom-11794491910708.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:00:18Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-778",
+      "headline": "Nvidia CEO Jensen Huang resigns as CEO in the wake of multiple affairs, Chinese spy allegations",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/nvidia-confirms-jensen-huang-has-resigned-as-ceo-colette-kress-executive-vice-president-and-chief-financial-officer-appointed-interim-ceo",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:58:41Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-756",
+      "headline": "Nvidia CEO Jensen Huang resigns over scandal and is replaced by CFO Colette Kress on interim basis – follow live",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/live/2026/nov/12/nvidia-ceo-jensen-huang-affairs-share-price-plunges-live-latest",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:57:26Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Founder CEO Jensen Huang resigns over personal scandal; CFO Colette Kress assumes interim CEO role, creating management continuity and governance credibility risk at mega-cap AI chipmaker.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Founder CEO Jensen Huang resigns over personal scandal; CFO Colette Kress assumes interim CEO role, creating management continuity and governance credibility risk at mega-cap AI chipmaker.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-768",
+      "headline": "Nvidia CEO Jensen Huang resigns, tech giant appoints Colette Kress as Interim CEO",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/nvidia-ceo-jensen-huang-resigns-tech-giant-appoints-colette-kress-as-interim-ceo-report-11794491647631.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:55:53Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-764",
+      "headline": "Nvidia set to lose over $600 billion as CEO faces possible ouster",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:51:59Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-785",
+      "headline": "Huang, Face of the AI Boom, Ousted by Nvidia Board as CEO",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-12/jensen-huang-face-of-the-ai-boom-ousted-by-nvidia-board-as-ceo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:50:41Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-793",
+      "headline": "Nvidia CEO Jensen Huang ousted as CEO, company says CFO to lead on interim basis",
+      "headline_en": null,
+      "url": "https://www.cbc.ca/news/business/nvidia-ceo-huang-9.7418736?cmp=rss",
+      "source_name": "CBC — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:14:13Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The ousting of a key CEO of a mega-cap company is a material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The ousting of a key CEO of a mega-cap company is a material event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-701",
+      "headline": "Nvidia Default Risk Nears Record High as Board Weighs CEO’s Fate",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-12/nvidia-default-risk-nears-record-high-as-board-weighs-ceo-s-fate",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:53:17Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia faces record high default risk amid board uncertainty regarding the CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia faces record high default risk amid board uncertainty regarding the CEO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-659",
       "headline": "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
       "headline_en": null,
@@ -1072,898 +1960,6 @@
       "event_types": [
         "management",
         "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-603",
-      "headline": "Salzgitter Announces Revised FY26 Guidance - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/salzgitter-announces-revised-fy26-guidance-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T10:45:22Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Salzgitter announced a downward revision to its FY26 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Salzgitter announced a downward revision to its FY26 guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salzgitter",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-561",
-      "headline": "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/man-industries-q2-results-net-profit-rises-122pc-to-rs82-crore-revenue-up-45pc-20032534.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T10:17:19Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reported 122% net profit growth and 45% revenue growth for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported 122% net profit growth and 45% revenue growth for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Man Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-550",
-      "headline": "Page Industries Q2 Results: Stock tanks 13% after volume growth lags guidance, FEMA violation concerns",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T09:47:05Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Page Industries stock fell 13% due to volume growth missing guidance and concerns over FEMA violations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Page Industries stock fell 13% due to volume growth missing guidance and concerns over FEMA violations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Page Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-528",
-      "headline": "Adani Group's ₹26,000 crore Evos deal: What the Dutch firm's acquisition means for its global ports business",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/adani-groups-rs-26-000-crore-evos-deal-what-the-dutch-firms-acquisition-means-for-its-global-ports-business-11794473176610.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T09:16:17Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Adani Group is acquiring a Dutch firm for ₹26,000 crore to expand its global ports business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Group is acquiring a Dutch firm for ₹26,000 crore to expand its global ports business.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-523",
-      "headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T09:12:50Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Page Industries shares fell nearly 10% following weak operating performance in Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Page Industries shares fell nearly 10% following weak operating performance in Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Page Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-527",
-      "headline": "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/rolls-royce-9-month-orders-climb-confirms-fy26-view-plans-ps15-bln-interim-buyback-shares",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:56:42Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Rolls-Royce reported increased 9-month orders, confirmed FY26 guidance, and announced a £1.5 billion share buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rolls-Royce reported increased 9-month orders, confirmed FY26 guidance, and announced a £1.5 billion share buyback.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rolls-Royce",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-521",
-      "headline": "Nvidia Board Considers Replacing CEO Jensen Huang",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-12/daybreak-europe-11-12-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:43:36Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reports that Nvidia's board is considering replacing CEO Jensen Huang represent a major leadership risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reports that Nvidia's board is considering replacing CEO Jensen Huang represent a major leadership risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-535",
-      "headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:22:45Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "HAL reported a 15.48% jump in net profit with revenue exceeding 13,100 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HAL reported a 15.48% jump in net profit with revenue exceeding 13,100 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HAL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-534",
-      "headline": "BAE Boosts Free Cash Flow Guidance 50% as Defense Spending Rises",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-12/bae-boosts-free-cash-flow-guidance-50-as-defense-spending-rises",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:07:13Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "BAE Systems raised its free cash flow guidance by 50% due to increased defense spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BAE Systems raised its free cash flow guidance by 50% due to increased defense spending.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BAE Systems",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-505",
-      "headline": "The Works lifts profit guidance again on 10% sales growth",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/the-works-lifts-profit-guidance-again-on-10-sales-growth/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T07:36:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The Works raises profit guidance for the second time on 10% sales growth, confirming accelerating retail momentum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Works raises profit guidance for the second time on 10% sales growth, confirming accelerating retail momentum.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Works",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-491",
-      "headline": "Cupid shares extend 2026 gains to 265%; Stock at record high after Q2 results, guidance raise",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/cupid-share-price-extends-2026-gains-q2-result-reaction-fy27-guidance-raised-shareholding-aditya-halwasiya-20032174.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T06:34:26Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Cupid reported strong Q2 results and raised its guidance, leading to a significant stock price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cupid reported strong Q2 results and raised its guidance, leading to a significant stock price increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cupid Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-493",
-      "headline": "Siemens Raises Growth Goals After AI Boom Drives Record Orders",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-12/siemens-raises-growth-goals-after-ai-boom-drives-record-orders",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T06:07:58Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Siemens raised its growth targets following record order intake driven by AI demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Siemens raised its growth targets following record order intake driven by AI demand.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Siemens AG",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-402",
-      "headline": "YMTC Presses Ahead With Q1 2027 IPO, Seeking $4.7 Billion",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281118",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T06:04:16Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "YMTC is planning a $4.7 billion IPO for Q1 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "YMTC is planning a $4.7 billion IPO for Q1 2027.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "YMTC",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-438",
-      "headline": "Indonesian VP Gibran steps down, marking end of Prabowo-Widodo ties",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/politics/indonesian-vp-gibran-steps-down-marking-end-of-prabowo-widodo-ties",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T05:32:07Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The resignation of the Vice President of Indonesia creates significant political instability and uncertainty for the country's governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The resignation of the Vice President of Indonesia creates significant political instability and uncertainty for the country's governance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indonesia Government",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-448",
-      "headline": "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/64198d59-7a03-4f1c-89c6-81ed8bdc5448?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T05:31:16Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Potential departure of a key founder/CEO at a mega-cap company is a material governance and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Potential departure of a key founder/CEO at a mega-cap company is a material governance and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-439",
-      "headline": "Gibran officially resigns as Indonesia’s vice-president after degree scandal",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/asia/southeast-asia/article/3374164/gibran-officially-resigns-indonesias-vice-president-after-degree-scandal",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T05:26:19Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The resignation of the Vice President of Indonesia creates significant political instability and uncertainty for the country's governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The resignation of the Vice President of Indonesia creates significant political instability and uncertainty for the country's governance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indonesia Government",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-447",
-      "headline": "Blackstone puts up $1.5 billion for Pfizer obesity drug studies",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/blackstone-puts-up-15-billion-for-pfizer-obesity-drug-studies/article71692286.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T05:02:33Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Blackstone is investing $1.5 billion into Pfizer's obesity drug studies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Blackstone is investing $1.5 billion into Pfizer's obesity drug studies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-455",
-      "headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T04:55:24Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia shares dropped 8.6% following reports regarding CEO Jensen Huang, indicating high market sensitivity to leadership risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia shares dropped 8.6% following reports regarding CEO Jensen Huang, indicating high market sensitivity to leadership risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -233622,18 +233618,18 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-5f346408b53f54ca",
-      "idea_version_started_at": "2026-11-12T11:51:50Z",
+      "idea_version": "IDEAV-ef3b9ffcf3887e9b",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "Management instability and potential leadership changes create significant execution risk for the company's growth strategy.",
-      "why_now": "Multiple reports on 2026-11-12 indicate the board is actively weighing the CEO's future.",
-      "conviction": 65,
+      "reason": "The potential departure of CEO Jensen Huang amid a deepening scandal creates significant leadership uncertainty and key-man risk for the company's strategic direction.",
+      "why_now": "Multiple reports on 2026-11-12 confirm the board is actively weighing a replacement and searching for a temporary CEO.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
+      "trade_score": 77,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
@@ -233641,7 +233637,7 @@
         "specificity": 15,
         "timing": 10,
         "expression": 7,
-        "corroboration": 7,
+        "corroboration": 10,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
@@ -233664,19 +233660,21 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-391a7c65cc58",
-        "EVT-c29c0371754c"
+        "EVT-c29c0371754c",
+        "EVT-52b2fc91ded8",
+        "EVT-c2e4fabdc472"
       ],
-      "primary_source_event_id": "EVT-391a7c65cc58",
+      "primary_source_event_id": "EVT-c29c0371754c",
       "source_headlines": [
-        "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-        "FirstFT: Nvidia board weighs Huang’s future as scandal deepens"
+        "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
+        "Nvidia Board Considers Replacing CEO Jensen Huang",
+        "Nvidia board weighs temporary CEO, starts search for potential replacement after Jensen Huang affairs"
       ],
-      "source_headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-      "source_url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
-      "source_name": "Gulf News",
+      "source_headline": "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
+      "source_url": "https://www.ft.com/content/64198d59-7a03-4f1c-89c6-81ed8bdc5448?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T05:31:16Z",
+      "newest_source_at": "2026-11-12T10:59:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233684,8 +233682,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T11:51:50Z",
-      "decay_at": "2026-11-13T17:31:16Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T22:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -233756,6 +233754,76 @@
       "surfaced_at": "2026-11-12T10:13:12Z",
       "updated_at": "2026-11-12T10:13:12Z",
       "decay_at": "2026-11-13T15:40:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c9c03eb598fe",
+      "idea_version": "IDEAV-355cab7269ed5708",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "SIEGY",
+      "company": "Siemens AG",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Record order intake driven by AI infrastructure demand has allowed the company to raise its long-term growth targets.",
+      "why_now": "The guidance hike was announced on 2026-11-12 following the release of record order data.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a38cceba99c"
+      ],
+      "primary_source_event_id": "EVT-5a38cceba99c",
+      "source_headlines": [
+        "Siemens Raises Growth Goals After AI Boom Drives Record Orders"
+      ],
+      "source_headline": "Siemens Raises Growth Goals After AI Boom Drives Record Orders",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/siemens-raises-growth-goals-after-ai-boom-drives-record-orders",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T06:07:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T18:07:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234042,6 +234110,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e1d40a598d73",
+      "idea_version": "IDEAV-896aa4599f6ab45d",
+      "idea_version_started_at": "2026-11-12T13:36:01Z",
+      "ticker": "SZG.DE",
+      "company": "Salzgitter",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a downward revision to its FY26 guidance, signaling deteriorating earnings expectations.",
+      "why_now": "The guidance update was announced on November 12, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-22048ffb244a"
+      ],
+      "primary_source_event_id": "EVT-22048ffb244a",
+      "source_headlines": [
+        "Salzgitter Announces Revised FY26 Guidance - Update"
+      ],
+      "source_headline": "Salzgitter Announces Revised FY26 Guidance - Update",
+      "source_url": "https://www.nasdaq.com/articles/salzgitter-announces-revised-fy26-guidance-update",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T10:45:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T13:36:01Z",
+      "updated_at": "2026-11-12T13:36:01Z",
+      "decay_at": "2026-11-13T22:45:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0c58fc228db1",
       "idea_version": "IDEAV-9555e4ef22d3581d",
       "idea_version_started_at": "2026-11-12T11:51:50Z",
@@ -234322,6 +234460,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b1db4cfd6b4d",
+      "idea_version": "IDEAV-9bedcfb4b9fb6e4c",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "RYCEY",
+      "company": "Rolls-Royce",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Strong order growth and the initiation of a £1.5 billion share buyback program signal robust cash flow generation and management confidence.",
+      "why_now": "The buyback and order update were confirmed on 2026-11-12.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3e630df5d39f"
+      ],
+      "primary_source_event_id": "EVT-3e630df5d39f",
+      "source_headlines": [
+        "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up"
+      ],
+      "source_headline": "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up",
+      "source_url": "https://www.nasdaq.com/articles/rolls-royce-9-month-orders-climb-confirms-fy26-view-plans-ps15-bln-interim-buyback-shares",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T08:56:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T20:56:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-75e2e4285cbd",
       "idea_version": "IDEAV-f569e04b884cd3bd",
       "idea_version_started_at": "2026-11-12T12:14:16Z",
@@ -234387,6 +234596,224 @@
       "surfaced_at": "2026-11-12T12:14:16Z",
       "updated_at": "2026-11-12T12:14:16Z",
       "decay_at": "2026-11-13T21:12:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-592b06bbc851",
+      "idea_version": "IDEAV-31e51e00d854597a",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "PAGEIND",
+      "company": "Page Industries",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Weak operating performance in Q2 indicates margin compression and potential demand headwinds for the apparel manufacturer.",
+      "why_now": "The earnings report was released on 2026-11-12, triggering a nearly 10% decline in the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4a4d375b4016"
+      ],
+      "primary_source_event_id": "EVT-4a4d375b4016",
+      "source_headlines": [
+        "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared"
+      ],
+      "source_headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
+      "source_url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T09:12:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T21:12:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7c0521e054d8",
+      "idea_version": "IDEAV-7459d739f5534044",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "HAL",
+      "company": "Hindustan Aeronautics Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 15.48% jump in net profit and revenue exceeding ₹13,100 crore demonstrates strong execution in the defense sector.",
+      "why_now": "The Q2 earnings results were reported on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-547e743e635b"
+      ],
+      "primary_source_event_id": "EVT-547e743e635b",
+      "source_headlines": [
+        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
+      ],
+      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
+      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T08:22:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T20:22:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3ebff2cb046d",
+      "idea_version": "IDEAV-09aa700544623c42",
+      "idea_version_started_at": "2026-11-12T13:36:01Z",
+      "ticker": "MANINFRA.NS",
+      "company": "Man Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Strong Q2 performance with 122% net profit growth and 45% revenue increase indicates operational momentum.",
+      "why_now": "The results were reported on November 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3cecbb9fc76b"
+      ],
+      "primary_source_event_id": "EVT-3cecbb9fc76b",
+      "source_headlines": [
+        "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%"
+      ],
+      "source_headline": "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%",
+      "source_url": "https://www.cnbctv18.com/market/earnings/man-industries-q2-results-net-profit-rises-122pc-to-rs82-crore-revenue-up-45pc-20032534.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T10:17:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T13:36:01Z",
+      "updated_at": "2026-11-12T13:36:01Z",
+      "decay_at": "2026-11-13T22:17:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -235969,149 +236396,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a6b4b796e78e",
-      "idea_version": "IDEAV-136eec4b7b6674e7",
-      "idea_version_started_at": "2026-11-11T03:59:14Z",
-      "ticker": "ASB",
-      "company": "Austal",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
-      "why_now": "The company announced the start of production on 2026-11-11.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7465b8b54030"
-      ],
-      "primary_source_event_id": "EVT-7465b8b54030",
-      "source_headlines": [
-        "ASB: Austal commences production on $5B Landing Craft Projects"
-      ],
-      "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T01:03:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T03:59:14Z",
-      "updated_at": "2026-11-11T03:59:14Z",
-      "decay_at": "2026-11-12T13:03:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c9b7224cbdda",
-      "idea_version": "IDEAV-9500e4dab8bdeaa4",
-      "idea_version_started_at": "2026-11-11T04:24:11Z",
-      "ticker": "MQG",
-      "company": "Macquarie Group",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Macquarie Bank, a subsidiary of Macquarie Group, will pay a $14 million penalty for misleading customers with a 'welcome rate' promotion, impacting its reputation and potentially future regulatory scrutiny.",
-      "why_now": "The penalty and its details were reported on November 11, 2026, making the regulatory action current.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-700f1447ef68"
-      ],
-      "primary_source_event_id": "EVT-700f1447ef68",
-      "source_headlines": [
-        "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion"
-      ],
-      "source_headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
-      "source_url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 95,
-      "newest_source_at": "2026-11-11T01:23:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T04:24:11Z",
-      "updated_at": "2026-11-11T04:24:11Z",
-      "decay_at": "2026-11-12T13:23:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3e0ccff47789",
       "idea_version": "IDEAV-0acad24986e16db6",
       "idea_version_started_at": "2026-11-11T05:44:55Z",
@@ -236596,76 +236880,6 @@
       "surfaced_at": "2026-11-07T18:45:39Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T05:41:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-49dc08133904",
-      "idea_version": "IDEAV-d6be874b042d60df",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "ARGX",
-      "company": "argenx SE",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Unnatural Products, Inc. for $1.15 billion expands argenx's pipeline and R&D capabilities in a high-value therapeutic space.",
-      "why_now": "The acquisition agreement was announced today, November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6bb7a15aefbb"
-      ],
-      "primary_source_event_id": "EVT-6bb7a15aefbb",
-      "source_headlines": [
-        "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion"
-      ],
-      "source_headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
-      "source_url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:12:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:48:09Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:12:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237232,76 +237446,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-75faeacb3b26",
-      "idea_version": "IDEAV-3425d52bca5cbb71",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "TLRY",
-      "company": "Tilray",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tilray has raised its annual guidance, suggesting better-than-expected operational momentum in its core segments.",
-      "why_now": "The guidance revision was announced today, November 9, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8c19103ab47"
-      ],
-      "primary_source_event_id": "EVT-f8c19103ab47",
-      "source_headlines": [
-        "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?"
-      ],
-      "source_headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
-      "source_url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:46:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:46:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f69a276b003b",
       "idea_version": "IDEAV-847c049549bca2de",
       "idea_version_started_at": "2026-11-10T03:26:43Z",
@@ -237861,6 +238005,77 @@
       "surfaced_at": "2026-11-11T04:24:11Z",
       "updated_at": "2026-11-11T04:24:11Z",
       "decay_at": "2026-11-12T12:29:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a6b4b796e78e",
+      "idea_version": "IDEAV-136eec4b7b6674e7",
+      "idea_version_started_at": "2026-11-11T03:59:14Z",
+      "ticker": "ASB",
+      "company": "Austal",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
+      "why_now": "The company announced the start of production on 2026-11-11.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7465b8b54030"
+      ],
+      "primary_source_event_id": "EVT-7465b8b54030",
+      "source_headlines": [
+        "ASB: Austal commences production on $5B Landing Craft Projects"
+      ],
+      "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T01:03:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T03:59:14Z",
+      "updated_at": "2026-11-11T03:59:14Z",
+      "decay_at": "2026-11-12T13:03:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238581,77 +238796,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9219a32f6160",
-      "idea_version": "IDEAV-a5479e17b5b2b324",
-      "idea_version_started_at": "2026-11-10T10:55:57Z",
-      "ticker": "01897",
-      "company": "Millionhope Ind",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, signaling improved earnings performance compared to the prior period.",
-      "why_now": "The profit alert was filed on November 9, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-312713824be1"
-      ],
-      "primary_source_event_id": "EVT-312713824be1",
-      "source_headlines": [
-        "MILLIONHOPE IND (01897): Positive Profit Alert"
-      ],
-      "source_headline": "MILLIONHOPE IND (01897): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901151.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T12:57:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T10:55:57Z",
-      "updated_at": "2026-11-10T10:55:57Z",
-      "decay_at": "2026-11-11T00:57:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d5a782f7d4ee",
       "idea_version": "IDEAV-608d4383925a0edf",
       "idea_version_started_at": "2026-11-10T10:55:57Z",
@@ -239002,77 +239146,6 @@
       "surfaced_at": "2026-11-10T00:42:18Z",
       "updated_at": "2026-11-10T00:42:18Z",
       "decay_at": "2026-11-11T11:43:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a93036eeaeb1",
-      "idea_version": "IDEAV-9b68358b5b3232f4",
-      "idea_version_started_at": "2026-11-09T18:48:10Z",
-      "ticker": "02885",
-      "company": "Peiport Holdings Ltd",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Peiport Holdings is subject to a possible unconditional mandatory cash offer, which typically provides a premium to the current market price for shareholders.",
-      "why_now": "The joint announcement of the sale and purchase agreement and the possible cash offer was made today, November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5282eea3d3e7"
-      ],
-      "primary_source_event_id": "EVT-5282eea3d3e7",
-      "source_headlines": [
-        "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;"
-      ],
-      "source_headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901215.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T18:48:10Z",
-      "updated_at": "2026-11-09T18:48:10Z",
-      "decay_at": "2026-11-11T01:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239436,6 +239509,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c9b7224cbdda",
+      "idea_version": "IDEAV-9500e4dab8bdeaa4",
+      "idea_version_started_at": "2026-11-11T04:24:11Z",
+      "ticker": "MQG",
+      "company": "Macquarie Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Macquarie Bank, a subsidiary of Macquarie Group, will pay a $14 million penalty for misleading customers with a 'welcome rate' promotion, impacting its reputation and potentially future regulatory scrutiny.",
+      "why_now": "The penalty and its details were reported on November 11, 2026, making the regulatory action current.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-700f1447ef68"
+      ],
+      "primary_source_event_id": "EVT-700f1447ef68",
+      "source_headlines": [
+        "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion"
+      ],
+      "source_headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
+      "source_url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 95,
+      "newest_source_at": "2026-11-11T01:23:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T04:24:11Z",
+      "updated_at": "2026-11-11T04:24:11Z",
+      "decay_at": "2026-11-12T13:23:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3de812988305",
       "idea_version": "IDEAV-4ff53507a3ff4c5b",
       "idea_version_started_at": "2026-11-10T01:51:56Z",
@@ -239731,29 +239876,29 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 33
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1825,
+      "evicted_count": 1829,
       "oldest_retained_at": "2026-10-17T20:31:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1195,
-          "oldest_retained_at": "2026-10-28T02:08:22Z"
+          "evicted_count": 1199,
+          "oldest_retained_at": "2026-10-28T06:27:45Z"
         },
         "short": {
           "evicted_count": 631,
@@ -239762,6 +239907,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c9b7224cbdda",
+        "idea_version": "IDEAV-9500e4dab8bdeaa4",
+        "idea_version_started_at": "2026-11-11T04:24:11Z",
+        "ticker": "MQG",
+        "company": "Macquarie Group",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Macquarie Bank, a subsidiary of Macquarie Group, will pay a $14 million penalty for misleading customers with a 'welcome rate' promotion, impacting its reputation and potentially future regulatory scrutiny.",
+        "why_now": "The penalty and its details were reported on November 11, 2026, making the regulatory action current.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-700f1447ef68"
+        ],
+        "primary_source_event_id": "EVT-700f1447ef68",
+        "source_headlines": [
+          "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion"
+        ],
+        "source_headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
+        "source_url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
+        "source_name": "The Guardian — World news",
+        "materiality_max": 95,
+        "newest_source_at": "2026-11-11T01:23:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T04:24:11Z",
+        "updated_at": "2026-11-11T04:24:11Z",
+        "decay_at": "2026-11-12T13:23:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T13:23:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a6b4b796e78e",
+        "idea_version": "IDEAV-136eec4b7b6674e7",
+        "idea_version_started_at": "2026-11-11T03:59:14Z",
+        "ticker": "ASB",
+        "company": "Austal",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
+        "why_now": "The company announced the start of production on 2026-11-11.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7465b8b54030"
+        ],
+        "primary_source_event_id": "EVT-7465b8b54030",
+        "source_headlines": [
+          "ASB: Austal commences production on $5B Landing Craft Projects"
+        ],
+        "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T01:03:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T03:59:14Z",
+        "updated_at": "2026-11-11T03:59:14Z",
+        "decay_at": "2026-11-12T13:03:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T13:03:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3c2ee1fd18a5",
         "idea_version": "IDEAV-acd8aa6b482c32c9",
@@ -243225,8 +243519,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T01:59:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T14:12:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243298,8 +243592,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T01:46:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T14:12:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243371,8 +243665,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T01:12:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T13:36:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243445,8 +243739,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T00:57:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T13:36:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267955,80 +268249,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4e1c2a6541fa",
-        "idea_version": "IDEAV-75b85ef2e3caa8c6",
-        "idea_version_started_at": "2026-10-29T18:20:44Z",
-        "ticker": "VEDANTA",
-        "company": "Vedanta Power Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 122% increase in EBITDA and 38% revenue growth for Q2 FY27, signaling significant operational efficiency gains.",
-        "why_now": "The performance results were officially released on October 29, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cc430a2dc104"
-        ],
-        "primary_source_event_id": "EVT-cc430a2dc104",
-        "source_headlines": [
-          "Vedanta Power Limited: Vedanta Power Limited has informed the Exchange regarding a press release dated October 29, 2026, titled \"Vedanta Power Reports Highest-Ever Quarterly Performance in Q2 FY27, Backed by Strong Operational Excellence; EBITDA Soars 122% and Revenue Rises 38% YoY\"."
-        ],
-        "source_headline": "Vedanta Power Limited: Vedanta Power Limited has informed the Exchange regarding a press release dated October 29, 2026, titled \"Vedanta Power Reports Highest-Ever Quarterly Performance in Q2 FY27, Backed by Strong Operational Excellence; EBITDA Soars 122% and Revenue Rises 38% YoY\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VedantaPower_29102026172455_VPLIRPRessReleaseFinalsigned.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T11:55:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T18:20:44Z",
-        "updated_at": "2026-10-29T18:20:44Z",
-        "decay_at": "2026-10-30T23:55:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T11:56:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6f1a0d27ff6",
         "idea_version": "IDEAV-a015e0f4e4c355d7",
         "idea_version_started_at": "2026-10-29T16:12:50Z",
@@ -276806,87 +277026,12 @@
         "archived_at": "2026-10-21T19:59:57Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-747e80dbcb22",
-        "idea_version": "IDEAV-f2178b72b82247ae",
-        "idea_version_started_at": "2026-10-18T13:36:43Z",
-        "ticker": "MOUWASAT",
-        "company": "Mouwasat Medical Services",
-        "exchange": "TADAWUL",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a significant commercial claim of SAR 335.4 million, which represents a material negative surprise to earnings and cash flow.",
-        "why_now": "The claim was reported today, October 18, 2026, and the market has not yet fully adjusted for the potential legal liability.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b9d777c96a1a"
-        ],
-        "primary_source_event_id": "EVT-b9d777c96a1a",
-        "source_headlines": [
-          "‎Mouwasat faces commercial claim of SAR 335.4M"
-        ],
-        "source_headline": "‎Mouwasat faces commercial claim of SAR 335.4M",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1944845",
-        "source_name": "Argaam — Main News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T09:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T13:36:43Z",
-        "updated_at": "2026-10-18T13:36:43Z",
-        "decay_at": "2026-10-19T21:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-21T12:30:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2411,
-    "live_count": 36,
+    "surfaced_total": 2417,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276905,9 +277050,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1168965,
-    "news_picked_today": 1743,
-    "news_dropped_today": 12297
+    "news_seen_today": 1385974,
+    "news_picked_today": 1985,
+    "news_dropped_today": 14191
   },
   "book_momentum": {
     "live_count": 8,
