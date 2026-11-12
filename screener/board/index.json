@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T22:38:56Z",
+  "generated_at": "2026-11-12T22:44:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-1057",
@@ -1287,6 +1287,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-1063",
+      "headline": "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sangoma-technologies-corporation-announces-special-meeting-vote-acquisition-brc-group",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:20:56Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Company announced a shareholder vote on a definitive acquisition agreement for cash and stock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a shareholder vote on a definitive acquisition agreement for cash and stock.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sangoma Technologies Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "BRC Group Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-1068",
+      "headline": "Jensen Huang resigns as Nvidia CEO after mounting scandals",
+      "headline_en": null,
+      "url": "https://www.france24.com/en/tv-shows/business/20261112-jensen-huang-resigns-as-nvidia-ceo-after-mounting-scandals",
+      "source_name": "France 24",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:10:28Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a major company following scandals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a major company following scandals.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-1026",
       "headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
       "headline_en": null,
@@ -1405,55 +1508,6 @@
       "materiality_pre_score": 90,
       "rank_factors": {
         "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-1035",
-      "headline": "What we know after Jensen Huang resigns as Nvidia's CEO",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/tech/what-we-know-after-jensen-huang-resigns-as-nvidia%27s-ceo",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T21:48:18Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Follow-up coverage confirming the resignation of Nvidia CEO Jensen Huang.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Follow-up coverage confirming the resignation of Nvidia CEO Jensen Huang.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
         "event": 5,
@@ -1932,56 +1986,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-991",
-      "headline": "Ultrapar Participações S.A. Reports R$ 2,697,415 Thousand Net Income for 3Q26 and Approves R$ 1,085,087,153 in Interim Dividends",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ultrapar-participacoes-sa-reports-r-2697415-thousand-net-income-3q26-and-approves-r",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T19:53:13Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Ultrapar reported net income of R$ 2.69 billion and approved R$ 1.08 billion in interim dividends.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ultrapar reported net income of R$ 2.69 billion and approved R$ 1.08 billion in interim dividends.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ultrapar Participações S.A.",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276504,9 +276508,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1905931,
-    "news_picked_today": 2587,
-    "news_dropped_today": 23093
+    "news_seen_today": 1916743,
+    "news_picked_today": 2602,
+    "news_dropped_today": 23246
   },
   "book_momentum": {
     "live_count": 8,
