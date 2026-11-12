@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T10:20:54Z",
+  "generated_at": "2026-11-12T10:22:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-555",
@@ -487,6 +487,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-561",
+      "headline": "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/man-industries-q2-results-net-profit-rises-122pc-to-rs82-crore-revenue-up-45pc-20032534.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T10:17:19Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reported 122% net profit growth and 45% revenue growth for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported 122% net profit growth and 45% revenue growth for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Man Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-331",
-      "headline": "CDL shares slide more than 10% after warning of ‘significantly weaker’ H2 performance",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/property/cdl-shares-slide-more-10-after-warning-significantly-weaker-h2-performance",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:33:56Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CDL warned of significantly weaker H2 performance, causing shares to drop over 10%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CDL warned of significantly weaker H2 performance, causing shares to drop over 10%.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "City Developments Limited",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276700,9 +276700,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 902782,
-    "news_picked_today": 1539,
-    "news_dropped_today": 10125
+    "news_seen_today": 916009,
+    "news_picked_today": 1545,
+    "news_dropped_today": 10143
   },
   "book_momentum": {
     "live_count": 8,
