@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T20:13:53Z",
+  "generated_at": "2026-11-13T20:24:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1179,6 +1179,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-913",
+      "headline": "Modine Stock Just Soared 29% on a Report That Samsung Wants to Buy It. Is It Too Late to Buy?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/13/modine-stock-just-soared-29-on-a-report-that-samsung-wants-to-buy-it-is-it-too-late-to-buy/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T19:44:22Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Modine stock rose 29% on reports of a potential acquisition by Samsung.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Modine stock rose 29% on reports of a potential acquisition by Samsung.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Modine",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-884",
       "headline": "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?",
       "headline_en": null,
@@ -1935,56 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-786",
-      "headline": "Nvidia CEO resigns amid scandal; CFO named interim",
-      "headline_en": null,
-      "url": "https://www.manufacturingdive.com/news/nvidia-ceo-resigns-scandal-cfo-named-interim-ceo-ai/874515/",
-      "source_name": "Manufacturing Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T14:17:33Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a critical event affecting leadership and market confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a critical event affecting leadership and market confidence.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235969,76 +235973,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2841b56336e0",
-      "idea_version": "IDEAV-716478cb1f682f5b",
-      "idea_version_started_at": "2026-11-12T12:14:16Z",
-      "ticker": "HAL.NS",
-      "company": "Hindustan Aeronautics Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 15.48% jump in net profit with revenue exceeding ₹13,100 crore, reflecting strong execution in its order book.",
-      "why_now": "The Q2 earnings results were released on 2026-11-12.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-547e743e635b"
-      ],
-      "primary_source_event_id": "EVT-547e743e635b",
-      "source_headlines": [
-        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
-      ],
-      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
-      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T08:22:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T12:14:16Z",
-      "updated_at": "2026-11-12T12:14:16Z",
-      "decay_at": "2026-11-13T20:22:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-28f02b2450e7",
       "idea_version": "IDEAV-794c57c48b586e4e",
       "idea_version_started_at": "2026-11-12T12:14:16Z",
@@ -238241,79 +238175,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7c0521e054d8",
-      "idea_version": "IDEAV-7459d739f5534044",
-      "idea_version_started_at": "2026-11-12T14:12:08Z",
-      "ticker": "HAL",
-      "company": "Hindustan Aeronautics Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 15.48% jump in net profit and revenue exceeding ₹13,100 crore demonstrates strong execution in the defense sector.",
-      "why_now": "The Q2 earnings results were reported on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-547e743e635b"
-      ],
-      "primary_source_event_id": "EVT-547e743e635b",
-      "source_headlines": [
-        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
-      ],
-      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
-      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T08:22:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T14:12:08Z",
-      "updated_at": "2026-11-12T14:12:08Z",
-      "decay_at": "2026-11-13T20:22:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3ebff2cb046d",
       "idea_version": "IDEAV-09aa700544623c42",
       "idea_version_started_at": "2026-11-12T13:36:01Z",
@@ -238589,6 +238450,76 @@
       "surfaced_at": "2026-11-12T14:12:08Z",
       "updated_at": "2026-11-12T14:12:08Z",
       "decay_at": "2026-11-13T18:07:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2841b56336e0",
+      "idea_version": "IDEAV-716478cb1f682f5b",
+      "idea_version_started_at": "2026-11-12T12:14:16Z",
+      "ticker": "HAL.NS",
+      "company": "Hindustan Aeronautics Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 15.48% jump in net profit with revenue exceeding ₹13,100 crore, reflecting strong execution in its order book.",
+      "why_now": "The Q2 earnings results were released on 2026-11-12.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-547e743e635b"
+      ],
+      "primary_source_event_id": "EVT-547e743e635b",
+      "source_headlines": [
+        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
+      ],
+      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
+      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T08:22:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T12:14:16Z",
+      "updated_at": "2026-11-12T12:14:16Z",
+      "decay_at": "2026-11-13T20:22:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239079,6 +239010,79 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7c0521e054d8",
+      "idea_version": "IDEAV-7459d739f5534044",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "HAL",
+      "company": "Hindustan Aeronautics Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 15.48% jump in net profit and revenue exceeding ₹13,100 crore demonstrates strong execution in the defense sector.",
+      "why_now": "The Q2 earnings results were reported on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-547e743e635b"
+      ],
+      "primary_source_event_id": "EVT-547e743e635b",
+      "source_headlines": [
+        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
+      ],
+      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
+      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T08:22:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T20:22:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241313,14 +241317,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 30
       },
       "short": {
         "total_count": 263,
@@ -241344,6 +241348,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2841b56336e0",
+        "idea_version": "IDEAV-716478cb1f682f5b",
+        "idea_version_started_at": "2026-11-12T12:14:16Z",
+        "ticker": "HAL.NS",
+        "company": "Hindustan Aeronautics Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 15.48% jump in net profit with revenue exceeding ₹13,100 crore, reflecting strong execution in its order book.",
+        "why_now": "The Q2 earnings results were released on 2026-11-12.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-547e743e635b"
+        ],
+        "primary_source_event_id": "EVT-547e743e635b",
+        "source_headlines": [
+          "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
+        ],
+        "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
+        "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T08:22:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T12:14:16Z",
+        "updated_at": "2026-11-12T12:14:16Z",
+        "decay_at": "2026-11-13T20:22:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T20:22:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-7c0521e054d8",
+        "idea_version": "IDEAV-7459d739f5534044",
+        "idea_version_started_at": "2026-11-12T14:12:08Z",
+        "ticker": "HAL",
+        "company": "Hindustan Aeronautics Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A 15.48% jump in net profit and revenue exceeding ₹13,100 crore demonstrates strong execution in the defense sector.",
+        "why_now": "The Q2 earnings results were reported on 2026-11-12.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-547e743e635b"
+        ],
+        "primary_source_event_id": "EVT-547e743e635b",
+        "source_headlines": [
+          "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
+        ],
+        "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
+        "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T08:22:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T14:12:08Z",
+        "updated_at": "2026-11-12T14:12:08Z",
+        "decay_at": "2026-11-13T20:22:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T20:22:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7b8fdba65d04",
         "idea_version": "IDEAV-bd4db5445c1f3099",
@@ -269387,153 +269540,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b6c0f11fb03b",
-        "idea_version": "IDEAV-84a2d0fe2698000c",
-        "idea_version_started_at": "2026-10-31T23:45:32Z",
-        "ticker": "CVX",
-        "company": "Chevron Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A 50% increase in exploration spending signals management's confidence in long-term reserve replacement and future production growth, which typically supports valuation multiples in the energy sector.",
-        "why_now": "The announcement was made on 2026-10-31, making this a fresh capital allocation signal for the upcoming fiscal cycle.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e33cb058e61f"
-        ],
-        "primary_source_event_id": "EVT-e33cb058e61f",
-        "source_headlines": [
-          "Chevron Raises Exploration Spending By 50%"
-        ],
-        "source_headline": "Chevron Raises Exploration Spending By 50%",
-        "source_url": "https://oilprice.com/Energy/Crude-Oil/Chevron-Raises-Exploration-Spending-By-50.html",
-        "source_name": "OilPrice.com",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T23:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T23:45:32Z",
-        "updated_at": "2026-10-31T23:45:32Z",
-        "decay_at": "2026-11-02T11:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T01:34:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-af4308e96a78",
-        "idea_version": "IDEAV-20c10ff777fa1b06",
-        "idea_version_started_at": "2026-10-31T22:00:18Z",
-        "ticker": "JSWSTEEL",
-        "company": "JSW Steel Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The scheme of amalgamation of Piombino Steel Limited with JSW Steel Limited has become effective, which should streamline operations and potentially improve margins for JSW Steel.",
-        "why_now": "The effectiveness of the amalgamation scheme was announced via an exchange filing on October 31, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c5ca74c0f44"
-        ],
-        "primary_source_event_id": "EVT-4c5ca74c0f44",
-        "source_headlines": [
-          "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders"
-        ],
-        "source_headline": "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders",
-        "source_url": "https://nsearchives.nseindia.com/corporate/Supriya_01112026020456_SE_Intimation_PSL_Scheme.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T20:35:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T22:00:18Z",
-        "updated_at": "2026-10-31T22:00:18Z",
-        "decay_at": "2026-11-02T08:35:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T01:34:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-2498ee6921aa",
         "idea_version": "IDEAV-4f8529ab4c7075b6",
         "idea_version_started_at": "2026-10-31T22:55:38Z",
@@ -278460,7 +278466,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2446,
-    "live_count": 39,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -278479,9 +278485,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1507102,
-    "news_picked_today": 2048,
-    "news_dropped_today": 20368
+    "news_seen_today": 1512015,
+    "news_picked_today": 2072,
+    "news_dropped_today": 20512
   },
   "book_momentum": {
     "live_count": 8,
