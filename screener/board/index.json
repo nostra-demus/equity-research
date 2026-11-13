@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T06:34:34Z",
+  "generated_at": "2026-11-13T06:37:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-481",
@@ -386,6 +386,56 @@
           "name": "China Gold International Resources",
           "ticker": "02099",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-538",
+      "headline": "Riskified Ltd. Reports 41% Revenue Growth in Q3 2026 and Raises Revenue and Adjusted EBITDA Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/riskified-ltd-reports-41-revenue-growth-q3-2026-and-raises-revenue-and-adjusted-ebitda",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T05:50:19Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Riskified reported 41% revenue growth and raised its revenue and adjusted EBITDA guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Riskified reported 41% revenue growth and raised its revenue and adjusted EBITDA guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Riskified Ltd.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1934,56 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-112",
-      "headline": "Banco Santander, S.A. Calls Extraordinary General Shareholders' Meeting on 15 December 2026 to Approve Capital Increases for Santander Brazil Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/banco-santander-sa-calls-extraordinary-general-shareholders-meeting-15-december-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T00:02:20Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Banco Santander is calling a meeting to approve capital increases for the acquisition of Santander Brazil.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Banco Santander is calling a meeting to approve capital increases for the acquisition of Santander Brazil.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Banco Santander, S.A.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278274,9 +278274,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 257598,
-    "news_picked_today": 1049,
-    "news_dropped_today": 4135
+    "news_seen_today": 263566,
+    "news_picked_today": 1061,
+    "news_dropped_today": 4171
   },
   "book_momentum": {
     "live_count": 8,
