@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-b492220bad93",
-  "idea_version": "IDEAV-d9fb0cfe0062cd47",
-  "idea_version_started_at": "2026-11-11T05:20:27Z",
-  "ticker": "MI6",
-  "company": "MI6",
-  "exchange": "ASX",
+  "idea_id": "IDEA-04f0125c80c1",
+  "idea_version": "IDEAV-1033af77c2140ff3",
+  "idea_version_started_at": "2026-11-13T22:25:38Z",
+  "ticker": "1499",
+  "company": "OKG Technology Holdings Limited",
+  "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "MI6 can start production because its capex is fully funded, which should boost its revenue and profit margins.",
-  "why_now": "The ASX filing dated 2026-11-10 shows the funding is now in place, providing an immediate catalyst.",
+  "reason": "The company issued a formal profit warning indicating a significant expected loss, signaling a sharp deterioration in operational performance or asset valuations.",
+  "why_now": "The profit warning was filed on the Hong Kong Exchange on November 13, 2026.",
   "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 25,
-    "impact": 19,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -48,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d77904fb0124"
+    "EVT-782d37c1d949"
   ],
-  "primary_source_event_id": "EVT-d77904fb0124",
+  "primary_source_event_id": "EVT-782d37c1d949",
   "source_headlines": [
-    "MI6: Bullabulling Fully Funded to First Production [price-sensitive]"
+    "OKG TECH (01499): PROFIT WARNING"
   ],
-  "source_headline": "MI6: Bullabulling Fully Funded to First Production [price-sensitive]",
-  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03160304-6A1354489",
-  "source_name": "ASX (Australia Exchange Filing)",
-  "materiality_max": 97,
-  "newest_source_at": "2026-11-10T21:22:31Z",
+  "source_headline": "OKG TECH (01499): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300865.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-13T10:12:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-11T05:20:27Z",
-  "updated_at": "2026-11-11T05:20:27Z",
-  "decay_at": "2026-11-12T09:22:31Z",
+  "surfaced_at": "2026-11-13T22:25:38Z",
+  "updated_at": "2026-11-13T22:25:38Z",
+  "decay_at": "2026-11-14T22:12:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
