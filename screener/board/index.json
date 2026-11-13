@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T03:50:35Z",
+  "generated_at": "2026-11-13T03:59:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-404",
@@ -243,6 +243,104 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-411",
+      "headline": "Alkem PAT down at ₹675 crore; biotech sales down 37% on ‘lumpy’ CDMO business",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/alkem-pat-down-at-675-crore-biotech-sales-down-37-on-lumpy-cdmo-business/article71694891.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T03:17:53Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Alkem reported a PAT decline to ₹675 crore and a 37% drop in biotech sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alkem reported a PAT decline to ₹675 crore and a 37% drop in biotech sales.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alkem Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-412",
+      "headline": "FBI seizes $1.2 billion in crypto stolen from Binance in record $6.3 billion heist",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/fbi-seizes-1-2-billion-in-crypto-stolen-from-binance-in-record-6-3-billion-heist/articleshow/135787066.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T03:12:44Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "The FBI seized $1.2 billion in crypto stolen from Binance, highlighting significant security and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FBI seized $1.2 billion in crypto stolen from Binance, highlighting significant security and regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,110 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-387",
-      "headline": "Adyar Ananda Bhavan sells majority stake to investment firm Bodhi Tree for $180 million",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/companies/adyar-ananda-bhavan-sells-majority-stake-to-investment-firm-bodhi-tree-for-180-million-4216434",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T16:14:53Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Adyar Ananda Bhavan is selling a majority stake for $180 million to Bodhi Tree.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adyar Ananda Bhavan is selling a majority stake for $180 million to Bodhi Tree.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adyar Ananda Bhavan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-194",
-      "headline": "Cerebras surges 18% after beating on quarterly revenue and announcing Microsoft deal",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/12/cerebras-systems-cbrs-q3-earnings-report-2026.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T21:33:44Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Cerebras reported a revenue beat and secured a commercial deal with Microsoft, driving an 18% stock surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Cerebras reported a revenue beat and secured a commercial deal with Microsoft, driving an 18% stock surge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cerebras Systems",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Microsoft",
-          "ticker": "MSFT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278285,9 +278279,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 173693,
-    "news_picked_today": 618,
-    "news_dropped_today": 2526
+    "news_seen_today": 181898,
+    "news_picked_today": 651,
+    "news_dropped_today": 2589
   },
   "book_momentum": {
     "live_count": 8,
