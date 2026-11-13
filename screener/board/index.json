@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-13T04:40:58Z",
+  "generated_at": "2026-11-13T04:48:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261113-481",
+      "headline": "MAT: Matsa DOCA Approved [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAT?key=2924-03161561_PS-6A1354978",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T04:21:22Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Deed of Company Arrangement (DOCA) approval for Matsa signals formal insolvency restructuring and directly impairs equity interests.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Deed of Company Arrangement (DOCA) approval for Matsa signals formal insolvency restructuring and directly impairs equity interests.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Matsa",
+          "ticker": "MAT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261113-465",
       "headline": "HMX: Court Approves the Scheme [price-sensitive]",
@@ -1934,56 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-098",
-      "headline": "Nvidia’s Huang ousted by board in move that roils AI economy",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/13/companies/nvidia-huang-ousted/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:26:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The ousting of Nvidia's CEO Jensen Huang by the board is a massive leadership shock for a mega-cap company central to the AI economy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The ousting of Nvidia's CEO Jensen Huang by the board is a massive leadership shock for a mega-cap company central to the AI economy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 95,
-      "rank_factors": {
-        "materiality": 95,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278277,9 +278276,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 204337,
-    "news_picked_today": 750,
-    "news_dropped_today": 2778
+    "news_seen_today": 207075,
+    "news_picked_today": 759,
+    "news_dropped_today": 2817
   },
   "book_momentum": {
     "live_count": 8,
