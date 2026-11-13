@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T03:06:25Z",
+  "generated_at": "2026-11-13T03:09:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -1500,6 +1500,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-341",
+      "headline": "Vodafone Idea Q2 loss widens to ₹5,975 crore on exceptional item; revenue rises 6%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/vodafone-idea-q2-loss-widens-to-5975-crore-on-exceptional-item-revenue-rises-6/article71694173.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T16:55:39Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Vodafone Idea reported a widened Q2 loss of ₹5,975 crore, despite a 6% revenue increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Vodafone Idea reported a widened Q2 loss of ₹5,975 crore, despite a 6% revenue increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone Idea",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-311",
       "headline": "Nvidia, AMD, Broadcom: The AI Stock Winners and Losers After Jensen Huang’s Ousting",
       "headline_en": null,
@@ -1952,55 +2001,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-149",
-      "headline": "Applied Materials forecasts quarterly revenue above estimates on strong AI chip demand",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/applied-materials-forecasts-quarterly-revenue-above-estimates-on-strong-ai-chip-demand",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T00:45:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Applied Materials issued quarterly revenue guidance above analyst estimates due to strong AI chip demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Applied Materials issued quarterly revenue guidance above analyst estimates due to strong AI chip demand.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Applied Materials",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278294,9 +278294,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 133479,
-    "news_picked_today": 489,
-    "news_dropped_today": 2175
+    "news_seen_today": 136281,
+    "news_picked_today": 497,
+    "news_dropped_today": 2191
   },
   "book_momentum": {
     "live_count": 8,
