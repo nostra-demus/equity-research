@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T18:45:54Z",
+  "generated_at": "2026-11-13T18:57:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-800",
@@ -1129,6 +1129,224 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-815",
+      "headline": "Deal Dispatch: Morgan Stanley Buys Vinyl Equity, Fox Completes Roku Acquisition, Children's Place Files for Chapter 11",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/m-a/26/11/63259645/deal-dispatch-morgan-stanley-buys-vinyl-equity-fox-completes-roku-acquisition-childrens-place-files-for-chapter-11",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T18:36:40Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Morgan Stanley acquired Vinyl Equity, Fox completed its Roku acquisition, and Children's Place filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Morgan Stanley acquired Vinyl Equity, Fox completed its Roku acquisition, and Children's Place filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Morgan Stanley",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Fox",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Children's Place",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-825",
+      "headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T18:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Germany is considering a €4 billion buyout of RWE and E.ON's Urenco stake.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Germany is considering a €4 billion buyout of RWE and E.ON's Urenco stake.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RWE",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "E.ON",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Urenco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-832",
+      "headline": "From CFO to Interim CEO: Kress Takes Charge at Nvidia",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-13/from-cfo-to-interim-ceo-kress-takes-charge-at-nvidia-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T18:18:03Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "CFO Colette Kress taking over as interim CEO indicates a major top-leadership transition at Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CFO Colette Kress taking over as interim CEO indicates a major top-leadership transition at Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia Corporation",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-821",
+      "headline": "JLR Slashes Margin Guidance To 2-3%, Bets On 'Core’ Double-Digit Growth In FY28",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/jlr-slashes-margin-guidance-to-2-3-bets-on-core-double-digit-growth-in-fy28-12324126#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T17:58:11Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "JLR slashed its margin guidance to 2-3% but bets on 'core' double-digit growth in FY28.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JLR slashed its margin guidance to 2-3% but bets on 'core' double-digit growth in FY28.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JLR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-804",
       "headline": "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex",
       "headline_en": null,
@@ -1781,203 +1999,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-725",
-      "headline": "Manipal Health Q2 Profit Falls 10% To ₹285 Crore, Revenue Jumps 37% In First Results Since IPO",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/manipal-health-q2-profit-falls-10-to-285-crore-revenue-jumps-37-in-first-results-since-ipo",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T12:22:18Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Company reports Q2 profit fell 10% to ₹285 crore despite a 37% revenue jump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reports Q2 profit fell 10% to ₹285 crore despite a 37% revenue jump.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Manipal Health",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-666",
-      "headline": "Tata Motors PV Q2 Results: Net loss at ₹5,531 crore on JLR restructuring costs, asset impairment",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/tata-motors-pv-share-price-q2-results-net-loss-at-rs-5531-crore-on-jlr-restructuring-costs-asset-impairment-20033595.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:25:44Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Tata Motors reported ₹5,531 crore net loss in Q2 driven by JLR restructuring and asset impairment, signaling operational and financial stress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors reported ₹5,531 crore net loss in Q2 driven by JLR restructuring and asset impairment, signaling operational and financial stress.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-699",
-      "headline": "Jaguar Land Rover Parent Cuts Outlook in Setback for UK Carmaker",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-13/tata-motors-swings-to-unexpected-loss-pares-back-jlr-outlook",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:06:11Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Jaguar Land Rover parent company cut its financial outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover parent company cut its financial outlook.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-674",
-      "headline": "Upwork Inc. Expands Restructuring Plan to Reduce Workforce by Approximately 37%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/upwork-inc-expands-restructuring-plan-reduce-workforce-approximately-37",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:38:23Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Upwork announced a significant restructuring plan to reduce its workforce by approximately 37%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Upwork announced a significant restructuring plan to reduce its workforce by approximately 37%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Upwork Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278473,9 +278494,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1435130,
-    "news_picked_today": 1780,
-    "news_dropped_today": 18764
+    "news_seen_today": 1446420,
+    "news_picked_today": 1826,
+    "news_dropped_today": 19078
   },
   "book_momentum": {
     "live_count": 8,
