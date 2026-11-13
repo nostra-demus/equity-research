@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T01:49:26Z",
+  "generated_at": "2026-11-13T01:53:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -845,6 +845,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-201",
+      "headline": "Nebius tests the neocloud playbook with $40 billion in planned spending",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/11/12/nebius-tests-the-neocloud-playbook-with-40-billion-in-planned-spending/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:27:10Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nebius announced a massive $40 billion planned capital expenditure for cloud infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nebius announced a massive $40 billion planned capital expenditure for cloud infrastructure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nebius Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,55 +1976,6 @@
           "name": "Binance",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-196",
-      "headline": "Applied Materials Q4 Profit Jumps 43%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/applied-materials-q4-profit-jumps-43",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T21:32:16Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Applied Materials reported a 43% jump in Q4 profit, exceeding expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Applied Materials reported a 43% jump in Q4 profit, exceeding expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Applied Materials",
-          "ticker": "AMAT",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -278342,9 +278342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 83176,
-    "news_picked_today": 244,
-    "news_dropped_today": 1364
+    "news_seen_today": 86766,
+    "news_picked_today": 252,
+    "news_dropped_today": 1380
   },
   "book_momentum": {
     "live_count": 8,
