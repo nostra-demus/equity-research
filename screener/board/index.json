@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-13T04:06:57Z",
+  "generated_at": "2026-11-13T04:12:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261113-414",
+      "headline": "NICHE-TECH SEMI (08490): RESIGNATION OF AUDITORS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1113/2026111300055.docx",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T04:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Resignation of auditors is a significant red flag for corporate governance and financial reporting integrity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Resignation of auditors is a significant red flag for corporate governance and financial reporting integrity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Niche-Tech Semi",
+          "ticker": "08490",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-413",
+      "headline": "Orient Cables (India) Limited: Orient Cables (India) Limited has informed the Exchange regarding a press release dated November 13, 2026, titled \"Orient Cables Reports Highest-Ever Quarterly & Half-Yeary Results in Q2 & H1 FY27;Revenue Doubles to ₹1,018.0 Crore and EBITDA Grows 155% YoY\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ORIENTCABLES_13112026092819_Stx_Ltr_Press_release_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T03:58:31Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Orient Cables reported record Q2 results with revenue doubling to ₹1,018 crore and EBITDA growing 155% YoY.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Orient Cables reported record Q2 results with revenue doubling to ₹1,018 crore and EBITDA growing 155% YoY.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orient Cables (India) Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261113-404",
       "headline": "Adani Energy Solutions Limited: Adani Energy Solutions Limited has informed the Exchange about Intimation for acquisition of 100% Equity Shares of Intellismart Infrastructure Private Limited",
@@ -341,6 +439,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-422",
+      "headline": "JD.com, Inc. Completes Takeover Offer of CECONOMY, Acquiring 59.8% of Share Capital",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jdcom-inc-completes-takeover-offer-ceconomy-acquiring-598-share-capital",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T03:10:20Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "JD.com completed a takeover of CECONOMY, acquiring a 59.8% stake.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JD.com completed a takeover of CECONOMY, acquiring a 59.8% stake.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JD.com",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "CECONOMY",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1831,158 +1983,6 @@
           "name": "CNH Industrial",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-346",
-      "headline": "Nebius signs $12bn in deals for Q3, all deals reportedly cover its capex",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/nebius-signs-12bn-in-deals-for-q3-all-deals-reportedly-cover-its-capex/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T16:45:54Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Nebius signed $12 billion in deals, which is a massive capital expenditure commitment for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nebius signed $12 billion in deals, which is a massive capital expenditure commitment for the company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nebius",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-350",
-      "headline": "Blackstone bets $1.5B on Pfizer’s obesity drug",
-      "headline_en": null,
-      "url": "https://www.biopharmadive.com/news/blackstone-pfizer-berobenatide-deal/874483/",
-      "source_name": "BioPharma Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T16:44:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Blackstone is investing $1.5 billion into Pfizer's obesity drug development, a major capital commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Blackstone is investing $1.5 billion into Pfizer's obesity drug development, a major capital commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-381",
-      "headline": "Kia India to invest $2 billion in second manufacturing plant in Andhra Pradesh",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/kia-to-invest-2-billion-in-ap-to-expand-operations/article71692518.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T16:19:50Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Kia India announced a $2 billion investment for a second manufacturing plant in Andhra Pradesh.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kia India announced a $2 billion investment for a second manufacturing plant in Andhra Pradesh.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kia India",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -278279,9 +278279,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 184725,
-    "news_picked_today": 664,
-    "news_dropped_today": 2624
+    "news_seen_today": 190283,
+    "news_picked_today": 680,
+    "news_dropped_today": 2632
   },
   "book_momentum": {
     "live_count": 8,
