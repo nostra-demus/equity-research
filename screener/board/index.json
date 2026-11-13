@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-13T08:51:13Z",
+  "generated_at": "2026-11-13T09:03:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261113-582",
+      "headline": "CTGL (00320): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300367.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T08:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "CTGL issued a profit warning, indicating a negative impact on expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CTGL issued a profit warning, indicating a negative impact on expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CTGL",
+          "ticker": "00320",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-585",
+      "headline": "TAI CHEUNG HOLD (00088): Profit Warning",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300301.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Tai Cheung Holdings issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tai Cheung Holdings issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tai Cheung Holdings",
+          "ticker": "00088",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261113-481",
       "headline": "MAT: Matsa DOCA Approved [price-sensitive]",
@@ -438,6 +536,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-592",
+      "headline": "Innoviz Technologies Ltd. Reports Nine Months Ended September 30, 2026 Results, Announces 20% Workforce Reduction and $17.5 Million Annualized Cost Savings",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/innoviz-technologies-ltd-reports-nine-months-ended-september-30-2026-results-announces-20",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T08:21:29Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Innoviz reported Q3 results and announced a 20% workforce reduction to achieve $17.5 million in annualized savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Innoviz reported Q3 results and announced a 20% workforce reduction to achieve $17.5 million in annualized savings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innoviz Technologies Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1847,153 +1995,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-436",
-      "headline": "Cisco lifts annual revenue forecast on strong AI networking demand",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/cisco-lifts-annual-revenue-forecast-on-strong-ai-networking-demand-20033072.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T02:10:18Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Cisco raised its annual revenue forecast driven by strong AI networking demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cisco raised its annual revenue forecast driven by strong AI networking demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-403",
-      "headline": "Genting Singapore shares hit 1-year low after Q3 profit falls 42.2%",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/genting-singapore-shares-hit-1-year-low-after-q3-profit-falls-42-2",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T02:03:59Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Genting Singapore reported a 42.2% decline in Q3 profit, leading to a 1-year share price low.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Genting Singapore reported a 42.2% decline in Q3 profit, leading to a 1-year share price low.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genting Singapore",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-266",
-      "headline": "롯데건설 3분기 누적 영업이익 126% 급증",
-      "headline_en": "Lotte E&C's Q3 cumulative operating profit surges 126%",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281208",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T01:03:36Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Lotte E&C reported a 126% surge in cumulative operating profit for the third quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lotte E&C reported a 126% surge in cumulative operating profit for the third quarter.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lotte E&C",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278282,9 +278283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 346769,
-    "news_picked_today": 1126,
-    "news_dropped_today": 8354
+    "news_seen_today": 358003,
+    "news_picked_today": 1151,
+    "news_dropped_today": 9121
   },
   "book_momentum": {
     "live_count": 8,
