@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T13:41:42Z",
+  "generated_at": "2026-11-13T13:55:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-731",
@@ -982,6 +982,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-756",
+      "headline": "James Murdoch, Uday Shankar's Bodhi Tree to acquire majority stake in A2B for ₹1,696 crore",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/james-murdoch-uday-shankars-bodhi-tree-to-acquire-majority-stake-in-a2b-for-180-million-567379-2026-11-13?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T13:14:54Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Bodhi Tree is acquiring a majority stake in A2B for 1,696 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bodhi Tree is acquiring a majority stake in A2B for 1,696 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bodhi Tree",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "A2B",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-762",
+      "headline": "Tata Motors PV Swings To ₹5,531 Crore Q2 Loss, JLR Restructuring Weighs",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-motors-pv-swings-to-5531-crore-q2-loss-jlr-restructuring-weighs",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T13:12:20Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Tata Motors PV reported a quarterly loss of 5,531 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors PV reported a quarterly loss of 5,531 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-737",
       "headline": "Tesla and SpaceX Could Announce a Merger as Soon as December",
       "headline_en": null,
@@ -1317,55 +1420,6 @@
       "event_types": [
         "earnings_revenue_margin",
         "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-698",
-      "headline": "Tata Motors PV Q2 Results: PV Arm Swings To Loss On JLR Restructuring, Revenue Up 35%; Misses Estimates",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tata-motors-passenger-vehicles-q2-results-pv-arm-swings-to-net-loss-on-jlr-restructuring-costs-revenue-up-35-misses-estimates-12322171#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:07:21Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Tata Motors PV arm reported a loss and missed revenue estimates due to JLR restructuring costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors PV arm reported a loss and missed revenue estimates due to JLR restructuring costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1915,60 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-614",
-      "headline": "Investcorp Credit Management BDC, Inc. Enters into Merger Agreement with BCP Investment Corporation",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/investcorp-credit-management-bdc-inc-enters-merger-agreement-bcp-investment-corporation",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T08:51:51Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Investcorp Credit Management BDC entered into a definitive merger agreement with BCP Investment Corporation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Investcorp Credit Management BDC entered into a definitive merger agreement with BCP Investment Corporation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Investcorp Credit Management BDC",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "BCP Investment Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278116,9 +278116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 975073,
-    "news_picked_today": 1445,
-    "news_dropped_today": 13483
+    "news_seen_today": 994672,
+    "news_picked_today": 1478,
+    "news_dropped_today": 13762
   },
   "book_momentum": {
     "live_count": 8,
