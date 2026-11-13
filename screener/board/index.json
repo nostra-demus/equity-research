@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T22:48:48Z",
+  "generated_at": "2026-11-13T22:59:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1179,6 +1179,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-940",
+      "headline": "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/11/13/stock-market-today-nov-13-cerebras-surges-over-11-on-record-q3-revenue-and-raised-2026-guidance/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T22:10:28Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Cerebras reported record Q3 revenue and raised its 2026 guidance, indicating strong growth momentum.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cerebras reported record Q3 revenue and raised its 2026 guidance, indicating strong growth momentum.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cerebras",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-937",
+      "headline": "Jensen Huang Steps Down as CEO. Is Nvidia Still a Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jensen-huang-steps-down-ceo-nvidia-still-buy",
+      "source_name": "Nasdaq.com (per-symbol RSS)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T21:55:02Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "CEO Jensen Huang is stepping down from Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO Jensen Huang is stepping down from Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-929",
       "headline": "Modine Stock Just Soared 29% on a Report That Samsung Wants to Buy It. Is It Too Late to Buy?",
       "headline_en": null,
@@ -1887,105 +1986,6 @@
           "name": "BASF",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-844",
-      "headline": "Family Dollar will pay $63M to settle unfair-pricing claims from state, federal regulators",
-      "headline_en": null,
-      "url": "https://www.retaildive.com/news/family-dollar-63-million-settlement-unfair-pricing-claims-ftc/874605/",
-      "source_name": "Retail Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T16:43:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Family Dollar agreed to pay a $63M settlement for unfair-pricing claims.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Family Dollar agreed to pay a $63M settlement for unfair-pricing claims.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Family Dollar",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-859",
-      "headline": "Jaguar Land Rover reports £451m quarterly loss after cutting 4,000 jobs",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/nov/13/jaguar-land-rover-quarterly-loss-electric-cars-job-cuts",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T16:22:16Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Jaguar Land Rover reported a £451m quarterly loss and announced 4,000 job cuts, indicating severe financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover reported a £451m quarterly loss and announced 4,000 job cuts, indicating severe financial distress.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -278419,9 +278419,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1642963,
-    "news_picked_today": 2465,
-    "news_dropped_today": 22351
+    "news_seen_today": 1647793,
+    "news_picked_today": 2482,
+    "news_dropped_today": 22478
   },
   "book_momentum": {
     "live_count": 8,
