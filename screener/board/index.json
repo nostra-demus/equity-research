@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T03:01:25Z",
+  "generated_at": "2026-11-13T03:06:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -1907,6 +1907,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-337",
+      "headline": "Autohersteller: Mercedes stoppt alle Investitionen in Deutschland – Werksschließungen werden wahrscheinlicher",
+      "headline_en": "Automaker: Mercedes stops all investments in Germany – plant closures become more likely",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/mercedes-autohersteller-stoppt-alle-investitionen-in-deutschland/100269485.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T17:09:56Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Mercedes-Benz is halting all investments in Germany, citing potential for future plant closures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Mercedes-Benz is halting all investments in Germany, citing potential for future plant closures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-149",
       "headline": "Applied Materials forecasts quarterly revenue above estimates on strong AI chip demand",
       "headline_en": null,
@@ -1951,55 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-043",
-      "headline": "Cisco lifts annual revenue forecast on strong AI networking demand",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/cisco-lifts-annual-revenue-forecast-on-strong-ai-networking-demand",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Cisco raised its annual revenue forecast driven by strong AI networking demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cisco raised its annual revenue forecast driven by strong AI networking demand.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco Systems",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278293,9 +278294,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 130605,
-    "news_picked_today": 466,
-    "news_dropped_today": 2126
+    "news_seen_today": 133479,
+    "news_picked_today": 489,
+    "news_dropped_today": 2175
   },
   "book_momentum": {
     "live_count": 8,
