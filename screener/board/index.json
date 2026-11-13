@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T13:55:31Z",
+  "generated_at": "2026-11-13T14:01:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-731",
@@ -982,6 +982,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-779",
+      "headline": "Jensen Huang is Out as CEO, Nvidia Down 25% in a Month: Wall Street’s Highest Target Price Reaffirmed as Major Desks Slash Prices, Predicting 210% Gains",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/13/jensen-huang-is-out-as-ceo-nvidia-down-25-in-a-month-wall-streets-highest-target-price-reaffirmed-as-major-desks-slash-prices-predicting-210-gains/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T13:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "CEO Jensen Huang departing Nvidia is a major governance/credibility event at a mega-cap semiconductor leader; stock already down 25% with conflicting analyst signals (some slashing prices, others predicting 210% gains).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO Jensen Huang departing Nvidia is a major governance/credibility event at a mega-cap semiconductor leader; stock already down 25% with conflicting analyst signals (some slashing prices, others predicting 210% gains).",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-756",
       "headline": "James Murdoch, Uday Shankar's Bodhi Tree to acquire majority stake in A2B for ₹1,696 crore",
       "headline_en": null,
@@ -1920,55 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-633",
-      "headline": "Natco Pharma Q2 Results: Net Profit Falls 61% To Rs 203 Crore, Revenue Declines 29%; Stock Tumbles 3%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/natco-pharma-q2-results-net-profit-falls-61-percent-to-rs-203-crore-revenue-declines-29-stock-tumbles-3-12321558#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T08:55:54Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Natco Pharma reported a 61% decline in net profit to Rs 203 crore and a 29% revenue decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Natco Pharma reported a 61% decline in net profit to Rs 203 crore and a 29% revenue decline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Natco Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278116,9 +278117,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 994672,
-    "news_picked_today": 1478,
-    "news_dropped_today": 13762
+    "news_seen_today": 1001279,
+    "news_picked_today": 1497,
+    "news_dropped_today": 13791
   },
   "book_momentum": {
     "live_count": 8,
