@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-31T06:19:49Z",
+  "archived_at": "2026-11-13T12:06:14Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-1b994a384f0c",
-    "idea_version": "IDEAV-dcf1a6b1e97114ff",
-    "idea_version_started_at": "2026-10-28T10:33:30Z",
-    "ticker": "000660",
-    "company": "SK Hynix",
-    "exchange": "KRX",
+    "idea_id": "IDEA-d3eef43d72c2",
+    "idea_version": "IDEAV-2c246f3bb58cd966",
+    "idea_version_started_at": "2026-11-10T11:30:45Z",
+    "ticker": "MRF",
+    "company": "MRF Limited",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The company reported record quarterly revenue of 104.6 trillion won and announced a massive 100 trillion won shareholder return plan, signaling strong cash flow generation and capital discipline.",
-    "why_now": "The earnings and capital return plan were officially announced on October 28, 2026.",
-    "conviction": 85,
+    "reason": "Net profit fell 27% to ₹387 crore in Q2, reflecting deteriorating profitability.",
+    "why_now": "The results were published on 2026-11-10, signaling immediate earnings headwinds.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
@@ -27,7 +27,7 @@
       "specificity": 7,
       "timing": 10,
       "expression": 0,
-      "corroboration": 7,
+      "corroboration": 0,
       "learning_adjustment": 0
     },
     "trade_readiness": "watch_only",
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,28 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-e77d45f346d3",
-      "EVT-0e3b59ecd09d"
+      "EVT-37b96861f3d0"
     ],
-    "primary_source_event_id": "EVT-e77d45f346d3",
+    "primary_source_event_id": "EVT-37b96861f3d0",
     "source_headlines": [
-      "SK Hynix profit beat fuels $45 billion of dividends, buyback",
-      "SK hynix Posts Record 104.6 Trillion Won in Quarterly Revenue, Unveiling 100 Trillion Won Shareholder Return Plan"
+      "MRF Q2 Results: Net profit declines 27% to ₹387 cr"
     ],
-    "source_headline": "SK Hynix profit beat fuels $45 billion of dividends, buyback",
-    "source_url": "https://www.thehindubusinessline.com/markets/sk-hynix-profit-beat-fuels-45-billion-of-dividends-buyback/article71634160.ece",
+    "source_headline": "MRF Q2 Results: Net profit declines 27% to ₹387 cr",
+    "source_url": "https://www.thehindubusinessline.com/companies/mrf-reports-27-decline-in-q2-pat/article71685759.ece",
     "source_name": "The Hindu BusinessLine",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-28T03:55:26Z",
+    "newest_source_at": "2026-11-10T10:50:05Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-25T02:18:41Z",
-    "updated_at": "2026-10-28T10:33:30Z",
-    "decay_at": "2026-10-29T15:55:26Z",
+    "surfaced_at": "2026-11-10T11:30:45Z",
+    "updated_at": "2026-11-10T11:30:45Z",
+    "decay_at": "2026-11-11T22:50:05Z",
     "status": "live",
     "promoted_signal_id": null
   }
