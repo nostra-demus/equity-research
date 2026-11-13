@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T01:57:54Z",
+  "generated_at": "2026-11-13T02:01:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -949,6 +949,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-209",
+      "headline": "Russia’s Google says nearly 3% of its data was lost after crippling Ukraine drone strikes, opens secret availability zones",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/data-centers/russias-google-says-nearly-3-percent-of-its-data-was-lost-after-crippling-ukraine-drone-strikes-opens-secret-availability-zones-yandex-cloud-blames-lack-of-user-backups-for-lost-data-now-forcibly-applies-backup-rules-by-default",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Yandex reported a 3% data loss following a physical attack on its infrastructure, indicating significant operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yandex reported a 3% data loss following a physical attack on its infrastructure, indicating significant operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yandex",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-226",
+      "headline": "Mercedes-Benz to halt ‘all future investments’ in Germany",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/f4a1fd87-9abc-4965-963a-a5349dbfdab7?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T20:44:12Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Mercedes-Benz plans to halt all future investments in Germany, a major strategic shift with significant economic implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mercedes-Benz plans to halt all future investments in Germany, a major strategic shift with significant economic implications.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-194",
       "headline": "Cerebras surges 18% after beating on quarterly revenue and announcing Microsoft deal",
       "headline_en": null,
@@ -999,6 +1098,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-218",
+      "headline": "Nebius Revenue Jumped 571%, So Why Did the Stock Fall?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/12/nebius-revenue-jumped-571-so-why-did-the-stock-fall/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T20:53:25Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nebius revenue jumped 571% but the stock fell, indicating a significant disconnect between reported growth and market expectations or underlying issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Nebius revenue jumped 571% but the stock fell, indicating a significant disconnect between reported growth and market expectations or underlying issues.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nebius",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1402,6 +1550,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-212",
+      "headline": "Nebius Crashes 20% as Jensen Huang Shock Rocks AI Stocks: One ETF Is Having a Field Day",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/etfs/specialty-etfs/26/11/63220058/nebius-crashes-20-as-jensen-huang-shock-rocks-ai-stocks-one-etf-is-having-a-field-day",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T20:56:50Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nebius crashing 20% and Jensen Huang shocking AI stocks suggests a significant event impacting the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Nebius crashing 20% and Jensen Huang shocking AI stocks suggests a significant event impacting the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Nebius",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-158",
       "headline": "HJ중공업 3분기 영업이익 1554억 원...전년대비 8배 증가",
       "headline_en": "HJ Heavy Industries Q3 operating profit 155.4 billion won, up 8-fold year-on-year",
@@ -1790,196 +1993,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-003",
-      "headline": "QINGHUA HOLD (08082): CHANGE OF AUDITOR",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1113/2026111300001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-12T22:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The company announced a change of auditor, which can be a signal of governance or accounting issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The company announced a change of auditor, which can be a signal of governance or accounting issues.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qinghua Hold",
-          "ticker": "08082",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-157",
-      "headline": "한수원, 체코 두코바니 원전 2029년 착공 가시화",
-      "headline_en": "KHNP to commence Czech Dukovany nuclear plant in 2029",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281200",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T00:37:52Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "KHNP to commence construction of Czech Dukovany nuclear plant in 2029, a major international capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "KHNP to commence construction of Czech Dukovany nuclear plant in 2029, a major international capex commitment.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Hydro & Nuclear Power",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-175",
-      "headline": "Peru Lifts Interest Rate for First Time in Nearly Four Years",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-12/peru-raises-interest-rates-for-first-time-in-nearly-four-years",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:04:02Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Peru raised interest rates for the first time in four years, signaling a shift in monetary policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Peru raised interest rates for the first time in four years, signaling a shift in monetary policy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-104",
-      "headline": "Defence firm Chemring puts US Sensors business up for sale after strategic review",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16288575/Defence-firm-Chemring-puts-US-Sensors-business-sale-strategic-review.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:17:05Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Defence firm Chemring is putting its US Sensors business up for sale after a strategic review.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Defence firm Chemring is putting its US Sensors business up for sale after a strategic review.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chemring",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278343,9 +278356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 90332,
-    "news_picked_today": 261,
-    "news_dropped_today": 1419
+    "news_seen_today": 97272,
+    "news_picked_today": 295,
+    "news_dropped_today": 1481
   },
   "book_momentum": {
     "live_count": 8,
