@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-13T14:48:28Z",
+  "generated_at": "2026-11-13T15:00:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261113-785",
+      "headline": "Linde India Limited: Linde India Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/LINDEINDIA1_13112026201445_LIL_Disclosure_Reg30_Airtech.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T14:46:40Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Linde India Limited has announced an acquisition, which is a material corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Linde India Limited has announced an acquisition, which is a material corporate event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Linde India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261113-731",
       "headline": "HK SH ALLIANCE (01001): PROFIT WARNING",
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-651",
-      "headline": "Palomar Holdings, Inc. Raises Full-Year 2026 Adjusted Net Income Guidance to $280M - $285M",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/palomar-holdings-inc-raises-full-year-2026-adjusted-net-income-guidance-280m-285m",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:58:32Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Full-year adjusted net income guidance raised to $280M–$285M, moving earnings-per-share expectations for 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Full-year adjusted net income guidance raised to $280M–$285M, moving earnings-per-share expectations for 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Palomar Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278193,9 +278193,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1091671,
-    "news_picked_today": 1536,
-    "news_dropped_today": 14568
+    "news_seen_today": 1111975,
+    "news_picked_today": 1551,
+    "news_dropped_today": 14697
   },
   "book_momentum": {
     "live_count": 8,
