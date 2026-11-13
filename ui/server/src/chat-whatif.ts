@@ -407,6 +407,16 @@ export interface ComputedScenario {
   neededImpact?: number | null
   marginBasis?: string | null   // 'revenue_constant' → margin computed at unchanged revenue (no rev coefficient)
   metricNote?: string | null    // set when the coefficient is on a metric ≠ base metric (level/margin withheld)
+  // CLAUDE.md §9 mitigation label (engine-owned): isBound=true → the figure holds management's response at zero
+  // (a bound, not a forecast). mitigated* = the realised-offset case beside a bound; grossBound* = the bound
+  // beside a net coefficient. mitigationNote is always set by the engine and must travel with the number (§3).
+  isBound?: boolean | null
+  mitigationBasis?: string | null
+  mitigationNote?: string | null
+  realisedOffsetPct?: number | null
+  mitigatedImpact?: number | null
+  mitigatedNewValue?: number | null
+  grossBoundImpact?: number | null
   // set by the route, not the engine: TRUE when the question asked about a period this single-period
   // scenario cannot forecast (the parse's period_note flag). The warning is gated on THIS flag, not on
   // periodBase — a future-period question must carry the "not a forecast" disclaimer even when the
@@ -433,6 +443,9 @@ function shapeScenario(r: any): ComputedScenario | null {
     solvedVariableLevel: r.solved_variable_level ?? null, targetValue: r.target_value ?? null,
     targetMarginPct: r.target_margin_pct ?? null, neededImpact: r.needed_impact ?? null,
     marginBasis: r.margin_basis ?? null, metricNote: r.metric_note ?? null,
+    isBound: r.is_bound ?? null, mitigationBasis: r.mitigation_basis ?? null, mitigationNote: r.mitigation_note ?? null,
+    realisedOffsetPct: r.realised_offset_pct ?? null, mitigatedImpact: r.mitigated_impact ?? null,
+    mitigatedNewValue: r.mitigated_new_value ?? null, grossBoundImpact: r.gross_bound_impact ?? null,
   }
 }
 
@@ -663,6 +676,7 @@ export function computedContextBlock(payload: ComputedPayload, opts?: { carriedF
   lines.push(`- Coefficient: ${s.coefficient} per unit; confidence: ${s.confidence || 'n/a'}; source: ${s.source || 'n/a'}`)
   if (s.basis === 'inferred') lines.push('- Basis: INFERRED (derived by the orb, not disclosed in filings) — say "Inference, not from filings" and lower confidence accordingly (§3).')
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
+  if (s.mitigationNote) lines.push(`- Mitigation (§9 — state this with the number, never drop it): ${s.mitigationNote}${s.isBound ? ' Present the figure as a BOUND, not as the expected outcome.' : ''}`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
   if (s.periodNote) lines.push(`- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
   for (const l of repricedBlock(payload.reprice)) lines.push(l)

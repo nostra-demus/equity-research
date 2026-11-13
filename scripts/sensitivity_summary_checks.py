@@ -17,19 +17,60 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 
 # scripts/ is on sys.path for both callers; reuse the deterministic engine so "does it compute?" is the
 # SAME code path the chat will call, not a re-implementation.
-from sensitivity_math import scenario as _scenario, _isnum
+from sensitivity_math import scenario as _scenario, _isnum, MITIGATION_BASES
 
 _REQUIRED = ("schema_version", "ticker", "base_metric", "base_value", "sensitivities")
 _CONFIDENCE = ("high", "medium", "low", None)
 
+# CLAUDE.md §9 mitigation label — REQUIRED on every row of a sidecar dated on/after this landing date.
+# Forward-looking only: the 17 sidecars committed before it carry the assumption (when at all) as free text
+# in `non_linearity`, so failing them would red CI on runs whose authors were never told. The engine still
+# labels those legacy rows conservatively (an unrecorded zero-mitigation bound), so nothing ships unlabelled.
+MITIGATION_REQUIRED_DATE = "2026-11-14"
 
-def check_sensitivity_summary(sidecar):
+
+def _mitigation_violations(var, s, required):
+    """§9 mitigation-field shape + internal consistency for one row ([] = clean)."""
+    det = []
+    mb = s.get("mitigation_basis")
+    off = s.get("realised_offset_pct")
+    src = s.get("realised_offset_source")
+    has_src = isinstance(src, str) and bool(src.strip())
+    if mb is None:
+        if required:
+            det.append(f"sensitivity {var!r} is missing 'mitigation_basis' — every coefficient must say whether it is a "
+                       f"zero-mitigation bound or net of a realised offset (CLAUDE.md §9), one of {MITIGATION_BASES}")
+        if off is not None:
+            det.append(f"sensitivity {var!r} records realised_offset_pct without a mitigation_basis to say what the coefficient embeds")
+        return det
+    if mb not in MITIGATION_BASES:
+        return [f"sensitivity {var!r} mitigation_basis {mb!r} not in {MITIGATION_BASES}"]
+    if off is not None and not (_isnum(off) and 0 <= off <= 100):
+        det.append(f"sensitivity {var!r} realised_offset_pct {off!r} must be a number in [0, 100] or null")
+        return det
+    if mb == "realised_offset":
+        if off is None or off >= 100:
+            det.append(f"sensitivity {var!r} is 'realised_offset' but realised_offset_pct is {off!r} — a net coefficient "
+                       f"must state the offset it embeds (0 ≤ x < 100) so the gross bound can be shown beside it (§9)")
+    elif mb in ("disclosed_zero", "not_applicable") and off not in (None, 0):
+        det.append(f"sensitivity {var!r} is {mb!r} but records a non-zero realised_offset_pct {off!r} — contradictory")
+    if off not in (None, 0) and not has_src:
+        det.append(f"sensitivity {var!r} records a {off}% realised offset with no 'realised_offset_source' citation (§5/§9)")
+    return det
+
+
+def check_sensitivity_summary(sidecar, run_date=None):
     """Core check. Returns None (no sidecar → N/A, soft presence) or a list of violations (empty = pass).
-    Pure + module-level so the selftest drives every branch fixture-free."""
+    Pure + module-level so the selftest drives every branch fixture-free.
+
+    `run_date` (the run folder's date) gates the §9 mitigation requirement; it falls back to the sidecar's
+    own `as_of`, and when NEITHER is known the requirement applies (an undated sidecar cannot claim to be
+    legacy)."""
     if sidecar is None:
         return None
     if not isinstance(sidecar, dict):
@@ -56,6 +97,9 @@ def check_sensitivity_summary(sidecar):
         det.append("sensitivities must be a non-empty array")
         return det
 
+    _d = str(run_date or sidecar.get("as_of") or "")[:10]
+    mit_required = not _d or _d >= MITIGATION_REQUIRED_DATE
+
     seen = set()
     for i, s in enumerate(sens):
         if not isinstance(s, dict):
@@ -81,6 +125,7 @@ def check_sensitivity_summary(sidecar):
         # reject only a present-but-empty/garbled range object.
         if vr is not None and not (isinstance(vr, dict) and (_isnum(vr.get("low")) or _isnum(vr.get("high")))):
             det.append(f"sensitivity {var!r} valid_range must be null or an object with a numeric low and/or high")
+        det.extend(_mitigation_violations(var, s, mit_required))
 
     # THE load-bearing check: every recorded variable must actually compute through the engine the chat
     # will call — a sidecar that lists a variable sensitivity_math cannot model is worse than none.
@@ -104,7 +149,8 @@ def scan_committed(root="."):
             failures.append((run, [f"could not parse sensitivity_summary.json: {e}"]))
             checked += 1
             continue
-        viol = check_sensitivity_summary(sidecar)
+        _m = re.search(r"_(\d{4}-\d{2}-\d{2})$", run)
+        viol = check_sensitivity_summary(sidecar, _m.group(1) if _m else None)
         checked += 1
         if viol:
             failures.append((run, viol))
@@ -119,7 +165,7 @@ def _selftest() -> int:
             fails.append(name)
 
     ok = {
-        "schema_version": "1.0", "ticker": "T", "base_metric": "adjusted_ebitda_nok_m",
+        "schema_version": "1.0", "ticker": "T", "as_of": "2026-07-19", "base_metric": "adjusted_ebitda_nok_m",
         "base_value": 28889, "revenue_base": 207971,
         "sensitivities": [
             {"variable": "lme_aluminium_price", "coefficient": 15.0, "confidence": "high",
@@ -154,11 +200,28 @@ def _selftest() -> int:
     r = _scenario(ok, "lme_aluminium_price", 1)
     check("computability_probe_matches_engine", _isnum(r.get("impact")))
 
+    # §9 mitigation label — forward-looking requirement
+    check("legacy (pre-gate) without mitigation passes", check_sensitivity_summary(ok) == [])
+    check("post-gate without mitigation caught", sum("mitigation_basis" in v for v in check_sensitivity_summary(ok, "2026-11-14")) == 2)
+    check("undated sidecar without mitigation caught", any("mitigation_basis" in v for v in check_sensitivity_summary(dict(ok, as_of=None))))
+    def _m(**kw):
+        return dict(ok, as_of="2026-11-20", sensitivities=[dict(row, **kw) for row in ok["sensitivities"]])
+    check("zero_bound, offset not computable → pass", check_sensitivity_summary(_m(mitigation_basis="zero_bound")) == [])
+    check("zero_bound + cited offset → pass", check_sensitivity_summary(_m(mitigation_basis="zero_bound", realised_offset_pct=38, realised_offset_source="FY24 AR Note 5")) == [])
+    check("offset without citation caught", any("realised_offset_source" in v for v in check_sensitivity_summary(_m(mitigation_basis="zero_bound", realised_offset_pct=38))))
+    check("realised_offset without pct caught", any("must state the offset" in v for v in check_sensitivity_summary(_m(mitigation_basis="realised_offset"))))
+    check("realised_offset at 100% caught", any("must state the offset" in v for v in check_sensitivity_summary(_m(mitigation_basis="realised_offset", realised_offset_pct=100, realised_offset_source="x"))))
+    check("realised_offset cited → pass", check_sensitivity_summary(_m(mitigation_basis="realised_offset", realised_offset_pct=58, realised_offset_source="FY24 AR p.12")) == [])
+    check("disclosed_zero with offset caught", any("contradictory" in v for v in check_sensitivity_summary(_m(mitigation_basis="disclosed_zero", realised_offset_pct=20, realised_offset_source="x"))))
+    check("bad basis caught", any("not in" in v for v in check_sensitivity_summary(_m(mitigation_basis="assumed"))))
+    check("offset out of range caught", any("[0, 100]" in v for v in check_sensitivity_summary(_m(mitigation_basis="zero_bound", realised_offset_pct=138, realised_offset_source="x"))))
+    check("pre-gate malformed mitigation still caught", any("not in" in v for v in check_sensitivity_summary(dict(ok, sensitivities=[dict(ok["sensitivities"][0], mitigation_basis="guess")]))))
+
     if fails:
         print("SENSITIVITY SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))
         return 1
     print("SENSITIVITY SUMMARY CHECKS SELFTEST PASS — soft-presence + schema shape + confidence/range + "
-          "duplicate guard + engine-computability, all branches green")
+          "duplicate guard + engine-computability + §9 mitigation label, all branches green")
     return 0
 
 
