@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T11:23:44Z",
+  "generated_at": "2026-11-13T11:47:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-640",
@@ -827,6 +827,154 @@
           "name": "China Gold International Resources",
           "ticker": "02099",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-666",
+      "headline": "Tata Motors PV Q2 Results: Net loss at ₹5,531 crore on JLR restructuring costs, asset impairment",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/tata-motors-pv-share-price-q2-results-net-loss-at-rs-5531-crore-on-jlr-restructuring-costs-asset-impairment-20033595.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T11:25:44Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Tata Motors reported ₹5,531 crore net loss in Q2 driven by JLR restructuring and asset impairment, signaling operational and financial stress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors reported ₹5,531 crore net loss in Q2 driven by JLR restructuring and asset impairment, signaling operational and financial stress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-674",
+      "headline": "Upwork Inc. Expands Restructuring Plan to Reduce Workforce by Approximately 37%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/upwork-inc-expands-restructuring-plan-reduce-workforce-approximately-37",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:38:23Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Upwork announced a significant restructuring plan to reduce its workforce by approximately 37%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Upwork announced a significant restructuring plan to reduce its workforce by approximately 37%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Upwork Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-676",
+      "headline": "Natco Pharma's Q2 Earnings Take A Sharp Hit, Net Profit Crashes 61% To ₹202.6 Crore As Revenue Slumps 29%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/natco-pharmas-q2-earnings-take-a-sharp-hit-net-profit-crashes-61-to-2026-crore-as-revenue-slumps-29",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:29:09Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Natco Pharma reported a 61% crash in net profit to ₹202.6 crore and a 29% slump in revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Natco Pharma reported a 61% crash in net profit to ₹202.6 crore and a 29% slump in revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Natco Pharma",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1835,156 +1983,6 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-497",
-      "headline": "Enovix Corporation Reports Q3 2026 Financial Results, Restructuring, and 2027 Revenue Guidance of $65 Million to $85 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/enovix-corporation-reports-q3-2026-financial-results-restructuring-and-2027-revenue",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T04:31:20Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Company reported Q3 results, announced restructuring, and provided 2027 revenue guidance of $65 million to $85 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported Q3 results, announced restructuring, and provided 2027 revenue guidance of $65 million to $85 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enovix Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-528",
-      "headline": "EIH Checks Into Strong Q2 Growth, Net Profit Surges 21% To ₹141.46 Crore As Revenue Climbs 16%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/eih-checks-into-strong-q2-growth-net-profit-surges-21-to-14146-crore-as-revenue-climbs-16",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T04:22:46Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Company reported strong Q2 growth with net profit surging 21% to ₹141.46 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported strong Q2 growth with net profit surging 21% to ₹141.46 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EIH",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-474",
-      "headline": "Jensen Huang quits Nvidia; non-invasive treatment for kidney tumours: SCMP’s 7 highlights",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/china/article/3374278/jensen-huang-quits-nvidia-non-invasive-treatment-kidney-tumours-scmps-7-highlights",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T04:15:04Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Jensen Huang has quit as CEO of Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jensen Huang has quit as CEO of Nvidia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -277852,9 +277850,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 631678,
-    "news_picked_today": 1279,
-    "news_dropped_today": 11657
+    "news_seen_today": 719338,
+    "news_picked_today": 1297,
+    "news_dropped_today": 12047
   },
   "book_momentum": {
     "live_count": 8,
