@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T12:35:03Z",
+  "generated_at": "2026-11-13T12:38:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-679",
@@ -919,6 +919,104 @@
       "event_types": [
         "earnings_revenue_margin",
         "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-698",
+      "headline": "Tata Motors PV Q2 Results: PV Arm Swings To Loss On JLR Restructuring, Revenue Up 35%; Misses Estimates",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/tata-motors-passenger-vehicles-q2-results-pv-arm-swings-to-net-loss-on-jlr-restructuring-costs-revenue-up-35-misses-estimates-12322171#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T11:07:21Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Tata Motors PV arm reported a loss and missed revenue estimates due to JLR restructuring costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors PV arm reported a loss and missed revenue estimates due to JLR restructuring costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-699",
+      "headline": "Jaguar Land Rover Parent Cuts Outlook in Setback for UK Carmaker",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-13/tata-motors-swings-to-unexpected-loss-pares-back-jlr-outlook",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T11:06:11Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Jaguar Land Rover parent company cut its financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover parent company cut its financial outlook.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1888,104 +1986,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-502",
-      "headline": "What we know after Jensen Huang resigns as Nvidia CEO",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/what-we-know-after-jensen-huang-resigns-as-nvidia-ceo/article71696548.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T05:15:34Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "CEO resignation at mega-cap semiconductor company raises uncertainty about strategy continuity, execution, and governance credibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation at mega-cap semiconductor company raises uncertainty about strategy continuity, execution, and governance credibility.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-522",
-      "headline": "Amber Enterprises Reports Rs 2,627 Cr Q2 Revenue With 60% Growth, Posts Rs 57 Cr Adjusted Loss",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/amber-enterprises-reports-rs-2627-cr-q2-revenue-with-60-growth-posts-rs-57-cr-adjusted-loss",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T04:57:05Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Company reported a net loss of Rs 57 Cr despite revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a net loss of Rs 57 Cr despite revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amber Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277777,9 +277777,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 835769,
-    "news_picked_today": 1339,
-    "news_dropped_today": 12653
+    "news_seen_today": 842144,
+    "news_picked_today": 1359,
+    "news_dropped_today": 12705
   },
   "book_momentum": {
     "live_count": 8,
