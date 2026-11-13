@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T12:25:51Z",
+  "generated_at": "2026-11-13T12:30:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-679",
@@ -238102,77 +238102,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c8f18a4931e6",
-      "idea_version": "IDEAV-4fead7ea9f4884ae",
-      "idea_version_started_at": "2026-11-12T09:30:10Z",
-      "ticker": "PDN",
-      "company": "Paladin Energy",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a large A$525M equity raising, which will significantly dilute existing shareholders.",
-      "why_now": "The capital raising was announced via official filing on 2026-11-12.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-858b244d2066"
-      ],
-      "primary_source_event_id": "EVT-858b244d2066",
-      "source_headlines": [
-        "PDN: A$525M Fully Underwritten Equity Raising - Presentation"
-      ],
-      "source_headline": "PDN: A$525M Fully Underwritten Equity Raising - Presentation",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PDN?key=2924-03160986-6A1354752",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T00:30:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T09:30:10Z",
-      "updated_at": "2026-11-12T09:30:10Z",
-      "decay_at": "2026-11-13T12:30:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fca8d6c889e5",
       "idea_version": "IDEAV-bfc4d36af02f8402",
       "idea_version_started_at": "2026-11-12T09:30:10Z",
@@ -238729,6 +238658,77 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c8f18a4931e6",
+      "idea_version": "IDEAV-4fead7ea9f4884ae",
+      "idea_version_started_at": "2026-11-12T09:30:10Z",
+      "ticker": "PDN",
+      "company": "Paladin Energy",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a large A$525M equity raising, which will significantly dilute existing shareholders.",
+      "why_now": "The capital raising was announced via official filing on 2026-11-12.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-858b244d2066"
+      ],
+      "primary_source_event_id": "EVT-858b244d2066",
+      "source_headlines": [
+        "PDN: A$525M Fully Underwritten Equity Raising - Presentation"
+      ],
+      "source_headline": "PDN: A$525M Fully Underwritten Equity Raising - Presentation",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PDN?key=2924-03160986-6A1354752",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T00:30:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T09:30:10Z",
+      "updated_at": "2026-11-12T09:30:10Z",
+      "decay_at": "2026-11-13T12:30:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240604,9 +240604,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -240614,9 +240614,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -240635,6 +240635,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c8f18a4931e6",
+        "idea_version": "IDEAV-4fead7ea9f4884ae",
+        "idea_version_started_at": "2026-11-12T09:30:10Z",
+        "ticker": "PDN",
+        "company": "Paladin Energy",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is executing a large A$525M equity raising, which will significantly dilute existing shareholders.",
+        "why_now": "The capital raising was announced via official filing on 2026-11-12.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-858b244d2066"
+        ],
+        "primary_source_event_id": "EVT-858b244d2066",
+        "source_headlines": [
+          "PDN: A$525M Fully Underwritten Equity Raising - Presentation"
+        ],
+        "source_headline": "PDN: A$525M Fully Underwritten Equity Raising - Presentation",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PDN?key=2924-03160986-6A1354752",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T00:30:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T09:30:10Z",
+        "updated_at": "2026-11-12T09:30:10Z",
+        "decay_at": "2026-11-13T12:30:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T12:30:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-763ea1ab86a4",
         "idea_version": "IDEAV-11cd3deb37a220bf",
@@ -277679,86 +277753,12 @@
         "archived_at": "2026-10-22T11:04:11Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9336a4ac932b",
-        "idea_version": "IDEAV-4a978add98180b23",
-        "idea_version_started_at": "2026-10-19T10:36:10Z",
-        "ticker": "FNX",
-        "company": "FNX: Shared Beginnings",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "FNX: Shared Beginnings has been placed into voluntary administration, indicating severe financial distress and likely impairment of shareholder value.",
-        "why_now": "The company announced its placement into voluntary administration today, 2026-10-19.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-efcf22c53e2b"
-        ],
-        "primary_source_event_id": "EVT-efcf22c53e2b",
-        "source_headlines": [
-          "FNX: Shared Beginnings placed into voluntary administration [price-sensitive]"
-        ],
-        "source_headline": "FNX: Shared Beginnings placed into voluntary administration [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FNX?key=2924-03150100-6A1349953",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T06:12:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T10:36:10Z",
-        "updated_at": "2026-10-19T10:36:10Z",
-        "decay_at": "2026-10-20T18:12:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T07:03:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2434,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -277777,9 +277777,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 817612,
-    "news_picked_today": 1335,
-    "news_dropped_today": 12633
+    "news_seen_today": 829394,
+    "news_picked_today": 1339,
+    "news_dropped_today": 12653
   },
   "book_momentum": {
     "live_count": 8,
