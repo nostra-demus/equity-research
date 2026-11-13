@@ -16,9 +16,9 @@ Retain the original Avoid as a provisional no-entry stance pending the Group val
 
 Decision quality remains not assessable. A modest EPS beat counters one forecast but does not identify its cause or prove an original process error. The twelve-month Group-valuation and credit thesis remains unconfirmed. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]
 
-No usable NU/SPY prices were present in this checkout’s local market feed. No new current price, benchmark/sector observation or compatible paired return was obtained. The frozen entry-price field is a pre-decision vendor anchor dated2026-08-29, not proof of a trade. Return fields remain null; the older October review and its descriptive price are preserved. Investment returns, total/net return, compounding, drawdown, losses and costs are not measured here.
+No usable NU/SPY prices were present in this checkout’s local market feed. No new current price, benchmark/sector observation or compatible paired return was obtained. The frozen entry-price field is a pre-decision vendor anchor dated 2026-08-29, not proof of a trade. Return fields remain null; the older October review and its descriptive price are preserved. Investment returns, total/net return, compounding, drawdown, losses and costs are not measured here.
 
-Effective decision-time confidence47 is taken from this run’s corrections metadata: raw53 less the recovered6-point haircut. No new numeric conviction is supported. [analyses/NU_2026-09-01/corrections.json, metadata_recovery of decision-time confidence, runtime dated 2026-09-01]
+Effective decision-time confidence 47 is taken from this run’s corrections metadata: raw 53 less the recovered 6-point haircut. No new numeric conviction is supported. [analyses/NU_2026-09-01/corrections.json, metadata_recovery of decision-time confidence, runtime dated 2026-09-01]
 
 ## 4. Forecasts, catalysts, risks
 
@@ -36,7 +36,7 @@ Issuer release is dated 2026-11-12; occurrence of the call was not separately ve
 
 The remaining risks and catalysts stay unresolved or pending as listed in the full review. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]
 
-Issuer release dated 2026-11-12 states Q3 results and financial-statement availability within the original window. SEC signature is dated November10; auditor review and Board authorization November12. Exact SEC acceptance time, first-public time and version chronology remain unproved. SEC native-reader observations and issuer HTML were preserved; a full local raw SEC archive was not obtained. These limits do not invent a new exact-timestamp eligibility gate. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results) [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm)
+Issuer release dated 2026-11-12 states Q3 results and financial-statement availability within the original window. SEC signature is dated November 10; auditor review and Board authorization November 12. Exact SEC acceptance time, first-public time and version chronology remain unproved. SEC native-reader observations and issuer HTML were preserved; a full local raw SEC archive was not obtained. These limits do not invent a new exact-timestamp eligibility gate. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results) [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm)
 
 ## 5. Section impact map
 
