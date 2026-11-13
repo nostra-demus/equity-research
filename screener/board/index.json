@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T20:36:33Z",
+  "generated_at": "2026-11-13T20:41:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1229,6 +1229,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-926",
+      "headline": "SpaceX Expects to Spend $35 Billion to $40 Billion This Quarter. Here's Who Sells the Power and Cooling.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/13/spacex-expects-to-spend-35-billion-to-40-billion-t/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T19:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "SpaceX plans $35 billion to $40 billion in capital expenditure this quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX plans $35 billion to $40 billion in capital expenditure this quarter.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-913",
       "headline": "Modine Stock Just Soared 29% on a Report That Samsung Wants to Buy It. Is It Too Late to Buy?",
       "headline_en": null,
@@ -1937,55 +1986,6 @@
           "name": "Jaguar Land Rover",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-797",
-      "headline": "Adani Energy Solutions completes ₹3,050-cr acquisition of IntelliSmart",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-energy-solutions-completes-3050-cr-acquisition-of-intellismart/article71697800.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T15:26:07Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Adani Energy Solutions completed a 3,050 crore rupee acquisition of IntelliSmart.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Energy Solutions completed a 3,050 crore rupee acquisition of IntelliSmart.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Energy Solutions",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -278485,9 +278485,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1516760,
-    "news_picked_today": 2078,
-    "news_dropped_today": 20866
+    "news_seen_today": 1521145,
+    "news_picked_today": 2112,
+    "news_dropped_today": 20952
   },
   "book_momentum": {
     "live_count": 8,
