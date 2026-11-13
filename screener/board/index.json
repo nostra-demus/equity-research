@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T02:47:22Z",
+  "generated_at": "2026-11-13T02:52:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -1248,6 +1248,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-307",
+      "headline": "SpaceX Plans More Than $74 Billion in Texas, Arizona Data-Center Investments",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/spacex-plans-more-than-74-billion-in-texas-arizona-data-center-investments-b9ff4ba3?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T18:13:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "SpaceX is planning a major $74 billion capital expenditure for data-center investments in Texas and Arizona.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX is planning a major $74 billion capital expenditure for data-center investments in Texas and Arizona.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-321",
+      "headline": "Nebius falls 16% as company expects increased 2026 capex spend, issues weak outlook",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/12/nebius-q3-earnings-report-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T17:53:31Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nebius shares fell 16% following a weak outlook and an announcement of increased 2026 capex spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nebius shares fell 16% following a weak outlook and an announcement of increased 2026 capex spending.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nebius",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-194",
       "headline": "Cerebras surges 18% after beating on quarterly revenue and announcing Microsoft deal",
       "headline_en": null,
@@ -1347,6 +1446,65 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-311",
+      "headline": "Nvidia, AMD, Broadcom: The AI Stock Winners and Losers After Jensen Huang’s Ousting",
+      "headline_en": null,
+      "url": "https://decrypt.co/383146/nvidia-amd-broadcom-ai-stock-winners-loses-jensen-huang",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T18:06:03Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "The reported ousting of Jensen Huang from Nvidia is a major management event for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The reported ousting of Jensen Huang from Nvidia is a major management event for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1843,153 +2001,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-212",
-      "headline": "Nebius Crashes 20% as Jensen Huang Shock Rocks AI Stocks: One ETF Is Having a Field Day",
-      "headline_en": null,
-      "url": "https://www.benzinga.com/etfs/specialty-etfs/26/11/63220058/nebius-crashes-20-as-jensen-huang-shock-rocks-ai-stocks-one-etf-is-having-a-field-day",
-      "source_name": "Benzinga",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T20:56:50Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Nebius crashing 20% and Jensen Huang shocking AI stocks suggests a significant event impacting the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Nebius crashing 20% and Jensen Huang shocking AI stocks suggests a significant event impacting the AI sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Nebius",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-245",
-      "headline": "Qatar budget deficit widens to $6.25bn in Q3 2026 as spending reaches $11bn",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/finance/economy/qatar-budget-deficit-in-q3-2026",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T19:57:10Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Qatar reported a widened budget deficit of $6.25bn for Q3 2026, signaling fiscal pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Qatar reported a widened budget deficit of $6.25bn for Q3 2026, signaling fiscal pressure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-158",
-      "headline": "HJ중공업 3분기 영업이익 1554억 원...전년대비 8배 증가",
-      "headline_en": "HJ Heavy Industries Q3 operating profit 155.4 billion won, up 8-fold year-on-year",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281199",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T00:34:53Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "HJ Heavy Industries Q3 operating profit 155.4B won, up 8-fold year-on-year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "HJ Heavy Industries Q3 operating profit 155.4B won, up 8-fold year-on-year.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HJ Heavy Industries",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278283,9 +278294,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 124520,
-    "news_picked_today": 425,
-    "news_dropped_today": 1951
+    "news_seen_today": 127611,
+    "news_picked_today": 444,
+    "news_dropped_today": 2028
   },
   "book_momentum": {
     "live_count": 8,
