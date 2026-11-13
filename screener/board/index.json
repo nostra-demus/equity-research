@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T02:25:04Z",
+  "generated_at": "2026-11-13T02:36:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-266",
+      "headline": "롯데건설 3분기 누적 영업이익 126% 급증",
+      "headline_en": "Lotte E&C's Q3 cumulative operating profit surges 126%",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281208",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T01:03:36Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Lotte E&C reported a 126% surge in cumulative operating profit for the third quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lotte E&C reported a 126% surge in cumulative operating profit for the third quarter.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lotte E&C",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1941,55 +1990,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-020",
-      "headline": "WATAMI CO.,LTD.(7522)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-12T23:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Trading halt for Watami Co., Ltd. indicates pending material news.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Trading halt for Watami Co., Ltd. indicates pending material news.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WATAMI CO.,LTD.",
-          "ticker": "7522",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278283,9 +278283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 111244,
-    "news_picked_today": 373,
-    "news_dropped_today": 1763
+    "news_seen_today": 121237,
+    "news_picked_today": 383,
+    "news_dropped_today": 1801
   },
   "book_momentum": {
     "live_count": 8,
