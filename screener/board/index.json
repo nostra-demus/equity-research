@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T20:45:08Z",
+  "generated_at": "2026-11-13T20:55:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1179,6 +1179,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-929",
+      "headline": "Modine Stock Just Soared 29% on a Report That Samsung Wants to Buy It. Is It Too Late to Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/modine-stock-just-soared-29-report-samsung-wants-buy-it-it-too-late-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T20:04:22Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Modine stock rose 29% on reports of a potential acquisition by Samsung.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Modine stock rose 29% on reports of a potential acquisition by Samsung.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Modine",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-918",
       "headline": "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)",
       "headline_en": null,
@@ -1273,60 +1327,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-913",
-      "headline": "Modine Stock Just Soared 29% on a Report That Samsung Wants to Buy It. Is It Too Late to Buy?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/13/modine-stock-just-soared-29-on-a-report-that-samsung-wants-to-buy-it-is-it-too-late-to-buy/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T19:44:22Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Modine stock rose 29% on reports of a potential acquisition by Samsung.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Modine stock rose 29% on reports of a potential acquisition by Samsung.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Modine",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278485,9 +278485,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1525698,
-    "news_picked_today": 2124,
-    "news_dropped_today": 20964
+    "news_seen_today": 1534492,
+    "news_picked_today": 2137,
+    "news_dropped_today": 21215
   },
   "book_momentum": {
     "live_count": 8,
