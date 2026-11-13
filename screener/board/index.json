@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T13:00:33Z",
+  "generated_at": "2026-11-13T13:06:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-679",
@@ -884,6 +884,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-727",
+      "headline": "Nvidia confirms planned supply of GPUs to S. Korea despite Jensen Huang's resignation: science minister",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10936791",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T12:43:14Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang's resignation is a major leadership event, and the company is confirming supply commitments despite this transition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang's resignation is a major leadership event, and the company is confirming supply commitments despite this transition.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-710",
       "headline": "'Dark pattern': CCPA slaps Rs 10 lakh fine on Ola over pre-ride ‘tip’ feature",
       "headline_en": null,
@@ -977,6 +1027,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-725",
+      "headline": "Manipal Health Q2 Profit Falls 10% To ₹285 Crore, Revenue Jumps 37% In First Results Since IPO",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/manipal-health-q2-profit-falls-10-to-285-crore-revenue-jumps-37-in-first-results-since-ipo",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T12:22:18Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Company reports Q2 profit fell 10% to ₹285 crore despite a 37% revenue jump.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reports Q2 profit fell 10% to ₹285 crore despite a 37% revenue jump.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manipal Health",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1876,110 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-555",
-      "headline": "Adani Energy Solutions acquires IntelliSmart Infrastructure for Rs 3,050 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/power/adani-energy-solutions-acquires-intellismart-infrastructure-for-rs-3050-crore/articleshow/135792268.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T06:18:03Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Adani Energy Solutions acquired IntelliSmart Infrastructure for Rs 3,050 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Energy Solutions acquired IntelliSmart Infrastructure for Rs 3,050 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Energy Solutions",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "IntelliSmart Infrastructure",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-538",
-      "headline": "Riskified Ltd. Reports 41% Revenue Growth in Q3 2026 and Raises Revenue and Adjusted EBITDA Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/riskified-ltd-reports-41-revenue-growth-q3-2026-and-raises-revenue-and-adjusted-ebitda",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T05:50:19Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Riskified reported 41% revenue growth and raised its revenue and adjusted EBITDA guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Riskified reported 41% revenue growth and raised its revenue and adjusted EBITDA guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Riskified Ltd.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238237,78 +238232,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8ea0a530abda",
-      "idea_version": "IDEAV-96e9dde47de68ef1",
-      "idea_version_started_at": "2026-11-12T09:30:10Z",
-      "ticker": "AEM",
-      "company": "AEM Holdings",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a surge in Q3 earnings to S$42 million and doubled revenue, prompting an upward revision to full-year profit guidance.",
-      "why_now": "The guidance upgrade and earnings report were released on 2026-11-12.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8549cbca16e0"
-      ],
-      "primary_source_event_id": "EVT-8549cbca16e0",
-      "source_headlines": [
-        "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles"
-      ],
-      "source_headline": "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/aem-ups-full-year-profit-guidance-q3-earnings-surges-s42-million-revenue-doubles",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T01:01:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T09:30:10Z",
-      "updated_at": "2026-11-12T09:30:10Z",
-      "decay_at": "2026-11-13T13:01:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fca8d6c889e5",
       "idea_version": "IDEAV-bfc4d36af02f8402",
       "idea_version_started_at": "2026-11-12T09:30:10Z",
@@ -238865,6 +238788,78 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8ea0a530abda",
+      "idea_version": "IDEAV-96e9dde47de68ef1",
+      "idea_version_started_at": "2026-11-12T09:30:10Z",
+      "ticker": "AEM",
+      "company": "AEM Holdings",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a surge in Q3 earnings to S$42 million and doubled revenue, prompting an upward revision to full-year profit guidance.",
+      "why_now": "The guidance upgrade and earnings report were released on 2026-11-12.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8549cbca16e0"
+      ],
+      "primary_source_event_id": "EVT-8549cbca16e0",
+      "source_headlines": [
+        "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles"
+      ],
+      "source_headline": "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/aem-ups-full-year-profit-guidance-q3-earnings-surges-s42-million-revenue-doubles",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T01:01:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T09:30:10Z",
+      "updated_at": "2026-11-12T09:30:10Z",
+      "decay_at": "2026-11-13T13:01:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240811,14 +240806,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 261,
@@ -240842,6 +240837,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8ea0a530abda",
+        "idea_version": "IDEAV-96e9dde47de68ef1",
+        "idea_version_started_at": "2026-11-12T09:30:10Z",
+        "ticker": "AEM",
+        "company": "AEM Holdings",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a surge in Q3 earnings to S$42 million and doubled revenue, prompting an upward revision to full-year profit guidance.",
+        "why_now": "The guidance upgrade and earnings report were released on 2026-11-12.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8549cbca16e0"
+        ],
+        "primary_source_event_id": "EVT-8549cbca16e0",
+        "source_headlines": [
+          "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles"
+        ],
+        "source_headline": "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/aem-ups-full-year-profit-guidance-q3-earnings-surges-s42-million-revenue-doubles",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T01:01:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T09:30:10Z",
+        "updated_at": "2026-11-12T09:30:10Z",
+        "decay_at": "2026-11-13T13:01:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T13:01:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c8f18a4931e6",
         "idea_version": "IDEAV-4fead7ea9f4884ae",
@@ -269264,80 +269334,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d341433a1235",
-        "idea_version": "IDEAV-85362517597a8cfb",
-        "idea_version_started_at": "2026-10-31T22:20:23Z",
-        "ticker": "SHYAMMETL",
-        "company": "Shyam Metalics and Energy",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of a 51% stake in Alom Solar Private Limited signals a strategic entry into the renewable energy space, complemented by a ₹360 Crore capex budget.",
-        "why_now": "The board approval and filing were released on 2026-10-31.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-74695cd83bbd"
-        ],
-        "primary_source_event_id": "EVT-74695cd83bbd",
-        "source_headlines": [
-          "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro"
-        ],
-        "source_headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SHYAMMETL_31102026131611_outcomeofBM.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T07:46:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T14:59:59Z",
-        "updated_at": "2026-10-31T22:20:23Z",
-        "decay_at": "2026-11-01T19:46:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T12:13:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6dc35076d550",
         "idea_version": "IDEAV-a220301c97f06c51",
         "idea_version_started_at": "2026-10-31T22:35:25Z",
@@ -277965,7 +277961,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2437,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -277984,9 +277980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 873802,
-    "news_picked_today": 1396,
-    "news_dropped_today": 13052
+    "news_seen_today": 880092,
+    "news_picked_today": 1414,
+    "news_dropped_today": 13082
   },
   "book_momentum": {
     "live_count": 8,
