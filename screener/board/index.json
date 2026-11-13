@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T14:30:18Z",
+  "generated_at": "2026-11-13T14:41:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-731",
@@ -982,6 +982,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-784",
+      "headline": "Angola Plans to Acquire 10% of De Beers as Anglo Exits Diamonds",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-13/angola-plans-to-acquire-10-of-de-beers-as-anglo-exits-diamonds",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T14:08:25Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Angola plans to acquire a 10% stake in De Beers as Anglo American exits the diamond business, representing a significant ownership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Angola plans to acquire a 10% stake in De Beers as Anglo American exits the diamond business, representing a significant ownership change.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anglo American",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "De Beers",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-779",
       "headline": "Jensen Huang is Out as CEO, Nvidia Down 25% in a Month: Wall Street’s Highest Target Price Reaffirmed as Major Desks Slash Prices, Predicting 210% Gains",
       "headline_en": null,
@@ -1921,55 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-632",
-      "headline": "Grasim Industries Q2 Results: Net Profit Nearly Triples To Rs 2,306 Crore; One-Time Loss Of Rs 825 Crore",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/grasim-industries-q2-results-net-profit-nearly-triples-to-rs-2-306-crore-one-time-loss-of-rs-825-crore-q2-earnings-bse-sensex-12321579#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:01:34Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Grasim Industries reported a net profit of Rs 2,306 crore, nearly tripling year-over-year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Grasim Industries reported a net profit of Rs 2,306 crore, nearly tripling year-over-year.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grasim Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238438,77 +238443,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-db48ea3f1818",
-      "idea_version": "IDEAV-f2b251f15656e129",
-      "idea_version_started_at": "2026-11-12T10:13:12Z",
-      "ticker": "HFCL",
-      "company": "HFCL Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured export orders worth INR 834.36 crore, providing a direct boost to its order book and revenue visibility.",
-      "why_now": "The exchange filing was released on 2026-11-12.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f3758d5659a6"
-      ],
-      "primary_source_event_id": "EVT-f3758d5659a6",
-      "source_headlines": [
-        "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\""
-      ],
-      "source_headline": "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\"",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AHMED_12112026080428_HFCL_STX_Announcement_12112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T02:35:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T10:13:12Z",
-      "updated_at": "2026-11-12T10:13:12Z",
-      "decay_at": "2026-11-13T14:35:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bba477b08d48",
       "idea_version": "IDEAV-133966263598619c",
       "idea_version_started_at": "2026-11-11T01:14:09Z",
@@ -238922,6 +238856,77 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-db48ea3f1818",
+      "idea_version": "IDEAV-f2b251f15656e129",
+      "idea_version_started_at": "2026-11-12T10:13:12Z",
+      "ticker": "HFCL",
+      "company": "HFCL Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured export orders worth INR 834.36 crore, providing a direct boost to its order book and revenue visibility.",
+      "why_now": "The exchange filing was released on 2026-11-12.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f3758d5659a6"
+      ],
+      "primary_source_event_id": "EVT-f3758d5659a6",
+      "source_headlines": [
+        "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\""
+      ],
+      "source_headline": "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\"",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AHMED_12112026080428_HFCL_STX_Announcement_12112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T02:35:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T10:13:12Z",
+      "updated_at": "2026-11-12T10:13:12Z",
+      "decay_at": "2026-11-13T14:35:06Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241013,14 +241018,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 262,
@@ -241044,6 +241049,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-db48ea3f1818",
+        "idea_version": "IDEAV-f2b251f15656e129",
+        "idea_version_started_at": "2026-11-12T10:13:12Z",
+        "ticker": "HFCL",
+        "company": "HFCL Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured export orders worth INR 834.36 crore, providing a direct boost to its order book and revenue visibility.",
+        "why_now": "The exchange filing was released on 2026-11-12.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f3758d5659a6"
+        ],
+        "primary_source_event_id": "EVT-f3758d5659a6",
+        "source_headlines": [
+          "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\""
+        ],
+        "source_headline": "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\"",
+        "source_url": "https://nsearchives.nseindia.com/corporate/AHMED_12112026080428_HFCL_STX_Announcement_12112026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T02:35:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T10:13:12Z",
+        "updated_at": "2026-11-12T10:13:12Z",
+        "decay_at": "2026-11-13T14:35:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T14:35:06Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fca8d6c889e5",
         "idea_version": "IDEAV-bfc4d36af02f8402",
@@ -269394,80 +269473,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-02b85489d156",
-        "idea_version": "IDEAV-77be87318b9eea9d",
-        "idea_version_started_at": "2026-10-31T22:00:18Z",
-        "ticker": "GTPL",
-        "company": "GTPL Hathway Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "GTPL Hathway Limited is acquiring the remaining 74% equity shares of DL GTPL Cabnet Private Limited, which will consolidate its ownership and control over the subsidiary, potentially boosting its earnings.",
-        "why_now": "An update on the acquisition of the balance 74% equity shares was provided via an exchange filing on October 31, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5ae524222efc"
-        ],
-        "primary_source_event_id": "EVT-5ae524222efc",
-        "source_headlines": [
-          "GTPL Hathway Limited: GTPL Hathway Limited has informed the Exchange about update on acquisition of balance 74% equity shares of DL GTPL Cabnet Private Limited"
-        ],
-        "source_headline": "GTPL Hathway Limited: GTPL Hathway Limited has informed the Exchange about update on acquisition of balance 74% equity shares of DL GTPL Cabnet Private Limited",
-        "source_url": "https://nsearchives.nseindia.com/corporate/GTPLHL_31102026161614_DL_GTPL_Extension.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T10:46:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T22:00:18Z",
-        "updated_at": "2026-10-31T22:00:18Z",
-        "decay_at": "2026-11-01T22:46:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T12:13:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5d7e7121c615",
         "idea_version": "IDEAV-144f2e728dcf0083",
         "idea_version_started_at": "2026-10-31T14:59:59Z",
@@ -278169,7 +278174,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2441,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -278188,9 +278193,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1064929,
-    "news_picked_today": 1511,
-    "news_dropped_today": 14257
+    "news_seen_today": 1084936,
+    "news_picked_today": 1534,
+    "news_dropped_today": 14522
   },
   "book_momentum": {
     "live_count": 8,
