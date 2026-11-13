@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-30T22:42:19Z",
+  "archived_at": "2026-11-13T00:55:51Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-3eef32686df1",
-    "idea_version": "IDEAV-9b1fad0a60c4996a",
-    "idea_version_started_at": "2026-10-28T18:19:07Z",
-    "ticker": "01173",
-    "company": "Veeko International Holdings Limited",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-3e8500c230f0",
+    "idea_version": "IDEAV-36792e8d3b02964d",
+    "idea_version_started_at": "2026-11-10T01:19:46Z",
+    "ticker": "JIN",
+    "company": "Jumbo Interactive",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company issued a positive profit alert, indicating a significant improvement in financial performance compared to the prior period.",
-    "why_now": "The announcement was filed on October 27, 2026, providing immediate visibility into improved earnings.",
-    "conviction": 65,
+    "reason": "The company has initiated a share buy-back program, which typically provides price support and improves earnings per share by reducing the total share count.",
+    "why_now": "The notification was filed on 2026-11-10, making the capital return program active immediately.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 19,
+      "impact": 13,
       "specificity": 7,
-      "timing": 6,
+      "timing": 10,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -52,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-e3809955fb2d"
+      "EVT-ed5e5fa776f2"
     ],
-    "primary_source_event_id": "EVT-e3809955fb2d",
+    "primary_source_event_id": "EVT-ed5e5fa776f2",
     "source_headlines": [
-      "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT"
+      "JIN: Update - Notification of buy-back - JIN"
     ],
-    "source_headline": "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700760.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-10-27T10:07:00Z",
+    "source_headline": "JIN: Update - Notification of buy-back - JIN",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JIN?key=2924-03160001-2A1709744",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 90,
+    "newest_source_at": "2026-11-10T00:25:52Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-28T18:19:07Z",
-    "updated_at": "2026-10-28T18:19:07Z",
-    "decay_at": "2026-10-28T22:07:00Z",
+    "surfaced_at": "2026-11-10T01:19:46Z",
+    "updated_at": "2026-11-10T01:19:46Z",
+    "decay_at": "2026-11-11T12:25:52Z",
     "status": "live",
     "promoted_signal_id": null
   }

@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-32e55b08bf45",
+  "idea_version": "IDEAV-8b8557b5c9f1c918",
+  "idea_version_started_at": "2026-11-13T00:55:31Z",
+  "ticker": "FLO",
+  "company": "Flowers Foods",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company reported a 64% plunge in Q3 profits and issued a downward revision to its full-year 2026 outlook.",
+  "why_now": "The guidance cut was announced on 2026-11-12.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-126c71a1aa8e"
+  ],
+  "primary_source_event_id": "EVT-126c71a1aa8e",
+  "source_headlines": [
+    "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook"
+  ],
+  "source_headline": "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook",
+  "source_url": "https://www.nasdaq.com/articles/flowers-foods-q3-profit-plunges-64-cuts-fy26-outlook",
+  "source_name": "Nasdaq",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-12T21:38:55Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-13T00:55:31Z",
+  "updated_at": "2026-11-13T00:55:31Z",
+  "decay_at": "2026-11-14T09:38:55Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

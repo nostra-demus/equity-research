@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-1d7cd3702738",
-  "idea_version": "IDEAV-420be88ed05a62bb",
-  "idea_version_started_at": "2026-11-10T00:42:18Z",
-  "ticker": "AMCX",
-  "company": "AMC Networks Inc.",
-  "exchange": "NASDAQ",
+  "idea_id": "IDEA-84d3d160ac55",
+  "idea_version": "IDEAV-9eb859aa3ce061ad",
+  "idea_version_started_at": "2026-11-13T00:55:31Z",
+  "ticker": "INA",
+  "company": "Inghams Group",
+  "exchange": "ASX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company reported a $120 million legal settlement alongside third-quarter results, which will materially impact cash flow and liquidity in the near term.",
-  "why_now": "The earnings and settlement news were released on 2026-11-10.",
+  "reason": "The company has received a non-exclusive acquisition proposal from Warburg Pincus, which typically triggers a premium valuation for shareholders.",
+  "why_now": "The proposal was filed on 2026-11-12.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 19,
+    "evidence": 25,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-f482f30646a3"
+    "EVT-027eccce410b"
   ],
-  "primary_source_event_id": "EVT-f482f30646a3",
+  "primary_source_event_id": "EVT-027eccce410b",
   "source_headlines": [
-    "AMC Networks Inc. Reports Third Quarter 2026 Results and $120 million Legal Settlement"
+    "INA: Receipt of non-exclusive proposal from Warburg Pincus [price-sensitive]"
   ],
-  "source_headline": "AMC Networks Inc. Reports Third Quarter 2026 Results and $120 million Legal Settlement",
-  "source_url": "https://www.nasdaq.com/articles/amc-networks-inc-reports-third-quarter-2026-results-and-120-million-legal-settlement",
-  "source_name": "Nasdaq",
+  "source_headline": "INA: Receipt of non-exclusive proposal from Warburg Pincus [price-sensitive]",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03161331-2A1710382",
+  "source_name": "ASX (Australia Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-10T00:02:09Z",
+  "newest_source_at": "2026-11-12T21:59:51Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-10T00:42:18Z",
-  "updated_at": "2026-11-10T00:42:18Z",
-  "decay_at": "2026-11-11T12:02:09Z",
+  "surfaced_at": "2026-11-13T00:55:31Z",
+  "updated_at": "2026-11-13T00:55:31Z",
+  "decay_at": "2026-11-14T09:59:51Z",
   "status": "live",
   "promoted_signal_id": null
 }

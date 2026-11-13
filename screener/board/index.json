@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T00:55:15Z",
+  "generated_at": "2026-11-13T00:56:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-001",
@@ -235586,18 +235586,18 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-23490a006b471eb7",
-      "idea_version_started_at": "2026-11-12T20:03:31Z",
+      "idea_version": "IDEAV-9cf1b918bc937f14",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "Jensen Huang's resignation removes the CEO, creating doubt about Nvidia's upcoming product launches and revenue guidance, which usually pushes investors to sell the shares.",
-      "why_now": "Announced on 2026-11-12 at 19:16 UTC (Nasdaq) and confirmed by BBC News at 19:33 UTC, so the market reacts to a live executive exit today.",
-      "conviction": 65,
+      "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential strategic disruption for the company.",
+      "why_now": "The resignation was confirmed on 2026-11-12.",
+      "conviction": 85,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
+      "trade_score": 79,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
@@ -235605,7 +235605,7 @@
         "specificity": 15,
         "timing": 10,
         "expression": 7,
-        "corroboration": 7,
+        "corroboration": 10,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
@@ -235628,19 +235628,24 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-3e003415f002",
-        "EVT-92b81562491c"
+        "EVT-5162fc103f59",
+        "EVT-520f2c89f121",
+        "EVT-ac407dbf5107",
+        "EVT-b45f52505cd3",
+        "EVT-326a840118ab"
       ],
-      "primary_source_event_id": "EVT-3e003415f002",
+      "primary_source_event_id": "EVT-5162fc103f59",
       "source_headlines": [
-        "Jensen Huang has resigned, what's next for Nvidia?",
-        "Nvidia CEO Resigns: What It Means for Your Shares"
+        "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+        "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
+        "Huang Ousted By Nvidia Board As CEO | Closing Bell",
+        "Stock Market Today, Nov. 12: Nvidia Shares Slide on Reports of CEO Jensen Huang's Resignation"
       ],
-      "source_headline": "Jensen Huang has resigned, what's next for Nvidia?",
-      "source_url": "https://www.bbc.co.uk/news/videos/cmdx1r99kp9wo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
+      "source_headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+      "source_url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
+      "source_name": "CBS MoneyWatch",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T19:33:37Z",
+      "newest_source_at": "2026-11-12T22:10:28Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -235648,8 +235653,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T20:03:31Z",
-      "decay_at": "2026-11-14T07:33:37Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T10:10:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -235790,6 +235795,78 @@
       "surfaced_at": "2026-11-12T10:13:12Z",
       "updated_at": "2026-11-12T10:13:12Z",
       "decay_at": "2026-11-13T15:40:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-213a42c487e6",
+      "idea_version": "IDEAV-6009dfd80144dddb",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "CSCO",
+      "company": "Cisco Systems",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its sales guidance, citing increased demand for networking equipment driven by AI infrastructure investments.",
+      "why_now": "The guidance increase was announced on 2026-11-12.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-92a70c81fc7c",
+        "EVT-c3cd065dea3a"
+      ],
+      "primary_source_event_id": "EVT-92a70c81fc7c",
+      "source_headlines": [
+        "Cisco Raises Forecast as AI Fuels Networking Demand",
+        "Cisco Raises Sales Guidance in Sign of AI-Fueled Momentum"
+      ],
+      "source_headline": "Cisco Raises Forecast as AI Fuels Networking Demand",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/cisco-raises-forecast-as-ai-fuels-networking-demand-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T21:46:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T00:55:31Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T09:46:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -236566,6 +236643,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-32e55b08bf45",
+      "idea_version": "IDEAV-8b8557b5c9f1c918",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "FLO",
+      "company": "Flowers Foods",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 64% plunge in Q3 profits and issued a downward revision to its full-year 2026 outlook.",
+      "why_now": "The guidance cut was announced on 2026-11-12.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-126c71a1aa8e"
+      ],
+      "primary_source_event_id": "EVT-126c71a1aa8e",
+      "source_headlines": [
+        "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook"
+      ],
+      "source_headline": "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook",
+      "source_url": "https://www.nasdaq.com/articles/flowers-foods-q3-profit-plunges-64-cuts-fy26-outlook",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T21:38:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T00:55:31Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T09:38:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-54c229398a67",
+      "idea_version": "IDEAV-e65ea26484c5cd88",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "SANG",
+      "company": "Sangoma Technologies",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has entered into a definitive acquisition agreement with BRC Group Holdings at a set cash and stock consideration.",
+      "why_now": "The special meeting announcement was made on 2026-11-12.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e460b18083ae"
+      ],
+      "primary_source_event_id": "EVT-e460b18083ae",
+      "source_headlines": [
+        "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share"
+      ],
+      "source_headline": "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share",
+      "source_url": "https://www.nasdaq.com/articles/sangoma-technologies-corporation-announces-special-meeting-vote-acquisition-brc-group",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T22:20:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T00:55:31Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T10:20:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-568ff94c6eb6",
       "idea_version": "IDEAV-54b9542838a02244",
       "idea_version_started_at": "2026-11-12T19:23:01Z",
@@ -236773,6 +236992,77 @@
       "surfaced_at": "2026-11-12T12:14:16Z",
       "updated_at": "2026-11-12T12:14:16Z",
       "decay_at": "2026-11-13T21:12:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-9eb859aa3ce061ad",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "INA",
+      "company": "Inghams Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has received a non-exclusive acquisition proposal from Warburg Pincus, which typically triggers a premium valuation for shareholders.",
+      "why_now": "The proposal was filed on 2026-11-12.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-027eccce410b"
+      ],
+      "primary_source_event_id": "EVT-027eccce410b",
+      "source_headlines": [
+        "INA: Receipt of non-exclusive proposal from Warburg Pincus [price-sensitive]"
+      ],
+      "source_headline": "INA: Receipt of non-exclusive proposal from Warburg Pincus [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03161331-2A1710382",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T21:59:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T00:55:31Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T09:59:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238068,76 +238358,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d96cfa97ad42",
-      "idea_version": "IDEAV-bcf8154f79d20eed",
-      "idea_version_started_at": "2026-11-10T01:51:56Z",
-      "ticker": "NGS",
-      "company": "Natural Gas Services Group",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q3 results, increased its dividend, and raised full-year guidance, signaling improved cash flow and operational efficiency.",
-      "why_now": "The earnings and guidance update was released on 2026-11-10.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a169650fdd79"
-      ],
-      "primary_source_event_id": "EVT-a169650fdd79",
-      "source_headlines": [
-        "Natural Gas Services Group, Inc. Reports Third Quarter 2026 Results, Increases Dividend to $0.16, and Updates Guidance"
-      ],
-      "source_headline": "Natural Gas Services Group, Inc. Reports Third Quarter 2026 Results, Increases Dividend to $0.16, and Updates Guidance",
-      "source_url": "https://www.nasdaq.com/articles/natural-gas-services-group-inc-reports-third-quarter-2026-results-increases-dividend-016",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T00:31:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T01:51:56Z",
-      "updated_at": "2026-11-10T01:51:56Z",
-      "decay_at": "2026-11-11T12:31:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-af413d25539b",
       "idea_version": "IDEAV-8427480e67ce78b6",
       "idea_version_started_at": "2026-11-11T11:14:28Z",
@@ -238552,76 +238772,6 @@
       "surfaced_at": "2026-11-10T03:26:43Z",
       "updated_at": "2026-11-10T03:26:43Z",
       "decay_at": "2026-11-11T13:30:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-86decbcb2cb8",
-      "idea_version": "IDEAV-8820318b3f40c019",
-      "idea_version_started_at": "2026-11-10T01:19:46Z",
-      "ticker": "DCGO",
-      "company": "DocGo Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The combination of poor Q3 financial results and an unexpected CEO transition signals internal instability and potential downward revisions to forward guidance.",
-      "why_now": "The earnings and management change were announced on 2026-11-10, and the market typically reacts negatively to simultaneous leadership and financial uncertainty.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3eda6d25831a"
-      ],
-      "primary_source_event_id": "EVT-3eda6d25831a",
-      "source_headlines": [
-        "DocGo Inc. Announces Third Quarter 2026 Results and CEO Transition"
-      ],
-      "source_headline": "DocGo Inc. Announces Third Quarter 2026 Results and CEO Transition",
-      "source_url": "https://www.nasdaq.com/articles/docgo-inc-announces-third-quarter-2026-results-and-ceo-transition",
-      "source_name": "Nasdaq",
-      "materiality_max": 90,
-      "newest_source_at": "2026-11-10T00:21:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T01:19:46Z",
-      "updated_at": "2026-11-10T01:19:46Z",
-      "decay_at": "2026-11-11T12:21:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240769,149 +240919,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1d7cd3702738",
-      "idea_version": "IDEAV-420be88ed05a62bb",
-      "idea_version_started_at": "2026-11-10T00:42:18Z",
-      "ticker": "AMCX",
-      "company": "AMC Networks Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a $120 million legal settlement alongside third-quarter results, which will materially impact cash flow and liquidity in the near term.",
-      "why_now": "The earnings and settlement news were released on 2026-11-10.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f482f30646a3"
-      ],
-      "primary_source_event_id": "EVT-f482f30646a3",
-      "source_headlines": [
-        "AMC Networks Inc. Reports Third Quarter 2026 Results and $120 million Legal Settlement"
-      ],
-      "source_headline": "AMC Networks Inc. Reports Third Quarter 2026 Results and $120 million Legal Settlement",
-      "source_url": "https://www.nasdaq.com/articles/amc-networks-inc-reports-third-quarter-2026-results-and-120-million-legal-settlement",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T00:02:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T00:42:18Z",
-      "updated_at": "2026-11-10T00:42:18Z",
-      "decay_at": "2026-11-11T12:02:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-da158d48874e",
-      "idea_version": "IDEAV-61f28e1e0afa0609",
-      "idea_version_started_at": "2026-11-10T00:42:18Z",
-      "ticker": "2359.HK",
-      "company": "WuXi AppTec",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The removal of the company from the Section 1260H list mitigates significant geopolitical risk and potential US-based client attrition, which previously weighed on the stock's valuation multiple.",
-      "why_now": "The official announcement of the removal occurred on 2026-11-09, immediately reducing the regulatory overhang.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c0cefdbb33b7"
-      ],
-      "primary_source_event_id": "EVT-c0cefdbb33b7",
-      "source_headlines": [
-        "WUXI APPTEC (02359): VOLUNTARY ANNOUNCEMENT - REMOVAL OF WUXI APPTEC AS A CHINESE MILITARY COMPANY UNDER THE SECTION 1260H LIST"
-      ],
-      "source_headline": "WUXI APPTEC (02359): VOLUNTARY ANNOUNCEMENT - REMOVAL OF WUXI APPTEC AS A CHINESE MILITARY COMPANY UNDER THE SECTION 1260H LIST",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T23:43:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T00:42:18Z",
-      "updated_at": "2026-11-10T00:42:18Z",
-      "decay_at": "2026-11-11T11:43:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b492220bad93",
       "idea_version": "IDEAV-d9fb0cfe0062cd47",
       "idea_version_started_at": "2026-11-11T05:20:27Z",
@@ -241055,78 +241062,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3de812988305",
-      "idea_version": "IDEAV-4ff53507a3ff4c5b",
-      "idea_version_started_at": "2026-11-10T01:51:56Z",
-      "ticker": "AAON",
-      "company": "AAON, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Despite the accounting restatement, the company reported record Q3 results and raised its full-year outlook, suggesting the underlying business momentum outweighs the historical reporting issues.",
-      "why_now": "The earnings report and outlook increase were released on 2026-11-10.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0cd9149aad54"
-      ],
-      "primary_source_event_id": "EVT-0cd9149aad54",
-      "source_headlines": [
-        "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook"
-      ],
-      "source_headline": "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook",
-      "source_url": "https://www.nasdaq.com/articles/aaon-inc-restates-first-and-second-quarter-2026-financials-reports-record-third-quarter",
-      "source_name": "Nasdaq",
-      "materiality_max": 95,
-      "newest_source_at": "2026-11-10T00:52:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T01:51:56Z",
-      "updated_at": "2026-11-10T01:51:56Z",
-      "decay_at": "2026-11-11T12:52:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3e0ccff47789",
       "idea_version": "IDEAV-0acad24986e16db6",
       "idea_version_started_at": "2026-11-11T05:44:55Z",
@@ -241197,77 +241132,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-3e8500c230f0",
-      "idea_version": "IDEAV-36792e8d3b02964d",
-      "idea_version_started_at": "2026-11-10T01:19:46Z",
-      "ticker": "JIN",
-      "company": "Jumbo Interactive",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has initiated a share buy-back program, which typically provides price support and improves earnings per share by reducing the total share count.",
-      "why_now": "The notification was filed on 2026-11-10, making the capital return program active immediately.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ed5e5fa776f2"
-      ],
-      "primary_source_event_id": "EVT-ed5e5fa776f2",
-      "source_headlines": [
-        "JIN: Update - Notification of buy-back - JIN"
-      ],
-      "source_headline": "JIN: Update - Notification of buy-back - JIN",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JIN?key=2924-03160001-2A1709744",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-11-10T00:25:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T01:19:46Z",
-      "updated_at": "2026-11-10T01:19:46Z",
-      "decay_at": "2026-11-11T12:25:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -241280,33 +241144,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 26
       },
       "short": {
-        "total_count": 266,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1845,
-      "oldest_retained_at": "2026-10-18T01:57:18Z",
+      "evicted_count": 1851,
+      "oldest_retained_at": "2026-10-18T16:51:17Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1211,
-          "oldest_retained_at": "2026-10-28T22:07:00Z"
+          "evicted_count": 1215,
+          "oldest_retained_at": "2026-10-29T03:13:47Z"
         },
         "short": {
-          "evicted_count": 635,
-          "oldest_retained_at": "2026-10-18T01:57:18Z"
+          "evicted_count": 637,
+          "oldest_retained_at": "2026-10-18T16:51:17Z"
         }
       }
     },
@@ -244347,8 +244211,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T12:52:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-13T00:55:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244420,8 +244284,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T12:31:53Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-13T00:55:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244494,8 +244358,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T12:25:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-13T00:55:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244567,8 +244431,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T12:21:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-13T00:55:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244642,8 +244506,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T12:02:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-13T00:55:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244716,8 +244580,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T11:43:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-13T00:55:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -278438,8 +278302,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2425,
-    "live_count": 34,
+    "surfaced_total": 2429,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-23490a006b471eb7",
-  "idea_version_started_at": "2026-11-12T20:03:31Z",
+  "idea_version": "IDEAV-9cf1b918bc937f14",
+  "idea_version_started_at": "2026-11-13T00:55:31Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Jensen Huang's resignation removes the CEO, creating doubt about Nvidia's upcoming product launches and revenue guidance, which usually pushes investors to sell the shares.",
-  "why_now": "Announced on 2026-11-12 at 19:16 UTC (Nasdaq) and confirmed by BBC News at 19:33 UTC, so the market reacts to a live executive exit today.",
-  "conviction": 65,
+  "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential strategic disruption for the company.",
+  "why_now": "The resignation was confirmed on 2026-11-12.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 76,
+  "trade_score": 79,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,7 +23,7 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
@@ -46,19 +46,24 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-3e003415f002",
-    "EVT-92b81562491c"
+    "EVT-5162fc103f59",
+    "EVT-520f2c89f121",
+    "EVT-ac407dbf5107",
+    "EVT-b45f52505cd3",
+    "EVT-326a840118ab"
   ],
-  "primary_source_event_id": "EVT-3e003415f002",
+  "primary_source_event_id": "EVT-5162fc103f59",
   "source_headlines": [
-    "Jensen Huang has resigned, what's next for Nvidia?",
-    "Nvidia CEO Resigns: What It Means for Your Shares"
+    "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+    "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
+    "Huang Ousted By Nvidia Board As CEO | Closing Bell",
+    "Stock Market Today, Nov. 12: Nvidia Shares Slide on Reports of CEO Jensen Huang's Resignation"
   ],
-  "source_headline": "Jensen Huang has resigned, what's next for Nvidia?",
-  "source_url": "https://www.bbc.co.uk/news/videos/cmdx1r99kp9wo?at_medium=RSS&at_campaign=rss",
-  "source_name": "BBC News — World",
+  "source_headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+  "source_url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
+  "source_name": "CBS MoneyWatch",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-12T19:33:37Z",
+  "newest_source_at": "2026-11-12T22:10:28Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +71,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-12T20:03:31Z",
-  "decay_at": "2026-11-14T07:33:37Z",
+  "updated_at": "2026-11-13T00:55:31Z",
+  "decay_at": "2026-11-14T10:10:28Z",
   "status": "live",
   "promoted_signal_id": null
 }
