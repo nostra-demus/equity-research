@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T09:36:18Z",
+  "generated_at": "2026-11-13T09:44:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-601",
@@ -91,6 +91,55 @@
         {
           "name": "CTGL",
           "ticker": "00320",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-626",
+      "headline": "HING YIP HLDGS (00132): MAJOR TRANSACTION ENTERING INTO FINANCE LEASES AS THE LESSOR",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300321.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T08:33:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Hing Yip Holdings entered into a major finance lease transaction as the lessor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hing Yip Holdings entered into a major finance lease transaction as the lessor.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hing Yip Holdings",
+          "ticker": "00132",
           "listing_country": "CN"
         }
       ],
@@ -1948,56 +1997,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-390",
-      "headline": "Paysafe Limited Reports Third Quarter 2026 Results and Updates Full Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/paysafe-limited-reports-third-quarter-2026-results-and-updates-full-year-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T02:40:56Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Paysafe reported Q3 2026 results and updated its full-year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paysafe reported Q3 2026 results and updated its full-year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paysafe Limited",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278286,9 +278285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 395208,
-    "news_picked_today": 1190,
-    "news_dropped_today": 9754
+    "news_seen_today": 401816,
+    "news_picked_today": 1206,
+    "news_dropped_today": 9882
   },
   "book_momentum": {
     "live_count": 8,
