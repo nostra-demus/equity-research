@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-13T02:11:00Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-96d1efcd8291",
+    "idea_version": "IDEAV-be1fbbf20b581ee1",
+    "idea_version_started_at": "2026-11-10T03:26:43Z",
+    "ticker": "QLYS",
+    "company": "Qualys, Inc.",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company reported Q3 2026 revenue of $188 million and increased its full-year revenue guidance, signaling better-than-expected demand for its cloud security and compliance platform.",
+    "why_now": "The earnings report and guidance hike were released on 2026-11-10.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 66,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-4806340a2e95"
+    ],
+    "primary_source_event_id": "EVT-4806340a2e95",
+    "source_headlines": [
+      "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance"
+    ],
+    "source_headline": "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance",
+    "source_url": "https://www.nasdaq.com/articles/qualys-inc-reports-third-quarter-2026-revenues-1880-million-and-raises-2026-revenue",
+    "source_name": "Nasdaq",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-10T01:11:18Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-10T03:26:43Z",
+    "updated_at": "2026-11-10T03:26:43Z",
+    "decay_at": "2026-11-11T13:11:18Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
