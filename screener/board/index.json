@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T15:23:01Z",
+  "generated_at": "2026-11-13T15:32:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-785",
@@ -1031,6 +1031,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-788",
+      "headline": "JLR cuts margin, revenue guidance as restructuring weighs on Tata Motors",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/company-results/jlr-cuts-margin-revenue-guidance-as-restructuring-weighs-on-tata-motors-11794576780763.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T15:04:58Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Tata Motors issued a guidance cut for revenue and margins, directly impacting financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors issued a guidance cut for revenue and margins, directly impacting financial expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-786",
+      "headline": "Nvidia CEO resigns amid scandal; CFO named interim",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/nvidia-ceo-resigns-scandal-cfo-named-interim-ceo-ai/874515/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T14:17:33Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap company is a critical event affecting leadership and market confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap company is a critical event affecting leadership and market confidence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-784",
       "headline": "Angola Plans to Acquire 10% of De Beers as Anglo Exits Diamonds",
       "headline_en": null,
@@ -1877,104 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-658",
-      "headline": "Adani Energy Completes ₹3,050 Crore IntelliSmart Acquisition In Bid To Strengthen Smart Metering Business",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/adani-energy-completes-3050-crore-intellismart-acquisition-in-bid-to-strengthen-smart-metering-business",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:08:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Acquisition of IntelliSmart for ₹3,050 crore to expand smart metering capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of IntelliSmart for ₹3,050 crore to expand smart metering capabilities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-645",
-      "headline": "‘Bring back the boss': Nvidia employees want Jensen Huang back after his resignation",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/bring-back-the-boss-nvidia-employees-want-jensen-huang-back-after-his-resignation-20033478.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:02:29Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Reported resignation of Jensen Huang, a key founder and CEO of a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported resignation of Jensen Huang, a key founder and CEO of a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278407,9 +278409,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1145043,
-    "news_picked_today": 1577,
-    "news_dropped_today": 15175
+    "news_seen_today": 1151766,
+    "news_picked_today": 1586,
+    "news_dropped_today": 15262
   },
   "book_momentum": {
     "live_count": 8,
