@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T05:45:06Z",
+  "generated_at": "2026-11-13T05:56:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-481",
@@ -389,6 +389,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-502",
+      "headline": "What we know after Jensen Huang resigns as Nvidia CEO",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/what-we-know-after-jensen-huang-resigns-as-nvidia-ceo/article71696548.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T05:15:34Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "CEO resignation at mega-cap semiconductor company raises uncertainty about strategy continuity, execution, and governance credibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation at mega-cap semiconductor company raises uncertainty about strategy continuity, execution, and governance credibility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,56 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-011",
-      "headline": "Rockwell Medical Reports Third Quarter 2026 Financial Results and Vantive Acquisition Agreement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/rockwell-medical-reports-third-quarter-2026-financial-results-and-vantive-acquisition",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:20:42Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The company reported 3Q26 results and announced an acquisition agreement for Vantive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company reported 3Q26 results and announced an acquisition agreement for Vantive.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rockwell Medical",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278277,9 +278276,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 230369,
-    "news_picked_today": 979,
-    "news_dropped_today": 3485
+    "news_seen_today": 232938,
+    "news_picked_today": 988,
+    "news_dropped_today": 3836
   },
   "book_momentum": {
     "live_count": 8,
