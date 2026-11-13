@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T04:48:02Z",
+  "generated_at": "2026-11-13T04:57:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-481",
@@ -835,6 +835,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-491",
+      "headline": "Braskem S.A. Clarifies Non-Payment of R$1.2 Billion Debentures Amid Extrajudicial Reorganization",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/braskem-sa-clarifies-non-payment-r-12-billion-debentures-amid-extrajudicial-reorganization",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T03:20:59Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Braskem confirmed non-payment of R$1.2 billion debentures and initiated extrajudicial reorganization, a debt default and immediate solvency crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Braskem confirmed non-payment of R$1.2 billion debentures and initiated extrajudicial reorganization, a debt default and immediate solvency crisis.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 92,
+      "rank_factors": {
+        "materiality": 92,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Braskem S.A.",
+          "ticker": "BRKM5.SA",
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-105",
-      "headline": "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/11/12/stock-market-today-nov-12-nebius-group-sinks-nearly-17-after-lowering-2026-outlook/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:28:40Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Nebius Group sank nearly 17% after lowering its 2026 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nebius Group sank nearly 17% after lowering its 2026 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nebius Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278276,9 +278276,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 207075,
-    "news_picked_today": 759,
-    "news_dropped_today": 2817
+    "news_seen_today": 209765,
+    "news_picked_today": 779,
+    "news_dropped_today": 2917
   },
   "book_momentum": {
     "live_count": 8,
