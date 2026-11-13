@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NU",
+  "original_decision_date": "2026-09-01",
+  "review_date": "2026-11-14",
+  "review_window": "ad-hoc",
+  "original_decision": "Avoid",
+  "basket": "Rejected",
+  "entry_price": 14.3,
+  "tracking_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "return_measurement": {
+    "schema_version": "reported-return-points/v1",
+    "anchor_kind": "entry_price",
+    "return_basis": "price_return_ex_distributions_and_costs",
+    "stock": null,
+    "benchmark": null,
+    "sector": null,
+    "sector_gap": "No sector benchmark is named in the frozen record and no matched sector observations were supplied."
+  },
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "forecast_index": 1,
+      "forecast_id": "FC-NU-REVENUE-2026Q3",
+      "prediction": "Nu's Q3 2026 standalone revenue will be below US$5,936.74m.",
+      "probability": 55,
+      "probability_basis": "judgment",
+      "time_window": "2026-11-05 to 2026-11-20",
+      "window_start": "2026-11-05T00:00:00Z",
+      "window_end": "2026-11-20T23:59:59Z",
+      "metric": "Q3 2026 standalone IFRS revenue",
+      "threshold": "US$5,936.74m",
+      "status": "confirmed",
+      "evidence": "Reported standalone IFRS revenue is US$5,820.364m (5,820,364 US$ thousand), versus the frozen US$5,936.74m bar: a US$116.376m shortfall, or 1.9603% below the bar. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01] The issuer dated its results release 2026-11-12 and stated the financial statements were available, within the original window. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results)",
+      "as_of": "2026-11-13",
+      "actual_value": 5820.364,
+      "comparison_threshold": 5936.74,
+      "unit": "USD million",
+      "realized_binary_outcome": 1,
+      "brier_score": 0.2025
+    },
+    {
+      "forecast_index": 2,
+      "forecast_id": "FC-NU-EPS-2026Q3",
+      "prediction": "Nu's Q3 2026 GAAP diluted EPS will be below US$0.22164.",
+      "probability": 55,
+      "probability_basis": "judgment",
+      "time_window": "2026-11-05 to 2026-11-20",
+      "window_start": "2026-11-05T00:00:00Z",
+      "window_end": "2026-11-20T23:59:59Z",
+      "metric": "Q3 2026 GAAP diluted EPS",
+      "threshold": "US$0.22164",
+      "status": "falsified",
+      "evidence": "Reported standalone diluted EPS is US$0.2235 versus the frozen US$0.22164 bar: US$0.00186, or 0.8392%, above the bar. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01] The issuer dated its results release 2026-11-12 and stated the financial statements were available, within the original window. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results)",
+      "as_of": "2026-11-13",
+      "actual_value": 0.2235,
+      "comparison_threshold": 0.22164,
+      "unit": "USD per diluted ordinary share",
+      "realized_binary_outcome": 0,
+      "brier_score": 0.3025
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Brazilian presidential election, October 2026",
+      "status": "not assessable",
+      "evidence": "The original month-only window has passed; no company-level policy, FX, funding or credit outcome was established here. A passed calendar window alone is not an adverse company finding. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "catalyst": "Q3 2026 results and call, originally vendor-scheduled 2026-11-12",
+      "status": "materialized (results release only)",
+      "evidence": "Issuer release is dated 2026-11-12; occurrence of the call was not separately verified. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results) The material numeric bull thresholds (>US$6,114.84m and >US$0.23272) and bear alternatives (<US$5,758.64m or <US$0.21056) did not fire. The additional nominal-beat-with-worse-credit branch remains unassessed. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-13"
+    },
+    {
+      "catalyst": "Brazil IBS/CBS tax commencement, 2027-01-01",
+      "status": "pending",
+      "evidence": "Future date; no realised earnings-offset assessment is available. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "catalyst": "Margin-loan maturity, 2027-06-01",
+      "status": "pending",
+      "evidence": "Future maturity; repayment/refinancing outcome not yet observable. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "catalyst": "Buyback authorization expiry, 2027-06-03",
+      "status": "pending",
+      "evidence": "Future expiry; authorization does not establish execution. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-11-14"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Q3 misses at least one frozen Street bar / RF-EARN-08-MATERIAL",
+      "status": "materialized (revenue bar only)",
+      "evidence": "Revenue below its frozen bar establishes the at-least-one-miss risk. EPS exceeded its bar. Neither a material earnings miss nor credit deterioration follows from that result. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "Credit-cost reversal, spread durability, lender cash/accrual divergence, tax and allowance components of RF-EARN-08-MATERIAL",
+      "status": "not assessable",
+      "evidence": "This outcome review did not evaluate same-basis delinquency, credit cost, ECL coverage, risk-adjusted NIM, lender-specific CFO/cash-accrual divergence, tax durability or allowance stresses. Earnings levels alone do not settle those mechanisms. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "Group valuation model too pessimistic on duration or cost of equity",
+      "status": "not assessable",
+      "evidence": "The adverse-to-Avoid valuation falsifier remains unresolved; no Group-rate model update was performed. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "Brazilian policy, tax, FX and rates",
+      "status": "not assessable",
+      "evidence": "No company-level realised effect was established. The original financial-services tax start is 2027-01-01. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "Founder control used against Class A holders",
+      "status": "not assessable",
+      "evidence": "No new sourced controller-abuse outcome was established. Control is not proof of abuse. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "Bank-solvency weakness",
+      "status": "not assessable",
+      "evidence": "No complete primary-regulator capital/liquidity evidence across material perimeters was evaluated. Missing evidence is not distress. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "RF-AUD-007",
+      "status": "not assessable",
+      "evidence": "The original auditor-firm action concerned another issuer; this review provides no new Nu-specific audit finding. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "RF-DISC-002",
+      "status": "not assessable",
+      "evidence": "The medium, non-gate adjusted-income disclosure concern was not reassessed; reported diluted EPS was used instead of normalized or adjusted EPS. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    },
+    {
+      "risk": "Liquidity/positioning and thesis timing",
+      "status": "not assessable",
+      "evidence": "Reporting timing is evidenced for the release, while price transmission and valuation convergence are not measured. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results) [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "as_of": "2026-11-14"
+    }
+  ],
+  "kill_criteria_results": [
+    {
+      "criterion_index": 1,
+      "condition": "A model-consistent Group residual-income/reverse valuation, using one scope-matched required return and one earnings path, values NU at or above US$14.30.",
+      "status": "not assessable",
+      "evidence": "No scope-matched Group required return or model-consistent valuation update was established in this review. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]"
+    },
+    {
+      "criterion_index": 2,
+      "condition": "Q3 2026 standalone revenue exceeds US$6.11484bn and GAAP EPS exceeds US$0.23272 while early delinquency, credit cost, and ECL coverage are stable or better year on year.",
+      "status": "not triggered",
+      "evidence": "Both actuals fall below the material bullish thresholds US$6,114.84m revenue and US$0.23272 EPS. The conjunction fails regardless of the unassessed credit conditions. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]"
+    },
+    {
+      "criterion_index": 3,
+      "condition": "Two consecutive standalone quarters materially beat both frozen revenue and EPS consensus while the same-basis credit measures remain stable or improve year on year.",
+      "status": "not triggered for Q3/Q4 pair; later pairs open",
+      "evidence": "Q3 fails the material dual-beat component, so Q3/Q4 cannot form the required pair. This does not permanently dispose of a rolling two-quarter test. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]"
+    },
+    {
+      "criterion_index": 4,
+      "condition": "A matched peer and sector history supports NU's current 14.76x NTM P/E and 5.7x P/TBV through a credit cycle on comparable forward ROE, growth, and risk.",
+      "status": "not assessable",
+      "evidence": "No matched through-cycle peer/sector valuation history was established in this bounded outcome review. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Q3 produced mixed evidence: revenue missed the frozen threshold while diluted EPS beat it. The original revenue-miss forecast is confirmed and the EPS-miss forecast is falsified. This settles the two company forecasts, not the twelve-month Avoid thesis, credit risk, valuation or investment returns. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm)",
+    "Both 55% probabilities remain judgment. Revenue outcome y=1 gives (0.55−1)^2=0.2025; EPS outcome y=0 gives (0.55−0)^2=0.3025. These are descriptive scores on two correlated forecasts from one issuer-quarter, not an empirical success frequency or investment-skill measure. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]",
+    "The GAAP vendor category is the retained reported-IFRS EPS category, distinct from normalized EPS. The retained prior-year vendor EPS0.1595 matches filing diluted EPS0.1595. This supports the intended comparison, without certifying a universal vendor methodology. [Capital IQ Nu Estimates Report, Consensus, FQ3 2026 and FQ3 2025, export file modified 2026-08-29; source definition checked 2026-11-11] [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm)",
+    "Revenue uses the standalone statement total in USD thousand converted to USD million, not nine-month revenue or the managerial gross-revenue headline. Diluted EPS0.2235 is reported; basic EPS0.2256 and normalized EPS are excluded. Parent income1,090,836 divided by diluted weighted shares4,881,109 gives about0.22348118, consistent with reported rounding. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm)",
+    "Issuer release dated 2026-11-12 states Q3 results and financial-statement availability within the original window. SEC signature is dated November10; auditor review and Board authorization November12. Exact SEC acceptance time, first-public time and version chronology remain unproved. SEC native-reader observations and issuer HTML were preserved; a full local raw SEC archive was not obtained. These limits do not invent a new exact-timestamp eligibility gate. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results) [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm)",
+    "No usable NU/SPY prices were present in this checkout’s local market feed. No new current price, benchmark/sector observation or compatible paired return was obtained. The frozen entry-price field is a pre-decision vendor anchor dated2026-08-29, not proof of a trade. Return fields remain null; the older October review and its descriptive price are preserved. Investment returns, total/net return, compounding, drawdown, losses and costs are not measured here.",
+    "Decision quality remains not assessable. A modest EPS beat counters one forecast but does not identify its cause or prove an original process error. The twelve-month Group-valuation and credit thesis remains unconfirmed. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+    "Effective decision-time confidence47 is taken from this run’s corrections metadata: raw53 less the recovered6-point haircut. No new numeric conviction is supported. [analyses/NU_2026-09-01/corrections.json, metadata_recovery of decision-time confidence, runtime dated 2026-09-01]"
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "Valuation drove Avoid; earnings supplied the raised-bar hypothesis. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+    "most_accurate_so_far": "Earnings has one correct and one incorrect directional outcome. Valuation, credit and investment performance remain unvalidated. No module-wide accuracy ranking is supported.",
+    "key_variable": "Reported EPS conversion exceeded the frozen bar, but the credit, tax and operating mechanism was not established; do not invent a missed driver.",
+    "decision_time_calibration": "Use effective historical conviction47 from this run’s corrections metadata. The post-decision EPS result is not proof that decision-time confidence should have been lower or higher. [analyses/NU_2026-09-01/corrections.json, metadata_recovery of decision-time confidence, runtime dated 2026-09-01]",
+    "overrule_assessment": "No correct or incorrect module overrule is established by this event review."
+  },
+  "action_now": {
+    "label": "Stay away",
+    "reason": "Retain the original Avoid as a provisional no-entry stance pending the Group valuation and credit tests. This is not a newly calculated valuation at an unknown current price or authority to short. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]"
+  },
+  "confidence_update": {
+    "before": 47,
+    "after": null,
+    "change_reason": "Mixed earnings results settle two forecasts but do not support a new confidence score; effective decision-time47 is recovered in corrections metadata. [analyses/NU_2026-09-01/corrections.json, metadata_recovery of decision-time confidence, runtime dated 2026-09-01]"
+  },
+  "next_check": {
+    "date": "2026-11-30",
+    "label": "Q3 credit-quality and Group valuation evidence at the scheduled90-day checkpoint",
+    "trigger": "Evaluate same-basis delinquency, credit cost and ECL coverage plus a sourced Group required return. Preserve the settled revenue and EPS outcomes; do not reopen them merely because broader evidence remains missing. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]"
+  },
+  "learning": {
+    "why_right_or_wrong": "The revenue-miss forecast was right and the EPS-miss forecast was wrong; the overall Avoid call and price outcome are not resolved.",
+    "error_source": "",
+    "rule_for_future": "Evaluate each frozen metric separately and carry qualifiers and unresolved conjunctions into the decision; do not infer a causal or investment verdict from one mixed print.",
+    "future_research_check": "For NU, retain Q3 revenue5,820.364m below5,936.74m and dilutedEPS0.2235 above0.22164 as settled reported-IFRS outcomes; recheck same-basis credit quality and a Group post-tax USD required return before calling Avoid confirmed or invalidated."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "",
+    "pre_mortem_verdict": "",
+    "pre_mortem_confidence_haircut": null,
+    "outcome_vs_verdict": "not_applicable",
+    "notes": "No pre-mortem file exists in this run root. The recovered decision-time confidence is not a newly graded pre-mortem outcome. [analyses/NU_2026-09-01/corrections.json, metadata_recovery of decision-time confidence, runtime dated 2026-09-01]"
+  },
+  "memo_delta": {
+    "summary": "Q3 produced mixed evidence: revenue missed the frozen threshold while diluted EPS beat it. The original revenue-miss forecast is confirmed and the EPS-miss forecast is falsified. This settles the two company forecasts, not the twelve-month Avoid thesis, credit risk, valuation or investment returns.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "Nu reported Q3 revenue below the frozen forecast bar, while diluted earnings per share exceeded its bar. The revenue-miss prediction was right and the EPS-miss prediction was wrong. These are two related forecasts from the same company quarter, not two independent tests of investment skill. Neither the larger bullish nor the larger numeric bearish earnings threshold was reached. The original Avoid remains a provisional no-entry stance while the Group valuation and credit-quality tests are unresolved; it is not a short recommendation or a new valuation at today’s unknown price. No updated model, numeric conviction or investment return is supported by this review. Before the scheduled 30 November check, obtain comparable delinquency, credit-cost and allowance measures, a properly scoped Group required return, and matched stock and benchmark prices. Keep the original forecasts and memo unchanged, and preserve the distinction between a mixed earnings result and a validated investment decision.",
+    "changed_sections": [
+      {
+        "section": "Why It Could Fail — Bear Case and the Killer Risk",
+        "original_claim": "Nu's Q3 2026 standalone revenue will be below US$5,936.74m. Probability 55%, judgment, original November 5–20 window. [analyses/NU_2026-09-01/memo.md, Why It Could Fail — Bear Case and the Killer Risk, 2026-09-01]",
+        "new_evidence": "Reported standalone IFRS revenue is US$5,820.364m (5,820,364 US$ thousand), versus the frozen US$5,936.74m bar: a US$116.376m shortfall, or 1.9603% below the bar. The ordinary revenue-miss trigger passed; the material bearish threshold US$5,758.64m was not crossed.",
+        "evidence_source": "[Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results)",
+        "materiality_score": 55,
+        "impact_direction": "positive",
+        "impacted_modules": [
+          "earnings",
+          "catalyst"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "This settles an original forecast without rebuilding the model.",
+        "rerun_command": ""
+      },
+      {
+        "section": "What Would Change Our Mind",
+        "original_claim": "Nu's Q3 2026 GAAP diluted EPS will be below US$0.22164. Probability 55%, judgment, original November 5–20 window. [analyses/NU_2026-09-01/memo.md, What Would Change Our Mind, 2026-09-01]",
+        "new_evidence": "Reported standalone diluted EPS is US$0.2235 versus the frozen US$0.22164 bar: US$0.00186, or 0.8392%, above the bar. The EPS-miss prediction is false; the material bullish threshold US$0.23272 was not reached. No credit or profit-driver explanation is established.",
+        "evidence_source": "[Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results)",
+        "materiality_score": 55,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "earnings",
+          "catalyst"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "A result against a frozen bar does not itself justify a full model rerun.",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "By the scheduled 2026-11-30 checkpoint, evaluate Q3 early/90+ delinquency, credit cost, ECL coverage and risk-adjusted NIM on the same prior-year definitions; the EPS numerical bullish leg passes, but stable credit has not been established. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]",
+      "Obtain a sourced Group post-tax USD cost of equity and one model-consistent valuation path before declaring the premium excessive or the Avoid invalidated. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]",
+      "Retain the rolling two-consecutive-quarter test for later pairs, while recording that Q3/Q4 cannot pass it. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]",
+      "Obtain matched actual stock/SPY dates and price bases; preserve the frozen US$14.30 vendor anchor dated 2026-08-29 rather than invent an executable entry. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]",
+      "Monitor the 2027 tax start, margin-loan maturity and buyback expiry under their original definitions. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]"
+    ],
+    "management_questions": [
+      "Which same-basis changes in credit cost, early delinquency, 90+ delinquency and allowance coverage accompanied Q3 earnings?",
+      "What recurring operating and tax components explain the reported earnings result, without treating a tax balance as cash?",
+      "What Group post-tax USD required return is supported, with beta, reference market and country-risk assumptions?",
+      "What are the capital and liquidity buffers in each material regulated entity?"
+    ],
+    "memo_delta_file": "analyses/NU_2026-09-01/reviews/2026-11-14_ad-hoc_memo_delta.md"
+  }
+}
