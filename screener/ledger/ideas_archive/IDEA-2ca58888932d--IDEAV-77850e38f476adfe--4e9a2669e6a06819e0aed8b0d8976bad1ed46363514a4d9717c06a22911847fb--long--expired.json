@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-13T22:25:53Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-2ca58888932d",
+    "idea_version": "IDEAV-77850e38f476adfe",
+    "idea_version_started_at": "2026-11-10T23:42:15Z",
+    "ticker": "FDC",
+    "company": "FDC",
+    "exchange": "ASX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company issued an upgrade to its FY27 earnings guidance, signaling improved operational performance or margin expansion.",
+    "why_now": "The guidance upgrade was filed on 2026-11-10 and is effective immediately.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-1a0ec59b7dcb"
+    ],
+    "primary_source_event_id": "EVT-1a0ec59b7dcb",
+    "source_headlines": [
+      "FDC: FDC upgrades FY27 guidance [price-sensitive]"
+    ],
+    "source_headline": "FDC: FDC upgrades FY27 guidance [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FDC?key=2924-03160321-2A1709923",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-10T21:45:26Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-10T22:24:17Z",
+    "updated_at": "2026-11-10T23:42:15Z",
+    "decay_at": "2026-11-12T09:45:26Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
