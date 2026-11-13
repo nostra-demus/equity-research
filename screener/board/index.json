@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T10:27:47Z",
+  "generated_at": "2026-11-13T10:41:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-640",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-647",
+      "headline": "SHIMAO GROUP (00813): Updates in relation to the Disclaimer of Opinion set out in the Annual Report for the year ended 31 December 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300837.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T10:02:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Auditor disclaimer of opinion on FY2025 annual report indicates inability to opine, typically signaling going-concern doubt, scope limitation, or material misstatement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor disclaimer of opinion on FY2025 annual report indicates inability to opine, typically signaling going-concern doubt, scope limitation, or material misstatement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shimao Group Holdings Limited",
+          "ticker": "00813",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,56 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-469",
-      "headline": "Trump Urged Jensen Huang To Fight For Nvidia CEO Post Days Before Resignation Amid China Spy Scandal: Report",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/trump-urged-jensen-huang-to-fight-for-nvidia-ceo-post-days-before-resignation-amid-china-spy-scandal-report",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T03:57:25Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Report claims Jensen Huang resigned as Nvidia CEO amid a China spy scandal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Report claims Jensen Huang resigned as Nvidia CEO amid a China spy scandal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278278,9 +278277,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 503032,
-    "news_picked_today": 1245,
-    "news_dropped_today": 10443
+    "news_seen_today": 537076,
+    "news_picked_today": 1252,
+    "news_dropped_today": 10652
   },
   "book_momentum": {
     "live_count": 8,
