@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T06:02:17Z",
+  "generated_at": "2026-11-13T06:21:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-481",
@@ -394,6 +394,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-509",
+      "headline": "Hancock Whitney Corporation to Acquire Trustmark Corporation in $3.2 billion Transaction",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hancock-whitney-corporation-acquire-trustmark-corporation-32-billion-transaction",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T05:31:01Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Hancock Whitney Corporation to acquire Trustmark Corporation in a $3.2 billion transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hancock Whitney Corporation to acquire Trustmark Corporation in a $3.2 billion transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hancock Whitney Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Trustmark Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-506",
+      "headline": "Nvidia Employees Demand Jensen Huang's Return As CEO Hours After Resignation Amid Affair Allegations",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/nvidia-employees-demand-jensen-huangs-return-as-ceo-hours-after-resignation-amid-affair-allegations",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T05:18:14Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang has resigned; employees demanding his return; resignation linked to personal allegations; signals governance rupture at mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang has resigned; employees demanding his return; resignation linked to personal allegations; signals governance rupture at mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-502",
       "headline": "What we know after Jensen Huang resigns as Nvidia CEO",
       "headline_en": null,
@@ -438,6 +542,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-522",
+      "headline": "Amber Enterprises Reports Rs 2,627 Cr Q2 Revenue With 60% Growth, Posts Rs 57 Cr Adjusted Loss",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/amber-enterprises-reports-rs-2627-cr-q2-revenue-with-60-growth-posts-rs-57-cr-adjusted-loss",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T04:57:05Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Company reported a net loss of Rs 57 Cr despite revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a net loss of Rs 57 Cr despite revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amber Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1836,153 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-010",
-      "headline": "Scandal-hit Nvidia CEO Jensen Huang quits, plunging AI chipmaking giant into turmoil",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cmq5vd1wdgz6o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:34:05Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The CEO of a major company has quit, creating significant leadership uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The CEO of a major company has quit, creating significant leadership uncertainty.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-032",
-      "headline": "SpaceX to invest $74B into data center construction projects in Texas, Arizona",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/technology/6217630-spacex-plans-data-centers-texas-arizona/",
-      "source_name": "The Hill — Business News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:24:15Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "SpaceX is announcing a massive $74 billion capital expenditure project for data centers in Texas and Arizona.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX is announcing a massive $74 billion capital expenditure project for data centers in Texas and Arizona.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-034",
-      "headline": "SpaceX To Build $24 Bln Texas Power And AI Facility",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/spacex-build-24-bln-texas-power-and-ai-facility",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:23:07Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "SpaceX is committing to a $24 billion investment in a new power and AI facility in Texas.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX is committing to a $24 billion investment in a new power and AI facility in Texas.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236597,76 +236603,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-618dd4911398",
-      "idea_version": "IDEAV-d7be8916e443e69b",
-      "idea_version_started_at": "2026-11-11T23:47:52Z",
-      "ticker": "LAC",
-      "company": "Lithium Americas",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The 31% increase in the Thacker Pass project cost estimate to $3.83bn significantly pressures the company's capital requirements and dilutive financing risk.",
-      "why_now": "The cost revision was announced on 2026-11-11, creating immediate pressure on the company's balance sheet outlook.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-091d5158bf14"
-      ],
-      "primary_source_event_id": "EVT-091d5158bf14",
-      "source_headlines": [
-        "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn"
-      ],
-      "source_headline": "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn",
-      "source_url": "https://www.thenationalnews.com/news/us/2026/11/11/lithium-americas-raises-thacker-pass-cost-estimate-by-31-to-383bn/",
-      "source_name": "The National — All News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T18:20:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T23:47:52Z",
-      "updated_at": "2026-11-11T23:47:52Z",
-      "decay_at": "2026-11-13T06:20:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ce779af9c495",
       "idea_version": "IDEAV-fc37c86125c08e57",
       "idea_version_started_at": "2026-11-11T23:47:52Z",
@@ -238587,6 +238523,76 @@
       "surfaced_at": "2026-11-11T11:14:28Z",
       "updated_at": "2026-11-11T11:14:28Z",
       "decay_at": "2026-11-12T19:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-618dd4911398",
+      "idea_version": "IDEAV-d7be8916e443e69b",
+      "idea_version_started_at": "2026-11-11T23:47:52Z",
+      "ticker": "LAC",
+      "company": "Lithium Americas",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The 31% increase in the Thacker Pass project cost estimate to $3.83bn significantly pressures the company's capital requirements and dilutive financing risk.",
+      "why_now": "The cost revision was announced on 2026-11-11, creating immediate pressure on the company's balance sheet outlook.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-091d5158bf14"
+      ],
+      "primary_source_event_id": "EVT-091d5158bf14",
+      "source_headlines": [
+        "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn"
+      ],
+      "source_headline": "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn",
+      "source_url": "https://www.thenationalnews.com/news/us/2026/11/11/lithium-americas-raises-thacker-pass-cost-estimate-by-31-to-383bn/",
+      "source_name": "The National — All News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T18:20:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T23:47:52Z",
+      "updated_at": "2026-11-11T23:47:52Z",
+      "decay_at": "2026-11-13T06:20:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241098,9 +241104,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 274,
@@ -241108,9 +241114,9 @@
         "hidden_count": 24
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -241129,6 +241135,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-618dd4911398",
+        "idea_version": "IDEAV-d7be8916e443e69b",
+        "idea_version_started_at": "2026-11-11T23:47:52Z",
+        "ticker": "LAC",
+        "company": "Lithium Americas",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The 31% increase in the Thacker Pass project cost estimate to $3.83bn significantly pressures the company's capital requirements and dilutive financing risk.",
+        "why_now": "The cost revision was announced on 2026-11-11, creating immediate pressure on the company's balance sheet outlook.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-091d5158bf14"
+        ],
+        "primary_source_event_id": "EVT-091d5158bf14",
+        "source_headlines": [
+          "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn"
+        ],
+        "source_headline": "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn",
+        "source_url": "https://www.thenationalnews.com/news/us/2026/11/11/lithium-americas-raises-thacker-pass-cost-estimate-by-31-to-383bn/",
+        "source_name": "The National — All News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T18:20:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T23:47:52Z",
+        "updated_at": "2026-11-11T23:47:52Z",
+        "decay_at": "2026-11-13T06:20:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T06:20:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-94add26e023d",
         "idea_version": "IDEAV-883767bc2ee39fbe",
@@ -278176,88 +278255,12 @@
         "archived_at": "2026-10-22T07:03:24Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-154422e5621e",
-        "idea_version": "IDEAV-b81d4b971b3efd30",
-        "idea_version_started_at": "2026-10-19T03:56:14Z",
-        "ticker": "AXISBANK",
-        "company": "Axis Bank",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The bank's shares are under selling pressure following poor Q2 results, reflecting broader concerns about asset quality or margin sustainability in the current Indian banking cycle.",
-        "why_now": "The earnings reaction is live as of 2026-10-19.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3ec766b7002e"
-        ],
-        "primary_source_event_id": "EVT-3ec766b7002e",
-        "source_headlines": [
-          "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today"
-        ],
-        "source_headline": "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today",
-        "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 88,
-        "newest_source_at": "2026-10-19T03:46:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T03:56:14Z",
-        "updated_at": "2026-10-19T03:56:14Z",
-        "decay_at": "2026-10-20T15:46:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T07:03:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2431,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -278276,9 +278279,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 235991,
-    "news_picked_today": 1007,
-    "news_dropped_today": 3865
+    "news_seen_today": 251410,
+    "news_picked_today": 1030,
+    "news_dropped_today": 4010
   },
   "book_momentum": {
     "live_count": 8,
