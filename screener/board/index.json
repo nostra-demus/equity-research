@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T03:31:29Z",
+  "generated_at": "2026-11-13T03:37:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-388",
@@ -343,6 +343,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-403",
+      "headline": "Genting Singapore shares hit 1-year low after Q3 profit falls 42.2%",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/genting-singapore-shares-hit-1-year-low-after-q3-profit-falls-42-2",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T02:03:59Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Genting Singapore reported a 42.2% decline in Q3 profit, leading to a 1-year share price low.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Genting Singapore reported a 42.2% decline in Q3 profit, leading to a 1-year share price low.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genting Singapore",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-341",
-      "headline": "Vodafone Idea Q2 loss widens to ₹5,975 crore on exceptional item; revenue rises 6%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/vodafone-idea-q2-loss-widens-to-5975-crore-on-exceptional-item-revenue-rises-6/article71694173.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T16:55:39Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Vodafone Idea reported a widened Q2 loss of ₹5,975 crore, despite a 6% revenue increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Vodafone Idea reported a widened Q2 loss of ₹5,975 crore, despite a 6% revenue increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone Idea",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278285,9 +278285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 153812,
-    "news_picked_today": 581,
-    "news_dropped_today": 2419
+    "news_seen_today": 156731,
+    "news_picked_today": 595,
+    "news_dropped_today": 2453
   },
   "book_momentum": {
     "live_count": 8,
