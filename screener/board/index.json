@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T22:59:48Z",
+  "generated_at": "2026-11-13T23:11:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1179,37 +1179,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261113-940",
+      "inbox_id": "INB-20261113-941",
       "headline": "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance",
       "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/11/13/stock-market-today-nov-13-cerebras-surges-over-11-on-record-q3-revenue-and-raised-2026-guidance/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/stock-market-today-nov-13-cerebras-surges-over-11-record-q3-revenue-and-raised-2026",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-13T22:10:28Z",
+      "found_at": "2026-11-13T22:30:28Z",
       "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Cerebras reported record Q3 revenue and raised its 2026 guidance, indicating strong growth momentum.",
+      "prelim_note": "Record Q3 revenue combined with raised 2026 full-year guidance materially upside to expectations and analyst estimates.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Cerebras reported record Q3 revenue and raised its 2026 guidance, indicating strong growth momentum.",
+      "triage_reason": "Record Q3 revenue combined with raised 2026 full-year guidance materially upside to expectations and analyst estimates.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 78,
         "source_tier": 0,
         "scope": 6,
         "event": 7,
-        "size": 1,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "guidance_change",
-        "size_bucket": "mid"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "earnings_revenue_margin",
@@ -1220,10 +1220,10 @@
         {
           "name": "Cerebras",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -237964,77 +237964,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-31ac6088f15f",
-      "idea_version": "IDEAV-9fb9aceec602a756",
-      "idea_version_started_at": "2026-11-12T16:29:30Z",
-      "ticker": "00922",
-      "company": "Anxianyuan China",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings growth.",
-      "why_now": "The positive profit alert was filed on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6d46457b612f"
-      ],
-      "primary_source_event_id": "EVT-6d46457b612f",
-      "source_headlines": [
-        "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201118.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T11:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T16:29:30Z",
-      "updated_at": "2026-11-12T16:29:30Z",
-      "decay_at": "2026-11-13T23:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5880efc59f2d",
       "idea_version": "IDEAV-75d5d0ba16547141",
       "idea_version_started_at": "2026-11-12T16:29:30Z",
@@ -239082,6 +239011,77 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-31ac6088f15f",
+      "idea_version": "IDEAV-9fb9aceec602a756",
+      "idea_version_started_at": "2026-11-12T16:29:30Z",
+      "ticker": "00922",
+      "company": "Anxianyuan China",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings growth.",
+      "why_now": "The positive profit alert was filed on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6d46457b612f"
+      ],
+      "primary_source_event_id": "EVT-6d46457b612f",
+      "source_headlines": [
+        "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201118.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T11:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T16:29:30Z",
+      "updated_at": "2026-11-12T16:29:30Z",
+      "decay_at": "2026-11-13T23:08:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241250,14 +241250,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 265,
@@ -241281,6 +241281,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-31ac6088f15f",
+        "idea_version": "IDEAV-9fb9aceec602a756",
+        "idea_version_started_at": "2026-11-12T16:29:30Z",
+        "ticker": "00922",
+        "company": "Anxianyuan China",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings growth.",
+        "why_now": "The positive profit alert was filed on 2026-11-12.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6d46457b612f"
+        ],
+        "primary_source_event_id": "EVT-6d46457b612f",
+        "source_headlines": [
+          "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201118.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T11:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T16:29:30Z",
+        "updated_at": "2026-11-12T16:29:30Z",
+        "decay_at": "2026-11-13T23:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T23:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e1d40a598d73",
         "idea_version": "IDEAV-896aa4599f6ab45d",
@@ -269325,80 +269399,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-cda3c2bb6558",
-        "idea_version": "IDEAV-eb4073c2f64b1779",
-        "idea_version_started_at": "2026-11-01T02:40:39Z",
-        "ticker": "LI",
-        "company": "Li Auto Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Li Auto Inc. is providing a delivery update, which is a key indicator of revenue and market share for EV manufacturers.",
-        "why_now": "The delivery update is scheduled for November 1, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 16,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d3784dbe7959"
-        ],
-        "primary_source_event_id": "EVT-d3784dbe7959",
-        "source_headlines": [
-          "Li Auto Inc. October 2026 Delivery Update"
-        ],
-        "source_headline": "Li Auto Inc. October 2026 Delivery Update",
-        "source_url": "https://www.globenewswire.com/news-release/2026/11/01/3392758/0/en/li-auto-inc-october-2026-delivery-update.html",
-        "source_name": "GlobeNewswire — News about Public Companies",
-        "materiality_max": 52,
-        "newest_source_at": "2026-11-01T02:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T02:40:39Z",
-        "updated_at": "2026-11-01T02:40:39Z",
-        "decay_at": "2026-11-02T14:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T03:39:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-35072f3bcc46",
         "idea_version": "IDEAV-d2a912e59be6f7b4",
         "idea_version_started_at": "2026-11-01T03:42:18Z",
@@ -278400,7 +278400,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2450,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -278419,9 +278419,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1647793,
-    "news_picked_today": 2482,
-    "news_dropped_today": 22478
+    "news_seen_today": 1652479,
+    "news_picked_today": 2488,
+    "news_dropped_today": 22832
   },
   "book_momentum": {
     "live_count": 8,
