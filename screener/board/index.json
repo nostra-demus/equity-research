@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T00:40:13Z",
+  "generated_at": "2026-11-13T00:47:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-001",
@@ -302,6 +302,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-079",
+      "headline": "Scout Motors has 212,000 vehicle reservations as $2 billion South Carolina plant nears completion",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/12/scout-motors-reservations-south-carolina-plant.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:17:05Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "$2 billion South Carolina manufacturing plant nearing completion with 212,000 pre-announced vehicle reservations represents major capex execution and demand validation for early-stage EV startup.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "$2 billion South Carolina manufacturing plant nearing completion with 212,000 pre-announced vehicle reservations represents major capex execution and demand validation for early-stage EV startup.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 17,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Scout Motors",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-076",
+      "headline": "ASX to fall; Nvidia shares plunge on Huang exit; Wall St steady",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-nvidia-shares-plunge-on-huang-exit-wall-st-steady-20261113-p61dtw?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:58:03Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang has exited; shares plunged on the news, materially affecting leadership continuity and company direction at mega-cap tech firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Nvidia CEO Jensen Huang has exited; shares plunged on the news, materially affecting leadership continuity and company direction at mega-cap tech firm.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 79,
+      "rank_factors": {
+        "materiality": 79,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-043",
       "headline": "Cisco lifts annual revenue forecast on strong AI networking demand",
       "headline_en": null,
@@ -592,6 +691,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-081",
+      "headline": "U.S. Stocks Down as Huang Ouster Sends Shockwaves Through Tech",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/stocks/u-s-stocks-fall-as-huang-ouster-sends-shockwaves-through-tech-5b0aa02a?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:12:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "The departure of Jensen Huang from Nvidia is a major management event causing market volatility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The departure of Jensen Huang from Nvidia is a major management event causing market volatility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-088",
+      "headline": "US Details $2.7 Billion Freeze After North Korea’s Binance Hack",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/us-details-2-7-billion-freeze-after-north-korea-s-binance-hack-11794521427219.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:10:26Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "The US government has frozen $2.7 billion in assets linked to North Korean cyber activities, representing a significant enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The US government has frozen $2.7 billion in assets linked to North Korean cyber activities, representing a significant enforcement action.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -894,6 +1091,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-078",
+      "headline": "Cerebras surges 17% after beating on quarterly revenue and announcing Microsoft deal",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/12/cerebras-systems-cbrs-q3-earnings-report-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:48:26Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Beat on quarterly revenue and announced Microsoft commercial partnership validate growth trajectory and major-customer win for an AI semiconductor company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Beat on quarterly revenue and announced Microsoft commercial partnership validate growth trajectory and major-customer win for an AI semiconductor company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cerebras Systems",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-067",
       "headline": "NHTSA Probing 1.2 Million Ford Explorer Airbags That Could Burn Passengers",
       "headline_en": null,
@@ -1042,6 +1289,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-075",
+      "headline": "Jensen’s gone, but Trump’s Huang-over is just beginning",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/jensen-s-gone-but-trump-s-huang-over-is-just-beginning-20261113-p61dv8?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:58:33Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Jensen Huang confirmed departed as Nvidia CEO, affecting leadership continuity; headline frames departure as opinion/commentary rather than factual market report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Jensen Huang confirmed departed as Nvidia CEO, affecting leadership continuity; headline frames departure as opinion/commentary rather than factual market report.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-077",
+      "headline": "Tech giant Foxconn beats forecasts with third-quarter profit jump",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/tech-giant-foxconn-beats-forecasts-with-third-quarter-profit-jump",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:48:48Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Foxconn Q3 profit beat forecasts with profit jump; confirmed positive earnings surprise for a major component supplier.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Foxconn Q3 profit beat forecasts with profit jump; confirmed positive earnings surprise for a major component supplier.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foxconn",
+          "ticker": "2498",
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-084",
+      "headline": "Lawmakers react as Huang leaves Nvidia",
+      "headline_en": null,
+      "url": "https://thehill.com/newsletters/business-economy/6217535-lawmakers-react-as-huang-leaves-nvidia/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:27:20Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Jensen Huang's departure from Nvidia is a significant management change for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Jensen Huang's departure from Nvidia is a significant management change for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-038",
       "headline": "Microsoft outage disrupts Outlook, Teams and Microsoft 365 services",
       "headline_en": null,
@@ -1086,55 +1480,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-069",
-      "headline": "Titan Mining Reports 146% Growth in Nine-Month Adjusted EBITDA to $19.8 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/titan-mining-reports-146-growth-nine-month-adjusted-ebitda-198-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:11:34Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Titan Mining reported a 146% growth in nine-month adjusted EBITDA to $19.8 million, indicating significant operational improvement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Titan Mining reported a 146% growth in nine-month adjusted EBITDA to $19.8 million, indicating significant operational improvement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Titan Mining",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1379,6 +1724,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-087",
+      "headline": "GPU Financing Filters Further Into ABS With Planned Newton Deal",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/gpu-financing-filters-further-into-abs-with-planned-newton-deal-11794523600580.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:46:40Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Newton is planning an asset-backed security deal for GPU financing, indicating growth in specialized hardware financing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Newton is planning an asset-backed security deal for GPU financing, indicating growth in specialized hardware financing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Newton",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-021",
       "headline": "OLL: Proposed issue of securities - OLL",
       "headline_en": null,
@@ -1520,236 +1914,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261113-018",
-      "headline": "CMA: Carma 2026 AGM Presentation [price-sensitive]",
+      "inbox_id": "INB-20261113-072",
+      "headline": "Titan Mining Reports 146% Growth in Nine-Month Adjusted EBITDA to $19.8 Million and Advances U.S. Critical Minerals Strategy",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CMA?key=2924-03161437-2A1710445",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-12T23:47:56Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "ASX price-sensitive AGM presentation flagged by filer; headline does not specify the nature of announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "ASX price-sensitive AGM presentation flagged by filer; headline does not specify the nature of announcement.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carma",
-          "ticker": "CMA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-007",
-      "headline": "Rain Enhancement Technologies and Tensor Networks Enter into Definitive Merger Agreement for Strategic Business Combination | RAIN Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/RAIN/rain-enhancement-technologies-and-tensor-networks-enter-into-qw5cho6304lv.html",
-      "source_name": "Stock Titan — Latest News",
+      "url": "https://www.globenewswire.com/news-release/2026/11/12/3401325/0/en/titan-mining-reports-146-growth-in-nine-month-adjusted-ebitda-to-19-8-million-and-advances-u-s-critical-minerals-strategy.html",
+      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
       "input_nature": "company_press_release",
-      "found_at": "2026-11-13T00:00:00Z",
+      "found_at": "2026-11-12T11:00:00Z",
       "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Rain Enhancement Technologies and Tensor Networks entered into a definitive merger agreement.",
+      "prelim_note": "Titan Mining reported a 146% growth in nine-month adjusted EBITDA to $19.8 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Rain Enhancement Technologies and Tensor Networks entered into a definitive merger agreement.",
+      "triage_score": 50,
+      "triage_reason": "Titan Mining reported a 146% growth in nine-month adjusted EBITDA to $19.8 million.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 75,
         "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rain Enhancement Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Tensor Networks",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-040",
-      "headline": "UnitedHealth releases independent audit of its medical policy development practices",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/payers/unitedhealth-releases-independent-audit-its-medical-policy-development-practices",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T00:02:22Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "UnitedHealth is conducting an audit of its medical policy practices, which is a key area of regulatory and operational scrutiny.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "UnitedHealth is conducting an audit of its medical policy practices, which is a key area of regulatory and operational scrutiny.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UnitedHealth Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-047",
-      "headline": "US lawmakers pile pressure on Howard Lutnick as Nvidia scandal widens",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/190e5eea-7461-4b26-8b69-17a3288e31d4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:35:11Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "US lawmakers are increasing pressure on Howard Lutnick regarding an Nvidia-related scandal, posing potential reputational and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "US lawmakers are increasing pressure on Howard Lutnick regarding an Nvidia-related scandal, posing potential reputational and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-033",
-      "headline": "Mattr Q3 Profit Rises",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/mattr-q3-profit-rises",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:26:07Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Mattr reported a rise in Q3 profit, indicating improved operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Mattr reported a rise in Q3 profit, indicating improved operational performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
         "scope": 6,
         "event": 5,
-        "size": 1,
-        "recency": 5,
+        "size": -1,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
+        "source_tier_id": "company",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "size_bucket": "small"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1757,202 +1952,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Mattr",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-071",
-      "headline": "USPS adds permanent postage surcharge, citing higher fuel costs",
-      "headline_en": null,
-      "url": "https://www.cbsnews.com/news/usps-permanent-postage-fuel-surcharge-2027/",
-      "source_name": "CBS MoneyWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:07:31Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The USPS is adding a permanent postage surcharge due to rising fuel costs, impacting operational expenses for businesses relying on mail.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "The USPS is adding a permanent postage surcharge due to rising fuel costs, impacting operational expenses for businesses relying on mail.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "USPS",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-061",
-      "headline": "PLDT Inc. Receives NYSE Notice Regarding Late Filing of Annual Reports on Form 20-F",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pldt-inc-receives-nyse-notice-regarding-late-filing-annual-reports-form-20-f",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:50:22Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "PLDT received NYSE notice of late annual Form 20-F filing, classified as an accounting red flag and governance warning, though the underlying cause and materiality remain unconfirmed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "PLDT received NYSE notice of late annual Form 20-F filing, classified as an accounting red flag and governance warning, though the underlying cause and materiality remain unconfirmed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PLDT Inc.",
-          "ticker": null,
-          "listing_country": "PH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-066",
-      "headline": "Democrats push to remove US-Israel tech measure from defense bill",
-      "headline_en": null,
-      "url": "https://www.defensenews.com/congress/2026/11/12/democrats-push-to-remove-us-israel-tech-measure-from-defense-bill/",
-      "source_name": "Defense News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:21:53Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Legislative efforts to remove specific tech measures from a defense bill could impact defense-tech sector policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Legislative efforts to remove specific tech measures from a defense bill could impact defense-tech sector policy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-045",
-      "headline": "Binance finishes covering US$6.3 billion of stolen customer tokens",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/binance-finishes-covering-us6-3-billion-of-stolen-customer-tokens",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:35:17Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Binance has completed the coverage of US$6.3 billion in stolen customer tokens, mitigating a significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Binance has completed the coverage of US$6.3 billion in stolen customer tokens, mitigating a significant operational and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
+          "name": "Titan Mining",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278452,9 +278457,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 31502,
-    "news_picked_today": 77,
-    "news_dropped_today": 451
+    "news_seen_today": 35728,
+    "news_picked_today": 99,
+    "news_dropped_today": 573
   },
   "book_momentum": {
     "live_count": 8,
