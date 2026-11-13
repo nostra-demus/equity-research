@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T19:47:13Z",
+  "generated_at": "2026-11-13T19:57:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1179,6 +1179,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-884",
+      "headline": "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/13/pfizer-just-raised-its-2026-revenue-forecast-by-15/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T19:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Pfizer raised 2026 revenue guidance by $1.5 billion, a quantified upward revision that can alter earnings expectations and investment decision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pfizer raised 2026 revenue guidance by $1.5 billion, a quantified upward revision that can alter earnings expectations and investment decision.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pfizer",
+          "ticker": "PFE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-815",
       "headline": "Deal Dispatch: Morgan Stanley Buys Vinyl Equity, Fox Completes Roku Acquisition, Children's Place Files for Chapter 11",
       "headline_en": null,
@@ -1941,60 +1990,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-756",
-      "headline": "James Murdoch, Uday Shankar's Bodhi Tree to acquire majority stake in A2B for ₹1,696 crore",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/james-murdoch-uday-shankars-bodhi-tree-to-acquire-majority-stake-in-a2b-for-180-million-567379-2026-11-13?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T13:14:54Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Bodhi Tree is acquiring a majority stake in A2B for 1,696 crore INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bodhi Tree is acquiring a majority stake in A2B for 1,696 crore INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bodhi Tree",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "A2B",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278490,9 +278485,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1492419,
-    "news_picked_today": 1950,
-    "news_dropped_today": 19818
+    "news_seen_today": 1497479,
+    "news_picked_today": 1969,
+    "news_dropped_today": 20111
   },
   "book_momentum": {
     "live_count": 8,
