@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T19:32:42Z",
+  "generated_at": "2026-11-13T19:36:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1446,6 +1446,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-874",
+      "headline": "Yes Bank moves Supreme Court to review verdict quashing ₹8,415-crore AT-1 bond write-off",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/finance/yes-bank-moves-supreme-court-to-review-verdict-quashing-%25e2%2582%25b98415-crore-at-1-bond-write-off-20033828.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T16:59:20Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Yes Bank is seeking to overturn a ruling that would force them to reverse an 8,415 crore bond write-down, impacting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank is seeking to overturn a ruling that would force them to reverse an 8,415 crore bond write-down, impacting capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-804",
       "headline": "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex",
       "headline_en": null,
@@ -1946,55 +1995,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-762",
-      "headline": "Tata Motors PV Swings To ₹5,531 Crore Q2 Loss, JLR Restructuring Weighs",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-motors-pv-swings-to-5531-crore-q2-loss-jlr-restructuring-weighs",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T13:12:20Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Tata Motors PV reported a quarterly loss of 5,531 crore INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors PV reported a quarterly loss of 5,531 crore INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278490,9 +278490,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1477292,
-    "news_picked_today": 1919,
-    "news_dropped_today": 19729
+    "news_seen_today": 1482179,
+    "news_picked_today": 1929,
+    "news_dropped_today": 19743
   },
   "book_momentum": {
     "live_count": 8,
