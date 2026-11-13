@@ -89,6 +89,7 @@ sys.path.insert(0, os.path.join(REPO, "scripts"))
 from ledger_records import load_standing_records  # noqa: E402
 from market_prices import load_feed  # noqa: E402 — optional price feed (EXTERNAL_DATA §7A); absent → graceful fallback
 from provider_calibration import execution_identity as shared_execution_identity  # noqa: E402
+from overdue_checks import forecast_sentence_key, unique_forecast_sentence_targets  # noqa: E402
 
 PERF_DIR = os.path.join(REPO, "analyses", "performance")
 
@@ -530,25 +531,21 @@ def match_resolved_forecasts(record, reviews):
     # scoring it against the first row is a mis-scored commission (§24 — prefer omission). An ambiguous
     # text then falls through to _by_reference (an explicit forecast_index / '#N' still resolves), and
     # is otherwise excluded — never guessed. Eval checks that `prediction` exists, not that it is unique.
-    text_counts, sentence_counts = {}, {}
+    text_counts = {}
     for e in ledger:
         if isinstance(e, dict):
             k = _norm(e.get("prediction"))
             if k:
                 text_counts[k] = text_counts.get(k, 0) + 1
-                sentence = k.removesuffix(".")
-                if sentence:
-                    sentence_counts[sentence] = sentence_counts.get(sentence, 0) + 1
-    by_text, by_sentence = {}, {}
+    by_sentence = unique_forecast_sentence_targets(
+        [_norm(e.get("prediction")) if isinstance(e, dict) else "" for e in ledger])
+    by_text = {}
     for e in ledger:
         if isinstance(e, dict):
             k = _norm(e.get("prediction"))
             if k:
                 if text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
                     by_text[k] = e
-                sentence = k.removesuffix(".")
-                if sentence and sentence_counts[sentence] == 1 and any(ch.isalnum() for ch in sentence):
-                    by_sentence[sentence] = e
 
     def _by_reference(result):
         """A DELIBERATE 1-based reference into forecast_ledger, or None. Honours an explicit
@@ -583,7 +580,8 @@ def match_resolved_forecasts(record, reviews):
         if src is None:
             # Count every ledger row above, including invalid probabilities: a second possible
             # identity must not disappear merely because its probability cannot be scored.
-            src = by_sentence.get(norm_pred.removesuffix("."))
+            index = by_sentence.get(forecast_sentence_key(norm_pred))
+            src = ledger[index] if index is not None else None
         if src is None:
             continue  # neither text nor an explicit reference matched → not Brier-scorable, never positional-guessed
         if id(src) in seen:

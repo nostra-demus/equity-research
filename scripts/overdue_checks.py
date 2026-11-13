@@ -82,9 +82,11 @@ AS_RESOLVED = ("confirmed", "falsified", "expired", "resolved", "closed", "super
 # row resolves ledger entry i only through (a) an explicit 1-based `forecast_index`, (b) a deliberate
 # 'forecast #N' / 'prediction #N' token, or (c) prediction text identical (trimmed, case-folded) to
 # exactly ONE ledger row. No positional guess (forecast_results is routinely a re-ordered subset) and no
-# fuzzy text match. The same identity rule /research:calibrate uses (scripts/calibrate.py
-# match_resolved_forecasts), reimplemented here only because this module must stay dependency-free
-# (commit-run.sh's prewrite workspace copies just eval.py + data_need_contract.py + this file).
+# fuzzy text match. After those existing routes, one terminal ASCII full stop may differ only when
+# the sentence key is unique across EVERY ledger row. The pure fallback below is also reused by
+# scripts/calibrate.py; caller normalization and reference precedence remain reader-specific. This
+# module stays dependency-free (commit-run.sh's prewrite workspace copies just eval.py +
+# data_need_contract.py + this file).
 #
 # The LATEST review that mentions an entry speaks for it (a later review supersedes an earlier read,
 # as in calibrate). If that latest read is unresolved but an EARLIER review had resolved it, the entry
@@ -93,6 +95,27 @@ AS_RESOLVED = ("confirmed", "falsified", "expired", "resolved", "closed", "super
 
 def _review_norm(s):
     return " ".join(s.split()).lower() if isinstance(s, str) else ""
+
+def forecast_sentence_key(normalized_prediction):
+    """Fallback key for an already caller-normalized prediction. Remove only one terminal ASCII
+    full stop; never trim again, normalize other punctuation, or accept a punctuation-only claim."""
+    if not isinstance(normalized_prediction, str):
+        return ""
+    sentence = normalized_prediction.removesuffix(".")
+    return sentence if sentence and any(ch.isalnum() for ch in sentence) else ""
+
+
+def unique_forecast_sentence_targets(normalized_predictions):
+    """Map each unique sentence key to its original ledger index. Include EVERY original row;
+    callers must not pre-filter rows by probability, status, or scoring eligibility."""
+    counts, targets = {}, {}
+    for i, prediction in enumerate(normalized_predictions):
+        key = forecast_sentence_key(prediction)
+        if key:
+            counts[key] = counts.get(key, 0) + 1
+            targets[key] = i
+    return {key: i for key, i in targets.items() if counts[key] == 1}
+
 
 _REF_RE = re.compile(r"(?:forecast|prediction|fc)\s*#\s*(\d+)|^#\s*(\d+)$")
 
@@ -113,6 +136,8 @@ def review_forecast_links(forecast_ledger, reviews):
         k = _review_norm(e.get("prediction")) if isinstance(e, dict) else ""
         if k:
             counts[k] = counts.get(k, 0) + 1
+    by_sentence = unique_forecast_sentence_targets(
+        [_review_norm(e.get("prediction")) if isinstance(e, dict) else "" for e in forecast_ledger])
     by_text = {}
     for i, e in enumerate(forecast_ledger):
         k = _review_norm(e.get("prediction")) if isinstance(e, dict) else ""
@@ -134,7 +159,7 @@ def review_forecast_links(forecast_ledger, reviews):
             j = int(m.group(1) or m.group(2))
             if 1 <= j <= n:
                 return j - 1
-        return None
+        return by_sentence.get(forecast_sentence_key(k))
 
     revs = [r for r in reviews if isinstance(r, dict)]
     revs.sort(key=lambda r: (str(r.get("review_date") or ""), _review_version(r.get("_basename")),

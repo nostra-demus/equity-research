@@ -5,7 +5,8 @@
 // drift with the real clock. Run: npx tsx test/calls-needs-attention.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { listAllCalls } from '../src/outputs'
+import { forecastsOverdue, listAllCalls } from '../src/outputs'
+import type { ReviewForecastSource } from '../src/outputs'
 import type { PublishedTreeAuthority } from '../src/published-git'
 
 const DATE = '2020-01-01'
@@ -146,6 +147,132 @@ await check('a forecast resolved by a filed review is not overdue; a walked-back
     assert.deepEqual(owed[0].contradicted_resolution, { status: 'confirmed', date: '2020-03-01' })
     assert.deepEqual(owed[0].last_review, { date: '2020-03-01', status: 'not assessable' })
     assert.equal(owed[1].last_review, undefined, 'ambiguous duplicate text is never linked')
+})
+
+const openForecast = (prediction: unknown, probability: unknown = 55) => ({
+  prediction, probability, status: 'open', due_date: '2020-02-01',
+})
+const filedReview = (rows: unknown[], date = '2020-03-01', suffix = ''): ReviewForecastSource => ({
+  review_date: date, basename: `${date}_30d_decision_review${suffix}.json`, forecast_results: rows,
+})
+
+await check('the filed HCG identity pair links once without rewriting either original prediction', () => {
+  // Frozen identity from HCG_2026-06-01 ledger[2] and its 2026-09-02 90d review[2].
+  // Due dates below are synthetic; this tests identity, not source timing or financial outcomes.
+  const original = 'FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar'
+  const reviewed = 'FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar.'
+  const ledger = [openForecast('Debt rises'), openForecast('Margin holds'), openForecast(original)]
+  const before = forecastsOverdue(ledger, '2026-09-03')
+  const after = forecastsOverdue(ledger, '2026-09-03', [filedReview([
+    { prediction: reviewed, status: 'confirmed' },
+  ], '2026-09-02')])
+  assert.equal(before.length, 3)
+  assert.equal(after.length, 2, 'one filed outcome clears exactly its original forecast')
+  assert.deepEqual(after, before.slice(0, 2), 'other original forecasts remain owed')
+  assert.equal(ledger[2].prediction, original)
+})
+
+await check('one terminal ASCII full stop links in either direction with existing whitespace normalization', () => {
+  const prediction = 'Q1 FY27 revenue below INR 7,340.9M'
+  for (const [ledgerText, reviewText] of [[prediction, prediction + '.'], [prediction + '.', prediction]]) {
+    assert.deepEqual(forecastsOverdue([openForecast(ledgerText)], '2020-04-01', [filedReview([
+      { prediction: `  ${reviewText.replace('revenue below', 'REVENUE   below')}  `, status: 'confirmed' },
+    ])]), [])
+  }
+})
+
+await check('terminal-full-stop fallback rejects changed claims, other punctuation and malformed identities', () => {
+  const prediction = 'Q1 FY27 revenue below INR 7,340.9M by 2020-03-01'
+  const changed: unknown[] = [
+    prediction.replace('7,340.9', '7,340.8') + '.',
+    prediction.replace('below', 'above') + '.',
+    prediction.replace('Q1', 'Q2') + '.',
+    prediction.replace('FY27', 'FY28') + '.',
+    prediction.replace('2020-03-01', '2020-03-02') + '.',
+    prediction.replace('below', 'not below') + '.',
+    prediction.replace('below', 'materially below') + '.',
+    prediction + '!', prediction + '?', prediction + '..', prediction + ' .', prediction + '。',
+    null, [], {}, '', '.',
+  ]
+  for (const text of changed) {
+    const owed = forecastsOverdue([openForecast(prediction)], '2020-04-01', [filedReview([
+      { prediction: text, status: 'confirmed' },
+    ])])
+    assert.equal(owed.length, 1, `changed or malformed review remains unmatched: ${JSON.stringify(text)}`)
+    assert.equal(owed[0].last_review, undefined, 'no positional fallback')
+  }
+  for (const [ledgerText, reviewText] of [
+    ['Revenue < 100', 'Revenue <= 100.'], ['Revenue < 100', 'Revenue < 100.0.'],
+    ['EPS up..', 'EPS up...'], ['EPS up .', 'EPS up'],
+    ...['!', '?', '$', '--', '()', '>='].map(token => [token, token + '.']),
+  ]) {
+    const owed = forecastsOverdue([openForecast(ledgerText)], '2020-04-01', [filedReview([
+      { prediction: reviewText, status: 'confirmed' },
+    ])])
+    assert.equal(owed.length, 1, `unsupported identity stays unmatched: ${ledgerText} / ${reviewText}`)
+    assert.equal(owed[0].last_review, undefined)
+  }
+})
+
+await check('every original ledger row blocks ambiguous fallback, including invalid probabilities', () => {
+  for (const duplicate of ['Margin expands', '  MARGIN   expands  ']) {
+    const ledger = [openForecast('Margin expands'), openForecast(duplicate, 0.8)]
+    const owed = forecastsOverdue(ledger, '2020-04-01', [filedReview([
+      { prediction: 'Margin expands.', status: 'confirmed' },
+    ])])
+    assert.equal(owed.length, 2, 'invalid-probability duplicates remain identity candidates')
+    assert.ok(owed.every(item => item.last_review === undefined))
+  }
+  const variants = [openForecast('Margin expands'), openForecast('Margin expands.', 0.8)]
+  const owed = forecastsOverdue(variants, '2020-04-01', [filedReview([
+    { prediction: 'Margin expands.', status: 'confirmed' },
+  ])])
+  assert.equal(owed.length, 1, 'an exact unique variant still wins before fallback ambiguity')
+  assert.match(owed[0].description, /forecast_ledger\[0\]/)
+})
+
+await check('existing numeric index, exact-text and # reference precedence stays ahead of fallback', () => {
+  const ledger = [openForecast('EPS up'), openForecast('Debt rises')]
+  for (const row of [
+    { prediction: 'EPS up.', forecast_index: 2.0, status: 'confirmed' },
+    { prediction: 'EPS up', forecast_index: 2, status: 'confirmed' },
+  ]) {
+    const owed = forecastsOverdue(ledger, '2020-04-01', [filedReview([row])])
+    assert.equal(owed.length, 1)
+    assert.match(owed[0].description, /forecast_ledger\[0\]/, 'explicit index keeps priority')
+  }
+  const refLedger = [openForecast('forecast #2.'), openForecast('Debt rises')]
+  const referred = forecastsOverdue(refLedger, '2020-04-01', [filedReview([
+    { prediction: 'forecast #2', status: 'confirmed' },
+  ])])
+  assert.equal(referred.length, 1)
+  assert.match(referred[0].description, /forecast_ledger\[0\]/, '# reference precedes sentence fallback')
+  const exact = forecastsOverdue([openForecast('forecast #2'), openForecast('Debt rises')], '2020-04-01', [filedReview([
+    { prediction: 'forecast #2', status: 'confirmed' },
+  ])])
+  assert.equal(exact.length, 1)
+  assert.match(exact[0].description, /forecast_ledger\[1\]/, 'unique exact text precedes # reference')
+  assert.equal(forecastsOverdue(ledger, '2020-04-01', [filedReview([
+    { prediction: 'forecast 2', forecast_index: '2', status: 'confirmed' },
+  ])]).length, 2, 'no # or string-index broadening')
+})
+
+await check('full-stop fallback preserves latest-per-entry history and walked-back-resolution contradictions', () => {
+  const ledger = [openForecast('EPS up'), openForecast('Debt rises')]
+  const reviews = [
+    filedReview([{ prediction: 'EPS up.', status: 'not assessable' }], '2020-04-01', '_v2'),
+    filedReview([{ prediction: 'EPS up.', status: 'confirmed' }], '2020-04-01'),
+    filedReview([{ prediction: 'EPS up', status: 'still open' }], '2020-03-01'),
+    filedReview([{ prediction: 'Debt rises.', status: 'confirmed' }], '2020-02-15'),
+  ]
+  const owed = forecastsOverdue(ledger, '2020-05-01', reviews)
+  assert.equal(owed.length, 1, 'a later review of another forecast does not erase the earlier debt resolution')
+  assert.deepEqual(owed[0].last_review, { date: '2020-04-01', status: 'not assessable' })
+  assert.deepEqual(owed[0].contradicted_resolution, { date: '2020-04-01', status: 'confirmed' })
+  assert.match(owed[0].description, /CONTRADICTION/)
+  assert.deepEqual(forecastsOverdue(ledger, '2020-06-01', [...reviews,
+    filedReview([{ prediction: 'EPS up.', status: 'falsified' }], '2020-05-01'),
+  ]), [], 'a later resolution clears the contradiction using the existing status policy')
 })
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)
