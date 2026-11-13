@@ -126,6 +126,7 @@ export function ComputedCard({ c }: { c: ChatComputed }) {
         </>
       )}
 
+      {s.mitigationNote && <div className={s.isBound ? 'chatpanel__computed-warn' : 'chatpanel__computed-note'}>{s.isBound && <span aria-hidden>▲ </span>}{s.mitigationNote}</div>}
       {oor && s.rangeNote && <div className="chatpanel__computed-warn"><span aria-hidden>▲ </span>{s.rangeNote}</div>}
       {s.periodNote && <div className="chatpanel__computed-note">Asked about a period this scenario doesn’t forecast — a single-period scenario{s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast.</div>}
       <Provenance

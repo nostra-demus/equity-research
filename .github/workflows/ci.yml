@@ -260,6 +260,12 @@ jobs:
       - name: Valuation math selftest (deterministic fair-value / scenario / WACC engine — fixture-free)
         run: python3 scripts/valuation_math.py --selftest
 
+      - name: Sensitivity what-if engine + sidecar guard (§9 mitigation label, engine-computability, committed sidecars)
+        run: |
+          python3 scripts/sensitivity_math.py --selftest
+          python3 scripts/sensitivity_summary_checks.py --selftest
+          python3 scripts/sensitivity_summary_checks.py --all
+
       - name: commit-run.sh push regression test (fast-forward push from a non-main branch)
         run: python3 scripts/test_commit_run.py
 

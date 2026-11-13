@@ -40,7 +40,10 @@
             "additionalProperties": false
           },
           "non_linearity": {"type": ["string", "null"], "description": "any disclosed non-linearity (pricing lag, operating deleverage, asymmetric downside) carried into the answer"},
-          "source": {"type": ["string", "null"], "description": "citation the coefficient came from (CLAUDE.md §5), e.g. 'FY2025 Annual Report, p.38'"}
+          "source": {"type": ["string", "null"], "description": "citation the coefficient came from (CLAUDE.md §5), e.g. 'FY2025 Annual Report, p.38'"},
+          "mitigation_basis": {"type": ["string", "null"], "enum": ["zero_bound", "realised_offset", "disclosed_zero", "not_applicable", null], "description": "CLAUDE.md §9 — what management response the coefficient EMBEDS, mirroring the orb's 'Mitigation assumed' column. zero_bound = gross, response held at zero: a BOUND, not a forecast. realised_offset = already net of the realised_offset_pct measured from the filings. disclosed_zero = the company itself discloses no response, so 0% is a measurement. not_applicable = no response channel (e.g. the row IS the response channel). Required for sidecars dated on/after 2026-11-14 (scripts/sensitivity_summary_checks.py MITIGATION_REQUIRED_DATE). Absent on a legacy row → the engine labels it an unrecorded zero-mitigation bound."},
+          "realised_offset_pct": {"type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "the realised offset measured from the filings, 1 − (observed impact ÷ gross pre-mitigation impact), as a percent. With zero_bound: optional; when present the engine computes the realised case BESIDE the bound. With realised_offset: REQUIRED and < 100; the engine shows the gross bound beside the net figure. Must be null/0 for disclosed_zero and not_applicable. Never derived from 'no contractual pass-through', which is a fact about contracts, not a measurement."},
+          "realised_offset_source": {"type": ["string", "null"], "description": "§5 citation for the periods and figures realised_offset_pct was measured from — REQUIRED whenever a non-zero offset is recorded."}
         }
       }
     }

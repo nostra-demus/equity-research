@@ -468,6 +468,26 @@ await (async () => {
     assert.match(block, /EXPECTED RETURN: -8\.4% → \+4\.5%/)
   })
 
+  // CLAUDE.md §9/§3: a zero-mitigation coefficient is a BOUND, and that label must travel with the number
+  // through the REAL engine into the narration context — before this, the chat stated the bound as THE answer.
+  await check('§9 mitigation: a gross bound with a measured offset is labelled BOUND and carries the realised case', async () => {
+    const row = { ...NHY.sensitivities[0], mitigation_basis: 'zero_bound', realised_offset_pct: 38, realised_offset_source: 'FY2024 AR, Note 5' } as any
+    const sc: SensitivitySidecar = { ...NHY, sensitivities: [row] }
+    const s = await computePlan(sc, { variable: 'lme_aluminium_price', row, req: { delta: 45 } })
+    assert.equal(s!.impact, 675)
+    assert.equal(s!.isBound, true)
+    assert.ok(near(s!.mitigatedImpact, 418.5, 0.01))
+    const block = computedContextBlock({ kind: 'scenario', asked: 'q', scenario: s! })
+    assert.match(block, /Mitigation \(§9/)
+    assert.match(block, /BOUND, not as the expected outcome/)
+    assert.match(block, /realised 38% offset/)
+  })
+  await check('§9 mitigation: a legacy row with no recorded basis is conservatively labelled an unrecorded bound', async () => {
+    const s = await computePlan(NHY, { variable: 'lme_aluminium_price', row: NHY.sensitivities[0], req: { delta: 45 } })
+    assert.equal(s!.isBound, true)
+    assert.match(computedContextBlock({ kind: 'scenario', asked: 'q', scenario: s! }), /NOT recorded/)
+  })
+
   await check('pre-aborted deterministic modeling never starts a scenario or repricing subprocess', async () => {
     const controller = new AbortController()
     controller.abort()

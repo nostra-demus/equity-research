@@ -140,7 +140,76 @@ def scenario(sidecar: dict, variable: str, delta) -> dict:
                                  f"the linear coefficient is not validated this far from base")
     else:
         out["within_disclosed_range"] = None
+
+    out.update(_mitigation(s, impact, out.get("base_value"), rev if (rev and rev > 0 and "margin_change_bps" in out) else None))
     return out
+
+
+# ── §9 mitigation assumption — carried onto EVERY modelled number ─────────────────────────────────────────
+# CLAUDE.md §9: "A sensitivity or stress scenario that holds management's response at zero ... is a *bound*,
+# not a forecast, and must be labelled as one on every line it appears", and where the filings show the
+# realised offset, that measured rate runs as a second case beside the bound. The orb's markdown table
+# already carries a "Mitigation assumed" column, but before these fields the sidecar did not, so the chat
+# re-published a 0%-mitigation linear figure as THE answer — the §3 qualifier falling off one layer up.
+MITIGATION_BASES = ("zero_bound", "realised_offset", "disclosed_zero", "not_applicable")
+
+
+def _pct(v):
+    """A percentage in [0, 100], or None."""
+    return float(v) if _isnum(v) and 0 <= float(v) <= 100 else None
+
+
+def _mitigation(s: dict, impact: float, base, rev) -> dict:
+    """Label the recorded coefficient's mitigation basis and, where a realised offset is recorded, compute
+    the OTHER case beside it (the mitigated case for a gross bound; the gross bound for a net coefficient).
+
+    `mitigation_basis` semantics (what the recorded `coefficient` embeds):
+      zero_bound       gross, 0% management response — a BOUND. `realised_offset_pct` (optional) is the offset
+                       measured from the filings; when present the realised case is computed beside the bound.
+      realised_offset  already NET of the measured `realised_offset_pct` (< 100); the gross bound is shown beside.
+      disclosed_zero   0% is the company's own disclosed response (a measurement, not an assumption).
+      not_applicable   the variable has no management-response channel (e.g. it IS the response channel).
+    Absent (legacy sidecar) → treated conservatively as an unlabelled zero-mitigation bound (§4)."""
+    mb = s.get("mitigation_basis")
+    off = _pct(s.get("realised_offset_pct"))
+    src = s.get("realised_offset_source") if isinstance(s.get("realised_offset_source"), str) else None
+    o = {"mitigation_basis": mb if mb in MITIGATION_BASES else None}
+
+    def _other_case(alt_impact, key):
+        o[f"{key}_impact"] = round(alt_impact, 4)
+        if base is not None:
+            o[f"{key}_new_value"] = round(base + alt_impact, 4)
+            if rev:
+                o[f"{key}_margin_change_bps"] = round(alt_impact / rev * 1e4, 1)  # (Δ/rev) ×100 pct ×100 bps
+
+    if mb == "zero_bound":
+        o["is_bound"] = True
+        if off is not None:
+            _other_case(impact * (1 - off / 100.0), "mitigated")
+            o["realised_offset_pct"], o["realised_offset_source"] = off, src
+            o["mitigation_note"] = (f"Zero-mitigation BOUND (§9): management response held at zero — not a forecast. "
+                                    f"At the realised {off:g}% offset measured from the filings ({src or 'source not recorded'}), "
+                                    f"the change is {o['mitigated_impact']:+g} instead of {impact:+g}.")
+        else:
+            o["mitigation_note"] = ("Zero-mitigation BOUND (§9): management response held at zero — not a forecast; "
+                                    "a realised offset was not computable from the pool.")
+    elif mb == "realised_offset" and off is not None and off < 100:
+        o["is_bound"] = False
+        o["realised_offset_pct"], o["realised_offset_source"] = off, src
+        _other_case(impact / (1 - off / 100.0), "gross_bound")
+        o["mitigation_note"] = (f"Net of a realised {off:g}% offset measured from the filings ({src or 'source not recorded'}) (§9). "
+                                f"The zero-mitigation bound is {o['gross_bound_impact']:+g}.")
+    elif mb == "disclosed_zero":
+        o["is_bound"] = False
+        o["mitigation_note"] = "0% mitigation is the company's disclosed response, a measurement rather than an assumption (§9)."
+    elif mb == "not_applicable":
+        o["is_bound"] = False
+        o["mitigation_note"] = "No management-response channel applies to this variable (§9)."
+    else:
+        o["is_bound"] = True
+        o["mitigation_note"] = ("Mitigation assumption NOT recorded for this coefficient — treat it as a zero-mitigation "
+                                "bound (§9), not a forecast.")
+    return o
 
 
 def list_variables(sidecar: dict) -> list:
@@ -344,11 +413,46 @@ def _selftest() -> int:
     fwd = resolve_scenario(nhy, "lme_aluminium_price", {"delta": 45})
     check("resolve_forward_matches", fwd.get("mode") == "delta" and _approx(fwd["impact"], 675))
 
+    # 16. §9 mitigation label travels with every modelled number.
+    #   legacy row (no mitigation_basis) → conservatively labelled an unrecorded zero-mitigation bound
+    check("legacy_labelled_bound", r.get("is_bound") is True and "NOT recorded" in (r.get("mitigation_note") or ""))
+    check("legacy_no_second_case", "mitigated_impact" not in r and "gross_bound_impact" not in r)
+    #   gross bound + measured offset → the realised case is computed BESIDE the bound (CLAUDE.md §9 worked
+    #   example: 178bps gross vs 110bps realised ≈ 38% offset). 675 × (1 − 0.38) = 418.5; margin +20.2bps.
+    zb = dict(nhy, sensitivities=[dict(nhy["sensitivities"][0], mitigation_basis="zero_bound",
+                                       realised_offset_pct=38, realised_offset_source="FY2024 AR, Note 5")])
+    rz = scenario(zb, "lme_aluminium_price", 45)
+    check("zb_bound_impact_unchanged", _approx(rz["impact"], 675))
+    check("zb_is_bound", rz["is_bound"] is True and "BOUND" in rz["mitigation_note"])
+    check("zb_mitigated=418.5", _approx(rz["mitigated_impact"], 418.5))
+    check("zb_mitigated_new=29307.5", _approx(rz["mitigated_new_value"], 29307.5))
+    check("zb_mitigated_bps≈20.2", _approx(rz["mitigated_margin_change_bps"], 20.2, 0.1))
+    check("zb_offset_source_carried", "Note 5" in rz["mitigation_note"])
+    #   gross bound, offset not computable → labelled, no invented second case
+    zn = dict(nhy, sensitivities=[dict(nhy["sensitivities"][0], mitigation_basis="zero_bound")])
+    rzn = scenario(zn, "lme_aluminium_price", 45)
+    check("zb_nooffset_labelled", rzn["is_bound"] is True and "not computable" in rzn["mitigation_note"])
+    check("zb_nooffset_no_case", "mitigated_impact" not in rzn)
+    #   net coefficient → NOT a bound; the gross bound is shown beside it: 675 / (1 − 0.25) = 900
+    ro = dict(nhy, sensitivities=[dict(nhy["sensitivities"][0], mitigation_basis="realised_offset",
+                                       realised_offset_pct=25, realised_offset_source="FY2024 AR, Note 5")])
+    rro = scenario(ro, "lme_aluminium_price", 45)
+    check("ro_not_bound", rro["is_bound"] is False)
+    check("ro_gross_bound=900", _approx(rro["gross_bound_impact"], 900))
+    #   disclosed zero / not applicable → not a bound, no second case
+    dz = scenario(dict(nhy, sensitivities=[dict(nhy["sensitivities"][1], mitigation_basis="disclosed_zero")]), "usd_nok", 1)
+    check("dz_not_bound", dz["is_bound"] is False and "disclosed" in dz["mitigation_note"])
+    #   realised_offset with no usable offset → falls back to the conservative unrecorded-bound label
+    bad = scenario(dict(nhy, sensitivities=[dict(nhy["sensitivities"][0], mitigation_basis="realised_offset")]), "lme_aluminium_price", 45)
+    check("ro_without_offset_conservative", bad["is_bound"] is True)
+    #   reverse mode carries the label too (the solved move inherits the coefficient's basis)
+    check("reverse_carries_label", "mitigation_note" in resolve_scenario(zb, "lme_aluminium_price", {"target_margin": 16}))
+
     if fails:
         print("SENSITIVITY MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
     print("SENSITIVITY MATH SELFTEST PASS — NHY aluminium +$45/mt = +NOK 675m Adj. EBITDA (+32.6bps), "
-          "recorded coefficient scaled linearly; range/confidence/source carried; unknown-variable refused")
+          "recorded coefficient scaled linearly; range/confidence/source + §9 mitigation label carried; unknown-variable refused")
     return 0
 
 

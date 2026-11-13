@@ -2684,6 +2684,13 @@ export interface ComputedScenario {
   neededImpact?: number | null    // reverse mode: the base-metric change required
   marginBasis?: string | null     // 'revenue_constant' → margin computed at unchanged revenue
   metricNote?: string | null      // coefficient on a metric ≠ base metric (level/margin withheld)
+  isBound?: boolean | null        // §9: TRUE → management response held at zero — a bound, not a forecast
+  mitigationBasis?: string | null // zero_bound | realised_offset | disclosed_zero | not_applicable | null (unrecorded)
+  mitigationNote?: string | null  // engine-written §9 label; always shown with the number
+  realisedOffsetPct?: number | null
+  mitigatedImpact?: number | null   // realised-offset case beside a bound
+  mitigatedNewValue?: number | null
+  grossBoundImpact?: number | null  // zero-mitigation bound beside a net coefficient
   periodNote?: boolean | null     // TRUE when the question asked about a period this single-period scenario can't forecast — the disclaimer is gated on THIS, not on periodBase
   periodBase?: string | null      // the sidecar's base period when known (decorates the note); may be null while periodNote is true
   note?: string | null            // set on the first card of a multi-variable answer
