@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T01:42:26Z",
+  "generated_at": "2026-11-13T01:49:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -651,6 +651,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-177",
+      "headline": "Colette Kress Has Been Named Interim Chief of Nvidia. But There’s Another Executive Favored to Replace Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/12/colette-kress-has-been-named-interim-chief-of-nvidia-but-there-s-another-executive-favored-to-replace-jensen-huang/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T23:00:02Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Nvidia has named an interim CFO, signaling a major leadership transition at a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia has named an interim CFO, signaling a major leadership transition at a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-105",
       "headline": "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook",
       "headline_en": null,
@@ -795,6 +845,61 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-194",
+      "headline": "Cerebras surges 18% after beating on quarterly revenue and announcing Microsoft deal",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/12/cerebras-systems-cbrs-q3-earnings-report-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:33:44Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Cerebras reported a revenue beat and secured a commercial deal with Microsoft, driving an 18% stock surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Cerebras reported a revenue beat and secured a commercial deal with Microsoft, driving an 18% stock surge.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cerebras Systems",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1493,6 +1598,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-192",
+      "headline": "Energiepolitik: Bund steigt bei britischem Brennelemente-Hersteller ein",
+      "headline_en": "Energy Policy: Federal government acquires stake in British nuclear fuel manufacturer",
+      "url": "https://www.handelsblatt.com/politik/deutschland/energiepolitik-bund-steigt-bei-britischem-brennelemente-hersteller-ein/100269531.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:35:55Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "The German government is acquiring a stake in a British nuclear fuel manufacturer, signaling a strategic investment in energy security.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The German government is acquiring a stake in a British nuclear fuel manufacturer, signaling a strategic investment in energy security.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Urenco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-003",
       "headline": "QINGHUA HOLD (08082): CHANGE OF AUDITOR",
       "headline_en": null,
@@ -1781,198 +1935,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261113-133",
-      "headline": "Singtel Raises Profit Outlook as Overseas Businesses Gain Ground",
+      "inbox_id": "INB-20261113-196",
+      "headline": "Applied Materials Q4 Profit Jumps 43%",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-13/singtel-raises-profit-outlook-as-overseas-businesses-gain-ground",
-      "source_name": "Bloomberg",
+      "url": "https://www.nasdaq.com/articles/applied-materials-q4-profit-jumps-43",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-13T00:45:59Z",
+      "found_at": "2026-11-12T21:32:16Z",
       "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Singtel raised its profit outlook due to overseas business performance.",
+      "prelim_note": "Applied Materials reported a 43% jump in Q4 profit, exceeding expectations.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Singtel raised its profit outlook due to overseas business performance.",
-      "region": "OTHER",
+      "triage_score": 91,
+      "triage_reason": "Applied Materials reported a 43% jump in Q4 profit, exceeding expectations.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 7,
+        "event": 5,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
+        "recency": 3,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "large"
       },
       "event_types": [
-        "guidance_change"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Singtel",
-          "ticker": null,
-          "listing_country": null
+          "name": "Applied Materials",
+          "ticker": "AMAT",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-140",
-      "headline": "Nvidia abruptly changed how it reported revenue in Singapore last year, adding to questions about its relationship with Megaspeed",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/11/12/nvidia-changed-earnings-report-format-singapore-revenue-megaspeed-probe-colette-kress/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T00:44:26Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Nvidia changed its revenue reporting methods in Singapore, raising questions about its relationship with a third party.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nvidia changed its revenue reporting methods in Singapore, raising questions about its relationship with a third party.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-022",
-      "headline": "EVEREST MED (01952): VOLUNTARY ANNOUNCEMENT BUSINESS UPDATE ON THE NEW 100 MG STRENGTH OF XERAVA APPROVED BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION OF CHINA",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-12T23:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "NMPA approval of a new 100 mg strength of Xerava expands the product's commercial potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "NMPA approval of a new 100 mg strength of Xerava expands the product's commercial potential.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EVEREST MED",
-          "ticker": "01952",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-116",
-      "headline": "MarineMax, Inc. Shareholders Approve Merger Proposal on November 11, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/marinemax-inc-shareholders-approve-merger-proposal-november-11-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T23:52:09Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "MarineMax shareholders approved a merger proposal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "MarineMax shareholders approved a merger proposal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MarineMax, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278336,9 +278342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 75900,
-    "news_picked_today": 217,
-    "news_dropped_today": 1295
+    "news_seen_today": 83176,
+    "news_picked_today": 244,
+    "news_dropped_today": 1364
   },
   "book_momentum": {
     "live_count": 8,
