@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T12:46:52Z",
+  "generated_at": "2026-11-13T12:56:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-679",
@@ -879,6 +879,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-710",
+      "headline": "'Dark pattern': CCPA slaps Rs 10 lakh fine on Ola over pre-ride ‘tip’ feature",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/dark-pattern-ccpa-slaps-rs-10-lakh-fine-on-ola-over-pre-ride-tip-feature-4217247-4217247",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T12:32:36Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "CCPA has slapped a Rs 10 lakh fine on Ola over a pre-ride 'tip' feature.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CCPA has slapped a Rs 10 lakh fine on Ola over a pre-ride 'tip' feature.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-709",
+      "headline": "Dangote Raises Africa Investment Plan to $70 Billion by 2030",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-13/dangote-raises-africa-investment-plan-to-70-billion-by-2030",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T12:32:20Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Dangote has raised its Africa investment plan to $70 billion by 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dangote has raised its Africa investment plan to $70 billion by 2030.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dangote",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,110 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-509",
-      "headline": "Hancock Whitney Corporation to Acquire Trustmark Corporation in $3.2 billion Transaction",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/hancock-whitney-corporation-acquire-trustmark-corporation-32-billion-transaction",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T05:31:01Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Hancock Whitney Corporation to acquire Trustmark Corporation in a $3.2 billion transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hancock Whitney Corporation to acquire Trustmark Corporation in a $3.2 billion transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hancock Whitney Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Trustmark Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-506",
-      "headline": "Nvidia Employees Demand Jensen Huang's Return As CEO Hours After Resignation Amid Affair Allegations",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/nvidia-employees-demand-jensen-huangs-return-as-ceo-hours-after-resignation-amid-affair-allegations",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T05:18:14Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang has resigned; employees demanding his return; resignation linked to personal allegations; signals governance rupture at mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang has resigned; employees demanding his return; resignation linked to personal allegations; signals governance rupture at mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277777,9 +277771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 854906,
-    "news_picked_today": 1362,
-    "news_dropped_today": 12774
+    "news_seen_today": 867488,
+    "news_picked_today": 1395,
+    "news_dropped_today": 13029
   },
   "book_momentum": {
     "live_count": 8,
