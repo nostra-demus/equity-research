@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T01:53:22Z",
+  "generated_at": "2026-11-13T01:57:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-127",
@@ -899,6 +899,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-204",
+      "headline": "‘That Nvidia guarantee is not worth what it was worth a week ago’: What Jensen Huang’s exit means for neoclouds",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/12/nvidia-neoclouds-jensen-huang-resignation/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:15:25Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Jensen Huang's exit from Nvidia is a major leadership transition for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang's exit from Nvidia is a major leadership transition for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-194",
       "headline": "Cerebras surges 18% after beating on quarterly revenue and announcing Microsoft deal",
       "headline_en": null,
@@ -1146,6 +1196,55 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261113-206",
+      "headline": "Live updates: Huang exits Nvidia; Democrat locks down Kansas governor's mansion",
+      "headline_en": null,
+      "url": "https://thehill.com/homenews/administration/6214786-live-updates-trump-midterms-alaska-congress/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:04:46Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Confirmation of Jensen Huang's exit from Nvidia is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Confirmation of Jensen Huang's exit from Nvidia is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1881,104 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-081",
-      "headline": "U.S. Stocks Down as Huang Ouster Sends Shockwaves Through Tech",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/stocks/u-s-stocks-fall-as-huang-ouster-sends-shockwaves-through-tech-5b0aa02a?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:12:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The departure of Jensen Huang from Nvidia is a major management event causing market volatility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The departure of Jensen Huang from Nvidia is a major management event causing market volatility.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-088",
-      "headline": "US Details $2.7 Billion Freeze After North Korea’s Binance Hack",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-details-2-7-billion-freeze-after-north-korea-s-binance-hack-11794521427219.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T22:10:26Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The US government has frozen $2.7 billion in assets linked to North Korean cyber activities, representing a significant enforcement action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The US government has frozen $2.7 billion in assets linked to North Korean cyber activities, representing a significant enforcement action.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278342,9 +278343,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 86766,
-    "news_picked_today": 252,
-    "news_dropped_today": 1380
+    "news_seen_today": 90332,
+    "news_picked_today": 261,
+    "news_dropped_today": 1419
   },
   "book_momentum": {
     "live_count": 8,
