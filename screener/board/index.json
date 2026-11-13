@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-13T19:14:38Z",
+  "generated_at": "2026-11-13T19:24:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261113-861",
+      "headline": "Kothari Petrochemicals Limited: Kothari Petrochemicals Limited has submitted the Exchange the Voting Results and the Scrutinizer's Report of the Hon'ble National Company Law Tribunal (\"NCLT\") Convened Meeting of the Unsecured Creditors of Kothari Petrochemicals Limited held on November 13, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KOTHARIPET_14112026001014_IntimationofUnsecuredCreditorsScrutinizerReport.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T18:41:44Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "NCLT convened creditors' meeting with voting results filed signals debt default, insolvency initiation, or restructuring under India's Insolvency and Bankruptcy Code.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT convened creditors' meeting with voting results filed signals debt default, insolvency initiation, or restructuring under India's Insolvency and Bankruptcy Code.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kothari Petrochemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261113-800",
       "headline": "INDO-MIM Limited: INDO-MIM Limited has informed the Exchange about the Proposal to make investment in Meena Solar Power Park Private Limited to acquire 6.5% equity stake under group captive scheme.",
@@ -1950,55 +2000,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-739",
-      "headline": "Ottawa serves Stellantis notice of default",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/canada/video-ottawa-serves-stellantis-notice-of-default/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T13:06:07Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "The Canadian government has served Stellantis with a notice of default, signaling a major contractual or financial dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Canadian government has served Stellantis with a notice of default, signaling a major contractual or financial dispute.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stellantis",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278494,9 +278495,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1457120,
-    "news_picked_today": 1869,
-    "news_dropped_today": 19371
+    "news_seen_today": 1462415,
+    "news_picked_today": 1875,
+    "news_dropped_today": 19629
   },
   "book_momentum": {
     "live_count": 8,
