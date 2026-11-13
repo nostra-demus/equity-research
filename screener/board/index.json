@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T15:44:53Z",
+  "generated_at": "2026-11-13T15:54:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-785",
@@ -1031,6 +1031,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-797",
+      "headline": "Adani Energy Solutions completes ₹3,050-cr acquisition of IntelliSmart",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/adani-energy-solutions-completes-3050-cr-acquisition-of-intellismart/article71697800.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T15:26:07Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Adani Energy Solutions completed a 3,050 crore rupee acquisition of IntelliSmart.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Energy Solutions completed a 3,050 crore rupee acquisition of IntelliSmart.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Energy Solutions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-788",
       "headline": "JLR cuts margin, revenue guidance as restructuring weighs on Tata Motors",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
       "companies": [
         {
           "name": "Maharashtra Seamless",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-643",
-      "headline": "EID Parry Q2 profit falls 40% despite 7% rise in revenue as farm inputs earnings weaken",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/eid-parry-q2-profit-falls-40-despite-7-rise-in-revenue-as-farm-inputs-earnings-weaken-20033536.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:10:28Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Q2 profit fell 40% despite a 7% rise in revenue due to weak farm inputs earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Q2 profit fell 40% despite a 7% rise in revenue due to weak farm inputs earnings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EID Parry",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -278407,9 +278407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1165030,
-    "news_picked_today": 1598,
-    "news_dropped_today": 15562
+    "news_seen_today": 1171636,
+    "news_picked_today": 1609,
+    "news_dropped_today": 15839
   },
   "book_momentum": {
     "live_count": 8,
