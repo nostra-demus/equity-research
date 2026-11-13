@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T20:24:45Z",
+  "generated_at": "2026-11-13T20:36:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-861",
@@ -1179,6 +1179,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-918",
+      "headline": "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/markets/earnings/26/11/63224006/cerebras-stock-jumps-on-q3-cloud-revenue-up-265-despite-missed-guidance",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T19:52:55Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Cerebras reported 265% revenue growth and raised its outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cerebras reported 265% revenue growth and raised its outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cerebras Systems",
+          "ticker": "CBRS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-913",
       "headline": "Modine Stock Just Soared 29% on a Report That Samsung Wants to Buy It. Is It Too Late to Buy?",
       "headline_en": null,
@@ -1934,56 +1984,6 @@
       "companies": [
         {
           "name": "Adani Energy Solutions",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-788",
-      "headline": "JLR cuts margin, revenue guidance as restructuring weighs on Tata Motors",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/company-results/jlr-cuts-margin-revenue-guidance-as-restructuring-weighs-on-tata-motors-11794576780763.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T15:04:58Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Tata Motors issued a guidance cut for revenue and margins, directly impacting financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors issued a guidance cut for revenue and margins, directly impacting financial expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -278485,9 +278485,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1512015,
-    "news_picked_today": 2072,
-    "news_dropped_today": 20512
+    "news_seen_today": 1516760,
+    "news_picked_today": 2078,
+    "news_dropped_today": 20866
   },
   "book_momentum": {
     "live_count": 8,
