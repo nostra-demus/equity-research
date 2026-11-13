@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T15:58:58Z",
+  "generated_at": "2026-11-13T16:10:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261113-785",
@@ -238445,77 +238445,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a513ae9840e2",
-      "idea_version": "IDEAV-2a794adc458799a3",
-      "idea_version_started_at": "2026-11-12T11:51:50Z",
-      "ticker": "00150",
-      "company": "Hypebeast",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating earnings growth exceeding previous expectations.",
-      "why_now": "The supplemental announcement was filed on 2026-11-12.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d5cf1f672edf"
-      ],
-      "primary_source_event_id": "EVT-d5cf1f672edf",
-      "source_headlines": [
-        "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT"
-      ],
-      "source_headline": "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200187.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T04:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T11:51:50Z",
-      "updated_at": "2026-11-12T11:51:50Z",
-      "decay_at": "2026-11-13T16:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bba477b08d48",
       "idea_version": "IDEAV-133966263598619c",
       "idea_version_started_at": "2026-11-11T01:14:09Z",
@@ -238999,6 +238928,77 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a513ae9840e2",
+      "idea_version": "IDEAV-2a794adc458799a3",
+      "idea_version_started_at": "2026-11-12T11:51:50Z",
+      "ticker": "00150",
+      "company": "Hypebeast",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating earnings growth exceeding previous expectations.",
+      "why_now": "The supplemental announcement was filed on 2026-11-12.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d5cf1f672edf"
+      ],
+      "primary_source_event_id": "EVT-d5cf1f672edf",
+      "source_headlines": [
+        "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT"
+      ],
+      "source_headline": "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200187.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T04:03:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T11:51:50Z",
+      "updated_at": "2026-11-12T11:51:50Z",
+      "decay_at": "2026-11-13T16:03:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241234,14 +241234,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
         "total_count": 263,
@@ -241265,6 +241265,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a513ae9840e2",
+        "idea_version": "IDEAV-2a794adc458799a3",
+        "idea_version_started_at": "2026-11-12T11:51:50Z",
+        "ticker": "00150",
+        "company": "Hypebeast",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating earnings growth exceeding previous expectations.",
+        "why_now": "The supplemental announcement was filed on 2026-11-12.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d5cf1f672edf"
+        ],
+        "primary_source_event_id": "EVT-d5cf1f672edf",
+        "source_headlines": [
+          "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT"
+        ],
+        "source_headline": "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200187.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T04:03:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T11:51:50Z",
+        "updated_at": "2026-11-12T11:51:50Z",
+        "decay_at": "2026-11-13T16:03:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-13T16:03:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b0cc2ad68c46",
         "idea_version": "IDEAV-3defafda0d70cd79",
@@ -269539,81 +269613,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-31bf7321c8e2",
-        "idea_version": "IDEAV-7e0e36f922691636",
-        "idea_version_started_at": "2026-10-31T19:00:11Z",
-        "ticker": "IHCL",
-        "company": "Indian Hotels Company Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Indian Hotels Company Ltd (IHCL) is partnering with Ambuja Neotia to invest up to ₹3,000 crore in 9 new hospitality projects in Bengal, which will significantly expand its asset base and revenue potential.",
-        "why_now": "The investment plan was reported on October 31, 2026, signaling a clear growth strategy and capital deployment.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0893cadee259"
-        ],
-        "primary_source_event_id": "EVT-0893cadee259",
-        "source_headlines": [
-          "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal"
-        ],
-        "source_headline": "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal",
-        "source_url": "https://www.thehindubusinessline.com/news/national/ambuja-neotia-ihcl-to-invest-up-to-3000-crore-in-9-hospitality-projects-in-bengal/article71649294.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T12:39:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T19:00:11Z",
-        "updated_at": "2026-10-31T19:00:11Z",
-        "decay_at": "2026-11-02T00:39:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T12:53:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f1cc701b7807",
         "idea_version": "IDEAV-56ad1bd69c547932",
         "idea_version_started_at": "2026-10-31T22:55:38Z",
@@ -278389,7 +278388,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2444,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -278408,9 +278407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1184128,
-    "news_picked_today": 1620,
-    "news_dropped_today": 15972
+    "news_seen_today": 1203394,
+    "news_picked_today": 1625,
+    "news_dropped_today": 16039
   },
   "book_momentum": {
     "live_count": 8,
