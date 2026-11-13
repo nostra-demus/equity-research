@@ -531,21 +531,16 @@ def match_resolved_forecasts(record, reviews):
     # scoring it against the first row is a mis-scored commission (§24 — prefer omission). An ambiguous
     # text then falls through to _by_reference (an explicit forecast_index / '#N' still resolves), and
     # is otherwise excluded — never guessed. Eval checks that `prediction` exists, not that it is unique.
+    normalized_predictions = [_norm(e.get("prediction")) if isinstance(e, dict) else "" for e in ledger]
     text_counts = {}
-    for e in ledger:
-        if isinstance(e, dict):
-            k = _norm(e.get("prediction"))
-            if k:
-                text_counts[k] = text_counts.get(k, 0) + 1
-    by_sentence = unique_forecast_sentence_targets(
-        [_norm(e.get("prediction")) if isinstance(e, dict) else "" for e in ledger])
+    for k in normalized_predictions:
+        if k:
+            text_counts[k] = text_counts.get(k, 0) + 1
+    by_sentence = unique_forecast_sentence_targets(normalized_predictions)
     by_text = {}
-    for e in ledger:
-        if isinstance(e, dict):
-            k = _norm(e.get("prediction"))
-            if k:
-                if text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
-                    by_text[k] = e
+    for i, k in enumerate(normalized_predictions):
+        if k and text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
+            by_text[k] = ledger[i]
 
     def _by_reference(result):
         """A DELIBERATE 1-based reference into forecast_ledger, or None. Honours an explicit

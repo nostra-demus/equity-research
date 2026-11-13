@@ -496,19 +496,18 @@ function reviewForecastLinks(forecastLedger: unknown, reviews: ReviewForecastSou
   const n = forecastLedger.length
   const counts = new Map<string, number>()
   const sentenceCounts = new Map<string, number>()
-  const keyOf = (e: any) => (e && typeof e === 'object' && !Array.isArray(e) ? reviewNorm(e.prediction) : '')
-  for (const e of forecastLedger) {
-    const k = keyOf(e)
+  const keys = Array.from(forecastLedger, (e: any) => {
+    const k = e && typeof e === 'object' && !Array.isArray(e) ? reviewNorm(e.prediction) : ''
+    return { k, sentence: forecastSentenceKey(k) }
+  })
+  for (const { k, sentence } of keys) {
     if (k) counts.set(k, (counts.get(k) || 0) + 1)
-    const sentence = forecastSentenceKey(k)
     if (sentence) sentenceCounts.set(sentence, (sentenceCounts.get(sentence) || 0) + 1)
   }
   const byText = new Map<string, number>()
   const bySentence = new Map<string, number>()
-  forecastLedger.forEach((e, i) => {
-    const k = keyOf(e)
+  keys.forEach(({ k, sentence }, i) => {
     if (k && counts.get(k) === 1) byText.set(k, i)
-    const sentence = forecastSentenceKey(k)
     // Probability/status eligibility must never remove an original ambiguity candidate.
     if (sentence && sentenceCounts.get(sentence) === 1) bySentence.set(sentence, i)
   })

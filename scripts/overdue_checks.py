@@ -131,16 +131,15 @@ def review_forecast_links(forecast_ledger, reviews):
     if not isinstance(forecast_ledger, list) or not isinstance(reviews, list):
         return {}
     n = len(forecast_ledger)
+    normalized_predictions = [
+        _review_norm(e.get("prediction")) if isinstance(e, dict) else "" for e in forecast_ledger]
     counts = {}
-    for e in forecast_ledger:
-        k = _review_norm(e.get("prediction")) if isinstance(e, dict) else ""
+    for k in normalized_predictions:
         if k:
             counts[k] = counts.get(k, 0) + 1
-    by_sentence = unique_forecast_sentence_targets(
-        [_review_norm(e.get("prediction")) if isinstance(e, dict) else "" for e in forecast_ledger])
+    by_sentence = unique_forecast_sentence_targets(normalized_predictions)
     by_text = {}
-    for i, e in enumerate(forecast_ledger):
-        k = _review_norm(e.get("prediction")) if isinstance(e, dict) else ""
+    for i, k in enumerate(normalized_predictions):
         if k and counts[k] == 1:
             by_text[k] = i
 

@@ -181,6 +181,23 @@ await check('one terminal ASCII full stop links in either direction with existin
   }
 })
 
+await check('sparse and malformed ledger rows retain their original forecast indexes', () => {
+  const ledger: unknown[] = new Array(8)
+  ledger[1] = null
+  ledger[2] = ['EPS up']
+  ledger[3] = 'EPS up'
+  ledger[4] = openForecast('EPS up')
+  ledger[5] = { prediction: null }
+  ledger[7] = openForecast('Debt rises')
+  const resolved = { prediction: 'EPS up.', status: 'confirmed' }
+  const owed = forecastsOverdue(ledger, '2020-04-01', [filedReview([resolved])])
+  assert.equal(owed.length, 1, 'holes and malformed rows never become identity candidates')
+  assert.match(owed[0].description, /forecast_ledger\[7\]/, 'original indexes survive key caching')
+  assert.deepEqual(forecastsOverdue(ledger, '2020-04-01', [filedReview([
+    resolved, { prediction: 'see ledger', forecast_index: 8, status: 'falsified' },
+  ])]), [], 'explicit references still address the original sparse ledger')
+})
+
 await check('terminal-full-stop fallback rejects changed claims, other punctuation and malformed identities', () => {
   const prediction = 'Q1 FY27 revenue below INR 7,340.9M by 2020-03-01'
   const changed: unknown[] = [
