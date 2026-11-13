@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-13T17:14:44Z",
+  "generated_at": "2026-11-13T17:19:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261113-800",
+      "headline": "INDO-MIM Limited: INDO-MIM Limited has informed the Exchange about the Proposal to make investment in Meena Solar Power Park Private Limited to acquire 6.5% equity stake under group captive scheme.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/INDOMIM_13112026222814_INDO_MIM_Outcome_BM_-_13-11-2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-13T16:58:22Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "The company is acquiring a 6.5% equity stake in a solar power entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is acquiring a 6.5% equity stake in a solar power entity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "INDO-MIM Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261113-798",
       "headline": "Kothari Petrochemicals Limited: Kothari Petrochemicals Limited has informed the Exchange about Proceedings of the Hon'ble National Company Law Tribunal (\"NCLT\") Convened Meeting of the Unsecured Creditors of Kothari Petrochemicals Limited held on November 13, 2026",
@@ -1080,6 +1129,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261113-804",
+      "headline": "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/godawari-power-approves-rs-1435-crore-capex-20033790.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T16:52:40Z",
+      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
+      "prelim_note": "Profit dropped 47.5% but the company approved a significant ₹1,435 crore capex investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit dropped 47.5% but the company approved a significant ₹1,435 crore capex investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godawari Power & Ispat",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261113-797",
       "headline": "Adani Energy Solutions completes ₹3,050-cr acquisition of IntelliSmart",
       "headline_en": null,
@@ -1879,104 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-676",
-      "headline": "Natco Pharma's Q2 Earnings Take A Sharp Hit, Net Profit Crashes 61% To ₹202.6 Crore As Revenue Slumps 29%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/natco-pharmas-q2-earnings-take-a-sharp-hit-net-profit-crashes-61-to-2026-crore-as-revenue-slumps-29",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:29:09Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Natco Pharma reported a 61% crash in net profit to ₹202.6 crore and a 29% slump in revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Natco Pharma reported a 61% crash in net profit to ₹202.6 crore and a 29% slump in revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Natco Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261113-574",
-      "headline": "‎Jensen Huang resigns from NVIDIA",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1953549",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:25:00Z",
-      "sweep_file": "screener/inbox/2026-11-13_sweep.json",
-      "prelim_note": "Jensen Huang resigns from Nvidia, a major leadership change for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jensen Huang resigns from Nvidia, a major leadership change for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278475,9 +278476,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1307691,
-    "news_picked_today": 1675,
-    "news_dropped_today": 16925
+    "news_seen_today": 1321006,
+    "news_picked_today": 1685,
+    "news_dropped_today": 16963
   },
   "book_momentum": {
     "live_count": 8,
