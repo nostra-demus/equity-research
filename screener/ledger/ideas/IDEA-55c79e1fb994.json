@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-2e5391db32b6",
-  "idea_version": "IDEAV-93da71797e2a0728",
-  "idea_version_started_at": "2026-11-11T03:59:14Z",
-  "ticker": "DDI",
-  "company": "DoubleDown Interactive Co., Ltd.",
+  "idea_id": "IDEA-55c79e1fb994",
+  "idea_version": "IDEAV-8bd115e5283a160a",
+  "idea_version_started_at": "2026-11-14T03:26:30Z",
+  "ticker": "CBRS",
+  "company": "Cerebras Systems",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "DoubleU Games has filed a tender offer to acquire shares of DoubleDown Interactive, typically creating a floor near the offer price.",
-  "why_now": "The SC TO-T filing was officially submitted on 2026-11-10.",
+  "reason": "Cloud revenue growth of 265% and a raised outlook demonstrate strong demand for their AI compute infrastructure.",
+  "why_now": "The earnings report and guidance hike were released on November 13, 2026.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 19,
+    "evidence": 14,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -30,7 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,31 +42,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-b634bcd2c052"
+    "EVT-84cc9cca9237"
   ],
-  "primary_source_event_id": "EVT-b634bcd2c052",
+  "primary_source_event_id": "EVT-84cc9cca9237",
   "source_headlines": [
-    "SC TO-T - DoubleU Games Co., Ltd (0001815365) (Filed by)"
+    "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)"
   ],
-  "source_headline": "SC TO-T - DoubleU Games Co., Ltd (0001815365) (Filed by)",
-  "source_url": "https://www.sec.gov/Archives/edgar/data/1815365/000119312526455784/0001193125-26-455784-index.htm",
-  "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+  "source_headline": "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)",
+  "source_url": "https://www.benzinga.com/markets/earnings/26/11/63224006/cerebras-stock-jumps-on-q3-cloud-revenue-up-265-despite-missed-guidance",
+  "source_name": "Benzinga",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-10T22:29:15Z",
+  "newest_source_at": "2026-11-13T19:52:55Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-11T03:59:14Z",
-  "updated_at": "2026-11-11T03:59:14Z",
-  "decay_at": "2026-11-12T10:29:15Z",
+  "surfaced_at": "2026-11-14T03:26:30Z",
+  "updated_at": "2026-11-14T03:26:30Z",
+  "decay_at": "2026-11-15T07:52:55Z",
   "status": "live",
   "promoted_signal_id": null
 }

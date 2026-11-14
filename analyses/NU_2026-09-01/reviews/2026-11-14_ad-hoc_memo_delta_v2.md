@@ -1,0 +1,66 @@
+# NU Memo Delta — 2026-11-14 (ad-hoc review, version 2)
+
+## 1. One-line verdict
+
+Thesis status: on-track · Delta: unchanged · The original revenue-miss forecast remains confirmed and the EPS-miss forecast remains falsified. New issuer-presented consolidated comparisons show both headline overdue-loan measures worsened, so the EPS beat did not pass its stable-credit condition. Reported risk-adjusted margin improved, and the overall Avoid call remains unconfirmed.
+
+## 2. What changed since the original memo
+
+Reported standalone IFRS revenue is US$5,820.364m (5,820,364 US$ thousand), versus the frozen US$5,936.74m bar: a US$116.376m shortfall, or 1.9603% below the bar. The ordinary revenue-miss trigger passed; the material bearish threshold US$5,758.64m was not crossed. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results)
+
+Reported standalone diluted EPS is US$0.2235 versus the frozen US$0.22164 bar: US$0.00186, or 0.8392%, above the bar. The EPS-miss prediction is false; the material bullish threshold US$0.23272 was not reached. No credit or profit-driver explanation is established. [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results)
+
+The issuer’s current consolidated comparative table reports headline 15–90-day overdue loans at 4.9% versus 4.3% in Q3 2025 and 90+ overdue loans at 7.3% versus 6.7%; both rose 60 basis points year on year. On that issuer-presented comparison, the stable-credit condition attached to the EPS stock-bullish trigger is not met. This does not require treating unavailable credit-cost or allowance comparisons as adverse. [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.3, current consolidated comparative table; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c)
+
+Reported risk-adjusted NIM improved from 10.8% to 12.1%, or 130 basis points year on year, despite falling 30 basis points sequentially from 12.4%. Excluding non-recurring items, it rose from 11.9% to 12.7%, or 80 basis points sequentially. On interest-earning balances, early delinquency improved from 8.2% to 8.0% while 90+ delinquency worsened from 11.6% to 12.1% sequentially. These distinct adjustment and denominator bases do not erase the adverse headline year-on-year delinquency comparison. [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.1; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c) [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.3, current consolidated comparative table; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c)
+
+The original Q3 2025 short announcement reports 4.2%/6.8% NPLs and explicitly labels asset quality Brazil Only; these must not replace the current consolidated table’s 4.3%/6.7% comparatives. The old release’s reported risk-adjusted NIM was 9.9%, versus 10.8% for Q3 2025 in the current table. The current release says the managerial framework began in Q4 2025; it does not explain every historical metric difference. Do not splice those vintages or claim that a provisional 300-basis-point credit-cost increase is a valid matched comparison. [Nu Q3 2025 results announcement, 2025-11-13, Asset Quality and footnote 3; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2025-financial-results) [Nu Q3 2026 Earnings Press Release, 2026-11-12, pp.3, 7; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c)
+
+## 3. Did the original thesis play out?
+
+Retain the original Avoid as a provisional no-entry stance. The new consolidated delinquency comparison supports the credit warning, while the EPS beat and improved reported risk-adjusted NIM remain counterevidence. A Group valuation and current price are still missing; this is not a new price-based valuation or authority to short. [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.3, current consolidated comparative table; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c) [analyses/NU_2026-09-01/memo.md, Why It Could Fail — Bear Case and the Killer Risk / What Would Change Our Mind, 2026-09-01]
+
+The revenue-miss forecast was right and the EPS-miss forecast was wrong. Current consolidated headline delinquency worsened, so the EPS beat did not pass its stable-credit stock-bullish condition. This supports one original warning while the overall Avoid and price outcome remain unresolved.
+
+The original credit-cost proxy was NIM minus reported risk-adjusted NIM; the current quarter is 22.5%−12.1%=10.4%, but a matched current-vintage Q3 2025 NIM was not supplied. The original allowance measure was total card-plus-loan allowance divided by gross card receivables plus gross loans; its matched Q3 builds remain unavailable. Reported 234% coverage of 90+ overdue loans has a different denominator and is not a substitute. [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.1; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c) [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01] [analyses/NU_2026-09-01/earnings/03_margin-drivers.md, §3, original analysis proxy definition, 2026-09-01]; [analyses/NU_2026-09-01/earnings/06_earnings-quality.md, §3, original allowance-ratio definition, 2026-09-01]
+
+The available source does not state every inclusion in the headline NPL denominator, and continuity with the legacy Brazil-only series is unproved. The scoped issuer-presented consolidated comparison supports a failed stability condition; it does not prove worsening underwriting across every portfolio, future cohort losses, an earnings-surprise cause or the overall Avoid call. [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.3, current consolidated comparative table; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c)
+
+## 4. Forecasts, catalysts, risks
+
+- Forecast 1: **confirmed** — Nu's Q3 2026 standalone revenue will be below US$5,936.74m.
+- Forecast 2: **falsified** — Nu's Q3 2026 GAAP diluted EPS will be below US$0.22164.
+
+Both 55% probabilities remain judgment. Revenue outcome y=1 gives (0.55−1)^2=0.2025; EPS outcome y=0 gives (0.55−0)^2=0.3025. These are descriptive scores on two correlated forecasts from one issuer-quarter, not an empirical success frequency or investment-skill measure. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01]
+
+Issuer release is dated 2026-11-12; occurrence of the call was not separately verified. [Nu Q3 2026 results announcement, 2026-11-12; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2026-financial-results) The material numeric bull thresholds (>US$6,114.84m and >US$0.23272) and bear alternatives (<US$5,758.64m or <US$0.21056) did not fire. The EPS numerical beat is now accompanied by worse issuer-presented consolidated headline delinquency; this fails the EPS stock-bullish credit condition. Revenue remained below its ordinary bar, so do not restate the mixed print as a dual beat or automatically settle every ambiguous catalyst branch. [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.3, current consolidated comparative table; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c) [Nu Q3 2026 interim condensed consolidated financial statements (unaudited, reviewed IAS 34/IFRS), standalone three months ended 2026-09-30, p.5 and Note 9 p.24; observed 2026-11-13](https://www.sec.gov/Archives/edgar/data/1691493/000129281426005272/nufs3q26_6k.htm) [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]
+
+The remaining original risks and catalysts remain unassessed or pending, with the credit finding scoped as above. [analyses/NU_2026-09-01/memo.md, Why It Could Fail — Bear Case and the Killer Risk / What Would Change Our Mind, 2026-09-01]
+
+No usable NU/SPY prices were present in this checkout’s local market feed. No new current price, benchmark/sector observation or compatible paired return was obtained. The frozen entry-price field is a pre-decision vendor anchor dated 2026-08-29, not proof of a trade. Return fields remain null; the older October review and its descriptive price are preserved. Investment returns, total/net return, compounding, drawdown, losses and costs are not measured here.
+
+## 5. Section impact map
+
+| Original section | Materiality /100 | Impact | Module(s) | Re-run? |
+|---|---:|---|---|---|
+| Why It Could Fail — Bear Case and the Killer Risk | 55 | positive | earnings, catalyst | No |
+| What Would Change Our Mind | 55 | negative | earnings, catalyst | No |
+| Why It Could Fail — Bear Case and the Killer Risk / What Would Change Our Mind | 60 | mixed | earnings, catalyst | No |
+
+## 6. Stage-One sheet comment
+
+Nu’s two original earnings forecasts remain settled: revenue was below its frozen bar, while reported diluted earnings per share exceeded its bar. The 12 November detailed release now supplies a consolidated year-on-year credit comparison: early overdue loans rose from 4.3% to 4.9% and 90-plus overdue loans from 6.7% to 7.3%. That fails the stable-credit condition attached to the EPS stock-bullish trigger on the company’s presented basis. It does not settle the overall Avoid call. Reported risk-adjusted margin improved from 10.8% to 12.1%, which remains important counterevidence. Older Brazil-only figures must not be substituted into the current comparison. Credit-cost and allowance measures still need matching definitions and periods, while Group valuation and investment returns remain unproven. Retain a provisional no-entry stance, preserve the forecasts and original memo, and obtain those missing comparisons before the 30 November checkpoint. [Nu Q3 2026 Earnings Press Release, 2026-11-12, pages 1 and 3.]
+
+## 7. Questions for management / analysts
+
+- How do the current consolidated NPL comparatives reconcile with the older Brazil-only disclosures, and what is included in each denominator?
+- What are the current-vintage prior-year NIM and reported risk-adjusted NIM inputs for a matched credit-cost comparison?
+- What are the same-date card-plus-loan allowances and gross exposure balances for Q3 2026 and Q3 2025?
+- Which operating, tax and credit factors explain the EPS outcome, without confusing a margin improvement with universally better borrower quality?
+- What Group post-tax USD required return and material-entity capital/liquidity buffers are supported?
+
+## 8. Watch before the next checkpoint
+
+- Obtain a current-vintage Q3 2025 NIM for the original NIM-minus-reported-risk-adjusted-NIM proxy; obtain matched Q3 allowance/gross-credit builds and a sourced Group required return. Preserve the confirmed revenue, falsified EPS and qualified consolidated delinquency outcomes rather than reopening them because other inputs remain missing. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and kill_criteria, 2026-09-01] [analyses/NU_2026-09-01/earnings/03_margin-drivers.md, §3, original analysis proxy definition, 2026-09-01]; [analyses/NU_2026-09-01/earnings/06_earnings-quality.md, §3, original allowance-ratio definition, 2026-09-01]
+- Preserve the issuer-presented consolidated credit finding and the opposing risk-adjusted margin improvement; verify any future bridge before substituting old Brazil-only comparatives. [Nu Q3 2026 Earnings Press Release, 2026-11-12, p.3, current consolidated comparative table; retrieved 2026-11-13](https://filemanager-cdn.mziq.com/published/59a081d2-0d63-4bb5-b786-4c07ae26bc74/f7e01169-851b-410e-9b33-92a97ad0835c) [Nu Q3 2025 results announcement, 2025-11-13, Asset Quality and footnote 3; retrieved 2026-11-13](https://nu.com/en/newsroom/company/nu-holdings-ltd-reports-third-quarter-2025-financial-results)
+- Obtain a sourced Group post-tax USD cost of equity and one model-consistent valuation path before declaring the premium excessive or the Avoid invalidated. [analyses/NU_2026-09-01/final_thesis.md, Part I and §§7, 9–11, 2026-09-01]

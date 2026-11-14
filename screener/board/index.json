@@ -1,6 +1,1985 @@
 {
-  "generated_at": "2026-11-13T23:59:44Z",
+  "generated_at": "2026-11-14T04:49:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261114-677",
+      "headline": "Reliance plans ₹43,000-crore coal-to-gas plant in Andhra Pradesh, could generate 40,000 jobs: What we know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/reliance-plans-rs-43-000-crore-coal-to-gas-plant-in-andhra-pradesh-could-generate-40-000-jobs-what-we-know-11794627790422.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T04:11:32Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Reliance Industries announced a 43,000 crore rupee investment in a coal gasification project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Industries announced a 43,000 crore rupee investment in a coal gasification project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-686",
+      "headline": "Mahanadi Coalfields IPO: Coal India Arm Files RHP For Public Issue",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/mahanadi-coalfields-ipo-coal-india-arm-files-rhp-for-public-issue-12325042#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T03:51:56Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Coal India's subsidiary Mahanadi Coalfields has filed its Red Herring Prospectus for an IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coal India's subsidiary Mahanadi Coalfields has filed its Red Herring Prospectus for an IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-242",
+      "headline": "CommonSpirit Health logs $544M operating loss to begin its FY2027",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/providers/commonspirit-health-logs-544m-operating-loss-begin-its-fy2027",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T01:11:47Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "CommonSpirit Health reported a quantified $544 million operating loss for the start of FY2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CommonSpirit Health reported a quantified $544 million operating loss for the start of FY2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CommonSpirit Health",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-145",
+      "headline": "Nvidia CEO out — 10 stocks to buy before S&P 500 hits 8,000",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/video/nvidia-ceo-out-10-stock-to-buy-before-sp-500-hits-8000",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:33:08Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Headline claims Nvidia CEO is out, which would be a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Headline claims Nvidia CEO is out, which would be a major leadership change for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-070",
+      "headline": "Troubled Sherritt Misses Payment as Liquidity Crisis Deepens",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-13/troubled-sherritt-misses-payment-as-liquidity-crisis-deepens",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T23:39:03Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Sherritt missed a debt payment as liquidity crisis deepens, signaling a potential default and going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sherritt missed a debt payment as liquidity crisis deepens, signaling a potential default and going-concern risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sherritt International",
+          "ticker": "S",
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-039",
+      "headline": "Tata Motors Swings to Unexpected Loss, Pares Back JLR Outlook",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-13/tata-motors-swings-to-unexpected-loss-pares-back-jlr-outlook",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T11:06:11Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Tata Motors reported an unexpected loss and reduced the outlook for its JLR division.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors reported an unexpected loss and reduced the outlook for its JLR division.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-043",
+      "headline": "Honda Is Spending $3 Billion on a New Ohio Plant. Here’s What It Means for Investors.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/honda-spending-3-billion-new-ohio-plant-heres-what-it-means-investors",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T11:02:02Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Honda is committing $3 billion to a new manufacturing plant in Ohio, representing a major capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honda is committing $3 billion to a new manufacturing plant in Ohio, representing a major capital expenditure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-054",
+      "headline": "Eni Plans Nearly $15B Gross Investment in UK through 2030",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/eni_plans_nearly_15b_gross_investment_in_uk_through_2030-13-nov-2026-185075-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:53:24Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Eni plans nearly $15 billion gross investment in UK through 2030, a major multi-year capex commitment affecting capital structure, cash flow, and strategic positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eni plans nearly $15 billion gross investment in UK through 2030, a major multi-year capex commitment affecting capital structure, cash flow, and strategic positioning.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eni",
+          "ticker": "ENI",
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-176",
+      "headline": "SpiceJet Flights Cancelled In Dubai As Airport Suspends Check-In Services Over ₹35.85 Crore Unpaid Dues",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/spicejet-flights-cancelled-in-dubai-as-airport-suspends-check-in-services-over-3585-crore-unpaid-dues",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T09:40:54Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "SpiceJet unable to pay ₹35.85 crore airport dues; Dubai airport suspended check-in and cancelled flights, signaling acute liquidity crisis and going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpiceJet unable to pay ₹35.85 crore airport dues; Dubai airport suspended check-in and cancelled flights, signaling acute liquidity crisis and going-concern risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet",
+          "ticker": "SPICEJET",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-214",
+      "headline": "Suspend trading on UFC shares for not submitting their financial statements for the 3rd QTR of 2026",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4702058/Suspend-trading-on-UFC-shares-for-not-submitting-their-financial-statements-for-the-3rd-QTR-of-2026",
+      "source_name": "Mubasher — Dubai Financial Market (DFM) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T08:46:23Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Trading suspended for UFC shares due to failure to submit mandatory financial statements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trading suspended for UFC shares due to failure to submit mandatory financial statements.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UFC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-299",
+      "headline": "+++ Geschäftszahlen +++: Cisco hebt Umsatzprognose an",
+      "headline_en": "+++ Business Figures +++: Cisco raises revenue forecast",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-cisco-hebt-umsatzprognose-an/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T07:01:39Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Cisco has raised its revenue guidance, signaling improved financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cisco has raised its revenue guidance, signaling improved financial expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cisco",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-300",
+      "headline": "Salik profit falls 8.6% to Dh1.05 billion despite 6.5% rise in fines revenue to Dh220 million",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/salik-profit-falls-86-to-dh105-billion-despite-65-rise-in-fines-revenue-to-dh220-million",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T07:00:16Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Salik reported an 8.6% decline in profit to Dh1.05 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Salik reported an 8.6% decline in profit to Dh1.05 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salik",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-321",
+      "headline": "SoftBank’s failed bet on gas turbines for AI drove $3.7bn charge",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a343d340-cdab-4c70-966e-795efd99bdbb?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T06:21:29Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "SoftBank reported a $3.7 billion charge related to a failed investment, directly impacting financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank reported a $3.7 billion charge related to a failed investment, directly impacting financial results.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-356",
+      "headline": "Nebius falls 10% as company expects increased 2026 capex spend, issues weak outlook",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/12/nebius-q3-earnings-report-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:06:08Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Nebius shares fell 10% following a weak outlook and increased 2026 capex guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nebius shares fell 10% following a weak outlook and increased 2026 capex guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nebius",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-420",
+      "headline": "Poundland staves off immediate collapse as emergency talks continue",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16286431/Poundland-staves-immediate-collapse-emergency-talks-continue.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T11:55:48Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Poundland is in emergency talks to avoid collapse, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland is in emergency talks to avoid collapse, indicating severe financial distress.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-437",
+      "headline": "Shree Cements to invest ₹7,000 crore to set up plants in AP",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/shree-cements-to-invest-7000-crore-to-set-up-plants-in-ap/article71693513.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T11:44:35Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Shree Cements announced a major capital expenditure of ₹7,000 crore for new plant construction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shree Cements announced a major capital expenditure of ₹7,000 crore for new plant construction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shree Cements",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-446",
+      "headline": "Ola Electric's revenue falls 39%, net loss narrows as supply constraints hit production",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/ola-electric-q2-net-loss-narrows-to-rs362-crore-revenue-falls-39pc-to-rs421-crore-20032622.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T11:37:38Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Ola Electric reported a 39% revenue decline due to supply constraints, impacting production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ola Electric reported a 39% revenue decline due to supply constraints, impacting production.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola Electric",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-453",
+      "headline": "Poundland secures more time to avert collapse",
+      "headline_en": null,
+      "url": "https://www.cityam.com/poundland-secures-more-time-to-avert-collapse/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T11:36:32Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Poundland is in financial distress and seeking time to avoid collapse.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland is in financial distress and seeking time to avoid collapse.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-454",
+      "headline": "CleanMax to invest ₹50,000 crore in AP to set up integrated clean energy complex in Kurnool",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/cleanmax-to-invest-50000-crore-in-ap-to-set-upintegrated-clean-energy-complexin-kurnool/article71693470.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T11:36:14Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "CleanMax announced a major capital expenditure of ₹50,000 crore for a clean energy complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CleanMax announced a major capital expenditure of ₹50,000 crore for a clean energy complex.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CleanMax",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-543",
+      "headline": "Fairfax's Rs 52,878-crore IDBI Bank deal sets stage for a financial services powerhouse",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/fairfaxs-rs-52878-crore-idbi-bank-deal-sets-stage-for-a-financial-services-powerhouse/articleshow/135764422.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T10:04:40Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Fairfax is acquiring IDBI Bank in a deal valued at Rs 52,878 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fairfax is acquiring IDBI Bank in a deal valued at Rs 52,878 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Fairfax",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-604",
+      "headline": "Kia India to invest $2 billion for new manufacturing unit in Andhra Pradesh",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/kia-india-to-invest-2-billion-for-new-manufacturing-unit-in-andhra-pradesh-4215677",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:49:22Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Kia India announced a $2 billion investment for a new manufacturing unit in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kia India announced a $2 billion investment for a new manufacturing unit in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-631",
+      "headline": "Adnoc L&S expects $4 billion full-year profit as tanker rates surge",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/energy/2026/11/12/adnoc-ls-expects-4-billion-full-year-profit-as-tanker-rates-surge/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:30:57Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Adnoc L&S projects a $4 billion full-year profit driven by surging tanker rates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adnoc L&S projects a $4 billion full-year profit driven by surging tanker rates.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc L&S",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-640",
+      "headline": "Versicherer: Allianz erhöht Prognose – Rekordgewinn nach neun Monaten",
+      "headline_en": "Insurers: Allianz raises forecast – record profit after nine months",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/versicherung-allianz-erhoeht-prognose-rekordgewinn-nach-neun-monaten/100266550.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:20:49Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Allianz raised its profit guidance following a record nine-month performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz raised its profit guidance following a record nine-month performance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-651",
+      "headline": "Dax-Konzern: Siemens legt Rekordzahlen vor und erhöht Ziele",
+      "headline_en": "Dax Group: Siemens reports record figures and raises targets",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/dax-konzern-siemens-legt-rekordzahlen-vor-und-erhoeht-ziele/100265689.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:13:55Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Siemens reported record financial results and raised its future guidance targets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siemens reported record financial results and raised its future guidance targets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siemens AG",
+          "ticker": "SIE",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-662",
+      "headline": "Kia's Andhra Expansion: $2 Billion Investment, 12,000 Jobs And New Plant",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/kias-andhra-expansion-2-billion-investment-12-000-jobs-and-new-plant-12316314#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:06:35Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Kia announced a $2 billion investment for expansion in Andhra Pradesh, including a new plant and 12,000 jobs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kia announced a $2 billion investment for expansion in Andhra Pradesh, including a new plant and 12,000 jobs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-671",
+      "headline": "Landmark Group expands NCR portfolio with ₹1,600 crore planned investment — Here's a look at the projects",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/real-estate/landmark-group-develop-projects-ncr-office-gurugram-dwarka-expressway-mixed-use-commercial-retail-plan-invest-rs-1600-cr-11794464053687.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:02:34Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Landmark Group planned a major capital expenditure of ₹1,600 crore to expand its portfolio in the National Capital Region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Landmark Group planned a major capital expenditure of ₹1,600 crore to expand its portfolio in the National Capital Region.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 13,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Landmark Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-684",
+      "headline": "Reliance Industries to invest ₹43,000 crore in Andhra Pradesh to develop coal gasification complex",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/reliance-industries-to-invest-rupees-43000-crore-in-andhra-pradesh-to-develop-coal-gasification-complex-20032368.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T07:52:24Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Reliance Industries announced a 43,000 crore rupee investment in a coal gasification complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Industries announced a 43,000 crore rupee investment in a coal gasification complex.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-687",
+      "headline": "Rückversicherung: Münchener Rück hebt Gewinnprognose an",
+      "headline_en": "Reinsurance: Munich Re raises profit forecast",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/versicherer/rueckversicherung-muenchener-rueck-hebt-gewinnprognose-an/100266551.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T07:18:08Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Munich Re raised its profit guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Munich Re raised its profit guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Munich Re",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-624",
+      "headline": "COSCIENS Biopharma Inc. Q3 Loss Widens",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cosciens-biopharma-inc-q3-loss-widens",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T03:05:56Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "COSCIENS Biopharma reported a widened net loss for Q3.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "COSCIENS Biopharma reported a widened net loss for Q3.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COSCIENS Biopharma Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-085",
+      "headline": "Jensen Huang quits Nvidia, the company he co-founded in 1993. The timeline, day by day",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/trends/photo/jensen-huang-quits-nvidia-the-company-he-co-founded-in-1993-the-timeline-day-by-day-567358-2026-11-13?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:40:16Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "CEO Jensen Huang quits Nvidia; abrupt founder-CEO departure at ~$2.6T mega-cap raises governance succession and strategic-direction risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "CEO Jensen Huang quits Nvidia; abrupt founder-CEO departure at ~$2.6T mega-cap raises governance succession and strategic-direction risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-197",
+      "headline": "Salik posts AED 1.045 billion net profit for first nine months of 2026",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/uae/salik-posts-aed-1045-billion-net-profit-for-first-nine-months-of-2026/7748",
+      "source_name": "Emirates 24|7 — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T09:19:00Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Salik reported a net profit of AED 1.045 billion for the first nine months of 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Salik reported a net profit of AED 1.045 billion for the first nine months of 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salik",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-274",
+      "headline": "1,600 Nvidia Employees Rally Behind Jensen Huang, Demand Boss' Return After Exit Over Affair",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/1-600-nvidia-employees-rally-behind-jensen-huang-demand-his-return-after-exit-over-affair-12321061#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T07:19:06Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "The sudden exit of CEO Jensen Huang from Nvidia due to a scandal is a major leadership crisis for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The sudden exit of CEO Jensen Huang from Nvidia due to a scandal is a major leadership crisis for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-297",
+      "headline": "Jensen Huang’s abrupt exit stuns Nvidia’s China staff, clouding the outlook in a key market",
+      "headline_en": null,
+      "url": "https://www.scmp.com/tech/big-tech/article/3374316/jensen-huangs-abrupt-exit-stuns-nvidias-china-staff-clouding-outlook-key-market",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T07:00:40Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "The abrupt exit of Jensen Huang from Nvidia's China operations creates significant uncertainty in a key market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The abrupt exit of Jensen Huang from Nvidia's China operations creates significant uncertainty in a key market.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-340",
+      "headline": "Bitcoin firm Nakamoto owes Kraken $165 million, more than its entire market value",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/markets/2026/11/13/bitcoin-firm-nakamoto-owes-kraken-usd165-million-more-than-its-entire-market-value",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T06:03:41Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Nakamoto owes Kraken $165 million, an amount exceeding its entire market capitalization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Nakamoto owes Kraken $165 million, an amount exceeding its entire market capitalization.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nakamoto",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Kraken",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-611",
+      "headline": "DP World moves 1 million TEUs as $680.7 million Fujairah terminals accelerate to 18–24 months",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/dp-world-moves-1-million-teus-as-680-7-million-fujairah-terminals-accelerate-to-18-24-months/?utm_source=rss&utm_medium=rss&utm_campaign=dp-world-moves-1-million-teus-as-680-7-million-fujairah-terminals-accelerate-to-18-24-months",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:45:01Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "DP World is accelerating a $680.7 million terminal project in Fujairah, indicating significant capital investment and capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "DP World is accelerating a $680.7 million terminal project in Fujairah, indicating significant capital investment and capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DP World",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-643",
+      "headline": "Reliance Plans ₹2.70 Lakh Crore Coal Gasification Project In Andhra Pradesh Over 30 Years",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/reliance-plans-270-lakh-crore-coal-gasification-project-in-andhra-pradesh-over-30-years",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:18:46Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-652",
+      "headline": "Kia India Unveils Mega $2 Billion Expansion Plan, Andhra Pradesh Set For 12,000 Jobs And Bigger Auto Manufacturing Hub",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/kia-india-unveils-mega-2-billion-expansion-plan-andhra-pradesh-set-for-12000-jobs-and-bigger-auto-manufacturing-hub",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:13:49Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia Corporation",
+          "ticker": "000270",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-698",
+      "headline": "+++ Geschäftszahlen +++: Sixt hebt die Prognose an",
+      "headline_en": "+++ Business Figures +++: Sixt raises its forecast",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-sixt-hebt-die-prognose-an/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T07:12:51Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Sixt has raised its profit guidance for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Sixt has raised its profit guidance for the period.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sixt",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-391",
+      "headline": "Tech stocks slide as Nvidia board prepares to oust Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.cityam.com/tech-stocks-slide-as-nvidia-board-prepares-to-oust-jensen-huang/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:18:58Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Reports of the board preparing to oust the CEO of a major tech company represent a critical management risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Reports of the board preparing to oust the CEO of a major tech company represent a critical management risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-398",
+      "headline": "Nvidia Has Hired an Outside Firm to Find Jensen Huang’s Replacement",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/12/nvidia-has-hired-an-outside-firm-to-find-jensen-huangs-replacement/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:17:24Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Nvidia has reportedly hired an outside firm to find a replacement for CEO Jensen Huang, signaling a major leadership transition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Nvidia has reportedly hired an outside firm to find a replacement for CEO Jensen Huang, signaling a major leadership transition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261113-948",
       "headline": "25-NSE - Starling Oncology, Inc. (0001799191) (Subject)",
@@ -235762,6 +237741,146 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-55c79e1fb994",
+      "idea_version": "IDEAV-8bd115e5283a160a",
+      "idea_version_started_at": "2026-11-14T03:26:30Z",
+      "ticker": "CBRS",
+      "company": "Cerebras Systems",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Cloud revenue growth of 265% and a raised outlook demonstrate strong demand for their AI compute infrastructure.",
+      "why_now": "The earnings report and guidance hike were released on November 13, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-84cc9cca9237"
+      ],
+      "primary_source_event_id": "EVT-84cc9cca9237",
+      "source_headlines": [
+        "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)"
+      ],
+      "source_headline": "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)",
+      "source_url": "https://www.benzinga.com/markets/earnings/26/11/63224006/cerebras-stock-jumps-on-q3-cloud-revenue-up-265-despite-missed-guidance",
+      "source_name": "Benzinga",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T19:52:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T03:26:30Z",
+      "updated_at": "2026-11-14T03:26:30Z",
+      "decay_at": "2026-11-15T07:52:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0c58fc228db1",
+      "idea_version": "IDEAV-8a5bdbea6442436e",
+      "idea_version_started_at": "2026-11-14T03:26:30Z",
+      "ticker": "PFE",
+      "company": "Pfizer",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 revenue forecast by $1.5 billion, signaling improved operational momentum.",
+      "why_now": "The guidance increase was announced on November 13, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-548adec65e57"
+      ],
+      "primary_source_event_id": "EVT-548adec65e57",
+      "source_headlines": [
+        "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?"
+      ],
+      "source_headline": "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?",
+      "source_url": "https://www.fool.com/investing/2026/11/13/pfizer-just-raised-its-2026-revenue-forecast-by-15/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T19:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T11:51:50Z",
+      "updated_at": "2026-11-14T03:26:30Z",
+      "decay_at": "2026-11-15T07:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-213a42c487e6",
       "idea_version": "IDEAV-6009dfd80144dddb",
       "idea_version_started_at": "2026-11-13T00:55:31Z",
@@ -236608,31 +238727,33 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-568ff94c6eb6",
-      "idea_version": "IDEAV-54b9542838a02244",
-      "idea_version_started_at": "2026-11-12T19:23:01Z",
-      "ticker": "PLCE",
-      "company": "The Children's Place",
+      "idea_id": "IDEA-56c9c0f906ac",
+      "idea_version": "IDEAV-ee5f8cb3494de29b",
+      "idea_version_started_at": "2026-11-14T04:27:27Z",
+      "ticker": "CBR",
+      "company": "Cerebras",
       "exchange": "NASDAQ",
-      "direction": "short",
+      "direction": "long",
       "pair_with": null,
-      "reason": "The company has filed for Chapter 11 bankruptcy and is closing all retail locations, signaling a total loss of equity value for shareholders.",
-      "why_now": "The bankruptcy filing and store closure announcement occurred on November 12, 2026.",
-      "conviction": 95,
+      "reason": "The company reported record Q3 revenue and raised its 2026 guidance, signaling strong demand for its AI hardware solutions.",
+      "why_now": "The positive earnings and guidance update occurred on November 13, 2026.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
+        "impact": 20,
+        "specificity": 7,
         "timing": 10,
-        "expression": 7,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "priced-in risk",
@@ -236649,30 +238770,319 @@
         "evidenceIds": []
       },
       "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
+      "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-232b059d895d"
+        "EVT-bfffa5f5078c"
       ],
-      "primary_source_event_id": "EVT-232b059d895d",
+      "primary_source_event_id": "EVT-bfffa5f5078c",
       "source_headlines": [
-        "Children’s Place closing all its stores in Chapter 11 bankruptcy"
+        "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance"
       ],
-      "source_headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
-      "source_url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
+      "source_headline": "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-nov-13-cerebras-surges-over-11-record-q3-revenue-and-raised-2026",
+      "source_name": "Nasdaq",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T16:43:29Z",
+      "newest_source_at": "2026-11-13T22:30:28Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-11-09T19:22:55Z",
-      "updated_at": "2026-11-12T19:23:01Z",
-      "decay_at": "2026-11-14T04:43:29Z",
+      "surfaced_at": "2026-11-14T04:27:27Z",
+      "updated_at": "2026-11-14T04:27:27Z",
+      "decay_at": "2026-11-15T10:30:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-671ed28cb051",
+      "idea_version": "IDEAV-2d03cf21942a39a8",
+      "idea_version_started_at": "2026-11-14T04:27:27Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported an unexpected quarterly loss and lowered its outlook for the Jaguar Land Rover (JLR) division, indicating weakening demand and margin pressure.",
+      "why_now": "The earnings miss and guidance revision were reported on November 13, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c78c4157ba5a"
+      ],
+      "primary_source_event_id": "EVT-c78c4157ba5a",
+      "source_headlines": [
+        "Tata Motors Swings to Unexpected Loss, Pares Back JLR Outlook"
+      ],
+      "source_headline": "Tata Motors Swings to Unexpected Loss, Pares Back JLR Outlook",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/tata-motors-swings-to-unexpected-loss-pares-back-jlr-outlook",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T11:06:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T15:01:09Z",
+      "updated_at": "2026-11-14T04:27:27Z",
+      "decay_at": "2026-11-14T23:06:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1b04785ad8b2",
+      "idea_version": "IDEAV-0384a398ffca57de",
+      "idea_version_started_at": "2026-11-14T00:48:11Z",
+      "ticker": "01001",
+      "company": "HK SH ALLIANCE",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a likely deterioration in its earnings.",
+      "why_now": "The profit warning was announced on November 13, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d2e3d86f134"
+      ],
+      "primary_source_event_id": "EVT-5d2e3d86f134",
+      "source_headlines": [
+        "HK SH ALLIANCE (01001): PROFIT WARNING"
+      ],
+      "source_headline": "HK SH ALLIANCE (01001): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111301326.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T13:14:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T00:48:11Z",
+      "updated_at": "2026-11-14T00:48:11Z",
+      "decay_at": "2026-11-15T01:14:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-87ba79df5ac3",
+      "idea_version": "IDEAV-9129273ebe58a0cd",
+      "idea_version_started_at": "2026-11-14T00:48:11Z",
+      "ticker": "00813",
+      "company": "SHIMAO GROUP",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company's annual report includes a disclaimer of opinion, indicating significant accounting issues.",
+      "why_now": "This update was disclosed on November 13, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cdce1b56d6f3"
+      ],
+      "primary_source_event_id": "EVT-cdce1b56d6f3",
+      "source_headlines": [
+        "XINHUA WINSHARE (00811): CONNECTED TRANSACTION ACQUISITION OF 100% EQUITY INTEREST IN SICHUAN MINZU PUBLISHING HOUSE LIMITED"
+      ],
+      "source_headline": "XINHUA WINSHARE (00811): CONNECTED TRANSACTION ACQUISITION OF 100% EQUITY INTEREST IN SICHUAN MINZU PUBLISHING HOUSE LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300858.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T10:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T00:48:11Z",
+      "updated_at": "2026-11-14T00:48:11Z",
+      "decay_at": "2026-11-14T22:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a712989686ed",
+      "idea_version": "IDEAV-c4fd52ad03355ff1",
+      "idea_version_started_at": "2026-11-14T00:48:11Z",
+      "ticker": "03318",
+      "company": "CHINA BOTON",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is undertaking a capital injection to acquire a 49% equity interest in a target company, suggesting strategic expansion.",
+      "why_now": "The disclosure of this transaction was made on November 13, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-72732c0d3aa7"
+      ],
+      "primary_source_event_id": "EVT-72732c0d3aa7",
+      "source_headlines": [
+        "CHINA BOTON (03318): DISCLOSEABLE TRANSACTION - CAPITAL INJECTION TO ACQUIRE 49% EQUITY INTEREST IN THE TARGET COMPANY"
+      ],
+      "source_headline": "CHINA BOTON (03318): DISCLOSEABLE TRANSACTION - CAPITAL INJECTION TO ACQUIRE 49% EQUITY INTEREST IN THE TARGET COMPANY",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111300877.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T10:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T00:48:11Z",
+      "updated_at": "2026-11-14T00:48:11Z",
+      "decay_at": "2026-11-14T22:15:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237250,78 +239660,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-671ed28cb051",
-      "idea_version": "IDEAV-edf48eaa74963e73",
-      "idea_version_started_at": "2026-11-13T15:01:09Z",
-      "ticker": "TTM",
-      "company": "Tata Motors",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A net loss of ₹5,531 crore driven by JLR restructuring costs and asset impairments indicates deeper-than-expected margin pressure and balance sheet drag from its luxury automotive unit.",
-      "why_now": "The Q2 results were reported today, November 13, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4871d66ac78d"
-      ],
-      "primary_source_event_id": "EVT-4871d66ac78d",
-      "source_headlines": [
-        "Tata Motors PV Q2 Results: Net loss at ₹5,531 crore on JLR restructuring costs, asset impairment"
-      ],
-      "source_headline": "Tata Motors PV Q2 Results: Net loss at ₹5,531 crore on JLR restructuring costs, asset impairment",
-      "source_url": "https://www.cnbctv18.com/market/stocks/tata-motors-pv-share-price-q2-results-net-loss-at-rs-5531-crore-on-jlr-restructuring-costs-asset-impairment-20033595.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T11:25:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-13T15:01:09Z",
-      "updated_at": "2026-11-13T15:01:09Z",
-      "decay_at": "2026-11-14T23:25:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3127a62a6d2b",
       "idea_version": "IDEAV-30b6c050491c13d6",
       "idea_version_started_at": "2026-11-13T13:41:15Z",
@@ -237822,220 +240160,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-926b7a55febc",
-      "idea_version": "IDEAV-352024216b9adee9",
-      "idea_version_started_at": "2026-11-12T19:23:01Z",
-      "ticker": "02221",
-      "company": "New Concepts Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert indicating a turnaround from loss to profit, suggesting a material improvement in operational margins.",
-      "why_now": "The official profit alert filing was released on November 12, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6545fe1e19d6"
-      ],
-      "primary_source_event_id": "EVT-6545fe1e19d6",
-      "source_headlines": [
-        "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT"
-      ],
-      "source_headline": "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201398.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T12:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T19:23:01Z",
-      "updated_at": "2026-11-12T19:23:01Z",
-      "decay_at": "2026-11-14T00:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-94611d081530",
-      "idea_version": "IDEAV-7b286663da02f73d",
-      "idea_version_started_at": "2026-11-12T18:46:45Z",
-      "ticker": "09618",
-      "company": "JD.com",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The completion of the voluntary public takeover offer for Ceconomy AG marks a strategic expansion into European retail markets, potentially diversifying revenue streams.",
-      "why_now": "The completion was officially announced on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-64b7b7bc16ba"
-      ],
-      "primary_source_event_id": "EVT-64b7b7bc16ba",
-      "source_headlines": [
-        "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG"
-      ],
-      "source_headline": "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201308.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T12:01:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T18:46:45Z",
-      "updated_at": "2026-11-12T18:46:45Z",
-      "decay_at": "2026-11-14T00:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5880efc59f2d",
-      "idea_version": "IDEAV-75d5d0ba16547141",
-      "idea_version_started_at": "2026-11-12T16:29:30Z",
-      "ticker": "08507",
-      "company": "Chi Eco Land Mt",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
-      "why_now": "The profit warning was filed on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e6f994dbaef2"
-      ],
-      "primary_source_event_id": "EVT-e6f994dbaef2",
-      "source_headlines": [
-        "CHI ECO LAND MT (08507): PROFIT WARNING"
-      ],
-      "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T13:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T16:29:30Z",
-      "updated_at": "2026-11-12T16:29:30Z",
-      "decay_at": "2026-11-14T01:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-255e34fda7d0",
       "idea_version": "IDEAV-1b03d249564e5d8e",
       "idea_version_started_at": "2026-11-12T10:13:12Z",
@@ -238526,76 +240650,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0c58fc228db1",
-      "idea_version": "IDEAV-9555e4ef22d3581d",
-      "idea_version_started_at": "2026-11-12T11:51:50Z",
-      "ticker": "PFE",
-      "company": "Pfizer",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.5 billion capital injection from Blackstone for obesity drug studies reduces the company's R&D funding burden and accelerates clinical development.",
-      "why_now": "The funding deal was reported on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aebccb9f1f5d"
-      ],
-      "primary_source_event_id": "EVT-aebccb9f1f5d",
-      "source_headlines": [
-        "Blackstone puts up $1.5 billion for Pfizer obesity drug studies"
-      ],
-      "source_headline": "Blackstone puts up $1.5 billion for Pfizer obesity drug studies",
-      "source_url": "https://www.thehindubusinessline.com/companies/blackstone-puts-up-15-billion-for-pfizer-obesity-drug-studies/article71692286.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T05:02:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T11:51:50Z",
-      "updated_at": "2026-11-12T11:51:50Z",
-      "decay_at": "2026-11-13T17:02:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-618dd4911398",
       "idea_version": "IDEAV-d7be8916e443e69b",
       "idea_version_started_at": "2026-11-11T23:47:52Z",
@@ -238806,6 +240860,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-568ff94c6eb6",
+      "idea_version": "IDEAV-54b9542838a02244",
+      "idea_version_started_at": "2026-11-12T19:23:01Z",
+      "ticker": "PLCE",
+      "company": "The Children's Place",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has filed for Chapter 11 bankruptcy and is closing all retail locations, signaling a total loss of equity value for shareholders.",
+      "why_now": "The bankruptcy filing and store closure announcement occurred on November 12, 2026.",
+      "conviction": 95,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-232b059d895d"
+      ],
+      "primary_source_event_id": "EVT-232b059d895d",
+      "source_headlines": [
+        "Children’s Place closing all its stores in Chapter 11 bankruptcy"
+      ],
+      "source_headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
+      "source_url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T16:43:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T19:22:55Z",
+      "updated_at": "2026-11-12T19:23:01Z",
+      "decay_at": "2026-11-14T04:43:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b1db4cfd6b4d",
       "idea_version": "IDEAV-9bedcfb4b9fb6e4c",
       "idea_version_started_at": "2026-11-12T14:12:08Z",
@@ -238948,31 +241073,104 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-2e5391db32b6",
-      "idea_version": "IDEAV-93da71797e2a0728",
-      "idea_version_started_at": "2026-11-11T03:59:14Z",
-      "ticker": "DDI",
-      "company": "DoubleDown Interactive Co., Ltd.",
-      "exchange": "NASDAQ",
+      "idea_id": "IDEA-926b7a55febc",
+      "idea_version": "IDEAV-352024216b9adee9",
+      "idea_version_started_at": "2026-11-12T19:23:01Z",
+      "ticker": "02221",
+      "company": "New Concepts Holdings",
+      "exchange": "HKEX",
       "direction": "long",
       "pair_with": null,
-      "reason": "DoubleU Games has filed a tender offer to acquire shares of DoubleDown Interactive, typically creating a floor near the offer price.",
-      "why_now": "The SC TO-T filing was officially submitted on 2026-11-10.",
-      "conviction": 75,
+      "reason": "The company issued a positive profit alert indicating a turnaround from loss to profit, suggesting a material improvement in operational margins.",
+      "why_now": "The official profit alert filing was released on November 12, 2026.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6545fe1e19d6"
+      ],
+      "primary_source_event_id": "EVT-6545fe1e19d6",
+      "source_headlines": [
+        "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT"
+      ],
+      "source_headline": "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201398.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T12:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T19:23:01Z",
+      "updated_at": "2026-11-12T19:23:01Z",
+      "decay_at": "2026-11-14T00:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-94611d081530",
+      "idea_version": "IDEAV-7b286663da02f73d",
+      "idea_version_started_at": "2026-11-12T18:46:45Z",
+      "ticker": "09618",
+      "company": "JD.com",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The completion of the voluntary public takeover offer for Ceconomy AG marks a strategic expansion into European retail markets, potentially diversifying revenue streams.",
+      "why_now": "The completion was officially announced on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 25,
         "impact": 19,
-        "specificity": 15,
+        "specificity": 7,
         "timing": 10,
-        "expression": 7,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "priced-in risk",
@@ -238992,26 +241190,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-b634bcd2c052"
+        "EVT-64b7b7bc16ba"
       ],
-      "primary_source_event_id": "EVT-b634bcd2c052",
+      "primary_source_event_id": "EVT-64b7b7bc16ba",
       "source_headlines": [
-        "SC TO-T - DoubleU Games Co., Ltd (0001815365) (Filed by)"
+        "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG"
       ],
-      "source_headline": "SC TO-T - DoubleU Games Co., Ltd (0001815365) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1815365/000119312526455784/0001193125-26-455784-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "source_headline": "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201308.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-10T22:29:15Z",
+      "newest_source_at": "2026-11-12T12:01:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-11-11T03:59:14Z",
-      "updated_at": "2026-11-11T03:59:14Z",
-      "decay_at": "2026-11-12T10:29:15Z",
+      "surfaced_at": "2026-11-12T18:46:45Z",
+      "updated_at": "2026-11-12T18:46:45Z",
+      "decay_at": "2026-11-14T00:01:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239083,6 +241281,77 @@
       "surfaced_at": "2026-11-12T16:29:30Z",
       "updated_at": "2026-11-12T16:29:30Z",
       "decay_at": "2026-11-13T23:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5880efc59f2d",
+      "idea_version": "IDEAV-75d5d0ba16547141",
+      "idea_version_started_at": "2026-11-12T16:29:30Z",
+      "ticker": "08507",
+      "company": "Chi Eco Land Mt",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
+      "why_now": "The profit warning was filed on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e6f994dbaef2"
+      ],
+      "primary_source_event_id": "EVT-e6f994dbaef2",
+      "source_headlines": [
+        "CHI ECO LAND MT (08507): PROFIT WARNING"
+      ],
+      "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T13:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T16:29:30Z",
+      "updated_at": "2026-11-12T16:29:30Z",
+      "decay_at": "2026-11-14T01:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240526,77 +242795,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ad6534db1fd8",
-      "idea_version": "IDEAV-b28c901d720dfdfb",
-      "idea_version_started_at": "2026-11-11T08:18:47Z",
-      "ticker": "509631",
-      "company": "HEG Advanced Materials Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HEG Advanced Materials received a Rs 609.50 Crore incentive under ECMS for its synthetic graphite anode material project, which will boost its financial performance.",
-      "why_now": "The approval letter was announced on November 11, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-75b3f84bbde2"
-      ],
-      "primary_source_event_id": "EVT-75b3f84bbde2",
-      "source_headlines": [
-        "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
-      ],
-      "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T03:21:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T08:18:47Z",
-      "updated_at": "2026-11-11T08:18:47Z",
-      "decay_at": "2026-11-12T15:21:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-044dc4e9fa5c",
       "idea_version": "IDEAV-5951286fe5cddfd6",
       "idea_version_started_at": "2026-11-11T06:27:58Z",
@@ -240741,434 +242939,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-8e6545d55d5f",
-      "idea_version": "IDEAV-521e07ad18a04557",
-      "idea_version_started_at": "2026-11-11T05:44:55Z",
-      "ticker": "02256",
-      "company": "Abbisko Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA approval of pimicotinib for tenosynovial giant cell tumor (TGCT) validates the company's lead drug candidate and opens a significant commercial revenue stream in the U.S. market.",
-      "why_now": "The regulatory approval was announced on November 11, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2967d36dc001"
-      ],
-      "primary_source_event_id": "EVT-2967d36dc001",
-      "source_headlines": [
-        "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT"
-      ],
-      "source_headline": "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100175.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:44:55Z",
-      "updated_at": "2026-11-11T05:44:55Z",
-      "decay_at": "2026-11-12T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f4e90eacafe1",
-      "idea_version": "IDEAV-04bb4e11f7eb2a72",
-      "idea_version_started_at": "2026-11-11T05:44:55Z",
-      "ticker": "HEG",
-      "company": "HEG Advanced Materials Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received a Rs 609.50 crore government incentive for its synthetic graphite anode project, which directly improves capital expenditure efficiency and project viability.",
-      "why_now": "The approval letter was officially announced on November 11, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-75b3f84bbde2"
-      ],
-      "primary_source_event_id": "EVT-75b3f84bbde2",
-      "source_headlines": [
-        "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
-      ],
-      "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T03:21:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:44:55Z",
-      "updated_at": "2026-11-11T05:44:55Z",
-      "decay_at": "2026-11-12T15:21:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3c2ee1fd18a5",
-      "idea_version": "IDEAV-acd8aa6b482c32c9",
-      "idea_version_started_at": "2026-11-11T04:24:11Z",
-      "ticker": "KIT",
-      "company": "Keppel Infrastructure Trust",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Keppel Infrastructure Trust is acquiring a 70% stake in a power plant for up to S$111.6 million, which will expand its asset base and recurring income.",
-      "why_now": "The acquisition was announced on November 11, 2026, providing a clear catalyst for potential re-rating.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7caa69419d14"
-      ],
-      "primary_source_event_id": "EVT-7caa69419d14",
-      "source_headlines": [
-        "Keppel Infrastructure Trust to acquire 70% stake in power plant for up to S$111.6 million"
-      ],
-      "source_headline": "Keppel Infrastructure Trust to acquire 70% stake in power plant for up to S$111.6 million",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/keppel-infrastructure-trust-acquire-70-stake-power-plant-s111-6-million",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T00:29:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T04:24:11Z",
-      "updated_at": "2026-11-11T04:24:11Z",
-      "decay_at": "2026-11-12T12:29:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a6b4b796e78e",
-      "idea_version": "IDEAV-136eec4b7b6674e7",
-      "idea_version_started_at": "2026-11-11T03:59:14Z",
-      "ticker": "ASB",
-      "company": "Austal",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
-      "why_now": "The company announced the start of production on 2026-11-11.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7465b8b54030"
-      ],
-      "primary_source_event_id": "EVT-7465b8b54030",
-      "source_headlines": [
-        "ASB: Austal commences production on $5B Landing Craft Projects"
-      ],
-      "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T01:03:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T03:59:14Z",
-      "updated_at": "2026-11-11T03:59:14Z",
-      "decay_at": "2026-11-12T13:03:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1e80e6023e62",
-      "idea_version": "IDEAV-c3e94f6a5fb0ae2a",
-      "idea_version_started_at": "2026-11-10T23:42:15Z",
-      "ticker": "IEL",
-      "company": "IDP Education",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Receipt of a revised unsolicited takeover proposal indicates potential for a control premium or a competitive bidding process.",
-      "why_now": "The filing confirming the revised proposal was released on 2026-11-10.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2f91849a55a2"
-      ],
-      "primary_source_event_id": "EVT-2f91849a55a2",
-      "source_headlines": [
-        "IEL: Receipt of revised unsolicited proposal [price-sensitive]"
-      ],
-      "source_headline": "IEL: Receipt of revised unsolicited proposal [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IEL?key=2924-03160427-3A706279",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T22:38:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T23:42:15Z",
-      "updated_at": "2026-11-10T23:42:15Z",
-      "decay_at": "2026-11-12T10:38:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c9b7224cbdda",
-      "idea_version": "IDEAV-9500e4dab8bdeaa4",
-      "idea_version_started_at": "2026-11-11T04:24:11Z",
-      "ticker": "MQG",
-      "company": "Macquarie Group",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Macquarie Bank, a subsidiary of Macquarie Group, will pay a $14 million penalty for misleading customers with a 'welcome rate' promotion, impacting its reputation and potentially future regulatory scrutiny.",
-      "why_now": "The penalty and its details were reported on November 11, 2026, making the regulatory action current.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-700f1447ef68"
-      ],
-      "primary_source_event_id": "EVT-700f1447ef68",
-      "source_headlines": [
-        "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion"
-      ],
-      "source_headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
-      "source_url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 95,
-      "newest_source_at": "2026-11-11T01:23:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T04:24:11Z",
-      "updated_at": "2026-11-11T04:24:11Z",
-      "decay_at": "2026-11-12T13:23:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3e0ccff47789",
       "idea_version": "IDEAV-0acad24986e16db6",
       "idea_version_started_at": "2026-11-11T05:44:55Z",
@@ -241251,37 +243021,334 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 24
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1871,
-      "oldest_retained_at": "2026-10-19T15:31:59Z",
+      "evicted_count": 1879,
+      "oldest_retained_at": "2026-10-19T21:03:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1228,
-          "oldest_retained_at": "2026-10-30T09:22:45Z"
+          "evicted_count": 1235,
+          "oldest_retained_at": "2026-10-31T02:20:00Z"
         },
         "short": {
-          "evicted_count": 644,
-          "oldest_retained_at": "2026-10-19T15:31:59Z"
+          "evicted_count": 645,
+          "oldest_retained_at": "2026-10-19T21:03:00Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-568ff94c6eb6",
+        "idea_version": "IDEAV-54b9542838a02244",
+        "idea_version_started_at": "2026-11-12T19:23:01Z",
+        "ticker": "PLCE",
+        "company": "The Children's Place",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has filed for Chapter 11 bankruptcy and is closing all retail locations, signaling a total loss of equity value for shareholders.",
+        "why_now": "The bankruptcy filing and store closure announcement occurred on November 12, 2026.",
+        "conviction": 95,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-232b059d895d"
+        ],
+        "primary_source_event_id": "EVT-232b059d895d",
+        "source_headlines": [
+          "Children’s Place closing all its stores in Chapter 11 bankruptcy"
+        ],
+        "source_headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
+        "source_url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
+        "source_name": "TheStreet",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T16:43:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T19:22:55Z",
+        "updated_at": "2026-11-12T19:23:01Z",
+        "decay_at": "2026-11-14T04:43:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T04:43:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5880efc59f2d",
+        "idea_version": "IDEAV-75d5d0ba16547141",
+        "idea_version_started_at": "2026-11-12T16:29:30Z",
+        "ticker": "08507",
+        "company": "Chi Eco Land Mt",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
+        "why_now": "The profit warning was filed on 2026-11-12.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e6f994dbaef2"
+        ],
+        "primary_source_event_id": "EVT-e6f994dbaef2",
+        "source_headlines": [
+          "CHI ECO LAND MT (08507): PROFIT WARNING"
+        ],
+        "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T13:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T16:29:30Z",
+        "updated_at": "2026-11-12T16:29:30Z",
+        "decay_at": "2026-11-14T01:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T01:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-926b7a55febc",
+        "idea_version": "IDEAV-352024216b9adee9",
+        "idea_version_started_at": "2026-11-12T19:23:01Z",
+        "ticker": "02221",
+        "company": "New Concepts Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert indicating a turnaround from loss to profit, suggesting a material improvement in operational margins.",
+        "why_now": "The official profit alert filing was released on November 12, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6545fe1e19d6"
+        ],
+        "primary_source_event_id": "EVT-6545fe1e19d6",
+        "source_headlines": [
+          "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT"
+        ],
+        "source_headline": "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201398.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T12:45:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T19:23:01Z",
+        "updated_at": "2026-11-12T19:23:01Z",
+        "decay_at": "2026-11-14T00:45:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T00:45:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-94611d081530",
+        "idea_version": "IDEAV-7b286663da02f73d",
+        "idea_version_started_at": "2026-11-12T18:46:45Z",
+        "ticker": "09618",
+        "company": "JD.com",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The completion of the voluntary public takeover offer for Ceconomy AG marks a strategic expansion into European retail markets, potentially diversifying revenue streams.",
+        "why_now": "The completion was officially announced on 2026-11-12.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-64b7b7bc16ba"
+        ],
+        "primary_source_event_id": "EVT-64b7b7bc16ba",
+        "source_headlines": [
+          "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG"
+        ],
+        "source_headline": "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201308.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T12:01:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T18:46:45Z",
+        "updated_at": "2026-11-12T18:46:45Z",
+        "decay_at": "2026-11-14T00:01:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T00:01:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-31ac6088f15f",
         "idea_version": "IDEAV-9fb9aceec602a756",
@@ -242093,79 +244160,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-13T18:07:58Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0c58fc228db1",
-        "idea_version": "IDEAV-9555e4ef22d3581d",
-        "idea_version_started_at": "2026-11-12T11:51:50Z",
-        "ticker": "PFE",
-        "company": "Pfizer",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $1.5 billion capital injection from Blackstone for obesity drug studies reduces the company's R&D funding burden and accelerates clinical development.",
-        "why_now": "The funding deal was reported on 2026-11-12.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-aebccb9f1f5d"
-        ],
-        "primary_source_event_id": "EVT-aebccb9f1f5d",
-        "source_headlines": [
-          "Blackstone puts up $1.5 billion for Pfizer obesity drug studies"
-        ],
-        "source_headline": "Blackstone puts up $1.5 billion for Pfizer obesity drug studies",
-        "source_url": "https://www.thehindubusinessline.com/companies/blackstone-puts-up-15-billion-for-pfizer-obesity-drug-studies/article71692286.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-12T05:02:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-12T11:51:50Z",
-        "updated_at": "2026-11-12T11:51:50Z",
-        "decay_at": "2026-11-13T17:02:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-13T17:02:33Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -244099,8 +246093,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T16:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T04:27:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244173,8 +246167,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T15:21:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T03:26:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244247,8 +246241,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T15:21:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T03:26:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244322,8 +246316,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T13:23:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T03:26:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244396,8 +246390,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T13:03:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T03:26:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244471,8 +246465,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T12:29:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T00:48:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244545,8 +246539,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T10:38:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T00:48:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244618,8 +246612,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T10:29:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T00:48:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269326,80 +271320,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-85c3dfebf743",
-        "idea_version": "IDEAV-124b71ffc2478ed2",
-        "idea_version_started_at": "2026-11-01T02:15:36Z",
-        "ticker": "BYDDY",
-        "company": "BYD",
-        "exchange": "OTC Markets",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "BYD continues to demonstrate dominant scale with 600,000 cumulative sales for its Fang Cheng Bao brand and plans for accelerated delivery capacity in November.",
-        "why_now": "The announcement of accelerated delivery plans for November 2026 provides a clear near-term catalyst for revenue recognition.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b8d952f950c3"
-        ],
-        "primary_source_event_id": "EVT-b8d952f950c3",
-        "source_headlines": [
-          "BYD Fang Cheng Bao reaches 600,000 cumulative sales, plans faster deliveries in November"
-        ],
-        "source_headline": "BYD Fang Cheng Bao reaches 600,000 cumulative sales, plans faster deliveries in November",
-        "source_url": "https://cnevpost.com/2026/11/01/byd-fang-cheng-bao-600000-cumulative-sales/",
-        "source_name": "CnEVPost",
-        "materiality_max": 88,
-        "newest_source_at": "2026-11-01T02:01:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T02:15:36Z",
-        "updated_at": "2026-11-01T02:15:36Z",
-        "decay_at": "2026-11-02T14:01:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T03:39:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-35072f3bcc46",
         "idea_version": "IDEAV-d2a912e59be6f7b4",
         "idea_version_started_at": "2026-11-01T03:42:18Z",
@@ -278244,164 +280164,12 @@
         "archived_at": "2026-10-23T11:11:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-18ddb9fd5fec",
-        "idea_version": "IDEAV-5db13e7aa00663b6",
-        "idea_version_started_at": "2026-10-20T00:02:47Z",
-        "ticker": "PWH",
-        "company": "PWH",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued an updated outlook that was negatively received by the market, suggesting potential earnings misses or margin compression.",
-        "why_now": "The updated outlook was provided in a formal address on October 19, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b671c01a9f1e"
-        ],
-        "primary_source_event_id": "EVT-b671c01a9f1e",
-        "source_headlines": [
-          "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]"
-        ],
-        "source_headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWH?key=2924-03150474-2A1705033",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T23:25:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T00:02:47Z",
-        "updated_at": "2026-10-20T00:02:47Z",
-        "decay_at": "2026-10-21T11:25:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T23:50:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c009bc671c9a",
-        "idea_version": "IDEAV-f7ea29f5b95d97f9",
-        "idea_version_started_at": "2026-10-19T23:11:18Z",
-        "ticker": "NAB",
-        "company": "National Australia Bank",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The bank is initiating a massive restructuring involving 2,500 job cuts with an associated $300 million cost, indicating near-term margin pressure and operational headwinds.",
-        "why_now": "The restructuring plan was announced on October 19, 2026, with the majority of layoffs occurring over the coming months.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8a21fe1a1d9c",
-          "EVT-b48f9450924c"
-        ],
-        "primary_source_event_id": "EVT-8a21fe1a1d9c",
-        "source_headlines": [
-          "NAB to cut 2500 jobs in massive restructure, most to go within months",
-          "ASX falls; NAB expects restructure, redundancies to cost bank $300m"
-        ],
-        "source_headline": "NAB to cut 2500 jobs in massive restructure, most to go within months",
-        "source_url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T23:01:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T23:11:18Z",
-        "updated_at": "2026-10-19T23:11:18Z",
-        "decay_at": "2026-10-21T11:01:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T23:50:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2450,
-    "live_count": 34,
+    "surfaced_total": 2455,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -278411,7 +280179,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4807,
+    "inbox_unconsumed": 4847,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -278420,9 +280188,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1687553,
-    "news_picked_today": 2582,
-    "news_dropped_today": 23962
+    "news_seen_today": 102553,
+    "news_picked_today": 1023,
+    "news_dropped_today": 2961
   },
   "book_momentum": {
     "live_count": 8,

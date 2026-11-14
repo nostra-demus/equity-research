@@ -1,19 +1,19 @@
 {
-  "idea_id": "IDEA-a6b4b796e78e",
-  "idea_version": "IDEAV-136eec4b7b6674e7",
-  "idea_version_started_at": "2026-11-11T03:59:14Z",
-  "ticker": "ASB",
-  "company": "Austal",
-  "exchange": "ASX",
+  "idea_id": "IDEA-1b04785ad8b2",
+  "idea_version": "IDEAV-0384a398ffca57de",
+  "idea_version_started_at": "2026-11-14T00:48:11Z",
+  "ticker": "01001",
+  "company": "HK SH ALLIANCE",
+  "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
-  "why_now": "The company announced the start of production on 2026-11-11.",
-  "conviction": 70,
+  "reason": "The company issued a profit warning, indicating a likely deterioration in its earnings.",
+  "why_now": "The profit warning was announced on November 13, 2026.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "price and market expectations",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,31 +44,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "unknown",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-7465b8b54030"
+    "EVT-5d2e3d86f134"
   ],
-  "primary_source_event_id": "EVT-7465b8b54030",
+  "primary_source_event_id": "EVT-5d2e3d86f134",
   "source_headlines": [
-    "ASB: Austal commences production on $5B Landing Craft Projects"
+    "HK SH ALLIANCE (01001): PROFIT WARNING"
   ],
-  "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
-  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
-  "source_name": "ASX (Australia Exchange Filing)",
+  "source_headline": "HK SH ALLIANCE (01001): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1113/2026111301326.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-11T01:03:37Z",
+  "newest_source_at": "2026-11-13T13:14:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-11T03:59:14Z",
-  "updated_at": "2026-11-11T03:59:14Z",
-  "decay_at": "2026-11-12T13:03:37Z",
+  "surfaced_at": "2026-11-14T00:48:11Z",
+  "updated_at": "2026-11-14T00:48:11Z",
+  "decay_at": "2026-11-15T01:14:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
