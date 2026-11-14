@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T03:56:12Z",
+  "generated_at": "2026-11-14T04:05:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-242",
@@ -1539,6 +1539,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-574",
+      "headline": "WH Smith boss takes aim at years of ‘forced growth’ as profits plunge",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/wh-smith-shares-financial-conduct-authority-ireland-spain-b3083702.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T09:26:49Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "WH Smith reported a plunge in profits and a shift in strategy away from 'forced growth', indicating a material change in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "WH Smith reported a plunge in profits and a shift in strategy away from 'forced growth', indicating a material change in financial performance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WH Smith",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-021",
       "headline": "Microsoft outage hits companies and governments worldwide",
       "headline_en": null,
@@ -1933,55 +1982,6 @@
           "name": "Vishay Intertechnology, Inc.",
           "ticker": "VSH",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-351",
-      "headline": "Brazil’s WEG to invest ₹2,000 crore in Tamil Nadu",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/national/brazils-weg-to-invest-2000-crore-in-tamil-nadu/article71693798.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:16:30Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "WEG is investing ₹2,000 crore in a new facility in Tamil Nadu.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "WEG is investing ₹2,000 crore in a new facility in Tamil Nadu.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WEG",
-          "ticker": null,
-          "listing_country": "BR"
         }
       ],
       "size_bucket": "large",
@@ -280195,9 +280195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 97038,
-    "news_picked_today": 804,
-    "news_dropped_today": 2388
+    "news_seen_today": 98052,
+    "news_picked_today": 842,
+    "news_dropped_today": 2542
   },
   "book_momentum": {
     "live_count": 8,
