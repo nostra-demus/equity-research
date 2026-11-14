@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-14T09:50:36Z",
+  "generated_at": "2026-11-14T09:54:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261114-768",
+      "headline": "Dolat Algotech Limited: Dolat Algotech Limited has informed the Exchange regarding Outcome of Board Meeting held on November 14, 2026 for considering and approving for the issuance of Non-Convertible Debentures (NCDs) for an aggregate principal amount of up to ₹400 Crore (Rupees Four Hundred Crore only), in one or more tranches, on a private placement basis, in accordance with applicable laws and regulatory requirements.The details as required under SEBI (Listing Obligations and Disclosure",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DOLATALGO_14112026150059_14-11-26-Outcome-BM-results-Fund-raising-signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-14T09:32:30Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Dolat Algotech Limited announced the issuance of Non-Convertible Debentures (NCDs) for up to ₹400 Crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dolat Algotech Limited announced the issuance of Non-Convertible Debentures (NCDs) for up to ₹400 Crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dolat Algotech Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261114-759",
       "headline": "Shirpur Gold Refinery Limited: Shirpur Gold Refinery Limited has informed the Exchange about Non-Submission of Audited Financial Results (Standalone & Consolidated) under Regulation 33 of the SEBI LODR Regulations, 2015 for the Quarter and the Half Year ended September 30, 2026, due to non-availability of financial information",
@@ -194,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-770",
+      "headline": "Binance restores withdrawals across 87 networks after record $6.3 billion crypto theft",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/binance-restores-withdrawals-across-87-networks-after-record-6-3-billion-crypto-theft/articleshow/135828112.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T09:23:13Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Binance reported a record $6.3 billion crypto theft, representing a massive operational and security failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance reported a record $6.3 billion crypto theft, representing a massive operational and security failure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1867,106 +1965,6 @@
           "name": "Kia",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-715",
-      "headline": "Technologiekonzern: Siemens erzielt operativen Rekordgewinn – und erhöht die Mittelfristziele",
-      "headline_en": "Technology group: Siemens achieves record operating profit – and raises mid-term targets",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/dax-konzern-siemens-erzielt-operativen-rekordgewinn/100265689.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T06:08:08Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Siemens reported record operating profit and raised its mid-term guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Siemens reported record operating profit and raised its mid-term guidance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Siemens",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-716",
-      "headline": "Pharmakonzern: KI und Pharma beflügeln Merck – Dax-Konzern hebt Prognose erneut an",
-      "headline_en": "Pharmaceutical group: AI and pharma boost Merck – DAX group raises forecast again",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/pharmakonzern-ki-und-pharma-befluegeln-merck-prognose-erneut-angehoben/100269286.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T06:07:54Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Merck raised its guidance again, driven by AI and pharma performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Merck raised its guidance again, driven by AI and pharma performance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Merck",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -279820,9 +279818,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 135821,
-    "news_picked_today": 1312,
-    "news_dropped_today": 6651
+    "news_seen_today": 136059,
+    "news_picked_today": 1315,
+    "news_dropped_today": 6672
   },
   "book_momentum": {
     "live_count": 8,
