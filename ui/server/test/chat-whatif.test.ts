@@ -749,6 +749,18 @@ await (async () => {
     }
   })
 
+  // Exact post-v3-review development cases; the preserved NEEDS_REVISION finding and original
+  // 73-record matrix remain unchanged. These exclusion/comparison controls are not unseen samples.
+  await check('post-review excluded/comparison subjects cannot select the excluded recorded commodity', () => {
+    const cases: { id: string; question: string; parse: ParseResult; expectedPlans: number }[] = [
+      {"id": "contrast-rather-than", "question": "copper rather than aluminium rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "contrast-instead-of", "question": "copper instead of aluminium rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "exclusion-except", "question": "all metals except aluminium rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "exclusion-excluding", "question": "metals excluding aluminium rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+    ]
+    for (const c of cases) assert.equal(validateIntents(c.parse, c.question, SOURCE_EFFECTS).plans.length, c.expectedPlans, c.id)
+  })
+
   await check('source metric gate: malformed row/base labels never become authoritative; matched missing/null row fallback stays valid', async () => {
     const malformed: unknown[] = [{ metric: 'unknown' }, ['unknown'], 123, true, false, '', ' \t\r\n', '\uFEFF', '\u0085']
     for (const value of malformed) {

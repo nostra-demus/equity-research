@@ -327,7 +327,7 @@ export interface Plan { variable: string; row: SensitivityRow; req: ScenarioRequ
 // Same nonblank-character contract as the sensitivity schema/Python reader (JS/Python \s differ).
 const NONBLANK_TEXT = /[^\u0009-\u000D\u001C-\u0020\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]/
 const nonblankText = (value: unknown): value is string => typeof value === 'string' && NONBLANK_TEXT.test(value)
-const words = (s: string) => s.toLowerCase().replace(/\baluminium\b/g, 'aluminum').replace(/[^a-z0-9]+/g, ' ').trim()
+const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\baluminium\b/g, 'aluminum').trim()
 const rawUnit = (s: string) => s.toLowerCase().replace(/\bper\b/g, '/').replace(/\s*\/\s*/g, '/').replace(/\s+/g, ' ').trim()
 const rowNames = (row: SensitivityRow) => [row.variable, typeof row.label === 'string' ? row.label.split(/[—–]/)[0] : null]
   .filter((s): s is string => typeof s === 'string').map(words).filter(Boolean)
@@ -358,15 +358,17 @@ function explicitRawMove(question: string, row: SensitivityRow, rows: Sensitivit
     const subject = before.slice(0, move?.index ?? signed!.index)
       .split(/[,;?!]|\.(?!\d)|\b(?:and|whereas|while|but)\b/i).at(-1) || ''
     if (/\b(?:not|never|unchanged)\b|n['’]t\b/i.test(subject)) continue
-    const named = ` ${words(subject)} `
-    const strong = rows.filter((r) => rowNames(r).some((name) => named.endsWith(` ${name} `)))
+    // Accept a bare named subject after a conditional introduction. A name at the end of an arbitrary
+    // phrase can be an exclusion ("all metals except aluminium"), rather than the subject that moves.
+    const named = words(subject.split(/\b(?:if|assuming|suppose|imagine)\b/i).at(-1) || '').replace(/^the /, '')
+    const strong = rows.filter((r) => rowNames(r).some((name) => named === name))
     // A shared measurement word ("price") is not a commodity identity, nor is USD alone an FX pair.
     // Abbreviated names may omit those generic nouns, but must retain the rest of a recorded name.
     const candidates = strong.length ? strong : rows.filter((r) => {
       if (/^[a-z]{3}_[a-z]{3}$/i.test(r.variable) && typeof r.unit === 'string' && /^[a-z]{3}\/[a-z]{3}$/i.test(rawUnit(r.unit))) return false
       return rowNames(r).some((name) => {
         const subjectName = name.split(' ').filter((word) => !['price', 'rate', 'exchange', 'volume'].includes(word)).join(' ')
-        return subjectName && named.endsWith(` ${subjectName} `)
+        return subjectName && named === subjectName
       })
     })
     if (candidates.length === 1 && candidates[0] === row) return true
