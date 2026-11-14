@@ -232,7 +232,7 @@ def resolve_scenario(sidecar: dict, variable: str, req: dict) -> dict:
 
     Returns scenario()'s dict plus `mode` ('delta'|'level'|'reverse') and the resolved inputs, or {"error"}.
     Never fabricates: a request the sidecar can't support (no variable base for a level, no revenue base for a
-    margin target, zero coefficient) is an explicit error, not a guessed number.
+    margin target, mismatched impact/base metrics, zero coefficient) is an explicit error, not a guessed number.
     """
     if not isinstance(sidecar, dict):
         return {"error": "sensitivity_summary is not an object"}
@@ -261,6 +261,10 @@ def resolve_scenario(sidecar: dict, variable: str, req: dict) -> dict:
         extra = {"target_level": tl, "variable_base": var_base}
     elif req.get("target") is not None or req.get("target_margin") is not None:
         mode = "reverse"
+        base_metric = sidecar.get("base_metric")
+        impact_metric = s.get("impact_metric") or base_metric
+        if impact_metric != base_metric:
+            return {"error": f"cannot solve: coefficient is on {impact_metric}, not the base metric {base_metric}"}
         if coeff is None or coeff == 0:
             return {"error": "cannot solve: the recorded coefficient is zero or missing"}
         if base is None:
@@ -408,6 +412,22 @@ def _selftest() -> int:
     # 14. reverse REFUSES (no number) when the sidecar can't support it — no revenue base for a margin target
     rev_norev = resolve_scenario(norev, "lme_aluminium_price", {"target_margin": 16})
     check("reverse_refuses_without_revenue", "error" in rev_norev and "impact" not in rev_norev)
+
+    # A revenue coefficient cannot solve an EBITDA target, even when both base values exist.
+    for label, request in (("value", {"target": 30000}), ("margin", {"target_margin": 16})):
+        refused = resolve_scenario(diff, "lme_aluminium_price", request)
+        check(f"reverse_refuses_different_metric_{label}", set(refused) == {"error"})
+
+    compatible_target = resolve_scenario(nhy, "lme_aluminium_price", {"target": 29039})
+    check("reverse_same_metric_target", _approx(compatible_target.get("resolved_delta"), 10)
+          and _approx(compatible_target.get("new_value"), 29039))
+    # Metric mismatch still permits impact-only forward requests, including variable levels.
+    for label, request, expected in (("delta", {"delta": 45}, 675),
+                                     ("level", {"target_level": 3000}, -2880)):
+        impact_only = resolve_scenario(diff, "lme_aluminium_price", request)
+        check(f"resolve_different_metric_{label}_impact_only",
+              _approx(impact_only.get("impact"), expected) and impact_only.get("new_value") is None
+              and "margin_change_bps" not in impact_only)
 
     # 15. resolve_scenario forward delta stays identical to scenario() (backward compatible)
     fwd = resolve_scenario(nhy, "lme_aluminium_price", {"delta": 45})
