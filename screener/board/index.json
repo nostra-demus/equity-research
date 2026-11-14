@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T00:54:54Z",
+  "generated_at": "2026-11-14T00:58:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-145",
@@ -1135,6 +1135,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-174",
+      "headline": "Super Micro, run by Jensen Huang’s friend, says Megaspeed was ‘never’ its customer",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/13/nvidia-super-micro-jensen-huang-friend-never-megaspeed/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T23:48:45Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Super Micro Computer issued a denial regarding a customer relationship, impacting management credibility and market perception.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Super Micro Computer issued a denial regarding a customer relationship, impacting management credibility and market perception.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Super Micro Computer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-001",
       "headline": "Nvidia Crisis Spurs Scrutiny of Agency That Oversees Chip Curbs",
       "headline_en": null,
@@ -1274,6 +1323,55 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-164",
+      "headline": "Microsoft Outlook and Teams outage eases after over a day but recovery timeline uncertain",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/14/microsoft-outage-stabilizing/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:26:00Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "A multi-day service outage for major enterprise software like Outlook and Teams impacts productivity for a vast number of corporate users.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "A multi-day service outage for major enterprise software like Outlook and Teams impacts productivity for a vast number of corporate users.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1855,105 +1953,6 @@
         {
           "name": "Nvidia",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-044",
-      "headline": "How Shanghai fund manager Kang Wei introduced his wife Alice Huang to Jensen and built $7.5 billion Nvidia AI GPU smuggling operation",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/how-shanghai-fund-manager-kang-wei-introduced-his-wife-alice-huang-to-jensen-and-built-usd7-5-billion-nvidia-ai-gpu-smuggling-operation-mistresss-husband-joked-she-was-the-ceos-personal-assistant",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Reports of a $7.5 billion smuggling operation involving Nvidia GPUs highlight significant supply chain and export control risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Reports of a $7.5 billion smuggling operation involving Nvidia GPUs highlight significant supply chain and export control risks.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-110",
-      "headline": "Microsoft outage live: UK police, NHS services and schools affected amid ongoing disruption affecting millions globally",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/technology/live/2026/nov/13/microsoft-outage-down-today-live-update-outlook-teams-365-when-fixed-latest-status-cause-news",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:12:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Microsoft experiencing live outage affecting UK police, NHS, schools and millions globally; threatens service reputation, user trust, and triggers potential SLA credits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Microsoft experiencing live outage affecting UK police, NHS, schools and millions globally; threatens service reputation, user trust, and triggers potential SLA credits.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": "MSFT",
           "listing_country": "US"
         }
       ],
@@ -280385,9 +280384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 25028,
-    "news_picked_today": 175,
-    "news_dropped_today": 569
+    "news_seen_today": 30722,
+    "news_picked_today": 196,
+    "news_dropped_today": 596
   },
   "book_momentum": {
     "live_count": 8,
