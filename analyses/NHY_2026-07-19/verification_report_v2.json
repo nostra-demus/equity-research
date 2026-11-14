@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "run_root": "analyses/NHY_2026-07-19",
+  "verified_at": "2026-11-14T04:38:03.424982+00:00",
+  "verifier": "targeted-source-correction-review; not a new full verify-evidence audit",
+  "final_thesis_path": "analyses/NHY_2026-07-19/final_thesis.md",
+  "decision_record_path": "analyses/NHY_2026-07-19/decision_record.json",
+  "final_thesis_sha256": "c93a8e295d3c6542abd553db62e9cbb9e4f780ce6127529fe7ff7dc974b3cc30",
+  "decision_record_sha256": "ab555c0031e4a1b0b4b48dc7b1cf11cab91a61d0b561e4a033342e730f080735",
+  "decision_record_hash_basis": "research-analytical-json/v1",
+  "claims_checked": 3,
+  "claim_checks": [
+    {
+      "claim": "Accounts receivable nearly doubled/+82.3% QoQ",
+      "citation": "business-model11; earnings08/99; final_thesis; memo; decision_record EARN-08-Receivables",
+      "source_checked": "First Quarter Report 2026 p.23 and Financials.xls Balance Sheet relevant rows",
+      "status": "scope_mismatch; corrected arithmetic documented, downstream judgments unresolved",
+      "evidence": "17,212 + 8,722 = 25,934 prior combined total; 31,384 current combined total; 21.0% QoQ and -1.9% YoY, not 82.3% pure trade-AR growth. Vendor dash is not zero.",
+      "severity": "high"
+    },
+    {
+      "claim": "DSO 33.0 to 56.7 measures comparable collection deterioration and normalization to 33 can test forecast",
+      "citation": "decision_record forecast_ledger[2]; final_thesis cash-flow forecast and reconciliation; earnings08/99",
+      "source_checked": "Financials.xls Balance Sheet classification and Ratios DSO FY2025/LTM March2026; original forecast/trigger wording",
+      "status": "comparable_basis_not_established; dependent forecast not cleanly assessable",
+      "evidence": "Underlying receivables scope/averaging method not reconciled. Prediction AND differs from trigger and/or; preserve original forecast/probability and quarantine assessment until governed review.",
+      "severity": "high"
+    },
+    {
+      "claim": "Working-capital build unexplained anywhere; pure collection-deterioration interpretation",
+      "citation": "final_thesis cash-risk rationale; earnings08; memo",
+      "source_checked": "First Quarter Report 2026 highlights/pp.2,5 and cash-flow p.24",
+      "status": "management_explanation_omitted; cash observation retained",
+      "evidence": "Management cites higher metal prices and sales for operating-capital build. CFO -1,891m is reported; trade-only ageing/collection conclusion is not independently established.",
+      "severity": "high"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Combined trade and other receivables QoQ growth",
+      "reported": "82.3% from unmatched vendor categories",
+      "recomputed": "(31,384 - 25,934) / 25,934 * 100 = 21.0148839361%",
+      "ties": false,
+      "detail": "Corrected documentary arithmetic; original body figures retained for history, not recertified."
+    },
+    {
+      "quantity": "Combined trade and other receivables YoY growth",
+      "reported": "Not named in legacy near-doubling narrative",
+      "recomputed": "(31,384 - 32,004) / 32,004 * 100 = -1.93725784277%",
+      "ties": null,
+      "detail": "Represented March2025 filing column; point-in-time consolidated NOKm balances."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Receivables definition",
+      "values_by_module": {
+        "prior_vendor_accounts_receivable": 17212,
+        "prior_vendor_other_receivables": 8722,
+        "prior_filing_trade_and_other": 25934,
+        "current_vendor_accounts_and_total": 31384,
+        "current_filing_trade_and_other": 31384
+      },
+      "consistent": false,
+      "detail": "Source classification split changes. Corrected aggregate growth does not yield trade-only growth."
+    }
+  ],
+  "fidelity_checks": [],
+  "contradiction_checks": [],
+  "integrity_score": null,
+  "verdict": "Material issues",
+  "blocking_findings": [
+    "Known receivables category error and unestablished DSO basis remain in frozen source-to-thesis/record bodies; documentary correction does not revalidate magnitude-dependent High severity/confidence/cash-flow forecast judgments.",
+    "Pending source-backed reassessment and separate governed forecast review; no clean collection-deterioration, normalization or outcome-calibration claim permitted."
+  ],
+  "notes": "TARGETED supplemental material-error report, not a complete new audit, successful rerun, rating change or integrity score. Only three correlated assertions on one known NHY case checked. Null score because broader claim/math/anchor/fidelity/contradiction sweeps were not rerun; empty arrays are not a universal pass. Original verification_report.json and every decision/forecast/review unchanged. No later market or outcome data consulted. No seal exists at write time. Report uses existing numeric version selection and provisional/calibration exclusion; no new schema or code. Existing audit conclusions outside these defects are not freshly certified."
+}
