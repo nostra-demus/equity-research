@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T10:07:32Z",
+  "generated_at": "2026-11-14T10:21:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -237587,82 +237587,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-9cf1b918bc937f14",
-      "idea_version_started_at": "2026-11-13T00:55:31Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential strategic disruption for the company.",
-      "why_now": "The resignation was confirmed on 2026-11-12.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 79,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5162fc103f59",
-        "EVT-520f2c89f121",
-        "EVT-ac407dbf5107",
-        "EVT-b45f52505cd3",
-        "EVT-326a840118ab"
-      ],
-      "primary_source_event_id": "EVT-5162fc103f59",
-      "source_headlines": [
-        "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
-        "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
-        "Huang Ousted By Nvidia Board As CEO | Closing Bell",
-        "Stock Market Today, Nov. 12: Nvidia Shares Slide on Reports of CEO Jensen Huang's Resignation"
-      ],
-      "source_headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
-      "source_url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
-      "source_name": "CBS MoneyWatch",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T22:10:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-13T00:55:31Z",
-      "decay_at": "2026-11-14T10:10:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-55c79e1fb994",
       "idea_version": "IDEAV-8bd115e5283a160a",
       "idea_version_started_at": "2026-11-14T03:26:30Z",
@@ -238219,77 +238143,6 @@
       "surfaced_at": "2026-11-13T02:10:51Z",
       "updated_at": "2026-11-13T02:10:51Z",
       "decay_at": "2026-11-14T10:28:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-54c229398a67",
-      "idea_version": "IDEAV-e65ea26484c5cd88",
-      "idea_version_started_at": "2026-11-13T00:55:31Z",
-      "ticker": "SANG",
-      "company": "Sangoma Technologies",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has entered into a definitive acquisition agreement with BRC Group Holdings at a set cash and stock consideration.",
-      "why_now": "The special meeting announcement was made on 2026-11-12.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e460b18083ae"
-      ],
-      "primary_source_event_id": "EVT-e460b18083ae",
-      "source_headlines": [
-        "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share"
-      ],
-      "source_headline": "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share",
-      "source_url": "https://www.nasdaq.com/articles/sangoma-technologies-corporation-announces-special-meeting-vote-acquisition-brc-group",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T22:20:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-13T00:55:31Z",
-      "updated_at": "2026-11-13T00:55:31Z",
-      "decay_at": "2026-11-14T10:20:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239946,6 +239799,82 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-9cf1b918bc937f14",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential strategic disruption for the company.",
+      "why_now": "The resignation was confirmed on 2026-11-12.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 79,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5162fc103f59",
+        "EVT-520f2c89f121",
+        "EVT-ac407dbf5107",
+        "EVT-b45f52505cd3",
+        "EVT-326a840118ab"
+      ],
+      "primary_source_event_id": "EVT-5162fc103f59",
+      "source_headlines": [
+        "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+        "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
+        "Huang Ousted By Nvidia Board As CEO | Closing Bell",
+        "Stock Market Today, Nov. 12: Nvidia Shares Slide on Reports of CEO Jensen Huang's Resignation"
+      ],
+      "source_headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+      "source_url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
+      "source_name": "CBS MoneyWatch",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T22:10:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T15:09:40Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T10:10:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-745c66d9e6b2ecd2",
       "idea_version_started_at": "2026-11-12T19:23:01Z",
@@ -240923,6 +240852,77 @@
       "surfaced_at": "2026-11-13T00:55:31Z",
       "updated_at": "2026-11-13T00:55:31Z",
       "decay_at": "2026-11-14T09:38:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-54c229398a67",
+      "idea_version": "IDEAV-e65ea26484c5cd88",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "SANG",
+      "company": "Sangoma Technologies",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has entered into a definitive acquisition agreement with BRC Group Holdings at a set cash and stock consideration.",
+      "why_now": "The special meeting announcement was made on 2026-11-12.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e460b18083ae"
+      ],
+      "primary_source_event_id": "EVT-e460b18083ae",
+      "source_headlines": [
+        "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share"
+      ],
+      "source_headline": "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share",
+      "source_url": "https://www.nasdaq.com/articles/sangoma-technologies-corporation-announces-special-meeting-vote-acquisition-brc-group",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T22:20:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T00:55:31Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T10:20:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -242658,19 +242658,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -242689,6 +242689,159 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-54c229398a67",
+        "idea_version": "IDEAV-e65ea26484c5cd88",
+        "idea_version_started_at": "2026-11-13T00:55:31Z",
+        "ticker": "SANG",
+        "company": "Sangoma Technologies",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has entered into a definitive acquisition agreement with BRC Group Holdings at a set cash and stock consideration.",
+        "why_now": "The special meeting announcement was made on 2026-11-12.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e460b18083ae"
+        ],
+        "primary_source_event_id": "EVT-e460b18083ae",
+        "source_headlines": [
+          "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share"
+        ],
+        "source_headline": "Sangoma Technologies Corporation Announces Special Meeting to Vote on Acquisition by BRC Group Holdings, Inc. for US$4.925 in Cash and 0.04767 of a BRC Share",
+        "source_url": "https://www.nasdaq.com/articles/sangoma-technologies-corporation-announces-special-meeting-vote-acquisition-brc-group",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T22:20:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-13T00:55:31Z",
+        "updated_at": "2026-11-13T00:55:31Z",
+        "decay_at": "2026-11-14T10:20:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T10:20:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-50f379c78b21",
+        "idea_version": "IDEAV-9cf1b918bc937f14",
+        "idea_version_started_at": "2026-11-13T00:55:31Z",
+        "ticker": "NVDA",
+        "company": "Nvidia",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential strategic disruption for the company.",
+        "why_now": "The resignation was confirmed on 2026-11-12.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 79,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5162fc103f59",
+          "EVT-520f2c89f121",
+          "EVT-ac407dbf5107",
+          "EVT-b45f52505cd3",
+          "EVT-326a840118ab"
+        ],
+        "primary_source_event_id": "EVT-5162fc103f59",
+        "source_headlines": [
+          "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+          "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
+          "Huang Ousted By Nvidia Board As CEO | Closing Bell",
+          "Stock Market Today, Nov. 12: Nvidia Shares Slide on Reports of CEO Jensen Huang's Resignation"
+        ],
+        "source_headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+        "source_url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
+        "source_name": "CBS MoneyWatch",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T22:10:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T15:09:40Z",
+        "updated_at": "2026-11-13T00:55:31Z",
+        "decay_at": "2026-11-14T10:10:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T10:10:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-84d3d160ac55",
         "idea_version": "IDEAV-9eb859aa3ce061ad",
@@ -270877,81 +271030,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1e404b952344",
-        "idea_version": "IDEAV-d527c2599b01afff",
-        "idea_version_started_at": "2026-11-01T06:42:01Z",
-        "ticker": "M&M",
-        "company": "Mahindra & Mahindra",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Record SUV sales of 73,338 units in October indicate strong festive demand and market share gains in the Indian automotive sector.",
-        "why_now": "The data was released on November 1, 2026, reflecting immediate October performance.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-301c43a96688"
-        ],
-        "primary_source_event_id": "EVT-301c43a96688",
-        "source_headlines": [
-          "Mahindra clocks record SUV sales of 73,338 units in October on festive demand"
-        ],
-        "source_headline": "Mahindra clocks record SUV sales of 73,338 units in October on festive demand",
-        "source_url": "https://economictimes.indiatimes.com/industry/auto/mahindra-mahindra-achieves-record-breaking-suv-sales-of-73338-units-in-october-2026/articleshow/135418566.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 88,
-        "newest_source_at": "2026-11-01T05:44:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T06:42:01Z",
-        "updated_at": "2026-11-01T06:42:01Z",
-        "decay_at": "2026-11-02T17:44:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T05:56:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6f9fa5492bbb",
         "idea_version": "IDEAV-fff09a3823f6635c",
         "idea_version_started_at": "2026-11-01T06:01:40Z",
@@ -279720,85 +279798,12 @@
         "archived_at": "2026-10-23T13:11:41Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a9f69dba306c",
-        "idea_version": "IDEAV-a8ae3b4de95319e8",
-        "idea_version_started_at": "2026-10-20T13:35:08Z",
-        "ticker": "FLUT",
-        "company": "Flutter Entertainment",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is cutting 1,400 jobs in response to rising betting taxes, which signals margin compression and increased regulatory headwinds.",
-        "why_now": "The restructuring announcement was made today, October 20, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c43f6acf151b"
-        ],
-        "primary_source_event_id": "EVT-c43f6acf151b",
-        "source_headlines": [
-          "Paddy Power-owner cuts 1,400 jobs and blames betting tax rises"
-        ],
-        "source_headline": "Paddy Power-owner cuts 1,400 jobs and blames betting tax rises",
-        "source_url": "https://www.bbc.co.uk/news/articles/cqzrdpkm3g84o?at_medium=RSS&at_campaign=rss",
-        "source_name": "BBC News — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T11:47:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T13:35:08Z",
-        "updated_at": "2026-10-20T13:35:08Z",
-        "decay_at": "2026-10-21T23:47:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T12:15:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2459,
-    "live_count": 33,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -279817,9 +279822,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 137199,
-    "news_picked_today": 1328,
-    "news_dropped_today": 6873
+    "news_seen_today": 137757,
+    "news_picked_today": 1339,
+    "news_dropped_today": 7189
   },
   "book_momentum": {
     "live_count": 8,
