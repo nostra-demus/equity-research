@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T04:43:18Z",
+  "generated_at": "2026-11-14T04:49:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-677",
@@ -1335,6 +1335,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-687",
+      "headline": "Rückversicherung: Münchener Rück hebt Gewinnprognose an",
+      "headline_en": "Reinsurance: Munich Re raises profit forecast",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/versicherer/rueckversicherung-muenchener-rueck-hebt-gewinnprognose-an/100266551.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T07:18:08Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Munich Re raised its profit guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Munich Re raised its profit guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Munich Re",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-624",
       "headline": "COSCIENS Biopharma Inc. Q3 Loss Widens",
       "headline_en": null,
@@ -1783,6 +1832,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-698",
+      "headline": "+++ Geschäftszahlen +++: Sixt hebt die Prognose an",
+      "headline_en": "+++ Business Figures +++: Sixt raises its forecast",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-sixt-hebt-die-prognose-an/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T07:12:51Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Sixt has raised its profit guidance for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Sixt has raised its profit guidance for the period.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sixt",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-391",
       "headline": "Tech stocks slide as Nvidia board prepares to oust Jensen Huang",
       "headline_en": null,
@@ -1878,104 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-401",
-      "headline": "DEWA reports record-breaking AED25.74 billion revenue in 2026",
-      "headline_en": null,
-      "url": "https://www.arnnewscentre.ae/news/business/dewa-reports-record-breaking-aed25-74-billion-revenue-in-2026/",
-      "source_name": "ARN News Centre — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:15:12Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "DEWA reported record-breaking revenue of AED 25.74 billion for 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "DEWA reported record-breaking revenue of AED 25.74 billion for 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dubai Electricity and Water Authority",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-425",
-      "headline": "ADNOC L&S profit triples to Dh7.6 billion as global shipping rates surge",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/markets/adnoc-ls-profit-triples-to-dh76-billion-as-global-shipping-rates-surge-1.500744966",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:53:04Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "ADNOC L&S reported a profit of Dh7.6 billion, representing a tripling of earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ADNOC L&S reported a profit of Dh7.6 billion, representing a tripling of earnings.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADNOC L&S",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238727,77 +238727,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-568ff94c6eb6",
-      "idea_version": "IDEAV-54b9542838a02244",
-      "idea_version_started_at": "2026-11-12T19:23:01Z",
-      "ticker": "PLCE",
-      "company": "The Children's Place",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has filed for Chapter 11 bankruptcy and is closing all retail locations, signaling a total loss of equity value for shareholders.",
-      "why_now": "The bankruptcy filing and store closure announcement occurred on November 12, 2026.",
-      "conviction": 95,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-232b059d895d"
-      ],
-      "primary_source_event_id": "EVT-232b059d895d",
-      "source_headlines": [
-        "Children’s Place closing all its stores in Chapter 11 bankruptcy"
-      ],
-      "source_headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
-      "source_url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T16:43:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T19:22:55Z",
-      "updated_at": "2026-11-12T19:23:01Z",
-      "decay_at": "2026-11-14T04:43:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-56c9c0f906ac",
       "idea_version": "IDEAV-ee5f8cb3494de29b",
       "idea_version_started_at": "2026-11-14T04:27:27Z",
@@ -240931,6 +240860,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-568ff94c6eb6",
+      "idea_version": "IDEAV-54b9542838a02244",
+      "idea_version_started_at": "2026-11-12T19:23:01Z",
+      "ticker": "PLCE",
+      "company": "The Children's Place",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has filed for Chapter 11 bankruptcy and is closing all retail locations, signaling a total loss of equity value for shareholders.",
+      "why_now": "The bankruptcy filing and store closure announcement occurred on November 12, 2026.",
+      "conviction": 95,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-232b059d895d"
+      ],
+      "primary_source_event_id": "EVT-232b059d895d",
+      "source_headlines": [
+        "Children’s Place closing all its stores in Chapter 11 bankruptcy"
+      ],
+      "source_headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
+      "source_url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T16:43:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T19:22:55Z",
+      "updated_at": "2026-11-12T19:23:01Z",
+      "decay_at": "2026-11-14T04:43:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b1db4cfd6b4d",
       "idea_version": "IDEAV-9bedcfb4b9fb6e4c",
       "idea_version_started_at": "2026-11-12T14:12:08Z",
@@ -243021,9 +243021,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 274,
@@ -243031,9 +243031,9 @@
         "hidden_count": 24
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -243052,6 +243052,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-568ff94c6eb6",
+        "idea_version": "IDEAV-54b9542838a02244",
+        "idea_version_started_at": "2026-11-12T19:23:01Z",
+        "ticker": "PLCE",
+        "company": "The Children's Place",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has filed for Chapter 11 bankruptcy and is closing all retail locations, signaling a total loss of equity value for shareholders.",
+        "why_now": "The bankruptcy filing and store closure announcement occurred on November 12, 2026.",
+        "conviction": 95,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-232b059d895d"
+        ],
+        "primary_source_event_id": "EVT-232b059d895d",
+        "source_headlines": [
+          "Children’s Place closing all its stores in Chapter 11 bankruptcy"
+        ],
+        "source_headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
+        "source_url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
+        "source_name": "TheStreet",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T16:43:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T19:22:55Z",
+        "updated_at": "2026-11-12T19:23:01Z",
+        "decay_at": "2026-11-14T04:43:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T04:43:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5880efc59f2d",
         "idea_version": "IDEAV-75d5d0ba16547141",
@@ -280090,87 +280164,12 @@
         "archived_at": "2026-10-23T11:11:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-18ddb9fd5fec",
-        "idea_version": "IDEAV-5db13e7aa00663b6",
-        "idea_version_started_at": "2026-10-20T00:02:47Z",
-        "ticker": "PWH",
-        "company": "PWH",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued an updated outlook that was negatively received by the market, suggesting potential earnings misses or margin compression.",
-        "why_now": "The updated outlook was provided in a formal address on October 19, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b671c01a9f1e"
-        ],
-        "primary_source_event_id": "EVT-b671c01a9f1e",
-        "source_headlines": [
-          "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]"
-        ],
-        "source_headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWH?key=2924-03150474-2A1705033",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T23:25:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T00:02:47Z",
-        "updated_at": "2026-10-20T00:02:47Z",
-        "decay_at": "2026-10-21T11:25:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T23:50:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2455,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -280189,9 +280188,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 102182,
-    "news_picked_today": 1003,
-    "news_dropped_today": 2933
+    "news_seen_today": 102553,
+    "news_picked_today": 1023,
+    "news_dropped_today": 2961
   },
   "book_momentum": {
     "live_count": 8,
