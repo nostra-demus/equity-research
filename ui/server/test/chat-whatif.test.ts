@@ -7,6 +7,7 @@
 // regex-parser bugs kept as regressions through the new path.
 // Run: npx tsx test/chat-whatif.test.ts
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import {
   detectWhatIf, recordedList, buildParserPrompt, parseModelOutput, parseWhatIf, valueAppearsInQuestion,
   questionMentionsRow, validateIntents, computePlan, computedContextBlock, repriceFromMetric, repricedBlock,
@@ -30,6 +31,49 @@ const NHY: SensitivitySidecar = {
     { variable: 'alumina_price', label: 'Alumina price (Platts PAX)', unit: 'USD/mt', base_value: 345, coefficient: 72.0, confidence: 'low', basis: 'inferred', valid_range: { low: -50, high: 65 }, source: 'Q1 2026 deck p.15' },
     { variable: 'extrusions_volume', label: 'Extrusions external sales volume', unit: 'kmt', base_value: 1004, coefficient: 19.1, confidence: 'medium', basis: 'inferred', valid_range: { low: -40, high: 50 }, source: 'Q1 2026 report p.16' },
   ],
+}
+// Generic same-metric software control only: this does not assert that NHY's historical base matches
+// its normal-production coefficient or that the retained NHY sidecar can pass the chat metric gate.
+const disclosedPositionsControl = (patch: Record<string, unknown> = {}) => {
+  const row = {
+    variable: 'input_price', label: 'Input price', unit: 'units', base_value: 10, coefficient: 5,
+    impact_metric: 'adjusted_ebitda_units', confidence: 'low', basis: 'company-disclosed',
+    source: 'Generic software disclosure fixture, sensitivity and existing-positions note',
+    mitigation_basis: 'disclosed_positions',
+    mitigation_scope: 'fixed_existing_positions_no_additional_response',
+    embedded_hedges: 'Existing source hedge positions; no quantified per-channel decomposition',
+    embedded_hedges_as_of: '2025-12-31',
+    ...patch,
+  }
+  const sidecar: SensitivitySidecar = {
+    schema_version: '1.0', ticker: 'UNIT', as_of: '2026-11-14',
+    base_metric: 'adjusted_ebitda_units', base_value: 100, base_period: 'control_period',
+    revenue_base: 1000, revenue_period: 'control_period', sensitivities: [row],
+  }
+  return { sidecar, row }
+}
+// One retained NHY source table / four correlated positive points, not four financial cases. Unlike the
+// legacy same-metric arithmetic fixtures above, these rows deliberately withhold the unmatched FY2025 base.
+const SOURCE_EFFECT_METRIC = 'annual_2026_normal_production_adjusted_ebitda_nok_m'
+const SOURCE_EFFECT_ROWS = [
+  { variable: 'lme_aluminium_price', label: 'Aluminium price', unit: 'USD/mt', coefficient: 15, context_level_only: { value: 3467, period: 'Q1 2026 quarter-end, context only' } },
+  { variable: 'usd_nok', label: 'USD/NOK — NOK per USD', unit: 'NOK/USD', coefficient: 4900, context_level_only: { value: 9.73, period: 'Q1 2026 average, not source calibration' } },
+  { variable: 'brl_nok', label: 'BRL/NOK — NOK per BRL', unit: 'NOK/BRL', coefficient: -5200, context_level_only: { value: 1.85, period: 'Q1 2026 average, not source calibration' } },
+  { variable: 'eur_nok', label: 'EUR/NOK — NOK per EUR', unit: 'NOK/EUR', coefficient: -210, context_level_only: { value: 11.38, period: 'Q1 2026 average, not source calibration' } },
+].map((row) => ({
+  ...disclosedPositionsControl().row, ...row, base_value: null, impact_metric: SOURCE_EFFECT_METRIC,
+  confidence: 'high', confidence_scope: 'Disclosed positive test point and exact normalization only; not a broad linear or forecast confidence.',
+  valid_range: null,
+  source: 'Integrated Annual Report 2025, p.38, Key financial exposures: 2026 normal annual production; 31-Dec-2025 positions included; derivative revaluations excluded',
+  embedded_hedges: 'Financial risk-management contracts and strategic hedge positions included by the source; not stripped or refreshed.',
+  non_linearity: '2026 normal annual production; source positions at 2025-12-31. Aluminium assumes USD/NOK 10.00. Reverse signs/scaling are inference; no validated linear interval. Gross exposure and measured offset unavailable.',
+}))
+const SOURCE_EFFECTS: SensitivitySidecar = {
+  schema_version: '1.0', ticker: 'NHY', as_of: '2026-11-14',
+  base_metric: 'historical_fy2025_adjusted_ebitda_nok_m', base_value: 28889,
+  base_period: 'FY2025 actual; historical reference only', revenue_base: null,
+  base_scope: 'Historical reference only; not a matched base for annual 2026 normal-production coefficients.',
+  sensitivities: SOURCE_EFFECT_ROWS,
 }
 const near = (a: number | null | undefined, b: number, tol = 0.5) => typeof a === 'number' && Math.abs(a - b) <= tol
 const stub = (r: ParseResult | string | null): ParserCall => async () => (r == null ? null : typeof r === 'string' ? r : JSON.stringify({ intents: r.intents, asks_unrecorded: r.asksUnrecorded ?? null, period_note: r.periodNote === true }))
@@ -133,7 +177,7 @@ await (async () => {
     const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'target_margin', value: 16 }] }, 'what aluminium price gets margin to 16%', norev)
     assert.equal(v.refusal, 'no_revenue_base')
   })
-  await check('an uncited coefficient → no_source; a different impact metric → metric_mismatch', () => {
+  await check('an uncited coefficient → no_source; an unlike-metric move without an explicit own unit → metric_mismatch', () => {
     const nosrc = { ...NHY, sensitivities: [{ ...NHY.sensitivities![0], source: null }] }
     assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 45 }] }, 'aluminium rises 45', nosrc).refusal, 'no_source')
     const diff = { ...NHY, sensitivities: [{ ...NHY.sensitivities![0], impact_metric: 'revenue_nok_m' }] }
@@ -486,6 +530,392 @@ await (async () => {
     const s = await computePlan(NHY, { variable: 'lme_aluminium_price', row: NHY.sensitivities[0], req: { delta: 45 } })
     assert.equal(s!.isBound, true)
     assert.match(computedContextBlock({ kind: 'scenario', asked: 'q', scenario: s! }), /NOT recorded/)
+  })
+
+  await check('§9 disclosed positions: all absent/null offset variants retain the scoped source note through the real engine and context', async () => {
+    const variants = [
+      {},
+      { realised_offset_pct: null, realised_offset_source: null },
+      { realised_offset_source: null },
+      { realised_offset_pct: null },
+    ]
+    for (const optionalOffset of variants) {
+      const { sidecar, row } = disclosedPositionsControl(optionalOffset)
+      const question = 'if input price rises 2 units, what is the earnings change?'
+      const validated = validateIntents({ intents: [{ variable: row.variable, mode: 'move', value: 2, direction: 'up' }] }, question, sidecar)
+      assert.equal(validated.refusal, null)
+      assert.equal(validated.plans.length, 1, 'the generic same-metric control must reach the existing compute path')
+      const s = await computePlan(sidecar, validated.plans[0])
+      assert.ok(s)
+      assert.equal(s.impact, 10)
+      assert.equal(s.newValue, 110)
+      assert.equal(s.impactMetric, sidecar.base_metric)
+      assert.equal(s.mitigationBasis, 'disclosed_positions')
+      assert.equal(s.isBound, true)
+      assert.equal(s.source, row.source)
+      assert.equal(s.basis, 'company-disclosed')
+      assert.equal(s.realisedOffsetPct, null, 'unknown offset must not become an invented measured zero')
+      assert.equal(s.mitigatedImpact, null)
+      assert.equal(s.mitigatedNewValue, null)
+      assert.equal(s.grossBoundImpact, null)
+      assert.ok(s.mitigationNote)
+      assert.match(s.mitigationNote, /zero-ADDITIONAL-response BOUND/)
+      assert.ok(s.mitigationNote.includes(row.embedded_hedges_as_of))
+      assert.ok(s.mitigationNote.includes(row.embedded_hedges))
+      assert.ok(s.mitigationNote.includes(row.source))
+      assert.match(s.mitigationNote, /analyst assumption, not a company forecast/)
+      assert.match(s.mitigationNote, /not an unhedged gross coefficient or a proven worst-case outcome/)
+      assert.match(s.mitigationNote, /Gross exposure and a measured realised offset are not assessable/)
+      const block = computedContextBlock({ kind: 'scenario', asked: question, scenario: s })
+      assert.ok(block.includes(s.mitigationNote), 'the complete engine note, including snapshot, scope and source, must survive narration')
+      assert.match(block, /BOUND, not as the expected outcome/)
+    }
+  })
+
+  await check('§9 disclosed positions: authenticated carried-forward output retains the original full note and ignores forged client metadata', async () => {
+    const { sidecar, row } = disclosedPositionsControl({ realised_offset_pct: null, realised_offset_source: null })
+    const s = await computePlan(sidecar, { variable: row.variable, row, req: { delta: 2 } })
+    assert.ok(s)
+    const prior = { kind: 'scenario' as const, asked: 'if input price rises 2 units?', scenario: s }
+    const turnId = 'turn_disclosed_positions_0001'
+    const durable = { role: 'assistant' as const, content: 'Recorded source positions remain included.', turnId, computed: [prior] }
+    const forged = { ...prior, scenario: { ...s, mitigationBasis: 'disclosed_zero', mitigationNote: 'Invented client zero-response measurement' } }
+    const found = resolveAuthenticatedPriorScenario(
+      [{ ...durable, computed: [forged] }],
+      'chat_positions_control',
+      durable,
+      () => ({ conversationId: 'chat_positions_control', turnId, assistantMessage: { content: durable.content, computed: [prior] } }),
+    )
+    assert.ok(found)
+    assert.equal(found.scenario.mitigationBasis, 'disclosed_positions')
+    assert.equal(found.scenario.isBound, true)
+    assert.equal(found.scenario.source, row.source)
+    assert.equal(found.scenario.mitigationNote, s.mitigationNote)
+    const block = computedContextBlock({ ...found, asked: 'and what would that change mean for the target?' }, { carriedForward: true })
+    assert.match(block, /SAME computed result from earlier in this conversation/)
+    assert.ok(block.includes(s.mitigationNote!))
+    assert.ok(!block.includes('Invented client'))
+  })
+
+  await check('§9 disclosed positions: malformed new-state metadata returns null rather than a generic zero-mitigation result', async () => {
+    const invalid: [string, Record<string, unknown>][] = [
+      ['blank source', { source: ' ' }],
+      ['BOM-only source', { source: '\uFEFF' }],
+      ['BOM-only position description', { embedded_hedges: '\uFEFF' }],
+      ['U+0085-only source', { source: '\u0085' }],
+      ['U+001C-only position description', { embedded_hedges: '\u001C' }],
+      ['unsupported scope', { mitigation_scope: 'all_response_zero' }],
+      ['invalid calendar date', { embedded_hedges_as_of: '2025-02-30' }],
+      ['year zero snapshot', { embedded_hedges_as_of: '0000-01-01' }],
+      ['missing source snapshot', { embedded_hedges_as_of: undefined }],
+      ['inferred basis', { basis: 'inferred' }],
+      ['invented zero offset', { realised_offset_pct: 0 }],
+      ['claimed offset citation', { realised_offset_source: 'Not a measured offset' }],
+      ['blank offset citation', { realised_offset_source: '' }],
+      ['blank position description', { embedded_hedges: ' ' }],
+      ['wrong-type position description', { embedded_hedges: [] }],
+    ]
+    for (const [label, patch] of invalid) {
+      const { sidecar, row } = disclosedPositionsControl(patch)
+      assert.equal(await computePlan(sidecar, { variable: row.variable, row, req: { delta: 2 } }), null, label)
+    }
+  })
+
+
+  // Predeclared F3 controls: fixed parser outputs exercise the backend, never a real model/provider call.
+  await check('source effect-only: four exact NHY positive points retain their own annual basis and withhold all earnings/margin levels', async () => {
+    const cases: { id: string; question: string; parse: ParseResult; impact: number }[] = [
+      {"id": "lme_aluminium_price-disclosed-point", "question": "What is the 2026 normal annual production Adjusted EBITDA effect if LME aluminium rises 10 USD/mt, keeping the source positions fixed?", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "direction": "up", "percent": false}], "periodNote": true}, "impact": 150},
+      {"id": "usd_nok-disclosed-point", "question": "What is the 2026 normal annual production Adjusted EBITDA effect if USD/NOK rises 1 NOK per USD, keeping source positions fixed?", "parse": {"intents": [{"variable": "usd_nok", "mode": "move", "value": 1, "direction": "up", "percent": false}], "periodNote": true}, "impact": 4900},
+      {"id": "brl_nok-disclosed-point", "question": "What is the 2026 normal annual production Adjusted EBITDA effect if BRL/NOK rises 0.10 NOK per BRL, keeping source positions fixed?", "parse": {"intents": [{"variable": "brl_nok", "mode": "move", "value": 0.1, "direction": "up", "percent": false}], "periodNote": true}, "impact": -520},
+      {"id": "eur_nok-disclosed-point", "question": "What is the 2026 normal annual production Adjusted EBITDA effect if EUR/NOK rises 1 NOK per EUR, keeping source positions fixed?", "parse": {"intents": [{"variable": "eur_nok", "mode": "move", "value": 1, "direction": "up", "percent": false}], "periodNote": true}, "impact": -210},
+    ]
+    for (const c of cases) {
+      const v = validateIntents(c.parse, c.question, SOURCE_EFFECTS)
+      assert.equal(v.refusal, null, c.id)
+      assert.equal(v.plans.length, 1, c.id)
+      const s = await computePlan(SOURCE_EFFECTS, v.plans[0])
+      assert.ok(s, c.id)
+      assert.equal(s.impact, c.impact)
+      assert.equal(s.impactMetric, SOURCE_EFFECT_METRIC)
+      for (const value of [s.baseValue, s.newValue, s.baseMarginPct, s.newMarginPct, s.marginChangeBps]) assert.equal(value, null)
+      assert.equal(s.periodNote, true)
+      assert.equal(s.periodBase, null, 'the unused historical FY2025 reference cannot become an applied base')
+      assert.equal(s.mitigationBasis, 'disclosed_positions')
+      assert.equal(s.isBound, true)
+      assert.ok(s.metricNote)
+      assert.ok(s.source)
+      assert.ok(s.mitigationNote)
+      const block = computedContextBlock({ kind: 'scenario', asked: c.question, scenario: s })
+      assert.match(block, /Effect only.*change in/)
+      assert.ok(block.includes(SOURCE_EFFECT_METRIC))
+      assert.match(block, /Starting\/resulting earnings levels and margin: Not assessable/)
+      assert.ok(block.includes(s.metricNote), 'retain the honest explanation of unlike metrics, including the historical metric explicitly NOT applied')
+      assert.ok(block.includes(s.source))
+      assert.ok(block.includes(s.mitigationNote))
+      assert.match(block, /2026 normal annual production/)
+      assert.match(block, /2025-12-31/)
+      assert.match(block, /zero-ADDITIONAL-response BOUND/)
+      assert.match(block, /not a company forecast/)
+      assert.match(block, /not a multi-year forecast/)
+      assert.doesNotMatch(block, /— → —/)
+      assert.doesNotMatch(block, /on the FY2025.*base/)
+      assert.doesNotMatch(block, /TARGET \/ UPSIDE|EXPECTED RETURN:/)
+    }
+  })
+
+  await check('source raw-move gate: predeclared values, variable clauses, units and signs refuse parser contradictions and preserve decimal controls', async () => {
+    const cases: { id: string; question: string; parse: ParseResult; impact: number | null }[] = [
+      {"id": "raw-false-percent", "question": "aluminium rises 5%", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 5, "percent": false}]}, "impact": null},
+      {"id": "raw-false-percentage-word", "question": "aluminium rises 5 percent", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 5, "percent": false}]}, "impact": null},
+      {"id": "raw-false-bps", "question": "aluminium rises 10 bps", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false}]}, "impact": null},
+      {"id": "raw-level-misparsed-as-move", "question": "aluminium is at 3500 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 3500, "percent": false}]}, "impact": null},
+      {"id": "raw-year-selected", "question": "What is the 2026 normal annual production Adjusted EBITDA effect if aluminium rises 10 USD/mt?", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 2026, "percent": false}]}, "impact": null},
+      {"id": "raw-target-endpoint-selected", "question": "aluminium rises 10 USD/mt to 3500 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 3500, "percent": false}]}, "impact": null},
+      {"id": "raw-from-endpoint-selected", "question": "aluminium moves from 3450 USD/mt to 3460 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 3450, "percent": false}]}, "impact": null},
+      {"id": "raw-to-endpoint-selected", "question": "aluminium moves from 3450 USD/mt to 3460 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 3460, "percent": false}]}, "impact": null},
+      {"id": "raw-explicit-change-with-endpoints", "question": "aluminium rises 10 USD/mt from 3450 USD/mt to 3460 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": 150},
+      {"id": "raw-other-variable-number-same-unit", "question": "aluminium rises 10 USD/mt; freight rises 20 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 20, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-other-variable-fx-number", "question": "aluminium rises 10 USD/mt; USD/NOK rises 1 NOK per USD", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 1, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-other-variable-aluminium-number", "question": "aluminium rises 10 USD/mt; USD/NOK rises 1 NOK per USD", "parse": {"intents": [{"variable": "usd_nok", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-contradictory-fall-up", "question": "aluminium falls 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-contradictory-rise-down", "question": "aluminium rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "down"}]}, "impact": null},
+      {"id": "raw-contradictory-rise-negative", "question": "aluminium rises -10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": -10, "percent": false}]}, "impact": null},
+      {"id": "raw-negative-move-consistent", "question": "aluminium falls 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "down"}]}, "impact": -150},
+      {"id": "raw-signed-own-clause-positive", "question": "aluminium +10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": 150},
+      {"id": "raw-signed-own-clause-negative", "question": "aluminium -10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": -10, "percent": false}]}, "impact": -150},
+      {"id": "raw-signed-ambiguous-variable-clause", "question": "aluminium and freight +10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-no-change-or-sign", "question": "aluminium 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-missing-unit", "question": "aluminium rises 10", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-wrong-unit", "question": "aluminium rises 10 NOK per USD", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": null},
+      {"id": "raw-decimal-usd-fx", "question": "USD/NOK rises .50 NOK per USD", "parse": {"intents": [{"variable": "usd_nok", "mode": "move", "value": 0.5, "percent": false, "direction": "up"}]}, "impact": 2450},
+      {"id": "raw-decimal-brl-fx", "question": "BRL/NOK rises 0.10 NOK/BRL", "parse": {"intents": [{"variable": "brl_nok", "mode": "move", "value": 0.1, "percent": false, "direction": "up"}]}, "impact": -520},
+      {"id": "raw-decimal-eur-fx", "question": "EUR/NOK rises +0.25 NOK per EUR", "parse": {"intents": [{"variable": "eur_nok", "mode": "move", "value": 0.25, "percent": false, "direction": "up"}]}, "impact": -52.5},
+      {"id": "raw-by-verb-own-unit", "question": "aluminium rises by 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}]}, "impact": 150},
+    ]
+    for (const c of cases) {
+      const v = validateIntents(c.parse, c.question, SOURCE_EFFECTS)
+      assert.equal(v.plans.length, c.impact === null ? 0 : 1, c.id)
+      if (c.impact === null) continue
+      const s = await computePlan(SOURCE_EFFECTS, v.plans[0])
+      assert.ok(s, c.id)
+      assert.equal(s.impact, c.impact, c.id)
+      assert.equal(s.newValue, null)
+      assert.equal(s.newMarginPct, null)
+    }
+  })
+
+  // Discovered after the original matrix freeze: retain these as development regressions, not members
+  // of its 58 predeclared software controls or additional financial evidence.
+  await check('source name binding: a different FX counterpart or an unrelated price cannot select the recorded row', () => {
+    assert.equal(validateIntents({ intents: [{ variable: 'usd_nok', mode: 'move', value: 1 }] }, 'USD/JPY rises 1 NOK per USD', SOURCE_EFFECTS).plans.length, 0)
+    assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10 }] }, 'zinc price rises 10 USD/mt', SOURCE_EFFECTS).plans.length, 0)
+  })
+
+  // Post-review development controls from the preserved v2 NEEDS_REVISION evidence. These 14+4
+  // requests are not additions to the original 73-record sample or new unseen financial cases.
+  await check('post-review subject/negation controls: reproduce the exact 14 independent v2 requests', () => {
+    const cases: { id: string; question: string; parse: ParseResult; expectedPlans: number }[] = [
+      {"id": "positive-source-aluminium", "question": "aluminium rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 1},
+      {"id": "positive-source-brl", "question": "BRL/NOK rises 0.10 NOK per BRL", "parse": {"intents": [{"variable": "brl_nok", "mode": "move", "value": 0.1, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 1},
+      {"id": "simple-unrecorded-commodity", "question": "copper price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "simple-unrecorded-fx", "question": "USD/JPY rises 1 NOK per USD", "parse": {"intents": [{"variable": "usd_nok", "mode": "move", "value": 1, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "recorded-name-earlier-unchanged-as-copper-moves", "question": "aluminium price is unchanged as copper price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "recorded-name-earlier-unchanged-when-alumina-moves", "question": "aluminium price is unchanged when alumina price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "recorded-name-earlier-comparison-colon", "question": "aluminium price comparison: copper price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "negated-rise", "question": "aluminium does not rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "negated-fall", "question": "aluminium does not fall 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "down"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "contracted-negated-rise", "question": "aluminium doesn't rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "wrong-commodity-existing-separator", "question": "aluminium is unchanged; copper rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "wrong-currency-unit", "question": "aluminium rises 10 EUR/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "wrong-sign", "question": "aluminium falls 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "false-percent", "question": "aluminium rises 5%", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 5, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+    ]
+    for (const c of cases) assert.equal(validateIntents(c.parse, c.question, SOURCE_EFFECTS).plans.length, c.expectedPlans, c.id)
+  })
+
+  await check('post-review source controls: reject all four independently observed Unicode/ASCII blank citations', () => {
+    const cases = [
+      {"id": "NEL", "codePoints": [133], "expectedPlans": 0},
+      {"id": "file-separator", "codePoints": [28], "expectedPlans": 0},
+      {"id": "ASCII-blank", "codePoints": [32, 9, 13, 10], "expectedPlans": 0},
+      {"id": "BOM", "codePoints": [65279], "expectedPlans": 0},
+    ]
+    for (const c of cases) {
+      const sc = { ...SOURCE_EFFECTS, sensitivities: [{ ...SOURCE_EFFECT_ROWS[0], source: String.fromCodePoint(...c.codePoints) }] }
+      const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10, direction: 'up', percent: false }], periodNote: true }, 'aluminium rises 10 USD/mt', sc)
+      assert.equal(v.plans.length, c.expectedPlans, c.id)
+      assert.equal(v.refusal, 'no_source', c.id)
+    }
+  })
+
+  // Exact post-v3-review development cases; the preserved NEEDS_REVISION finding and original
+  // 73-record matrix remain unchanged. These exclusion/comparison controls are not unseen samples.
+  await check('post-review excluded/comparison subjects cannot select the excluded recorded commodity', () => {
+    const cases: { id: string; question: string; parse: ParseResult; expectedPlans: number }[] = [
+      {"id": "contrast-rather-than", "question": "copper rather than aluminium rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "contrast-instead-of", "question": "copper instead of aluminium rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "exclusion-except", "question": "all metals except aluminium rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "exclusion-excluding", "question": "metals excluding aluminium rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+    ]
+    for (const c of cases) assert.equal(validateIntents(c.parse, c.question, SOURCE_EFFECTS).plans.length, c.expectedPlans, c.id)
+  })
+
+  await check('source metric gate: malformed row/base labels never become authoritative; matched missing/null row fallback stays valid', async () => {
+    const malformed: unknown[] = [{ metric: 'unknown' }, ['unknown'], 123, true, false, '', ' \t\r\n', '\uFEFF', '\u0085']
+    for (const value of malformed) {
+      for (const field of ['row', 'base']) {
+        const sc = field === 'base'
+          ? { ...SOURCE_EFFECTS, base_metric: value } as any
+          : { ...SOURCE_EFFECTS, sensitivities: [{ ...SOURCE_EFFECT_ROWS[0], impact_metric: value }] } as any
+        const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10, direction: 'up' }] }, 'aluminium rises 10 USD/mt', sc)
+        assert.equal(v.plans.length, 0, `${field}: ${JSON.stringify(value)}`)
+        assert.equal(v.refusal, 'metric_mismatch')
+      }
+    }
+    for (const value of [null, undefined]) {
+      const sc = { ...SOURCE_EFFECTS } as any
+      if (value === undefined) delete sc.base_metric
+      else sc.base_metric = value
+      assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10 }] }, 'aluminium rises 10 USD/mt', sc).plans.length, 0)
+    }
+    for (const value of [null, undefined]) {
+      const { sidecar, row } = disclosedPositionsControl({ variable: 'price', label: 'Price' })
+      const legacyRow = { ...row } as any
+      if (value === undefined) delete legacyRow.impact_metric
+      else legacyRow.impact_metric = value
+      const sc = { ...sidecar, sensitivities: [legacyRow] }
+      const v = validateIntents({ intents: [{ variable: 'price', mode: 'move', value: 2 }] }, 'price rises 2 units', sc)
+      assert.equal(v.plans.length, 1)
+      const s = await computePlan(sc, v.plans[0])
+      assert.equal(s!.impact, 10)
+      assert.equal(s!.newValue, 110)
+      assert.equal(s!.impactMetric, sidecar.base_metric)
+    }
+  })
+
+  await check('source effect-only: level, context-based percentage and margin anchors remain unavailable; source/number/variable guards remain', () => {
+    const base = { variable: 'lme_aluminium_price', mode: 'move' as const, value: 10 }
+    const bad: { question: string; parse: ParseResult; sidecar?: SensitivitySidecar }[] = [
+      { question: 'what aluminium price gets margin to 15%', parse: { intents: [{ ...base, mode: 'target_margin', value: 15 }] } },
+      { question: 'aluminium is at 3500 USD/mt', parse: { intents: [{ ...base, mode: 'level', value: 3500 }] } },
+      { question: 'aluminium rises 5%', parse: { intents: [{ ...base, value: 5, percent: true }] } },
+      { question: 'aluminium rises 10 USD/mt', parse: { intents: [base] }, sidecar: { ...SOURCE_EFFECTS, sensitivities: [{ ...SOURCE_EFFECT_ROWS[0], source: null }] } },
+      { question: 'freight rises 10 units', parse: { intents: [{ variable: 'freight_rates', mode: 'move', value: 10 }], asksUnrecorded: 'freight rates' } },
+      { question: 'aluminium rises 10 USD/mt', parse: { intents: [{ ...base, value: 20 }] } },
+    ]
+    for (const c of bad) assert.equal(validateIntents(c.parse, c.question, c.sidecar ?? SOURCE_EFFECTS).plans.length, 0, c.question)
+  })
+
+  await check('computePlan owns period qualifiers: effect-only true/false/absent never applies FY2025, including an absent sidecar period', async () => {
+    for (const missingPeriod of [false, true]) {
+      const sc = { ...SOURCE_EFFECTS }
+      if (missingPeriod) delete sc.base_period
+      for (const flag of [true, false, undefined]) {
+        const pr: ParseResult = { intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10, direction: 'up' }], ...(flag === undefined ? {} : { periodNote: flag }) }
+        const q = 'What is the 2026 normal annual production effect if aluminium rises 10 USD/mt?'
+        const v = validateIntents(pr, q, sc)
+        assert.equal(v.plans.length, 1)
+        const s = await computePlan(sc, v.plans[0])
+        assert.ok(s)
+        assert.equal(s.impact, 150)
+        assert.equal(s.periodBase ?? null, null)
+        assert.equal(s.periodNote, flag === true ? true : undefined)
+        const block = computedContextBlock({ kind: 'scenario', asked: q, scenario: s })
+        assert.doesNotMatch(block, /on the FY2025.*base/)
+        if (flag) assert.match(block, /no comparable earnings base applied.*not a multi-year forecast/)
+      }
+    }
+  })
+
+  await check('computePlan matched periods: future annotation retains the applied base; default/false plans preserve complete prior output', async () => {
+    const control = disclosedPositionsControl({ variable: 'price', label: 'Price' })
+    const sidecar = { ...control.sidecar, base_period: 'FY2026', revenue_period: 'FY2026' }
+    const row = control.row
+    const direct = await computePlan(sidecar, { variable: 'price', row, req: { delta: 2 } })
+    assert.ok(direct)
+    assert.equal(Object.hasOwn(direct, 'periodNote'), false)
+    assert.equal(Object.hasOwn(direct, 'periodBase'), false)
+    for (const flag of [false, undefined]) {
+      const v = validateIntents({ intents: [{ variable: 'price', mode: 'move', value: 2 }], ...(flag === undefined ? {} : { periodNote: flag }) }, 'price rises 2 units', sidecar)
+      assert.deepEqual(await computePlan(sidecar, v.plans[0]), direct)
+    }
+    for (const missingPeriod of [false, true]) {
+      const sc = { ...sidecar }
+      if (missingPeriod) delete sc.base_period
+      const q = 'What is FY2027 earnings if price rises 2 units?'
+      const v = validateIntents({ intents: [{ variable: 'price', mode: 'move', value: 2 }], periodNote: true }, q, sc)
+      const s = await computePlan(sc, v.plans[0])
+      assert.equal(s!.newValue, 110)
+      assert.equal(s!.periodNote, true)
+      assert.equal(s!.periodBase, missingPeriod ? null : 'FY2026')
+      assert.match(computedContextBlock({ kind: 'scenario', asked: q, scenario: s! }), missingPeriod ? /on an unstated base period/ : /on the FY2026 base/)
+    }
+  })
+
+  await check('generic matched controls retain move, level, percentage and margin-target arithmetic', async () => {
+    const { sidecar } = disclosedPositionsControl({ variable: 'price', label: 'Price' })
+    const cases: { question: string; parse: ParseResult; delta: number; newValue: number }[] = [
+      { question: 'price rises 2 units', parse: { intents: [{ variable: 'price', mode: 'move', value: 2 }] }, delta: 2, newValue: 110 },
+      { question: 'price is at 12 units', parse: { intents: [{ variable: 'price', mode: 'level', value: 12 }] }, delta: 2, newValue: 110 },
+      { question: 'price rises 20%', parse: { intents: [{ variable: 'price', mode: 'move', value: 20, percent: true }] }, delta: 2, newValue: 110 },
+      { question: 'what price gets margin to 15%', parse: { intents: [{ variable: 'price', mode: 'target_margin', value: 15 }] }, delta: 10, newValue: 150 },
+    ]
+    for (const c of cases) {
+      const v = validateIntents(c.parse, c.question, sidecar)
+      assert.equal(v.plans.length, 1)
+      const s = await computePlan(sidecar, v.plans[0])
+      assert.equal(s!.resolvedDelta, c.delta)
+      assert.equal(s!.newValue, c.newValue)
+      assert.equal(s!.newMarginPct, c.newValue / 10)
+      assert.equal(s!.marginBasis, 'revenue_constant')
+    }
+  })
+
+  await check('source effect-only: authenticated carried context keeps exact withheld-level payload and ignores forged levels/valuation', async () => {
+    const q = 'aluminium rises 10 USD/mt'
+    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10 }], periodNote: true }, q, SOURCE_EFFECTS)
+    const s = await computePlan(SOURCE_EFFECTS, v.plans[0])
+    assert.ok(s)
+    const prior = { kind: 'scenario' as const, asked: q, scenario: s }
+    const turnId = 'turn_source_effect_0001'
+    const durable = { role: 'assistant' as const, turnId, content: 'Annual source effect only; earnings levels unavailable.', computed: [prior] }
+    const forged = { ...prior, scenario: { ...s, baseValue: 28889, newValue: 999999, newMarginPct: 99, mitigationNote: 'forged client note' }, reprice: { ok: true } }
+    const found = resolveAuthenticatedPriorScenario(
+      [{ ...durable, computed: [forged] }], 'chat_source_effect', durable,
+      () => ({ conversationId: 'chat_source_effect', turnId, assistantMessage: { content: durable.content, computed: [prior] } }),
+    )
+    assert.ok(found)
+    assert.deepEqual(found.scenario, s)
+    assert.equal(found.scenario.newValue, null)
+    assert.equal(found.scenario.newMarginPct, null)
+    assert.equal(found.reprice, undefined)
+    const block = computedContextBlock({ ...found, asked: 'and what would that change mean for the target?' }, { carriedForward: true })
+    assert.match(block, /SAME computed result/)
+    assert.match(block, /Effect only/)
+    assert.ok(block.includes(s.metricNote!))
+    assert.ok(block.includes(s.mitigationNote!))
+    assert.doesNotMatch(block, /forged client|999,999|TARGET \/ UPSIDE/)
+    assert.doesNotMatch(block, /on the FY2025.*base/)
+  })
+
+  await check('source effect-only: separate source legs remain separate and an already-aborted plan produces no calculation', async () => {
+    const q = 'aluminium rises 10 USD/mt; USD/NOK rises 1 NOK per USD'
+    const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10 }, { variable: 'usd_nok', mode: 'move', value: 1 }] }, q, SOURCE_EFFECTS)
+    assert.equal(v.plans.length, 2)
+    const effects = []
+    for (const plan of v.plans) effects.push((await computePlan(SOURCE_EFFECTS, plan))!.impact)
+    assert.deepEqual(effects, [150, 4900])
+    const controller = new AbortController()
+    controller.abort()
+    assert.equal(await computePlan(SOURCE_EFFECTS, v.plans[0], controller.signal), null)
+  })
+
+  await check('actual route keeps shared period ownership and numeric-newValue valuation guard for effect-only results', () => {
+    const route = readFileSync(new URL('../src/server.ts', import.meta.url), 'utf8')
+    assert.match(route, /await computePlan\(loaded\.sidecar, pl, ac\.signal\)/)
+    assert.doesNotMatch(route, /scenario\.period(?:Note|Base)\s*=/, 'route must not override the shared result with an unused historical period')
+    assert.match(route, /if \(vsc && typeof scenario\.newValue === 'number'\)/, 'effect-only null newValue cannot enter the existing valuation hop')
   })
 
   await check('pre-aborted deterministic modeling never starts a scenario or repricing subprocess', async () => {
