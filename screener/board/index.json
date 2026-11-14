@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T00:36:49Z",
+  "generated_at": "2026-11-14T00:37:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-070",
@@ -538,6 +538,114 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-102",
+      "headline": "Nano Dimension Ltd. and Stratasys Ltd. Mutually Terminate $42.5 million MarkForged Sale Agreement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nano-dimension-ltd-and-stratasys-ltd-mutually-terminate-425-million-markforged-sale",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:18:33Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Nano Dimension and Stratasys terminated a $42.5 million acquisition agreement for MarkForged.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Nano Dimension and Stratasys terminated a $42.5 million acquisition agreement for MarkForged.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nano Dimension Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Stratasys Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "MarkForged",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-106",
+      "headline": "CCPA fines Ola ₹10 lakh over pre-ride tipping feature, orders discontinuation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ccpa-fines-ola-10-lakh-over-pre-ride-tipping-feature-orders-discontinuation/article71697274.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:16:14Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "CCPA fined Ola ₹10 lakh for a pre-ride tipping feature and ordered its discontinuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "CCPA fined Ola ₹10 lakh for a pre-ride tipping feature and ordered its discontinuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,98 +1978,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-022",
-      "headline": "Haushalt: Forschungsinstitute müssen mehr als eine Milliarde Euro an Rücklagen auflösen",
-      "headline_en": "Budget: Research institutes must liquidate more than one billion euros in reserves",
-      "url": "https://www.handelsblatt.com/politik/deutschland/haushalt-forschungsinstitute-muessen-ueber-eine-milliarde-an-ruecklagen-aufloesen/100269477.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:19:57Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "German research institutes are required to liquidate over 1 billion euros in reserves due to budget constraints.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "German research institutes are required to liquidate over 1 billion euros in reserves due to budget constraints.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-046",
-      "headline": "Microsoft Races to Fix Outage, Stocks Slip of Inflation Test",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-13/the-opening-trade-11-13-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:59:48Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Microsoft is facing a major service outage, impacting global operations and market sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Microsoft is facing a major service outage, impacting global operations and market sentiment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280386,9 +280402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13082,
-    "news_picked_today": 103,
-    "news_dropped_today": 401
+    "news_seen_today": 16064,
+    "news_picked_today": 112,
+    "news_dropped_today": 416
   },
   "book_momentum": {
     "live_count": 8,
