@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T09:44:36Z",
+  "generated_at": "2026-11-14T09:50:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-759",
@@ -237805,78 +237805,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-213a42c487e6",
-      "idea_version": "IDEAV-6009dfd80144dddb",
-      "idea_version_started_at": "2026-11-13T00:55:31Z",
-      "ticker": "CSCO",
-      "company": "Cisco Systems",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its sales guidance, citing increased demand for networking equipment driven by AI infrastructure investments.",
-      "why_now": "The guidance increase was announced on 2026-11-12.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-92a70c81fc7c",
-        "EVT-c3cd065dea3a"
-      ],
-      "primary_source_event_id": "EVT-92a70c81fc7c",
-      "source_headlines": [
-        "Cisco Raises Forecast as AI Fuels Networking Demand",
-        "Cisco Raises Sales Guidance in Sign of AI-Fueled Momentum"
-      ],
-      "source_headline": "Cisco Raises Forecast as AI Fuels Networking Demand",
-      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/cisco-raises-forecast-as-ai-fuels-networking-demand-video",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T21:46:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-13T00:55:31Z",
-      "updated_at": "2026-11-13T00:55:31Z",
-      "decay_at": "2026-11-14T09:46:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a2c6368d0a7f",
       "idea_version": "IDEAV-0df45bbea323643c",
       "idea_version_started_at": "2026-11-13T14:20:45Z",
@@ -240225,6 +240153,78 @@
       "surfaced_at": "2026-11-12T10:13:12Z",
       "updated_at": "2026-11-12T10:13:12Z",
       "decay_at": "2026-11-13T15:40:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-213a42c487e6",
+      "idea_version": "IDEAV-6009dfd80144dddb",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "CSCO",
+      "company": "Cisco Systems",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its sales guidance, citing increased demand for networking equipment driven by AI infrastructure investments.",
+      "why_now": "The guidance increase was announced on 2026-11-12.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-92a70c81fc7c",
+        "EVT-c3cd065dea3a"
+      ],
+      "primary_source_event_id": "EVT-92a70c81fc7c",
+      "source_headlines": [
+        "Cisco Raises Forecast as AI Fuels Networking Demand",
+        "Cisco Raises Sales Guidance in Sign of AI-Fueled Momentum"
+      ],
+      "source_headline": "Cisco Raises Forecast as AI Fuels Networking Demand",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/cisco-raises-forecast-as-ai-fuels-networking-demand-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T21:46:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T00:55:31Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T09:46:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -242660,14 +242660,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
         "total_count": 264,
@@ -242691,6 +242691,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-213a42c487e6",
+        "idea_version": "IDEAV-6009dfd80144dddb",
+        "idea_version_started_at": "2026-11-13T00:55:31Z",
+        "ticker": "CSCO",
+        "company": "Cisco Systems",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its sales guidance, citing increased demand for networking equipment driven by AI infrastructure investments.",
+        "why_now": "The guidance increase was announced on 2026-11-12.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-92a70c81fc7c",
+          "EVT-c3cd065dea3a"
+        ],
+        "primary_source_event_id": "EVT-92a70c81fc7c",
+        "source_headlines": [
+          "Cisco Raises Forecast as AI Fuels Networking Demand",
+          "Cisco Raises Sales Guidance in Sign of AI-Fueled Momentum"
+        ],
+        "source_headline": "Cisco Raises Forecast as AI Fuels Networking Demand",
+        "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/cisco-raises-forecast-as-ai-fuels-networking-demand-video",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T21:46:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-13T00:55:31Z",
+        "updated_at": "2026-11-13T00:55:31Z",
+        "decay_at": "2026-11-14T09:46:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T09:46:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-32e55b08bf45",
         "idea_version": "IDEAV-8b8557b5c9f1c918",
@@ -270880,80 +270955,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fcde510a4a40",
-        "idea_version": "IDEAV-071f2d69d50f4733",
-        "idea_version_started_at": "2026-11-01T06:01:40Z",
-        "ticker": "HYUNDAI",
-        "company": "Hyundai Motor India",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported record-breaking monthly sales of 82,299 units in October 2026, representing a 17.7% year-over-year growth rate.",
-        "why_now": "The official exchange filing confirming these results was published on November 1, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7e8dd81dbcef"
-        ],
-        "primary_source_event_id": "EVT-7e8dd81dbcef",
-        "source_headlines": [
-          "Hyundai Motor India Limited: Hyundai Motor India Limited has informed the Exchange regarding a press release dated November 01, 2026, titled \"Hyundai Motor India Limited Achieves Highest-Ever Total Monthly Sales of 82,299 Units in October 2026, Registering 17.7% YoY Growth \"."
-        ],
-        "source_headline": "Hyundai Motor India Limited: Hyundai Motor India Limited has informed the Exchange regarding a press release dated November 01, 2026, titled \"Hyundai Motor India Limited Achieves Highest-Ever Total Monthly Sales of 82,299 Units in October 2026, Registering 17.7% YoY Growth \".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/HMILNSE_01112026095800_SALESPROCT.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 94,
-        "newest_source_at": "2026-11-01T04:28:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T06:01:40Z",
-        "updated_at": "2026-11-01T06:01:40Z",
-        "decay_at": "2026-11-02T16:28:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T04:30:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6f9fa5492bbb",
         "idea_version": "IDEAV-fff09a3823f6635c",
         "idea_version_started_at": "2026-11-01T06:01:40Z",
@@ -279800,7 +279801,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2459,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -279819,9 +279820,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 135131,
-    "news_picked_today": 1309,
-    "news_dropped_today": 6534
+    "news_seen_today": 135821,
+    "news_picked_today": 1312,
+    "news_dropped_today": 6651
   },
   "book_momentum": {
     "live_count": 8,
