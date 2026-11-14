@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-14T00:19:49Z",
+  "generated_at": "2026-11-14T00:29:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261114-070",
+      "headline": "Troubled Sherritt Misses Payment as Liquidity Crisis Deepens",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-13/troubled-sherritt-misses-payment-as-liquidity-crisis-deepens",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T23:39:03Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Sherritt missed a debt payment as liquidity crisis deepens, signaling a potential default and going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sherritt missed a debt payment as liquidity crisis deepens, signaling a potential default and going-concern risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sherritt International",
+          "ticker": "S",
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261114-039",
       "headline": "Tata Motors Swings to Unexpected Loss, Pares Back JLR Outlook",
@@ -142,6 +191,55 @@
           "name": "Eni",
           "ticker": "ENI",
           "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-085",
+      "headline": "Jensen Huang quits Nvidia, the company he co-founded in 1993. The timeline, day by day",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/trends/photo/jensen-huang-quits-nvidia-the-company-he-co-founded-in-1993-the-timeline-day-by-day-567358-2026-11-13?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:40:16Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "CEO Jensen Huang quits Nvidia; abrupt founder-CEO departure at ~$2.6T mega-cap raises governance succession and strategic-direction risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "CEO Jensen Huang quits Nvidia; abrupt founder-CEO departure at ~$2.6T mega-cap raises governance succession and strategic-direction risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -437,6 +535,56 @@
           "name": "Banco Santander-Chile",
           "ticker": null,
           "listing_country": "CL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-069",
+      "headline": "Afterpay co-founder Nick Molnar to leave Block",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/afterpay-co-founder-nick-molnar-to-leave-block-20261114-p61e4h?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:02:48Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Afterpay co-founder Nick Molnar to depart Block post-acquisition; strategic direction and successor plan unclear.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Afterpay co-founder Nick Molnar to depart Block post-acquisition; strategic direction and successor plan unclear.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Block",
+          "ticker": "SQ",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -941,6 +1089,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-064",
+      "headline": "Mamdani and Trump agree to delay on food stamp rules that put benefit at risk for millions",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/nov/13/mamdani-trump-deal-snap-delay",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T23:53:43Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Delay of food stamp rules prevents potential benefit cuts for millions, impacting consumer spending power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Delay of food stamp rules prevents potential benefit cuts for millions, impacting consumer spending power.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-026",
       "headline": "Davangere Sugar Q2 FY27 Net Profit Jumps 35% To Rs 3.54 Crore; Revenue Surges 49% To Rs 71.61 Crore",
       "headline_en": null,
@@ -1088,6 +1279,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-077",
+      "headline": "Shriram Properties Profit Up Multifold, Revenue Down 11%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/shriram-properties-profit-up-multifold-revenue-down-11-12322072#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:46:57Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Shriram Properties reported multifold profit growth but an 11% decline in revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Shriram Properties reported multifold profit growth but an 11% decline in revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shriram Properties",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-078",
+      "headline": "FirstFT: Microsoft races to restore software services",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/fcbd27c8-aa10-455f-8917-afcb897e6eaf?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:46:13Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Microsoft is experiencing a service outage, impacting operational reliability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Microsoft is experiencing a service outage, impacting operational reliability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-081",
+      "headline": "Jensen Huang exit: Over $3 billion worth of Chinese AI projects reliant on Nvidia in peril",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/jensen-huang-exit-over-usd-3-billion-worth-of-chinese-ai-projects-reliant-on-nvidia-in-peril-567354-2026-11-13?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:43:29Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Over $3 billion worth of AI projects are at risk due to potential supply disruptions related to Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Over $3 billion worth of AI projects are at risk due to potential supply disruptions related to Nvidia.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-032",
       "headline": "Nvidia On Track For Longest Weekly Losing Streak Since 2012 As MCap Erodes By $1.6 Trillion",
       "headline_en": null,
@@ -1132,6 +1470,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-087",
+      "headline": "PIC seeks R8.4bn in shares in Dangote refinery IPO",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/south-africa/pic-seeks-r8-4bn-in-shares-in-dangote-refinery-ipo/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:38:38Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Named South African pension fund (PIC) publicly seeks R8.4 billion share allocation in planned Dangote Refinery IPO; quantified capital-structure event disclosed via regulatory channel.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Named South African pension fund (PIC) publicly seeks R8.4 billion share allocation in planned Dangote Refinery IPO; quantified capital-structure event disclosed via regulatory channel.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dangote",
+          "ticker": null,
+          "listing_country": "NG"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1462,6 +1849,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-057",
+      "headline": "Nvidia approaches Arm CEO Haas as employees seek Huang’s return, reports say",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/14/companies/nvidia-arm-ceo-haas-huang/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Unconfirmed report of Nvidia approaching Arm CEO; no official source or SEC filing, but if confirmed would signal potential acquisition interest in major semiconductor/IP asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Unconfirmed report of Nvidia approaching Arm CEO; no official source or SEC filing, but if confirmed would signal potential acquisition interest in major semiconductor/IP asset.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": -8,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "rumor",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Arm Holdings",
+          "ticker": "ARM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-019",
       "headline": "Flights Halted Across US, FAA Cites Safety Reasons",
       "headline_en": null,
@@ -1500,423 +1942,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-012",
-      "headline": "FAA declares rare, nationwide ground stop on flights",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=ec7dabbe-33f8-48ee-842d-812973ca3947&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T22:06:31Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-020",
-      "headline": "FAA Grounds All Flights Nationwide",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-13/faa-grounds-all-flights-nationwide-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T22:04:51Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-016",
-      "headline": "US government grounds all flights across the United States ‘due to extraordinary circumstances’",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/11/13/u-s-government-grounds-all-flights-across-the-united-states-due-to-extraordinary-cirumstances/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T21:44:38Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-013",
-      "headline": "FAA issues ground stop for flights at all U.S. airports — live",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=84bb450b-e4ff-4ebf-a5b4-388e2cc1483b&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T21:43:41Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-029",
-      "headline": "CAE Inc. Launches Consent and Proxy Solicitation for $400 million of 5.541% Series 1 Senior Unsecured Notes",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cae-inc-launches-consent-and-proxy-solicitation-400-million-5541-series-1-senior-unsecured",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:18:28Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Company is launching a consent and proxy solicitation for $400 million in senior unsecured notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Company is launching a consent and proxy solicitation for $400 million in senior unsecured notes.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CAE Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-028",
-      "headline": "Nvidia’s AI Chip Share Set to Shrink: Akarca",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-13/nvidia-s-ai-chip-share-set-to-shrink-akarca-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:18:45Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Analyst report suggesting potential loss of market share for Nvidia in the AI chip sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Analyst report suggesting potential loss of market share for Nvidia in the AI chip sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-024",
-      "headline": "WH Smith investors sour on turnaround plans",
-      "headline_en": null,
-      "url": "https://www.cityam.com/wh-smith-investors-sour-on-turnaround-plans/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:23:32Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Investors are expressing dissatisfaction with the company's turnaround strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Investors are expressing dissatisfaction with the company's turnaround strategy.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WH Smith",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-053",
-      "headline": "Pushpa Jewellers Shines In H1 FY27: Total Income Soars 82.85% To Rs 314.16 Cr; Net Profit Jumps 83.27% To Rs 20.21 Cr",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/pushpa-jewellers-shines-in-h1-fy27-total-income-soars-8285-to-rs-31416-cr-net-profit-jumps-8327-to-rs-2021-cr",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:55:50Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "H1 FY27 interim results report total income +82.85% to ₹314.16 cr and net profit +83.27% to ₹20.21 cr; large growth but routine quarterly earnings with no guidance or outlook change disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "H1 FY27 interim results report total income +82.85% to ₹314.16 cr and net profit +83.27% to ₹20.21 cr; large growth but routine quarterly earnings with no guidance or outlook change disclosed.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pushpa Jewellers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-055",
-      "headline": "Microsoft faces a major Outlook outage: ‘no signs of a cyberattack’",
-      "headline_en": null,
-      "url": "https://www.france24.com/en/video/20261113-microsoft-faces-a-major-outlook-outage-no-signs-of-a-cyberattack",
-      "source_name": "France 24",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:53:41Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Microsoft Outlook experienced a major outage; no cyberattack confirmed, but duration, scope, and customer-revenue impact unavailable, precluding materiality determination.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Microsoft Outlook experienced a major outage; no cyberattack confirmed, but duration, scope, and customer-revenue impact unavailable, precluding materiality determination.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": "MSFT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280341,9 +280366,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6758,
-    "news_picked_today": 56,
-    "news_dropped_today": 160
+    "news_seen_today": 10028,
+    "news_picked_today": 88,
+    "news_dropped_today": 344
   },
   "book_momentum": {
     "live_count": 8,
