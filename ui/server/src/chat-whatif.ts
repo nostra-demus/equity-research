@@ -726,6 +726,7 @@ export function computedContextBlock(payload: ComputedPayload, opts?: { carriedF
   lines.push('COMPUTED SCENARIO (authoritative — produced by the engine\'s deterministic calculator scripts/sensitivity_math.py, NOT by you):')
   if (s.note) lines.push(`(${s.note})`)
   const mName = marginName(s.impactMetric)
+  const effectOnly = !!s.metricNote && s.baseValue == null && s.newValue == null
   const marginTail = s.marginBasis === 'revenue_constant' ? ' (at unchanged revenue — there is no revenue coefficient, so this is NOT a fully-modelled margin)' : ''
   if (s.mode === 'reverse') {
     const tgt = s.targetMarginPct != null ? `${mName} ${s.targetMarginPct}%${marginTail}` : `${s.impactMetric || 'the base metric'} ${fmt(s.targetValue)}`
@@ -735,7 +736,7 @@ export function computedContextBlock(payload: ComputedPayload, opts?: { carriedF
   } else {
     if (s.mode === 'level' && s.targetLevel != null) lines.push(`- The user gave a target LEVEL (${s.label || s.variable} at ${fmt(s.targetLevel)}${s.unit ? ` ${s.unit}` : ''}); from the recorded base of ${fmt(s.variableBase)}, that is a move of ${s.resolvedDelta != null && s.resolvedDelta >= 0 ? '+' : ''}${s.resolvedDelta}${s.unit ? ` ${s.unit}` : ''}.`)
     else lines.push(`- Variable moved: ${s.label || s.variable} ${s.delta >= 0 ? '+' : ''}${s.delta}${s.unit ? ` ${s.unit}` : ''}`)
-    if (s.baseValue == null && s.newValue == null) {
+    if (effectOnly) {
       lines.push(`- Effect only — change in ${s.impactMetric || 'the recorded metric'}: ${s.impact >= 0 ? '+' : ''}${fmt(s.impact)}. Starting/resulting earnings levels and margin: Not assessable from the available comparable base.`)
     } else lines.push(`- ${s.impactMetric || 'base metric'}: ${fmt(s.baseValue)} → ${fmt(s.newValue)} (change ${s.impact >= 0 ? '+' : ''}${fmt(s.impact)})`)
     if (s.marginChangeBps != null) lines.push(`- ${mName}: ${s.baseMarginPct}% → ${s.newMarginPct}% (${s.marginChangeBps >= 0 ? '+' : ''}${s.marginChangeBps} bps)${marginTail}`)
@@ -746,7 +747,7 @@ export function computedContextBlock(payload: ComputedPayload, opts?: { carriedF
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
   if (s.mitigationNote) lines.push(`- Mitigation (§9 — state this with the number, never drop it): ${s.mitigationNote}${s.isBound ? ' Present the figure as a BOUND, not as the expected outcome.' : ''}`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
-  if (s.periodNote) lines.push(s.baseValue == null && s.newValue == null
+  if (s.periodNote) lines.push(effectOnly
     ? '- NOTE: the question asks about a period this scenario does not forecast. This effect uses the scope stated in its source, with no comparable earnings base applied; it is not a multi-year forecast. Say so.'
     : `- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
   for (const l of repricedBlock(payload.reprice)) lines.push(l)
