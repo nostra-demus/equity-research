@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T07:35:15Z",
+  "generated_at": "2026-11-14T07:43:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-735",
@@ -47,6 +47,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-746",
+      "headline": "Another airline ordered into bankruptcy, all flights off",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/global-airlines-ordered-into-bankruptcy-all-flights-off",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T07:28:10Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "An airline has been ordered into bankruptcy and has ceased all flight operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An airline has been ordered into bankruptcy and has ceased all flight operations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,56 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-274",
-      "headline": "1,600 Nvidia Employees Rally Behind Jensen Huang, Demand Boss' Return After Exit Over Affair",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/1-600-nvidia-employees-rally-behind-jensen-huang-demand-his-return-after-exit-over-affair-12321061#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T07:19:06Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "The sudden exit of CEO Jensen Huang from Nvidia due to a scandal is a major leadership crisis for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The sudden exit of CEO Jensen Huang from Nvidia due to a scandal is a major leadership crisis for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280179,9 +280172,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 123729,
-    "news_picked_today": 1199,
-    "news_dropped_today": 4668
+    "news_seen_today": 126231,
+    "news_picked_today": 1206,
+    "news_dropped_today": 4781
   },
   "book_momentum": {
     "live_count": 8,
