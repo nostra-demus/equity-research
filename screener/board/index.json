@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T14:10:40Z",
+  "generated_at": "2026-11-14T14:14:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -237731,6 +237731,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-ee97c8a6a859c6ba",
+      "idea_version_started_at": "2026-11-14T14:14:26Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation of the CEO creates significant leadership uncertainty and strategic risk for the company's future growth trajectory.",
+      "why_now": "The resignation was announced on 2026-11-14, triggering an immediate sell-off.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8acb71461f4f"
+      ],
+      "primary_source_event_id": "EVT-8acb71461f4f",
+      "source_headlines": [
+        "Nvidia Stock Falls Below $165 After Its CEO Resigns: Is It a Bargain Buy?"
+      ],
+      "source_headline": "Nvidia Stock Falls Below $165 After Its CEO Resigns: Is It a Bargain Buy?",
+      "source_url": "https://www.fool.com/investing/2026/11/14/nvidia-stock-falls-below-usd165-after-its-ceo-resigns-is-it-a-bargain-buy/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T13:41:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T15:09:40Z",
+      "updated_at": "2026-11-14T14:14:26Z",
+      "decay_at": "2026-11-16T01:41:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a2c6368d0a7f",
       "idea_version": "IDEAV-0df45bbea323643c",
       "idea_version_started_at": "2026-11-13T14:20:45Z",
@@ -238076,6 +238146,78 @@
       "surfaced_at": "2026-11-13T12:59:49Z",
       "updated_at": "2026-11-13T12:59:49Z",
       "decay_at": "2026-11-14T18:40:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8f3693de9b05",
+      "idea_version": "IDEAV-b4571006468bf685",
+      "idea_version_started_at": "2026-11-14T14:14:26Z",
+      "ticker": "TVSELECT",
+      "company": "TVS Electronics",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a net loss of ₹1.41 crore and a 9.4% decline in revenue, indicating significant operational weakness and margin compression.",
+      "why_now": "The Q2 earnings results were released on 2026-11-14.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c1de8c26e245"
+      ],
+      "primary_source_event_id": "EVT-c1de8c26e245",
+      "source_headlines": [
+        "TVS Electronics Q2 Results: Company posts ₹1.41 crore net loss; revenue falls 9.4%"
+      ],
+      "source_headline": "TVS Electronics Q2 Results: Company posts ₹1.41 crore net loss; revenue falls 9.4%",
+      "source_url": "https://www.cnbctv18.com/market/earnings/tvs-electronics-q2-results-net-loss-revenue-falls-share-price-20034119.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T13:03:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T14:14:26Z",
+      "updated_at": "2026-11-14T14:14:26Z",
+      "decay_at": "2026-11-16T01:03:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240018,82 +240160,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
-    },
-    {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-9cf1b918bc937f14",
-      "idea_version_started_at": "2026-11-13T00:55:31Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential strategic disruption for the company.",
-      "why_now": "The resignation was confirmed on 2026-11-12.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 79,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5162fc103f59",
-        "EVT-520f2c89f121",
-        "EVT-ac407dbf5107",
-        "EVT-b45f52505cd3",
-        "EVT-326a840118ab"
-      ],
-      "primary_source_event_id": "EVT-5162fc103f59",
-      "source_headlines": [
-        "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
-        "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
-        "Huang Ousted By Nvidia Board As CEO | Closing Bell",
-        "Stock Market Today, Nov. 12: Nvidia Shares Slide on Reports of CEO Jensen Huang's Resignation"
-      ],
-      "source_headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
-      "source_url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
-      "source_name": "CBS MoneyWatch",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T22:10:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-13T00:55:31Z",
-      "decay_at": "2026-11-14T10:10:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     },
     {
       "idea_id": "IDEA-14d83f2c882e",
@@ -242735,9 +242801,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -242745,9 +242811,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 265,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -242911,85 +242977,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-14T10:20:56Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-50f379c78b21",
-        "idea_version": "IDEAV-9cf1b918bc937f14",
-        "idea_version_started_at": "2026-11-13T00:55:31Z",
-        "ticker": "NVDA",
-        "company": "Nvidia",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential strategic disruption for the company.",
-        "why_now": "The resignation was confirmed on 2026-11-12.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 79,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 23,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5162fc103f59",
-          "EVT-520f2c89f121",
-          "EVT-ac407dbf5107",
-          "EVT-b45f52505cd3",
-          "EVT-326a840118ab"
-        ],
-        "primary_source_event_id": "EVT-5162fc103f59",
-        "source_headlines": [
-          "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
-          "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
-          "Huang Ousted By Nvidia Board As CEO | Closing Bell",
-          "Stock Market Today, Nov. 12: Nvidia Shares Slide on Reports of CEO Jensen Huang's Resignation"
-        ],
-        "source_headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
-        "source_url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
-        "source_name": "CBS MoneyWatch",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-12T22:10:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-07T15:09:40Z",
-        "updated_at": "2026-11-13T00:55:31Z",
-        "decay_at": "2026-11-14T10:10:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-14T10:10:28Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -279876,12 +279863,85 @@
         "archived_at": "2026-10-23T21:01:26Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-eca197f63cec",
+        "idea_version": "IDEAV-7769692cccdb0f13",
+        "idea_version_started_at": "2026-10-20T13:59:38Z",
+        "ticker": "CRM",
+        "company": "Salesforce",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Acquiring Braze for $5.66 billion represents a significant cash outlay and potential dilution or integration risk that may pressure Salesforce's near-term earnings multiples.",
+        "why_now": "The acquisition news broke on 2026-10-20.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c45fa87f4e96"
+        ],
+        "primary_source_event_id": "EVT-c45fa87f4e96",
+        "source_headlines": [
+          "Salesforce To Acquire Braze For $5.66 Bln"
+        ],
+        "source_headline": "Salesforce To Acquire Braze For $5.66 Bln",
+        "source_url": "https://www.nasdaq.com/articles/salesforce-acquire-braze-566-bln",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T12:19:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T13:59:38Z",
+        "updated_at": "2026-10-20T13:59:38Z",
+        "decay_at": "2026-10-22T00:19:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-23T13:11:41Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2463,
-    "live_count": 34,
+    "surfaced_total": 2464,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -279900,7 +279960,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 148668,
+    "news_seen_today": 149009,
     "news_picked_today": 1463,
     "news_dropped_today": 10431
   },
