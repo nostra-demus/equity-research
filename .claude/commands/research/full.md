@@ -831,6 +831,19 @@ viol.extend(hc.eval_bg_tradable_line_and_yield(_live_date, d, _thesis_text_ak, l
 # Defect it closes: INDIAMART_2026-08-14's Part I quoted "~₹31 billion of net cash" (the BROAD figure,
 # liquid funds netted in) with no label, while the strict figure was ₹0.15bn — a ~220x gap in one sentence.
 viol.extend(hc.eval_bh_net_debt_basis_label(_live_date, _thesis_text_ak) or [])
+# check BI — FX-conversion consistency across the run (CLAUDE.md §27 / §15; same shared module, same
+# `_live_date` rationale as AJ/BH). Every "<amount> (<other-currency amount>)" pair in the run's markdown
+# implies a rate; the same amount converted to two values, or one currency pair at rates >15% apart with no
+# different period stated, is flagged. Defect it closes: TMCV_2026-06-07 carried "EUR 3.8 bn (~₹41,691 cr)"
+# (the filing's figure, ₹109.7/EUR) in eleven files and "EUR 3.875 billion (~₹33,250 crore)" (the USD rate)
+# in its earnings synthesis — the exact §27 example, shipped clean. Deterministic *dossier.md copies skipped.
+_bi_docs = {}
+for _bf in sorted(glob.glob(os.path.join(run, "**", "*.md"), recursive=True)):
+    if _bf.endswith("dossier.md"): continue
+    try:
+        with open(_bf, encoding="utf-8") as _fh: _bi_docs[os.path.relpath(_bf, run)] = _fh.read()
+    except (OSError, UnicodeDecodeError): pass
+viol.extend(hc.eval_bi_fx_conversion_consistency(_live_date, _bi_docs) or [])
 # AP valuation-summary lever-sidecar integrity (pre-publish; SAME pure core as eval.py check AP, via
 # scripts/valuation_summary_checks.py). valuation_summary.json is §25 DATA that reaches main WITHOUT CI, so
 # a malformed or decision_record-contradicting sidecar would drive the cockpit Playground with levers that

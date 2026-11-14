@@ -576,6 +576,24 @@ from headline_checks import (
 # live 10B.1 gate.
 from headline_checks import BH_DATE, eval_bh_net_debt_basis_label
 
+# ── Check BI (FX-conversion consistency across the run, CLAUDE.md §27 / §15) ──
+# Same shared module: one detector for the retrospective eval and the live 10B.1 gate. It reads every
+# reader-facing markdown in the run (deterministic *dossier.md concatenations are skipped — they only repeat).
+from headline_checks import BI_DATE, eval_bi_fx_conversion_consistency
+
+
+def _bi_run_docs(run):
+    docs = {}
+    for f in sorted(glob.glob(os.path.join(run, "**", "*.md"), recursive=True)):
+        if f.endswith("dossier.md"):
+            continue
+        try:
+            with open(f, encoding="utf-8") as fh:
+                docs[os.path.relpath(f, run)] = fh.read()
+        except (OSError, UnicodeDecodeError):
+            pass
+    return docs
+
 # ── Check AP (valuation-summary lever-sidecar integrity, §25/§28) ──
 # Detection logic in scripts/valuation_summary_checks.py — importable + pure (mirrors headline_checks.py),
 # so the SAME core is finish-gate-ready. valuation_summary.json is §25 DATA that reaches main WITHOUT CI;
@@ -2814,6 +2832,43 @@ if scope=="selftest":
         if not ok: bhbad+=1
         print(f"  [{'ok' if ok else 'XX'}] BH({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=bhbad
+    # BI — FX-conversion consistency across the run (§27). No committed run reaches BI_DATE, so drive every
+    # branch here. RED cases are the REAL TMCV_2026-06-07 strings (one EUR 3.8bn deal at ₹109.7/EUR in eleven
+    # files and at the USD rate, ₹85.8–87.5/EUR, in earnings/07 + 99); GREEN cases are the real look-alikes the
+    # rule must leave alone (INDIAMART's 2022 deal at the 2022 rate beside its 2026 market cap, UBER's two
+    # different euro balances a few % apart, a rounded "€1 bn", a rate in the parenthesis, a dropped scale word).
+    BI=eval_bi_fx_conversion_consistency
+    _bi_tm_ok="Iveco consideration EUR 3.8 bn (~₹41,691 cr) per the FY26 annual report."
+    bicases=[
+        ("2026-11-14",{"a.md":_bi_tm_ok,"b.md":"EUR 3.875 billion (~₹33,250 crore) in FY26."},None),        # predates BI_DATE
+        ("2026-11-15",{"a.md":_bi_tm_ok,"b.md":"EUR 3.875 billion (~₹33,250 crore) in FY26."},              # TMCV (real), rule A
+         ["same amount is converted to two different values","INR per EUR"]),
+        ("2026-11-15",{"a.md":_bi_tm_ok,"b.md":"EUR 3.8 billion (~₹33,250 cr) hit to FY26 EBITDA."},
+         ["same amount","b.md"]),
+        ("2026-11-15",{"a.md":_bi_tm_ok,"b.md":"₹41,691 cr (€3.8 billion) — FY26 Note 34."},[]),           # reversed orientation, same rate
+        ("2026-11-15",{"a.md":"Debt EUR 1.9 bn (~₹20,846 crore).","b.md":"EUR 247 mn (~₹2,160 cr) of interest."}, # rule B, undated
+         ["materially different rates","INR per EUR"]),
+        ("2026-11-15",{"a.md":"| Busy Infotech | closed 06-Apr-2022 | $66.93mm (≈₹5,068.4mn) |",            # INDIAMART (real):
+                       "b.md":"FY26 market cap $1.25bn (~₹11,180 crore) on 2026-08-20."},[]),              # different periods → no FP
+        ("2026-11-15",{"a.md":"| Busy Infotech | $66.93mm (≈₹5,068.4mn) |",                               # same pair, undated:
+                       "b.md":"market cap $1.25bn (~₹11,180 crore)."},["materially different rates"]),     # the exemption is what passed it
+        ("2026-11-15",{"a.md":"€14.2bn ($15.3bn) of notes.","b.md":"€12.9bn ($14.8bn) of notes."},[]),     # UBER (real): 6.5% < 15%
+        ("2026-11-15",{"a.md":_bi_tm_ok,"b.md":"a €1 bn (~₹8,700 cr) facility."},[]),                     # "€1 bn" ±50% — too rounded to accuse
+        ("2026-11-15",{"a.md":_bi_tm_ok,"b.md":"translated at €3.8bn (₹87/€) would be wrong."},[]),        # a rate, not an amount
+        ("2026-11-15",{"a.md":"INR 1,275m (AED 52) |","b.md":"INR 14,460m (AED 593m) |"},[]),               # dropped scale word skipped
+        ("2026-11-15",{"a.md":"USD 8,435M (AED 30,982M / 3.6725)","b.md":"AED 295,000 (~USD 80,000)."},[]),  # backtracked scale not read
+        ("2026-11-15",{"a.md":"no conversions here"},[]),
+        ("2026-11-15",None,[]),
+    ]
+    bibad=0
+    for dt_,docs_,exp in bicases:
+        got=BI(dt_,docs_)
+        if exp is None: ok=(got is None)
+        elif not exp:   ok=(isinstance(got,list) and len(got)==0)
+        else:           ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
+        if not ok: bibad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BI({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=bibad
 
     # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
     # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
@@ -4752,6 +4807,17 @@ for drp in runs:
         add("BH_net_debt_basis_label",False,"; ".join(bhresult))
     else:
         add("BH_net_debt_basis_label",True,"every net cash / net debt amount in Part I carries its §15 basis label")
+    # BI FX-conversion consistency across the run (forward-looking; landing BI_DATE) — CLAUDE.md §27 / §15.
+    #   §27 requires the filing's stated home-currency figure (or the period rate for THAT currency); nothing
+    #   checked that one run does not convert the same amount, or the same pair, two incompatible ways.
+    bi_docs=_bi_run_docs(run)
+    biresult=eval_bi_fx_conversion_consistency(ddte,bi_docs)
+    if biresult is None:
+        add("BI_fx_conversion_consistency",True,f"run predates the gate ({ddte}) — N/A",na=True)
+    elif biresult:
+        add("BI_fx_conversion_consistency",False,"; ".join(biresult))
+    else:
+        add("BI_fx_conversion_consistency",True,"every currency conversion in the run implies a consistent rate per currency pair")
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
@@ -4864,6 +4930,11 @@ for drp in runs:
         if r:
             retro.append({"check":"AK_red_flag_severity_reconciliation","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates AK_DATE ({AK_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if biresult is None:
+        r=eval_bi_fx_conversion_consistency(BI_DATE,bi_docs)
+        if r:
+            retro.append({"check":"BI_fx_conversion_consistency","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BI_DATE ({BI_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     if bhresult is None:
         r=eval_bh_net_debt_basis_label(BH_DATE,thesis)
         if r:
@@ -4963,9 +5034,9 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
- "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one"],
+ "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one","BI_DATE","eval_bi_fx_conversion_consistency","_BI_PAIR"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  # BF — without this row the whole basis-check module could be deleted and the suite would still
  # print PASS, which is the hole this registry exists to close (see its own comment above).
