@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T17:35:58Z",
+  "generated_at": "2026-11-14T17:37:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -336,6 +336,55 @@
       "companies": [
         {
           "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-829",
+      "headline": "Meta fined $880m in Italy over unauthorised access to Facebook photos",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/europe/meta-fined-880m-in-italy-over-unauthorised-access-to-facebook-photos-1.500747476",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T15:42:44Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Meta is facing a quantified regulatory fine of $880 million in Italy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta is facing a quantified regulatory fine of $880 million in Italy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1916,56 +1965,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-356",
-      "headline": "Nebius falls 10% as company expects increased 2026 capex spend, issues weak outlook",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/12/nebius-q3-earnings-report-2026.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:06:08Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Nebius shares fell 10% following a weak outlook and increased 2026 capex guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nebius shares fell 10% following a weak outlook and increased 2026 capex guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nebius",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
