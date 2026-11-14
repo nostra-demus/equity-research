@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T18:53:37Z",
+  "generated_at": "2026-11-14T18:54:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -237584,6 +237584,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-f84033bb08f889ea",
+      "idea_version_started_at": "2026-11-14T18:53:54Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The 805 million euro fine represents a direct, unhedged hit to net income and sets a negative precedent for regulatory scrutiny regarding data privacy practices in the EU.",
+      "why_now": "The fine was announced on 2026-11-14, creating immediate downward pressure on earnings expectations.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c69a16d63dd0",
+        "EVT-31a467b1ce15"
+      ],
+      "primary_source_event_id": "EVT-c69a16d63dd0",
+      "source_headlines": [
+        "Italy Fines Meta \"805 Million Over Access To Users' Photos",
+        "Italy fines Meta $880 million over accessing users' photos"
+      ],
+      "source_headline": "Italy Fines Meta \"805 Million Over Access To Users' Photos",
+      "source_url": "https://www.ndtvprofit.com/business/italy-fines-meta-805-million-over-access-to-users-photos-12327825#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T18:33:08Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-14T18:15:10Z",
+      "updated_at": "2026-11-14T18:53:54Z",
+      "decay_at": "2026-11-16T06:33:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-55c79e1fb994",
       "idea_version": "IDEAV-8bd115e5283a160a",
       "idea_version_started_at": "2026-11-14T03:26:30Z",
@@ -237928,80 +237999,6 @@
       "surfaced_at": "2026-11-13T13:41:15Z",
       "updated_at": "2026-11-13T13:41:15Z",
       "decay_at": "2026-11-14T21:58:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-24efd3e6e0ff9da1",
-      "idea_version_started_at": "2026-11-14T18:15:10Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An 805 million euro fine from Italian regulators for unauthorized photo access represents a direct hit to net income and signals increasing regulatory friction in the EU.",
-      "why_now": "The fine was finalized and reported across multiple sources on November 14, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6dc77e8103d4",
-        "EVT-c5f1825e8fe9",
-        "EVT-f306d892ed62"
-      ],
-      "primary_source_event_id": "EVT-6dc77e8103d4",
-      "source_headlines": [
-        "Meta fined $880m in Italy over unauthorised access to Facebook photos",
-        "Italy fines Meta €805m over accessing users' photos",
-        "Verdict: Italy imposes 805 million euro fine against Meta"
-      ],
-      "source_headline": "Meta fined $880m in Italy over unauthorised access to Facebook photos",
-      "source_url": "https://gulfnews.com/world/europe/meta-fined-880m-in-italy-over-unauthorised-access-to-facebook-photos-1.500747476",
-      "source_name": "Gulf News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-14T16:29:48Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-14T18:15:10Z",
-      "updated_at": "2026-11-14T18:15:10Z",
-      "decay_at": "2026-11-16T04:29:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240715,76 +240712,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-618dd4911398",
-      "idea_version": "IDEAV-d7be8916e443e69b",
-      "idea_version_started_at": "2026-11-11T23:47:52Z",
-      "ticker": "LAC",
-      "company": "Lithium Americas",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The 31% increase in the Thacker Pass project cost estimate to $3.83bn significantly pressures the company's capital requirements and dilutive financing risk.",
-      "why_now": "The cost revision was announced on 2026-11-11, creating immediate pressure on the company's balance sheet outlook.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-091d5158bf14"
-      ],
-      "primary_source_event_id": "EVT-091d5158bf14",
-      "source_headlines": [
-        "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn"
-      ],
-      "source_headline": "Lithium Americas raises Thacker Pass cost estimate by 31% to $3.83bn",
-      "source_url": "https://www.thenationalnews.com/news/us/2026/11/11/lithium-americas-raises-thacker-pass-cost-estimate-by-31-to-383bn/",
-      "source_name": "The National — All News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T18:20:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T23:47:52Z",
-      "updated_at": "2026-11-11T23:47:52Z",
-      "decay_at": "2026-11-13T06:20:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ce779af9c495",
       "idea_version": "IDEAV-fc37c86125c08e57",
       "idea_version_started_at": "2026-11-11T23:47:52Z",
@@ -242714,78 +242641,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6e290e9968b8",
-      "idea_version": "IDEAV-b05184efcf1e9ed7",
-      "idea_version_started_at": "2026-11-11T23:47:52Z",
-      "ticker": "CUPID",
-      "company": "Cupid Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Net profit more than doubling to ₹56 crore alongside an upward revision in FY27 guidance indicates strong operational momentum.",
-      "why_now": "The earnings and guidance update was released on 2026-11-11, with market focus expected on the upcoming trading session.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a6f788f629f"
-      ],
-      "primary_source_event_id": "EVT-0a6f788f629f",
-      "source_headlines": [
-        "Multibagger Cupid to be in focus on Thursday after Q2 net profit more than doubles to ₹56 crore; raises FY27 guidance"
-      ],
-      "source_headline": "Multibagger Cupid to be in focus on Thursday after Q2 net profit more than doubles to ₹56 crore; raises FY27 guidance",
-      "source_url": "https://www.livemint.com/market/stock-market-news/multibagger-cupid-to-be-in-focus-on-thursday-after-q2-net-profit-more-than-doubles-to-rs-56-crore-raises-fy27-guidance-11794420911955.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T18:26:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T23:47:52Z",
-      "updated_at": "2026-11-11T23:47:52Z",
-      "decay_at": "2026-11-13T06:26:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a9381beff1e4",
       "idea_version": "IDEAV-cc000bb6d49acc62",
       "idea_version_started_at": "2026-11-11T23:47:52Z",
@@ -242868,33 +242723,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 43,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 25
       },
       "short": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1891,
-      "oldest_retained_at": "2026-10-20T15:46:47Z",
+      "evicted_count": 1893,
+      "oldest_retained_at": "2026-10-20T16:00:15Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1241,
-          "oldest_retained_at": "2026-11-01T02:53:00Z"
+          "evicted_count": 1242,
+          "oldest_retained_at": "2026-11-01T14:15:00Z"
         },
         "short": {
-          "evicted_count": 651,
-          "oldest_retained_at": "2026-10-20T15:46:47Z"
+          "evicted_count": 652,
+          "oldest_retained_at": "2026-10-20T16:00:15Z"
         }
       }
     },
@@ -246006,8 +245861,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T06:26:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T18:53:59Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -246079,8 +245934,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T06:20:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T18:53:59Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
