@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T20:53:03Z",
+  "generated_at": "2026-11-14T21:03:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -248,6 +248,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-839",
+      "headline": "Italy fines Meta $887M for accessing users' photos without specific consent",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/technology/6220878-meta-italian-privacy-fine-consent/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T20:34:36Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Meta was fined $887 million by Italian regulators for data privacy violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta was fined $887 million by Italian regulators for data privacy violations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-838",
       "headline": "Digital Realty Trust to spend $10bn more on Japan data centers: CEO",
       "headline_en": null,
@@ -341,55 +390,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-835",
-      "headline": "Italy fines Meta $880 million over accessing users' photos",
-      "headline_en": null,
-      "url": "https://www.cbsnews.com/news/italy-fines-meta-880-million-users-photos/",
-      "source_name": "CBS MoneyWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-14T18:33:08Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Meta was fined $880 million by Italian regulators regarding user data practices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta was fined $880 million by Italian regulators regarding user data practices.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -239726,78 +239726,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c09be92dcb5d",
-      "idea_version": "IDEAV-008d7dca75199f27",
-      "idea_version_started_at": "2026-11-13T12:59:49Z",
-      "ticker": "GRASIM",
-      "company": "Grasim Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Net profit nearly tripled to Rs 2,306 crore in Q2, demonstrating strong underlying earnings power despite a one-time charge.",
-      "why_now": "The earnings results were released on November 13, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f7dcb96b2cd"
-      ],
-      "primary_source_event_id": "EVT-8f7dcb96b2cd",
-      "source_headlines": [
-        "Grasim Industries Q2 Results: Net Profit Nearly Triples To Rs 2,306 Crore; One-Time Loss Of Rs 825 Crore"
-      ],
-      "source_headline": "Grasim Industries Q2 Results: Net Profit Nearly Triples To Rs 2,306 Crore; One-Time Loss Of Rs 825 Crore",
-      "source_url": "https://www.ndtvprofit.com/markets/grasim-industries-q2-results-net-profit-nearly-triples-to-rs-2-306-crore-one-time-loss-of-rs-825-crore-q2-earnings-bse-sensex-12321579#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T09:01:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-13T12:59:49Z",
-      "updated_at": "2026-11-13T12:59:49Z",
-      "decay_at": "2026-11-14T21:01:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-03eaf510305a",
       "idea_version": "IDEAV-afe9dc7810963965",
       "idea_version_started_at": "2026-11-14T08:13:15Z",
@@ -241279,6 +241207,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c09be92dcb5d",
+      "idea_version": "IDEAV-008d7dca75199f27",
+      "idea_version_started_at": "2026-11-13T12:59:49Z",
+      "ticker": "GRASIM",
+      "company": "Grasim Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Net profit nearly tripled to Rs 2,306 crore in Q2, demonstrating strong underlying earnings power despite a one-time charge.",
+      "why_now": "The earnings results were released on November 13, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f7dcb96b2cd"
+      ],
+      "primary_source_event_id": "EVT-8f7dcb96b2cd",
+      "source_headlines": [
+        "Grasim Industries Q2 Results: Net Profit Nearly Triples To Rs 2,306 Crore; One-Time Loss Of Rs 825 Crore"
+      ],
+      "source_headline": "Grasim Industries Q2 Results: Net Profit Nearly Triples To Rs 2,306 Crore; One-Time Loss Of Rs 825 Crore",
+      "source_url": "https://www.ndtvprofit.com/markets/grasim-industries-q2-results-net-profit-nearly-triples-to-rs-2-306-crore-one-time-loss-of-rs-825-crore-q2-earnings-bse-sensex-12321579#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T09:01:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T12:59:49Z",
+      "updated_at": "2026-11-13T12:59:49Z",
+      "decay_at": "2026-11-14T21:01:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c296fa8a7a76",
       "idea_version": "IDEAV-6b7fa0b208a65cb3",
       "idea_version_started_at": "2026-11-13T12:06:09Z",
@@ -242651,14 +242651,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
         "total_count": 265,
@@ -242682,6 +242682,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c09be92dcb5d",
+        "idea_version": "IDEAV-008d7dca75199f27",
+        "idea_version_started_at": "2026-11-13T12:59:49Z",
+        "ticker": "GRASIM",
+        "company": "Grasim Industries",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Net profit nearly tripled to Rs 2,306 crore in Q2, demonstrating strong underlying earnings power despite a one-time charge.",
+        "why_now": "The earnings results were released on November 13, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f7dcb96b2cd"
+        ],
+        "primary_source_event_id": "EVT-8f7dcb96b2cd",
+        "source_headlines": [
+          "Grasim Industries Q2 Results: Net Profit Nearly Triples To Rs 2,306 Crore; One-Time Loss Of Rs 825 Crore"
+        ],
+        "source_headline": "Grasim Industries Q2 Results: Net Profit Nearly Triples To Rs 2,306 Crore; One-Time Loss Of Rs 825 Crore",
+        "source_url": "https://www.ndtvprofit.com/markets/grasim-industries-q2-results-net-profit-nearly-triples-to-rs-2-306-crore-one-time-loss-of-rs-825-crore-q2-earnings-bse-sensex-12321579#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T09:01:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-13T12:59:49Z",
+        "updated_at": "2026-11-13T12:59:49Z",
+        "decay_at": "2026-11-14T21:01:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T21:01:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4d583fe4840f",
         "idea_version": "IDEAV-37226047744a7383",
@@ -271087,81 +271162,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bb3c45a83ec3",
-        "idea_version": "IDEAV-c34ecb157fbc29fe",
-        "idea_version_started_at": "2026-11-01T07:00:15Z",
-        "ticker": "LODHA",
-        "company": "Macrotech Developers",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company plans to invest Rs 1,200 crore in a new project in Delhi-NCR, indicating significant capital expenditure and expansion.",
-        "why_now": "The investment plan was announced on November 1, 2026, making it a current development.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3fdda7c82c4a"
-        ],
-        "primary_source_event_id": "EVT-3fdda7c82c4a",
-        "source_headlines": [
-          "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road"
-        ],
-        "source_headline": "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road",
-        "source_url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/lodha-developers-to-invest-rs-1200-crore-in-first-delhi-ncr-project-on-gurugrams-golf-course-road/articleshow/135419681.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 89,
-        "newest_source_at": "2026-11-01T06:25:27Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T07:00:15Z",
-        "updated_at": "2026-11-01T07:00:15Z",
-        "decay_at": "2026-11-02T18:25:27Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T06:43:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4c66016b229f",
         "idea_version": "IDEAV-e66f0b9298ef0a34",
         "idea_version_started_at": "2026-11-01T07:00:15Z",
@@ -279791,7 +279791,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2466,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -279810,9 +279810,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 222053,
-    "news_picked_today": 1616,
-    "news_dropped_today": 14723
+    "news_seen_today": 222070,
+    "news_picked_today": 1617,
+    "news_dropped_today": 14739
   },
   "book_momentum": {
     "live_count": 8,
