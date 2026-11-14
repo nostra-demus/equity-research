@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T04:20:12Z",
+  "generated_at": "2026-11-14T04:26:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-242",
@@ -941,6 +941,302 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-631",
+      "headline": "Adnoc L&S expects $4 billion full-year profit as tanker rates surge",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/energy/2026/11/12/adnoc-ls-expects-4-billion-full-year-profit-as-tanker-rates-surge/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:30:57Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Adnoc L&S projects a $4 billion full-year profit driven by surging tanker rates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adnoc L&S projects a $4 billion full-year profit driven by surging tanker rates.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc L&S",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-640",
+      "headline": "Versicherer: Allianz erhöht Prognose – Rekordgewinn nach neun Monaten",
+      "headline_en": "Insurers: Allianz raises forecast – record profit after nine months",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/versicherung-allianz-erhoeht-prognose-rekordgewinn-nach-neun-monaten/100266550.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:20:49Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Allianz raised its profit guidance following a record nine-month performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz raised its profit guidance following a record nine-month performance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-651",
+      "headline": "Dax-Konzern: Siemens legt Rekordzahlen vor und erhöht Ziele",
+      "headline_en": "Dax Group: Siemens reports record figures and raises targets",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/dax-konzern-siemens-legt-rekordzahlen-vor-und-erhoeht-ziele/100265689.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:13:55Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Siemens reported record financial results and raised its future guidance targets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siemens reported record financial results and raised its future guidance targets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siemens AG",
+          "ticker": "SIE",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-662",
+      "headline": "Kia's Andhra Expansion: $2 Billion Investment, 12,000 Jobs And New Plant",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/kias-andhra-expansion-2-billion-investment-12-000-jobs-and-new-plant-12316314#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:06:35Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Kia announced a $2 billion investment for expansion in Andhra Pradesh, including a new plant and 12,000 jobs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kia announced a $2 billion investment for expansion in Andhra Pradesh, including a new plant and 12,000 jobs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-671",
+      "headline": "Landmark Group expands NCR portfolio with ₹1,600 crore planned investment — Here's a look at the projects",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/real-estate/landmark-group-develop-projects-ncr-office-gurugram-dwarka-expressway-mixed-use-commercial-retail-plan-invest-rs-1600-cr-11794464053687.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:02:34Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Landmark Group planned a major capital expenditure of ₹1,600 crore to expand its portfolio in the National Capital Region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Landmark Group planned a major capital expenditure of ₹1,600 crore to expand its portfolio in the National Capital Region.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 13,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Landmark Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-624",
+      "headline": "COSCIENS Biopharma Inc. Q3 Loss Widens",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cosciens-biopharma-inc-q3-loss-widens",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T03:05:56Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "COSCIENS Biopharma reported a widened net loss for Q3.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "COSCIENS Biopharma reported a widened net loss for Q3.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COSCIENS Biopharma Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-085",
       "headline": "Jensen Huang quits Nvidia, the company he co-founded in 1993. The timeline, day by day",
       "headline_en": null,
@@ -1234,6 +1530,104 @@
           "name": "DP World",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-643",
+      "headline": "Reliance Plans ₹2.70 Lakh Crore Coal Gasification Project In Andhra Pradesh Over 30 Years",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/reliance-plans-270-lakh-crore-coal-gasification-project-in-andhra-pradesh-over-30-years",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:18:46Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-652",
+      "headline": "Kia India Unveils Mega $2 Billion Expansion Plan, Andhra Pradesh Set For 12,000 Jobs And Bigger Auto Manufacturing Hub",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/kia-india-unveils-mega-2-billion-expansion-plan-andhra-pradesh-set-for-12000-jobs-and-bigger-auto-manufacturing-hub",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:13:49Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia Corporation",
+          "ticker": "000270",
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -1583,403 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-583",
-      "headline": "Endeavour Mining Shares Tumble as Stoppages Affect Full-Year Output",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/endeavour-mining-shares-tumble-as-stoppages-affect-full-year-output-fe0a6cd4?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T09:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Endeavour Mining shares fell due to production stoppages affecting full-year output guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Endeavour Mining shares fell due to production stoppages affecting full-year output guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Endeavour Mining",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-587",
-      "headline": "GAIL, KRIBHCO explore $1.6 billion urea plant in Andhra Pradesh",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/chem-/-fertilisers/gail-kribhco-explore-1-6-billion-urea-plant-in-andhra-pradesh/articleshow/135762835.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T09:04:41Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "GAIL and KRIBHCO are exploring a $1.6 billion urea plant, a major capital expenditure project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "GAIL and KRIBHCO are exploring a $1.6 billion urea plant, a major capital expenditure project.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GAIL",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "KRIBHCO",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-518",
-      "headline": "SCHEDULE 13D/A - THOMSON REUTERS CORP /CAN/ (0001075124) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1075124/000114036126043900/0001140361-26-043900-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-14T02:46:52Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Schedule 13D/A amendment filed for Thomson Reuters Corp signals activist/interested-party ownership disclosure on a mega-cap; filer identity and stake-change magnitude not visible.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Schedule 13D/A amendment filed for Thomson Reuters Corp signals activist/interested-party ownership disclosure on a mega-cap; filer identity and stake-change magnitude not visible.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Thomson Reuters Corp",
-          "ticker": "TRI",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-574",
-      "headline": "WH Smith boss takes aim at years of ‘forced growth’ as profits plunge",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/wh-smith-shares-financial-conduct-authority-ireland-spain-b3083702.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T09:26:49Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "WH Smith reported a plunge in profits and a shift in strategy away from 'forced growth', indicating a material change in financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "WH Smith reported a plunge in profits and a shift in strategy away from 'forced growth', indicating a material change in financial performance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WH Smith",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-614",
-      "headline": "P&G Hygiene Q2 Profit Falls 6.7% To ₹196 Crore, Revenue Slips 0.4%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/pg-hygiene-q2-profit-falls-67-to-196-crore-revenue-slips-04",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:44:17Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "P&G Hygiene reported a 6.7% decline in Q2 profit to ₹196 crore and a 0.4% revenue slip.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "P&G Hygiene reported a 6.7% decline in Q2 profit to ₹196 crore and a 0.4% revenue slip.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Procter & Gamble Hygiene and Health Care",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-021",
-      "headline": "Microsoft outage hits companies and governments worldwide",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/canada/video-microsoft-outage-hits-companies-and-governments-worldwide/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:19:37Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A major global IT outage caused by a Microsoft software update is disrupting critical infrastructure and businesses worldwide.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A major global IT outage caused by a Microsoft software update is disrupting critical infrastructure and businesses worldwide.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-200",
-      "headline": "UFlex Net Profit Jumps Seven-Fold To ₹215 Crore In Q2 FY27, Income Rises To ₹4,869 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/uflex-net-profit-jumps-seven-fold-to-215-crore-in-q2-fy27-income-rises-to-4869-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:16:40Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "UFlex reported a seven-fold increase in Q2 FY27 net profit to ₹215 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "UFlex reported a seven-fold increase in Q2 FY27 net profit to ₹215 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UFlex",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-266",
-      "headline": "Alliance Entertainment Reports First Quarter Fiscal 2027 Revenue Growth of 10% and GAAP Net Income Growth of 56%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/alliance-entertainment-reports-first-quarter-fiscal-2027-revenue-growth-10-and-gaap-net",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T07:51:04Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Alliance Entertainment reported 10% revenue growth and 56% net income growth for Q1 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Alliance Entertainment reported 10% revenue growth and 56% net income growth for Q1 2027.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alliance Entertainment",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280190,9 +280187,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 99658,
-    "news_picked_today": 892,
-    "news_dropped_today": 2684
+    "news_seen_today": 100362,
+    "news_picked_today": 954,
+    "news_dropped_today": 2790
   },
   "book_momentum": {
     "live_count": 8,
