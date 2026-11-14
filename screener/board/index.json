@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T00:37:48Z",
+  "generated_at": "2026-11-14T00:41:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-070",
@@ -1295,6 +1295,202 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-110",
+      "headline": "Microsoft outage live: UK police, NHS services and schools affected amid ongoing disruption affecting millions globally",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/live/2026/nov/13/microsoft-outage-down-today-live-update-outlook-teams-365-when-fixed-latest-status-cause-news",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:12:00Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Microsoft experiencing live outage affecting UK police, NHS, schools and millions globally; threatens service reputation, user trust, and triggers potential SLA credits.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Microsoft experiencing live outage affecting UK police, NHS, schools and millions globally; threatens service reputation, user trust, and triggers potential SLA credits.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-114",
+      "headline": "NEXGEL, Inc. Announces Note Conversion Agreements for $14.125 million of Notes and $1.276 million Private Placement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nexgel-inc-announces-note-conversion-agreements-14125-million-notes-and-1276-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:08:34Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "NEXGEL is converting $14.125 million in notes and raising $1.276 million in a private placement, impacting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "NEXGEL is converting $14.125 million in notes and raising $1.276 million in a private placement, impacting capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NEXGEL, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-116",
+      "headline": "Insite DC files for four-building data center campus outside Melbourne, Australia",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/insite-dc-files-for-four-building-data-center-campus-outside-melbourne-australia/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:05:49Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Insite DC is planning a four-building data center campus in Australia, representing a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Insite DC is planning a four-building data center campus in Australia, representing a significant capital expenditure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Insite DC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-123",
+      "headline": "Rowan secures $1.5bn in financing for data center build-out",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/rowan-secures-15bn-in-financing-for-data-center-build-out/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:02:04Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Rowan secured $1.5 billion in financing for data center expansion, a significant capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Rowan secured $1.5 billion in financing for data center expansion, a significant capital commitment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rowan",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-023",
       "headline": "Paytm Wins India Central Bank’s Conditional Nod to Revive Wallet",
       "headline_en": null,
@@ -1776,208 +1972,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-099",
-      "headline": "India clears Israeli firm Cellebrite to supply phone-hacking tools to government agencies",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/india-clears-israeli-firm-cellebrite-supply-phone-hacking-tools",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:22:20Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Cellebrite clears regulatory approval to supply phone-hacking software to Indian government agencies; removes market-entry barrier but no contract size or revenue disclosed; issuer likely non-publicly-traded.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Cellebrite clears regulatory approval to supply phone-hacking software to Indian government agencies; removes market-entry barrier but no contract size or revenue disclosed; issuer likely non-publicly-traded.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cellebrite",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-032",
-      "headline": "Nvidia On Track For Longest Weekly Losing Streak Since 2012 As MCap Erodes By $1.6 Trillion",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/nvidia-on-track-for-longest-weekly-losing-streak-since-2012-as-mcap-erodes-by-1-6-trillion-12321994#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:13:47Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Nvidia has seen a $1.6 trillion erosion in market capitalization, reflecting significant investor sentiment shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Nvidia has seen a $1.6 trillion erosion in market capitalization, reflecting significant investor sentiment shift.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-087",
-      "headline": "PIC seeks R8.4bn in shares in Dangote refinery IPO",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/south-africa/pic-seeks-r8-4bn-in-shares-in-dangote-refinery-ipo/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:38:38Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Named South African pension fund (PIC) publicly seeks R8.4 billion share allocation in planned Dangote Refinery IPO; quantified capital-structure event disclosed via regulatory channel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Named South African pension fund (PIC) publicly seeks R8.4 billion share allocation in planned Dangote Refinery IPO; quantified capital-structure event disclosed via regulatory channel.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dangote",
-          "ticker": null,
-          "listing_country": "NG"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-091",
-      "headline": "Centrus Energy Corp. Signs Definitive Contracts with Oklo to Supply HALEU with Deliveries Beginning in 2029",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/centrus-energy-corp-signs-definitive-contracts-oklo-supply-haleu-deliveries-beginning-2029",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:28:25Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Centrus Energy signs definitive contract with Oklo to supply HALEU nuclear fuel with deliveries beginning 2029, securing named forward revenue visibility and production commitments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Centrus Energy signs definitive contract with Oklo to supply HALEU nuclear fuel with deliveries beginning 2029, securing named forward revenue visibility and production commitments.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Centrus Energy Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Oklo Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280402,9 +280396,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16064,
-    "news_picked_today": 112,
-    "news_dropped_today": 416
+    "news_seen_today": 19022,
+    "news_picked_today": 134,
+    "news_dropped_today": 442
   },
   "book_momentum": {
     "live_count": 8,
