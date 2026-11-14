@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-11-02T12:13:40Z",
+  "archived_at": "2026-11-14T08:13:20Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-97e320120234",
-    "idea_version": "IDEAV-b3d094a3e0883445",
-    "idea_version_started_at": "2026-10-31T01:55:11Z",
-    "ticker": "PCRX",
-    "company": "Pacira BioSciences, Inc.",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-af413d25539b",
+    "idea_version": "IDEAV-8427480e67ce78b6",
+    "idea_version_started_at": "2026-11-11T11:14:28Z",
+    "ticker": "NSANY",
+    "company": "Nissan Motor Co., Ltd.",
+    "exchange": "OTC Markets",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The filing of a third-party tender offer (SC TO-T) indicates an active acquisition attempt, which typically provides a floor for the stock price and potential upside if a premium is negotiated.",
-    "why_now": "The SEC filing was made on October 30, 2026, initiating the tender process.",
-    "conviction": 65,
+    "reason": "The company reported a quarterly loss and significantly lowered its sales guidance due to a severe slump in the Chinese market.",
+    "why_now": "The guidance cut was announced today, November 11, 2026.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 77,
+    "trade_score": 66,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 20,
       "specificity": 15,
       "timing": 10,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -50,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-9d434a1cbd9b"
+      "EVT-93d936ffd4b9"
     ],
-    "primary_source_event_id": "EVT-9d434a1cbd9b",
+    "primary_source_event_id": "EVT-93d936ffd4b9",
     "source_headlines": [
-      "SC TO-T - Pacira BioSciences, Inc. (0001396814) (Subject)"
+      "Nissan Posts Quarterly Loss, Cuts Sales View on China Slump"
     ],
-    "source_headline": "SC TO-T - Pacira BioSciences, Inc. (0001396814) (Subject)",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1396814/000114036126041224/0001140361-26-041224-index.htm",
-    "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+    "source_headline": "Nissan Posts Quarterly Loss, Cuts Sales View on China Slump",
+    "source_url": "https://www.wsj.com/business/autos/nissan-posts-quarterly-loss-cuts-sales-view-on-china-slump-d5cbb640?mod=pls_whats_news_us_business_f",
+    "source_name": "The Wall Street Journal",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-30T11:40:24Z",
+    "newest_source_at": "2026-11-11T07:32:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-31T01:55:11Z",
-    "updated_at": "2026-10-31T01:55:11Z",
-    "decay_at": "2026-10-31T23:40:24Z",
+    "surfaced_at": "2026-11-11T11:14:28Z",
+    "updated_at": "2026-11-11T11:14:28Z",
+    "decay_at": "2026-11-12T19:32:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
