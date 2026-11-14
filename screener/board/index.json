@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T12:26:50Z",
+  "generated_at": "2026-11-14T12:49:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -238,6 +238,55 @@
       "companies": [
         {
           "name": "Solex Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-786",
+      "headline": "TVS Srichakra Q2 Results: Profit jumps nearly four-fold as revenue rises 37.5%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/tvs-srichakra-q2-results-profit-jumps-nearly-four-fold-as-revenue-rises-37-5-pc-20034104.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T12:12:38Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "TVS Srichakra reported a nearly four-fold increase in profit and a 37.5% rise in revenue for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TVS Srichakra reported a nearly four-fold increase in profit and a 37.5% rise in revenue for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TVS Srichakra",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1920,56 +1969,6 @@
           "name": "Adnoc L&S",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-640",
-      "headline": "Versicherer: Allianz erhöht Prognose – Rekordgewinn nach neun Monaten",
-      "headline_en": "Insurers: Allianz raises forecast – record profit after nine months",
-      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/versicherung-allianz-erhoeht-prognose-rekordgewinn-nach-neun-monaten/100266550.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:20:49Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Allianz raised its profit guidance following a record nine-month performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Allianz raised its profit guidance following a record nine-month performance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allianz",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -279829,9 +279828,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 139546,
-    "news_picked_today": 1417,
-    "news_dropped_today": 8472
+    "news_seen_today": 140633,
+    "news_picked_today": 1429,
+    "news_dropped_today": 8913
   },
   "book_momentum": {
     "live_count": 8,
