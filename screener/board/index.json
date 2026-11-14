@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T11:17:06Z",
+  "generated_at": "2026-11-14T11:20:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-775",
+      "headline": "Blackstone-backed AirTrunk plans ₹1.03 lakh crore investment in Andhra Pradesh for two data centre campuses",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/blackstone-backed-airtrunk-plans-rs1-03-lakh-crore-investment-in-andhra-pradesh-for-two-data-centre-campuses-567467-2026-11-14?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T10:48:09Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "AirTrunk plans a major ₹1.03 lakh crore investment for data center capacity in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AirTrunk plans a major ₹1.03 lakh crore investment for data center capacity in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AirTrunk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1965,6 @@
           "name": "Reliance Industries",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-687",
-      "headline": "Rückversicherung: Münchener Rück hebt Gewinnprognose an",
-      "headline_en": "Reinsurance: Munich Re raises profit forecast",
-      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/versicherer/rueckversicherung-muenchener-rueck-hebt-gewinnprognose-an/100266551.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T07:18:08Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Munich Re raised its profit guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Munich Re raised its profit guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Munich Re",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -279823,9 +279823,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 138464,
-    "news_picked_today": 1373,
-    "news_dropped_today": 7797
+    "news_seen_today": 138500,
+    "news_picked_today": 1379,
+    "news_dropped_today": 7827
   },
   "book_momentum": {
     "live_count": 8,
