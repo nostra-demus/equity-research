@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T04:37:45Z",
+  "generated_at": "2026-11-14T04:43:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-677",
@@ -41,6 +41,55 @@
       "companies": [
         {
           "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-686",
+      "headline": "Mahanadi Coalfields IPO: Coal India Arm Files RHP For Public Issue",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/mahanadi-coalfields-ipo-coal-india-arm-files-rhp-for-public-issue-12325042#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T03:51:56Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Coal India's subsidiary Mahanadi Coalfields has filed its Red Herring Prospectus for an IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coal India's subsidiary Mahanadi Coalfields has filed its Red Herring Prospectus for an IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1924,55 +1973,6 @@
           "name": "ADNOC L&S",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-459",
-      "headline": "ReNew to invest ₹80,000 crore in Andhra Pradesh across data centre, solar and magnet manufacturing",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/renew-energy-to-invest-rs-80000-crore-in-andhra-pradesh-across-data-centre-solar-and-magnet-manufacturing-20032651.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:29:23Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "ReNew Power announces ₹80,000 crore capex plan (≈$9.6 billion) spanning data centre, solar, and magnet manufacturing in Andhra Pradesh.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ReNew Power announces ₹80,000 crore capex plan (≈$9.6 billion) spanning data centre, solar, and magnet manufacturing in Andhra Pradesh.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ReNew Power",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -280189,9 +280189,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 100925,
-    "news_picked_today": 985,
-    "news_dropped_today": 2879
+    "news_seen_today": 102182,
+    "news_picked_today": 1003,
+    "news_dropped_today": 2933
   },
   "book_momentum": {
     "live_count": 8,
