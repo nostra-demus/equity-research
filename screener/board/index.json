@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T00:58:01Z",
+  "generated_at": "2026-11-14T01:07:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-145",
@@ -243,6 +243,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-176",
+      "headline": "SpiceJet Flights Cancelled In Dubai As Airport Suspends Check-In Services Over ₹35.85 Crore Unpaid Dues",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/spicejet-flights-cancelled-in-dubai-as-airport-suspends-check-in-services-over-3585-crore-unpaid-dues",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T09:40:54Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "SpiceJet unable to pay ₹35.85 crore airport dues; Dubai airport suspended check-in and cancelled flights, signaling acute liquidity crisis and going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpiceJet unable to pay ₹35.85 crore airport dues; Dubai airport suspended check-in and cancelled flights, signaling acute liquidity crisis and going-concern risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet",
+          "ticker": "SPICEJET",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -892,6 +942,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-188",
+      "headline": "DOJ moves to seize $1.2B from Binance hack, disrupts FaceStealer scam",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/doj-12b-north-korean-crypto-seizure-400m-facestealer-scheme?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T09:27:14Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "DOJ moves to seize $1.2B connected to Binance hack, a quantified enforcement action with capital-structure and regulatory-risk implications for a major cryptocurrency exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "DOJ moves to seize $1.2B connected to Binance hack, a quantified enforcement action with capital-structure and regulatory-risk implications for a major cryptocurrency exchange.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-037",
       "headline": "Banco Santander-Chile Reports Net Income of 1,005,679 MCh$ for Period Ended October 31, 2026",
       "headline_en": null,
@@ -1077,6 +1177,56 @@
         {
           "name": "Microsoft",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-194",
+      "headline": "Chinese AI sell-off deepens over fears of tougher Nvidia chip restrictions",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/0d4e93e4-895e-4ae0-a01b-833a3ed440a8?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T09:07:28Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Nvidia AI-chip restrictions to China deepen on tougher regulatory fears; material supply and market-access risk for mega-cap semiconductor leader and global AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Nvidia AI-chip restrictions to China deepen on tougher regulatory fears; material supply and market-access risk for mega-cap semiconductor leader and global AI sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -1677,6 +1827,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-180",
+      "headline": "Dish TV Q2 loss at ₹295 cr , higher than revenue of ₹292 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/dish-tv-q2-loss-at-295-cr-higher-than-revenue-of-292-cr/article71697287.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T09:36:37Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Q2 loss of ₹295 cr exceeds revenue of ₹292 cr, indicating severe operational deterioration or structural unprofitability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Q2 loss of ₹295 cr exceeds revenue of ₹292 cr, indicating severe operational deterioration or structural unprofitability.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dish TV",
+          "ticker": "DISHTV",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-161",
       "headline": "US aviation regulator grounds flights across the country",
       "headline_en": null,
@@ -1765,198 +1964,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-162",
-      "headline": "Cruise Ship Capsizes After Tanker Collision in New Orleans",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-14/cruise-ship-capsizes-after-tanker-crash-in-new-orleans-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-14T00:29:03Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A cruise ship capsized following a tanker collision in New Orleans, representing a significant operational and liability event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A cruise ship capsized following a tanker collision in New Orleans, representing a significant operational and liability event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-036",
-      "headline": "RedBird explores listing for new AC Milan holding company",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/3d0d58ba-600f-427c-ab22-553cd8a1dcc8?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "RedBird is exploring a potential listing for its AC Milan holding company, a significant strategic move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "RedBird is exploring a potential listing for its AC Milan holding company, a significant strategic move.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AC Milan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-047",
-      "headline": "Jensen Huang’s exit tests Nvidia’s supply chain clout, ability to bankroll AI buildout",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3374357/jensen-huangs-exit-tests-nvidias-supply-chain-clout-ability-bankroll-ai-buildout",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:00:10Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "The departure of Jensen Huang poses a significant leadership and strategic risk to Nvidia's AI-focused business model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The departure of Jensen Huang poses a significant leadership and strategic risk to Nvidia's AI-focused business model.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-045",
-      "headline": "Mass smuggling of up to 1.5 million Nvidia AI GPUs could be the underlying cause of Jensen Huang's departure, analysts claim",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/mass-smuggling-of-nvidia-ai-gpus-could-be-the-underlying-cause-of-jensen-huangs-departure-analysts-claim-more-than-1-5-gigawatts-of-banned-chips-tracked-to-china-despite-export-controls",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Allegations of massive GPU smuggling and the potential departure of CEO Jensen Huang represent a major management and operational risk for Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Allegations of massive GPU smuggling and the potential departure of CEO Jensen Huang represent a major management and operational risk for Nvidia.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -239998,77 +240005,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5880efc59f2d",
-      "idea_version": "IDEAV-75d5d0ba16547141",
-      "idea_version_started_at": "2026-11-12T16:29:30Z",
-      "ticker": "08507",
-      "company": "Chi Eco Land Mt",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
-      "why_now": "The profit warning was filed on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e6f994dbaef2"
-      ],
-      "primary_source_event_id": "EVT-e6f994dbaef2",
-      "source_headlines": [
-        "CHI ECO LAND MT (08507): PROFIT WARNING"
-      ],
-      "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T13:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T16:29:30Z",
-      "updated_at": "2026-11-12T16:29:30Z",
-      "decay_at": "2026-11-14T01:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-255e34fda7d0",
       "idea_version": "IDEAV-1b03d249564e5d8e",
       "idea_version_started_at": "2026-11-12T10:13:12Z",
@@ -241189,6 +241125,77 @@
       "surfaced_at": "2026-11-12T16:29:30Z",
       "updated_at": "2026-11-12T16:29:30Z",
       "decay_at": "2026-11-13T23:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5880efc59f2d",
+      "idea_version": "IDEAV-75d5d0ba16547141",
+      "idea_version_started_at": "2026-11-12T16:29:30Z",
+      "ticker": "08507",
+      "company": "Chi Eco Land Mt",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
+      "why_now": "The profit warning was filed on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e6f994dbaef2"
+      ],
+      "primary_source_event_id": "EVT-e6f994dbaef2",
+      "source_headlines": [
+        "CHI ECO LAND MT (08507): PROFIT WARNING"
+      ],
+      "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T13:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T16:29:30Z",
+      "updated_at": "2026-11-12T16:29:30Z",
+      "decay_at": "2026-11-14T01:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -243214,9 +243221,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -243224,9 +243231,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -243245,6 +243252,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5880efc59f2d",
+        "idea_version": "IDEAV-75d5d0ba16547141",
+        "idea_version_started_at": "2026-11-12T16:29:30Z",
+        "ticker": "08507",
+        "company": "Chi Eco Land Mt",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
+        "why_now": "The profit warning was filed on 2026-11-12.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e6f994dbaef2"
+        ],
+        "primary_source_event_id": "EVT-e6f994dbaef2",
+        "source_headlines": [
+          "CHI ECO LAND MT (08507): PROFIT WARNING"
+        ],
+        "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T13:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T16:29:30Z",
+        "updated_at": "2026-11-12T16:29:30Z",
+        "decay_at": "2026-11-14T01:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T01:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-926b7a55febc",
         "idea_version": "IDEAV-352024216b9adee9",
@@ -280283,89 +280364,12 @@
         "archived_at": "2026-10-22T23:50:46Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c009bc671c9a",
-        "idea_version": "IDEAV-f7ea29f5b95d97f9",
-        "idea_version_started_at": "2026-10-19T23:11:18Z",
-        "ticker": "NAB",
-        "company": "National Australia Bank",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The bank is initiating a massive restructuring involving 2,500 job cuts with an associated $300 million cost, indicating near-term margin pressure and operational headwinds.",
-        "why_now": "The restructuring plan was announced on October 19, 2026, with the majority of layoffs occurring over the coming months.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8a21fe1a1d9c",
-          "EVT-b48f9450924c"
-        ],
-        "primary_source_event_id": "EVT-8a21fe1a1d9c",
-        "source_headlines": [
-          "NAB to cut 2500 jobs in massive restructure, most to go within months",
-          "ASX falls; NAB expects restructure, redundancies to cost bank $300m"
-        ],
-        "source_headline": "NAB to cut 2500 jobs in massive restructure, most to go within months",
-        "source_url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T23:01:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T23:11:18Z",
-        "updated_at": "2026-10-19T23:11:18Z",
-        "decay_at": "2026-10-21T11:01:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T23:50:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2453,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -280384,9 +280388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 30722,
-    "news_picked_today": 196,
-    "news_dropped_today": 596
+    "news_seen_today": 33545,
+    "news_picked_today": 224,
+    "news_dropped_today": 688
   },
   "book_momentum": {
     "live_count": 8,
