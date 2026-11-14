@@ -471,12 +471,19 @@ interface OverdueItem {
 // decision_record.json is immutable, so a forecast is RESOLVED in reviews/*_decision_review*.json
 // forecast_results[], never in the ledger itself. Conservative link (no positional guess, no fuzzy
 // text): explicit 1-based forecast_index, a 'forecast #N' token, or prediction text identical
-// (whitespace-collapsed, case-folded) to exactly ONE ledger row. Latest review wins; a resolution a
-// later review walks back stays owed and is surfaced as a contradiction. Keep byte-identical with Python.
+// (whitespace-collapsed, case-folded) to exactly ONE ledger row. Finally, allow one terminal ASCII
+// full stop only when that sentence key is unique across ALL original rows. Latest review wins; a
+// resolution a later review walks back stays owed and is surfaced as a contradiction. Keep parity with Python.
 interface ForecastLink { status: string; review_date: string; earlier_resolution: [string, string] | null }
 
 function reviewNorm(s: unknown): string {
   return typeof s === 'string' ? s.split(/\s+/).filter(Boolean).join(' ').toLowerCase() : ''
+}
+
+function forecastSentenceKey(normalized: string): string {
+  const sentence = normalized.endsWith('.') ? normalized.slice(0, -1) : normalized
+  // Do not trim again: a space before the full stop is not the same identity.
+  return /[\p{L}\p{N}]/u.test(sentence) ? sentence : ''
 }
 
 const FORECAST_REF_RE = /(?:forecast|prediction|fc)\s*#\s*(\d+)|^#\s*(\d+)$/
@@ -488,10 +495,22 @@ function reviewForecastLinks(forecastLedger: unknown, reviews: ReviewForecastSou
   if (!Array.isArray(forecastLedger)) return out
   const n = forecastLedger.length
   const counts = new Map<string, number>()
-  const keyOf = (e: any) => (e && typeof e === 'object' && !Array.isArray(e) ? reviewNorm(e.prediction) : '')
-  for (const e of forecastLedger) { const k = keyOf(e); if (k) counts.set(k, (counts.get(k) || 0) + 1) }
+  const sentenceCounts = new Map<string, number>()
+  const keys = Array.from(forecastLedger, (e: any) => {
+    const k = e && typeof e === 'object' && !Array.isArray(e) ? reviewNorm(e.prediction) : ''
+    return { k, sentence: forecastSentenceKey(k) }
+  })
+  for (const { k, sentence } of keys) {
+    if (k) counts.set(k, (counts.get(k) || 0) + 1)
+    if (sentence) sentenceCounts.set(sentence, (sentenceCounts.get(sentence) || 0) + 1)
+  }
   const byText = new Map<string, number>()
-  forecastLedger.forEach((e, i) => { const k = keyOf(e); if (k && counts.get(k) === 1) byText.set(k, i) })
+  const bySentence = new Map<string, number>()
+  keys.forEach(({ k, sentence }, i) => {
+    if (k && counts.get(k) === 1) byText.set(k, i)
+    // Probability/status eligibility must never remove an original ambiguity candidate.
+    if (sentence && sentenceCounts.get(sentence) === 1) bySentence.set(sentence, i)
+  })
   const target = (row: any): number | null => {
     const idx = row.forecast_index
     if (typeof idx === 'number' && Number.isInteger(idx) && idx >= 1 && idx <= n) return idx - 1
@@ -499,7 +518,7 @@ function reviewForecastLinks(forecastLedger: unknown, reviews: ReviewForecastSou
     if (byText.has(k)) return byText.get(k)!
     const m = FORECAST_REF_RE.exec(k)
     if (m) { const j = Number(m[1] ?? m[2]); if (j >= 1 && j <= n) return j - 1 }
-    return null
+    return bySentence.get(forecastSentenceKey(k)) ?? null
   }
   const version = (b: string) => { const m = /_v(\d+)\.json$/i.exec(b); return m ? Number(m[1]) : 1 }
   const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0)

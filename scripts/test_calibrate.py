@@ -17,6 +17,7 @@ import uuid
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import calibrate as C  # noqa: E402
+import overdue_checks as O  # noqa: E402
 
 FAILS = []
 
@@ -133,6 +134,8 @@ def test_forecast_join_terminal_sentence_period():
         got = C.match_resolved_forecasts(rec, reviews)
         check(len(got) == 1 and got[0]["prob"] == 0.55 and got[0]["owner_module"] == "earnings",
               f"one terminal full stop preserves the unique forecast identity: {review_text!r}")
+        check(list(O.review_forecast_links(rec["forecast_ledger"], reviews)) == [1],
+              "overdue links the same terminal-period variant to its original ledger row")
 
 
 def test_forecast_period_fallback_rejects_changed_claims():
@@ -148,17 +151,25 @@ def test_forecast_period_fallback_rejects_changed_claims():
     for text in changed:
         reviews = [{"forecast_results": [{"prediction": text, "status": "confirmed"}]}]
         check(C.match_resolved_forecasts(rec, reviews) == [], f"changed claim stays unmatched: {text!r}")
+        check(O.review_forecast_links(rec["forecast_ledger"], reviews) == {},
+              f"overdue rejects the same changed claim: {text!r}")
     for text in (None, [], {}, "", "."):
         reviews = [{"forecast_results": [{"prediction": text, "status": "confirmed"}]}]
         check(C.match_resolved_forecasts(rec, reviews) == [], f"empty/malformed prediction stays unmatched: {text!r}")
+        check(O.review_forecast_links(rec["forecast_ledger"], reviews) == {},
+              f"overdue rejects the same malformed prediction: {text!r}")
     operators = {"forecast_ledger": [{"prediction": "Revenue < 100", "probability": 55}]}
     inclusive = [{"forecast_results": [{"prediction": "Revenue <= 100.", "status": "confirmed"}]}]
     check(C.match_resolved_forecasts(operators, inclusive) == [], "changing < to <= cannot be a punctuation match")
+    check(O.review_forecast_links(operators["forecast_ledger"], inclusive) == {},
+          "overdue cannot link a changed comparator")
     for token in ("!", "?", "$", "--", "()", ">="):
         punctuation = {"forecast_ledger": [{"prediction": token, "probability": 55}]}
         reviews = [{"forecast_results": [{"prediction": token + ".", "status": "confirmed"}]}]
         check(C.match_resolved_forecasts(punctuation, reviews) == [],
               f"punctuation-only ledger text cannot use the period fallback: {token!r}")
+        check(O.review_forecast_links(punctuation["forecast_ledger"], reviews) == {},
+              "overdue cannot link a punctuation-only claim through the fallback")
 
 
 def test_forecast_period_fallback_preserves_ambiguity_and_references():
@@ -169,6 +180,8 @@ def test_forecast_period_fallback_preserves_ambiguity_and_references():
     check(C.match_resolved_forecasts(rec, plain) == [], "terminal-period fallback cannot bypass duplicate text")
     rec["forecast_ledger"][1]["probability"] = 0.8
     check(C.match_resolved_forecasts(rec, plain) == [], "an invalid-probability duplicate still blocks fallback")
+    check(O.review_forecast_links(rec["forecast_ledger"], plain) == {},
+          "overdue ambiguity includes the invalid-probability duplicate")
     rec["forecast_ledger"][1]["probability"] = 20
     referred = [{"forecast_results": [{"prediction": "Margin expands.", "forecast_index": 2,
                                       "status": "confirmed"}]}]
@@ -192,6 +205,75 @@ def test_forecast_period_variants_count_once():
     rec["forecast_ledger"][0]["probability"] = 70
     unresolved = [{"forecast_results": [{"prediction": "EPS up.", "status": "not assessable"}]}]
     check(C.match_resolved_forecasts(rec, unresolved) == [], "period fallback cannot score an unresolved outcome")
+
+
+
+def test_forecast_hcg_identity_and_review_history():
+    # One preserved published identity pair, observed through two consumers. Fixture probability and
+    # due date below only exercise mechanics; this is not a financial replay or a source-window grade.
+    original = "FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar"
+    filed = "FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar."
+    rec = {"ticker": "HCG", "forecast_ledger": [{"prediction": original, "probability": 55,
+            "owner_module": "earnings", "status": "open", "time_window": "2026-07-31"}]}
+    earlier = {"review_date": "2026-08-01", "forecast_results": [
+        {"prediction": original, "status": "still open"}]}
+    resolved = {"review_date": "2026-09-02", "forecast_results": [
+        {"prediction": filed, "status": "confirmed"}]}
+    before = copy.deepcopy((rec, earlier, resolved))
+    reviews = [earlier, resolved]  # calibration receives loader-sorted reviews
+    check(len(C.match_resolved_forecasts(rec, reviews)) == 1,
+          "the one HCG published identity is recognized once by calibration")
+    check(O.review_forecast_links(rec["forecast_ledger"], list(reversed(reviews))) == {
+        0: {"status": "confirmed", "review_date": "2026-09-02", "earlier_resolution": None}},
+          "overdue recognizes the same HCG filed review after its earlier still-open read")
+    check(O.eval_as_forecast_overdue(rec["forecast_ledger"], "2026-11-13", reviews) == [],
+          "the filed HCG resolution clears its overdue advisory")
+    reopened = {"review_date": "2026-10-01", "forecast_results": [
+        {"prediction": original, "status": "not assessable"}]}
+    history = [earlier, resolved, reopened]
+    owed = O.eval_as_forecast_overdue(rec["forecast_ledger"], "2026-11-13", history)
+    check(len(owed) == 1 and owed[0]["last_review"] == {
+        "date": "2026-10-01", "status": "not assessable"}
+        and owed[0]["contradicted_resolution"] == {"status": "confirmed", "date": "2026-09-02"}
+        and "CONTRADICTION" in owed[0]["description"],
+          "a later unresolved read preserves and names the earlier full-stop-linked resolution")
+    check(C.match_resolved_forecasts(rec, history) == [],
+          "calibration still uses only its latest review; a reopened HCG forecast is not scored")
+    check((rec, earlier, resolved) == before, "both readers leave original identity and review data unchanged")
+
+
+def test_forecast_fallback_preserves_reader_differences():
+    rec = {"forecast_ledger": [{"prediction": "Margin holds", "probability": 80},
+                               {"prediction": "Debt rises", "probability": 20}]}
+    rows = [{"forecast_results": [{"prediction": "Margin holds", "forecast_index": 2,
+                                    "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(rec, rows)[0]["prob"] == 0.8,
+          "calibration retains exact-text priority over an explicit index")
+    check(list(O.review_forecast_links(rec["forecast_ledger"], rows)) == [1],
+          "overdue retains explicit-index priority over exact text")
+    for prediction, index, calibration_count, overdue_targets in (
+            ("forecast 2", None, 1, []), ("see ledger", 2.0, 0, [1]),
+            ("Margin  holds.", None, 0, [0]), ("Debt rises.", 1, 1, [0])):
+        rows = [{"forecast_results": [{"prediction": prediction, "forecast_index": index,
+                                       "status": "confirmed"}]}]
+        got = C.match_resolved_forecasts(rec, rows)
+        check(len(got) == calibration_count and list(O.review_forecast_links(
+            rec["forecast_ledger"], rows)) == overdue_targets,
+              f"reader-specific whitespace/token/index/fallback precedence survives: {prediction!r}, {index!r}")
+        if prediction == "Debt rises.":
+            check(got[0]["prob"] == 0.8, "calibration explicit reference still precedes the period fallback")
+    rec["forecast_ledger"] = [{"prediction": "Margin holds", "probability": 80},
+                               {"prediction": "Margin holds.", "probability": 0.8}]
+    rows = [{"forecast_results": [{"prediction": "Margin holds.", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(rec, rows) == [] and list(O.review_forecast_links(
+        rec["forecast_ledger"], rows)) == [1],
+          "an exact period variant retains identity even when the fallback key is ambiguous and probability invalid")
+    for prediction in ("Margin holds..", "Margin holds .", "!", "."):
+        rec["forecast_ledger"] = [{"prediction": prediction, "probability": 55}]
+        rows = [{"forecast_results": [{"prediction": prediction, "status": "confirmed"}]}]
+        check(len(C.match_resolved_forecasts(rec, rows)) == 1 and list(O.review_forecast_links(
+            rec["forecast_ledger"], rows)) == [0],
+              f"fallback guards preserve unusual original exact identities: {prediction!r}")
 
 
 def test_effective_n_clusters_by_ticker():
@@ -1628,6 +1710,7 @@ def main():
                test_fraction_slip_excluded, test_effective_n_clusters_by_ticker, test_all_reviews_tallied,
                test_forecast_join_terminal_sentence_period, test_forecast_period_fallback_rejects_changed_claims,
                test_forecast_period_fallback_preserves_ambiguity_and_references, test_forecast_period_variants_count_once,
+               test_forecast_hcg_identity_and_review_history, test_forecast_fallback_preserves_reader_differences,
                test_false_comfort_named, test_brier_ready_not_reported_withheld, test_scoped_output_isolated,
                test_expired_is_a_settled_miss, test_tracking_price_return_recovered,
                test_effective_n_counts_directional_only_runs, test_reviews_sort_by_horizon_not_text,
