@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T18:14:15Z",
+  "generated_at": "2026-11-14T18:15:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -238004,6 +238004,80 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-24efd3e6e0ff9da1",
+      "idea_version_started_at": "2026-11-14T18:15:10Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An 805 million euro fine from Italian regulators for unauthorized photo access represents a direct hit to net income and signals increasing regulatory friction in the EU.",
+      "why_now": "The fine was finalized and reported across multiple sources on November 14, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6dc77e8103d4",
+        "EVT-c5f1825e8fe9",
+        "EVT-f306d892ed62"
+      ],
+      "primary_source_event_id": "EVT-6dc77e8103d4",
+      "source_headlines": [
+        "Meta fined $880m in Italy over unauthorised access to Facebook photos",
+        "Italy fines Meta €805m over accessing users' photos",
+        "Verdict: Italy imposes 805 million euro fine against Meta"
+      ],
+      "source_headline": "Meta fined $880m in Italy over unauthorised access to Facebook photos",
+      "source_url": "https://gulfnews.com/world/europe/meta-fined-880m-in-italy-over-unauthorised-access-to-facebook-photos-1.500747476",
+      "source_name": "Gulf News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T16:29:48Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-14T18:15:10Z",
+      "updated_at": "2026-11-14T18:15:10Z",
+      "decay_at": "2026-11-16T04:29:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4d583fe4840f",
       "idea_version": "IDEAV-37226047744a7383",
       "idea_version_started_at": "2026-11-13T12:59:49Z",
@@ -279934,8 +280008,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2464,
-    "live_count": 32,
+    "surfaced_total": 2465,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
