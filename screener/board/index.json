@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T11:49:02Z",
+  "generated_at": "2026-11-14T12:00:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -238,6 +238,55 @@
       "companies": [
         {
           "name": "Solex Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-781",
+      "headline": "Archies Faces A Tough Q2 As Sales Take A Hit, Revenue Plunges 33% While Net Loss Reaches ₹1.58 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/archies-faces-a-tough-q2-as-sales-take-a-hit-revenue-plunges-33-while-net-loss-reaches-158-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T11:34:01Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Archies reported a 33% revenue decline and a net loss of ₹1.58 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Archies reported a 33% revenue decline and a net loss of ₹1.58 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Archies",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-671",
-      "headline": "Landmark Group expands NCR portfolio with ₹1,600 crore planned investment — Here's a look at the projects",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/real-estate/landmark-group-develop-projects-ncr-office-gurugram-dwarka-expressway-mixed-use-commercial-retail-plan-invest-rs-1600-cr-11794464053687.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:02:34Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Landmark Group planned a major capital expenditure of ₹1,600 crore to expand its portfolio in the National Capital Region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Landmark Group planned a major capital expenditure of ₹1,600 crore to expand its portfolio in the National Capital Region.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 13,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Landmark Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -279900,9 +279900,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 138834,
-    "news_picked_today": 1393,
-    "news_dropped_today": 8124
+    "news_seen_today": 139208,
+    "news_picked_today": 1400,
+    "news_dropped_today": 8289
   },
   "book_momentum": {
     "live_count": 8,
