@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T10:59:01Z",
+  "generated_at": "2026-11-14T11:00:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -238078,6 +238078,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a5ec7bbbdbd2",
+      "idea_version": "IDEAV-ab5e698e0abc3ba9",
+      "idea_version_started_at": "2026-11-14T10:59:20Z",
+      "ticker": "SECUREKLOUD",
+      "company": "SecureKloud Technologies",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially disclosed defaults on interest and principal repayments to banks, signaling severe liquidity distress.",
+      "why_now": "The exchange filing regarding the default was made on November 14, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-15fb125dba74"
+      ],
+      "primary_source_event_id": "EVT-15fb125dba74",
+      "source_headlines": [
+        "SECUREKLOUD TECHNOLOGIES LIMITED: SECUREKLOUD TECHNOLOGIES LIMITED has informed the Exchange regarding 'Disclosure of defaults on payment of Interest/ Repayment of Principal Amount on Loans from Banks/ Financial Institutions.'."
+      ],
+      "source_headline": "SECUREKLOUD TECHNOLOGIES LIMITED: SECUREKLOUD TECHNOLOGIES LIMITED has informed the Exchange regarding 'Disclosure of defaults on payment of Interest/ Repayment of Principal Amount on Loans from Banks/ Financial Institutions.'.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_14112026131849_E37_IB_CC_default_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T07:49:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T10:59:20Z",
+      "updated_at": "2026-11-14T10:59:20Z",
+      "decay_at": "2026-11-15T19:49:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-31b295117425",
       "idea_version": "IDEAV-e6909f5753ec3f98",
       "idea_version_started_at": "2026-11-14T05:39:52Z",
@@ -242574,78 +242646,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-e8778e3ed285",
-      "idea_version": "IDEAV-e62abb8e1f6bf1ec",
-      "idea_version_started_at": "2026-11-11T15:44:29Z",
-      "ticker": "HLAG",
-      "company": "Hapag-Lloyd",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company continues to benefit from elevated global freight rates, leading to another upward revision in its earnings guidance.",
-      "why_now": "The guidance hike was announced today, November 11, 2026, reflecting current strong pricing power in the shipping sector.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-71baec6e5a51"
-      ],
-      "primary_source_event_id": "EVT-71baec6e5a51",
-      "source_headlines": [
-        "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates"
-      ],
-      "source_headline": "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates",
-      "source_url": "https://www.wsj.com/business/logistics/hapag-lloyd-raises-guidance-again-on-strong-freight-rates-d74c8067?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T10:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T15:44:29Z",
-      "updated_at": "2026-11-11T15:44:29Z",
-      "decay_at": "2026-11-12T22:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -242658,14 +242658,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
         "total_count": 266,
@@ -242675,12 +242675,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1888,
+      "evicted_count": 1889,
       "oldest_retained_at": "2026-10-20T15:27:46Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1239,
-          "oldest_retained_at": "2026-11-01T00:40:18Z"
+          "evicted_count": 1240,
+          "oldest_retained_at": "2026-11-01T01:11:00Z"
         },
         "short": {
           "evicted_count": 650,
@@ -245728,8 +245728,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T22:10:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T10:59:48Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -279803,8 +279803,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2459,
-    "live_count": 30,
+    "surfaced_total": 2460,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
