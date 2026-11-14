@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T08:03:13Z",
+  "generated_at": "2026-11-14T08:12:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-748",
@@ -1823,6 +1823,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-749",
+      "headline": "UN says 25 seafarers killed in, around Hormuz since US-Israel war on Iran",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/14/un-says-25-seafarers-killed-in-around-hormuz-since-february?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-14T07:46:36Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "The reported death of 25 seafarers in the Hormuz region indicates a significant escalation in geopolitical risk affecting global shipping and energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The reported death of 25 seafarers in the Hormuz region indicates a significant escalation in geopolitical risk affecting global shipping and energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-742",
       "headline": "Rekha Jhunjhunwala stock VA Tech Wabag: ₹2,400 cr Saudi project cancelled - Should you buy after 18% rise in 6 months?",
       "headline_en": null,
@@ -1917,55 +1960,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-085",
-      "headline": "Jensen Huang quits Nvidia, the company he co-founded in 1993. The timeline, day by day",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/trends/photo/jensen-huang-quits-nvidia-the-company-he-co-founded-in-1993-the-timeline-day-by-day-567358-2026-11-13?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:40:16Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "CEO Jensen Huang quits Nvidia; abrupt founder-CEO departure at ~$2.6T mega-cap raises governance succession and strategic-direction risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "CEO Jensen Huang quits Nvidia; abrupt founder-CEO departure at ~$2.6T mega-cap raises governance succession and strategic-direction risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280170,9 +280164,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 131209,
-    "news_picked_today": 1210,
-    "news_dropped_today": 5209
+    "news_seen_today": 132179,
+    "news_picked_today": 1219,
+    "news_dropped_today": 5776
   },
   "book_momentum": {
     "live_count": 8,
