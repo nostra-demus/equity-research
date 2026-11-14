@@ -22,7 +22,7 @@ import sys
 
 # scripts/ is on sys.path for both callers; reuse the deterministic engine so "does it compute?" is the
 # SAME code path the chat will call, not a re-implementation.
-from sensitivity_math import scenario as _scenario, _isnum, MITIGATION_BASES
+from sensitivity_math import scenario as _scenario, _isnum, MITIGATION_BASES, _disclosed_positions_error
 
 _REQUIRED = ("schema_version", "ticker", "base_metric", "base_value", "sensitivities")
 _CONFIDENCE = ("high", "medium", "low", None)
@@ -50,6 +50,9 @@ def _mitigation_violations(var, s, required):
         return det
     if mb not in MITIGATION_BASES:
         return [f"sensitivity {var!r} mitigation_basis {mb!r} not in {MITIGATION_BASES}"]
+    if mb == "disclosed_positions":
+        error = _disclosed_positions_error(s)
+        return [f"sensitivity {var!r} {error}"] if error else []
     if off is not None and not (_isnum(off) and 0 <= off <= 100):
         det.append(f"sensitivity {var!r} realised_offset_pct {off!r} must be a number in [0, 100] or null")
         return det
@@ -216,6 +219,22 @@ def _selftest() -> int:
     check("bad basis caught", any("not in" in v for v in check_sensitivity_summary(_m(mitigation_basis="assumed"))))
     check("offset out of range caught", any("[0, 100]" in v for v in check_sensitivity_summary(_m(mitigation_basis="zero_bound", realised_offset_pct=138, realised_offset_source="x"))))
     check("pre-gate malformed mitigation still caught", any("not in" in v for v in check_sensitivity_summary(dict(ok, sensitivities=[dict(ok["sensitivities"][0], mitigation_basis="guess")]))))
+
+    positions = _m(mitigation_basis="disclosed_positions", basis="company-disclosed",
+                   mitigation_scope="fixed_existing_positions_no_additional_response",
+                   embedded_hedges="Existing source positions", embedded_hedges_as_of="2025-12-31",
+                   realised_offset_pct=None, realised_offset_source=None)
+    check("disclosed positions with unknown offset", check_sensitivity_summary(positions) == [])
+    for absent in ((), ("realised_offset_pct",), ("realised_offset_source",),
+                   ("realised_offset_pct", "realised_offset_source")):
+        sc = dict(positions, sensitivities=[{k: v for k, v in row.items() if k not in absent}
+                                          for row in positions["sensitivities"]])
+        check(f"positions absent/null {absent}", check_sensitivity_summary(sc) == [])
+    for field, value in (("source", " "), ("embedded_hedges", None), ("embedded_hedges_as_of", "2025-02-30"),
+                         ("mitigation_scope", "gross"), ("basis", "inferred"),
+                         ("realised_offset_pct", 0), ("realised_offset_source", "")):
+        sc = dict(positions, sensitivities=[dict(row, **{field: value}) for row in positions["sensitivities"]])
+        check(f"positions invalid {field}", bool(check_sensitivity_summary(sc)))
 
     if fails:
         print("SENSITIVITY SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))

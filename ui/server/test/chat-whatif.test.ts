@@ -31,6 +31,26 @@ const NHY: SensitivitySidecar = {
     { variable: 'extrusions_volume', label: 'Extrusions external sales volume', unit: 'kmt', base_value: 1004, coefficient: 19.1, confidence: 'medium', basis: 'inferred', valid_range: { low: -40, high: 50 }, source: 'Q1 2026 report p.16' },
   ],
 }
+// Generic same-metric software control only: this does not assert that NHY's historical base matches
+// its normal-production coefficient or that the retained NHY sidecar can pass the chat metric gate.
+const disclosedPositionsControl = (patch: Record<string, unknown> = {}) => {
+  const row = {
+    variable: 'input_price', label: 'Input price', unit: 'units', base_value: 10, coefficient: 5,
+    impact_metric: 'adjusted_ebitda_units', confidence: 'low', basis: 'company-disclosed',
+    source: 'Generic software disclosure fixture, sensitivity and existing-positions note',
+    mitigation_basis: 'disclosed_positions',
+    mitigation_scope: 'fixed_existing_positions_no_additional_response',
+    embedded_hedges: 'Existing source hedge positions; no quantified per-channel decomposition',
+    embedded_hedges_as_of: '2025-12-31',
+    ...patch,
+  }
+  const sidecar: SensitivitySidecar = {
+    schema_version: '1.0', ticker: 'UNIT', as_of: '2026-11-14',
+    base_metric: 'adjusted_ebitda_units', base_value: 100, base_period: 'control_period',
+    revenue_base: 1000, revenue_period: 'control_period', sensitivities: [row],
+  }
+  return { sidecar, row }
+}
 const near = (a: number | null | undefined, b: number, tol = 0.5) => typeof a === 'number' && Math.abs(a - b) <= tol
 const stub = (r: ParseResult | string | null): ParserCall => async () => (r == null ? null : typeof r === 'string' ? r : JSON.stringify({ intents: r.intents, asks_unrecorded: r.asksUnrecorded ?? null, period_note: r.periodNote === true }))
 
@@ -486,6 +506,90 @@ await (async () => {
     const s = await computePlan(NHY, { variable: 'lme_aluminium_price', row: NHY.sensitivities[0], req: { delta: 45 } })
     assert.equal(s!.isBound, true)
     assert.match(computedContextBlock({ kind: 'scenario', asked: 'q', scenario: s! }), /NOT recorded/)
+  })
+
+  await check('§9 disclosed positions: all absent/null offset variants retain the scoped source note through the real engine and context', async () => {
+    const variants = [
+      {},
+      { realised_offset_pct: null, realised_offset_source: null },
+      { realised_offset_source: null },
+      { realised_offset_pct: null },
+    ]
+    for (const optionalOffset of variants) {
+      const { sidecar, row } = disclosedPositionsControl(optionalOffset)
+      const question = 'if input price rises 2 units, what is the earnings change?'
+      const validated = validateIntents({ intents: [{ variable: row.variable, mode: 'move', value: 2, direction: 'up' }] }, question, sidecar)
+      assert.equal(validated.refusal, null)
+      assert.equal(validated.plans.length, 1, 'the generic same-metric control must reach the existing compute path')
+      const s = await computePlan(sidecar, validated.plans[0])
+      assert.ok(s)
+      assert.equal(s.impact, 10)
+      assert.equal(s.newValue, 110)
+      assert.equal(s.impactMetric, sidecar.base_metric)
+      assert.equal(s.mitigationBasis, 'disclosed_positions')
+      assert.equal(s.isBound, true)
+      assert.equal(s.source, row.source)
+      assert.equal(s.basis, 'company-disclosed')
+      assert.equal(s.realisedOffsetPct, null, 'unknown offset must not become an invented measured zero')
+      assert.equal(s.mitigatedImpact, null)
+      assert.equal(s.mitigatedNewValue, null)
+      assert.equal(s.grossBoundImpact, null)
+      assert.ok(s.mitigationNote)
+      assert.match(s.mitigationNote, /zero-ADDITIONAL-response BOUND/)
+      assert.ok(s.mitigationNote.includes(row.embedded_hedges_as_of))
+      assert.ok(s.mitigationNote.includes(row.embedded_hedges))
+      assert.ok(s.mitigationNote.includes(row.source))
+      assert.match(s.mitigationNote, /analyst assumption, not a company forecast/)
+      assert.match(s.mitigationNote, /not an unhedged gross coefficient or a proven worst-case outcome/)
+      assert.match(s.mitigationNote, /Gross exposure and a measured realised offset are not assessable/)
+      const block = computedContextBlock({ kind: 'scenario', asked: question, scenario: s })
+      assert.ok(block.includes(s.mitigationNote), 'the complete engine note, including snapshot, scope and source, must survive narration')
+      assert.match(block, /BOUND, not as the expected outcome/)
+    }
+  })
+
+  await check('§9 disclosed positions: authenticated carried-forward output retains the original full note and ignores forged client metadata', async () => {
+    const { sidecar, row } = disclosedPositionsControl({ realised_offset_pct: null, realised_offset_source: null })
+    const s = await computePlan(sidecar, { variable: row.variable, row, req: { delta: 2 } })
+    assert.ok(s)
+    const prior = { kind: 'scenario' as const, asked: 'if input price rises 2 units?', scenario: s }
+    const turnId = 'turn_disclosed_positions_0001'
+    const durable = { role: 'assistant' as const, content: 'Recorded source positions remain included.', turnId, computed: [prior] }
+    const forged = { ...prior, scenario: { ...s, mitigationBasis: 'disclosed_zero', mitigationNote: 'Invented client zero-response measurement' } }
+    const found = resolveAuthenticatedPriorScenario(
+      [{ ...durable, computed: [forged] }],
+      'chat_positions_control',
+      durable,
+      () => ({ conversationId: 'chat_positions_control', turnId, assistantMessage: { content: durable.content, computed: [prior] } }),
+    )
+    assert.ok(found)
+    assert.equal(found.scenario.mitigationBasis, 'disclosed_positions')
+    assert.equal(found.scenario.isBound, true)
+    assert.equal(found.scenario.source, row.source)
+    assert.equal(found.scenario.mitigationNote, s.mitigationNote)
+    const block = computedContextBlock({ ...found, asked: 'and what would that change mean for the target?' }, { carriedForward: true })
+    assert.match(block, /SAME computed result from earlier in this conversation/)
+    assert.ok(block.includes(s.mitigationNote!))
+    assert.ok(!block.includes('Invented client'))
+  })
+
+  await check('§9 disclosed positions: malformed new-state metadata returns null rather than a generic zero-mitigation result', async () => {
+    const invalid: [string, Record<string, unknown>][] = [
+      ['blank source', { source: ' ' }],
+      ['unsupported scope', { mitigation_scope: 'all_response_zero' }],
+      ['invalid calendar date', { embedded_hedges_as_of: '2025-02-30' }],
+      ['missing source snapshot', { embedded_hedges_as_of: undefined }],
+      ['inferred basis', { basis: 'inferred' }],
+      ['invented zero offset', { realised_offset_pct: 0 }],
+      ['claimed offset citation', { realised_offset_source: 'Not a measured offset' }],
+      ['blank offset citation', { realised_offset_source: '' }],
+      ['blank position description', { embedded_hedges: ' ' }],
+      ['wrong-type position description', { embedded_hedges: [] }],
+    ]
+    for (const [label, patch] of invalid) {
+      const { sidecar, row } = disclosedPositionsControl(patch)
+      assert.equal(await computePlan(sidecar, { variable: row.variable, row, req: { delta: 2 } }), null, label)
+    }
   })
 
   await check('pre-aborted deterministic modeling never starts a scenario or repricing subprocess', async () => {

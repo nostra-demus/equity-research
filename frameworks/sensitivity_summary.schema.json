@@ -41,10 +41,33 @@
           },
           "non_linearity": {"type": ["string", "null"], "description": "any disclosed non-linearity (pricing lag, operating deleverage, asymmetric downside) carried into the answer"},
           "source": {"type": ["string", "null"], "description": "citation the coefficient came from (CLAUDE.md §5), e.g. 'FY2025 Annual Report, p.38'"},
-          "mitigation_basis": {"type": ["string", "null"], "enum": ["zero_bound", "realised_offset", "disclosed_zero", "not_applicable", null], "description": "CLAUDE.md §9 — what management response the coefficient EMBEDS, mirroring the orb's 'Mitigation assumed' column. zero_bound = gross, response held at zero: a BOUND, not a forecast. realised_offset = already net of the realised_offset_pct measured from the filings. disclosed_zero = the company itself discloses no response, so 0% is a measurement. not_applicable = no response channel (e.g. the row IS the response channel). Required for sidecars dated on/after 2026-11-14 (scripts/sensitivity_summary_checks.py MITIGATION_REQUIRED_DATE). Absent on a legacy row → the engine labels it an unrecorded zero-mitigation bound."},
-          "realised_offset_pct": {"type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "the realised offset measured from the filings, 1 − (observed impact ÷ gross pre-mitigation impact), as a percent. With zero_bound: optional; when present the engine computes the realised case BESIDE the bound. With realised_offset: REQUIRED and < 100; the engine shows the gross bound beside the net figure. Must be null/0 for disclosed_zero and not_applicable. Never derived from 'no contractual pass-through', which is a fact about contracts, not a measurement."},
-          "realised_offset_source": {"type": ["string", "null"], "description": "§5 citation for the periods and figures realised_offset_pct was measured from — REQUIRED whenever a non-zero offset is recorded."}
-        }
+          "mitigation_basis": {"type": ["string", "null"], "enum": ["zero_bound", "realised_offset", "disclosed_zero", "not_applicable", "disclosed_positions", null], "description": "CLAUDE.md §9 — what management response the coefficient EMBEDS, mirroring the orb's 'Mitigation assumed' column. zero_bound = gross, response held at zero: a BOUND, not a forecast. realised_offset = already net of the realised_offset_pct measured from the filings. disclosed_zero = the company itself discloses no response, so 0% is a measurement. not_applicable = no response channel (e.g. the row IS the response channel). disclosed_positions = a company-disclosed coefficient includes the source's existing hedge/risk-management positions, held at their source snapshot; gross exposure and a measured gross-to-net offset are unavailable. Its bound assumes zero ADDITIONAL management response only, not gross zero response or a proven worst-case outcome. Required for sidecars dated on/after 2026-11-14 (scripts/sensitivity_summary_checks.py MITIGATION_REQUIRED_DATE). Absent on a legacy row → the engine labels it an unrecorded zero-mitigation bound."},
+          "mitigation_scope": {"type": ["string", "null"], "description": "For disclosed_positions, REQUIRED exact value fixed_existing_positions_no_additional_response. Existing source positions remain included; no additional management response is modelled, an analyst assumption rather than a company forecast. This scope does not change the meanings of the other mitigation states."},
+          "embedded_hedges": {"type": ["string", "null"], "description": "For disclosed_positions, REQUIRED nonblank description of the hedge/risk-management positions the cited source says the coefficient includes. Do not invent per-channel contributions or treat these positions as a measured realised offset."},
+          "embedded_hedges_as_of": {"type": ["string", "null"], "description": "For disclosed_positions, REQUIRED real ISO calendar date YYYY-MM-DD of the source positions, not the question date or refreshed current positions. Schema validators must enable date-format validation; the shared runtime/integrity check also enforces a real calendar date."},
+          "realised_offset_pct": {"type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "the realised offset measured from the filings, 1 − (observed impact ÷ gross pre-mitigation impact), as a percent. With zero_bound: optional; when present the engine computes the realised case BESIDE the bound. With realised_offset: REQUIRED and < 100; the engine shows the gross bound beside the net figure. Must be null/0 for disclosed_zero and not_applicable. For disclosed_positions, ABSENT or NULL only: every non-null value, including 0, is invalid because no measured offset is claimed. Never derived from 'no contractual pass-through', which is a fact about contracts, not a measurement."},
+          "realised_offset_source": {"type": ["string", "null"], "description": "§5 citation for the periods and figures realised_offset_pct was measured from — REQUIRED whenever a non-zero offset is recorded. For disclosed_positions, ABSENT or NULL only; every non-null value, including blank text, is invalid."}
+        },
+        "allOf": [
+          {
+            "if": {
+              "required": ["mitigation_basis"],
+              "properties": {"mitigation_basis": {"const": "disclosed_positions"}}
+            },
+            "then": {
+              "required": ["mitigation_scope", "embedded_hedges", "embedded_hedges_as_of", "source", "basis"],
+              "properties": {
+                "mitigation_scope": {"const": "fixed_existing_positions_no_additional_response"},
+                "embedded_hedges": {"type": "string", "pattern": "\\S"},
+                "embedded_hedges_as_of": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "format": "date"},
+                "source": {"type": "string", "pattern": "\\S"},
+                "basis": {"const": "company-disclosed"},
+                "realised_offset_pct": {"type": "null"},
+                "realised_offset_source": {"type": "null"}
+              }
+            }
+          }
+        ]
       }
     }
   }

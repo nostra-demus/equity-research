@@ -407,9 +407,11 @@ export interface ComputedScenario {
   neededImpact?: number | null
   marginBasis?: string | null   // 'revenue_constant' → margin computed at unchanged revenue (no rev coefficient)
   metricNote?: string | null    // set when the coefficient is on a metric ≠ base metric (level/margin withheld)
-  // CLAUDE.md §9 mitigation label (engine-owned): isBound=true → the figure holds management's response at zero
-  // (a bound, not a forecast). mitigated* = the realised-offset case beside a bound; grossBound* = the bound
-  // beside a net coefficient. mitigationNote is always set by the engine and must travel with the number (§3).
+  // CLAUDE.md §9 mitigation label (engine-owned): mitigationNote states the scope of isBound=true. A gross
+  // zero_bound holds response at zero; disclosed_positions retains the source positions and holds only
+  // ADDITIONAL response at zero (not a forecast or a proven worst case). mitigated* = the realised-offset
+  // case beside a gross bound; grossBound* = the bound beside a measured-net coefficient. Neither alternative
+  // is inferred for disclosed_positions. The complete engine note must travel with the number (§3).
   isBound?: boolean | null
   mitigationBasis?: string | null
   mitigationNote?: string | null
