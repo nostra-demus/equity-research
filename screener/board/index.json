@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T11:20:46Z",
+  "generated_at": "2026-11-14T11:25:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -243,6 +243,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-778",
+      "headline": "Blackstone’s Airtrunk plans to build mega data centres in Andhra Pradesh for over ₹1 lakh crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/andhra-pradeshs-data-centre-push-blackstone-backed-airtrunk-plans-1-lakh-crore-investment/article71701375.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T11:12:29Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Blackstone's Airtrunk plans to invest over ₹1 lakh crore in data center capacity in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Blackstone's Airtrunk plans to invest over ₹1 lakh crore in data center capacity in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airtrunk",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-684",
-      "headline": "Reliance Industries to invest ₹43,000 crore in Andhra Pradesh to develop coal gasification complex",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/reliance-industries-to-invest-rupees-43000-crore-in-andhra-pradesh-to-develop-coal-gasification-complex-20032368.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T07:52:24Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Reliance Industries announced a 43,000 crore rupee investment in a coal gasification complex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reliance Industries announced a 43,000 crore rupee investment in a coal gasification complex.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -279823,9 +279828,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 138500,
-    "news_picked_today": 1379,
-    "news_dropped_today": 7827
+    "news_seen_today": 138604,
+    "news_picked_today": 1383,
+    "news_dropped_today": 7927
   },
   "book_momentum": {
     "live_count": 8,
