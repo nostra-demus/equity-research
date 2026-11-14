@@ -712,6 +712,43 @@ await (async () => {
     assert.equal(validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10 }] }, 'zinc price rises 10 USD/mt', SOURCE_EFFECTS).plans.length, 0)
   })
 
+  // Post-review development controls from the preserved v2 NEEDS_REVISION evidence. These 14+4
+  // requests are not additions to the original 73-record sample or new unseen financial cases.
+  await check('post-review subject/negation controls: reproduce the exact 14 independent v2 requests', () => {
+    const cases: { id: string; question: string; parse: ParseResult; expectedPlans: number }[] = [
+      {"id": "positive-source-aluminium", "question": "aluminium rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 1},
+      {"id": "positive-source-brl", "question": "BRL/NOK rises 0.10 NOK per BRL", "parse": {"intents": [{"variable": "brl_nok", "mode": "move", "value": 0.1, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 1},
+      {"id": "simple-unrecorded-commodity", "question": "copper price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "simple-unrecorded-fx", "question": "USD/JPY rises 1 NOK per USD", "parse": {"intents": [{"variable": "usd_nok", "mode": "move", "value": 1, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "recorded-name-earlier-unchanged-as-copper-moves", "question": "aluminium price is unchanged as copper price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "recorded-name-earlier-unchanged-when-alumina-moves", "question": "aluminium price is unchanged when alumina price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "recorded-name-earlier-comparison-colon", "question": "aluminium price comparison: copper price rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "negated-rise", "question": "aluminium does not rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "negated-fall", "question": "aluminium does not fall 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "down"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "contracted-negated-rise", "question": "aluminium doesn't rise 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "wrong-commodity-existing-separator", "question": "aluminium is unchanged; copper rises 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "wrong-currency-unit", "question": "aluminium rises 10 EUR/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "wrong-sign", "question": "aluminium falls 10 USD/mt", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 10, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+      {"id": "false-percent", "question": "aluminium rises 5%", "parse": {"intents": [{"variable": "lme_aluminium_price", "mode": "move", "value": 5, "percent": false, "direction": "up"}], "periodNote": true}, "expectedPlans": 0},
+    ]
+    for (const c of cases) assert.equal(validateIntents(c.parse, c.question, SOURCE_EFFECTS).plans.length, c.expectedPlans, c.id)
+  })
+
+  await check('post-review source controls: reject all four independently observed Unicode/ASCII blank citations', () => {
+    const cases = [
+      {"id": "NEL", "codePoints": [133], "expectedPlans": 0},
+      {"id": "file-separator", "codePoints": [28], "expectedPlans": 0},
+      {"id": "ASCII-blank", "codePoints": [32, 9, 13, 10], "expectedPlans": 0},
+      {"id": "BOM", "codePoints": [65279], "expectedPlans": 0},
+    ]
+    for (const c of cases) {
+      const sc = { ...SOURCE_EFFECTS, sensitivities: [{ ...SOURCE_EFFECT_ROWS[0], source: String.fromCodePoint(...c.codePoints) }] }
+      const v = validateIntents({ intents: [{ variable: 'lme_aluminium_price', mode: 'move', value: 10, direction: 'up', percent: false }], periodNote: true }, 'aluminium rises 10 USD/mt', sc)
+      assert.equal(v.plans.length, c.expectedPlans, c.id)
+      assert.equal(v.refusal, 'no_source', c.id)
+    }
+  })
+
   await check('source metric gate: malformed row/base labels never become authoritative; matched missing/null row fallback stays valid', async () => {
     const malformed: unknown[] = [{ metric: 'unknown' }, ['unknown'], 123, true, false, '', ' \t\r\n', '\uFEFF', '\u0085']
     for (const value of malformed) {

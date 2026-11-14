@@ -325,8 +325,8 @@ export type UnsupportedReason = 'unrecorded' | 'no_revenue_base' | 'no_source' |
 export interface Plan { variable: string; row: SensitivityRow; req: ScenarioRequest; periodNote?: true }
 
 // Same nonblank-character contract as the sensitivity schema/Python reader (JS/Python \s differ).
-const NAMED_METRIC = /[^\u0009-\u000D\u001C-\u0020\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]/
-const namedMetric = (value: unknown): value is string => typeof value === 'string' && NAMED_METRIC.test(value)
+const NONBLANK_TEXT = /[^\u0009-\u000D\u001C-\u0020\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]/
+const nonblankText = (value: unknown): value is string => typeof value === 'string' && NONBLANK_TEXT.test(value)
 const words = (s: string) => s.toLowerCase().replace(/\baluminium\b/g, 'aluminum').replace(/[^a-z0-9]+/g, ' ').trim()
 const rawUnit = (s: string) => s.toLowerCase().replace(/\bper\b/g, '/').replace(/\s*\/\s*/g, '/').replace(/\s+/g, ' ').trim()
 const rowNames = (row: SensitivityRow) => [row.variable, typeof row.label === 'string' ? row.label.split(/[—–]/)[0] : null]
@@ -334,9 +334,9 @@ const rowNames = (row: SensitivityRow) => [row.variable, typeof row.label === 's
 
 /** An unlike-metric coefficient can establish a CHANGE without a comparable earnings level. Only admit
  *  an explicit raw-unit move here: the selected amount must follow a change/sign, have this row's unit,
- *  and belong to a clause naming this row. Never reinterpret percentages, levels, years or endpoints. */
+ *  and follow this row as its immediate subject. Never reinterpret percentages, levels, years or endpoints. */
 function explicitRawMove(question: string, row: SensitivityRow, rows: SensitivityRow[], delta: number): boolean {
-  if (!Number.isFinite(delta) || !namedMetric(row.unit)) return false
+  if (!Number.isFinite(delta) || !nonblankText(row.unit)) return false
   const q = question.replace(/(\d),(?=\d)/g, '$1')
   for (const token of q.matchAll(/\d*\.?\d+/g)) {
     if (Number(token[0]) !== Math.abs(delta)) continue
@@ -357,15 +357,16 @@ function explicitRawMove(question: string, row: SensitivityRow, rows: Sensitivit
     if (delta !== sign * Math.abs(delta)) continue
     const subject = before.slice(0, move?.index ?? signed!.index)
       .split(/[,;?!]|\.(?!\d)|\b(?:and|whereas|while|but)\b/i).at(-1) || ''
+    if (/\b(?:not|never|unchanged)\b|n['’]t\b/i.test(subject)) continue
     const named = ` ${words(subject)} `
-    const strong = rows.filter((r) => rowNames(r).some((name) => named.includes(` ${name} `)))
+    const strong = rows.filter((r) => rowNames(r).some((name) => named.endsWith(` ${name} `)))
     // A shared measurement word ("price") is not a commodity identity, nor is USD alone an FX pair.
     // Abbreviated names may omit those generic nouns, but must retain the rest of a recorded name.
     const candidates = strong.length ? strong : rows.filter((r) => {
       if (/^[a-z]{3}_[a-z]{3}$/i.test(r.variable) && typeof r.unit === 'string' && /^[a-z]{3}\/[a-z]{3}$/i.test(rawUnit(r.unit))) return false
       return rowNames(r).some((name) => {
         const subjectName = name.split(' ').filter((word) => !['price', 'rate', 'exchange', 'volume'].includes(word)).join(' ')
-        return subjectName && named.includes(` ${subjectName} `)
+        return subjectName && named.endsWith(` ${subjectName} `)
       })
     })
     if (candidates.length === 1 && candidates[0] === row) return true
@@ -400,10 +401,10 @@ export function validateIntents(pr: ParseResult, question: string, sidecar: Sens
     // mis-read ("aluminium rises $45/mt" must not solve for an absurd 45% margin with full authority) —
     // drop it, never repair it (Codex #335 P2 r3643707271)
     if (it.mode !== 'move' && it.mode !== 'level' && !/margin|%|percent/i.test(question)) continue
-    if (!(typeof row.source === 'string' && row.source.trim())) { refusal = refusal ?? 'no_source'; continue }
+    if (!nonblankText(row.source)) { refusal = refusal ?? 'no_source'; continue }
     // Missing/null row metrics retain the legacy base-metric fallback. Malformed supplied labels never
     // become authoritative names, even if a parser chose a plausible variable and number.
-    if (!namedMetric(sidecar.base_metric) || (row.impact_metric != null && !namedMetric(row.impact_metric))) { refusal = refusal ?? 'metric_mismatch'; continue }
+    if (!nonblankText(sidecar.base_metric) || (row.impact_metric != null && !nonblankText(row.impact_metric))) { refusal = refusal ?? 'metric_mismatch'; continue }
     const differentMetric = row.impact_metric != null && row.impact_metric !== sidecar.base_metric
     if (differentMetric && (it.mode !== 'move' || it.percent)) { refusal = refusal ?? 'metric_mismatch'; continue }
     let req: ScenarioRequest | null = null
