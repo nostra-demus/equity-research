@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-14T08:24:14Z",
+  "generated_at": "2026-11-14T08:36:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261114-759",
+      "headline": "Shirpur Gold Refinery Limited: Shirpur Gold Refinery Limited has informed the Exchange about Non-Submission of Audited Financial Results (Standalone & Consolidated) under Regulation 33 of the SEBI LODR Regulations, 2015 for the Quarter and the Half Year ended September 30, 2026, due to non-availability of financial information",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHIRPUR-G_14112026134534_SGRL_-_Letter_for_Financials_-_Reg_33_14112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-14T08:15:46Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Failure to submit financial results due to lack of financial information is a significant red flag regarding internal controls and financial health.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Failure to submit financial results due to lack of financial information is a significant red flag regarding internal controls and financial health.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shirpur Gold Refinery Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261114-752",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process -Newspaper Publication Un-audited Financial Results for the quarter and half yearended 30th September, 2026",
@@ -1916,49 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-749",
-      "headline": "UN says 25 seafarers killed in, around Hormuz since US-Israel war on Iran",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/11/14/un-says-25-seafarers-killed-in-around-hormuz-since-february?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-14T07:46:36Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "The reported death of 25 seafarers in the Hormuz region indicates a significant escalation in geopolitical risk affecting global shipping and energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The reported death of 25 seafarers in the Hormuz region indicates a significant escalation in geopolitical risk affecting global shipping and energy supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -279808,9 +279814,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 132512,
-    "news_picked_today": 1265,
-    "news_dropped_today": 6039
+    "news_seen_today": 132642,
+    "news_picked_today": 1277,
+    "news_dropped_today": 6157
   },
   "book_momentum": {
     "live_count": 8,
