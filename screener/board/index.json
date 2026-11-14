@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T03:35:45Z",
+  "generated_at": "2026-11-14T03:42:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-242",
@@ -1735,6 +1735,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-519",
+      "headline": "Coal India Limited: Filing of RHP of Mahanadi Coalfields Limited (MCL), a wholly owned Subsidiary of CIL, with SEBI",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/COALINDIA_14112026072625_rhp.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-14T01:56:40Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Coal India Limited has filed the Red Herring Prospectus for its subsidiary Mahanadi Coalfields Limited, signaling progress toward a potential IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Coal India Limited has filed the Red Herring Prospectus for its subsidiary Mahanadi Coalfields Limited, signaling progress toward a potential IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Mahanadi Coalfields Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-092",
       "headline": "Vishay Intertechnology, Inc. to Invest $56.4 million in India Semiconductor Joint Venture",
       "headline_en": null,
@@ -1926,49 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-389",
-      "headline": "Israeli airstrike on Nasser hospital in Gaza kills surgeon and five others",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/world/2026/nov/12/israeli-airstrike-nasser-hospital-gaza-kills-surgeon",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:19:01Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "An airstrike on a hospital in Gaza represents a significant escalation in the regional conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "An airstrike on a hospital in Gaza represents a significant escalation in the regional conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280179,9 +280190,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 93396,
-    "news_picked_today": 740,
-    "news_dropped_today": 2164
+    "news_seen_today": 94698,
+    "news_picked_today": 756,
+    "news_dropped_today": 2244
   },
   "book_momentum": {
     "live_count": 8,
