@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T19:39:14Z",
+  "generated_at": "2026-11-14T19:53:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-838",
+      "headline": "Digital Realty Trust to spend $10bn more on Japan data centers: CEO",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/digital-realty-trust-to-spend-10bn-more-on-japan-data-centers-ceo",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T19:51:39Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Digital Realty Trust announced a $10 billion capital expenditure plan for data center expansion in Japan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Digital Realty Trust announced a $10 billion capital expenditure plan for data center expansion in Japan.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Digital Realty Trust",
+          "ticker": "DLR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-299",
-      "headline": "+++ Geschäftszahlen +++: Cisco hebt Umsatzprognose an",
-      "headline_en": "+++ Business Figures +++: Cisco raises revenue forecast",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-cisco-hebt-umsatzprognose-an/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T07:01:39Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Cisco has raised its revenue guidance, signaling improved financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cisco has raised its revenue guidance, signaling improved financial expectations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -279810,9 +279810,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 221962,
-    "news_picked_today": 1601,
-    "news_dropped_today": 14647
+    "news_seen_today": 221974,
+    "news_picked_today": 1603,
+    "news_dropped_today": 14657
   },
   "book_momentum": {
     "live_count": 8,
