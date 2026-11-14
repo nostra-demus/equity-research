@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T15:26:32Z",
+  "generated_at": "2026-11-14T15:29:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -287,6 +287,60 @@
       "companies": [
         {
           "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-799",
+      "headline": "SpaceX’s S&P 500 Bid Gets New Life as Musk Pitches Tesla Merger",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-14/spacex-s-s-p-500-bid-gets-new-life-as-musk-pitches-tesla-merger",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Elon Musk is reportedly pitching a merger between SpaceX and Tesla, which would be a massive corporate consolidation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Elon Musk is reportedly pitching a merger between SpaceX and Tesla, which would be a massive corporate consolidation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Tesla",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1909,55 +1963,6 @@
           "name": "Ola Electric",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-453",
-      "headline": "Poundland secures more time to avert collapse",
-      "headline_en": null,
-      "url": "https://www.cityam.com/poundland-secures-more-time-to-avert-collapse/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:36:32Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Poundland is in financial distress and seeking time to avoid collapse.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland is in financial distress and seeking time to avoid collapse.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mid",
@@ -279949,9 +279954,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 158027,
-    "news_picked_today": 1493,
-    "news_dropped_today": 11894
+    "news_seen_today": 159898,
+    "news_picked_today": 1497,
+    "news_dropped_today": 11938
   },
   "book_momentum": {
     "live_count": 8,
