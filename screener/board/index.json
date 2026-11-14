@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T13:10:02Z",
+  "generated_at": "2026-11-14T13:15:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -238,6 +238,55 @@
       "companies": [
         {
           "name": "Solex Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-788",
+      "headline": "TVS Electronics Q2 Results: Company posts ₹1.41 crore net loss; revenue falls 9.4%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/tvs-electronics-q2-results-net-loss-revenue-falls-share-price-20034119.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T13:03:14Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "TVS Electronics reported a net loss of ₹1.41 crore and a 9.4% revenue decline in Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TVS Electronics reported a net loss of ₹1.41 crore and a 9.4% revenue decline in Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TVS Electronics",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1920,55 +1969,6 @@
           "name": "Kia India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-631",
-      "headline": "Adnoc L&S expects $4 billion full-year profit as tanker rates surge",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/business/energy/2026/11/12/adnoc-ls-expects-4-billion-full-year-profit-as-tanker-rates-surge/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:30:57Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Adnoc L&S projects a $4 billion full-year profit driven by surging tanker rates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adnoc L&S projects a $4 billion full-year profit driven by surging tanker rates.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adnoc L&S",
-          "ticker": null,
-          "listing_country": "AE"
         }
       ],
       "size_bucket": "large",
@@ -279900,9 +279900,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 142540,
-    "news_picked_today": 1436,
-    "news_dropped_today": 9314
+    "news_seen_today": 143959,
+    "news_picked_today": 1439,
+    "news_dropped_today": 9431
   },
   "book_momentum": {
     "live_count": 8,
