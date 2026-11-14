@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T15:21:51Z",
+  "generated_at": "2026-11-14T15:26:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -292,6 +292,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-795",
+      "headline": "Dugarajapatnam gets in-principle nod for ₹30,000-crore shipbuilding cluster in Andhra Pradesh: Check its plans, capacity",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/dugarajapatnam-gets-in-principle-nod-for-30-000-crore-shipbuilding-cluster-in-andhra-pradesh-check-its-plans-capacity-11794658893385.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T13:51:00Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "The government approved a ₹30,000-crore shipbuilding cluster in Andhra Pradesh, a major infrastructure investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The government approved a ₹30,000-crore shipbuilding cluster in Andhra Pradesh, a major infrastructure investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,55 +1958,6 @@
           "name": "Poundland",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-454",
-      "headline": "CleanMax to invest ₹50,000 crore in AP to set up integrated clean energy complex in Kurnool",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/cleanmax-to-invest-50000-crore-in-ap-to-set-upintegrated-clean-energy-complexin-kurnool/article71693470.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:36:14Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "CleanMax announced a major capital expenditure of ₹50,000 crore for a clean energy complex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CleanMax announced a major capital expenditure of ₹50,000 crore for a clean energy complex.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CleanMax",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -279955,9 +279949,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 158003,
-    "news_picked_today": 1487,
-    "news_dropped_today": 11876
+    "news_seen_today": 158027,
+    "news_picked_today": 1493,
+    "news_dropped_today": 11894
   },
   "book_momentum": {
     "live_count": 8,
