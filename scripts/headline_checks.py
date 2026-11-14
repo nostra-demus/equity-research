@@ -2,7 +2,8 @@
 """Headline-integrity detectors — Headline Scorecard reconciliation (check AI, CLAUDE.md
 §10/§21), the Decision Audit Trail structural check (check AJ, CLAUDE.md §8/§22), and
 red-flag severity reconciliation (check AK, CLAUDE.md §13/§18), and the tradable-line / dividend-yield
-availability check (check BG, CLAUDE.md §16).
+availability check (check BG, CLAUDE.md §16), the net-cash basis label (check BH, §15), and run-wide
+FX-conversion consistency (check BI, §27).
 
 Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks AI,
 AJ, and AK) so the SAME detection functions can run in TWO places instead of one, mirroring
@@ -1679,4 +1680,170 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
                        "strict (debt − cash & equivalents) figure alongside it for the same period "
                        f"(CLAUDE.md §15): {bseg!r}")
             break
+    return det
+
+
+# ── Check BI (FX-conversion consistency across a run, CLAUDE.md §27 / §15) ──
+# §27: "When a filing states a foreign-currency amount together with its home-currency equivalent … use the
+# filing's stated home-currency figure verbatim; do NOT re-derive it", and "sanity-check that the implied rate
+# matches the stated currency, never a different currency's rate (a EUR amount at the USD rate is the recurring
+# error)". verify-evidence.md asks the LLM auditor to look for this, but nothing mechanical did — and the
+# doctrine's own example shipped: TMCV_2026-06-07 carries "EUR 3.8 billion (~₹41,691 crore)" (₹109.7/EUR, the
+# filing's figure) in eleven files and, in earnings/07 and earnings/99, "EUR 3.8 billion (~₹33,250 cr)" /
+# "EUR 3.875 billion (~₹33,250 crore)" (₹85.8–87.5/EUR — the USD rate). One deal, two rupee values ~25% apart,
+# in the same committed run, the smaller one feeding the earnings-sensitivity read.
+#
+# Self-referential, no FX data needed: every "<amount> (<other-currency amount>)" pair in the run's markdown
+# implies a rate, and two pairs for the same currency pair must agree unless the text dates them differently.
+#   (A) SAME FIGURE, TWO VALUES — one side's amount equal (≤2.5%) but implied rates >5% apart. A single amount
+#       has a single converted value at a given date; two values is a contradiction whatever the period.
+#   (B) SAME PERIOD, DIFFERENT RATE — any two conversions of the pair with implied rates >15% apart.
+# Both rules skip two lines dated to clearly different periods (each names a year, none in common) — §27
+# asks for the period-appropriate rate, and USD/INR moved ~20% between FY22 and FY26 (INDIAMART_2026-08-22
+# converts a 2022 acquisition at ~₹75/USD and its 2026 market cap at ~₹89/USD; both are right).
+# Rounding is respected: each side's half-unit-in-the-last-significant-digit error widens the tolerance, so a
+# "€1 bn (~₹8,700 cr)" (±50% on the euro side) is never used to accuse anything. Presence/consistency only:
+# which of two disagreeing rates is right is the reader's/auditor's call; the check only stops the run
+# shipping both. Bare "$" and "¥" are kept as their own tokens (never merged into USD / JPY / CNY) so a
+# report that writes HK$ as "$" cannot manufacture a contradiction against a US$ figure.
+BI_DATE = "2026-11-15"  # forward-looking; committed runs predate it → N/A (retrospective advisory in eval.py)
+_BI_SYM = {"US$": "USD", "HK$": "HKD", "S$": "SGD", "A$": "AUD", "C$": "CAD", "NZ$": "NZD", "R$": "BRL",
+           "€": "EUR", "£": "GBP", "₹": "INR", "$": "$", "¥": "¥"}
+_BI_CODES = ("USD|EUR|GBP|INR|JPY|CNY|RMB|HKD|CHF|SGD|AUD|CAD|NZD|AED|SAR|QAR|KWD|BHD|OMR|BRL|ZAR|MXN|KRW|TWD|"
+             "NOK|SEK|DKK|IDR|THB|MYR|PHP|VND|TRY|PLN|EGP|NGN|ILS|CLP|COP|PEN|ARS")
+_BI_CCY = (r"(US\$|HK\$|S\$|A\$|C\$|NZ\$|R\$|(?<![A-Za-z])\$|€|£|₹|¥|\bRs\.?(?=\s?\d)|\b(?:" + _BI_CODES
+           + r")\b(?=\s?\d))")
+_BI_NUM = r"(\d[\d,]*(?:\.\d+)?)\+?"  # "₹1,30,000+ crore" — a floor, still the converted amount
+_BI_SCALE_WORDS = (r"lakh\s+crores?|lakh\s+cr|trillion|tn|billion|bn|million|mn|mm|crores?|cr|lakhs?|lacs?|"
+                   r"thousand|[bBmMkK]")
+_BI_SCALE = r"(?:\s?(" + _BI_SCALE_WORDS + r")(?![A-Za-z]))?"
+_BI_HEDGE = r"(?:~|≈|c\.\s?|ca\.\s?|about\s|approx(?:\.|imately)?\s|roughly\s|around\s)?"
+_BI_PAIR = re.compile(_BI_CCY + r"\s?" + _BI_NUM + _BI_SCALE + r"\s*\(\s*" + _BI_HEDGE + r"\s*" + _BI_CCY
+                      + r"\s?" + _BI_NUM + _BI_SCALE + r"(?!\s*(?:/|per\b|[\d.]))")
+_BI_TAIL = re.compile(r"[\d.,]*\d|\s?(?:" + _BI_SCALE_WORDS + r")(?![A-Za-z])|\s*(?:/|per\b)")
+_BI_MULT = {"lakh crore": 1e12, "lakh crores": 1e12, "lakh cr": 1e12, "trillion": 1e12, "tn": 1e12,
+            "billion": 1e9, "bn": 1e9, "b": 1e9, "million": 1e6, "mn": 1e6, "mm": 1e6, "m": 1e6,
+            "crore": 1e7, "crores": 1e7, "cr": 1e7, "lakh": 1e5, "lakhs": 1e5, "lac": 1e5, "lacs": 1e5,
+            "thousand": 1e3, "k": 1e3}
+# Period years on a line: 2026, FY26, FY2026, Q1 FY26, H1 CY25, 9M FY26 → {"26"}; used only by rule (B).
+_BI_YEAR = re.compile(r"\b(?:FY|CY)\s?'?((?:19|20)?\d{2})\b|\b(?:19|20)(\d{2})\b", re.I)
+_BI_SAME_FIGURE_TOL = 0.025
+_BI_RULE_A_GAP = 0.05
+_BI_RULE_B_GAP = 0.15
+
+
+def _bi_code(tok):
+    tok = tok.strip()
+    if tok.startswith("Rs"):
+        return "INR"
+    if tok == "RMB":
+        return "CNY"
+    return _BI_SYM.get(tok, tok)
+
+
+def _bi_amount(num, scale):
+    """(value, relative rounding error). Trailing integer zeros are not significant ("8,700" → ±50 of 8,700)."""
+    raw = num.replace(",", "")
+    try:
+        v = float(raw)
+    except ValueError:
+        return None, None
+    if v <= 0:
+        return None, None
+    if "." in raw:
+        ulp = 10 ** -len(raw.split(".", 1)[1])
+    else:
+        stripped = raw.rstrip("0")
+        ulp = 10 ** (len(raw) - len(stripped)) if stripped else 1
+    key = re.sub(r"\s+", " ", scale.lower()) if scale else None
+    mult = _BI_MULT.get(key, 1.0) if key else 1.0
+    return v * mult, (0.5 * ulp) / v
+
+
+def _bi_years(line):
+    return frozenset(m.group(1)[-2:] if m.group(1) else m.group(2) for m in _BI_YEAR.finditer(line))
+
+
+def _bi_conversions(name, text):
+    out = []
+    for line in text.replace("\r\n", "\n").split("\n"):
+        if "(" not in line:
+            continue
+        for m in _BI_PAIR.finditer(line):
+            # The regex may backtrack OFF the converted amount's scale or digits to satisfy its lookahead
+            # ("AED 30,982M / 3.6725" would read as AED 30,982); re-check what really follows the match, and
+            # drop a parenthetical that is a rate ("₹110/€") rather than an amount.
+            if _BI_TAIL.match(line, m.end()):
+                continue
+            a, b = _bi_code(m.group(1)), _bi_code(m.group(4))
+            if a == b:
+                continue
+            va, ea = _bi_amount(m.group(2), m.group(3))
+            vb, eb = _bi_amount(m.group(5), m.group(6))
+            if va is None or vb is None:
+                continue
+            # One side scaled (≥ lakh) and the other a bare small number ("INR 1,275m (AED 52)") is a dropped
+            # scale word, not a rate — reading it literally would invent a contradiction, so skip it.
+            sa, sb = m.group(3), m.group(6)
+            if (bool(sa) != bool(sb)) and min(va if not sa else vb, 1e9) < 1e4 and max(va, vb) >= 1e5:
+                continue
+            if a > b:  # one orientation per pair, so "₹41,691 cr (€3.8 bn)" meets "€3.8 bn (~₹41,691 cr)"
+                a, b, va, vb, ea, eb = b, a, vb, va, eb, ea
+            out.append({"pair": (a, b), "va": va, "vb": vb, "rate": vb / va, "tol": ea + eb,
+                        "years": _bi_years(line), "file": name, "text": m.group(0).strip()})
+    return out
+
+
+def eval_bi_fx_conversion_consistency(decision_date, docs):
+    """Core of check BI. `docs` maps a run-relative file name → markdown text (final_thesis.md, memo.md and
+    the module reports; deterministic *_dossier.md concatenations add nothing and may be omitted). Returns
+    None (N/A — pre-gate) or a list of violation strings (empty = pass): rule (A) the same amount converted to
+    two values, rule (B) the same currency pair at materially different rates — neither between two lines
+    dated to clearly different periods.
+    At most one violation per currency pair, naming the extreme pair of conversions. Pure; no I/O."""
+    if not (isdate(decision_date) and decision_date >= BI_DATE):
+        return None
+    if not isinstance(docs, dict):
+        return []
+    by_pair = {}
+    for name in sorted(docs):
+        txt = docs[name]
+        if isinstance(txt, str) and txt:
+            for c in _bi_conversions(name, txt):
+                by_pair.setdefault(c["pair"], []).append(c)
+    det = []
+    for pair in sorted(by_pair):
+        convs = by_pair[pair]
+        worst = None  # (excess gap, rule, c1, c2)
+        for i, c1 in enumerate(convs):
+            for c2 in convs[i + 1:]:
+                lo, hi = sorted((c1["rate"], c2["rate"]))
+                gap = hi / lo - 1
+                slack = c1["tol"] + c2["tol"]
+                same_fig = (abs(c1["va"] / c2["va"] - 1) <= _BI_SAME_FIGURE_TOL
+                            or abs(c1["vb"] / c2["vb"] - 1) <= _BI_SAME_FIGURE_TOL)
+                # Lines dated to clearly different periods (both carry years, none shared) may each be at
+                # their own period rate (§27) — never compared. Everything else is claimed to be one period.
+                if c1["years"] and c2["years"] and not (c1["years"] & c2["years"]):
+                    continue
+                if same_fig and gap > _BI_RULE_A_GAP + slack:
+                    cand = (gap - _BI_RULE_A_GAP - slack, "A", c1, c2)
+                elif gap > _BI_RULE_B_GAP + slack:
+                    cand = (gap - _BI_RULE_B_GAP - slack, "B", c1, c2)
+                else:
+                    continue
+                if worst is None or cand[0] > worst[0]:
+                    worst = cand
+        if worst is None:
+            continue
+        _, rule, c1, c2 = worst
+        a, b = pair
+        what = ("the same amount is converted to two different values"
+                if rule == "A" else "the same currency pair is converted at materially different rates "
+                "with no different period stated")
+        det.append(f"§27 FX conversion: {what} ({b} per {a}: {c1['rate']:.4g} vs {c2['rate']:.4g}, "
+                   f"{(max(c1['rate'], c2['rate']) / min(c1['rate'], c2['rate']) - 1) * 100:.0f}% apart) — "
+                   f"{c1['text']!r} [{c1['file']}] vs {c2['text']!r} [{c2['file']}]; use the filing's stated "
+                   "home-currency figure, or convert at the period-appropriate rate for THAT currency and state it "
+                   "(CLAUDE.md §27)")
     return det

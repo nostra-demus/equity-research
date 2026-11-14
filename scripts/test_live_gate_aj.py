@@ -220,6 +220,13 @@ def main():
         print("  [XX] full.md Step 10B.1 BH call is missing or does NOT gate on `_live_date`")
     else:
         print("  [ok] full.md Step 10B.1 BH call gates on `_live_date`")
+    # Static guard: the live BI call (§27 FX-conversion consistency) must also gate on _live_date — a rerun
+    # regenerates the module reports and thesis it reads, exactly as AJ/BH.
+    if not re.search(r"eval_bi_fx_conversion_consistency\(\s*_live_date\s*,", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BI call is missing or does NOT gate on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.1 BI call gates on `_live_date`")
 
     # Static guard: the live BF call must be judged on _live_date, never ddte — decision_date never
     # advances on a rerun, so a ddte-keyed BF would exempt every pre-BF_ENFORCE_DATE folder forever.
