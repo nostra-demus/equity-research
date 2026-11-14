@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T10:21:32Z",
+  "generated_at": "2026-11-14T10:37:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-768",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-771",
+      "headline": "Patanjali Foods Q2 Results: Profit Falls 19% To Rs 420 Crore Despite 16% Revenue Growth",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/patanjali-foods-q2-results-profit-falls-19-to-rs-420-crore-despite-16-revenue-growth-12326157#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T09:57:19Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Patanjali Foods reported a 19% decline in profit to Rs 420 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Patanjali Foods reported a 19% decline in profit to Rs 420 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Patanjali Foods",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1965,6 @@
           "name": "Munich Re",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-713",
-      "headline": "Kia to invest $2 billion in AP to expand operations",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/kia-to-invest-2-billion-in-ap-to-expand-operations/article71692518.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T06:09:07Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Kia announced a significant $2 billion capital expenditure for capacity expansion in Andhra Pradesh.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kia announced a significant $2 billion capital expenditure for capacity expansion in Andhra Pradesh.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kia",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -238078,77 +238078,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-382bab862a11",
-      "idea_version": "IDEAV-a956d2ac36602992",
-      "idea_version_started_at": "2026-11-13T02:10:51Z",
-      "ticker": "NBIS",
-      "company": "Nebius Group",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Nebius lowered its 2026 outlook, cutting the expected revenue and margin trajectory for the listed AI cloud provider.",
-      "why_now": "The guidance cut was reported Nov 12, 2026, and the shares already sank nearly 17%, so the catalyst is live but partly reflected.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-831f3cda11a4"
-      ],
-      "primary_source_event_id": "EVT-831f3cda11a4",
-      "source_headlines": [
-        "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook"
-      ],
-      "source_headline": "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook",
-      "source_url": "https://www.fool.com/coverage/stock-market-today/2026/11/12/stock-market-today-nov-12-nebius-group-sinks-nearly-17-after-lowering-2026-outlook/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T22:28:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-13T02:10:51Z",
-      "updated_at": "2026-11-13T02:10:51Z",
-      "decay_at": "2026-11-14T10:28:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-31b295117425",
       "idea_version": "IDEAV-e6909f5753ec3f98",
       "idea_version_started_at": "2026-11-14T05:39:52Z",
@@ -240787,6 +240716,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-382bab862a11",
+      "idea_version": "IDEAV-a956d2ac36602992",
+      "idea_version_started_at": "2026-11-13T02:10:51Z",
+      "ticker": "NBIS",
+      "company": "Nebius Group",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Nebius lowered its 2026 outlook, cutting the expected revenue and margin trajectory for the listed AI cloud provider.",
+      "why_now": "The guidance cut was reported Nov 12, 2026, and the shares already sank nearly 17%, so the catalyst is live but partly reflected.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-831f3cda11a4"
+      ],
+      "primary_source_event_id": "EVT-831f3cda11a4",
+      "source_headlines": [
+        "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook"
+      ],
+      "source_headline": "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook",
+      "source_url": "https://www.fool.com/coverage/stock-market-today/2026/11/12/stock-market-today-nov-12-nebius-group-sinks-nearly-17-after-lowering-2026-outlook/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T22:28:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T02:10:51Z",
+      "updated_at": "2026-11-13T02:10:51Z",
+      "decay_at": "2026-11-14T10:28:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-32e55b08bf45",
       "idea_version": "IDEAV-8b8557b5c9f1c918",
       "idea_version_started_at": "2026-11-13T00:55:31Z",
@@ -242658,9 +242658,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -242668,9 +242668,9 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -242689,6 +242689,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-382bab862a11",
+        "idea_version": "IDEAV-a956d2ac36602992",
+        "idea_version_started_at": "2026-11-13T02:10:51Z",
+        "ticker": "NBIS",
+        "company": "Nebius Group",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Nebius lowered its 2026 outlook, cutting the expected revenue and margin trajectory for the listed AI cloud provider.",
+        "why_now": "The guidance cut was reported Nov 12, 2026, and the shares already sank nearly 17%, so the catalyst is live but partly reflected.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-831f3cda11a4"
+        ],
+        "primary_source_event_id": "EVT-831f3cda11a4",
+        "source_headlines": [
+          "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook"
+        ],
+        "source_headline": "Stock Market Today, Nov. 12: Nebius Group Sinks Nearly 17% After Lowering 2026 Outlook",
+        "source_url": "https://www.fool.com/coverage/stock-market-today/2026/11/12/stock-market-today-nov-12-nebius-group-sinks-nearly-17-after-lowering-2026-outlook/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T22:28:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-13T02:10:51Z",
+        "updated_at": "2026-11-13T02:10:51Z",
+        "decay_at": "2026-11-14T10:28:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T10:28:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-54c229398a67",
         "idea_version": "IDEAV-e65ea26484c5cd88",
@@ -279725,85 +279799,12 @@
         "archived_at": "2026-10-23T21:01:26Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-eca197f63cec",
-        "idea_version": "IDEAV-7769692cccdb0f13",
-        "idea_version_started_at": "2026-10-20T13:59:38Z",
-        "ticker": "CRM",
-        "company": "Salesforce",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Acquiring Braze for $5.66 billion represents a significant cash outlay and potential dilution or integration risk that may pressure Salesforce's near-term earnings multiples.",
-        "why_now": "The acquisition news broke on 2026-10-20.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c45fa87f4e96"
-        ],
-        "primary_source_event_id": "EVT-c45fa87f4e96",
-        "source_headlines": [
-          "Salesforce To Acquire Braze For $5.66 Bln"
-        ],
-        "source_headline": "Salesforce To Acquire Braze For $5.66 Bln",
-        "source_url": "https://www.nasdaq.com/articles/salesforce-acquire-braze-566-bln",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T12:19:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T13:59:38Z",
-        "updated_at": "2026-10-20T13:59:38Z",
-        "decay_at": "2026-10-22T00:19:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T13:11:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2459,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -279822,9 +279823,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 137757,
-    "news_picked_today": 1339,
-    "news_dropped_today": 7189
+    "news_seen_today": 138026,
+    "news_picked_today": 1352,
+    "news_dropped_today": 7416
   },
   "book_momentum": {
     "live_count": 8,
