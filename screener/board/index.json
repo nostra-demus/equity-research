@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T04:05:10Z",
+  "generated_at": "2026-11-14T04:13:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-242",
@@ -892,6 +892,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-604",
+      "headline": "Kia India to invest $2 billion for new manufacturing unit in Andhra Pradesh",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/kia-india-to-invest-2-billion-for-new-manufacturing-unit-in-andhra-pradesh-4215677",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:49:22Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Kia India announced a $2 billion investment for a new manufacturing unit in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kia India announced a $2 billion investment for a new manufacturing unit in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-085",
       "headline": "Jensen Huang quits Nvidia, the company he co-founded in 1993. The timeline, day by day",
       "headline_en": null,
@@ -1139,6 +1188,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-611",
+      "headline": "DP World moves 1 million TEUs as $680.7 million Fujairah terminals accelerate to 18–24 months",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/dp-world-moves-1-million-teus-as-680-7-million-fujairah-terminals-accelerate-to-18-24-months/?utm_source=rss&utm_medium=rss&utm_campaign=dp-world-moves-1-million-teus-as-680-7-million-fujairah-terminals-accelerate-to-18-24-months",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:45:01Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "DP World is accelerating a $680.7 million terminal project in Fujairah, indicating significant capital investment and capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "DP World is accelerating a $680.7 million terminal project in Fujairah, indicating significant capital investment and capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DP World",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1490,6 +1588,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-583",
+      "headline": "Endeavour Mining Shares Tumble as Stoppages Affect Full-Year Output",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/endeavour-mining-shares-tumble-as-stoppages-affect-full-year-output-fe0a6cd4?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T09:09:00Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Endeavour Mining shares fell due to production stoppages affecting full-year output guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Endeavour Mining shares fell due to production stoppages affecting full-year output guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Endeavour Mining",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-587",
+      "headline": "GAIL, KRIBHCO explore $1.6 billion urea plant in Andhra Pradesh",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/chem-/-fertilisers/gail-kribhco-explore-1-6-billion-urea-plant-in-andhra-pradesh/articleshow/135762835.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T09:04:41Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "GAIL and KRIBHCO are exploring a $1.6 billion urea plant, a major capital expenditure project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "GAIL and KRIBHCO are exploring a $1.6 billion urea plant, a major capital expenditure project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAIL",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "KRIBHCO",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-518",
       "headline": "SCHEDULE 13D/A - THOMSON REUTERS CORP /CAN/ (0001075124) (Subject)",
       "headline_en": null,
@@ -1580,6 +1781,55 @@
           "name": "WH Smith",
           "ticker": null,
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-614",
+      "headline": "P&G Hygiene Q2 Profit Falls 6.7% To ₹196 Crore, Revenue Slips 0.4%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/pg-hygiene-q2-profit-falls-67-to-196-crore-revenue-slips-04",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:44:17Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "P&G Hygiene reported a 6.7% decline in Q2 profit to ₹196 crore and a 0.4% revenue slip.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "P&G Hygiene reported a 6.7% decline in Q2 profit to ₹196 crore and a 0.4% revenue slip.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble Hygiene and Health Care",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1730,261 +1980,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-286",
-      "headline": "Dixon Technologies to invest ₹700 crore in Tirupati in AP",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/dixon-technologies-to-invest-700-crore-in-tirupati-in-ap/article71696793.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T07:10:26Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Dixon Technologies commits ₹700 crore capex investment in Tirupati, signaling manufacturing capacity expansion and future earnings growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Dixon Technologies commits ₹700 crore capex investment in Tirupati, signaling manufacturing capacity expansion and future earnings growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dixon Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-449",
-      "headline": "AIRO Group Holdings, Inc. Q3 Loss Widens",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/airo-group-holdings-inc-q3-loss-widens",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:38:19Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "AIRO Group Holdings reported a widening net loss in Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "AIRO Group Holdings reported a widening net loss in Q3.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AIRO Group Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-493",
-      "headline": "Arada and Alya target $1.63bn property pipeline across UAE and Saudi Arabia",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/business/property/2026/11/12/arada-and-alya-target-163bn-property-pipeline-across-uae-and-saudi-arabia/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T10:45:29Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Arada and Alya announced a $1.63 billion property development pipeline in the UAE and Saudi Arabia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Arada and Alya announced a $1.63 billion property development pipeline in the UAE and Saudi Arabia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arada",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Alya",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-519",
-      "headline": "Coal India Limited: Filing of RHP of Mahanadi Coalfields Limited (MCL), a wholly owned Subsidiary of CIL, with SEBI",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/COALINDIA_14112026072625_rhp.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-14T01:56:40Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Coal India Limited has filed the Red Herring Prospectus for its subsidiary Mahanadi Coalfields Limited, signaling progress toward a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Coal India Limited has filed the Red Herring Prospectus for its subsidiary Mahanadi Coalfields Limited, signaling progress toward a potential IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coal India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Mahanadi Coalfields Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-092",
-      "headline": "Vishay Intertechnology, Inc. to Invest $56.4 million in India Semiconductor Joint Venture",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vishay-intertechnology-inc-invest-564-million-india-semiconductor-joint-venture",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:28:25Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Vishay Intertechnology commits $56.4 million capex to India semiconductor joint venture, expanding geographic production footprint with a named investment amount.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Vishay Intertechnology commits $56.4 million capex to India semiconductor joint venture, expanding geographic production footprint with a named investment amount.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vishay Intertechnology, Inc.",
-          "ticker": "VSH",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280195,9 +280190,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 98052,
-    "news_picked_today": 842,
-    "news_dropped_today": 2542
+    "news_seen_today": 98927,
+    "news_picked_today": 886,
+    "news_dropped_today": 2642
   },
   "book_momentum": {
     "live_count": 8,
