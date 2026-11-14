@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T03:04:25Z",
+  "generated_at": "2026-11-14T03:11:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-242",
@@ -1288,6 +1288,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-459",
+      "headline": "ReNew to invest ₹80,000 crore in Andhra Pradesh across data centre, solar and magnet manufacturing",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/renew-energy-to-invest-rs-80000-crore-in-andhra-pradesh-across-data-centre-solar-and-magnet-manufacturing-20032651.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T11:29:23Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "ReNew Power announces ₹80,000 crore capex plan (≈$9.6 billion) spanning data centre, solar, and magnet manufacturing in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "ReNew Power announces ₹80,000 crore capex plan (≈$9.6 billion) spanning data centre, solar, and magnet manufacturing in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ReNew Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-021",
       "headline": "Microsoft outage hits companies and governments worldwide",
       "headline_en": null,
@@ -1525,6 +1574,60 @@
           "name": "AIRO Group Holdings, Inc.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-493",
+      "headline": "Arada and Alya target $1.63bn property pipeline across UAE and Saudi Arabia",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/property/2026/11/12/arada-and-alya-target-163bn-property-pipeline-across-uae-and-saudi-arabia/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T10:45:29Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Arada and Alya announced a $1.63 billion property development pipeline in the UAE and Saudi Arabia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Arada and Alya announced a $1.63 billion property development pipeline in the UAE and Saudi Arabia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arada",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Alya",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1864,106 +1967,6 @@
           "name": "Mercedes-Benz Group AG",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-052",
-      "headline": "Jindal Power Secures $470 Million Offshore Loan From Indian Banks For 700 MW Botswana Power Project",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/jindal-power-secures-470-million-offshore-loan-from-indian-banks-for-700-mw-botswana-power-project",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:55:10Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Jindal Power secured $470 million offshore financing for a 700 MW power-generation project in Botswana, expanding capacity and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Jindal Power secured $470 million offshore financing for a 700 MW power-generation project in Botswana, expanding capacity and capital structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jindal Power",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-133",
-      "headline": "Jensen Huang exit, US scrutiny imperil US$3 billion in Chinese AI projects reliant on Nvidia",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/jensen-huang-exit-us-scrutiny-imperil-us3-billion-chinese-ai-projects-reliant-nvidia",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:54:31Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Jensen Huang exit combined with escalating US scrutiny of Nvidia's China operations imperils $3 billion in Chinese AI project exposure; quantified revenue exposure plus management departure and geopolitical regulatory threat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Jensen Huang exit combined with escalating US scrutiny of Nvidia's China operations imperils $3 billion in Chinese AI project exposure; quantified revenue exposure plus management departure and geopolitical regulatory threat.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -280391,9 +280394,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 85309,
-    "news_picked_today": 638,
-    "news_dropped_today": 1786
+    "news_seen_today": 87753,
+    "news_picked_today": 698,
+    "news_dropped_today": 1942
   },
   "book_momentum": {
     "live_count": 8,
