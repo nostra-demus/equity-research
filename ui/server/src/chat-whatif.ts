@@ -322,7 +322,59 @@ export function questionMentionsRow(question: string, row: SensitivityRow): bool
 
 export type UnsupportedReason = 'unrecorded' | 'no_revenue_base' | 'no_source' | 'metric_mismatch'
 /** A validated, computable intent: the row it resolved to + the exact engine request. */
-export interface Plan { variable: string; row: SensitivityRow; req: ScenarioRequest }
+export interface Plan { variable: string; row: SensitivityRow; req: ScenarioRequest; periodNote?: true }
+
+// Same nonblank-character contract as the sensitivity schema/Python reader (JS/Python \s differ).
+const NONBLANK_TEXT = /[^\u0009-\u000D\u001C-\u0020\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]/
+const nonblankText = (value: unknown): value is string => typeof value === 'string' && NONBLANK_TEXT.test(value)
+const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\baluminium\b/g, 'aluminum').trim()
+const rawUnit = (s: string) => s.toLowerCase().replace(/\bper\b/g, '/').replace(/\s*\/\s*/g, '/').replace(/\s+/g, ' ').trim()
+const rowNames = (row: SensitivityRow) => [row.variable, typeof row.label === 'string' ? row.label.split(/[—–]/)[0] : null]
+  .filter((s): s is string => typeof s === 'string').map(words).filter(Boolean)
+
+/** An unlike-metric coefficient can establish a CHANGE without a comparable earnings level. Only admit
+ *  an explicit raw-unit move here: the selected amount must follow a change/sign, have this row's unit,
+ *  and follow this row as its immediate subject. Never reinterpret percentages, levels, years or endpoints. */
+function explicitRawMove(question: string, row: SensitivityRow, rows: SensitivityRow[], delta: number): boolean {
+  if (!Number.isFinite(delta) || !nonblankText(row.unit)) return false
+  const q = question.replace(/(\d),(?=\d)/g, '$1')
+  for (const token of q.matchAll(/\d*\.?\d+/g)) {
+    if (Number(token[0]) !== Math.abs(delta)) continue
+    const before = q.slice(0, token.index)
+    const after = q.slice(token.index! + token[0].length)
+    if (/^\s*(?:%|percent|percentage|bps\b|basis\s+points?\b)/i.test(after)) continue
+    const unit = rawUnit(row.unit)
+    const tail = rawUnit(after)
+    if (!tail.startsWith(unit) || /^[a-z0-9]/i.test(tail.slice(unit.length))) continue
+    const move = /\b(rise|rises|rose|rising|increase|increases|gain|gains|jump|jumps|climb|climbs|up|higher|fall|falls|fell|falling|decrease|decreases|drop|drops|decline|declines|down|lower)\s*(?:by\s*)?[$€£]?\s*([+−-]?)\s*$/i.exec(before)
+    const signed = /([+−-])\s*$/.exec(before)
+    if (!move && !signed) continue
+    const explicitSign = move?.[2] || signed?.[1]
+    const sign = move
+      ? (/^(fall|falls|fell|falling|decrease|decreases|drop|drops|decline|declines|down|lower)$/i.test(move[1]) ? -1 : 1)
+      : explicitSign === '+' ? 1 : -1
+    if (explicitSign && (explicitSign === '+' ? 1 : -1) !== sign) continue
+    if (delta !== sign * Math.abs(delta)) continue
+    const subject = before.slice(0, move?.index ?? signed!.index)
+      .split(/[,;?!]|\.(?!\d)|\b(?:and|whereas|while|but)\b/i).at(-1) || ''
+    if (/\b(?:not|never|unchanged)\b|n['’]t\b/i.test(subject)) continue
+    // Accept a bare named subject after a conditional introduction. A name at the end of an arbitrary
+    // phrase can be an exclusion ("all metals except aluminium"), rather than the subject that moves.
+    const named = words(subject.split(/\b(?:if|assuming|suppose|imagine)\b/i).at(-1) || '').replace(/^the /, '')
+    const strong = rows.filter((r) => rowNames(r).some((name) => named === name))
+    // A shared measurement word ("price") is not a commodity identity, nor is USD alone an FX pair.
+    // Abbreviated names may omit those generic nouns, but must retain the rest of a recorded name.
+    const candidates = strong.length ? strong : rows.filter((r) => {
+      if (/^[a-z]{3}_[a-z]{3}$/i.test(r.variable) && typeof r.unit === 'string' && /^[a-z]{3}\/[a-z]{3}$/i.test(rawUnit(r.unit))) return false
+      return rowNames(r).some((name) => {
+        const subjectName = name.split(' ').filter((word) => !['price', 'rate', 'exchange', 'volume'].includes(word)).join(' ')
+        return subjectName && named === subjectName
+      })
+    })
+    if (candidates.length === 1 && candidates[0] === row) return true
+  }
+  return false
+}
 
 // bound how many cards one question can fan out to (a joint ask computes each leg separately)
 const MAX_INTENTS = 4
@@ -351,8 +403,12 @@ export function validateIntents(pr: ParseResult, question: string, sidecar: Sens
     // mis-read ("aluminium rises $45/mt" must not solve for an absurd 45% margin with full authority) —
     // drop it, never repair it (Codex #335 P2 r3643707271)
     if (it.mode !== 'move' && it.mode !== 'level' && !/margin|%|percent/i.test(question)) continue
-    if (!(typeof row.source === 'string' && row.source.trim())) { refusal = refusal ?? 'no_source'; continue }
-    if (row.impact_metric && sidecar.base_metric && row.impact_metric !== sidecar.base_metric) { refusal = refusal ?? 'metric_mismatch'; continue }
+    if (!nonblankText(row.source)) { refusal = refusal ?? 'no_source'; continue }
+    // Missing/null row metrics retain the legacy base-metric fallback. Malformed supplied labels never
+    // become authoritative names, even if a parser chose a plausible variable and number.
+    if (!nonblankText(sidecar.base_metric) || (row.impact_metric != null && !nonblankText(row.impact_metric))) { refusal = refusal ?? 'metric_mismatch'; continue }
+    const differentMetric = row.impact_metric != null && row.impact_metric !== sidecar.base_metric
+    if (differentMetric && (it.mode !== 'move' || it.percent)) { refusal = refusal ?? 'metric_mismatch'; continue }
     let req: ScenarioRequest | null = null
     if (it.mode === 'move') {
       const sign = it.direction === 'down' || it.value < 0 ? -1 : 1
@@ -368,8 +424,9 @@ export function validateIntents(pr: ParseResult, question: string, sidecar: Sens
       if (!(typeof sidecar.revenue_base === 'number' && sidecar.revenue_base > 0)) { refusal = refusal ?? 'no_revenue_base'; continue }
       req = { targetMargin: Math.abs(it.value) }
     }
+    if (differentMetric && (!('delta' in req) || !explicitRawMove(question, row, [...rows.values()], req.delta))) { refusal = refusal ?? 'metric_mismatch'; continue }
     if (plans.length >= MAX_INTENTS) { omitted++; continue }
-    plans.push({ variable: row.variable, row, req })
+    plans.push({ variable: row.variable, row, req, ...(pr.periodNote ? { periodNote: true as const } : {}) })
     seen.add(row.variable)
   }
   if (!plans.length && !refusal && pr.asksUnrecorded) refusal = 'unrecorded'
@@ -407,9 +464,11 @@ export interface ComputedScenario {
   neededImpact?: number | null
   marginBasis?: string | null   // 'revenue_constant' → margin computed at unchanged revenue (no rev coefficient)
   metricNote?: string | null    // set when the coefficient is on a metric ≠ base metric (level/margin withheld)
-  // CLAUDE.md §9 mitigation label (engine-owned): isBound=true → the figure holds management's response at zero
-  // (a bound, not a forecast). mitigated* = the realised-offset case beside a bound; grossBound* = the bound
-  // beside a net coefficient. mitigationNote is always set by the engine and must travel with the number (§3).
+  // CLAUDE.md §9 mitigation label (engine-owned): mitigationNote states the scope of isBound=true. A gross
+  // zero_bound holds response at zero; disclosed_positions retains the source positions and holds only
+  // ADDITIONAL response at zero (not a forecast or a proven worst case). mitigated* = the realised-offset
+  // case beside a gross bound; grossBound* = the bound beside a measured-net coefficient. Neither alternative
+  // is inferred for disclosed_positions. The complete engine note must travel with the number (§3).
   isBound?: boolean | null
   mitigationBasis?: string | null
   mitigationNote?: string | null
@@ -417,12 +476,12 @@ export interface ComputedScenario {
   mitigatedImpact?: number | null
   mitigatedNewValue?: number | null
   grossBoundImpact?: number | null
-  // set by the route, not the engine: TRUE when the question asked about a period this single-period
+  // set by computePlan, not the Python engine: TRUE when the question asked about a period this single-period
   // scenario cannot forecast (the parse's period_note flag). The warning is gated on THIS flag, not on
   // periodBase — a future-period question must carry the "not a forecast" disclaimer even when the
   // sidecar records no base_period (Codex #335 r3644942615).
   periodNote?: boolean | null
-  // the sidecar's base period when known (decorates the note); may be null while periodNote is true
+  // the sidecar's base period only when comparable earnings levels were used; otherwise null
   periodBase?: string | null
   // set on the first card of a multi-variable answer
   note?: string | null
@@ -473,7 +532,13 @@ export async function computeScenario(sidecar: SensitivitySidecar, variable: str
 
 /** Compute one validated Plan → a ComputedScenario, or null. */
 export async function computePlan(sidecar: SensitivitySidecar, plan: Plan, signal?: AbortSignal): Promise<ComputedScenario | null> {
-  return computeScenario(sidecar, plan.variable, plan.req, signal)
+  const scenario = await computeScenario(sidecar, plan.variable, plan.req, signal)
+  if (scenario && plan.periodNote) {
+    scenario.periodNote = true
+    scenario.periodBase = typeof scenario.baseValue === 'number' && typeof scenario.newValue === 'number'
+      ? sidecar.base_period ?? null : null
+  }
+  return scenario
 }
 
 // the margin's honest name, derived from the base metric — an EBITDA base yields an EBITDA margin, never an
@@ -661,6 +726,7 @@ export function computedContextBlock(payload: ComputedPayload, opts?: { carriedF
   lines.push('COMPUTED SCENARIO (authoritative — produced by the engine\'s deterministic calculator scripts/sensitivity_math.py, NOT by you):')
   if (s.note) lines.push(`(${s.note})`)
   const mName = marginName(s.impactMetric)
+  const effectOnly = !!s.metricNote && s.baseValue == null && s.newValue == null
   const marginTail = s.marginBasis === 'revenue_constant' ? ' (at unchanged revenue — there is no revenue coefficient, so this is NOT a fully-modelled margin)' : ''
   if (s.mode === 'reverse') {
     const tgt = s.targetMarginPct != null ? `${mName} ${s.targetMarginPct}%${marginTail}` : `${s.impactMetric || 'the base metric'} ${fmt(s.targetValue)}`
@@ -670,15 +736,20 @@ export function computedContextBlock(payload: ComputedPayload, opts?: { carriedF
   } else {
     if (s.mode === 'level' && s.targetLevel != null) lines.push(`- The user gave a target LEVEL (${s.label || s.variable} at ${fmt(s.targetLevel)}${s.unit ? ` ${s.unit}` : ''}); from the recorded base of ${fmt(s.variableBase)}, that is a move of ${s.resolvedDelta != null && s.resolvedDelta >= 0 ? '+' : ''}${s.resolvedDelta}${s.unit ? ` ${s.unit}` : ''}.`)
     else lines.push(`- Variable moved: ${s.label || s.variable} ${s.delta >= 0 ? '+' : ''}${s.delta}${s.unit ? ` ${s.unit}` : ''}`)
-    lines.push(`- ${s.impactMetric || 'base metric'}: ${fmt(s.baseValue)} → ${fmt(s.newValue)} (change ${s.impact >= 0 ? '+' : ''}${fmt(s.impact)})`)
+    if (effectOnly) {
+      lines.push(`- Effect only — change in ${s.impactMetric || 'the recorded metric'}: ${s.impact >= 0 ? '+' : ''}${fmt(s.impact)}. Starting/resulting earnings levels and margin: Not assessable from the available comparable base.`)
+    } else lines.push(`- ${s.impactMetric || 'base metric'}: ${fmt(s.baseValue)} → ${fmt(s.newValue)} (change ${s.impact >= 0 ? '+' : ''}${fmt(s.impact)})`)
     if (s.marginChangeBps != null) lines.push(`- ${mName}: ${s.baseMarginPct}% → ${s.newMarginPct}% (${s.marginChangeBps >= 0 ? '+' : ''}${s.marginChangeBps} bps)${marginTail}`)
   }
+  if (s.metricNote) lines.push(`- Metric basis: ${s.metricNote}`)
   lines.push(`- Coefficient: ${s.coefficient} per unit; confidence: ${s.confidence || 'n/a'}; source: ${s.source || 'n/a'}`)
   if (s.basis === 'inferred') lines.push('- Basis: INFERRED (derived by the orb, not disclosed in filings) — say "Inference, not from filings" and lower confidence accordingly (§3).')
   if (s.withinDisclosedRange === false) lines.push(`- CAUTION: ${s.rangeNote || 'the move is beyond the orb\'s disclosed range — a rough extrapolation'}.`)
   if (s.mitigationNote) lines.push(`- Mitigation (§9 — state this with the number, never drop it): ${s.mitigationNote}${s.isBound ? ' Present the figure as a BOUND, not as the expected outcome.' : ''}`)
   if (s.nonLinearity) lines.push(`- Non-linearity to mention: ${s.nonLinearity}`)
-  if (s.periodNote) lines.push(`- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
+  if (s.periodNote) lines.push(effectOnly
+    ? '- NOTE: the question asks about a period this scenario does not forecast. This effect uses the scope stated in its source, with no comparable earnings base applied; it is not a multi-year forecast. Say so.'
+    : `- NOTE: the question asks about a period this scenario does not forecast — these numbers are a single-period scenario${s.periodBase ? ` on the ${s.periodBase} base` : ' on an unstated base period'}, not a multi-year forecast. Say so.`)
   for (const l of repricedBlock(payload.reprice)) lines.push(l)
   lines.push('Narrate THIS result in plain English. Use these numbers verbatim; do NOT recompute or change them. Cite the source shown, and carry the confidence, basis, and any caution/non-linearity note into your answer.')
   if (payload.reprice?.ok) {
