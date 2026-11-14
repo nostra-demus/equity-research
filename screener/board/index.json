@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T05:08:34Z",
+  "generated_at": "2026-11-14T05:18:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-677",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-722",
+      "headline": "Jubilant Pharmova's Q2 Earnings Take A Bitter Pill, Net Profit Crashes 74% To ₹31 Crore Despite Generics Growth",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/jubilant-pharmovas-q2-earnings-take-a-bitter-pill-net-profit-crashes-74-to-31-crore-despite-generics-growth",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T04:10:52Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Jubilant Pharmova reported a 74% crash in net profit to ₹31 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jubilant Pharmova reported a 74% crash in net profit to ₹31 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jubilant Pharmova",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1533,6 +1582,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-734",
+      "headline": "StarHub Q3 Profit, EBITDA Drop, Sales Rise; Updates FY26 EBITDA View",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/starhub-q3-profit-ebitda-drop-sales-rise-updates-fy26-ebitda-view",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T05:33:28Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "StarHub reported a Q3 profit and EBITDA drop alongside an updated FY26 EBITDA view, representing a material change in financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "StarHub reported a Q3 profit and EBITDA drop alongside an updated FY26 EBITDA view, representing a material change in financial expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "StarHub",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-624",
       "headline": "COSCIENS Biopharma Inc. Q3 Loss Widens",
       "headline_en": null,
@@ -1875,104 +1974,6 @@
           "name": "DP World",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-643",
-      "headline": "Reliance Plans ₹2.70 Lakh Crore Coal Gasification Project In Andhra Pradesh Over 30 Years",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/reliance-plans-270-lakh-crore-coal-gasification-project-in-andhra-pradesh-over-30-years",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:18:46Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-652",
-      "headline": "Kia India Unveils Mega $2 Billion Expansion Plan, Andhra Pradesh Set For 12,000 Jobs And Bigger Auto Manufacturing Hub",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/kia-india-unveils-mega-2-billion-expansion-plan-andhra-pradesh-set-for-12000-jobs-and-bigger-auto-manufacturing-hub",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:13:49Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kia Corporation",
-          "ticker": "000270",
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -280188,9 +280189,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 103479,
-    "news_picked_today": 1089,
-    "news_dropped_today": 3135
+    "news_seen_today": 103850,
+    "news_picked_today": 1111,
+    "news_dropped_today": 3185
   },
   "book_momentum": {
     "live_count": 8,
