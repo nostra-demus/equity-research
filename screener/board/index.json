@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-14T07:59:19Z",
+  "generated_at": "2026-11-14T08:03:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261114-748",
+      "headline": "SECUREKLOUD TECHNOLOGIES LIMITED: SECUREKLOUD TECHNOLOGIES LIMITED has informed the Exchange regarding 'Disclosure of defaults on payment of Interest/ Repayment of Principal Amount on Loans from Banks/ Financial Institutions.'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_14112026131849_E37_IB_CC_default_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-14T07:49:25Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "The company disclosed a default on interest and principal payments to banks and financial institutions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company disclosed a default on interest and principal payments to banks and financial institutions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SECUREKLOUD TECHNOLOGIES LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261114-735",
       "headline": "Solex Energy Limited: Solex Energy Limited has informed the Exchange regarding a press release dated November 14, 2026, titled \"Solex Energy Q2 FY27 Results: Strong Revenue Growth and Order Momentum; Subsidiary Approves Rupees 150 Crore CCD Issuance\".",
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-197",
-      "headline": "Salik posts AED 1.045 billion net profit for first nine months of 2026",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/uae/salik-posts-aed-1045-billion-net-profit-for-first-nine-months-of-2026/7748",
-      "source_name": "Emirates 24|7 — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:19:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Salik reported a net profit of AED 1.045 billion for the first nine months of 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Salik reported a net profit of AED 1.045 billion for the first nine months of 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salik",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
