@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-11-14T04:49:17Z",
+  "generated_at": "2026-11-14T06:51:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261114-735",
+      "headline": "Solex Energy Limited: Solex Energy Limited has informed the Exchange regarding a press release dated November 14, 2026, titled \"Solex Energy Q2 FY27 Results: Strong Revenue Growth and Order Momentum; Subsidiary Approves Rupees 150 Crore CCD Issuance\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SOLEX_14112026110257_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-14T05:33:21Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Solex Energy reported strong revenue growth and its subsidiary approved a 150 crore rupee CCD issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solex Energy reported strong revenue growth and its subsidiary approved a 150 crore rupee CCD issuance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solex Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-739",
+      "headline": "Nvidia Shares Crash 13% In A Week, Wiping Out $573 Billion As Jensen Huang Exits",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/nvidia-shares-crash-13-in-a-week-wiping-out-573-billion-as-jensen-huang-exits-12325287#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T05:12:24Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Nvidia shares fell 13% and lost $573 billion in market value following the exit of CEO Jensen Huang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia shares fell 13% and lost $573 billion in market value following the exit of CEO Jensen Huang.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261114-677",
       "headline": "Reliance plans ₹43,000-crore coal-to-gas plant in Andhra Pradesh, could generate 40,000 jobs: What we know",
@@ -46,6 +145,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-722",
+      "headline": "Jubilant Pharmova's Q2 Earnings Take A Bitter Pill, Net Profit Crashes 74% To ₹31 Crore Despite Generics Growth",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/jubilant-pharmovas-q2-earnings-take-a-bitter-pill-net-profit-crashes-74-to-31-crore-despite-generics-growth",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T04:10:52Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Jubilant Pharmova reported a 74% crash in net profit to ₹31 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jubilant Pharmova reported a 74% crash in net profit to ₹31 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jubilant Pharmova",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1384,6 +1532,255 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-713",
+      "headline": "Kia to invest $2 billion in AP to expand operations",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/kia-to-invest-2-billion-in-ap-to-expand-operations/article71692518.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T06:09:07Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Kia announced a significant $2 billion capital expenditure for capacity expansion in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kia announced a significant $2 billion capital expenditure for capacity expansion in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-715",
+      "headline": "Technologiekonzern: Siemens erzielt operativen Rekordgewinn – und erhöht die Mittelfristziele",
+      "headline_en": "Technology group: Siemens achieves record operating profit – and raises mid-term targets",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/dax-konzern-siemens-erzielt-operativen-rekordgewinn/100265689.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T06:08:08Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Siemens reported record operating profit and raised its mid-term guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siemens reported record operating profit and raised its mid-term guidance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siemens",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-716",
+      "headline": "Pharmakonzern: KI und Pharma beflügeln Merck – Dax-Konzern hebt Prognose erneut an",
+      "headline_en": "Pharmaceutical group: AI and pharma boost Merck – DAX group raises forecast again",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/pharmakonzern-ki-und-pharma-befluegeln-merck-prognose-erneut-angehoben/100269286.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T06:07:54Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Merck raised its guidance again, driven by AI and pharma performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Merck raised its guidance again, driven by AI and pharma performance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Merck",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-734",
+      "headline": "StarHub Q3 Profit, EBITDA Drop, Sales Rise; Updates FY26 EBITDA View",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/starhub-q3-profit-ebitda-drop-sales-rise-updates-fy26-ebitda-view",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T05:33:28Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "StarHub reported a Q3 profit and EBITDA drop alongside an updated FY26 EBITDA view, representing a material change in financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "StarHub reported a Q3 profit and EBITDA drop alongside an updated FY26 EBITDA view, representing a material change in financial expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "StarHub",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-742",
+      "headline": "Rekha Jhunjhunwala stock VA Tech Wabag: ₹2,400 cr Saudi project cancelled - Should you buy after 18% rise in 6 months?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/rekha-jhunjhunwala-stock-va-tech-wabag-rs-2-400-cr-saudi-project-cancelled-should-you-buy-after-18-rise-in-6-months-11794636173819.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T06:23:18Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "VA Tech Wabag announced cancellation of a ₹2,400-crore Saudi Arabia project, directly reducing revenue and cash flow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "VA Tech Wabag announced cancellation of a ₹2,400-crore Saudi Arabia project, directly reducing revenue and cash flow.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VA Tech Wabag",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-624",
       "headline": "COSCIENS Biopharma Inc. Q3 Loss Widens",
       "headline_en": null,
@@ -1566,406 +1963,6 @@
       "event_types": [
         "executive_exit",
         "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-297",
-      "headline": "Jensen Huang’s abrupt exit stuns Nvidia’s China staff, clouding the outlook in a key market",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3374316/jensen-huangs-abrupt-exit-stuns-nvidias-china-staff-clouding-outlook-key-market",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T07:00:40Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "The abrupt exit of Jensen Huang from Nvidia's China operations creates significant uncertainty in a key market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The abrupt exit of Jensen Huang from Nvidia's China operations creates significant uncertainty in a key market.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-340",
-      "headline": "Bitcoin firm Nakamoto owes Kraken $165 million, more than its entire market value",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/markets/2026/11/13/bitcoin-firm-nakamoto-owes-kraken-usd165-million-more-than-its-entire-market-value",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T06:03:41Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Nakamoto owes Kraken $165 million, an amount exceeding its entire market capitalization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Nakamoto owes Kraken $165 million, an amount exceeding its entire market capitalization.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nakamoto",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Kraken",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-611",
-      "headline": "DP World moves 1 million TEUs as $680.7 million Fujairah terminals accelerate to 18–24 months",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/dp-world-moves-1-million-teus-as-680-7-million-fujairah-terminals-accelerate-to-18-24-months/?utm_source=rss&utm_medium=rss&utm_campaign=dp-world-moves-1-million-teus-as-680-7-million-fujairah-terminals-accelerate-to-18-24-months",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:45:01Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "DP World is accelerating a $680.7 million terminal project in Fujairah, indicating significant capital investment and capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "DP World is accelerating a $680.7 million terminal project in Fujairah, indicating significant capital investment and capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DP World",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-643",
-      "headline": "Reliance Plans ₹2.70 Lakh Crore Coal Gasification Project In Andhra Pradesh Over 30 Years",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/reliance-plans-270-lakh-crore-coal-gasification-project-in-andhra-pradesh-over-30-years",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:18:46Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Reliance announced a major ₹2.70 lakh crore coal gasification project.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-652",
-      "headline": "Kia India Unveils Mega $2 Billion Expansion Plan, Andhra Pradesh Set For 12,000 Jobs And Bigger Auto Manufacturing Hub",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/kia-india-unveils-mega-2-billion-expansion-plan-andhra-pradesh-set-for-12000-jobs-and-bigger-auto-manufacturing-hub",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T08:13:49Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Kia India announced a major $2 billion expansion plan to create a larger manufacturing hub.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kia Corporation",
-          "ticker": "000270",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-698",
-      "headline": "+++ Geschäftszahlen +++: Sixt hebt die Prognose an",
-      "headline_en": "+++ Business Figures +++: Sixt raises its forecast",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-sixt-hebt-die-prognose-an/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T07:12:51Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Sixt has raised its profit guidance for the period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Sixt has raised its profit guidance for the period.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sixt",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-391",
-      "headline": "Tech stocks slide as Nvidia board prepares to oust Jensen Huang",
-      "headline_en": null,
-      "url": "https://www.cityam.com/tech-stocks-slide-as-nvidia-board-prepares-to-oust-jensen-huang/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:18:58Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Reports of the board preparing to oust the CEO of a major tech company represent a critical management risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Reports of the board preparing to oust the CEO of a major tech company represent a critical management risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-398",
-      "headline": "Nvidia Has Hired an Outside Firm to Find Jensen Huang’s Replacement",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/12/nvidia-has-hired-an-outside-firm-to-find-jensen-huangs-replacement/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:17:24Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Nvidia has reportedly hired an outside firm to find a replacement for CEO Jensen Huang, signaling a major leadership transition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Nvidia has reportedly hired an outside firm to find a replacement for CEO Jensen Huang, signaling a major leadership transition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -237671,76 +237668,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-14d83f2c882e",
-      "idea_version": "IDEAV-745c66d9e6b2ecd2",
-      "idea_version_started_at": "2026-11-12T19:23:01Z",
-      "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AMD is positioned to capture market share in the data center and AI chip segments as its primary competitor, Nvidia, faces severe leadership and reputational instability.",
-      "why_now": "The market is actively reallocating capital from Nvidia to AMD following the November 12, 2026, resignation announcement.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 69,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-611fc2e3ceff"
-      ],
-      "primary_source_event_id": "EVT-611fc2e3ceff",
-      "source_headlines": [
-        "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher"
-      ],
-      "source_headline": "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-midday-nov-12-nvidia-ceo-resigns-amd-surges-wall-street-edges-higher",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T18:05:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T19:23:01Z",
-      "updated_at": "2026-11-12T19:23:01Z",
-      "decay_at": "2026-11-14T06:05:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-55c79e1fb994",
       "idea_version": "IDEAV-8bd115e5283a160a",
       "idea_version_started_at": "2026-11-14T03:26:30Z",
@@ -238017,76 +237944,6 @@
       "surfaced_at": "2026-11-12T22:05:27Z",
       "updated_at": "2026-11-12T22:05:27Z",
       "decay_at": "2026-11-14T07:53:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-8d133c0c68da",
-      "idea_version": "IDEAV-f9aaa84e233df334",
-      "idea_version_started_at": "2026-11-12T19:43:22Z",
-      "ticker": "MBGAF",
-      "company": "Mercedes-Benz",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Halting investment and signaling potential plant closures in its home market reflects severe margin pressure and structural challenges in the European automotive manufacturing sector.",
-      "why_now": "The announcement of the investment halt and closure warnings occurred on 2026-11-12.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9473e39e8284"
-      ],
-      "primary_source_event_id": "EVT-9473e39e8284",
-      "source_headlines": [
-        "Mercedes-Benz halts investment in Germany, warns of plant closures"
-      ],
-      "source_headline": "Mercedes-Benz halts investment in Germany, warns of plant closures",
-      "source_url": "https://gulfnews.com/auto/news/mercedes-benz-halts-investment-in-germany-warns-of-plant-closures-1.500745605",
-      "source_name": "Gulf News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T18:32:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T19:43:22Z",
-      "updated_at": "2026-11-12T19:43:22Z",
-      "decay_at": "2026-11-14T06:32:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238373,76 +238230,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-905257f7a80a",
-      "idea_version": "IDEAV-c568c0f0d4eba6f1",
-      "idea_version_started_at": "2026-11-12T19:43:22Z",
-      "ticker": "SFTBY",
-      "company": "SoftBank Group",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $3.7 billion charge related to scrapped turbine orders indicates significant capital misallocation and potential underlying financial distress despite management's denial of default.",
-      "why_now": "The news broke on 2026-11-12 regarding the specific financial charge, contradicting previous management assurances.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1b663c59a434"
-      ],
-      "primary_source_event_id": "EVT-1b663c59a434",
-      "source_headlines": [
-        "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something"
-      ],
-      "source_headline": "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something",
-      "source_url": "https://247wallst.com/investing/2026/11/12/softbank-cfo-says-there-is-no-such-default-after-musks-turbine-claim-but-a-3-7b-charge-on-scrapped-turbine-orders-suggests-elon-was-onto-something/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T18:43:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T19:43:22Z",
-      "updated_at": "2026-11-12T19:43:22Z",
-      "decay_at": "2026-11-14T06:43:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4d583fe4840f",
       "idea_version": "IDEAV-37226047744a7383",
       "idea_version_started_at": "2026-11-13T12:59:49Z",
@@ -238721,6 +238508,222 @@
       "surfaced_at": "2026-11-13T00:55:31Z",
       "updated_at": "2026-11-13T00:55:31Z",
       "decay_at": "2026-11-14T10:20:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-31b295117425",
+      "idea_version": "IDEAV-e6909f5753ec3f98",
+      "idea_version_started_at": "2026-11-14T05:39:52Z",
+      "ticker": "SOLEX",
+      "company": "Solex Energy",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Strong Q2 revenue growth coupled with a ₹150 crore subsidiary CCD issuance bolsters cash flows and funds capacity expansion to fulfill growing order momentum.",
+      "why_now": "The announcement was made via official exchange filings on November 14, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b2abda07f84"
+      ],
+      "primary_source_event_id": "EVT-1b2abda07f84",
+      "source_headlines": [
+        "Solex Energy Limited: Solex Energy Limited has informed the Exchange regarding a press release dated November 14, 2026, titled \"Solex Energy Q2 FY27 Results: Strong Revenue Growth and Order Momentum; Subsidiary Approves Rupees 150 Crore CCD Issuance\"."
+      ],
+      "source_headline": "Solex Energy Limited: Solex Energy Limited has informed the Exchange regarding a press release dated November 14, 2026, titled \"Solex Energy Q2 FY27 Results: Strong Revenue Growth and Order Momentum; Subsidiary Approves Rupees 150 Crore CCD Issuance\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SOLEX_14112026110257_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T05:33:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T05:39:52Z",
+      "updated_at": "2026-11-14T05:39:52Z",
+      "decay_at": "2026-11-15T17:33:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-74dcbba6d6ab",
+      "idea_version": "IDEAV-0c75cc0e275f5e77",
+      "idea_version_started_at": "2026-11-14T05:39:52Z",
+      "ticker": "JUBLPHARMA",
+      "company": "Jubilant Pharmova",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 74% decline in Q2 net profit to ₹31 crore directly compresses earnings multiples and signals severe margin degradation in its core operations.",
+      "why_now": "Q2 earnings results were released today, November 14, 2026, creating immediate earnings-revising price discovery.",
+      "conviction": 72,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ee49a4719fe3"
+      ],
+      "primary_source_event_id": "EVT-ee49a4719fe3",
+      "source_headlines": [
+        "Jubilant Pharmova's Q2 Earnings Take A Bitter Pill, Net Profit Crashes 74% To ₹31 Crore Despite Generics Growth"
+      ],
+      "source_headline": "Jubilant Pharmova's Q2 Earnings Take A Bitter Pill, Net Profit Crashes 74% To ₹31 Crore Despite Generics Growth",
+      "source_url": "https://www.freepressjournal.in/business/jubilant-pharmovas-q2-earnings-take-a-bitter-pill-net-profit-crashes-74-to-31-crore-despite-generics-growth",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T04:10:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T05:39:52Z",
+      "updated_at": "2026-11-14T05:39:52Z",
+      "decay_at": "2026-11-15T16:10:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c6f63711400d",
+      "idea_version": "IDEAV-f7f40ba582d34e1d",
+      "idea_version_started_at": "2026-11-14T05:18:57Z",
+      "ticker": "JUBILANT",
+      "company": "Jubilant Pharmova",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Net profit crashed 74% to ₹31 crore, indicating severe margin compression despite growth in the generics segment.",
+      "why_now": "The earnings results were released on November 14, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ee49a4719fe3"
+      ],
+      "primary_source_event_id": "EVT-ee49a4719fe3",
+      "source_headlines": [
+        "Jubilant Pharmova's Q2 Earnings Take A Bitter Pill, Net Profit Crashes 74% To ₹31 Crore Despite Generics Growth"
+      ],
+      "source_headline": "Jubilant Pharmova's Q2 Earnings Take A Bitter Pill, Net Profit Crashes 74% To ₹31 Crore Despite Generics Growth",
+      "source_url": "https://www.freepressjournal.in/business/jubilant-pharmovas-q2-earnings-take-a-bitter-pill-net-profit-crashes-74-to-31-crore-despite-generics-growth",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T04:10:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T05:18:57Z",
+      "updated_at": "2026-11-14T05:18:57Z",
+      "decay_at": "2026-11-15T16:10:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240160,6 +240163,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-14d83f2c882e",
+      "idea_version": "IDEAV-745c66d9e6b2ecd2",
+      "idea_version_started_at": "2026-11-12T19:23:01Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AMD is positioned to capture market share in the data center and AI chip segments as its primary competitor, Nvidia, faces severe leadership and reputational instability.",
+      "why_now": "The market is actively reallocating capital from Nvidia to AMD following the November 12, 2026, resignation announcement.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 69,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-611fc2e3ceff"
+      ],
+      "primary_source_event_id": "EVT-611fc2e3ceff",
+      "source_headlines": [
+        "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher"
+      ],
+      "source_headline": "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-midday-nov-12-nvidia-ceo-resigns-amd-surges-wall-street-edges-higher",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T18:05:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T19:23:01Z",
+      "updated_at": "2026-11-12T19:23:01Z",
+      "decay_at": "2026-11-14T06:05:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-255e34fda7d0",
       "idea_version": "IDEAV-1b03d249564e5d8e",
       "idea_version_started_at": "2026-11-12T10:13:12Z",
@@ -240224,6 +240297,76 @@
       "surfaced_at": "2026-11-12T10:13:12Z",
       "updated_at": "2026-11-12T10:13:12Z",
       "decay_at": "2026-11-13T15:40:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8d133c0c68da",
+      "idea_version": "IDEAV-f9aaa84e233df334",
+      "idea_version_started_at": "2026-11-12T19:43:22Z",
+      "ticker": "MBGAF",
+      "company": "Mercedes-Benz",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Halting investment and signaling potential plant closures in its home market reflects severe margin pressure and structural challenges in the European automotive manufacturing sector.",
+      "why_now": "The announcement of the investment halt and closure warnings occurred on 2026-11-12.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9473e39e8284"
+      ],
+      "primary_source_event_id": "EVT-9473e39e8284",
+      "source_headlines": [
+        "Mercedes-Benz halts investment in Germany, warns of plant closures"
+      ],
+      "source_headline": "Mercedes-Benz halts investment in Germany, warns of plant closures",
+      "source_url": "https://gulfnews.com/auto/news/mercedes-benz-halts-investment-in-germany-warns-of-plant-closures-1.500745605",
+      "source_name": "Gulf News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T18:32:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T19:43:22Z",
+      "updated_at": "2026-11-12T19:43:22Z",
+      "decay_at": "2026-11-14T06:32:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240574,6 +240717,76 @@
       "surfaced_at": "2026-11-11T11:14:28Z",
       "updated_at": "2026-11-11T11:14:28Z",
       "decay_at": "2026-11-12T19:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-905257f7a80a",
+      "idea_version": "IDEAV-c568c0f0d4eba6f1",
+      "idea_version_started_at": "2026-11-12T19:43:22Z",
+      "ticker": "SFTBY",
+      "company": "SoftBank Group",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $3.7 billion charge related to scrapped turbine orders indicates significant capital misallocation and potential underlying financial distress despite management's denial of default.",
+      "why_now": "The news broke on 2026-11-12 regarding the specific financial charge, contradicting previous management assurances.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b663c59a434"
+      ],
+      "primary_source_event_id": "EVT-1b663c59a434",
+      "source_headlines": [
+        "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something"
+      ],
+      "source_headline": "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something",
+      "source_url": "https://247wallst.com/investing/2026/11/12/softbank-cfo-says-there-is-no-such-default-after-musks-turbine-claim-but-a-3-7b-charge-on-scrapped-turbine-orders-suggests-elon-was-onto-something/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T18:43:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T19:43:22Z",
+      "updated_at": "2026-11-12T19:43:22Z",
+      "decay_at": "2026-11-14T06:43:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -242793,222 +243006,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-044dc4e9fa5c",
-      "idea_version": "IDEAV-5951286fe5cddfd6",
-      "idea_version_started_at": "2026-11-11T06:27:58Z",
-      "ticker": "MMC",
-      "company": "Marsh & McLennan",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Wilshire expands Marsh's footprint in investment advisory and data analytics, providing a new revenue stream in the financial services sector.",
-      "why_now": "The acquisition was announced today, November 11, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4f1c57b80817"
-      ],
-      "primary_source_event_id": "EVT-4f1c57b80817",
-      "source_headlines": [
-        "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners"
-      ],
-      "source_headline": "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners",
-      "source_url": "https://www.nasdaq.com/articles/marsh-agrees-acquire-wilshire-cc-capital-and-motive-partners",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T05:35:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T06:27:58Z",
-      "updated_at": "2026-11-11T06:27:58Z",
-      "decay_at": "2026-11-12T17:35:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9be75c57aef2",
-      "idea_version": "IDEAV-55a01b1349106395",
-      "idea_version_started_at": "2026-11-11T06:27:58Z",
-      "ticker": "COCHINSHIP",
-      "company": "Cochin Shipyard",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 50% decline in Q2 profit, signaling significant margin compression and operational headwinds in its core defense shipbuilding business.",
-      "why_now": "The earnings release occurred today, November 11, 2026, and the stock is currently reacting to the negative surprise.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0cdd739dc3be"
-      ],
-      "primary_source_event_id": "EVT-0cdd739dc3be",
-      "source_headlines": [
-        "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?"
-      ],
-      "source_headline": "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?",
-      "source_url": "https://www.livemint.com/market/stock-market-news/cochin-shipyard-shares-crash-8-defence-psu-stock-q2-profit-drops-50-but-declares-rs-3-dividend-still-a-stock-to-buy-11794370626964.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T04:38:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T11:30:45Z",
-      "updated_at": "2026-11-11T06:27:58Z",
-      "decay_at": "2026-11-12T16:38:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3e0ccff47789",
-      "idea_version": "IDEAV-0acad24986e16db6",
-      "idea_version_started_at": "2026-11-11T05:44:55Z",
-      "ticker": "MMFORGING",
-      "company": "MM Forgings",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY27 revenue guidance to over ₹2,000 crore, signaling stronger-than-anticipated demand or improved operational capacity.",
-      "why_now": "The guidance update was released on November 11, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c013dcad6497"
-      ],
-      "primary_source_event_id": "EVT-c013dcad6497",
-      "source_headlines": [
-        "MM Forgings raises FY27 revenue target to over ₹2,000 crore"
-      ],
-      "source_headline": "MM Forgings raises FY27 revenue target to over ₹2,000 crore",
-      "source_url": "https://www.cnbctv18.com/market/earnings/mm-forgings-q2-results-revenue-target-2000-crore-volume-outlook-alpha-article-20031166.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-11T04:31:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:44:55Z",
-      "updated_at": "2026-11-11T05:44:55Z",
-      "decay_at": "2026-11-12T16:31:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -243026,32 +243023,251 @@
     "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 23
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1879,
-      "oldest_retained_at": "2026-10-19T21:03:00Z",
+      "evicted_count": 1882,
+      "oldest_retained_at": "2026-10-20T03:57:23Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1235,
-          "oldest_retained_at": "2026-10-31T02:20:00Z"
+          "evicted_count": 1237,
+          "oldest_retained_at": "2026-10-31T09:12:27Z"
         },
         "short": {
-          "evicted_count": 645,
-          "oldest_retained_at": "2026-10-19T21:03:00Z"
+          "evicted_count": 646,
+          "oldest_retained_at": "2026-10-20T03:57:23Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-905257f7a80a",
+        "idea_version": "IDEAV-c568c0f0d4eba6f1",
+        "idea_version_started_at": "2026-11-12T19:43:22Z",
+        "ticker": "SFTBY",
+        "company": "SoftBank Group",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A $3.7 billion charge related to scrapped turbine orders indicates significant capital misallocation and potential underlying financial distress despite management's denial of default.",
+        "why_now": "The news broke on 2026-11-12 regarding the specific financial charge, contradicting previous management assurances.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1b663c59a434"
+        ],
+        "primary_source_event_id": "EVT-1b663c59a434",
+        "source_headlines": [
+          "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something"
+        ],
+        "source_headline": "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something",
+        "source_url": "https://247wallst.com/investing/2026/11/12/softbank-cfo-says-there-is-no-such-default-after-musks-turbine-claim-but-a-3-7b-charge-on-scrapped-turbine-orders-suggests-elon-was-onto-something/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T18:43:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T19:43:22Z",
+        "updated_at": "2026-11-12T19:43:22Z",
+        "decay_at": "2026-11-14T06:43:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T06:43:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8d133c0c68da",
+        "idea_version": "IDEAV-f9aaa84e233df334",
+        "idea_version_started_at": "2026-11-12T19:43:22Z",
+        "ticker": "MBGAF",
+        "company": "Mercedes-Benz",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Halting investment and signaling potential plant closures in its home market reflects severe margin pressure and structural challenges in the European automotive manufacturing sector.",
+        "why_now": "The announcement of the investment halt and closure warnings occurred on 2026-11-12.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "sector_cycle",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9473e39e8284"
+        ],
+        "primary_source_event_id": "EVT-9473e39e8284",
+        "source_headlines": [
+          "Mercedes-Benz halts investment in Germany, warns of plant closures"
+        ],
+        "source_headline": "Mercedes-Benz halts investment in Germany, warns of plant closures",
+        "source_url": "https://gulfnews.com/auto/news/mercedes-benz-halts-investment-in-germany-warns-of-plant-closures-1.500745605",
+        "source_name": "Gulf News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T18:32:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T19:43:22Z",
+        "updated_at": "2026-11-12T19:43:22Z",
+        "decay_at": "2026-11-14T06:32:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T06:32:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-14d83f2c882e",
+        "idea_version": "IDEAV-745c66d9e6b2ecd2",
+        "idea_version_started_at": "2026-11-12T19:23:01Z",
+        "ticker": "AMD",
+        "company": "Advanced Micro Devices",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "AMD is positioned to capture market share in the data center and AI chip segments as its primary competitor, Nvidia, faces severe leadership and reputational instability.",
+        "why_now": "The market is actively reallocating capital from Nvidia to AMD following the November 12, 2026, resignation announcement.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 69,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-611fc2e3ceff"
+        ],
+        "primary_source_event_id": "EVT-611fc2e3ceff",
+        "source_headlines": [
+          "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher"
+        ],
+        "source_headline": "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher",
+        "source_url": "https://www.nasdaq.com/articles/stock-market-midday-nov-12-nvidia-ceo-resigns-amd-surges-wall-street-edges-higher",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T18:05:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T19:23:01Z",
+        "updated_at": "2026-11-12T19:23:01Z",
+        "decay_at": "2026-11-14T06:05:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T06:05:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-568ff94c6eb6",
         "idea_version": "IDEAV-54b9542838a02244",
@@ -245869,8 +246085,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T17:35:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T05:40:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245944,8 +246160,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T16:38:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T05:19:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -246019,8 +246235,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-12T16:31:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-14T05:19:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271173,80 +271389,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-068f2d5467b9",
-        "idea_version": "IDEAV-3d849bf74885129a",
-        "idea_version_started_at": "2026-11-01T02:40:39Z",
-        "ticker": "GOOG",
-        "company": "Alphabet Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "HD Hyundai Robotics is partnering with Palantir on AI solutions, which could benefit Palantir's AI platform adoption and revenue growth, while potentially creating a competitive dynamic with NVIDIA's AI hardware dominance.",
-        "why_now": "The partnership announcement is a fresh development in the AI solutions space.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 59,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 13,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0e5f55cb8ccc"
-        ],
-        "primary_source_event_id": "EVT-0e5f55cb8ccc",
-        "source_headlines": [
-          "HD Hyundai Robotics partners with Palantir on AI solutions"
-        ],
-        "source_headline": "HD Hyundai Robotics partners with Palantir on AI solutions",
-        "source_url": "https://www.koreaherald.com/article/10921633",
-        "source_name": "The Korea Herald — Business",
-        "materiality_max": 62,
-        "newest_source_at": "2026-11-01T02:29:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T02:40:39Z",
-        "updated_at": "2026-11-01T02:40:39Z",
-        "decay_at": "2026-11-02T14:29:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T03:39:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0f3b55677926",
         "idea_version": "IDEAV-9f19e3bcb244102a",
         "idea_version_started_at": "2026-11-01T02:15:36Z",
@@ -280013,162 +280155,11 @@
         "archived_at": "2026-10-23T12:15:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-19eb7ab0fd47",
-        "idea_version": "IDEAV-9660818a1ee322cd",
-        "idea_version_started_at": "2026-10-20T10:11:37Z",
-        "ticker": "Z74",
-        "company": "Singtel",
-        "exchange": "SGX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A S$1 million regulatory penalty for service outages highlights operational weaknesses and potential for further regulatory scrutiny, which may weigh on sentiment.",
-        "why_now": "The penalty was announced on 2026-10-20.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-94085c93bdba"
-        ],
-        "primary_source_event_id": "EVT-94085c93bdba",
-        "source_headlines": [
-          "Singtel slapped with S$1 million penalty over March outages affecting 720,000 subscribers"
-        ],
-        "source_headline": "Singtel slapped with S$1 million penalty over March outages affecting 720,000 subscribers",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/singtel-slapped-s1-million-penalty-over-march-outages-affecting-720000-subscribers",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T09:30:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T10:11:37Z",
-        "updated_at": "2026-10-20T10:11:37Z",
-        "decay_at": "2026-10-21T21:30:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T11:11:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-303aba9f3cef",
-        "idea_version": "IDEAV-4da538b411abde3f",
-        "idea_version_started_at": "2026-10-20T11:09:38Z",
-        "ticker": "08392",
-        "company": "Satu Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A formal profit warning indicates deteriorating financial performance, signaling potential margin compression or revenue decline that typically precedes further negative earnings revisions.",
-        "why_now": "The profit warning was filed on 2026-10-20.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7eee3c79e210"
-        ],
-        "primary_source_event_id": "EVT-7eee3c79e210",
-        "source_headlines": [
-          "SATU HOLDINGS (08392): PROFIT WARNING"
-        ],
-        "source_headline": "SATU HOLDINGS (08392): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1020/2026102000649.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T09:28:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T11:09:38Z",
-        "updated_at": "2026-10-20T11:09:38Z",
-        "decay_at": "2026-10-21T21:28:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T11:11:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2455,
+    "surfaced_total": 2458,
     "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -280188,9 +280179,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 102553,
-    "news_picked_today": 1023,
-    "news_dropped_today": 2961
+    "news_seen_today": 106531,
+    "news_picked_today": 1190,
+    "news_dropped_today": 4053
   },
   "book_momentum": {
     "live_count": 8,

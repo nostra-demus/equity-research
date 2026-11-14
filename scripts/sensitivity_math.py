@@ -21,6 +21,8 @@ WHY THIS EXISTS
 from __future__ import annotations
 
 import math
+import re
+from datetime import date
 from typing import Optional
 
 
@@ -73,6 +75,10 @@ def scenario(sidecar: dict, variable: str, delta) -> dict:
     if s is None:
         have = ", ".join(sorted(str(x.get("variable")) for x in sens if isinstance(x, dict) and x.get("variable")))
         return {"error": f"no recorded sensitivity for {variable!r} — recorded variables: {have}"}
+
+    mitigation_error = _disclosed_positions_error(s)
+    if mitigation_error:
+        return {"error": mitigation_error}
 
     coeff = _num(s.get("coefficient"))
     d = _num(delta)
@@ -151,7 +157,41 @@ def scenario(sidecar: dict, variable: str, delta) -> dict:
 # realised offset, that measured rate runs as a second case beside the bound. The orb's markdown table
 # already carries a "Mitigation assumed" column, but before these fields the sidecar did not, so the chat
 # re-published a 0%-mitigation linear figure as THE answer — the §3 qualifier falling off one layer up.
-MITIGATION_BASES = ("zero_bound", "realised_offset", "disclosed_zero", "not_applicable")
+MITIGATION_BASES = ("zero_bound", "realised_offset", "disclosed_zero", "not_applicable", "disclosed_positions")
+DISCLOSED_POSITIONS_SCOPE = "fixed_existing_positions_no_additional_response"
+# Python and JavaScript disagree on \s (notably BOM, NEL and ASCII separators). Use the same explicit
+# whitespace set as the new-state JSON schema, so blank metadata cannot pass one boundary but not another.
+DISCLOSED_POSITIONS_NONBLANK = r"[^\u0009-\u000D\u001C-\u0020\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]"
+
+
+def _disclosed_positions_error(s: dict) -> Optional[str]:
+    """One shared consistency check for the new source-position basis, before any scenario arithmetic.
+
+    This validates the declared contract, not the source itself: the reading layer must verify that the
+    citation supports the positions, date and coefficient. Existing mitigation states retain their rules.
+    """
+    if s.get("mitigation_basis") != "disclosed_positions":
+        return None
+    if s.get("basis") != "company-disclosed":
+        return "disclosed_positions requires a company-disclosed coefficient"
+    if s.get("mitigation_scope") != DISCLOSED_POSITIONS_SCOPE:
+        return f"disclosed_positions requires mitigation_scope {DISCLOSED_POSITIONS_SCOPE}"
+    for field in ("embedded_hedges", "source"):
+        value = s.get(field)
+        if not isinstance(value, str) or not re.search(DISCLOSED_POSITIONS_NONBLANK, value):
+            return f"disclosed_positions requires a nonblank {field}"
+    stamp = s.get("embedded_hedges_as_of")
+    if not isinstance(stamp, str) or not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", stamp):
+        return "disclosed_positions requires embedded_hedges_as_of as an ISO calendar date"
+    try:
+        date.fromisoformat(stamp)
+    except ValueError:
+        return "disclosed_positions embedded_hedges_as_of is not a real calendar date"
+    # Unknown is absent/null, never an invented 0% measurement or a citation to an unavailable offset.
+    for field in ("realised_offset_pct", "realised_offset_source"):
+        if s.get(field) is not None:
+            return f"disclosed_positions requires {field} to be absent or null — the measured offset is unavailable"
+    return None
 
 
 def _pct(v):
@@ -169,6 +209,8 @@ def _mitigation(s: dict, impact: float, base, rev) -> dict:
       realised_offset  already NET of the measured `realised_offset_pct` (< 100); the gross bound is shown beside.
       disclosed_zero   0% is the company's own disclosed response (a measurement, not an assumption).
       not_applicable   the variable has no management-response channel (e.g. it IS the response channel).
+      disclosed_positions  source positions remain embedded; no gross counterpart or measured offset is
+                       available. Zero ADDITIONAL response is an explicit analyst assumption, not gross zero.
     Absent (legacy sidecar) → treated conservatively as an unlabelled zero-mitigation bound (§4)."""
     mb = s.get("mitigation_basis")
     off = _pct(s.get("realised_offset_pct"))
@@ -182,7 +224,16 @@ def _mitigation(s: dict, impact: float, base, rev) -> dict:
             if rev:
                 o[f"{key}_margin_change_bps"] = round(alt_impact / rev * 1e4, 1)  # (Δ/rev) ×100 pct ×100 bps
 
-    if mb == "zero_bound":
+    if mb == "disclosed_positions":
+        o["is_bound"] = True
+        o["mitigation_note"] = (
+            "Fixed-existing-positions, zero-ADDITIONAL-response BOUND (§9): source positions at "
+            f"{s['embedded_hedges_as_of']} remain included ({s['embedded_hedges']}; {s['source']}). "
+            "No additional management response is modelled — an analyst assumption, not a company forecast. "
+            "This is not an unhedged gross coefficient or a proven worst-case outcome. "
+            "Gross exposure and a measured realised offset are not assessable from the available matched evidence."
+        )
+    elif mb == "zero_bound":
         o["is_bound"] = True
         if off is not None:
             _other_case(impact * (1 - off / 100.0), "mitigated")
@@ -232,7 +283,7 @@ def resolve_scenario(sidecar: dict, variable: str, req: dict) -> dict:
 
     Returns scenario()'s dict plus `mode` ('delta'|'level'|'reverse') and the resolved inputs, or {"error"}.
     Never fabricates: a request the sidecar can't support (no variable base for a level, no revenue base for a
-    margin target, zero coefficient) is an explicit error, not a guessed number.
+    margin target, mismatched impact/base metrics, zero coefficient) is an explicit error, not a guessed number.
     """
     if not isinstance(sidecar, dict):
         return {"error": "sensitivity_summary is not an object"}
@@ -243,6 +294,10 @@ def resolve_scenario(sidecar: dict, variable: str, req: dict) -> dict:
     if s is None:
         have = ", ".join(sorted(str(x.get("variable")) for x in sens if isinstance(x, dict) and x.get("variable")))
         return {"error": f"no recorded sensitivity for {variable!r} — recorded variables: {have}"}
+
+    mitigation_error = _disclosed_positions_error(s)
+    if mitigation_error:
+        return {"error": mitigation_error}
 
     coeff = _num(s.get("coefficient"))
     base = _num(sidecar.get("base_value"))       # base level of the base metric (e.g. FY25 Adj EBITDA)
@@ -261,6 +316,10 @@ def resolve_scenario(sidecar: dict, variable: str, req: dict) -> dict:
         extra = {"target_level": tl, "variable_base": var_base}
     elif req.get("target") is not None or req.get("target_margin") is not None:
         mode = "reverse"
+        base_metric = sidecar.get("base_metric")
+        impact_metric = s.get("impact_metric") or base_metric
+        if impact_metric != base_metric:
+            return {"error": f"cannot solve: coefficient is on {impact_metric}, not the base metric {base_metric}"}
         if coeff is None or coeff == 0:
             return {"error": "cannot solve: the recorded coefficient is zero or missing"}
         if base is None:
@@ -409,6 +468,22 @@ def _selftest() -> int:
     rev_norev = resolve_scenario(norev, "lme_aluminium_price", {"target_margin": 16})
     check("reverse_refuses_without_revenue", "error" in rev_norev and "impact" not in rev_norev)
 
+    # A revenue coefficient cannot solve an EBITDA target, even when both base values exist.
+    for label, request in (("value", {"target": 30000}), ("margin", {"target_margin": 16})):
+        refused = resolve_scenario(diff, "lme_aluminium_price", request)
+        check(f"reverse_refuses_different_metric_{label}", set(refused) == {"error"})
+
+    compatible_target = resolve_scenario(nhy, "lme_aluminium_price", {"target": 29039})
+    check("reverse_same_metric_target", _approx(compatible_target.get("resolved_delta"), 10)
+          and _approx(compatible_target.get("new_value"), 29039))
+    # Metric mismatch still permits impact-only forward requests, including variable levels.
+    for label, request, expected in (("delta", {"delta": 45}, 675),
+                                     ("level", {"target_level": 3000}, -2880)):
+        impact_only = resolve_scenario(diff, "lme_aluminium_price", request)
+        check(f"resolve_different_metric_{label}_impact_only",
+              _approx(impact_only.get("impact"), expected) and impact_only.get("new_value") is None
+              and "margin_change_bps" not in impact_only)
+
     # 15. resolve_scenario forward delta stays identical to scenario() (backward compatible)
     fwd = resolve_scenario(nhy, "lme_aluminium_price", {"delta": 45})
     check("resolve_forward_matches", fwd.get("mode") == "delta" and _approx(fwd["impact"], 675))
@@ -447,6 +522,36 @@ def _selftest() -> int:
     check("ro_without_offset_conservative", bad["is_bound"] is True)
     #   reverse mode carries the label too (the solved move inherits the coefficient's basis)
     check("reverse_carries_label", "mitigation_note" in resolve_scenario(zb, "lme_aluminium_price", {"target_margin": 16}))
+
+    # A position-inclusive source coefficient with no measured gross counterpart is not gross zero response.
+    position_row = {"variable": "price", "coefficient": 5, "source": "Unit source, Note 4",
+                    "basis": "company-disclosed", "mitigation_basis": "disclosed_positions",
+                    "mitigation_scope": DISCLOSED_POSITIONS_SCOPE, "embedded_hedges": "Fixed source positions",
+                    "embedded_hedges_as_of": "2025-12-31", "realised_offset_pct": None,
+                    "realised_offset_source": None}
+    positions = {"base_metric": "adjusted_ebitda_units", "base_value": 100,
+                 "sensitivities": [position_row]}
+    rp = resolve_scenario(positions, "price", {"delta": 2})
+    check("positions_impact_and_level", rp.get("impact") == 10 and rp.get("new_value") == 110)
+    check("positions_scope_and_source", rp.get("is_bound") is True
+          and all(text in rp.get("mitigation_note", "") for text in
+                  ("zero-ADDITIONAL-response", "2025-12-31", "Fixed source positions", "Unit source, Note 4",
+                   "not an unhedged gross", "not a company forecast", "not assessable")))
+    check("positions_no_invented_counterpart", not any(k.startswith(("gross_bound_", "mitigated_", "realised_offset_")) for k in rp))
+    for absent in ((), ("realised_offset_pct",), ("realised_offset_source",),
+                   ("realised_offset_pct", "realised_offset_source")):
+        row = {k: v for k, v in position_row.items() if k not in absent}
+        check(f"positions_unknown_offset_{absent}",
+              resolve_scenario(dict(positions, sensitivities=[row]), "price", {"delta": 2}) == rp)
+    for field, value in (("source", " "), ("source", "\ufeff"), ("source", "\x85"),
+                         ("embedded_hedges", "\x1c"), ("embedded_hedges", None),
+                         ("embedded_hedges_as_of", "2025-02-30"), ("embedded_hedges_as_of", "0000-01-01"),
+                         ("mitigation_scope", "all_response_zero"), ("basis", "inferred"),
+                         ("realised_offset_pct", 0), ("realised_offset_pct", float("nan")),
+                         ("realised_offset_source", "")):
+        sc = dict(positions, sensitivities=[dict(position_row, **{field: value})])
+        check(f"positions_invalid_{field}_{value}", set(scenario(sc, "price", 2)) == {"error"}
+              and set(resolve_scenario(sc, "price", {"target": 150})) == {"error"})
 
     if fails:
         print("SENSITIVITY MATH SELFTEST FAIL:", ", ".join(fails))
