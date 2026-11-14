@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T00:29:45Z",
+  "generated_at": "2026-11-14T00:36:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-070",
@@ -292,6 +292,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-092",
+      "headline": "Vishay Intertechnology, Inc. to Invest $56.4 million in India Semiconductor Joint Venture",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vishay-intertechnology-inc-invest-564-million-india-semiconductor-joint-venture",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:28:25Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Vishay Intertechnology commits $56.4 million capex to India semiconductor joint venture, expanding geographic production footprint with a named investment amount.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Vishay Intertechnology commits $56.4 million capex to India semiconductor joint venture, expanding geographic production footprint with a named investment amount.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vishay Intertechnology, Inc.",
+          "ticker": "VSH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -836,6 +885,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-093",
+      "headline": "Sempra Completes Sale Of 45% Equity In Sempra Infra Partners To KKR Affiliates, Shares Up",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sempra-completes-sale-45-equity-sempra-infra-partners-kkr-affiliates-shares",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:27:18Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Sempra completes 45% equity stake sale of infrastructure subsidiary to KKR affiliates in confirmed transaction; raises capital and shifts portfolio mix.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Sempra completes 45% equity stake sale of infrastructure subsidiary to KKR affiliates in confirmed transaction; raises capital and shifts portfolio mix.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sempra Energy",
+          "ticker": "SRE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-098",
+      "headline": "Paytm gets preliminary RBI nod for wallet licence; shares hit record high",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/paytm-gets-preliminary-rbi-nod-for-wallet-licence-shares-hit-record-high/article71697508.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:24:39Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Paytm receives preliminary RBI approval for wallet licence, a regulatory gate-clearance enabling wallet business-line expansion and new revenue stream.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Paytm receives preliminary RBI approval for wallet licence, a regulatory gate-clearance enabling wallet business-line expansion and new revenue stream.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paytm",
+          "ticker": "PAYTM",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1426,6 +1573,156 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-088",
+      "headline": "Paytm gets RBI nod for digital wallet business: When can users add money and make payments through Paytm Wallet again?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/paytm-gets-rbi-nod-for-digital-wallet-business-when-can-users-add-money-and-make-payments-through-paytm-wallet-again-11794564726627.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:32:54Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "RBI regulatory approval for Paytm's digital wallet business after prior restriction; restores core revenue stream and operational capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "RBI regulatory approval for Paytm's digital wallet business after prior restriction; restores core revenue stream and operational capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paytm (One97 Communications)",
+          "ticker": "PAYTM",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-100",
+      "headline": "Norway Loses Supreme Court Ruling in Oil Field Licensing Case",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-13/norway-loses-supreme-court-ruling-in-oil-field-licensing-case",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:23:19Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Norway loses Supreme Court ruling on oil-field licensing, constraining regulatory pathway for new North Sea permits; secondary negative for Norwegian E&P companies (Equinor, DNO) and global energy-supply tightening.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Norway loses Supreme Court ruling on oil-field licensing, constraining regulatory pathway for new North Sea permits; secondary negative for Norwegian E&P companies (Equinor, DNO) and global energy-supply tightening.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector",
+        "capex"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Equinor",
+          "ticker": "EQNR",
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-099",
+      "headline": "India clears Israeli firm Cellebrite to supply phone-hacking tools to government agencies",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/india-clears-israeli-firm-cellebrite-supply-phone-hacking-tools",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:22:20Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Cellebrite clears regulatory approval to supply phone-hacking software to Indian government agencies; removes market-entry barrier but no contract size or revenue disclosed; issuer likely non-publicly-traded.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Cellebrite clears regulatory approval to supply phone-hacking software to Indian government agencies; removes market-entry barrier but no contract size or revenue disclosed; issuer likely non-publicly-traded.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cellebrite",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-032",
       "headline": "Nvidia On Track For Longest Weekly Losing Streak Since 2012 As MCap Erodes By $1.6 Trillion",
       "headline_en": null,
@@ -1524,6 +1821,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-091",
+      "headline": "Centrus Energy Corp. Signs Definitive Contracts with Oklo to Supply HALEU with Deliveries Beginning in 2029",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/centrus-energy-corp-signs-definitive-contracts-oklo-supply-haleu-deliveries-beginning-2029",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T10:28:25Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Centrus Energy signs definitive contract with Oklo to supply HALEU nuclear fuel with deliveries beginning 2029, securing named forward revenue visibility and production commitments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Centrus Energy signs definitive contract with Oklo to supply HALEU nuclear fuel with deliveries beginning 2029, securing named forward revenue visibility and production commitments.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Centrus Energy Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Oklo Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-022",
       "headline": "Haushalt: Forschungsinstitute müssen mehr als eine Milliarde Euro an Rücklagen auflösen",
       "headline_en": "Budget: Research institutes must liquidate more than one billion euros in reserves",
@@ -1611,337 +1962,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-011",
-      "headline": "Aramco, PIF Close HUMAIN AI Deal",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/aramco_pif_close_humain_ai_deal-13-nov-2026-185076-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:22:28Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Aramco and Saudi PIF close HUMAIN AI deal; no disclosed deal value, terms, or strategic rationale limits assessment of capital structure or strategic shift impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Aramco and Saudi PIF close HUMAIN AI deal; no disclosed deal value, terms, or strategic rationale limits assessment of capital structure or strategic shift impact.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": "2222.SA",
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-056",
-      "headline": "Gillette India Q2 profit jumps 11% to ₹159 crore as cost savings cushion commodity pressures",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/gillette-india-q2-profit-jumps-11-to-159-crore-as-cost-savings-cushion-commodity-pressures/article71697279.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:50:48Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Gillette India Q2 profit +11% YoY to ₹159 crore, with cost savings offsetting commodity pressures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Gillette India Q2 profit +11% YoY to ₹159 crore, with cost savings offsetting commodity pressures.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gillette India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-007",
-      "headline": "Trump administration delays Medicaid work requirements by six months",
-      "headline_en": null,
-      "url": "https://www.axios.com/2026/11/13/medicaid-work-requirements-six-month-delay",
-      "source_name": "Axios",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T22:46:47Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Medicaid work-requirement implementation delayed 6 months; reduces near-term regulatory and staffing-volume pressure for nursing homes, home healthcare, and Medicaid insurers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Medicaid work-requirement implementation delayed 6 months; reduces near-term regulatory and staffing-volume pressure for nursing homes, home healthcare, and Medicaid insurers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-008",
-      "headline": "New Medicaid work requirements delayed",
-      "headline_en": null,
-      "url": "https://www.politico.com/news/2026/11/13/trump-administration-delays-medicaid-work-rules-states-01166152",
-      "source_name": "POLITICO — Health Care",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T22:04:22Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Medicaid work-requirement implementation delayed 6 months; reduces near-term regulatory and staffing-volume pressure for nursing homes, home healthcare, and Medicaid insurers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Medicaid work-requirement implementation delayed 6 months; reduces near-term regulatory and staffing-volume pressure for nursing homes, home healthcare, and Medicaid insurers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-049",
-      "headline": "ZeroStack Corp. Dismisses Davidson & Company, LLP on November 5, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/zerostack-corp-dismisses-davidson-company-llp-november-5-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:58:23Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Auditor dismissal on 5 November 2026 is a governance red flag; without disclosed context (dispute, restatement, going-concern), its significance requires immediate tracking but cannot yet be called material.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Auditor dismissal on 5 November 2026 is a governance red flag; without disclosed context (dispute, restatement, going-concern), its significance requires immediate tracking but cannot yet be called material.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZeroStack Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-057",
-      "headline": "Nvidia approaches Arm CEO Haas as employees seek Huang’s return, reports say",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/14/companies/nvidia-arm-ceo-haas-huang/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Unconfirmed report of Nvidia approaching Arm CEO; no official source or SEC filing, but if confirmed would signal potential acquisition interest in major semiconductor/IP asset.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Unconfirmed report of Nvidia approaching Arm CEO; no official source or SEC filing, but if confirmed would signal potential acquisition interest in major semiconductor/IP asset.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": -8,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "rumor",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Arm Holdings",
-          "ticker": "ARM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-019",
-      "headline": "Flights Halted Across US, FAA Cites Safety Reasons",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-13/flights-halted-across-us-faa-cites-safety-reasons-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T22:10:13Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A nationwide FAA ground stop is a major operational disruption for the entire US aviation sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280366,9 +280386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10028,
-    "news_picked_today": 88,
-    "news_dropped_today": 344
+    "news_seen_today": 13082,
+    "news_picked_today": 103,
+    "news_dropped_today": 401
   },
   "book_momentum": {
     "live_count": 8,
