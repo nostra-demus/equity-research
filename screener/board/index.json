@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-14T00:48:38Z",
+  "generated_at": "2026-11-14T00:54:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261114-145",
+      "headline": "Nvidia CEO out — 10 stocks to buy before S&P 500 hits 8,000",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/video/nvidia-ceo-out-10-stock-to-buy-before-sp-500-hits-8000",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:33:08Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Headline claims Nvidia CEO is out, which would be a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Headline claims Nvidia CEO is out, which would be a major leadership change for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261114-070",
       "headline": "Troubled Sherritt Misses Payment as Liquidity Crisis Deepens",
@@ -695,6 +744,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-156",
+      "headline": "Microsoft services begin recovering after global outage",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/microsoft-services-begin-recovering-after-global-outage?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-14T00:17:59Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Microsoft services are recovering from a global outage that disrupted operations for many businesses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Microsoft services are recovering from a global outage that disrupted operations for many businesses.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-106",
       "headline": "CCPA fines Ola ₹10 lakh over pre-ride tipping feature, orders discontinuation",
       "headline_en": null,
@@ -843,6 +941,51 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-146",
+      "headline": "Drug regulator halts obeticholic acid production, orders recall",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/drug-regulator-halts-obeticholic-acid-production-orders-recall-11794565105049.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:30:33Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Drug regulator halts production and orders a recall of obeticholic acid, impacting manufacturers of this drug.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Drug regulator halts production and orders a recall of obeticholic acid, impacting manufacturers of this drug.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-069",
       "headline": "Afterpay co-founder Nick Molnar to leave Block",
       "headline_en": null,
@@ -934,6 +1077,55 @@
         {
           "name": "Microsoft",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-148",
+      "headline": "Nvidia’s Board CEO Hunt, Stocks Finish Week Higher, Retail in Focus",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-13/the-close-11-13-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-13T23:48:58Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Reports of a CEO hunt at Nvidia suggest an impending leadership transition at a mega-cap firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Reports of a CEO hunt at Nvidia suggest an impending leadership transition at a mega-cap firm.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -1082,6 +1274,55 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-159",
+      "headline": "Microsoft apologises after global outage disrupts Outlook, Teams and Copilot for nearly 18 hours",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/microsoft-apologises-after-global-outage-disrupts-outlook-teams-and-copilot-for-nearly-18-hours/article71700683.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:25:51Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Microsoft apologized for an 18-hour global outage affecting key enterprise services like Outlook and Teams.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Microsoft apologized for an 18-hour global outage affecting key enterprise services like Outlook and Teams.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1338,6 +1579,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-161",
+      "headline": "US aviation regulator grounds flights across the country",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/c9b119ff-d1da-46a7-b2b3-4ad0544fff6b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:17:09Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "The US aviation regulator grounded flights nationwide, causing significant operational disruption to the airline industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The US aviation regulator grounded flights nationwide, causing significant operational disruption to the airline industry.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-127",
       "headline": "AirTrunk signs 1GW energy deal with European Energy Australia",
       "headline_en": null,
@@ -1383,6 +1667,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-162",
+      "headline": "Cruise Ship Capsizes After Tanker Collision in New Orleans",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-14/cruise-ship-capsizes-after-tanker-crash-in-new-orleans-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T00:29:03Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "A cruise ship capsized following a tanker collision in New Orleans, representing a significant operational and liability event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A cruise ship capsized following a tanker collision in New Orleans, representing a significant operational and liability event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1631,348 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-114",
-      "headline": "NEXGEL, Inc. Announces Note Conversion Agreements for $14.125 million of Notes and $1.276 million Private Placement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nexgel-inc-announces-note-conversion-agreements-14125-million-notes-and-1276-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:08:34Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "NEXGEL is converting $14.125 million in notes and raising $1.276 million in a private placement, impacting capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "NEXGEL is converting $14.125 million in notes and raising $1.276 million in a private placement, impacting capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEXGEL, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-116",
-      "headline": "Insite DC files for four-building data center campus outside Melbourne, Australia",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/insite-dc-files-for-four-building-data-center-campus-outside-melbourne-australia/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:05:49Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Insite DC is planning a four-building data center campus in Australia, representing a significant capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Insite DC is planning a four-building data center campus in Australia, representing a significant capital expenditure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Insite DC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-123",
-      "headline": "Rowan secures $1.5bn in financing for data center build-out",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/rowan-secures-15bn-in-financing-for-data-center-build-out/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:02:04Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Rowan secured $1.5 billion in financing for data center expansion, a significant capital commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Rowan secured $1.5 billion in financing for data center expansion, a significant capital commitment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rowan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-137",
-      "headline": "Elliott spreads out with interest in KKR-backed Flora Food Group",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/elliott-spreads-out-with-interest-in-kkr-backed-flora-food-group-13611837",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:50:00Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Elliott Management signals interest in Flora Food Group; activist involvement typically precedes governance review, strategic alternatives, or operational pressure on incumbent management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Elliott Management signals interest in Flora Food Group; activist involvement typically precedes governance review, strategic alternatives, or operational pressure on incumbent management.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 63,
-      "rank_factors": {
-        "materiality": 63,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flora Food Group",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "KKR",
-          "ticker": "KKR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-023",
-      "headline": "Paytm Wins India Central Bank’s Conditional Nod to Revive Wallet",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-13/paytm-wins-india-central-bank-s-conditional-nod-to-revive-wallet",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T11:20:09Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Paytm received conditional approval from the Reserve Bank of India to resume its wallet operations, a key revenue driver.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Paytm received conditional approval from the Reserve Bank of India to resume its wallet operations, a key revenue driver.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paytm",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-129",
-      "headline": "Paytm gets RBI prelim nod to operate wallets; shares surge to 52-week high",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/paytm-gets-rbi-prelim-authorisation-to-operate-wallets-shares-surge-to-52-week-high/articleshow/135798025.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:57:48Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Paytm received preliminary approval from the RBI to operate wallets, a significant regulatory milestone that triggered a share price surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Paytm received preliminary approval from the RBI to operate wallets, a significant regulatory milestone that triggered a share price surge.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paytm",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-064",
-      "headline": "Mamdani and Trump agree to delay on food stamp rules that put benefit at risk for millions",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/us-news/2026/nov/13/mamdani-trump-deal-snap-delay",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T23:53:43Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Delay of food stamp rules prevents potential benefit cuts for millions, impacting consumer spending power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Delay of food stamp rules prevents potential benefit cuts for millions, impacting consumer spending power.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280400,9 +280385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 22061,
-    "news_picked_today": 156,
-    "news_dropped_today": 492
+    "news_seen_today": 25028,
+    "news_picked_today": 175,
+    "news_dropped_today": 569
   },
   "book_momentum": {
     "live_count": 8,
