@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T02:29:54Z",
+  "generated_at": "2026-11-14T02:30:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-242",
@@ -845,6 +845,155 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-391",
+      "headline": "Tech stocks slide as Nvidia board prepares to oust Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.cityam.com/tech-stocks-slide-as-nvidia-board-prepares-to-oust-jensen-huang/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:18:58Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Reports of the board preparing to oust the CEO of a major tech company represent a critical management risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Reports of the board preparing to oust the CEO of a major tech company represent a critical management risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-398",
+      "headline": "Nvidia Has Hired an Outside Firm to Find Jensen Huang’s Replacement",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/12/nvidia-has-hired-an-outside-firm-to-find-jensen-huangs-replacement/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:17:24Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Nvidia has reportedly hired an outside firm to find a replacement for CEO Jensen Huang, signaling a major leadership transition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Nvidia has reportedly hired an outside firm to find a replacement for CEO Jensen Huang, signaling a major leadership transition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-401",
+      "headline": "DEWA reports record-breaking AED25.74 billion revenue in 2026",
+      "headline_en": null,
+      "url": "https://www.arnnewscentre.ae/news/business/dewa-reports-record-breaking-aed25-74-billion-revenue-in-2026/",
+      "source_name": "ARN News Centre — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:15:12Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "DEWA reported record-breaking revenue of AED 25.74 billion for 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "DEWA reported record-breaking revenue of AED 25.74 billion for 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai Electricity and Water Authority",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-021",
       "headline": "Microsoft outage hits companies and governments worldwide",
       "headline_en": null,
@@ -1188,6 +1337,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-379",
+      "headline": "Solo Brands, Inc. Loss At -$20.754 Mln In Q3",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/solo-brands-inc-loss-20754-mln-q3",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:41:47Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Solo Brands reported a net loss of $20.754 million for Q3.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Solo Brands reported a net loss of $20.754 million for Q3.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solo Brands",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-371",
       "headline": "ReNew to invest ₹80,000 crore in Andhra Pradesh across data centres and clean energy",
       "headline_en": null,
@@ -1232,6 +1430,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-389",
+      "headline": "Israeli airstrike on Nasser hospital in Gaza kills surgeon and five others",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/nov/12/israeli-airstrike-nasser-hospital-gaza-kills-surgeon",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:19:01Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "An airstrike on a hospital in Gaza represents a significant escalation in the regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "An airstrike on a hospital in Gaza represents a significant escalation in the regional conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1727,252 +1968,6 @@
           "name": "MarkForged",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-211",
-      "headline": "SpiceJet Receives Term Sheet With Investment Proposal Worth Rs 5,000 Crore: Sources",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/spicejet-receives-term-sheet-with-investment-proposal-worth-rs-5-000-crore-sources-12321506#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T08:45:55Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "SpiceJet received a term sheet for an investment proposal worth Rs 5,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "SpiceJet received a term sheet for an investment proposal worth Rs 5,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpiceJet",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-342",
-      "headline": "Kia to invest $2b in India to ramp up production",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10936332",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T04:39:53Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Kia to invest $2 billion in India to ramp production—a named capex commitment with quantified amount.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Kia to invest $2 billion in India to ramp production—a named capex commitment with quantified amount.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 2,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kia Motors",
-          "ticker": "KIA",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-156",
-      "headline": "Microsoft services begin recovering after global outage",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/microsoft-services-begin-recovering-after-global-outage?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-14T00:17:59Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Microsoft services are recovering from a global outage that disrupted operations for many businesses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Microsoft services are recovering from a global outage that disrupted operations for many businesses.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-106",
-      "headline": "CCPA fines Ola ₹10 lakh over pre-ride tipping feature, orders discontinuation",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/ccpa-fines-ola-10-lakh-over-pre-ride-tipping-feature-orders-discontinuation/article71697274.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T10:16:14Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "CCPA fined Ola ₹10 lakh for a pre-ride tipping feature and ordered its discontinuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "CCPA fined Ola ₹10 lakh for a pre-ride tipping feature and ordered its discontinuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ola",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-142",
-      "headline": "Ola Fined ₹10 Lakh For Misleading Users With Pre-Ride Tip Feature",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/ola-fined-10-lakh-for-misleading-users-with-pre-ride-tip-feature",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-13T09:46:10Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "A ₹10 lakh fine for misleading users represents a regulatory enforcement action against the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A ₹10 lakh fine for misleading users represents a regulatory enforcement action against the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ola",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -280400,9 +280395,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 73349,
-    "news_picked_today": 509,
-    "news_dropped_today": 1555
+    "news_seen_today": 75039,
+    "news_picked_today": 546,
+    "news_dropped_today": 1614
   },
   "book_momentum": {
     "live_count": 8,
