@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T09:30:24Z",
+  "generated_at": "2026-11-14T09:40:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-759",
@@ -194,6 +194,61 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261114-767",
+      "headline": "FTC Sues To Block Covetrus' $3.5 Bln Acquisition Of MWI Veterinary Supply",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ftc-sues-block-covetrus-35-bln-acquisition-mwi-veterinary-supply",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T09:06:32Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "FTC is suing to block a $3.5 billion acquisition, creating significant deal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FTC is suing to block a $3.5 billion acquisition, creating significant deal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Covetrus",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "MWI Veterinary Supply",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,56 +1967,6 @@
           "name": "Merck",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-734",
-      "headline": "StarHub Q3 Profit, EBITDA Drop, Sales Rise; Updates FY26 EBITDA View",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/starhub-q3-profit-ebitda-drop-sales-rise-updates-fy26-ebitda-view",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T05:33:28Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "StarHub reported a Q3 profit and EBITDA drop alongside an updated FY26 EBITDA view, representing a material change in financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "StarHub reported a Q3 profit and EBITDA drop alongside an updated FY26 EBITDA view, representing a material change in financial expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "StarHub",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -238294,77 +238299,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-32e55b08bf45",
-      "idea_version": "IDEAV-8b8557b5c9f1c918",
-      "idea_version_started_at": "2026-11-13T00:55:31Z",
-      "ticker": "FLO",
-      "company": "Flowers Foods",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 64% plunge in Q3 profits and issued a downward revision to its full-year 2026 outlook.",
-      "why_now": "The guidance cut was announced on 2026-11-12.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-126c71a1aa8e"
-      ],
-      "primary_source_event_id": "EVT-126c71a1aa8e",
-      "source_headlines": [
-        "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook"
-      ],
-      "source_headline": "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook",
-      "source_url": "https://www.nasdaq.com/articles/flowers-foods-q3-profit-plunges-64-cuts-fy26-outlook",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T21:38:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-13T00:55:31Z",
-      "updated_at": "2026-11-13T00:55:31Z",
-      "decay_at": "2026-11-14T09:38:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-54c229398a67",
       "idea_version": "IDEAV-e65ea26484c5cd88",
       "idea_version_started_at": "2026-11-13T00:55:31Z",
@@ -240997,6 +240931,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-32e55b08bf45",
+      "idea_version": "IDEAV-8b8557b5c9f1c918",
+      "idea_version_started_at": "2026-11-13T00:55:31Z",
+      "ticker": "FLO",
+      "company": "Flowers Foods",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 64% plunge in Q3 profits and issued a downward revision to its full-year 2026 outlook.",
+      "why_now": "The guidance cut was announced on 2026-11-12.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-126c71a1aa8e"
+      ],
+      "primary_source_event_id": "EVT-126c71a1aa8e",
+      "source_headlines": [
+        "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook"
+      ],
+      "source_headline": "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook",
+      "source_url": "https://www.nasdaq.com/articles/flowers-foods-q3-profit-plunges-64-cuts-fy26-outlook",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T21:38:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T00:55:31Z",
+      "updated_at": "2026-11-13T00:55:31Z",
+      "decay_at": "2026-11-14T09:38:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-568ff94c6eb6",
       "idea_version": "IDEAV-54b9542838a02244",
       "idea_version_started_at": "2026-11-12T19:23:01Z",
@@ -242655,9 +242660,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -242665,9 +242670,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -242686,6 +242691,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-32e55b08bf45",
+        "idea_version": "IDEAV-8b8557b5c9f1c918",
+        "idea_version_started_at": "2026-11-13T00:55:31Z",
+        "ticker": "FLO",
+        "company": "Flowers Foods",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a 64% plunge in Q3 profits and issued a downward revision to its full-year 2026 outlook.",
+        "why_now": "The guidance cut was announced on 2026-11-12.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-126c71a1aa8e"
+        ],
+        "primary_source_event_id": "EVT-126c71a1aa8e",
+        "source_headlines": [
+          "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook"
+        ],
+        "source_headline": "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook",
+        "source_url": "https://www.nasdaq.com/articles/flowers-foods-q3-profit-plunges-64-cuts-fy26-outlook",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-12T21:38:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-13T00:55:31Z",
+        "updated_at": "2026-11-13T00:55:31Z",
+        "decay_at": "2026-11-14T09:38:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-14T09:38:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2996e052e3f2",
         "idea_version": "IDEAV-b8a9d44049265f87",
@@ -279716,86 +279795,12 @@
         "archived_at": "2026-10-23T12:15:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7880bfd6f22e",
-        "idea_version": "IDEAV-018b6a7dce1b7bf4",
-        "idea_version_started_at": "2026-10-20T13:35:08Z",
-        "ticker": "GM",
-        "company": "General Motors",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The stock is reacting negatively to earnings results, suggesting underlying issues with profitability or guidance that failed to meet investor expectations.",
-        "why_now": "The market reaction is live following the earnings release today, October 20, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-46ecd6e85bbc"
-        ],
-        "primary_source_event_id": "EVT-46ecd6e85bbc",
-        "source_headlines": [
-          "General Motors Stock Crashes 5% Pre-Market After Earnings Release. What Spooked Investors"
-        ],
-        "source_headline": "General Motors Stock Crashes 5% Pre-Market After Earnings Release. What Spooked Investors",
-        "source_url": "https://www.ndtvprofit.com/markets/general-motors-stock-crashes-5-pre-market-after-earnings-release-what-spooked-investors-12210797#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T11:38:55Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T13:35:08Z",
-        "updated_at": "2026-10-20T13:35:08Z",
-        "decay_at": "2026-10-21T23:38:55Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T12:15:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2459,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -279814,9 +279819,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 134492,
-    "news_picked_today": 1296,
-    "news_dropped_today": 6451
+    "news_seen_today": 134813,
+    "news_picked_today": 1305,
+    "news_dropped_today": 6490
   },
   "book_momentum": {
     "live_count": 8,
