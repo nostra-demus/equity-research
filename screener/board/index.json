@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-14T03:49:12Z",
+  "generated_at": "2026-11-14T03:56:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261114-242",
@@ -838,6 +838,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-543",
+      "headline": "Fairfax's Rs 52,878-crore IDBI Bank deal sets stage for a financial services powerhouse",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/fairfaxs-rs-52878-crore-idbi-bank-deal-sets-stage-for-a-financial-services-powerhouse/articleshow/135764422.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T10:04:40Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Fairfax is acquiring IDBI Bank in a deal valued at Rs 52,878 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fairfax is acquiring IDBI Bank in a deal valued at Rs 52,878 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Fairfax",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-085",
       "headline": "Jensen Huang quits Nvidia, the company he co-founded in 1993. The timeline, day by day",
       "headline_en": null,
@@ -1387,6 +1441,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261114-537",
+      "headline": "Genting Singapore Q3 net profit falls 42.2% to S$54.7 million on softer premium gaming",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/genting-singapore-q3-net-profit-falls-42-2-s54-7-million-softer-premium-gaming",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T10:06:35Z",
+      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
+      "prelim_note": "Genting Singapore reported a 42.2% decline in Q3 net profit to S$54.7 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Genting Singapore reported a 42.2% decline in Q3 net profit to S$54.7 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genting Singapore",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261114-518",
       "headline": "SCHEDULE 13D/A - THOMSON REUTERS CORP /CAN/ (0001075124) (Subject)",
       "headline_en": null,
@@ -1879,104 +1982,6 @@
           "name": "WEG",
           "ticker": null,
           "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-379",
-      "headline": "Solo Brands, Inc. Loss At -$20.754 Mln In Q3",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/solo-brands-inc-loss-20754-mln-q3",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:41:47Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "Solo Brands reported a net loss of $20.754 million for Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Solo Brands reported a net loss of $20.754 million for Q3.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solo Brands",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261114-371",
-      "headline": "ReNew to invest ₹80,000 crore in Andhra Pradesh across data centres and clean energy",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/renew-to-invest-29500-cr-in-2-new-projects-in-andhra-pradesh/article71692210.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:25:16Z",
-      "sweep_file": "screener/inbox/2026-11-14_sweep.json",
-      "prelim_note": "ReNew announces ₹80,000 crore capex commitment across data centres and clean energy in Andhra Pradesh, a material capacity-expansion plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "ReNew announces ₹80,000 crore capex commitment across data centres and clean energy in Andhra Pradesh, a material capacity-expansion plan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ReNew",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -280190,9 +280195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 95904,
-    "news_picked_today": 777,
-    "news_dropped_today": 2295
+    "news_seen_today": 97038,
+    "news_picked_today": 804,
+    "news_dropped_today": 2388
   },
   "book_momentum": {
     "live_count": 8,
