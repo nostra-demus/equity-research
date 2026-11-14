@@ -58,9 +58,9 @@
               "required": ["mitigation_scope", "embedded_hedges", "embedded_hedges_as_of", "source", "basis"],
               "properties": {
                 "mitigation_scope": {"const": "fixed_existing_positions_no_additional_response"},
-                "embedded_hedges": {"type": "string", "pattern": "\\S"},
-                "embedded_hedges_as_of": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "format": "date"},
-                "source": {"type": "string", "pattern": "\\S"},
+                "embedded_hedges": {"type": "string", "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"},
+                "embedded_hedges_as_of": {"type": "string", "pattern": "^(?!0000)[0-9]{4}-[0-9]{2}-[0-9]{2}$", "format": "date"},
+                "source": {"type": "string", "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"},
                 "basis": {"const": "company-disclosed"},
                 "realised_offset_pct": {"type": "null"},
                 "realised_offset_source": {"type": "null"}

@@ -576,8 +576,13 @@ await (async () => {
   await check('§9 disclosed positions: malformed new-state metadata returns null rather than a generic zero-mitigation result', async () => {
     const invalid: [string, Record<string, unknown>][] = [
       ['blank source', { source: ' ' }],
+      ['BOM-only source', { source: '\uFEFF' }],
+      ['BOM-only position description', { embedded_hedges: '\uFEFF' }],
+      ['U+0085-only source', { source: '\u0085' }],
+      ['U+001C-only position description', { embedded_hedges: '\u001C' }],
       ['unsupported scope', { mitigation_scope: 'all_response_zero' }],
       ['invalid calendar date', { embedded_hedges_as_of: '2025-02-30' }],
+      ['year zero snapshot', { embedded_hedges_as_of: '0000-01-01' }],
       ['missing source snapshot', { embedded_hedges_as_of: undefined }],
       ['inferred basis', { basis: 'inferred' }],
       ['invented zero offset', { realised_offset_pct: 0 }],

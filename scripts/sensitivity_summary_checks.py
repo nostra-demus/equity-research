@@ -230,7 +230,9 @@ def _selftest() -> int:
         sc = dict(positions, sensitivities=[{k: v for k, v in row.items() if k not in absent}
                                           for row in positions["sensitivities"]])
         check(f"positions absent/null {absent}", check_sensitivity_summary(sc) == [])
-    for field, value in (("source", " "), ("embedded_hedges", None), ("embedded_hedges_as_of", "2025-02-30"),
+    for field, value in (("source", " "), ("source", "\ufeff"), ("source", "\x85"),
+                         ("embedded_hedges", "\x1c"), ("embedded_hedges", None),
+                         ("embedded_hedges_as_of", "2025-02-30"), ("embedded_hedges_as_of", "0000-01-01"),
                          ("mitigation_scope", "gross"), ("basis", "inferred"),
                          ("realised_offset_pct", 0), ("realised_offset_source", "")):
         sc = dict(positions, sensitivities=[dict(row, **{field: value}) for row in positions["sensitivities"]])

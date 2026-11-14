@@ -159,6 +159,9 @@ def scenario(sidecar: dict, variable: str, delta) -> dict:
 # re-published a 0%-mitigation linear figure as THE answer — the §3 qualifier falling off one layer up.
 MITIGATION_BASES = ("zero_bound", "realised_offset", "disclosed_zero", "not_applicable", "disclosed_positions")
 DISCLOSED_POSITIONS_SCOPE = "fixed_existing_positions_no_additional_response"
+# Python and JavaScript disagree on \s (notably BOM, NEL and ASCII separators). Use the same explicit
+# whitespace set as the new-state JSON schema, so blank metadata cannot pass one boundary but not another.
+DISCLOSED_POSITIONS_NONBLANK = r"[^\u0009-\u000D\u001C-\u0020\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]"
 
 
 def _disclosed_positions_error(s: dict) -> Optional[str]:
@@ -175,7 +178,7 @@ def _disclosed_positions_error(s: dict) -> Optional[str]:
         return f"disclosed_positions requires mitigation_scope {DISCLOSED_POSITIONS_SCOPE}"
     for field in ("embedded_hedges", "source"):
         value = s.get(field)
-        if not isinstance(value, str) or not value.strip():
+        if not isinstance(value, str) or not re.search(DISCLOSED_POSITIONS_NONBLANK, value):
             return f"disclosed_positions requires a nonblank {field}"
     stamp = s.get("embedded_hedges_as_of")
     if not isinstance(stamp, str) or not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", stamp):
@@ -540,7 +543,9 @@ def _selftest() -> int:
         row = {k: v for k, v in position_row.items() if k not in absent}
         check(f"positions_unknown_offset_{absent}",
               resolve_scenario(dict(positions, sensitivities=[row]), "price", {"delta": 2}) == rp)
-    for field, value in (("source", " "), ("embedded_hedges", None), ("embedded_hedges_as_of", "2025-02-30"),
+    for field, value in (("source", " "), ("source", "\ufeff"), ("source", "\x85"),
+                         ("embedded_hedges", "\x1c"), ("embedded_hedges", None),
+                         ("embedded_hedges_as_of", "2025-02-30"), ("embedded_hedges_as_of", "0000-01-01"),
                          ("mitigation_scope", "all_response_zero"), ("basis", "inferred"),
                          ("realised_offset_pct", 0), ("realised_offset_pct", float("nan")),
                          ("realised_offset_source", "")):
