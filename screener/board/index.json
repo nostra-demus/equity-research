@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T23:11:04Z",
+  "generated_at": "2026-11-15T23:12:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-331",
+      "headline": "M79: Investor Presentation - Kilba Tungsten Project Acquisition",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.M79?key=2924-03161959-6A1355133",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T23:04:47Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "M79 announced the acquisition of the Kilba Tungsten Project, a significant expansion of its asset base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "M79 announced the acquisition of the Kilba Tungsten Project, a significant expansion of its asset base.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "M79",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-327",
       "headline": "M79: Option to acquire 80% of advanced WA Tungsten Project [price-sensitive]",
@@ -1930,55 +1979,6 @@
           "name": "Sipchem",
           "ticker": null,
           "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-166",
-      "headline": "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/kaynes-technology-q2-profit-crashes-62-to-45-crore-rising-costs-hit-margins-despite-revenue-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T08:58:45Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Kaynes Technology reported a 62% crash in Q2 profit to ₹45 crore due to rising costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kaynes Technology reported a 62% crash in Q2 profit to ₹45 crore due to rising costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kaynes Technology",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -283246,9 +283246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5457,
-    "news_picked_today": 819,
-    "news_dropped_today": 3017
+    "news_seen_today": 5491,
+    "news_picked_today": 825,
+    "news_dropped_today": 3045
   },
   "book_momentum": {
     "live_count": 8,
