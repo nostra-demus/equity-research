@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T21:56:59Z",
+  "generated_at": "2026-11-15T21:57:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-311",
+      "headline": "ELD: Elders FY26 Results Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ELD?key=2924-03161795-2A1710610",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T21:50:07Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Elders released its FY26 annual financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Elders released its FY26 annual financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elders",
+          "ticker": "ELD",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-310",
       "headline": "IEL: Rejection of revised unsolicited proposal [price-sensitive]",
@@ -1932,47 +1981,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-260",
-      "headline": "Israeli drone strike kills one in Gaza’s al-Mawasi",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drone-strike-kills-one-gazas-al-mawasi",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T17:31:42Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "An Israeli drone strike killed one person in Gaza’s al-Mawasi, indicating an escalation of conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "An Israeli drone strike killed one person in Gaza’s al-Mawasi, indicating an escalation of conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241346,78 +241354,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0e86fc174ccf",
-      "idea_version": "IDEAV-11825d05875dbe11",
-      "idea_version_started_at": "2026-11-14T11:25:40Z",
-      "ticker": "PATANJALI",
-      "company": "Patanjali Foods",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 19% decline in quarterly profit despite revenue growth, indicating significant margin compression and operational inefficiency.",
-      "why_now": "The Q2 earnings results were released on November 14, 2026, highlighting immediate pressure on profitability.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-753d4e631f22"
-      ],
-      "primary_source_event_id": "EVT-753d4e631f22",
-      "source_headlines": [
-        "Patanjali Foods Q2 Results: Profit Falls 19% To Rs 420 Crore Despite 16% Revenue Growth"
-      ],
-      "source_headline": "Patanjali Foods Q2 Results: Profit Falls 19% To Rs 420 Crore Despite 16% Revenue Growth",
-      "source_url": "https://www.ndtvprofit.com/markets/patanjali-foods-q2-results-profit-falls-19-to-rs-420-crore-despite-16-revenue-growth-12326157#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-14T09:57:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-14T11:25:40Z",
-      "updated_at": "2026-11-14T11:25:40Z",
-      "decay_at": "2026-11-15T21:57:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1f9eea8b1f45",
       "idea_version": "IDEAV-ab24865293ff127a",
       "idea_version_started_at": "2026-11-15T11:43:54Z",
@@ -244341,6 +244277,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0e86fc174ccf",
+      "idea_version": "IDEAV-11825d05875dbe11",
+      "idea_version_started_at": "2026-11-14T11:25:40Z",
+      "ticker": "PATANJALI",
+      "company": "Patanjali Foods",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 19% decline in quarterly profit despite revenue growth, indicating significant margin compression and operational inefficiency.",
+      "why_now": "The Q2 earnings results were released on November 14, 2026, highlighting immediate pressure on profitability.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-753d4e631f22"
+      ],
+      "primary_source_event_id": "EVT-753d4e631f22",
+      "source_headlines": [
+        "Patanjali Foods Q2 Results: Profit Falls 19% To Rs 420 Crore Despite 16% Revenue Growth"
+      ],
+      "source_headline": "Patanjali Foods Q2 Results: Profit Falls 19% To Rs 420 Crore Despite 16% Revenue Growth",
+      "source_url": "https://www.ndtvprofit.com/markets/patanjali-foods-q2-results-profit-falls-19-to-rs-420-crore-despite-16-revenue-growth-12326157#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-14T09:57:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T11:25:40Z",
+      "updated_at": "2026-11-14T11:25:40Z",
+      "decay_at": "2026-11-15T21:57:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a5ec7bbbdbd2",
       "idea_version": "IDEAV-ab5e698e0abc3ba9",
       "idea_version_started_at": "2026-11-14T10:59:20Z",
@@ -246072,9 +246080,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -246082,9 +246090,9 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       }
     },
     "retention": {
@@ -246103,6 +246111,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0e86fc174ccf",
+        "idea_version": "IDEAV-11825d05875dbe11",
+        "idea_version_started_at": "2026-11-14T11:25:40Z",
+        "ticker": "PATANJALI",
+        "company": "Patanjali Foods",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a 19% decline in quarterly profit despite revenue growth, indicating significant margin compression and operational inefficiency.",
+        "why_now": "The Q2 earnings results were released on November 14, 2026, highlighting immediate pressure on profitability.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-753d4e631f22"
+        ],
+        "primary_source_event_id": "EVT-753d4e631f22",
+        "source_headlines": [
+          "Patanjali Foods Q2 Results: Profit Falls 19% To Rs 420 Crore Despite 16% Revenue Growth"
+        ],
+        "source_headline": "Patanjali Foods Q2 Results: Profit Falls 19% To Rs 420 Crore Despite 16% Revenue Growth",
+        "source_url": "https://www.ndtvprofit.com/markets/patanjali-foods-q2-results-profit-falls-19-to-rs-420-crore-despite-16-revenue-growth-12326157#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-14T09:57:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-14T11:25:40Z",
+        "updated_at": "2026-11-14T11:25:40Z",
+        "decay_at": "2026-11-15T21:57:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T21:57:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a5ec7bbbdbd2",
         "idea_version": "IDEAV-ab5e698e0abc3ba9",
@@ -283138,86 +283221,12 @@
         "archived_at": "2026-10-25T22:53:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a9e3b13426c6",
-        "idea_version": "IDEAV-76ed845b6ab19a4f",
-        "idea_version_started_at": "2026-10-23T04:15:56Z",
-        "ticker": "MRNA",
-        "company": "Moderna",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Leaked clinical data for the company's melanoma vaccine candidate indicates underperformance, threatening the core pipeline valuation.",
-        "why_now": "The data leak occurred on October 22, 2026, and the market is currently reacting to the negative read-through for future revenue.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 74,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4db612a072f3",
-          "EVT-047f6e387f8f"
-        ],
-        "primary_source_event_id": "EVT-4db612a072f3",
-        "source_headlines": [
-          "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
-          "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms"
-        ],
-        "source_headline": "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
-        "source_url": "https://www.forbes.com/sites/maryroeloffs/2026/10/22/moderna-stock-plunges-25-after-possible-cancer-vaccine-data-leak/",
-        "source_name": "Forbes",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-22T20:55:58Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-23T04:15:56Z",
-        "updated_at": "2026-10-23T04:15:56Z",
-        "decay_at": "2026-10-24T08:55:58Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-25T21:59:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2508,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -283236,9 +283245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4867,
-    "news_picked_today": 698,
-    "news_dropped_today": 2825
+    "news_seen_today": 4913,
+    "news_picked_today": 713,
+    "news_dropped_today": 2856
   },
   "book_momentum": {
     "live_count": 8,
