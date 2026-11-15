@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T09:29:00Z",
+  "generated_at": "2026-11-15T09:29:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-144",
@@ -240203,6 +240203,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-13f962c9cc6f",
+      "idea_version": "IDEAV-78fc005eab303bdb",
+      "idea_version_started_at": "2026-11-15T09:29:19Z",
+      "ticker": "HINDALCO",
+      "company": "Hindalco Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The divestment of two China units for $265 million allows the company to deleverage and focus capital on higher-margin core operations.",
+      "why_now": "The sale was announced on 2026-11-15.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-72cf2c4f0e51"
+      ],
+      "primary_source_event_id": "EVT-72cf2c4f0e51",
+      "source_headlines": [
+        "Hindalco's Novelis to sell two China units for $265 million"
+      ],
+      "source_headline": "Hindalco's Novelis to sell two China units for $265 million",
+      "source_url": "https://www.thehindubusinessline.com/companies/hindalcos-novelis-to-sell-two-china-units-for-265-million/article71704408.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T09:18:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T09:29:19Z",
+      "updated_at": "2026-11-15T09:29:19Z",
+      "decay_at": "2026-11-16T21:18:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-72309e2e1a40",
       "idea_version": "IDEAV-d589b8b9da0da5c7",
       "idea_version_started_at": "2026-11-15T09:11:53Z",
@@ -243425,77 +243497,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-75e2e4285cbd",
-      "idea_version": "IDEAV-f569e04b884cd3bd",
-      "idea_version_started_at": "2026-11-12T12:14:16Z",
-      "ticker": "PAGEIND.NS",
-      "company": "Page Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported weak operating performance in Q2, leading to a significant earnings miss and investor disappointment.",
-      "why_now": "The negative earnings report was released on 2026-11-12.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a4d375b4016"
-      ],
-      "primary_source_event_id": "EVT-4a4d375b4016",
-      "source_headlines": [
-        "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared"
-      ],
-      "source_headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
-      "source_url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T09:12:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T12:14:16Z",
-      "updated_at": "2026-11-12T12:14:16Z",
-      "decay_at": "2026-11-13T21:12:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-785361ba10ab",
       "idea_version": "IDEAV-8be517a9b511f654",
       "idea_version_started_at": "2026-11-15T00:19:25Z",
@@ -245427,79 +245428,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-592b06bbc851",
-      "idea_version": "IDEAV-31e51e00d854597a",
-      "idea_version_started_at": "2026-11-12T14:12:08Z",
-      "ticker": "PAGEIND",
-      "company": "Page Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Weak operating performance in Q2 indicates margin compression and potential demand headwinds for the apparel manufacturer.",
-      "why_now": "The earnings report was released on 2026-11-12, triggering a nearly 10% decline in the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a4d375b4016"
-      ],
-      "primary_source_event_id": "EVT-4a4d375b4016",
-      "source_headlines": [
-        "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared"
-      ],
-      "source_headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
-      "source_url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T09:12:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T14:12:08Z",
-      "updated_at": "2026-11-12T14:12:08Z",
-      "decay_at": "2026-11-13T21:12:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3ebff2cb046d",
       "idea_version": "IDEAV-09aa700544623c42",
       "idea_version_started_at": "2026-11-12T13:36:01Z",
@@ -245582,9 +245510,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -245592,23 +245520,23 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 277,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 25
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1910,
-      "oldest_retained_at": "2026-10-20T21:43:13Z",
+      "evicted_count": 1912,
+      "oldest_retained_at": "2026-10-21T04:49:23Z",
       "side_counts": {
         "long": {
           "evicted_count": 1255,
           "oldest_retained_at": "2026-11-02T12:45:00Z"
         },
         "short": {
-          "evicted_count": 656,
-          "oldest_retained_at": "2026-10-20T21:43:13Z"
+          "evicted_count": 658,
+          "oldest_retained_at": "2026-10-21T04:49:23Z"
         }
       }
     },
@@ -249018,8 +248946,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T21:12:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T09:29:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249094,8 +249022,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T21:12:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T09:29:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -282724,8 +282652,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2494,
-    "live_count": 37,
+    "surfaced_total": 2495,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
