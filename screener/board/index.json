@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T17:46:09Z",
+  "generated_at": "2026-11-15T17:47:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -1294,6 +1294,47 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-260",
+      "headline": "Israeli drone strike kills one in Gaza’s al-Mawasi",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drone-strike-kills-one-gazas-al-mawasi",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T17:31:42Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "An Israeli drone strike killed one person in Gaza’s al-Mawasi, indicating an escalation of conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "An Israeli drone strike killed one person in Gaza’s al-Mawasi, indicating an escalation of conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-219",
       "headline": "Israeli airstrike kills senior Hamas commander in Gaza",
       "headline_en": null,
@@ -1876,50 +1917,6 @@
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-222",
-      "headline": "'Zionist regime's false flag': Iran warns France over supermarket cyberattack",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/news/zionist-regimes-false-flag-iran-warns-france-over-supermarket-cyberattack",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T11:39:05Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Geopolitical escalation involving cyberattack accusations between Iran and France.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Geopolitical escalation involving cyberattack accusations between Iran and France.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -283182,9 +283179,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3617,
-    "news_picked_today": 531,
-    "news_dropped_today": 2373
+    "news_seen_today": 3627,
+    "news_picked_today": 535,
+    "news_dropped_today": 2379
   },
   "book_momentum": {
     "live_count": 8,
