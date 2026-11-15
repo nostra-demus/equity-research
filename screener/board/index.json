@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T07:06:03Z",
+  "generated_at": "2026-11-15T07:06:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-117",
@@ -240343,6 +240343,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-89fdf8aeee80",
+      "idea_version": "IDEAV-6a3384f4a9503fcb",
+      "idea_version_started_at": "2026-11-15T07:06:24Z",
+      "ticker": "VEDL",
+      "company": "Vedanta",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company recorded a ₹379 crore impairment on its Cambay block, signaling poor asset performance and potential negative impacts on near-term earnings.",
+      "why_now": "The impairment was reported on 2026-11-15.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3f5281752a25"
+      ],
+      "primary_source_event_id": "EVT-3f5281752a25",
+      "source_headlines": [
+        "ONGC takes charge of Cambay block as Vedanta records ₹379 crore impairment"
+      ],
+      "source_headline": "ONGC takes charge of Cambay block as Vedanta records ₹379 crore impairment",
+      "source_url": "https://www.thehindubusinessline.com/companies/ongc-takes-charge-of-cambay-block-as-vedanta-records-379-crore-impairment/article71704266.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T06:59:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T07:06:24Z",
+      "updated_at": "2026-11-15T07:06:24Z",
+      "decay_at": "2026-11-16T18:59:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b3f7b1e6cb59",
       "idea_version": "IDEAV-9601aed2b30685b2",
       "idea_version_started_at": "2026-11-15T06:04:56Z",
@@ -241708,6 +241781,78 @@
       "surfaced_at": "2026-11-15T06:04:56Z",
       "updated_at": "2026-11-15T06:04:56Z",
       "decay_at": "2026-11-16T17:46:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-69be6242b6c3",
+      "idea_version": "IDEAV-3683518de6323918",
+      "idea_version_started_at": "2026-11-15T07:06:24Z",
+      "ticker": "OLAELEC",
+      "company": "Ola Electric",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The decision to shut down company-owned outlets suggests a pivot to a less capital-intensive model that may indicate underlying demand weakness or unsustainable customer acquisition costs.",
+      "why_now": "The restructuring plan was announced on 2026-11-15.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-256aff80b371"
+      ],
+      "primary_source_event_id": "EVT-256aff80b371",
+      "source_headlines": [
+        "Ola Electric founder Bhavish Aggarwal has a new plan to sell e-scooters: Shut down company-owned outlets and…"
+      ],
+      "source_headline": "Ola Electric founder Bhavish Aggarwal has a new plan to sell e-scooters: Shut down company-owned outlets and…",
+      "source_url": "https://www.livemint.com/companies/ola-electric-founder-bhavish-aggarwal-has-a-new-plan-to-sell-e-scooters-shut-down-company-owned-outlets-and-11794724920505.html",
+      "source_name": "Mint",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-15T06:50:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T07:06:24Z",
+      "updated_at": "2026-11-15T07:06:24Z",
+      "decay_at": "2026-11-16T18:50:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -282791,8 +282936,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2490,
-    "live_count": 35,
+    "surfaced_total": 2492,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
