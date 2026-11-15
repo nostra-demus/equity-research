@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T03:20:02Z",
+  "generated_at": "2026-11-15T03:23:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -293,6 +293,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-072",
+      "headline": "HSBC’s uphill battle to sell $20b deposit book in a precarious market",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/hsbc-s-uphill-battle-to-sell-20b-deposit-book-in-a-precarious-market-20261115-p61e9c?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T03:21:12Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "HSBC is facing difficulty in executing a $20 billion divestment of its deposit book, which could impact its capital structure and strategic goals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "HSBC is facing difficulty in executing a $20 billion divestment of its deposit book, which could impact its capital structure and strategic goals.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1892,49 +1941,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-013",
-      "headline": "Carney says he's 'making progress' with Trump on possible US-Canada trade deal",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/international/6221010-carney-trump-canada-us-trade-progress/",
-      "source_name": "The Hill — Business News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:26:46Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Progress on a potential US-Canada trade deal suggests a reduction in cross-border trade friction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Progress on a potential US-Canada trade deal suggests a reduction in cross-border trade friction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282035,9 +282041,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 363,
-    "news_picked_today": 73,
-    "news_dropped_today": 290
+    "news_seen_today": 368,
+    "news_picked_today": 77,
+    "news_dropped_today": 291
   },
   "book_momentum": {
     "live_count": 8,
