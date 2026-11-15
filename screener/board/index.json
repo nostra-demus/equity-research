@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T05:25:56Z",
+  "generated_at": "2026-11-15T05:44:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-101",
+      "headline": "Novelis Cuts China Exposure With $265 Million Sale",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/novelis-cuts-china-exposure-with-265-million-sale",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T05:30:41Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Novelis is divesting assets in China for $265 million, representing a strategic shift in geographic exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novelis is divesting assets in China for $265 million, representing a strategic shift in geographic exposure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novelis",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-092",
       "headline": "Ashok Leyland Q2 Results: Profit Rises 12.7% To Rs 869 Crore, Dividend Declared; Check Record Date",
@@ -1665,6 +1714,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-106",
+      "headline": "Iraqi PM escalates Jurf Al Sakhar smuggling crackdown, sacks security chiefs and refers suspects to court",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/mena/2026/11/15/iraqi-pm-escalates-jurf-al-sakhar-smuggling-crackdown-sacks-security-chiefs-and-refers-suspects-to-court/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T05:36:22Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Government crackdown on smuggling and dismissal of security officials in Iraq indicates heightened political and operational risk in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Government crackdown on smuggling and dismissal of security officials in Iraq indicates heightened political and operational risk in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-066",
       "headline": "Thai Central Bank Chairman Rebukes Slow Reform, SME Credit Slump",
       "headline_en": null,
@@ -1850,105 +1942,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-093",
-      "headline": "Worley CEO Chris Ashton’s $10m pay packet under fire",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/infrastructure/worley-ceo-chris-ashton-s-10m-pay-packet-under-fire-20261115-p61dds?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Worley CEO's $10m pay package is facing shareholder criticism, which may impact management credibility and governance sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Worley CEO's $10m pay package is facing shareholder criticism, which may impact management credibility and governance sentiment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Worley",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-059",
-      "headline": "Zelenskyy accuses Musk’s SpaceX of lying about restrictions for Starshield, says curbs more ‘political’ than ‘technical’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/zelenskyy-accuses-musk-s-spacex-of-lying-about-restrictions-for-starshield-says-curbs-more-political-than-technical-11794709483082.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:39:48Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Public criticism from a head of state regarding SpaceX's Starshield operations introduces political and regulatory risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Public criticism from a head of state regarding SpaceX's Starshield operations introduces political and regulatory risk for the company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282483,9 +282476,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 583,
-    "news_picked_today": 118,
-    "news_dropped_today": 465
+    "news_seen_today": 616,
+    "news_picked_today": 128,
+    "news_dropped_today": 488
   },
   "book_momentum": {
     "live_count": 8,
