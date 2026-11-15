@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T08:09:05Z",
+  "generated_at": "2026-11-15T08:14:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-144",
@@ -1486,6 +1486,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-148",
+      "headline": "Tata Heir Questions Big Bets as $185 Billion Group Feud Deepens",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/tata-heir-questions-big-bets-as-185-billion-group-feud-deepens",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T07:55:57Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-135",
       "headline": "Ola Electric founder Bhavish Aggarwal has a new plan to sell e-scooters: Shut down company-owned outlets and…",
       "headline_en": null,
@@ -1930,55 +1979,6 @@
           "name": "Wipro",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-086",
-      "headline": "SpaceX catches Starship for first time, drawing praise in Washington",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/technology/6221123-spacex-starship-historic-landing-lawmakers-react/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T04:14:36Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a major technical milestone with the Starship catch, validating its reusable launch system.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SpaceX successfully demonstrated a major technical milestone with the Starship catch, validating its reusable launch system.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -282954,9 +282954,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 982,
-    "news_picked_today": 201,
-    "news_dropped_today": 781
+    "news_seen_today": 995,
+    "news_picked_today": 206,
+    "news_dropped_today": 789
   },
   "book_momentum": {
     "live_count": 8,
