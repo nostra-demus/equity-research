@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T01:27:49Z",
+  "generated_at": "2026-11-15T01:33:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -427,6 +427,56 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-030",
+      "headline": "Australian data centre founder reveals mounting debt ahead of IPO",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/australian-data-centre-founder-reveals-mounting-debt-ahead-of-ipo-20261115-p61e6u?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T01:27:34Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The headline indicates a company founder is revealing mounting debt ahead of an IPO, which could impact the IPO's success or valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "The headline indicates a company founder is revealing mounting debt ahead of an IPO, which could impact the IPO's success or valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit",
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Australian data centre founder",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -281297,7 +281347,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4876,
+    "inbox_unconsumed": 4877,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -281306,9 +281356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 151,
-    "news_picked_today": 30,
-    "news_dropped_today": 121
+    "news_seen_today": 157,
+    "news_picked_today": 31,
+    "news_dropped_today": 126
   },
   "book_momentum": {
     "live_count": 8,
