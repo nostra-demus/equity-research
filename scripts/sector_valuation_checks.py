@@ -39,6 +39,9 @@ returns:
   - `[tok...]` — one or more forbidden-method tokens present (a violation)
 
 Both callers treat a non-empty list as a violation and `None`/`[]` as no violation.
+
+Check BJ (§16 "no double-charging a quality gap", `eval_bj_quality_double_count`) lives here too — same
+§16 valuation-method doctrine, same two callers, same return convention. See its section below.
 """
 import re
 
@@ -145,3 +148,141 @@ def eval_w_sector_valuation(business_type, primary_valuation_method):
             for fm in fmethods:
                 if fm in pvm_norm and fm not in hits: hits.append(fm)
     return hits
+
+
+# ── Check BJ — §16 "no double-charging a quality gap" ─────────────────────────────────────────────
+# CLAUDE.md §16: on an EARNINGS-based multiple (EV/EBITDA, EV/EBIT, P/E, P/FCF) the profitability gap is
+# already in the denominator — the peer multiple applied to the company's own weaker earnings has priced
+# it once — so a further haircut "derived mechanically as own margin ÷ peer margin" charges the same
+# weakness twice. `03_relative-valuation-peers.md` carries a DOUBLE-COUNT TEST and a quality-adjustment
+# ledger for exactly this, but nothing checked either. The defect it closes is the doctrine's own
+# example, shipped: HAIER_2026-08-13 03 §5 sized its BASE case as `9.71x × (8.7% / 11.5%) = 7.35x` on
+# LTM EV/EBITDA (claiming EV/EBITDA "does not already normalize for margin differences") — a ~24%
+# value cut the denominator had already taken. Three rules, each narrow enough to measure clean on the
+# committed corpus (only HAIER's formula, and the pre-ledger runs' unledgered haircuts, fire):
+#   F  a line that multiplies a multiple by a ratio of two percentages, names an earnings multiple and
+#      "margin", and is not a book/return-based (P/B, P/TBV, ROE) scaling — §16 allows those;
+#   L  a ledger row marked "Yes — gap already in the denominator" that ADJUSTS the multiple and is
+#      sized by a percentage-over-percentage ratio;
+#   P  the valuation sidecar records a haircut (applied < median) on an earnings multiple while 03
+#      carries no quality-adjustment ledger — the haircut's reason is then unauditable.
+# A line that is itself discussing the double count ("double-count", "twice") is exempt from F, so an
+# orb quoting the bad formula in order to reject it is not flagged.
+BJ_DATE = "2026-11-15"  # forward-looking; committed runs predate it → N/A (retrospective advisory in eval.py)
+_BJ_MULT = r"\d+(?:\.\d+)?\s*[x×]"
+_BJ_PCT = r"\d+(?:\.\d+)?\s*%"
+_BJ_FORMULA = re.compile(_BJ_MULT + r"\s*[×*x·]\s*\(?\s*" + _BJ_PCT + r"\s*(?:[/÷]|divided by)\s*" + _BJ_PCT, re.I)
+_BJ_RATIO = re.compile(_BJ_PCT + r"\s*(?:[/÷]|divided by)\s*" + _BJ_PCT, re.I)
+_BJ_EARN = re.compile(r"\bEBITDA\b|\bEBIT\b|\bP\s*/\s*E\b|\bPE\b|\bEPS\b|\bearnings\b|\bP\s*/\s*FCF\b|\bFCF\b", re.I)
+_BJ_BOOK = re.compile(r"\bP\s*/\s*(?:T(?:ang)?)?B(?:V|ook)?\b|\btangible book\b|\bbook value\b|\bROE\b|\bROTE\b|"
+                      r"\bEV\s*/\s*(?:Sales|Revenue)\b", re.I)
+_BJ_MULT_NAME = re.compile(r"\bEV\s*/\s*(?:LTM\s+|NTM\s+)?(?:EBITDA|EBIT|Sales|Revenue)\b|\bP\s*/\s*(?:E|FCF|B|BV|TBV|TangBV|"
+                           r"tangible book|book)\b", re.I)
+# A multiple named only to CONTRAST it against the real target ("…margin-blind unlike P/E", "…vs P/E")
+# is NOT the multiple the haircut is applied to. When such a marker sits immediately before a name, that
+# name is skipped in rule F's "nearest multiple before the formula" resolution — otherwise a §16-LEGITIMATE
+# EV/Sales or P/B margin haircut gets mis-attributed to the earnings multiple mentioned in passing and
+# wrongly flagged (the one direction this check must never fire; §16 permits margin haircuts on revenue/book).
+_BJ_CONTRAST = re.compile(r"\b(?:unlike|versus|vs\.?|whereas|rather than|compared to|relative to|not)\b[\s\w]{0,10}$", re.I)
+_BJ_SELF_AWARE = re.compile(r"double[\s-]?(?:count|charg)|\btwice\b", re.I)
+_BJ_LEDGER_HEAD = re.compile(r"gap already in the denominator", re.I)
+_BJ_NUM = re.compile(r"-?\d+(?:\.\d+)?")
+
+
+def _bj_cells(line):
+    return [c.strip() for c in line.strip().strip("|").split("|")]
+
+
+def _bj_ledger_rows(md):
+    """(header cells, [row cells]) for every quality-adjustment ledger table in the orb's markdown."""
+    out, lines = [], md.splitlines()
+    for i, ln in enumerate(lines):
+        if ln.lstrip().startswith("|") and _BJ_LEDGER_HEAD.search(ln):
+            # A real header is followed by its delimiter row; a data row that merely quotes the header
+            # phrase ("Yes — gap already in the denominator") is not a second ledger.
+            nxt_cells = _bj_cells(lines[i + 1]) if i + 1 < len(lines) and lines[i + 1].lstrip().startswith("|") else []
+            if not (nxt_cells and all(re.fullmatch(r":?-+:?", c or "-") for c in nxt_cells)):
+                continue
+            head, rows = _bj_cells(ln), []
+            for nxt in lines[i + 1:]:
+                if not nxt.lstrip().startswith("|"):
+                    break
+                cells = _bj_cells(nxt)
+                if all(re.fullmatch(r":?-+:?", c or "-") for c in cells):
+                    continue
+                rows.append(cells)
+            out.append((head, rows))
+    return out
+
+
+def _bj_first_num(cell):
+    m = _BJ_NUM.search((cell or "").replace(",", ""))
+    return float(m.group()) if m else None
+
+
+def eval_bj_quality_double_count(decision_date, peers_md, peers_internals=None):
+    """Core of check BJ. `peers_md` = text of valuation/03_relative-valuation-peers.md (or None);
+    `peers_internals` = valuation_summary.json's `peers_internals` object (or None). Returns None (N/A —
+    pre-gate, or no peers orb) or a list of violations (empty = clean). Pure; no I/O."""
+    if not (isinstance(decision_date, str) and decision_date >= BJ_DATE):
+        return None
+    if not isinstance(peers_md, str) or not peers_md.strip():
+        return None
+    det = []
+    # F — the formula in prose (ledger rows are judged by L). The multiple the formula is APPLIED to is
+    # the nearest multiple named before it on the line (else the first after): HAIER's line says "unlike
+    # EV/Sales or P/E" in passing, but the formula is applied to "the peer median EV/EBITDA multiple".
+    in_ledger = False
+    for ln in peers_md.splitlines():
+        is_row = ln.lstrip().startswith("|")
+        in_ledger = is_row and (in_ledger or bool(_BJ_LEDGER_HEAD.search(ln)))
+        if in_ledger:
+            continue
+        m = _BJ_FORMULA.search(ln)
+        if not m or not re.search(r"margin", ln, re.I) or _BJ_SELF_AWARE.search(ln):
+            continue
+        before = [mm for mm in _BJ_MULT_NAME.finditer(ln, 0, m.start())
+                  if not _BJ_CONTRAST.search(ln[:mm.start()])]
+        after = _BJ_MULT_NAME.search(ln, m.start())
+        target = before[-1].group(0) if before else (after.group(0) if after else "")
+        if _BJ_EARN.search(target) and not _BJ_BOOK.search(target):
+            det.append(f"§16 double count: an earnings-multiple haircut is sized as a margin ratio "
+                       f"({m.group(0).strip()!r}) — the weaker margin is already in the denominator, so this "
+                       "charges it twice; apply the peer median to the company's own metric, or size a "
+                       "discount by a reason the denominator does not carry (durability, growth, incremental "
+                       "returns, risk) — CLAUDE.md §16, 03 DOUBLE-COUNT TEST")
+    # L — a ledger row that admits the gap is in the denominator, adjusts anyway, and sizes by a ratio.
+    ledgers = _bj_ledger_rows(peers_md)
+    for head, rows in ledgers:
+        low = [h.lower() for h in head]
+        gi = next((i for i, h in enumerate(low) if "denominator" in h), None)
+        if gi is None:
+            continue
+        mi = next((i for i, h in enumerate(low) if "median" in h), None)
+        ai = next((i for i, h in enumerate(low) if "adjusted to" in h), None)
+        si = next((i for i, h in enumerate(low) if "sized" in h), None)
+        for cells in rows:
+            if len(cells) <= gi or not re.match(r"[*_\s]*yes\b", cells[gi], re.I):
+                continue
+            med = _bj_first_num(cells[mi]) if mi is not None and mi < len(cells) else None
+            adj = _bj_first_num(cells[ai]) if ai is not None and ai < len(cells) else None
+            if med is None or adj is None or abs(adj - med) <= 0.005 * abs(med):
+                continue  # no adjustment made — nothing charged
+            sizing = cells[si] if si is not None and si < len(cells) else ""
+            r = _BJ_RATIO.search(sizing)
+            if r and not _BJ_SELF_AWARE.search(sizing) and not _BJ_BOOK.search(sizing):
+                det.append(f"§16 double count: ledger row {cells[0]!r} says the gap is already in the "
+                           f"denominator, then sizes its {med:g}x → {adj:g}x adjustment by a ratio "
+                           f"({r.group(0)!r}) — size it by the separate reason it pays for (CLAUDE.md §16)")
+    # P — a recorded earnings-multiple haircut with no ledger to audit its reason.
+    pi = peers_internals if isinstance(peers_internals, dict) else {}
+    metric, med, app = pi.get("metric_name"), pi.get("median_multiple"), pi.get("applied_multiple")
+    num = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
+    if (isinstance(metric, str) and _BJ_EARN.search(metric) and not _BJ_BOOK.search(metric)
+            and num(med) and num(app) and med > 0 and app < med * 0.995 and not ledgers):
+        det.append(f"§16 unaudited haircut: valuation_summary.json peers_internals cuts {metric!r} from the "
+                   f"{med:g}x peer median to {app:g}x ({(1 - app / med) * 100:.1f}% haircut on an earnings "
+                   "multiple) but 03_relative-valuation-peers.md carries no quality-adjustment ledger — the "
+                   "DOUBLE-COUNT TEST cannot be checked; add the ledger naming what the haircut pays for "
+                   "beyond the margin already in the denominator (CLAUDE.md §16)")
+    return det

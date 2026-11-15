@@ -467,6 +467,47 @@ def test_catalogue_globs_do_not_cross_path_segments():
     check("catalogue '*' cannot hide a deeper undeclared artifact", missing == paths, str(missing))
 
 
+def test_numeric_audit_catalogue_path_index_tree_parity():
+    """Append-only final audits get the same exact verdict before sealing and in Git snapshots."""
+    cache = Path(REPO_ROOT) / ".cache"
+    cache.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="numeric-audit-catalogue-", dir=cache) as temporary:
+        repo = os.path.join(temporary, "repo")
+        env = git_env()
+        run(["git", "init", "-q", "-b", "codex/audit-fixture", repo], cwd=temporary, env=env)
+        catalogue = json.loads(Path(REPO_ROOT, "frameworks/memory/phase0/catalogue.json").read_text())
+        patterns = [pattern for store in catalogue["stores"] for pattern in store["paths"]]
+        install_catalogue_fixture(repo, patterns)
+        run(["git", "add", "."], cwd=repo, env=env)
+        run(["git", "commit", "-qm", "fixture: installed catalogue"], cwd=repo, env=env)
+        root = "analyses/NUMERIC_2099-01-01"
+        valid = [f"{root}/expectations_gap{suffix}.json"
+                 for suffix in ("", "_v2", "_v3", "_v10", "_v0", "_v1", "_v03", "_v٣")]
+        invalid = [f"{root}/expectations_gap{suffix}"
+                   for suffix in ("_v.json", "_vthree.json", "_v3_extra.json", "_backup.json", "_v3.json.bak")]
+        for relative in valid + invalid:
+            write_json(repo, relative, {"fixture": True})
+        presealed = validate_catalogue(repo, env, "--paths", valid)
+        run(["git", "add", "--", *valid], cwd=repo, env=env)
+        staged = validate_catalogue(repo, env, "--index")
+        run(["git", "commit", "-qm", "fixture: numeric audit names"], cwd=repo, env=env)
+        committed = validate_catalogue(repo, env, "--tree=HEAD")
+        check("documented and compatible numeric audit names pass path, index and committed-tree gates",
+              all(result.returncode == 0 for result in (presealed, staged, committed)),
+              repr([result.stderr for result in (presealed, staged, committed)]))
+        # Mutable catalogue bytes cannot broaden the frozen index/tree verdict.
+        install_catalogue_fixture(repo, ["analyses/**"])
+        presealed = validate_catalogue(repo, env, "--paths", invalid)
+        run(["git", "add", "--", *invalid], cwd=repo, env=env)
+        staged = validate_catalogue(repo, env, "--index")
+        run(["git", "commit", "-qm", "fixture: invalid audit lookalikes"], cwd=repo, env=env)
+        committed = validate_catalogue(repo, env, "--tree=HEAD")
+        check("nonnumeric and extra audit suffixes fail identically in frozen path, index and tree checks",
+              all(result.returncode == 1 and rejected_names(result) == sorted(invalid)
+                  for result in (presealed, staged, committed)),
+              repr([result.stderr for result in (presealed, staged, committed)]))
+
+
 def test_catalogue_validator_that_cannot_run_is_not_a_refusal():
     """Exit 7 is reserved for the validator's FAIL status (1). A validator that ended with any OTHER status
     never delivered a verdict (python3 or the script missing, killed by a signal), so it stays the generic,
@@ -2368,6 +2409,7 @@ if __name__ == "__main__":
     test_real_catalogue_keeps_supervisor_control_state_out_of_run_roots()
     test_retained_engine_locks_in_swept_ledger_are_gitignored()
     test_catalogue_globs_do_not_cross_path_segments()
+    test_numeric_audit_catalogue_path_index_tree_parity()
     test_catalogue_validator_that_cannot_run_is_not_a_refusal()
     test_git_add_failure_is_not_a_noop()
     test_interrupted_publication_leftover_is_unstaged_not_a_permanent_wedge()

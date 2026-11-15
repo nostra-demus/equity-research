@@ -5,8 +5,9 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from create_idea_projection_manifest import create, decision_digest, file_digest, validate_manifest
+from create_idea_projection_manifest import create, decision_digest, file_digest, latest_exact, validate_manifest
 from research_audit_outcome import run, REPAIR, STABILIZE
+from validate_data_catalogue import catalogue_patterns, uncovered_paths
 
 
 class AuditOutcomeTests(unittest.TestCase):
@@ -76,6 +77,46 @@ class AuditOutcomeTests(unittest.TestCase):
         decision["post_review_confidence_score"] = 99
         self.write("decision_record.json", decision)
         self.assertFalse(validate_manifest(manifest, str(self.path), self.root))
+
+    def test_final_numbered_audits_are_catalogued_and_pin_exact_bytes(self):
+        run(self.root, "apply", self.repo)
+        for version in (2, 3, 10):
+            self.audit(version=version)
+        manifest = create(self.root, self.repo)
+        self.assertTrue(validate_manifest(manifest, str(self.path), self.root))
+        for kind, stem in (("verification", "verification_report"), ("pre_mortem", "pre_mortem"),
+                           ("expectations_gap", "expectations_gap")):
+            item = manifest["artifacts"][kind]
+            self.assertEqual(item["path"], stem + "_v10.json")
+            self.assertEqual(item["sha256"], file_digest(self.path / item["path"]))
+        catalogue = json.loads((Path(__file__).resolve().parent.parent /
+                                "frameworks/memory/phase0/catalogue.json").read_text())
+        # Runtime reconciliation markers stay private; only the public research artifacts are proposed.
+        paths = [self.root + "/" + path.name for path in self.path.glob("*.json") if not path.name.startswith(".")]
+        self.assertEqual(uncovered_paths(paths, catalogue_patterns(catalogue)), [])
+        original_manifest = (self.path / "idea_projection_manifest.json").read_bytes()
+        # A new numeric filename never authorizes stale or changed audit bytes.
+        audit = self.read("expectations_gap_v10.json")
+        audit["final_thesis_sha256"] = "0" * 64
+        self.write("expectations_gap_v10.json", audit)
+        self.assertFalse(validate_manifest(manifest, str(self.path), self.root))
+        with self.assertRaisesRegex(ValueError, "existing.*no longer matches"):
+            create(self.root, self.repo)
+        self.assertEqual((self.path / "idea_projection_manifest.json").read_bytes(), original_manifest)
+
+    def test_numeric_reader_spelling_compatibility_and_ambiguity(self):
+        base = self.path / "expectations_gap.json"
+        base.unlink()
+        for version in ("0", "1", "03", "٣", "10"):
+            with self.subTest(version=version):
+                numeric = self.path / f"expectations_gap_v{version}.json"
+                numeric.write_text("{}\n")
+                self.assertEqual(latest_exact(str(self.path), "expectations_gap"), str(numeric))
+                numeric.unlink()
+        for version in ("3", "03", "٣"):
+            self.write(f"expectations_gap_v{version}.json", {})
+        with self.assertRaisesRegex(ValueError, "version 3 is ambiguous"):
+            latest_exact(str(self.path), "expectations_gap")
 
     def test_repair_budget_does_not_reset_on_new_audit(self):
         self.assertEqual(run(self.root, "claim-repair", self.repo)["status"], "repair_authorized")

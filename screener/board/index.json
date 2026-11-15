@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-15T11:23:22Z",
+  "generated_at": "2026-11-15T13:47:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-216",
+      "headline": "BAIYUNSHAN PH (00874): (1) MAJOR TRANSACTION PROPOSED PUBLIC LISTING BY GP CORP. TO INTRODUCE STRATEGIC INVESTORS AND IMPLEMENT A PRIVATE PLACEMENT OF SHARES; AND (2) NOTICE OF THE EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T11:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Proposed public listing by a subsidiary to introduce strategic investors and implement a private placement of shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proposed public listing by a subsidiary to introduce strategic investors and implement a private placement of shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAIYUNSHAN PH",
+          "ticker": "00874",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-205",
       "headline": "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ELEVEN (11) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A FU",
@@ -43,6 +93,105 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-224",
+      "headline": "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/markets/property/hong-kong-s-new-world-proposes-3.2bn-rights-issue-for-capital-reset",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T12:48:04Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "New World Development proposes a $3.2 billion rights issue to reset its capital structure and address debt concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "New World Development proposes a $3.2 billion rights issue to reset its capital structure and address debt concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": "0017",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-223",
+      "headline": "Hindalco's Novelis Cuts China Exposure, Sells Two Subsidiaries For $265 Million-Deal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/hindalcos-novelis-cuts-china-exposure-sells-two-subsidiaries-for-265-million-deal-12329818#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:55:03Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Hindalco subsidiary Novelis is divesting two subsidiaries for $265 million to reduce China exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hindalco subsidiary Novelis is divesting two subsidiaries for $265 million to reduce China exposure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindalco Industries",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -844,6 +993,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-219",
+      "headline": "Israeli airstrike kills senior Hamas commander in Gaza",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/israeli-airstrike-kills-senior-hamas-commander-gaza",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T11:20:44Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "An Israeli airstrike killing a senior Hamas commander is a significant escalation of geopolitical conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "An Israeli airstrike killing a senior Hamas commander is a significant escalation of geopolitical conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-213",
       "headline": "Jordan condemns Iran's drone strike on Bahrain",
       "headline_en": null,
@@ -1016,6 +1208,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-221",
+      "headline": "AirMozambique Warns of Flight Cancellations Due to Fuel Shortage",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/airmozambique-warns-of-flight-cancellations-due-to-fuel-shortage",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T11:09:59Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Fuel shortage causing flight cancellations represents a significant operational disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Fuel shortage causing flight cancellations represents a significant operational disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AirMozambique",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-199",
       "headline": "Two held in Rajasthan railway track blast case, alleged Pakistan handler links emerge",
       "headline_en": null,
@@ -1141,6 +1383,100 @@
         "litigation_enforcement"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-217",
+      "headline": "PARENTING NET (01736): (I) PROPOSED CAPITALISATION OF LOANS; (II) CONNECTED TRANSACTION; AND (III) ISSUE OF NEW SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500057.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T11:28:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Proposed capitalization of loans, a connected transaction, and issuance of new shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Proposed capitalization of loans, a connected transaction, and issuance of new shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PARENTING NET",
+          "ticker": "01736",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-222",
+      "headline": "'Zionist regime's false flag': Iran warns France over supermarket cyberattack",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/news/zionist-regimes-false-flag-iran-warns-france-over-supermarket-cyberattack",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T11:39:05Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Geopolitical escalation involving cyberattack accusations between Iran and France.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Geopolitical escalation involving cyberattack accusations between Iran and France.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1599,359 +1935,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-132",
-      "headline": "Samsung conquered AI chips. Now it wants to build data centres",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/ee5b23b3-89b3-41f7-9158-56c1586759c2?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T05:00:04Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Samsung is pivoting to build data centers, a major strategic shift and capital investment into AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Samsung is pivoting to build data centers, a major strategic shift and capital investment into AI infrastructure.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-131",
-      "headline": "Brookfield and KKR vie over $700mn deal for Gulf retailer Eyewa",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/a240f6b7-724c-4ad5-a4b1-2e04897e2fe8?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T05:00:04Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Brookfield and KKR are competing for a $700mn acquisition of Eyewa, a significant deal in the regional retail sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Brookfield and KKR are competing for a $700mn acquisition of Eyewa, a significant deal in the regional retail sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Asset Management",
-          "ticker": "BAM",
-          "listing_country": "US"
-        },
-        {
-          "name": "KKR & Co. Inc.",
-          "ticker": "KKR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-174",
-      "headline": "PEGBIO CO-B (02565): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF THE GROUP'S CORE PRODUCT PAIDAKANG (VISEPEGENATIDE INJECTION) INTO THE 2026 NRDL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500003.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T10:06:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Core product Paidakang included in the 2026 National Reimbursement Drug List, likely boosting commercial adoption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Core product Paidakang included in the 2026 National Reimbursement Drug List, likely boosting commercial adoption.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PEGBIO CO-B",
-          "ticker": "02565",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-129",
-      "headline": "‎Sipchem completes Al-Waha plant expansion, boosting capacity by over 30%",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1953814",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T09:59:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Sipchem completed a plant expansion that increases capacity by over 30%, directly impacting future revenue potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Sipchem completed a plant expansion that increases capacity by over 30%, directly impacting future revenue potential.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sipchem",
-          "ticker": "SIPCHEM",
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-151",
-      "headline": "Megaspeed says Alice Huang left in 2025 as it launches internal probe into reports about its business",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/15/megaspeed-alice-huang-probe-nvidia-scandal.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T08:22:21Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The departure of a key executive coupled with an internal probe into business practices indicates significant governance and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The departure of a key executive coupled with an internal probe into business practices indicates significant governance and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Megaspeed",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-206",
-      "headline": "GREEN TEA GROUP (06831): ANNOUNCEMENT PURSUANT TO RULES 13.51B(2) AND 13.51(2) OF THE LISTING RULES; RESIGNATION OF INDEPENDENT NON-EXECUTIVE DIRECTOR; AND NON-COMPLIANCE WITH RULES 3.10(1), 3.21 AND 3.27A OF THE LISTING RULES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500053.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T11:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The company announced the resignation of an independent director and is currently in non-compliance with multiple HKEX listing rules regarding board composition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The company announced the resignation of an independent director and is currently in non-compliance with multiple HKEX listing rules regarding board composition.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Green Tea Group",
-          "ticker": "06831",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-182",
-      "headline": "JW THERAP-B (02126): INSIDE INFORMATION - INVESTOR PRESENTATION ON INCLUSION OF CARTEYVA IN NRDL AND BUSINESS UPDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500023.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T10:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Inclusion of Carteyva in the NRDL is a significant commercial milestone for the company's revenue outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Inclusion of Carteyva in the NRDL is a significant commercial milestone for the company's revenue outlook.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JW Therapeutics",
-          "ticker": "02126",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -240172,6 +240155,149 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-16a841936d98",
+      "idea_version": "IDEAV-34f350aeb558fc28",
+      "idea_version_started_at": "2026-11-15T12:58:39Z",
+      "ticker": "0017",
+      "company": "New World Development Company Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "New World Development is proposing a $3.2 billion rights issue, which typically dilutes existing shareholders and can signal financial strain.",
+      "why_now": "The proposal for the rights issue was reported on November 15, 2026, making this a live event.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-25b44b380b57"
+      ],
+      "primary_source_event_id": "EVT-25b44b380b57",
+      "source_headlines": [
+        "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'"
+      ],
+      "source_headline": "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'",
+      "source_url": "https://asia.nikkei.com/business/markets/property/hong-kong-s-new-world-proposes-3.2bn-rights-issue-for-capital-reset",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T12:48:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T12:58:39Z",
+      "updated_at": "2026-11-15T12:58:39Z",
+      "decay_at": "2026-11-17T00:48:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-df6e1a3d7dbe",
+      "idea_version": "IDEAV-a71d86751aacf7c2",
+      "idea_version_started_at": "2026-11-15T11:43:54Z",
+      "ticker": "0874",
+      "company": "Guangzhou Baiyunshan Pharmaceutical Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is initiating a strategic capital raise and public listing for a subsidiary, which provides a clear valuation catalyst for its underlying assets.",
+      "why_now": "The EGM notice and transaction proposal were filed on 2026-11-15, setting the stage for immediate shareholder action.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-73e01caa0d14"
+      ],
+      "primary_source_event_id": "EVT-73e01caa0d14",
+      "source_headlines": [
+        "BAIYUNSHAN PH (00874): (1) MAJOR TRANSACTION PROPOSED PUBLIC LISTING BY GP CORP. TO INTRODUCE STRATEGIC INVESTORS AND IMPLEMENT A PRIVATE PLACEMENT OF SHARES; AND (2) NOTICE OF THE EGM"
+      ],
+      "source_headline": "BAIYUNSHAN PH (00874): (1) MAJOR TRANSACTION PROPOSED PUBLIC LISTING BY GP CORP. TO INTRODUCE STRATEGIC INVESTORS AND IMPLEMENT A PRIVATE PLACEMENT OF SHARES; AND (2) NOTICE OF THE EGM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T11:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:43:54Z",
+      "updated_at": "2026-11-15T11:43:54Z",
+      "decay_at": "2026-11-16T23:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8a29f9caadb3",
       "idea_version": "IDEAV-ac18a486e1df77fe",
       "idea_version_started_at": "2026-11-15T11:22:53Z",
@@ -241608,6 +241734,77 @@
       "surfaced_at": "2026-11-14T08:13:15Z",
       "updated_at": "2026-11-14T08:13:15Z",
       "decay_at": "2026-11-15T18:23:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1f9eea8b1f45",
+      "idea_version": "IDEAV-ab24865293ff127a",
+      "idea_version_started_at": "2026-11-15T11:43:54Z",
+      "ticker": "1736",
+      "company": "Parenting Network",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The proposed capitalisation of loans and issuance of new shares under a specific mandate indicates significant dilution for existing equity holders.",
+      "why_now": "The filing was released on 2026-11-15, and the market typically reacts negatively to the immediate dilution impact of debt-to-equity swaps.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4d26204cf18"
+      ],
+      "primary_source_event_id": "EVT-b4d26204cf18",
+      "source_headlines": [
+        "PARENTING NET (01736): (I) PROPOSED CAPITALISATION OF LOANS; (II) CONNECTED TRANSACTION; AND (III) ISSUE OF NEW SHARES UNDER SPECIFIC MANDATE"
+      ],
+      "source_headline": "PARENTING NET (01736): (I) PROPOSED CAPITALISATION OF LOANS; (II) CONNECTED TRANSACTION; AND (III) ISSUE OF NEW SHARES UNDER SPECIFIC MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500057.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-11-15T11:28:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:43:54Z",
+      "updated_at": "2026-11-15T11:43:54Z",
+      "decay_at": "2026-11-16T23:28:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -245756,149 +245953,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-926b7a55febc",
-      "idea_version": "IDEAV-352024216b9adee9",
-      "idea_version_started_at": "2026-11-12T19:23:01Z",
-      "ticker": "02221",
-      "company": "New Concepts Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert indicating a turnaround from loss to profit, suggesting a material improvement in operational margins.",
-      "why_now": "The official profit alert filing was released on November 12, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6545fe1e19d6"
-      ],
-      "primary_source_event_id": "EVT-6545fe1e19d6",
-      "source_headlines": [
-        "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT"
-      ],
-      "source_headline": "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201398.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T12:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T19:23:01Z",
-      "updated_at": "2026-11-12T19:23:01Z",
-      "decay_at": "2026-11-14T00:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-94611d081530",
-      "idea_version": "IDEAV-7b286663da02f73d",
-      "idea_version_started_at": "2026-11-12T18:46:45Z",
-      "ticker": "09618",
-      "company": "JD.com",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The completion of the voluntary public takeover offer for Ceconomy AG marks a strategic expansion into European retail markets, potentially diversifying revenue streams.",
-      "why_now": "The completion was officially announced on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-64b7b7bc16ba"
-      ],
-      "primary_source_event_id": "EVT-64b7b7bc16ba",
-      "source_headlines": [
-        "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG"
-      ],
-      "source_headline": "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201308.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T12:01:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T18:46:45Z",
-      "updated_at": "2026-11-12T18:46:45Z",
-      "decay_at": "2026-11-14T00:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5880efc59f2d",
       "idea_version": "IDEAV-75d5d0ba16547141",
       "idea_version_started_at": "2026-11-12T16:29:30Z",
@@ -245980,14 +246034,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 43,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 17
       },
       "short": {
         "total_count": 274,
@@ -245997,12 +246051,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1915,
+      "evicted_count": 1917,
       "oldest_retained_at": "2026-10-21T11:01:14Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1257,
-          "oldest_retained_at": "2026-11-02T14:00:00Z"
+          "evicted_count": 1259,
+          "oldest_retained_at": "2026-11-02T14:29:03Z"
         },
         "short": {
           "evicted_count": 659,
@@ -249121,8 +249175,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-14T00:45:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T12:58:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249196,8 +249250,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-14T00:01:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T12:58:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -283122,8 +283176,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2505,
-    "live_count": 47,
+    "surfaced_total": 2508,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -283142,9 +283196,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1634,
-    "news_picked_today": 340,
-    "news_dropped_today": 1294
+    "news_seen_today": 2269,
+    "news_picked_today": 408,
+    "news_dropped_today": 1744
   },
   "book_momentum": {
     "live_count": 8,

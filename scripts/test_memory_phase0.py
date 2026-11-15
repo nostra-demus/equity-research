@@ -11,6 +11,7 @@ import copy
 import inspect
 import json
 import sys
+import tempfile
 from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
@@ -23,7 +24,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 import memory_baseline  # noqa: E402
 import memory_contract  # noqa: E402
 from memory_adapters import discover_legacy_sources  # noqa: E402
-from validate_data_catalogue import segment_glob  # noqa: E402
+from validate_data_catalogue import VERSION_TOKEN, segment_glob  # noqa: E402
 
 
 PHASE0 = REPO_ROOT / "frameworks/memory/phase0"
@@ -60,22 +61,53 @@ def path_without_fragment(value: str) -> Path:
     return REPO_ROOT / value.split("#", 1)[0]
 
 
-def expand_store_paths(patterns: Iterable[str]) -> set[Path]:
+def expand_store_paths(patterns: Iterable[str], root: Path = REPO_ROOT) -> set[Path]:
     """Expand catalogue globs for reproducible observed-count checks."""
 
     result: set[Path] = set()
     for pattern in patterns:
         if "<" in pattern:
             continue
-        if pattern.endswith("/**"):
-            for root in REPO_ROOT.glob(pattern[:-3]):
-                if root.is_dir():
-                    result.update(path for path in root.rglob("*") if path.is_file())
-                elif root.is_file():
-                    result.add(root)
-            continue
-        result.update(path for path in REPO_ROOT.glob(pattern) if path.is_file())
+        # pathlib does not know the catalogue's numeric token. Enumerate a superset,
+        # then use the publication gate's exact matcher so lookalikes cannot inflate counts.
+        candidate_glob = pattern.replace(VERSION_TOKEN, "*")
+        matcher = segment_glob(pattern)
+        if candidate_glob.endswith("/**"):
+            candidates = (
+                path
+                for directory in root.glob(candidate_glob[:-3])
+                if directory.is_dir()
+                for path in directory.rglob("*")
+            )
+        else:
+            candidates = root.glob(candidate_glob)
+        result.update(
+            path for path in candidates
+            if path.is_file() and matcher.fullmatch(path.relative_to(root).as_posix())
+        )
     return result
+
+
+def check_numeric_catalogue_expansion() -> None:
+    cache = REPO_ROOT / ".cache"
+    cache.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="memory-catalogue-", dir=cache) as temporary:
+        root = Path(temporary)
+        run = root / "analyses/TEST_2099-01-01"
+        run.mkdir(parents=True)
+        valid = {f"expectations_gap_v{version}.json" for version in ("0", "1", "2", "3", "10", "03", "٣")}
+        invalid = {"expectations_gap_v.json", "expectations_gap_vthree.json",
+                   "expectations_gap_v3_extra.json", "expectations_gap_v3.json.bak"}
+        for name in valid | invalid:
+            (run / name).write_text("{}\n", encoding="utf-8")
+        nested = run / "nested"
+        nested.mkdir()
+        (nested / "expectations_gap_v3.json").write_text("{}\n", encoding="utf-8")
+        pattern = "analyses/*/expectations_gap_v{version}.json"
+        check(expand_store_paths([pattern, pattern], root) == {run / name for name in valid},
+              "numeric audit counts must include every numeric spelling once and exclude lookalikes/deeper paths")
+        check(expand_store_paths(["analyses/**"], root) == {path for path in root.rglob("*") if path.is_file()},
+              "recursive catalogue expansion must preserve all descendant files")
 
 
 def catalogue_count_errors(stores: Iterable[dict[str, Any]]) -> list[str]:
@@ -584,6 +616,7 @@ def check_ci_clean_checkout_order() -> None:
 
 
 def main() -> int:
+    check_numeric_catalogue_expansion()
     catalogue = load("catalogue.json")
     decisions = load("decisions.json")
     benchmark = load("benchmark.json")
