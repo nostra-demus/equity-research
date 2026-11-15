@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T01:54:36Z",
+  "generated_at": "2026-11-15T02:05:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -89,6 +89,61 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-039",
+      "headline": "Jensen Huang’s ousting sends tech stocks tumbling; Singtel CEO sells shares: Markets this week",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/jensen-huangs-ousting-sends-tech-stocks-tumbling-singtel-ceo-sells-shares-markets-this-week",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The departure of a key CEO and significant insider selling by another executive are material events for their respective companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The departure of a key CEO and significant insider selling by another executive are material events for their respective companies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Singtel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -627,50 +682,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261115-038",
-      "headline": "Italy pitches Germany observer status in GCAP fighter jet program",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/15/japan/gcap-germany-observer-status/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:44:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Italy is seeking to join the GCAP fighter jet program, which could alter the scope and funding structure of the defense project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Italy is seeking to join the GCAP fighter jet program, which could alter the scope and funding structure of the defense project.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261115-036",
       "headline": "Kia's domestic electrified vehicle sales top 300,000 units in 2026",
       "headline_en": null,
@@ -965,6 +976,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-040",
+      "headline": "How Jensen Huang Built the Backdoor Route That Keeps Beijing in the AI Race",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/jensen-huang-backdoor-ai-data-centers-a5e4499d?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "This is a feature article on corporate strategy and geopolitical navigation rather than a new material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "This is a feature article on corporate strategy and geopolitical navigation rather than a new material event.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-013",
       "headline": "Carney says he's 'making progress' with Trump on possible US-Canada trade deal",
       "headline_en": null,
@@ -1156,6 +1216,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-041",
+      "headline": "Japan’s FamilyMart pulls up striped socks to survive convenience store rivalry",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/asia/east-asia/article/3374465/japans-familymart-pulls-striped-socks-survive-convenience-store-rivalry",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T02:00:27Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Routine competitive strategy update for a convenience store chain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Routine competitive strategy update for a convenience store chain.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FamilyMart",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-024",
       "headline": "N. Korea-linked hackers target 30 S. Korean servers: report",
       "headline_en": null,
@@ -1291,55 +1400,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261115-001",
-      "headline": "EZaccessMD Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Patient Data Is Exposed",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/ezaccessmd-data-breach-investigation-edelson-lechtzin-llp-probes-class-action-claims-after-patient-data-is-exposed-302939591.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-14T23:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A law firm is investigating a data breach at EZaccessMD, which creates potential legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "A law firm is investigating a data breach at EZaccessMD, which creates potential legal and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EZaccessMD",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261115-016",
       "headline": "‘A moral red line’? World on cusp of autonomous weapons revolution",
       "headline_en": null,
@@ -1421,6 +1481,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-044",
+      "headline": "Five9: 3 Key Takeaways for Long-Term Investors",
+      "headline_en": null,
+      "url": "https://www.fool.com/earnings/takeaways/2026/11/14/five9-3-key-takeaways-for-long-term-investors/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T01:58:51Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Routine investor recap of company performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Routine investor recap of company performance.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Five9",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1727,25 +1836,25 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261115-018",
-      "headline": "Same Route, Different Fares! RTO Flags Five Private Buses In Indore As Mumbai Tickets Touch ₹4,000, Pune ₹2,100",
+      "inbox_id": "INB-20261115-042",
+      "headline": "Can Chinese AI companies curb cyber risks from open-weight models without losing their edge?",
       "headline_en": null,
-      "url": "https://www.freepressjournal.in/indore/same-route-different-fares-rto-flags-five-private-buses-in-indore-as-mumbai-tickets-touch-4000-pune-2100",
-      "source_name": "Free Press Journal",
+      "url": "https://www.scmp.com/tech/tech-trends/article/3374332/can-chinese-ai-companies-curb-cyber-risks-open-weight-models-without-losing-their-edge",
+      "source_name": "South China Morning Post",
       "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:30:00Z",
+      "found_at": "2026-11-15T02:00:09Z",
       "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Local regulatory action against private bus operators in India.",
+      "prelim_note": "General industry discussion regarding AI safety and regulation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Local regulatory action against private bus operators in India.",
-      "region": "IN",
+      "triage_score": 46,
+      "triage_reason": "General industry discussion regarding AI safety and regulation.",
+      "region": "CN",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
+      "materiality_pre_score": 35,
       "rank_factors": {
-        "materiality": 30,
+        "materiality": 35,
         "source_tier": 0,
         "scope": 2,
         "event": 4,
@@ -281783,7 +281892,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4885,
+    "inbox_unconsumed": 4887,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -281792,9 +281901,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 182,
-    "news_picked_today": 39,
-    "news_dropped_today": 143
+    "news_seen_today": 210,
+    "news_picked_today": 45,
+    "news_dropped_today": 165
   },
   "book_momentum": {
     "live_count": 8,
