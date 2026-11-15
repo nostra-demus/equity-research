@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T19:00:22Z",
+  "generated_at": "2026-11-15T19:01:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -1697,6 +1697,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-273",
+      "headline": "ULA Vulcan Rocket Fails Midflight, Loses Amazon Leo Satellites",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/ula-vulcan-rocket-launches-with-its-first-amazon-leo-payload",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T17:42:11Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Failure of a ULA Vulcan rocket and loss of Amazon satellites is a major operational failure impacting both ULA and Amazon's Kuiper project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Failure of a ULA Vulcan rocket and loss of Amazon satellites is a major operational failure impacting both ULA and Amazon's Kuiper project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Launch Alliance",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-254",
       "headline": "Hong Kong developer New World unveils $3.2bn rights issue",
       "headline_en": null,
@@ -1882,50 +1936,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-199",
-      "headline": "Two held in Rajasthan railway track blast case, alleged Pakistan handler links emerge",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/rajasthan/two-held-in-rajasthan-railway-track-blast-case-alleged-pakistan-handler-links-emerge-4219102",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T10:10:06Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Two arrests in a railway track blast case with alleged Pakistan handler links suggest potential geopolitical risk impacting the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Two arrests in a railway track blast case with alleged Pakistan handler links suggest potential geopolitical risk impacting the region.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
