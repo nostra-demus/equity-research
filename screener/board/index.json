@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T00:58:03Z",
+  "generated_at": "2026-11-15T01:02:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-010",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-020",
+      "headline": "SpaceX pulls off first-ever spaceship ‘catch’",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/11/15/world/science-health/spacex-first-spaceship-catch/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T23:52:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "SpaceX successfully demonstrated a major technical milestone in rocket reusability, significantly impacting operational efficiency and cost structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "SpaceX successfully demonstrated a major technical milestone in rocket reusability, significantly impacting operational efficiency and cost structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187,6 +237,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-019",
+      "headline": "Bhopal's Adampur Landfill Buried Under RDF Waste Despite ₹53 Crore Contract, BMC Fines Agency ₹3.2 Lakh Ahead Of Supreme Court Hearing",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/bhopals-adampur-landfill-buried-under-rdf-waste-despite-53-crore-contract-bmc-fines-agency-32-lakh-ahead-of-supreme-court-hearing",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Small fine imposed on a waste management agency for contract non-compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Small fine imposed on a waste management agency for contract non-compliance.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bhopal Municipal Corporation",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -775,6 +874,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-018",
+      "headline": "Same Route, Different Fares! RTO Flags Five Private Buses In Indore As Mumbai Tickets Touch ₹4,000, Pune ₹2,100",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/indore/same-route-different-fares-rto-flags-five-private-buses-in-indore-as-mumbai-tickets-touch-4000-pune-2100",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Local regulatory action against private bus operators in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Local regulatory action against private bus operators in India.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -280799,7 +280941,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4864,
+    "inbox_unconsumed": 4867,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -280808,9 +280950,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 98,
-    "news_picked_today": 17,
-    "news_dropped_today": 81
+    "news_seen_today": 108,
+    "news_picked_today": 20,
+    "news_dropped_today": 88
   },
   "book_momentum": {
     "live_count": 8,
