@@ -173,9 +173,9 @@ _BJ_MULT = r"\d+(?:\.\d+)?\s*[x×]"
 _BJ_PCT = r"\d+(?:\.\d+)?\s*%"
 _BJ_FORMULA = re.compile(_BJ_MULT + r"\s*[×*x·]\s*\(?\s*" + _BJ_PCT + r"\s*(?:[/÷]|divided by)\s*" + _BJ_PCT, re.I)
 _BJ_RATIO = re.compile(_BJ_PCT + r"\s*(?:[/÷]|divided by)\s*" + _BJ_PCT, re.I)
-_BJ_EARN = re.compile(r"EBITDA|EBIT\b|\bP\s*/\s*E\b|\bPE\b|\bEPS\b|\bearnings\b|P\s*/\s*FCF|\bFCF\b", re.I)
-_BJ_BOOK = re.compile(r"\bP\s*/\s*(?:T(?:ang)?)?B(?:V|ook)?\b|tangible book|book value|\bROE\b|\bROTE\b|"
-                      r"EV\s*/\s*(?:Sales|Revenue)", re.I)
+_BJ_EARN = re.compile(r"\bEBITDA\b|\bEBIT\b|\bP\s*/\s*E\b|\bPE\b|\bEPS\b|\bearnings\b|\bP\s*/\s*FCF\b|\bFCF\b", re.I)
+_BJ_BOOK = re.compile(r"\bP\s*/\s*(?:T(?:ang)?)?B(?:V|ook)?\b|\btangible book\b|\bbook value\b|\bROE\b|\bROTE\b|"
+                      r"\bEV\s*/\s*(?:Sales|Revenue)\b", re.I)
 _BJ_MULT_NAME = re.compile(r"\bEV\s*/\s*(?:LTM\s+|NTM\s+)?(?:EBITDA|EBIT|Sales|Revenue)\b|\bP\s*/\s*(?:E|FCF|B|BV|TBV|TangBV|"
                            r"tangible book|book)\b", re.I)
 _BJ_SELF_AWARE = re.compile(r"double[\s-]?(?:count|charg)|\btwice\b", re.I)
@@ -192,6 +192,11 @@ def _bj_ledger_rows(md):
     out, lines = [], md.splitlines()
     for i, ln in enumerate(lines):
         if ln.lstrip().startswith("|") and _BJ_LEDGER_HEAD.search(ln):
+            # A real header is followed by its delimiter row; a data row that merely quotes the header
+            # phrase ("Yes — gap already in the denominator") is not a second ledger.
+            nxt_cells = _bj_cells(lines[i + 1]) if i + 1 < len(lines) and lines[i + 1].lstrip().startswith("|") else []
+            if not (nxt_cells and all(re.fullmatch(r":?-+:?", c or "-") for c in nxt_cells)):
+                continue
             head, rows = _bj_cells(ln), []
             for nxt in lines[i + 1:]:
                 if not nxt.lstrip().startswith("|"):

@@ -2910,7 +2910,14 @@ if scope=="selftest":
         ("2026-11-15","`9.71x × (8.7% / 11.5%)` on EV/EBITDA margin would double-count the gap, so it is not used.",None,[]),  # self-aware
         ("2026-11-15","EV/EBITDA margin 21.7% vs 21.9% — no gap.",_bj_pi("NTM P/E",22.06,24.5),[]),       # a premium charges nothing
         ("2026-11-15","no ledger",_bj_pi("NTM EV/Sales",0.93,0.8),[]),                                      # revenue multiple: allowed
+        ("2026-11-15","no ledger",_bj_pi("Debit-weighted EV ratio",10.0,8.0),[]),                           # 'ebit' inside 'debit' is not EBIT
     ]
+    # A data row that quotes the ledger header phrase is not parsed as a second ledger (header needs |---|).
+    from sector_valuation_checks import _bj_ledger_rows
+    _bj_quote=_bj_hd+"| NTM P/E | 25.9x | 23.3x | Yes, the gap already in the denominator is EPS | narrow moat | 10% judgment |\n"
+    _ok=len(_bj_ledger_rows(_bj_quote))==1
+    if not _ok: bad+=1
+    print(f"  [{'ok' if _ok else 'XX'}] BJ ledger header requires its delimiter row")
     bjbad=0
     for dt_,md_,pi_,exp in bjcases:
         got=BJ(dt_,md_,pi_)
