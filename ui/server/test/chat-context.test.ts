@@ -148,6 +148,26 @@ check('research and selected-signal chat begins with immutable decision memory w
   assert.match(p.user, /REVIEW SOURCE: analyses\/AMZN_2026-07-10\/reviews\/review\.json/)
 })
 
+// A combined result must retain its member amounts, including when the calculator presents the
+// equivalent group-minus-other-components formula. This is a narration contract, not new arithmetic.
+for (const style of ['simple', 'analyst', 'detailed'] as const) {
+  check(`computed aggregate contract survives ${style} narration without changing evidence`, () => {
+    const assembled = { present: true, scope: 'run' as const, runRoot: 'analyses/EXAMPLE', label: 'Whole run', context: 'Source-backed research.', files: [], approxTokens: 5, degraded: false }
+    const messages = [{ role: 'user' as const, content: 'How much is the combined result?' }]
+    const computedBlock = 'AUTHORITATIVE RESULT\nGroup 18 minus Other 4 = combined 14.\nSelected members: First 9; Second 5.\nTarget-period member amounts unavailable. Unresolved source gap; reliable target result withheld.'
+    const plain = buildChatPrompts({ assembled, messages, subject: 'EXAMPLE', style })
+    const computed = buildChatPrompts({ assembled, messages, subject: 'EXAMPLE', style, computedBlock })
+    // The exact supplied evidence/question survives; narration must not recalculate or invent parts.
+    assert.equal(computed.user, plain.user.replace('\n\n═══════════════════════\n\nQUESTION:', `\n\n═══════════════════════\n\n${computedBlock}\n\n═══════════════════════\n\nQUESTION:`))
+    assert.match(computed.system, /each component's name and supplied amount/)
+    assert.match(computed.system, /amount.*period, basis and source qualification/)
+    assert.match(computed.system, /absent for that period\/basis.*unavailable; never backfill or split/s)
+    assert.match(computed.system, /Preserve any withheld result and unresolved gap/)
+    assert.match(computed.system, /never recompute or re-round/)
+    assert.doesNotMatch(plain.system, /backfill or split the combined amount/)
+  })
+}
+
 // ---- PR #329 review fixes ----
 check('finding: slug-separated subject matches its prose spelling (CRUDE-OIL ↔ "crude oil")', () => {
   const cands = { commodity: ['CRUDE-OIL', 'NATURAL-GAS'] }
