@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T01:23:26Z",
+  "generated_at": "2026-11-15T01:27:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -188,6 +188,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-026",
+      "headline": "Jensen Huang’s affair will shut back-door trade of AI chips to China",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/asia/jensen-huang-s-affair-will-shut-back-door-trade-of-ai-chips-to-china-20261115-p61d8g?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T01:22:15Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "New restrictions on AI chip exports to China will impact revenue for major semiconductor manufacturers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "New restrictions on AI chip exports to China will impact revenue for major semiconductor manufacturers.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -432,6 +482,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-028",
+      "headline": "최태원 SK 회장, \"AI 플라이휠로 성장의 선순환 구조 구축해야\"",
+      "headline_en": "SK Chairman Chey Tae-won, \"Must build a virtuous cycle of growth with an AI flywheel\"",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281303",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:24:17Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "SK Group Chairman emphasizes AI-driven growth strategy, signaling long-term capital allocation priorities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "SK Group Chairman emphasizes AI-driven growth strategy, signaling long-term capital allocation priorities.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Group",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-012",
       "headline": "SpaceX’s Starship captured by launchpad arms in dramatic first",
       "headline_en": null,
@@ -473,6 +572,55 @@
           "name": "SpaceX",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-027",
+      "headline": "LH, 한국주택협회와 주택공급 간담회",
+      "headline_en": "LH, housing supply meeting with Korea Housing Association",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281307",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:54:36Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Korea Land and Housing Corporation (LH) is holding a meeting regarding housing supply, which is a key policy area.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Korea Land and Housing Corporation (LH) is holding a meeting regarding housing supply, which is a key policy area.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Land and Housing Corporation",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "unknown",
@@ -617,6 +765,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-029",
+      "headline": "비블리안, 무신사 뷰티 성수·홍대점 입점…해외 고객 접점 확대",
+      "headline_en": "Biblian enters Musinsa Beauty Seongsu and Hongdae stores... expanding touchpoints with overseas customers",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281286",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Biblian expanding retail presence through Musinsa Beauty stores to reach more customers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Biblian expanding retail presence through Musinsa Beauty stores to reach more customers.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Biblian",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -281100,7 +281297,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4872,
+    "inbox_unconsumed": 4876,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -281109,9 +281306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 135,
-    "news_picked_today": 26,
-    "news_dropped_today": 109
+    "news_seen_today": 151,
+    "news_picked_today": 30,
+    "news_dropped_today": 121
   },
   "book_momentum": {
     "live_count": 8,
