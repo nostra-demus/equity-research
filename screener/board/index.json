@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T18:46:19Z",
+  "generated_at": "2026-11-15T18:47:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -96,6 +96,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-263",
+      "headline": "Diamondback nears $5bn deal to expand drilling in oil-rich Permian Basin",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a56fc76f-af32-45b2-8ae1-d5e211cb9643?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T18:27:27Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Diamondback Energy is nearing a $5 billion acquisition to expand its Permian Basin operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Diamondback Energy is nearing a $5 billion acquisition to expand its Permian Basin operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diamondback Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-269",
+      "headline": "Suez Canal Bank posts record EGP 5.7bn net profit in 9M 2026, up 12.9%",
+      "headline_en": null,
+      "url": "https://dailynewsegypt.com/2026/11/15/suez-canal-bank-posts-record-egp-5-7bn-net-profit-in-9m-2026-up-12-9/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T18:16:12Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Suez Canal Bank reported a record net profit of EGP 5.7bn for 9M 2026, representing a 12.9% increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suez Canal Bank reported a record net profit of EGP 5.7bn for 9M 2026, representing a 12.9% increase.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suez Canal Bank",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1825,94 +1923,6 @@
       "event_types": [
         "litigation_enforcement",
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-195",
-      "headline": "Rajasthan Railway Track Blast: Two Arrested Over Suspected Pakistan-Backed ISI Module, 2 Firearms Recovered",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/rajasthan-railway-track-blast-two-arrested-over-suspected-pakistan-backed-isi-module-2-firearms-recovered",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T10:01:37Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Arrests related to a suspected Pakistan-backed ISI module and recovered firearms suggest potential geopolitical risk impacting the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Arrests related to a suspected Pakistan-backed ISI module and recovered firearms suggest potential geopolitical risk impacting the region.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-201",
-      "headline": "From drone plots to cyberattacks: Is Iran taking its war to Europe?",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/from-drone-plots-to-cyberattacks-is-iran-taking-its-war-to-europe-1.500748054",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T09:59:47Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The question of Iran taking its war to Europe via drone plots and cyberattacks indicates a significant escalation of geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The question of Iran taking its war to Europe via drone plots and cyberattacks indicates a significant escalation of geopolitical risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "litigation_enforcement"
       ],
       "issuer_linkage": "macro",
       "companies": [],
