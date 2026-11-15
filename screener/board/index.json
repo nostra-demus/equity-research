@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T00:38:23Z",
+  "generated_at": "2026-11-15T00:38:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-010",
@@ -238574,6 +238574,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-144f18f1eed3",
+      "idea_version": "IDEAV-632be66818793b28",
+      "idea_version_started_at": "2026-11-15T00:38:32Z",
+      "ticker": "LHX",
+      "company": "L3Harris Technologies",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A single L3Harris router is suspected of causing a US aviation system shutdown, which could lead to reputational damage and potential loss of future government contracts.",
+      "why_now": "The news of the potential malfunction and its impact on US aviation systems is fresh as of November 15, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a39bbfd1d9ad"
+      ],
+      "primary_source_event_id": "EVT-a39bbfd1d9ad",
+      "source_headlines": [
+        "Single L3Harris router may have triggered US aviation system shutdown"
+      ],
+      "source_headline": "Single L3Harris router may have triggered US aviation system shutdown",
+      "source_url": "https://www.thehindubusinessline.com/economy/logistics/single-l3harris-router-may-have-triggered-us-aviation-system-shutdown/article71703978.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 83,
+      "newest_source_at": "2026-11-15T00:16:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T00:38:32Z",
+      "updated_at": "2026-11-15T00:38:32Z",
+      "decay_at": "2026-11-16T12:16:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-785361ba10ab",
       "idea_version": "IDEAV-8be517a9b511f654",
       "idea_version_started_at": "2026-11-15T00:19:25Z",
@@ -243280,77 +243350,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c8f18a4931e6",
-      "idea_version": "IDEAV-4fead7ea9f4884ae",
-      "idea_version_started_at": "2026-11-12T09:30:10Z",
-      "ticker": "PDN",
-      "company": "Paladin Energy",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a large A$525M equity raising, which will significantly dilute existing shareholders.",
-      "why_now": "The capital raising was announced via official filing on 2026-11-12.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-858b244d2066"
-      ],
-      "primary_source_event_id": "EVT-858b244d2066",
-      "source_headlines": [
-        "PDN: A$525M Fully Underwritten Equity Raising - Presentation"
-      ],
-      "source_headline": "PDN: A$525M Fully Underwritten Equity Raising - Presentation",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PDN?key=2924-03160986-6A1354752",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T00:30:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T09:30:10Z",
-      "updated_at": "2026-11-12T09:30:10Z",
-      "decay_at": "2026-11-13T12:30:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-fca8d6c889e5",
       "idea_version": "IDEAV-bfc4d36af02f8402",
       "idea_version_started_at": "2026-11-12T09:30:10Z",
@@ -243434,9 +243433,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -243444,23 +243443,23 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1897,
-      "oldest_retained_at": "2026-10-20T18:12:21Z",
+      "evicted_count": 1898,
+      "oldest_retained_at": "2026-10-20T21:13:11Z",
       "side_counts": {
         "long": {
           "evicted_count": 1245,
           "oldest_retained_at": "2026-11-01T19:46:25Z"
         },
         "short": {
-          "evicted_count": 653,
-          "oldest_retained_at": "2026-10-20T18:12:21Z"
+          "evicted_count": 654,
+          "oldest_retained_at": "2026-10-20T21:13:11Z"
         }
       }
     },
@@ -247316,8 +247315,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T12:30:21Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T00:38:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -280576,8 +280575,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2470,
-    "live_count": 21,
+    "surfaced_total": 2471,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
