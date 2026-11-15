@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T08:04:01Z",
+  "generated_at": "2026-11-15T08:09:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-144",
@@ -150,6 +150,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-145",
+      "headline": "Kaynes Technology Q2 Results: Net Profit Slides Over 61%, Margin Narrows",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/kaynes-technology-q2-results-net-profit-slides-over-61-percent-margin-narrows-12329140#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T06:48:12Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Reported a significant net profit decline of over 61% and narrowing margins for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported a significant net profit decline of over 61% and narrowing margins for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaynes Technology",
+          "ticker": "KAYNES",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1903,55 +1952,6 @@
       "launched_signal_id": null,
       "triage_score": 83,
       "triage_reason": "SpaceX successfully demonstrated a major technical milestone with the Starship catch, validating its reusable launch system.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-063",
-      "headline": "SpaceX’s Starship returns from orbit and is captured by launch pad arms in a dramatic first",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/spacexs-starship-returns-from-orbit-and-is-captured-by-launch-pad-arms-in-a-dramatic-first-1.500747715",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:25:54Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a major technical milestone with the Starship launch pad capture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SpaceX successfully demonstrated a major technical milestone with the Starship launch pad capture.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -282954,9 +282954,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 964,
-    "news_picked_today": 198,
-    "news_dropped_today": 766
+    "news_seen_today": 982,
+    "news_picked_today": 201,
+    "news_dropped_today": 781
   },
   "book_momentum": {
     "live_count": 8,
