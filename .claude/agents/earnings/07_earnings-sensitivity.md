@@ -171,7 +171,7 @@ OMIT a variable that has only a guidance range or a scenario impact with **no** 
 
 The no-sidecar sentence above applies when there is neither a clean coefficient nor an eligible additive
 identity. It remains binding for coefficient rows: zero clean coefficients means **no `sensitivities`
-collection**, never an empty/malformed collection or a synthetic coefficient of1. A source-backed complete
+collection**, never an empty/malformed collection or a synthetic coefficient of 1. A source-backed complete
 accounting identity may instead use the distinct `additive_identities` collection in the SAME
 `earnings/sensitivity_summary.json` and schema. This is reconciliation/conditional remainder arithmetic,
 not a marginal-cost rate, point forecast, scenario plan or new research module. If neither operation is
@@ -208,7 +208,7 @@ selection, the named profile/period and explicit matching currency/scale; unsupp
 Additive output reaches the existing Ask backend as qualified computed context only. It supplies the
 signed build, sources, basis, source/target periods, assumptions and any withheld reason. It is not a
 coefficient-impact card, valuation/repricing input, native forecast/outcome, probability, cash/ROIC result
-or investment-return evidence. Do not claim a complete07 pass from a single identity calculation.
+or investment-return evidence. Do not claim a complete earnings-sensitivity module pass from a single identity calculation.
 
 # SELF-CHECK
 
