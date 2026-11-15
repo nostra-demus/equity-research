@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T09:12:26Z",
+  "generated_at": "2026-11-15T09:20:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-144",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-158",
+      "headline": "What’s Next for Nvidia After Jensen Huang’s Resignation?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/15/what-s-next-for-nvidia-after-jensen-huang-s-resignation/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:10:02Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The resignation of a high-profile CEO like Jensen Huang would be a major event for Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a high-profile CEO like Jensen Huang would be a major event for Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1634,6 +1683,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-160",
+      "headline": "Tata heir questions big bets as US$185 billion group feud deepens",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/tata-heir-questions-big-bets-as-us185-billion-group-feud-deepens",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Internal governance and strategic disputes within the Tata Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Internal governance and strategic disputes within the Tata Group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-156",
       "headline": "Firmus plans $4.4b private raise but upfront Nvidia, Meta payments key",
       "headline_en": null,
@@ -1685,55 +1783,6 @@
           "name": "Meta",
           "ticker": "META",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-148",
-      "headline": "Tata Heir Questions Big Bets as $185 Billion Group Feud Deepens",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-15/tata-heir-questions-big-bets-as-185-billion-group-feud-deepens",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T07:55:57Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Group",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-053",
-      "headline": "Investors urge board to consider return of Jensen Huang, Musk says Nvidia will lose critical deals without its founder",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/investors-urge-board-to-consider-return-of-jensen-huang-musk-says-nvidia-will-lose-critical-deals-without-its-founder-11794708086815.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:14:05Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Public commentary from a high-profile figure regarding potential leadership instability at Nvidia creates management uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Public commentary from a high-profile figure regarding potential leadership instability at Nvidia creates management uncertainty.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282744,9 +282744,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1125,
-    "news_picked_today": 234,
-    "news_dropped_today": 891
+    "news_seen_today": 1150,
+    "news_picked_today": 243,
+    "news_dropped_today": 907
   },
   "book_momentum": {
     "live_count": 8,
