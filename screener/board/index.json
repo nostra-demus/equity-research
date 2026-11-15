@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T00:15:04Z",
+  "generated_at": "2026-11-15T00:19:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-003",
@@ -89,6 +89,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-006",
+      "headline": "Uber Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Driver Data Is Exposed",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/uber-data-breach-investigation-edelson-lechtzin-llp-probes-class-action-claims-after-driver-data-is-exposed-302939593.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-15T00:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Uber is facing a potential class action lawsuit following a reported exposure of driver data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Uber is facing a potential class action lawsuit following a reported exposure of driver data.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber Technologies",
+          "ticker": "UBER",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -280103,7 +280153,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4852,
+    "inbox_unconsumed": 4853,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -280112,9 +280162,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 24,
-    "news_picked_today": 5,
-    "news_dropped_today": 19
+    "news_seen_today": 28,
+    "news_picked_today": 6,
+    "news_dropped_today": 22
   },
   "book_momentum": {
     "live_count": 8,
