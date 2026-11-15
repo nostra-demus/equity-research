@@ -1,6 +1,147 @@
 {
-  "generated_at": "2026-11-14T23:57:55Z",
+  "generated_at": "2026-11-15T00:04:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-003",
+      "headline": "SpaceX successfully catches Starship rocket, in milestone for the space industry",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=d207a64b-a8d1-43ca-8ed3-030683015ffa&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T23:55:28Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "SpaceX successfully caught a Starship rocket, representing a significant technological milestone for the aerospace industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "SpaceX successfully caught a Starship rocket, representing a significant technological milestone for the aerospace industry.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-002",
+      "headline": "Iraq PM targets powerful militia stronghold in $30m oil smuggling probe",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/aje-onl-nf_iraq-pm-targets-militia-stronghold-in-oil-smuggling-141126?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-14T23:34:37Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The Iraqi government is targeting oil smuggling operations involving a $30 million probe, impacting regional energy supply security.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The Iraqi government is targeting oil smuggling operations involving a $30 million probe, impacting regional energy supply security.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-001",
+      "headline": "EZaccessMD Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Patient Data Is Exposed",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/ezaccessmd-data-breach-investigation-edelson-lechtzin-llp-probes-class-action-claims-after-patient-data-is-exposed-302939591.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-14T23:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A law firm is investigating a data breach at EZaccessMD, which creates potential legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "A law firm is investigating a data breach at EZaccessMD, which creates potential legal and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EZaccessMD",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261114-768",
       "headline": "Dolat Algotech Limited: Dolat Algotech Limited has informed the Exchange regarding Outcome of Board Meeting held on November 14, 2026 for considering and approving for the issuance of Non-Convertible Debentures (NCDs) for an aggregate principal amount of up to ₹400 Crore (Rupees Four Hundred Crore only), in one or more tranches, on a private placement basis, in accordance with applicable laws and regulatory requirements.The details as required under SEBI (Listing Obligations and Disclosure",
@@ -279876,7 +280017,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4847,
+    "inbox_unconsumed": 4850,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -279885,9 +280026,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 222293,
-    "news_picked_today": 1671,
-    "news_dropped_today": 14908
+    "news_seen_today": 0,
+    "news_picked_today": 0,
+    "news_dropped_today": 0
   },
   "book_momentum": {
     "live_count": 8,
