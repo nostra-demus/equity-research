@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T03:49:29Z",
+  "generated_at": "2026-11-15T03:58:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -193,6 +193,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-079",
+      "headline": "Trump-Xi-Putin trilateral meeting next week: Iran war on agenda, but Nvidia and Ukraine likely off the table",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/trumpxiputin-trilateral-meeting-next-week-iran-war-on-agenda-but-nvidia-and-ukraine-likely-off-the-table-11794714010404.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T03:53:53Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A potential high-level trilateral meeting between the leaders of the US, China, and Russia represents a significant geopolitical event with broad market implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A potential high-level trilateral meeting between the leaders of the US, China, and Russia represents a significant geopolitical event with broad market implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1035,6 +1078,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-080",
+      "headline": "MP Government Faces Fresh Controversy As Minister Uday Pratap Singh Comes Under EOW Complaint, Seven Ministers Face Scrutiny In Three Years",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/mp-government-faces-fresh-controversy-as-minister-uday-pratap-singh-comes-under-eow-complaint-seven-ministers-face-scrutiny-in-three-years",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T03:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A government minister facing an EOW complaint adds to political instability and regulatory scrutiny risks for the state government.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "A government minister facing an EOW complaint adds to political instability and regulatory scrutiny risks for the state government.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-060",
       "headline": "Andrew Forrest-backed biotech in peanut allergy breakthrough",
       "headline_en": null,
@@ -1831,98 +1917,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-048",
-      "headline": "Iraq PM sacks nine officials over oil smuggling in pro-Iran stronghold",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/11/15/iraq-pm-sacks-nine-officials-over-oil-smuggling-in-pro-iran-stronghold?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-15T01:54:55Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The dismissal of nine officials in Iraq due to oil smuggling indicates a crackdown on illicit trade in a major oil-producing region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "The dismissal of nine officials in Iraq due to oil smuggling indicates a crackdown on illicit trade in a major oil-producing region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-028",
-      "headline": "최태원 SK 회장, \"AI 플라이휠로 성장의 선순환 구조 구축해야\"",
-      "headline_en": "SK Chairman Chey Tae-won, \"Must build a virtuous cycle of growth with an AI flywheel\"",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281303",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:24:17Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SK Group Chairman emphasizes AI-driven growth strategy, signaling long-term capital allocation priorities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "SK Group Chairman emphasizes AI-driven growth strategy, signaling long-term capital allocation priorities.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Group",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282312,9 +282306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 401,
-    "news_picked_today": 82,
-    "news_dropped_today": 319
+    "news_seen_today": 418,
+    "news_picked_today": 85,
+    "news_dropped_today": 333
   },
   "book_momentum": {
     "live_count": 8,
