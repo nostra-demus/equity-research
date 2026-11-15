@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T03:29:50Z",
+  "generated_at": "2026-11-15T03:39:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -1701,6 +1701,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-075",
+      "headline": "Japan ruling LDP vows to heed opposition views on consumption tax cut bill",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261115/p2g/00m/0na/022000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T03:30:09Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Japan's ruling party considering opposition views on tax policy indicates potential shifts in fiscal strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Japan's ruling party considering opposition views on tax policy indicates potential shifts in fiscal strategy.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-076",
+      "headline": "Ramayana Box Office Collection Day 10: Ranbir Kapoor, Sai Pallavi And Yash's Film Bounces Back After Second Friday Dip, Earns ₹72.90 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/entertainment/ramayana-box-office-collection-day-10-ranbir-kapoor-sai-pallavi-and-yashs-film-bounces-back-after-second-friday-dip-earns-7290-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T02:59:28Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Box office performance update for a film, showing a recovery in revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Box office performance update for a film, showing a recovery in revenue.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ramayana",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-048",
       "headline": "Iraq PM sacks nine officials over oil smuggling in pro-Iran stronghold",
       "headline_en": null,
@@ -1837,104 +1929,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-027",
-      "headline": "LH, 한국주택협회와 주택공급 간담회",
-      "headline_en": "LH, housing supply meeting with Korea Housing Association",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281307",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:54:36Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Korea Land and Housing Corporation (LH) is holding a meeting regarding housing supply, which is a key policy area.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Korea Land and Housing Corporation (LH) is holding a meeting regarding housing supply, which is a key policy area.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Land and Housing Corporation",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-047",
-      "headline": "Fuel removal at Fukushima reactor going smoothly: workers",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/15/japan/fukushima-plant-fuel-removal/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:28:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Progress in fuel removal at the Fukushima reactor is a positive operational update for TEPCO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Progress in fuel removal at the Fukushima reactor is a positive operational update for TEPCO.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tokyo Electric Power",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282324,9 +282318,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 372,
-    "news_picked_today": 79,
-    "news_dropped_today": 293
+    "news_seen_today": 396,
+    "news_picked_today": 81,
+    "news_dropped_today": 315
   },
   "book_momentum": {
     "live_count": 8,
