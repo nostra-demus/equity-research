@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T12:45:50Z",
+  "generated_at": "2026-11-15T12:52:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -93,6 +93,56 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-224",
+      "headline": "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/markets/property/hong-kong-s-new-world-proposes-3.2bn-rights-issue-for-capital-reset",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T12:48:04Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "New World Development proposes a $3.2 billion rights issue to reset its capital structure and address debt concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "New World Development proposes a $3.2 billion rights issue to reset its capital structure and address debt concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": "0017",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "large",
@@ -1885,56 +1935,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-132",
-      "headline": "Samsung conquered AI chips. Now it wants to build data centres",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/ee5b23b3-89b3-41f7-9158-56c1586759c2?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T05:00:04Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Samsung is pivoting to build data centers, a major strategic shift and capital investment into AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Samsung is pivoting to build data centers, a major strategic shift and capital investment into AI infrastructure.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -283267,9 +283267,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2003,
-    "news_picked_today": 381,
-    "news_dropped_today": 1553
+    "news_seen_today": 2048,
+    "news_picked_today": 387,
+    "news_dropped_today": 1592
   },
   "book_momentum": {
     "live_count": 8,
