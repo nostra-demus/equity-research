@@ -21,6 +21,8 @@ per (file + method + model), so the cost — and any token spend — is paid onc
 Full PDF reads account for physical text-bearing, genuinely blank and unresolved visual pages.
 Incomplete reads retain diagnostic text with EXTRACT-FAIL and cannot enter the research corpus.
 This is page coverage, not semantic verification of images within text-bearing pages or of OCR accuracy.
+Usable text is also checked for a narrow class of ambiguous monetary separators. Source-local
+advisories preserve the token and its canonical LF/column locator; they never repair a number.
 
 ANY LANGUAGE, TRANSCRIBED VERBATIM. Non-English filings (Arabic, Mandarin, Japanese, …) are extracted
 exactly like English ones — the vision/OCR transcriber reproduces the ORIGINAL script verbatim and
@@ -1795,9 +1797,105 @@ def _pool_output_lease(out_dir, timeout_s=None, cancelled=None):
         if fd is not None:
             os.close(fd)
 
-# v4: full PDF reads now require physical-page coverage. Rebuild live caches;
-# immutable old generations are never rewritten (frozen reuse validates separately).
-_CACHE_GUARD_VERSION = 4
+# v5 adds bound, source-local numeric-reading checks. Rebuild live caches;
+# immutable old generations are never rewritten or silently marked checked.
+_CACHE_GUARD_VERSION = 5
+_NUMERIC_READING_VERSION = 1
+
+# This deliberately narrow lexical check is not a financial parser or a proof
+# of accuracy. Repeated separators ending in a short decimal group can be a
+# damaged money reading; valid locale grouping, dates and labelled versions
+# must remain usable. Context only establishes why the token warrants review.
+_REPEATED_NUMBER = re.compile(r"(?<![\w.,])\d+(?:[.,]\d+){2,}(?![\w.,])")
+_MONEY_CONTEXT = re.compile(
+    r"\b(?:revenue|profit|loss|income|expense|cost|cash|debt|assets?|liabilit\w*|"
+    r"results?|earnings|ebitda|ebit|capex|receivables?|payables?|dividends?|"
+    r"million|billion|crore|lakh|inr|usd|eur|gbp|jpy|cny|rmb|aud|cad)\b|[₹$€£¥]",
+    re.IGNORECASE,
+)
+_VERSION_CONTEXT = re.compile(r"\b(?:version|mime-version|generator|build)\s*[:=]?\s*v?\s*$", re.IGNORECASE)
+
+
+def _numeric_reading_check(text):
+    """Advisory only; coordinates are literal-LF lines and Unicode columns.
+
+    Both are 1-based; column_start is inclusive and column_end is exclusive.
+    Formfeeds never increment a line or imply a physical PDF page.
+    """
+    warnings = []
+    lines = text.split("\n")
+    money_lines = [bool(_MONEY_CONTEXT.search(line)) for line in lines]
+    for index, line in enumerate(lines):
+        if not any(money_lines[max(0, index - 8):index + 1]):
+            continue
+        for match in _REPEATED_NUMBER.finditer(line):
+            token = match.group()
+            separators = re.findall(r"[.,]", token)
+            groups = re.split(r"[.,]", token)
+            # Mixed separators include valid European and Indian decimal
+            # formats; all-three-digit groups are valid grouped integers.
+            if len(set(separators)) != 1 or len(groups[-1]) not in (1, 2):
+                continue
+            if _VERSION_CONTEXT.search(line[max(0, match.start() - 40):match.start()]):
+                continue
+            # dd.mm.yy (and dd,mm,yy) can be an ordinary date. Four-digit
+            # years were already excluded by the short-final-group rule.
+            if (len(groups) == 3 and len(groups[0]) <= 2 and len(groups[1]) <= 2
+                    and 1 <= int(groups[0]) <= 31 and 1 <= int(groups[1]) <= 12):
+                continue
+            warnings.append({"code": "ambiguous_monetary_token", "token": token,
+                             "line": index + 1, "column_start": match.start() + 1,
+                             "column_end": match.end() + 1})
+    return {"version": _NUMERIC_READING_VERSION,
+            "scope": "repeated monetary separator patterns only; not semantic verification",
+            "coordinates": "literal LF lines and Unicode columns, 1-based; start inclusive, end exclusive",
+            "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+            "warnings": warnings}
+
+
+def _numeric_reading_owners(source):
+    if source.get("extract"):
+        yield source
+    yield from (sheet for sheet in source.get("sheets") or [] if isinstance(sheet, dict) and sheet.get("extract"))
+
+
+def _annotate_numeric_readings(sources, out_dir, data_path):
+    """Check exact approved text before its source row and corpus are bound."""
+    for source in sources:
+        if source.get("status") not in USABLE_STATUSES:
+            continue
+        for owner in _numeric_reading_owners(source):
+            extract = owner["extract"]
+            if extract == "(original)":
+                rel = source.get("path") or source["file"]
+                text = _read_pool_regular_bytes(data_path, rel).decode("utf-8", "ignore")
+            else:
+                with open(os.path.join(out_dir, extract), encoding="utf-8", errors="ignore", newline="") as handle:
+                    text = handle.read()
+            owner["numeric_reading_check"] = _numeric_reading_check(text)
+
+
+def _numeric_reading_annotations(source):
+    """Metadata, never a source quotation; each locator refers to canonical text."""
+    annotations = []
+    for owner in _numeric_reading_owners(source):
+        extract = owner["extract"]
+        if extract == "(original)":
+            locator = "frozen original source (resolve this source row in the bound generation manifest)"
+        elif extract.startswith(_GENERATION_DIR_NAME + "/"):
+            locator = f"extract {extract}"
+        else:
+            locator = f"generation-local extract {extract} (resolve within this bound generation)"
+        for warning in (owner.get("numeric_reading_check") or {}).get("warnings", []):
+            annotations.append(
+                f"EXTRACTOR ANNOTATION [ambiguous_monetary_token]: source {source.get('path') or source['file']}; "
+                f"{locator}; verbatim token {warning['token']!r}; "
+                f"canonical LF line {warning['line']}, columns {warning['column_start']}:{warning['column_end']} "
+                "(1-based, end exclusive). Unresolved monetary reading: verify the original source before "
+                "using this amount in a material claim; withhold or qualify dependent amounts until verified. "
+                "No replacement is inferred; unaffected evidence remains usable."
+            )
+    return annotations
 
 def _complete_pool_inventory(data_path):
     """Return every safe pool file, or fail if traversal was incomplete.
@@ -3008,6 +3106,7 @@ def _extract_pool_locked(
 
     # Everything below is still private.  Derived artifacts and the corpus are
     # built from the immutable snapshot, never from a second live-pool walk.
+    _annotate_numeric_readings(sources, build_out_dir, snapshot_pool)
     entities = _entities_from_paths(
         snapshot_pool, tuple(entry["snapshot_path"] for entry in captured),
     )
@@ -3272,6 +3371,13 @@ def _manifest_md(m):
             if prov:
                 note = f"{note} — {prov}"
             lines.append(f"| {display} | {s['kind']} ({s['status']}) | — | — | — | {note} |")
+    lines.extend(["", "## Numeric reading advisories", "",
+                  "Extractor annotations are not source quotations. The numeric check covers only repeated "
+                  "monetary separator patterns, not semantic accuracy. A missing numeric_reading_check means "
+                  "unchecked, never clean. Locators use the canonical extract's literal LF lines and Unicode "
+                  "columns (1-based, end exclusive), not corpus lines or physical PDF pages."])
+    for source in m["sources"]:
+        lines.extend(f"- {annotation}" for annotation in _numeric_reading_annotations(source))
     return "\n".join(lines) + "\n"
 
 
@@ -3292,11 +3398,17 @@ def _write_corpus(out_dir, data_path, corpus_path, manifest, excluded_rels=None)
     excluded = {str(rel).replace(os.sep, "/") for rel in (excluded_rels or set())}
     approved_extracts = set()
     approved_originals = set()
+    annotations = {}
     for source in (manifest or {}).get("sources", []):
         if source.get("status") not in ("ok", "in-place"):
             continue
         source_rel = str(source.get("path") or source.get("file") or "").replace(os.sep, "/")
         extract = source.get("extract")
+        for owner in _numeric_reading_owners(source):
+            owner_source = dict(source, extract=owner["extract"], sheets=[],
+                                numeric_reading_check=owner.get("numeric_reading_check"))
+            key = source_rel if owner["extract"] == "(original)" else owner["extract"]
+            annotations.setdefault(key, []).extend(_numeric_reading_annotations(owner_source))
         if extract == "(original)":
             approved_originals.add(source_rel)
         elif isinstance(extract, str) and extract.endswith(".txt"):
@@ -3310,6 +3422,8 @@ def _write_corpus(out_dir, data_path, corpus_path, manifest, excluded_rels=None)
         p = os.path.join(out_dir, name)
         if not os.path.isfile(p):
             continue
+        if annotations.get(name):
+            parts.append("\n" + "\n".join(annotations[name]) + "\n")
         parts.append(f"\n===== EXTRACT: {os.path.basename(p)} =====\n")
         parts.append(open(p, errors="ignore").read())
     for p in iter_pool_files(data_path):
@@ -3326,6 +3440,8 @@ def _write_corpus(out_dir, data_path, corpus_path, manifest, excluded_rels=None)
                 continue
             # relpath, not basename — data/T/note.txt and data/T/external/x/note.txt must be
             # labelled distinctly, or verify-evidence attributes greps to the wrong source.
+            if annotations.get(rel):
+                parts.append("\n" + "\n".join(annotations[rel]) + "\n")
             parts.append(f"\n===== SOURCE: {rel} =====\n")
             parts.append(body)
     _atomic_text(corpus_path, "".join(parts))
@@ -3727,6 +3843,18 @@ def readiness_summary(data_path, out_dir, force=False):
                 issues.append({"code": code, "severity": sev, "file": s.get("file"),
                                "message": f'Could not fully read "{s.get("file")}" ({s.get("status")}).',
                                "evidence": s.get("error") or s.get("status")})
+            if s.get("status") in USABLE_STATUSES:
+                owners = list(_numeric_reading_owners(s))
+                if not owners or any((owner.get("numeric_reading_check") or {}).get("version")
+                                     != _NUMERIC_READING_VERSION for owner in owners):
+                    issues.append({"code": "numeric_reading_unchecked", "severity": "info", "file": s.get("file"),
+                                   "message": "This retained source has no current numeric-reading check; absence is not a clean result.",
+                                   "evidence": "Frozen evidence is unchanged. Verify material amounts against the original source; "
+                                               "a fresh authorized generation is required to bind a new check."})
+                for annotation in _numeric_reading_annotations(s):
+                    issues.append({"code": "ambiguous_monetary_token", "severity": "degrade", "file": s.get("file"),
+                                   "message": "An extracted monetary token has an unresolved reading; check the original source.",
+                                   "evidence": annotation})
 
         # entity read (surface-and-confirm): sniff each file's header for the registrant/subject name.
         # Allow documents (pdf/mhtml/rtf/html) AND workbooks/Word docs (ole2/zip) — CIQ data exports carry
