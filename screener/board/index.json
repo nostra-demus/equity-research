@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T02:19:20Z",
+  "generated_at": "2026-11-15T02:24:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -285,6 +285,55 @@
         "commercial"
       ],
       "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-053",
+      "headline": "Investors urge board to consider return of Jensen Huang, Musk says Nvidia will lose critical deals without its founder",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/investors-urge-board-to-consider-return-of-jensen-huang-musk-says-nvidia-will-lose-critical-deals-without-its-founder-11794708086815.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T02:14:05Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Public commentary from a high-profile figure regarding potential leadership instability at Nvidia creates management uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Public commentary from a high-profile figure regarding potential leadership instability at Nvidia creates management uncertainty.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Nvidia",
@@ -1832,49 +1881,6 @@
       "triage_score": 47,
       "triage_reason": "The interception of ballistic missiles over a major capital city represents a significant escalation in regional geopolitical conflict.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-034",
-      "headline": "Trump says may hold off on Iran attacks barring new provocations",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/trump-says-may-hold-iran-attacks-barring-new-provocations-0",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T01:24:18Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Geopolitical tensions regarding potential military action against Iran remain a significant market risk factor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical tensions regarding potential military action against Iran remain a significant market risk factor.",
-      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -281925,9 +281931,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 246,
-    "news_picked_today": 53,
-    "news_dropped_today": 193
+    "news_seen_today": 250,
+    "news_picked_today": 54,
+    "news_dropped_today": 196
   },
   "book_momentum": {
     "live_count": 8,
