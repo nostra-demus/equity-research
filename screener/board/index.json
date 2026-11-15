@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T06:10:16Z",
+  "generated_at": "2026-11-15T06:29:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-117",
@@ -389,6 +389,210 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-132",
+      "headline": "Samsung conquered AI chips. Now it wants to build data centres",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/ee5b23b3-89b3-41f7-9158-56c1586759c2?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T05:00:04Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Samsung is pivoting to build data centers, a major strategic shift and capital investment into AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Samsung is pivoting to build data centers, a major strategic shift and capital investment into AI infrastructure.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": "005930",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-131",
+      "headline": "Brookfield and KKR vie over $700mn deal for Gulf retailer Eyewa",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a240f6b7-724c-4ad5-a4b1-2e04897e2fe8?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T05:00:04Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Brookfield and KKR are competing for a $700mn acquisition of Eyewa, a significant deal in the regional retail sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Brookfield and KKR are competing for a $700mn acquisition of Eyewa, a significant deal in the regional retail sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield Asset Management",
+          "ticker": "BAM",
+          "listing_country": "US"
+        },
+        {
+          "name": "KKR & Co. Inc.",
+          "ticker": "KKR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-129",
+      "headline": "‎Sipchem completes Al-Waha plant expansion, boosting capacity by over 30%",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1953814",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:59:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Sipchem completed a plant expansion that increases capacity by over 30%, directly impacting future revenue potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Sipchem completed a plant expansion that increases capacity by over 30%, directly impacting future revenue potential.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sipchem",
+          "ticker": "SIPCHEM",
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-128",
+      "headline": "‎Acwa secures financial close of SAR 847.5M for Bash II wind farm in Uzbekistan",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1953822",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:09:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "ACWA Power reached financial close on SAR 847.5M for the Bash II wind farm project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "ACWA Power reached financial close on SAR 847.5M for the Bash II wind farm project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ACWA Power",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-039",
       "headline": "Jensen Huang’s ousting sends tech stocks tumbling; Singtel CEO sells shares: Markets this week",
       "headline_en": null,
@@ -538,55 +742,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-125",
-      "headline": "‎Sipchem completes Al-Waha plant expansion",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1953814",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T08:59:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Sipchem completes expansion of its Al-Waha plant, increasing production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Sipchem completes expansion of its Al-Waha plant, increasing production capacity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sipchem",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1814,141 +1969,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-080",
-      "headline": "MP Government Faces Fresh Controversy As Minister Uday Pratap Singh Comes Under EOW Complaint, Seven Ministers Face Scrutiny In Three Years",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/mp-government-faces-fresh-controversy-as-minister-uday-pratap-singh-comes-under-eow-complaint-seven-ministers-face-scrutiny-in-three-years",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T03:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A government minister facing an EOW complaint adds to political instability and regulatory scrutiny risks for the state government.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A government minister facing an EOW complaint adds to political instability and regulatory scrutiny risks for the state government.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-060",
-      "headline": "Andrew Forrest-backed biotech in peanut allergy breakthrough",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/healthcare-and-fitness/andrew-forrest-backed-biotech-in-peanut-allergy-breakthrough-20261115-p61djl?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:32:47Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A biotech firm backed by Andrew Forrest has achieved a significant clinical breakthrough in peanut allergy treatment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A biotech firm backed by Andrew Forrest has achieved a significant clinical breakthrough in peanut allergy treatment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-025",
-      "headline": "‘Holy Grail of spaceflight’: SpaceX pulls off first-ever midair 'catch' of Starship returning from orbit",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/holy-grail-of-spaceflight-spacex-pulls-off-first-ever-midair-catch-of-starship-returning-from-orbit-11794704126187.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T01:15:33Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a major technical milestone in reusable rocket technology, enhancing its competitive advantage in launch costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "SpaceX successfully demonstrated a major technical milestone in reusable rocket technology, enhancing its competitive advantage in launch costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -282774,9 +282794,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 693,
-    "news_picked_today": 150,
-    "news_dropped_today": 543
+    "news_seen_today": 744,
+    "news_picked_today": 159,
+    "news_dropped_today": 585
   },
   "book_momentum": {
     "live_count": 8,
