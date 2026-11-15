@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T15:20:09Z",
+  "generated_at": "2026-11-15T15:21:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -93,6 +93,56 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-251",
+      "headline": "STAT+: FDA rejects lung cancer treatment ivonescimab from Summit Therapeutics",
+      "headline_en": null,
+      "url": "https://www.statnews.com/2026/11/15/fda-rejects-ivonescimab-lung-cancer-treatment-summit-therapeutics/?utm_campaign=rss",
+      "source_name": "STAT News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T15:05:15Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The FDA rejected the company's lead lung cancer treatment, which is a major negative event for its clinical pipeline and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FDA rejected the company's lead lung cancer treatment, which is a major negative event for its clinical pipeline and valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Summit Therapeutics",
+          "ticker": "SMMT",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1862,56 +1912,6 @@
           "name": "Amplitel",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-184",
-      "headline": "INNOVENT BIO (01801): VOLUNTARY ANNOUNCEMENT - INCLUSION OF SEVEN INNOVATIVE PRODUCTS INCLUDING MAZDUTIDE AND PECONDLE IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T10:11:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Inclusion of seven innovative products in the NRDL significantly expands the company's addressable market and revenue potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Inclusion of seven innovative products in the NRDL significantly expands the company's addressable market and revenue potential.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Innovent Biologics",
-          "ticker": "01801",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -283176,9 +283176,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2642,
-    "news_picked_today": 461,
-    "news_dropped_today": 1944
+    "news_seen_today": 2675,
+    "news_picked_today": 467,
+    "news_dropped_today": 1971
   },
   "book_momentum": {
     "live_count": 8,
