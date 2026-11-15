@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T03:14:22Z",
+  "generated_at": "2026-11-15T03:20:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -384,6 +384,55 @@
         "commercial"
       ],
       "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-070",
+      "headline": "'Handshake' deals could fall: Musk flags risks for Nvidia after Jensen Huang's exit",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/handshake-deals-could-fall-through-musk-flags-supply-chain-risks-for-nvidia-after-jensen-huangs-exit/articleshow/135845938.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T03:02:09Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Elon Musk has publicly flagged potential operational risks for Nvidia following the departure of CEO Jensen Huang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Elon Musk has publicly flagged potential operational risks for Nvidia following the departure of CEO Jensen Huang.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Nvidia",
@@ -1885,55 +1934,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-021",
-      "headline": "US court orders arrest of tanker after New Orleans cruise ship collision",
-      "headline_en": null,
-      "url": "https://splash247.com/us-court-orders-arrest-of-tanker-after-new-orleans-cruise-ship-collision/",
-      "source_name": "Splash247",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-11-15T01:06:11Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A US court has ordered the arrest of a tanker following a collision with a cruise ship, creating potential legal and operational liability for the vessel owner.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "A US court has ordered the arrest of a tanker following a collision with a cruise ship, creating potential legal and operational liability for the vessel owner.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unknown Tanker",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -282035,9 +282035,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 359,
-    "news_picked_today": 72,
-    "news_dropped_today": 287
+    "news_seen_today": 363,
+    "news_picked_today": 73,
+    "news_dropped_today": 290
   },
   "book_momentum": {
     "live_count": 8,
