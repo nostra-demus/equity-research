@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T10:14:47Z",
+  "generated_at": "2026-11-15T11:23:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-205",
+      "headline": "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ELEVEN (11) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A FU",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "New World Development announced a massive rights issue of 11 shares for every 1 share held, indicating significant capital dilution and liquidity pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "New World Development announced a massive rights issue of 11 shares for every 1 share held, indicating significant capital dilution and liquidity pressure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": "00017",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-144",
       "headline": "‎Al Ansari Financial posts 24% drop in 9M 2026 earnings to AED 231.1M; Q3 at AED 79.8M",
@@ -46,6 +95,105 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-187",
+      "headline": "Nvidia had no succession plan when Jensen Huang quit. Former Fortune 500 CEOs call it ‘preposterous’",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/15/fortune-500-ceos-say-nvidia-succession-failed-most-basic-test/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The departure of Nvidia's founder-CEO Jensen Huang without a succession plan is a major leadership risk for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The departure of Nvidia's founder-CEO Jensen Huang without a succession plan is a major leadership risk for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-194",
+      "headline": "Firmus Plans to Raise $3 Billion After IPO Collapse, AFR Says",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/firmus-plans-to-raise-3-billion-after-ipo-collapse-afr-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:40:54Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Firmus plans to raise $3 billion after an IPO collapse, indicating potential financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Firmus plans to raise $3 billion after an IPO collapse, indicating potential financial distress.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Firmus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -696,6 +844,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-213",
+      "headline": "Jordan condemns Iran's drone strike on Bahrain",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/jordan-condemns-irans-drone-strike-bahrain",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T11:16:50Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A drone strike on Bahrain represents a significant geopolitical escalation in a critical oil-producing region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A drone strike on Bahrain represents a significant geopolitical escalation in a critical oil-producing region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-214",
+      "headline": "IRGC says Bahrain drone strike responded to ‘US aggression’ in southern Iran",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/irgc-said-bahrain-drone-strike-response-us-aggression-southern-iran",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T11:12:57Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The IRGC's admission of a drone strike citing US aggression confirms a direct military escalation between regional actors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The IRGC's admission of a drone strike citing US aggression confirms a direct military escalation between regional actors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-170",
       "headline": "Palestinian martyred, others injured in Israeli airstrike on tent sheltering displaced people in Khan Yunis, Southern Gaza",
       "headline_en": null,
@@ -775,6 +1009,182 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-199",
+      "headline": "Two held in Rajasthan railway track blast case, alleged Pakistan handler links emerge",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/rajasthan/two-held-in-rajasthan-railway-track-blast-case-alleged-pakistan-handler-links-emerge-4219102",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:10:06Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Two arrests in a railway track blast case with alleged Pakistan handler links suggest potential geopolitical risk impacting the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Two arrests in a railway track blast case with alleged Pakistan handler links suggest potential geopolitical risk impacting the region.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-195",
+      "headline": "Rajasthan Railway Track Blast: Two Arrested Over Suspected Pakistan-Backed ISI Module, 2 Firearms Recovered",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/rajasthan-railway-track-blast-two-arrested-over-suspected-pakistan-backed-isi-module-2-firearms-recovered",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:01:37Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Arrests related to a suspected Pakistan-backed ISI module and recovered firearms suggest potential geopolitical risk impacting the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Arrests related to a suspected Pakistan-backed ISI module and recovered firearms suggest potential geopolitical risk impacting the region.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-201",
+      "headline": "From drone plots to cyberattacks: Is Iran taking its war to Europe?",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/from-drone-plots-to-cyberattacks-is-iran-taking-its-war-to-europe-1.500748054",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:59:47Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The question of Iran taking its war to Europe via drone plots and cyberattacks indicates a significant escalation of geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The question of Iran taking its war to Europe via drone plots and cyberattacks indicates a significant escalation of geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-198",
+      "headline": "US aviation regulator to audit India's aviation safety oversight standards",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/us-aviation-regulator-to-audit-indias-aviation-safety-oversight-standards-4219109",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:20:23Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A US aviation regulator auditing India's safety standards could lead to significant regulatory changes or restrictions for Indian aviation companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A US aviation regulator auditing India's safety standards could lead to significant regulatory changes or restrictions for Indian aviation companies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -929,6 +1339,266 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-184",
+      "headline": "INNOVENT BIO (01801): VOLUNTARY ANNOUNCEMENT - INCLUSION OF SEVEN INNOVATIVE PRODUCTS INCLUDING MAZDUTIDE AND PECONDLE IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:11:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Inclusion of seven innovative products in the NRDL significantly expands the company's addressable market and revenue potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Inclusion of seven innovative products in the NRDL significantly expands the company's addressable market and revenue potential.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innovent Biologics",
+          "ticker": "01801",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-200",
+      "headline": "Anthropic Just Delivered Great News for AMD Investors and Bad News for Nvidia",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/15/anthropic-just-delivered-great-news-for-amd-investors-and-bad-news-for-nvidia/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:20:02Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Anthropic's news impacts both AMD (positive) and Nvidia (negative) in the AI sector, potentially shifting market dynamics and investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Anthropic's news impacts both AMD (positive) and Nvidia (negative) in the AI sector, potentially shifting market dynamics and investor expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-190",
+      "headline": "SUNSHINE PHARMA (06887): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF OLORIGLIFLOZIN CAPSULES IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:24:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Successful inclusion of Olorigliflozin in the 2026 NRDL provides a clear path for commercial scaling in China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Successful inclusion of Olorigliflozin in the 2026 NRDL provides a clear path for commercial scaling in China.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sunshine Guojian Pharmaceutical",
+          "ticker": "06887",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-181",
+      "headline": "HENLIUS (02696): VOLUNTARY ANNOUNCEMENT - INCLUSION OF HANSIZHUANG (SERPLULIMAB INJECTION) AND OTHERS IN THE NATIONAL REIMBURSEMENT DRUG LIST",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:16:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Inclusion of key drug Serplulimab in the National Reimbursement Drug List improves market access and revenue potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Inclusion of key drug Serplulimab in the National Reimbursement Drug List improves market access and revenue potential.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Henlius",
+          "ticker": "02696",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-186",
+      "headline": "LUYE PHARMA (02186): VOLUNTARY ANNOUNCEMENT RENEWED INCLUSION OF THE GROUP'S INNOVATIVE ANTIDEPRESSANT RUOXINLIN IN CHINA'S 2026 NATIONAL REIMBURSEMENT DRUG LIST",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:07:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Renewed inclusion of Ruoxinlin in the NRDL secures continued market access for a key innovative product.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Renewed inclusion of Ruoxinlin in the NRDL secures continued market access for a key innovative product.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Luye Pharma",
+          "ticker": "02186",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1187,790 +1857,101 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261115-128",
-      "headline": "‎Acwa secures financial close of SAR 847.5M for Bash II wind farm in Uzbekistan",
+      "inbox_id": "INB-20261115-206",
+      "headline": "GREEN TEA GROUP (06831): ANNOUNCEMENT PURSUANT TO RULES 13.51B(2) AND 13.51(2) OF THE LISTING RULES; RESIGNATION OF INDEPENDENT NON-EXECUTIVE DIRECTOR; AND NON-COMPLIANCE WITH RULES 3.10(1), 3.21 AND 3.27A OF THE LISTING RULES",
       "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1953822",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T10:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "ACWA Power reached financial close on SAR 847.5M for the Bash II wind farm project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "ACWA Power reached financial close on SAR 847.5M for the Bash II wind farm project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACWA Power",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-141",
-      "headline": "South Korea calms fears over 260,000 Nvidia chip order after Jensen Huang’s exit",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/asia/east-asia/article/3374477/south-korea-calms-fears-over-260000-nvidia-chip-order-after-jensen-huangs-exit",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T07:13:34Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Reports of a leadership change at Nvidia and potential disruption to a 260,000 chip order represent a significant operational and management risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Reports of a leadership change at Nvidia and potential disruption to a 260,000 chip order represent a significant operational and management risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-039",
-      "headline": "Jensen Huang’s ousting sends tech stocks tumbling; Singtel CEO sells shares: Markets this week",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/jensen-huangs-ousting-sends-tech-stocks-tumbling-singtel-ceo-sells-shares-markets-this-week",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The departure of a key CEO and significant insider selling by another executive are material events for their respective companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The departure of a key CEO and significant insider selling by another executive are material events for their respective companies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Singtel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-175",
-      "headline": "GRAND PHARMA (00512): VOLUNTARY ANNOUNCEMENT: SIX OF THE GROUP'S PRODUCTS ARE SUCCESSFULLY INCLUDED IN THE NATIONAL REIMBURSEMENT DRUG CATALOG 2026, COMMERCIAL INSURANCE INNOVATIVE DRUG CATALOG AND OTHER INDUSTRY-RELATED LISTS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500001.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500053.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T10:04:00Z",
+      "found_at": "2026-11-15T11:09:00Z",
       "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Six products included in the 2026 National Reimbursement Drug Catalog, improving market access and revenue potential.",
+      "prelim_note": "The company announced the resignation of an independent director and is currently in non-compliance with multiple HKEX listing rules regarding board composition.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Six products included in the 2026 National Reimbursement Drug Catalog, improving market access and revenue potential.",
+      "triage_score": 92,
+      "triage_reason": "The company announced the resignation of an independent director and is currently in non-compliance with multiple HKEX listing rules regarding board composition.",
       "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GRAND PHARMA",
-          "ticker": "00512",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-084",
-      "headline": "Kaynes Tech Q2 Results: Higher expenses result in earnings miss; Announces JV with Toyokawa Techno",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/kaynes-tech-q2-results-revenue-expenses-margins-toyokawa-jv-cash-flow-metrics-share-price-20034225.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T04:08:18Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Kaynes Tech missed Q2 earnings expectations due to higher expenses and announced a new joint venture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Kaynes Tech missed Q2 earnings expectations due to higher expenses and announced a new joint venture.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kaynes Technology India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-010",
-      "headline": "Nvidia's Ousted CEO Said a 1-Gigawatt Data Center Delay Costs $10 Billion a Quarter. Here's Why That Matters for Power Stocks.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nvidias-ousted-ceo-said-1-gigawatt-data-center-delay-costs-10-billion-quarter-heres-why",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Nvidia's CEO indicates a 1-gigawatt data center delay results in a $10 billion quarterly revenue impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nvidia's CEO indicates a 1-gigawatt data center delay results in a $10 billion quarterly revenue impact.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-162",
-      "headline": "$4.4b coal miner New Hope eyes rare $250m hybrid securities offer",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/4-4b-coal-miner-new-hope-eyes-rare-250m-hybrid-securities-offer-20261115-p61e9z?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T09:25:58Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "New Hope is planning a $250 million hybrid securities offering to manage its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "New Hope is planning a $250 million hybrid securities offering to manage its capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New Hope Corporation",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-143",
-      "headline": "Binghatti says it will repay sukuk in February as corporate cash jumps sevenfold",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/binghatti-says-it-will-repay-sukuk-in-february-as-corporate-cash-jumps-sevenfold",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T07:18:25Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Binghatti confirmed it will repay its sukuk in February, supported by a sevenfold increase in corporate cash, reducing default risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Binghatti confirmed it will repay its sukuk in February, supported by a sevenfold increase in corporate cash, reducing default risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binghatti",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-083",
-      "headline": "‘No better time than now’: Yangzijiang Maritime eyes 2027-2028 profit surge on newbuild deliveries",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/no-better-time-now-yangzijiang-maritime-eyes-2027-2028-profit-surge-newbuild-deliveries",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Yangzijiang Maritime projects a profit surge by 2027-2028 based on newbuild deliveries.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Yangzijiang Maritime projects a profit surge by 2027-2028 based on newbuild deliveries.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 55,
       "rank_factors": {
         "materiality": 55,
-        "source_tier": 0,
+        "source_tier": 8,
         "scope": 6,
-        "event": 7,
-        "size": 1,
+        "event": 4,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
       },
       "event_types": [
-        "guidance_change"
+        "management",
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Yangzijiang Maritime",
-          "ticker": null,
-          "listing_country": "SG"
+          "name": "Green Tea Group",
+          "ticker": "06831",
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261115-079",
-      "headline": "Trump-Xi-Putin trilateral meeting next week: Iran war on agenda, but Nvidia and Ukraine likely off the table",
+      "inbox_id": "INB-20261115-182",
+      "headline": "JW THERAP-B (02126): INSIDE INFORMATION - INVESTOR PRESENTATION ON INCLUSION OF CARTEYVA IN NRDL AND BUSINESS UPDATE",
       "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/trumpxiputin-trilateral-meeting-next-week-iran-war-on-agenda-but-nvidia-and-ukraine-likely-off-the-table-11794714010404.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T03:53:53Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500023.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:15:00Z",
       "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A potential high-level trilateral meeting between the leaders of the US, China, and Russia represents a significant geopolitical event with broad market implications.",
+      "prelim_note": "Inclusion of Carteyva in the NRDL is a significant commercial milestone for the company's revenue outlook.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A potential high-level trilateral meeting between the leaders of the US, China, and Russia represents a significant geopolitical event with broad market implications.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-058",
-      "headline": "One Router, 9,000 Canceled Flights: How An L3Harris Upgrade Paralyzed US Aviation",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/one-router-9-000-canceled-flights-how-an-l3harris-upgrade-paralyzed-us-aviation-12328365#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:08:43Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "L3Harris is linked to a significant operational failure causing 9,000 flight cancellations, creating potential liability and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "L3Harris is linked to a significant operational failure causing 9,000 flight cancellations, creating potential liability and reputational risk.",
-      "region": "US",
+      "triage_score": 92,
+      "triage_reason": "Inclusion of Carteyva in the NRDL is a significant commercial milestone for the company's revenue outlook.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
-        "source_tier": 0,
+        "source_tier": 8,
         "scope": 6,
-        "event": 6,
-        "size": 2,
+        "event": 4,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
       },
       "event_types": [
-        "operations",
-        "litigation_enforcement"
+        "regulatory",
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "L3Harris Technologies",
-          "ticker": "LHX",
-          "listing_country": "US"
+          "name": "JW Therapeutics",
+          "ticker": "02126",
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-020",
-      "headline": "SpaceX pulls off first-ever spaceship ‘catch’",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/15/world/science-health/spacex-first-spaceship-catch/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-14T23:52:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a major technical milestone in rocket reusability, significantly impacting operational efficiency and cost structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SpaceX successfully demonstrated a major technical milestone in rocket reusability, significantly impacting operational efficiency and cost structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-164",
-      "headline": "Coal India's Mahanadi Coalfields IPO: Stage set for launch, price band tomorrow; GMP, allotment, listing, other details",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/ipo/coal-indias-mahanadi-coalfields-ipo-stage-set-for-launch-price-band-tomorrow-gmp-allotment-listing-other-details-11794731994241.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T09:35:41Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Mahanadi Coalfields is preparing for an IPO with price band and listing details expected shortly.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Mahanadi Coalfields is preparing for an IPO with price band and listing details expected shortly.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahanadi Coalfields",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-110",
-      "headline": "Bad-news bandit Lendlease running out of options",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/bad-news-bandit-lendlease-running-out-of-options-20261115-p61e9v?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T05:46:51Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Lendlease is facing significant operational and financial pressure with limited strategic options.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Lendlease is facing significant operational and financial pressure with limited strategic options.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lendlease",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-072",
-      "headline": "HSBC’s uphill battle to sell $20b deposit book in a precarious market",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/hsbc-s-uphill-battle-to-sell-20b-deposit-book-in-a-precarious-market-20261115-p61e9c?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T03:21:12Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "HSBC is facing difficulty in executing a $20 billion divestment of its deposit book, which could impact its capital structure and strategic goals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "HSBC is facing difficulty in executing a $20 billion divestment of its deposit book, which could impact its capital structure and strategic goals.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-056",
-      "headline": "Nvidia earnings — along with the baggage — top next week's markets",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/nvidia-earnings-along-with-the-baggage-top-next-weeks-markets",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:37:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Nvidia's upcoming earnings report is a major market-moving event for the semiconductor sector and broader indices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Nvidia's upcoming earnings report is a major market-moving event for the semiconductor sector and broader indices.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -240191,6 +240172,294 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8a29f9caadb3",
+      "idea_version": "IDEAV-ac18a486e1df77fe",
+      "idea_version_started_at": "2026-11-15T11:22:53Z",
+      "ticker": "00017",
+      "company": "New World Development",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of a massive rights issue (11 shares for every 1 held) indicates severe balance sheet stress and will result in significant equity dilution for existing shareholders.",
+      "why_now": "The exchange filing detailing the dilutive capital action was released today, November 15, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ed192a3f80e8"
+      ],
+      "primary_source_event_id": "EVT-ed192a3f80e8",
+      "source_headlines": [
+        "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ELEVEN (11) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A FU"
+      ],
+      "source_headline": "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ELEVEN (11) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A FU",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T10:58:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:22:53Z",
+      "updated_at": "2026-11-15T11:22:53Z",
+      "decay_at": "2026-11-16T22:58:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9a4fb8f4339f",
+      "idea_version": "IDEAV-c0a2914f052fdcec",
+      "idea_version_started_at": "2026-11-15T11:22:53Z",
+      "ticker": "KAYNES",
+      "company": "Kaynes Technology",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 62% crash in quarterly profit due to rising costs, indicating significant margin compression that is likely to persist as operational expenses outpace revenue growth.",
+      "why_now": "The earnings report was released today, November 15, 2026, and the market has yet to fully digest the impact of the margin collapse.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7815932bf1be"
+      ],
+      "primary_source_event_id": "EVT-7815932bf1be",
+      "source_headlines": [
+        "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth"
+      ],
+      "source_headline": "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth",
+      "source_url": "https://www.freepressjournal.in/business/kaynes-technology-q2-profit-crashes-62-to-45-crore-rising-costs-hit-margins-despite-revenue-growth",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T08:58:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T04:40:32Z",
+      "updated_at": "2026-11-15T11:22:53Z",
+      "decay_at": "2026-11-16T20:58:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4910fe8eea23",
+      "idea_version": "IDEAV-0f019eba0c98e8a5",
+      "idea_version_started_at": "2026-11-15T10:34:12Z",
+      "ticker": "KAYNES",
+      "company": "Kaynes Technology India Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Second-quarter net profit dropped 62% year-over-year to ₹45 crore due to sharp cost inflation compressing margins despite ongoing revenue growth.",
+      "why_now": "Q2 financial results detailing the margin collapse were published on November 15, 2026, sparking an immediate negative earnings reaction.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7815932bf1be"
+      ],
+      "primary_source_event_id": "EVT-7815932bf1be",
+      "source_headlines": [
+        "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth"
+      ],
+      "source_headline": "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth",
+      "source_url": "https://www.freepressjournal.in/business/kaynes-technology-q2-profit-crashes-62-to-45-crore-rising-costs-hit-margins-despite-revenue-growth",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T08:58:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T10:34:12Z",
+      "updated_at": "2026-11-15T10:34:12Z",
+      "decay_at": "2026-11-16T20:58:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8f8d5f22e7d9",
+      "idea_version": "IDEAV-23c9fdc9bc8accb5",
+      "idea_version_started_at": "2026-11-15T10:34:12Z",
+      "ticker": "2310",
+      "company": "Sahara International Petrochemical Co. (Sipchem)",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sipchem has completed the Al-Waha plant expansion, increasing overall polypropylene production capacity at the unit by over 30% to directly drive higher top-line volumes and operating cash flow.",
+      "why_now": "The completion of the plant expansion was announced on November 15, 2026, marking immediate operational readiness for the increased capacity.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4287e804a21a",
+        "EVT-feb5fedea299"
+      ],
+      "primary_source_event_id": "EVT-4287e804a21a",
+      "source_headlines": [
+        "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
+        "‎Sipchem completes Al-Waha plant expansion, boosting capacity by over 30%"
+      ],
+      "source_headline": "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1953814",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T09:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T10:34:12Z",
+      "updated_at": "2026-11-15T10:34:12Z",
+      "decay_at": "2026-11-16T21:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-13f962c9cc6f",
       "idea_version": "IDEAV-78fc005eab303bdb",
       "idea_version_started_at": "2026-11-15T09:29:19Z",
@@ -241273,79 +241542,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-56c9c0f906ac",
-      "idea_version": "IDEAV-ee5f8cb3494de29b",
-      "idea_version_started_at": "2026-11-14T04:27:27Z",
-      "ticker": "CBR",
-      "company": "Cerebras",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported record Q3 revenue and raised its 2026 guidance, signaling strong demand for its AI hardware solutions.",
-      "why_now": "The positive earnings and guidance update occurred on November 13, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bfffa5f5078c"
-      ],
-      "primary_source_event_id": "EVT-bfffa5f5078c",
-      "source_headlines": [
-        "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance"
-      ],
-      "source_headline": "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-today-nov-13-cerebras-surges-over-11-record-q3-revenue-and-raised-2026",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T22:30:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-14T04:27:27Z",
-      "updated_at": "2026-11-14T04:27:27Z",
-      "decay_at": "2026-11-15T10:30:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-03eaf510305a",
       "idea_version": "IDEAV-afe9dc7810963965",
       "idea_version_started_at": "2026-11-14T08:13:15Z",
@@ -241490,6 +241686,291 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9d8361f512d2",
+      "idea_version": "IDEAV-9835cfbba6b73b24",
+      "idea_version_started_at": "2026-11-15T11:03:12Z",
+      "ticker": "01801",
+      "company": "Innovent Biologics",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The inclusion of seven innovative products, including Mazdutide, in the 2026 National Reimbursement Drug List significantly expands the addressable market and commercial reach for these therapies in China.",
+      "why_now": "The company announced the official inclusion in the 2026 NRDL via a voluntary filing on 2026-11-15.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e7755b8b31a2"
+      ],
+      "primary_source_event_id": "EVT-e7755b8b31a2",
+      "source_headlines": [
+        "INNOVENT BIO (01801): VOLUNTARY ANNOUNCEMENT - INCLUSION OF SEVEN INNOVATIVE PRODUCTS INCLUDING MAZDUTIDE AND PECONDLE IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST"
+      ],
+      "source_headline": "INNOVENT BIO (01801): VOLUNTARY ANNOUNCEMENT - INCLUSION OF SEVEN INNOVATIVE PRODUCTS INCLUDING MAZDUTIDE AND PECONDLE IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-11-15T10:11:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:03:12Z",
+      "updated_at": "2026-11-15T11:03:12Z",
+      "decay_at": "2026-11-16T22:11:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-aff3ebe132d7",
+      "idea_version": "IDEAV-b35948ed67f79d62",
+      "idea_version_started_at": "2026-11-15T11:03:12Z",
+      "ticker": "02186",
+      "company": "Luye Pharma",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The renewal of Ruoxinlin in the 2026 National Reimbursement Drug List secures continued revenue stability and market access for the company's key antidepressant product.",
+      "why_now": "The renewal was formally announced in a filing on 2026-11-15.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9f9003a605d9"
+      ],
+      "primary_source_event_id": "EVT-9f9003a605d9",
+      "source_headlines": [
+        "LUYE PHARMA (02186): VOLUNTARY ANNOUNCEMENT RENEWED INCLUSION OF THE GROUP'S INNOVATIVE ANTIDEPRESSANT RUOXINLIN IN CHINA'S 2026 NATIONAL REIMBURSEMENT DRUG LIST"
+      ],
+      "source_headline": "LUYE PHARMA (02186): VOLUNTARY ANNOUNCEMENT RENEWED INCLUSION OF THE GROUP'S INNOVATIVE ANTIDEPRESSANT RUOXINLIN IN CHINA'S 2026 NATIONAL REIMBURSEMENT DRUG LIST",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-15T10:07:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:03:12Z",
+      "updated_at": "2026-11-15T11:03:12Z",
+      "decay_at": "2026-11-16T22:07:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d7a1e8eb149e",
+      "idea_version": "IDEAV-4140304f11e5cdde",
+      "idea_version_started_at": "2026-11-15T11:03:12Z",
+      "ticker": "02696",
+      "company": "Henlius",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Inclusion of Hansizhuang (serplulimab injection) in the 2026 National Reimbursement Drug List improves the competitive positioning and volume potential for this oncology asset.",
+      "why_now": "The inclusion was confirmed via a voluntary filing on 2026-11-15.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b708d54271aa"
+      ],
+      "primary_source_event_id": "EVT-b708d54271aa",
+      "source_headlines": [
+        "HENLIUS (02696): VOLUNTARY ANNOUNCEMENT - INCLUSION OF HANSIZHUANG (SERPLULIMAB INJECTION) AND OTHERS IN THE NATIONAL REIMBURSEMENT DRUG LIST"
+      ],
+      "source_headline": "HENLIUS (02696): VOLUNTARY ANNOUNCEMENT - INCLUSION OF HANSIZHUANG (SERPLULIMAB INJECTION) AND OTHERS IN THE NATIONAL REIMBURSEMENT DRUG LIST",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-15T10:16:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:03:12Z",
+      "updated_at": "2026-11-15T11:03:12Z",
+      "decay_at": "2026-11-16T22:16:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e10cd888ea10",
+      "idea_version": "IDEAV-1307a1b9ffd169c7",
+      "idea_version_started_at": "2026-11-15T11:03:12Z",
+      "ticker": "06887",
+      "company": "Sunshine Guojian Pharmaceutical",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Successful inclusion of Olorigliflozin capsules in the 2026 National Reimbursement Drug List provides a critical catalyst for revenue growth through increased public insurance coverage.",
+      "why_now": "The regulatory approval for reimbursement was confirmed in a voluntary filing on 2026-11-15.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-954c8218d1c2"
+      ],
+      "primary_source_event_id": "EVT-954c8218d1c2",
+      "source_headlines": [
+        "SUNSHINE PHARMA (06887): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF OLORIGLIFLOZIN CAPSULES IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST"
+      ],
+      "source_headline": "SUNSHINE PHARMA (06887): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF OLORIGLIFLOZIN CAPSULES IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-15T10:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:03:12Z",
+      "updated_at": "2026-11-15T11:03:12Z",
+      "decay_at": "2026-11-16T22:24:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-fe0a4c2c5819",
       "idea_version": "IDEAV-f643dbdf4e843431",
       "idea_version_started_at": "2026-11-15T06:44:12Z",
@@ -241556,6 +242037,77 @@
       "surfaced_at": "2026-11-15T06:44:12Z",
       "updated_at": "2026-11-15T06:44:12Z",
       "decay_at": "2026-11-16T17:00:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-48e2750517b8",
+      "idea_version": "IDEAV-32912864568b4e46",
+      "idea_version_started_at": "2026-11-15T10:34:12Z",
+      "ticker": "2565",
+      "company": "PegBio Co Ltd",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company's core product, Paidakang (visepegenatide injection), was successfully included in the 2026 National Reimbursement Drug List (NRDL), significantly expanding hospital access and patient coverage across China.",
+      "why_now": "Official voluntary regulatory filing posted on the HKEX on November 15, 2026, confirms inclusion in the 2026 NRDL catalog.",
+      "conviction": 72,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-09b50932c0c2"
+      ],
+      "primary_source_event_id": "EVT-09b50932c0c2",
+      "source_headlines": [
+        "PEGBIO CO-B (02565): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF THE GROUP'S CORE PRODUCT PAIDAKANG (VISEPEGENATIDE INJECTION) INTO THE 2026 NRDL"
+      ],
+      "source_headline": "PEGBIO CO-B (02565): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF THE GROUP'S CORE PRODUCT PAIDAKANG (VISEPEGENATIDE INJECTION) INTO THE 2026 NRDL",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-15T10:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T10:34:12Z",
+      "updated_at": "2026-11-15T10:34:12Z",
+      "decay_at": "2026-11-16T22:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241633,6 +242185,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c5a006171d7f",
+      "idea_version": "IDEAV-323d6cde9ae06289",
+      "idea_version_started_at": "2026-11-15T11:03:12Z",
+      "ticker": "02126",
+      "company": "JW Therapeutics",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The inclusion of Carteyva in the NRDL provides a critical commercial tailwind for the company's flagship CAR-T therapy by lowering the cost barrier for patients.",
+      "why_now": "The company released an investor presentation regarding the NRDL inclusion on 2026-11-15.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4ca51db42f1a"
+      ],
+      "primary_source_event_id": "EVT-4ca51db42f1a",
+      "source_headlines": [
+        "JW THERAP-B (02126): INSIDE INFORMATION - INVESTOR PRESENTATION ON INCLUSION OF CARTEYVA IN NRDL AND BUSINESS UPDATE"
+      ],
+      "source_headline": "JW THERAP-B (02126): INSIDE INFORMATION - INVESTOR PRESENTATION ON INCLUSION OF CARTEYVA IN NRDL AND BUSINESS UPDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500023.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 92,
+      "newest_source_at": "2026-11-15T10:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:03:12Z",
+      "updated_at": "2026-11-15T11:03:12Z",
+      "decay_at": "2026-11-16T22:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-19eb7ab0fd47",
       "idea_version": "IDEAV-9509d8efb8f0a6ac",
       "idea_version_started_at": "2026-11-15T03:10:58Z",
@@ -241699,78 +242322,6 @@
       "surfaced_at": "2026-11-15T03:10:58Z",
       "updated_at": "2026-11-15T03:10:58Z",
       "decay_at": "2026-11-16T14:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9a4fb8f4339f",
-      "idea_version": "IDEAV-3efe397932656c49",
-      "idea_version_started_at": "2026-11-15T04:40:32Z",
-      "ticker": "KAYNES",
-      "company": "Kaynes Technology India Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company missed Q2 earnings expectations due to significantly higher operating expenses despite revenue growth.",
-      "why_now": "The Q2 results were just released on November 15, 2024, creating an immediate negative catalyst for the stock price.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e7e0c73cbe7e"
-      ],
-      "primary_source_event_id": "EVT-e7e0c73cbe7e",
-      "source_headlines": [
-        "Kaynes Tech Q2 Results: Higher expenses result in earnings miss; Announces JV with Toyokawa Techno"
-      ],
-      "source_headline": "Kaynes Tech Q2 Results: Higher expenses result in earnings miss; Announces JV with Toyokawa Techno",
-      "source_url": "https://www.cnbctv18.com/market/kaynes-tech-q2-results-revenue-expenses-margins-toyokawa-jv-cash-flow-metrics-share-price-20034225.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 90,
-      "newest_source_at": "2026-11-15T04:08:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-15T04:40:32Z",
-      "updated_at": "2026-11-15T04:40:32Z",
-      "decay_at": "2026-11-16T16:08:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -243131,76 +243682,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e1d40a598d73",
-      "idea_version": "IDEAV-896aa4599f6ab45d",
-      "idea_version_started_at": "2026-11-12T13:36:01Z",
-      "ticker": "SZG.DE",
-      "company": "Salzgitter",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a downward revision to its FY26 guidance, signaling deteriorating earnings expectations.",
-      "why_now": "The guidance update was announced on November 12, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-22048ffb244a"
-      ],
-      "primary_source_event_id": "EVT-22048ffb244a",
-      "source_headlines": [
-        "Salzgitter Announces Revised FY26 Guidance - Update"
-      ],
-      "source_headline": "Salzgitter Announces Revised FY26 Guidance - Update",
-      "source_url": "https://www.nasdaq.com/articles/salzgitter-announces-revised-fy26-guidance-update",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T10:45:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T13:36:01Z",
-      "updated_at": "2026-11-12T13:36:01Z",
-      "decay_at": "2026-11-13T22:45:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-4d583fe4840f",
       "idea_version": "IDEAV-37226047744a7383",
       "idea_version_started_at": "2026-11-13T12:59:49Z",
@@ -243979,6 +244460,79 @@
       "surfaced_at": "2026-11-14T22:39:34Z",
       "updated_at": "2026-11-14T22:39:34Z",
       "decay_at": "2026-11-15T06:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-56c9c0f906ac",
+      "idea_version": "IDEAV-ee5f8cb3494de29b",
+      "idea_version_started_at": "2026-11-14T04:27:27Z",
+      "ticker": "CBR",
+      "company": "Cerebras",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported record Q3 revenue and raised its 2026 guidance, signaling strong demand for its AI hardware solutions.",
+      "why_now": "The positive earnings and guidance update occurred on November 13, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bfffa5f5078c"
+      ],
+      "primary_source_event_id": "EVT-bfffa5f5078c",
+      "source_headlines": [
+        "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance"
+      ],
+      "source_headline": "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-nov-13-cerebras-surges-over-11-record-q3-revenue-and-raised-2026",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T22:30:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T04:27:27Z",
+      "updated_at": "2026-11-14T04:27:27Z",
+      "decay_at": "2026-11-15T10:30:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -245345,77 +245899,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-31ac6088f15f",
-      "idea_version": "IDEAV-9fb9aceec602a756",
-      "idea_version_started_at": "2026-11-12T16:29:30Z",
-      "ticker": "00922",
-      "company": "Anxianyuan China",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings growth.",
-      "why_now": "The positive profit alert was filed on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6d46457b612f"
-      ],
-      "primary_source_event_id": "EVT-6d46457b612f",
-      "source_headlines": [
-        "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201118.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T11:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T16:29:30Z",
-      "updated_at": "2026-11-12T16:29:30Z",
-      "decay_at": "2026-11-13T23:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5880efc59f2d",
       "idea_version": "IDEAV-75d5d0ba16547141",
       "idea_version_started_at": "2026-11-12T16:29:30Z",
@@ -245485,78 +245968,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-3ebff2cb046d",
-      "idea_version": "IDEAV-09aa700544623c42",
-      "idea_version_started_at": "2026-11-12T13:36:01Z",
-      "ticker": "MANINFRA.NS",
-      "company": "Man Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Strong Q2 performance with 122% net profit growth and 45% revenue increase indicates operational momentum.",
-      "why_now": "The results were reported on November 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3cecbb9fc76b"
-      ],
-      "primary_source_event_id": "EVT-3cecbb9fc76b",
-      "source_headlines": [
-        "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%"
-      ],
-      "source_headline": "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%",
-      "source_url": "https://www.cnbctv18.com/market/earnings/man-industries-q2-results-net-profit-rises-122pc-to-rs82-crore-revenue-up-45pc-20032534.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T10:17:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T13:36:01Z",
-      "updated_at": "2026-11-12T13:36:01Z",
-      "decay_at": "2026-11-13T22:17:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -245569,37 +245980,113 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       },
       "short": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1912,
-      "oldest_retained_at": "2026-10-21T04:49:23Z",
+      "evicted_count": 1915,
+      "oldest_retained_at": "2026-10-21T11:01:14Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1255,
-          "oldest_retained_at": "2026-11-02T12:45:00Z"
+          "evicted_count": 1257,
+          "oldest_retained_at": "2026-11-02T14:00:00Z"
         },
         "short": {
-          "evicted_count": 658,
-          "oldest_retained_at": "2026-10-21T04:49:23Z"
+          "evicted_count": 659,
+          "oldest_retained_at": "2026-10-21T11:01:14Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-56c9c0f906ac",
+        "idea_version": "IDEAV-ee5f8cb3494de29b",
+        "idea_version_started_at": "2026-11-14T04:27:27Z",
+        "ticker": "CBR",
+        "company": "Cerebras",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported record Q3 revenue and raised its 2026 guidance, signaling strong demand for its AI hardware solutions.",
+        "why_now": "The positive earnings and guidance update occurred on November 13, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bfffa5f5078c"
+        ],
+        "primary_source_event_id": "EVT-bfffa5f5078c",
+        "source_headlines": [
+          "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance"
+        ],
+        "source_headline": "Stock Market Today, Nov. 13: Cerebras Surges Over 11% on Record Q3 Revenue and Raised 2026 Guidance",
+        "source_url": "https://www.nasdaq.com/articles/stock-market-today-nov-13-cerebras-surges-over-11-record-q3-revenue-and-raised-2026",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T22:30:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-14T04:27:27Z",
+        "updated_at": "2026-11-14T04:27:27Z",
+        "decay_at": "2026-11-15T10:30:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T10:30:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-55c79e1fb994",
         "idea_version": "IDEAV-8bd115e5283a160a",
@@ -248783,8 +249270,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T23:08:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T11:23:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -248856,8 +249343,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T22:45:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T11:03:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -248931,8 +249418,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T22:17:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T10:34:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274896,82 +275383,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-18f9075e11b4",
-        "idea_version": "IDEAV-6354fe1e859b91ad",
-        "idea_version_started_at": "2026-11-01T11:55:44Z",
-        "ticker": "AFLE",
-        "company": "Affle (India) Limited",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Affle is acquiring Perion Network for $420 million in an all-cash deal, which is expected to be accretive to Affle's earnings.",
-        "why_now": "The acquisition announcement was made on November 1, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b2dc4d495419"
-        ],
-        "primary_source_event_id": "EVT-b2dc4d495419",
-        "source_headlines": [
-          "Affle To Acquire Perion In $420 Mln All-Cash Deal"
-        ],
-        "source_headline": "Affle To Acquire Perion In $420 Mln All-Cash Deal",
-        "source_url": "https://www.nasdaq.com/articles/affle-acquire-perion-420-mln-all-cash-deal",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T10:49:30Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T11:55:44Z",
-        "updated_at": "2026-11-01T11:55:44Z",
-        "decay_at": "2026-11-02T22:49:30Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:56:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-41c5501266bc",
         "idea_version": "IDEAV-03b730a97de42b8a",
         "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -282711,8 +283122,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2496,
-    "live_count": 39,
+    "surfaced_total": 2505,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -282731,9 +283142,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1409,
-    "news_picked_today": 281,
-    "news_dropped_today": 1128
+    "news_seen_today": 1634,
+    "news_picked_today": 340,
+    "news_dropped_today": 1294
   },
   "book_momentum": {
     "live_count": 8,
