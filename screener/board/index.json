@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T21:43:57Z",
+  "generated_at": "2026-11-15T21:45:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-310",
+      "headline": "IEL: Rejection of revised unsolicited proposal [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IEL?key=2924-03161778-3A706536",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T21:39:57Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The company rejected a revised unsolicited takeover proposal, ending immediate M&A speculation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company rejected a revised unsolicited takeover proposal, ending immediate M&A speculation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IEL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-308",
       "headline": "AR1: Court Approves Hammer Metals Scheme [price-sensitive]",
@@ -1921,49 +1970,6 @@
         "size_bucket": "unknown"
       },
       "event_types": [],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-219",
-      "headline": "Israeli airstrike kills senior Hamas commander in Gaza",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/israeli-airstrike-kills-senior-hamas-commander-gaza",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T11:20:44Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "An Israeli airstrike killing a senior Hamas commander is a significant escalation of geopolitical conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "An Israeli airstrike killing a senior Hamas commander is a significant escalation of geopolitical conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
