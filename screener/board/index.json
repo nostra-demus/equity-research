@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T22:14:59Z",
+  "generated_at": "2026-11-15T22:15:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-315",
@@ -486,6 +486,56 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-316",
+      "headline": "SoFi Planned for 2 Rate Cuts This Year and Got a Rate Hike. It Raised Its Guidance Anyway.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sofi-planned-2-rate-cuts-year-and-got-rate-hike-it-raised-its-guidance-anyway",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T21:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "SoFi raised its financial guidance despite an unexpected interest rate hike.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoFi raised its financial guidance despite an unexpected interest rate hike.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoFi Technologies, Inc.",
+          "ticker": "SOFI",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1937,56 +1987,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-092",
-      "headline": "Ashok Leyland Q2 Results: Profit Rises 12.7% To Rs 869 Crore, Dividend Declared; Check Record Date",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/ashok-leyland-q2-results-profit-rises-12-7-to-rs-869-crore-revenue-up-39-dividend-declared-check-record-date-12328711#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T04:24:29Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Ashok Leyland reported a 12.7% profit increase to Rs 869 crore and declared a dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ashok Leyland reported a 12.7% profit increase to Rs 869 crore and declared a dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ashok Leyland",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -283251,9 +283251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5073,
-    "news_picked_today": 732,
-    "news_dropped_today": 2917
+    "news_seen_today": 5097,
+    "news_picked_today": 740,
+    "news_dropped_today": 2933
   },
   "book_momentum": {
     "live_count": 8,
