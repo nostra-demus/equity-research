@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-15T04:40:55Z",
+  "generated_at": "2026-11-15T04:59:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-092",
+      "headline": "Ashok Leyland Q2 Results: Profit Rises 12.7% To Rs 869 Crore, Dividend Declared; Check Record Date",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/ashok-leyland-q2-results-profit-rises-12-7-to-rs-869-crore-revenue-up-39-dividend-declared-check-record-date-12328711#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T04:24:29Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Ashok Leyland reported a 12.7% profit increase to Rs 869 crore and declared a dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ashok Leyland reported a 12.7% profit increase to Rs 869 crore and declared a dividend.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ashok Leyland",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-022",
       "headline": "Samsung’s $34 Billion HBM Bet Raises Memory Glut Risks",
@@ -1879,56 +1929,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-030",
-      "headline": "Australian data centre founder reveals mounting debt ahead of IPO",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/australian-data-centre-founder-reveals-mounting-debt-ahead-of-ipo-20261115-p61e6u?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T01:27:34Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The headline indicates a company founder is revealing mounting debt ahead of an IPO, which could impact the IPO's success or valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "The headline indicates a company founder is revealing mounting debt ahead of an IPO, which could impact the IPO's success or valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit",
-        "rumor"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Australian data centre founder",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241155,78 +241155,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0a9dc564d53d",
-      "idea_version": "IDEAV-7454750a932f998f",
-      "idea_version_started_at": "2026-11-13T22:25:38Z",
-      "ticker": "GPIL",
-      "company": "Godawari Power & Ispat",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a sharp 47.5% drop in Q2 profit while simultaneously committing to a massive ₹1,435 crore capital expenditure program that will likely strain cash flows in a declining earnings environment.",
-      "why_now": "The Q2 results and capex approval were announced on November 13, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7a0d500442ce"
-      ],
-      "primary_source_event_id": "EVT-7a0d500442ce",
-      "source_headlines": [
-        "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex"
-      ],
-      "source_headline": "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex",
-      "source_url": "https://www.cnbctv18.com/market/earnings/godawari-power-approves-rs-1435-crore-capex-20033790.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T16:52:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-13T22:25:38Z",
-      "updated_at": "2026-11-13T22:25:38Z",
-      "decay_at": "2026-11-15T04:52:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-03eaf510305a",
       "idea_version": "IDEAV-afe9dc7810963965",
       "idea_version_started_at": "2026-11-14T08:13:15Z",
@@ -243788,6 +243716,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0a9dc564d53d",
+      "idea_version": "IDEAV-7454750a932f998f",
+      "idea_version_started_at": "2026-11-13T22:25:38Z",
+      "ticker": "GPIL",
+      "company": "Godawari Power & Ispat",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a sharp 47.5% drop in Q2 profit while simultaneously committing to a massive ₹1,435 crore capital expenditure program that will likely strain cash flows in a declining earnings environment.",
+      "why_now": "The Q2 results and capex approval were announced on November 13, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7a0d500442ce"
+      ],
+      "primary_source_event_id": "EVT-7a0d500442ce",
+      "source_headlines": [
+        "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex"
+      ],
+      "source_headline": "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex",
+      "source_url": "https://www.cnbctv18.com/market/earnings/godawari-power-approves-rs-1435-crore-capex-20033790.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T16:52:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-13T22:25:38Z",
+      "updated_at": "2026-11-13T22:25:38Z",
+      "decay_at": "2026-11-15T04:52:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0da9d633736d",
       "idea_version": "IDEAV-c7c59bcc0153da62",
       "idea_version_started_at": "2026-11-13T22:25:38Z",
@@ -245158,9 +245158,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -245168,9 +245168,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       }
     },
     "retention": {
@@ -245189,6 +245189,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0a9dc564d53d",
+        "idea_version": "IDEAV-7454750a932f998f",
+        "idea_version_started_at": "2026-11-13T22:25:38Z",
+        "ticker": "GPIL",
+        "company": "Godawari Power & Ispat",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a sharp 47.5% drop in Q2 profit while simultaneously committing to a massive ₹1,435 crore capital expenditure program that will likely strain cash flows in a declining earnings environment.",
+        "why_now": "The Q2 results and capex approval were announced on November 13, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7a0d500442ce"
+        ],
+        "primary_source_event_id": "EVT-7a0d500442ce",
+        "source_headlines": [
+          "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex"
+        ],
+        "source_headline": "Godawari Power & Ispat Q2 Results: Profit drops 47.5%; approves ₹1,435 crore capex",
+        "source_url": "https://www.cnbctv18.com/market/earnings/godawari-power-approves-rs-1435-crore-capex-20033790.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T16:52:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-13T22:25:38Z",
+        "updated_at": "2026-11-13T22:25:38Z",
+        "decay_at": "2026-11-15T04:52:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T04:52:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1b04785ad8b2",
         "idea_version": "IDEAV-2d3975fdb5942b91",
@@ -282220,86 +282295,12 @@
         "archived_at": "2026-10-25T21:59:09Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-183dfdd7894e",
-        "idea_version": "IDEAV-e6b40535ee7c900a",
-        "idea_version_started_at": "2026-10-22T23:50:30Z",
-        "ticker": "1758",
-        "company": "Bojun Education",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has disclosed a breach of loan agreements and the commencement of legal proceedings, indicating severe credit distress and potential insolvency risks.",
-        "why_now": "Inside information regarding the breach and litigation was filed on October 22, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-84b9db725ad6"
-        ],
-        "primary_source_event_id": "EVT-84b9db725ad6",
-        "source_headlines": [
-          "BOJUN EDU (01758): INSIDE INFORMATION BREACH OF LOAN AGREEMENTS AND LEGAL PROCEEDINGS"
-        ],
-        "source_headline": "BOJUN EDU (01758): INSIDE INFORMATION BREACH OF LOAN AGREEMENTS AND LEGAL PROCEEDINGS",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102200807.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-22T09:28:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-22T23:50:30Z",
-        "updated_at": "2026-10-22T23:50:30Z",
-        "decay_at": "2026-10-23T21:28:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-25T09:49:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2483,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -282318,9 +282319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 502,
-    "news_picked_today": 102,
-    "news_dropped_today": 400
+    "news_seen_today": 535,
+    "news_picked_today": 106,
+    "news_dropped_today": 429
   },
   "book_momentum": {
     "live_count": 8,
