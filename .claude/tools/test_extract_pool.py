@@ -1154,6 +1154,87 @@ def test_pdf_old_generation_coverage() -> None:
               native_reused["sources"][0]["status"] == "ok")
 
 
+def test_numeric_reading_advisories() -> None:
+    """Warnings expose uncertain readings without editing or rejecting a source."""
+    text = "Amounts in millions\n\fProfit 2.345.67\nOther income 89.10\n"
+    reading = ep._numeric_reading_check(text)
+    warning = reading["warnings"][0]
+    check("number reading: literal LF and exact Unicode columns locate the untouched token",
+          len(reading["warnings"]) == 1 and warning["line"] == 2
+          and text.split("\n")[warning["line"] - 1][warning["column_start"] - 1:warning["column_end"] - 1]
+              == warning["token"] == "2.345.67"
+          and "page" not in warning and "replacement" not in warning)
+    for control in ("Revenue EUR 1.234,56", "Revenue INR 1,23,456.78", "Revenue 1.234.567",
+                    "Revenue 1,234,567.89", "Profit software version 1.234.56",
+                    "Final Order dated 15.05.2026 with service tax demand INR 15.38",
+                    "Financial statement dated 15.05.26", "MIME-Version: 1.0\nV6.00.3790.4133"):
+        check(f"number reading: valid grouping/date/version preserved: {control}",
+              not ep._numeric_reading_check(control)["warnings"])
+    check("number reading: an unlabeled dotted token alone is not a monetary claim",
+          not ep._numeric_reading_check("Identifier 2.345.67")["warnings"])
+
+    scratch = _HERE.parents[1] / ".cache" / "extract-numeric-tests"
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=scratch) as td:
+        root = Path(td); pool = root / "data" / "NUMERIC"; pool.mkdir(parents=True)
+        out = root / "out"; corpus = root / "corpus.txt"
+        source = pool / "money.txt"; source.write_text(text)
+        manifest = ep.extract_pool(str(pool), str(out), force=True, corpus_path=str(corpus), vision=False)
+        row = manifest["sources"][0]; canonical = out / row["extract"]
+        check("number reading: advisory remains usable and exact original bytes are retained",
+              row["status"] == "in-place" and manifest["totals"]["failures"] == 0
+              and canonical.read_bytes() == source.read_bytes()
+              and row["numeric_reading_check"] == reading)
+        md = (out / "manifest.md").read_text(); body = corpus.read_text()
+        check("number reading: original-source advice reaches manifest and corpus, separately from raw text",
+              all("EXTRACTOR ANNOTATION" in output and "2.345.67" in output
+                  and "canonical LF line 2, columns" in output and "verify the original source" in output
+                  and "money.txt" in output for output in (md, body)) and text in body)
+        summary = ep.readiness_summary(str(pool), str(out))
+        issues = [issue for issue in summary["issues"] if issue["code"] == "ambiguous_monetary_token"]
+        check("number reading: readiness degrades the affected amount, never marks the source unreadable",
+              summary["usable_count"] == 1 and len(issues) == 1 and issues[0]["severity"] == "degrade"
+              and "columns" in issues[0]["evidence"] and "original source" in issues[0]["message"])
+        # Every tab gets the same shared check; no workbook/provider-specific rule.
+        tab = root / "tab.txt"; tab.write_text(text)
+        book = {"file": "book.xlsx", "status": "ok", "sheets": [{"extract": "tab.txt"}]}
+        ep._annotate_numeric_readings([book], str(root), str(pool))
+        check("number reading: workbook tab owns its own bound check and annotation locator",
+              book["sheets"][0]["numeric_reading_check"] == reading
+              and "tab.txt" in ep._numeric_reading_annotations(book)[0])
+
+
+def test_numeric_reading_generation_upgrade() -> None:
+    """New authorized generations gain checks; an old frozen run never changes."""
+    scratch = _HERE.parents[1] / ".cache" / "extract-numeric-tests"
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=scratch) as td:
+        root = Path(td); pool = root / "data" / "OLDNUMERIC"; pool.mkdir(parents=True); out = root / "out"
+        (pool / "report.txt").write_text("Profit 2.345.67\n")
+        with patch.object(ep, "_CACHE_GUARD_VERSION", 4), patch.object(ep, "_annotate_numeric_readings"):
+            old = ep.extract_pool(str(pool), str(out), force=True, vision=False)
+        old_dir = out / ep._GENERATION_DIR_NAME / old["generation"]["digest"]
+        before = {p.relative_to(old_dir).as_posix(): p.read_bytes() for p in old_dir.rglob("*") if p.is_file()}
+        current = ep.extract_pool(str(pool), str(out), vision=False)
+        check("number reading: live cache version builds a distinct checked generation",
+              current["cache_guard"]["version"] == 5
+              and current["generation"]["digest"] != old["generation"]["digest"]
+              and current["sources"][0]["numeric_reading_check"]["warnings"])
+        frozen_corpus = root / "old-corpus.txt"
+        with patch.object(ep, "_complete_pool_inventory", side_effect=AssertionError("no live pool")), \
+                patch.object(ep, "_annotate_numeric_readings", side_effect=AssertionError("no frozen rewrite")):
+            reused = ep._reuse_frozen_generation(str(pool), str(out), old["generation"]["digest"],
+                                                corpus_path=str(frozen_corpus))
+            with patch.object(ep, "extract_pool", return_value=reused):
+                summary = ep.readiness_summary(str(pool), str(out))
+        check("number reading: missing historical check is explicitly unchecked, never claimed clean",
+              "numeric_reading_check" not in reused["sources"][0]
+              and any(issue["code"] == "numeric_reading_unchecked" for issue in summary["issues"]))
+        check("number reading: frozen generation and corpus stay byte-identical after upgrade",
+              before == {p.relative_to(old_dir).as_posix(): p.read_bytes() for p in old_dir.rglob("*") if p.is_file()}
+              and frozen_corpus.read_bytes() == before["corpus.txt"])
+
+
 def test_durable_relationship_artifact() -> None:
     """The chain graph must cross the git/deployment boundary, not live only in ignored cache."""
     with tempfile.TemporaryDirectory() as root_td:
@@ -2273,6 +2354,25 @@ def test_entity_addressee_is_not_the_registrant() -> None:
 
 
 def main() -> int:
+    # Keep generated fixtures/results inside this checkout by default. macOS
+    # supplies TMPDIR even when the user selected no output location; preserve
+    # an explicit override that differs from that operating-system default.
+    configured_tmp = os.environ.get("TMPDIR")
+    default_tmp = None
+    if sys.platform == "darwin":
+        try:
+            default_tmp = subprocess.check_output(["getconf", "DARWIN_USER_TEMP_DIR"], text=True).strip()
+        except (OSError, subprocess.CalledProcessError):
+            pass
+    if not configured_tmp or (default_tmp and os.path.realpath(configured_tmp) == os.path.realpath(default_tmp)):
+        scratch = _HERE.parents[1] / ".cache" / "extract-tests-temp"
+        scratch.mkdir(parents=True, exist_ok=True)
+        tempfile.tempdir = str(scratch)
+    import hashlib
+    print("EXTRACTOR_SUITE_REVISION=" + json.dumps({
+        path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in (_HERE / "extract_pool.py", Path(__file__).resolve())
+    }, sort_keys=True), flush=True)
     print("== sniff: content beats extension ==")
     test_sniff()
     print("== deterministic readers (per physical form) ==")
@@ -2291,6 +2391,9 @@ def main() -> int:
     test_pdf_physical_page_coverage()
     test_pdf_visual_completeness()
     test_pdf_old_generation_coverage()
+    print("== source-local numeric uncertainty and immutable generation upgrade ==")
+    test_numeric_reading_advisories()
+    test_numeric_reading_generation_upgrade()
     print("== extraction output lease is bounded and cancellable ==")
     test_output_lease_is_bounded_and_cancellable()
     print("== supply-chain relationship graph crosses the cache/deployment boundary ==")
