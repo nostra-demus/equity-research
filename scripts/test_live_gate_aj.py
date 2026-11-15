@@ -227,6 +227,13 @@ def main():
         print("  [XX] full.md Step 10B.1 BI call is missing or does NOT gate on `_live_date`")
     else:
         print("  [ok] full.md Step 10B.1 BI call gates on `_live_date`")
+    # Static guard: the live BJ call (§16 quality-haircut double count) must also gate on _live_date — a rerun
+    # regenerates the 03 peers orb and sidecar it reads, exactly as BB/BD.
+    if not re.search(r"eval_bj_quality_double_count\(\s*_live_date\s*,", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BJ call is missing or does NOT gate on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.1 BJ call gates on `_live_date`")
 
     # Static guard: the live BF call must be judged on _live_date, never ddte — decision_date never
     # advances on a rerun, so a ddte-keyed BF would exempt every pre-BF_ENFORCE_DATE folder forever.
