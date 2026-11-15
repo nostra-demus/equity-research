@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T09:54:43Z",
+  "generated_at": "2026-11-15T09:59:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-144",
@@ -641,6 +641,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-170",
+      "headline": "Palestinian martyred, others injured in Israeli airstrike on tent sheltering displaced people in Khan Yunis, Southern Gaza",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/738230/region/palestinian-martyred-others-injured-in-israeli-airstrike-on-tent-sheltering-displaced-people-in-khan-yunis-southern-gaza",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Continued military strikes in Gaza represent an ongoing escalation of the regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Continued military strikes in Gaza represent an ongoing escalation of the regional conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,55 +1966,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-160",
-      "headline": "Tata heir questions big bets as US$185 billion group feud deepens",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/tata-heir-questions-big-bets-as-us185-billion-group-feud-deepens",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T09:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Internal governance and strategic disputes within the Tata Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Internal governance and strategic disputes within the Tata Group.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282661,9 +282655,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1232,
-    "news_picked_today": 263,
-    "news_dropped_today": 969
+    "news_seen_today": 1254,
+    "news_picked_today": 268,
+    "news_dropped_today": 986
   },
   "book_momentum": {
     "live_count": 8,
