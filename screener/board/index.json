@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T21:08:56Z",
+  "generated_at": "2026-11-15T21:09:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-283",
+      "headline": "Nvidia CEO Jensen Huang Resigns as Stock Tanks. Here Are the Next Steps for Investors.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/15/nvidia-ceo-jensen-huang-resigns-as-stock-tanks-here-are-the-next-steps-for-investors/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T21:00:02Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The CEO of a mega-cap company resigning is a major event affecting management credibility and strategic direction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of a mega-cap company resigning is a major event affecting management credibility and strategic direction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-254",
-      "headline": "Hong Kong developer New World unveils $3.2bn rights issue",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/9daa3a26-c49c-4c94-91af-0d4c2116d2e4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T15:24:52Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "New World Development is raising $3.2bn via a rights issue, which is a significant dilutive capital action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "New World Development is raising $3.2bn via a rights issue, which is a significant dilutive capital action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": null,
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -283211,9 +283211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4478,
-    "news_picked_today": 630,
-    "news_dropped_today": 2718
+    "news_seen_today": 4485,
+    "news_picked_today": 631,
+    "news_dropped_today": 2724
   },
   "book_momentum": {
     "live_count": 8,
