@@ -349,8 +349,18 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                     # reproduce the RECORDED ev (the orb's own number) — that is the proof the transcribed
                     # constants are the ones the orb actually used, not a rebuilt model.
                     need = [k for k in ("margin", "revenue_base", "wacc", "pv_factor", "pv_explicit") if not _isnum(deriv.get(k))]
+                    # Only ABSENCE has the schema's documented zero default. A supplied null means
+                    # unavailable (99's emission contract); malformed/nonfinite terms likewise cannot
+                    # support a computable chain, even when treating them as zero reproduces its EV.
+                    invalid_cash = [k for k in ("da", "capex", "tax", "dnwc")
+                                    if k in deriv and not _finite_number(deriv[k])]
                     if need:
                         det.append(f"scenario {s.get('label')!r} margin_runoff_dcf needs numeric {', '.join(need)}")
+                    if invalid_cash:
+                        det.append(f"scenario {s.get('label')!r} margin_runoff_dcf needs finite numeric "
+                                   f"{', '.join(invalid_cash)} when supplied — null/unavailable or malformed "
+                                   f"cash inputs are never silently 0; omit an incomplete derivation (REPRODUCE-or-omit)")
+                    if need or invalid_cash:
                         ok = False
                     else:
                         g = float(deriv.get("growth")) if _isnum(deriv.get("growth")) else 0.0
@@ -359,10 +369,10 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                             det.append(f"scenario {s.get('label')!r} margin_runoff_dcf has wacc − growth <= 0 — the perpetuity is undefined")
                             ok = False
                         else:
-                            da = float(deriv.get("da")) if _isnum(deriv.get("da")) else 0.0
-                            capex = float(deriv.get("capex")) if _isnum(deriv.get("capex")) else 0.0
-                            tax = float(deriv.get("tax")) if _isnum(deriv.get("tax")) else 0.0
-                            dnwc = float(deriv.get("dnwc")) if _isnum(deriv.get("dnwc")) else 0.0
+                            da = float(deriv.get("da", 0.0))
+                            capex = float(deriv.get("capex", 0.0))
+                            tax = float(deriv.get("tax", 0.0))
+                            dnwc = float(deriv.get("dnwc", 0.0))
                             fcff = (float(deriv["revenue_base"]) * float(deriv["margin"]) - da) * (1.0 - tax) + da - capex - dnwc
                             replay_ev = float(deriv["pv_explicit"]) + (fcff * (1.0 + g) / (wacc - g)) * float(deriv["pv_factor"])
                             if abs(replay_ev - chain_ev) > _tol(chain_ev):
@@ -921,6 +931,32 @@ def _selftest() -> int:
     check("runoff missing a required constant → named", any("needs numeric" in v and "wacc" in v for v in eval_ap_valuation_summary_integrity(r_miss, None)))
     r_denom = dict(runoff_ok, scenarios=[{"label": "bear", "level": 45.12, "derivation": dict(runoff, growth=0.08)}])
     check("runoff wacc − growth <= 0 → named", any("perpetuity is undefined" in v for v in eval_ap_valuation_summary_integrity(r_denom, None)))
+
+    # Isolate each optional cash term at its zero-input EV/level. Bad values must get their OWN
+    # finding even when silently replacing them with zero would reproduce both recorded anchors.
+    # Fixed anchors come from the existing runoff fixture, not from the validator under test.
+    cash_zero_anchors = {
+        "da": (85075.37866443176, 30.35769898662367),
+        "capex": (185594.26578207882, 81.50506074558272),
+        "tax": (136873.45094918823, 56.71428547035956),
+        "dnwc": (114095.47578207882, 45.12409213042356),
+    }
+    for key, (ev, level) in cash_zero_anchors.items():
+        zero_chain = dict(runoff, ev=ev, **{key: 0})
+        for version in ("1.2", "1.5"):
+            def cash_record(chain):
+                return {"schema_version": version, "ticker": "T", "basis": "ev", "scenarios": [{
+                    "label": "bear", "level": level, "metric_period": "terminal year",
+                    "metric_measure": "FCFF", "derivation": chain}]}
+            check(f"runoff {version}: explicit {key}=0 remains valid",
+                  eval_ap_valuation_summary_integrity(cash_record(zero_chain), None) == [])
+            omitted = {k: v for k, v in zero_chain.items() if k != key}
+            check(f"runoff {version}: omitted {key} retains documented zero default",
+                  eval_ap_valuation_summary_integrity(cash_record(omitted), None) == [])
+            for invalid in (None, "unknown", "0", False, [], {}, float("nan"), float("inf"), -float("inf"), 10**400):
+                violations = eval_ap_valuation_summary_integrity(cash_record(dict(zero_chain, **{key: invalid})), None)
+                check(f"runoff {version}: supplied invalid {key}={invalid!r} is named, never zero",
+                      any(key in v and "finite numeric" in v and "never silently 0" in v for v in violations))
 
     # ---- v1.3 per-scenario multiples: named bases, cross-checks, per-case bridge ----
     # NHY's real shape: ONE metric base, three IMPLIED multiples, a per-case split bridge.

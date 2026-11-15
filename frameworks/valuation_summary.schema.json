@@ -305,28 +305,28 @@
                   "number",
                   "null"
                 ],
-                "description": "margin_runoff_dcf: depreciation & amortisation (filing millions; absent → 0)"
+                "description": "margin_runoff_dcf: depreciation & amortisation (filing millions; absent → 0). A supplied value must be finite numeric for a computable chain; null means unavailable, never zero. Omit an incomplete derivation (REPRODUCE-or-omit)."
               },
               "capex": {
                 "type": [
                   "number",
                   "null"
                 ],
-                "description": "margin_runoff_dcf: capex (absent → 0)"
+                "description": "margin_runoff_dcf: capex (absent → 0). A supplied value must be finite numeric for a computable chain; null means unavailable, never zero. Omit an incomplete derivation (REPRODUCE-or-omit)."
               },
               "tax": {
                 "type": [
                   "number",
                   "null"
                 ],
-                "description": "margin_runoff_dcf: tax rate as a decimal (absent → 0)"
+                "description": "margin_runoff_dcf: tax rate as a decimal (absent → 0). A supplied value must be finite numeric for a computable chain; null means unavailable, never zero. Omit an incomplete derivation (REPRODUCE-or-omit)."
               },
               "dnwc": {
                 "type": [
                   "number",
                   "null"
                 ],
-                "description": "margin_runoff_dcf: working-capital change (absent → 0)"
+                "description": "margin_runoff_dcf: working-capital change (absent → 0). A supplied value must be finite numeric for a computable chain; null means unavailable, never zero. Omit an incomplete derivation (REPRODUCE-or-omit)."
               },
               "revenue_base": {
                 "type": [
