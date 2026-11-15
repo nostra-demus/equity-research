@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T00:04:36Z",
+  "generated_at": "2026-11-15T00:15:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-003",
@@ -137,6 +137,92 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-005",
+      "headline": "Israeli strike kills Palestinian man, wounds two others in Gaza",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-strike-kills-palestinian-man-wounds-two-others-gaza",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:05:07Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Continued military strikes in Gaza contribute to ongoing geopolitical instability and regional conflict escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Continued military strikes in Gaza contribute to ongoing geopolitical instability and regional conflict escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-004",
+      "headline": "Israeli military says it struck senior commander in Hamas' military wing",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/israeli-military-says-it-struck-senior-commander-in-hamas-military-wing-4218861",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T23:49:43Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The Israeli military strike on a senior Hamas commander represents a significant escalation in the ongoing regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The Israeli military strike on a senior Hamas commander represents a significant escalation in the ongoing regional conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -280017,7 +280103,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4850,
+    "inbox_unconsumed": 4852,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -280026,9 +280112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15,
-    "news_picked_today": 3,
-    "news_dropped_today": 12
+    "news_seen_today": 24,
+    "news_picked_today": 5,
+    "news_dropped_today": 19
   },
   "book_momentum": {
     "live_count": 8,
