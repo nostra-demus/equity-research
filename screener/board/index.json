@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T00:38:50Z",
+  "generated_at": "2026-11-15T00:54:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-010",
@@ -377,6 +377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-015",
+      "headline": "Victoria's Secret shoppers may see fewer deals this holiday",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/stocks/victorias-secret-shoppers-may-see-fewer-deals-this-holiday",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Speculation on holiday discounting strategy for Victoria's Secret.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Speculation on holiday discounting strategy for Victoria's Secret.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victoria's Secret",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-001",
       "headline": "EZaccessMD Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Patient Data Is Exposed",
       "headline_en": null,
@@ -420,6 +469,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-016",
+      "headline": "‘A moral red line’? World on cusp of autonomous weapons revolution",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/11/15/world/autonomous-weapons-revolution/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-14T23:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Discussion on the ethical and regulatory implications of autonomous weapons development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Discussion on the ethical and regulatory implications of autonomous weapons development.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -239795,6 +239887,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-6a98fefe7f4c",
+      "idea_version": "IDEAV-cd54c50e5a23ca33",
+      "idea_version_started_at": "2026-11-15T00:54:06Z",
+      "ticker": "VSCO",
+      "company": "Victoria's Secret & Co.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is shifting away from heavy discounting toward full-price selling, which typically expands gross margins during the high-volume holiday quarter.",
+      "why_now": "This commercial strategy shift is being implemented for the 2026 holiday shopping season starting now.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 41,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 10,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eab4dc717af3"
+      ],
+      "primary_source_event_id": "EVT-eab4dc717af3",
+      "source_headlines": [
+        "Victoria's Secret shoppers may see fewer deals this holiday"
+      ],
+      "source_headline": "Victoria's Secret shoppers may see fewer deals this holiday",
+      "source_url": "https://www.thestreet.com/investing/stocks/victorias-secret-shoppers-may-see-fewer-deals-this-holiday",
+      "source_name": "TheStreet",
+      "materiality_max": 52,
+      "newest_source_at": "2026-11-15T00:47:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T00:54:06Z",
+      "updated_at": "2026-11-15T00:54:06Z",
+      "decay_at": "2026-11-16T12:47:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-745c66d9e6b2ecd2",
       "idea_version_started_at": "2026-11-12T19:23:01Z",
@@ -280575,8 +280739,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2471,
-    "live_count": 22,
+    "surfaced_total": 2472,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -280586,7 +280750,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4861,
+    "inbox_unconsumed": 4863,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -280595,9 +280759,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 68,
-    "news_picked_today": 14,
-    "news_dropped_today": 54
+    "news_seen_today": 88,
+    "news_picked_today": 16,
+    "news_dropped_today": 72
   },
   "book_momentum": {
     "live_count": 8,
