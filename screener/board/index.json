@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T08:34:41Z",
+  "generated_at": "2026-11-15T10:14:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-144",
@@ -51,6 +51,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-172",
+      "headline": "Tata Steel eyes NINL merger this fiscal; Rs 40,000 crore expansion awaits clearance",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/tata-steel-eyes-ninl-merger-this-fiscal-rs-40000-crore-expansion-awaits-clearance/articleshow/135852233.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:31:12Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Tata Steel is pursuing a merger with NINL and awaiting clearance for a Rs 40,000 crore expansion project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Steel is pursuing a merger with NINL and awaiting clearance for a Rs 40,000 crore expansion project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-161",
+      "headline": "Hindalco's Novelis to sell two China units for $265 million",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/hindalcos-novelis-to-sell-two-china-units-for-265-million/article71704408.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:18:03Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Hindalco's subsidiary Novelis is selling two China units for $265 million, representing a significant divestment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hindalco's subsidiary Novelis is selling two China units for $265 million, representing a significant divestment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindalco Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-158",
+      "headline": "What’s Next for Nvidia After Jensen Huang’s Resignation?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/15/what-s-next-for-nvidia-after-jensen-huang-s-resignation/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:10:02Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The resignation of a high-profile CEO like Jensen Huang would be a major event for Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a high-profile CEO like Jensen Huang would be a major event for Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-117",
       "headline": "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
       "headline_en": null,
@@ -95,6 +243,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-166",
+      "headline": "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/kaynes-technology-q2-profit-crashes-62-to-45-crore-rising-costs-hit-margins-despite-revenue-growth",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T08:58:45Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Kaynes Technology reported a 62% crash in Q2 profit to ₹45 crore due to rising costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kaynes Technology reported a 62% crash in Q2 profit to ₹45 crore due to rising costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaynes Technology",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-154",
+      "headline": "Italy fines Meta €805 mn over unauthorized access to user photos",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/738222/business/italy-fines-meta-805-mn-over-unauthorized-access-to-user-photos",
+      "source_name": "Gulf Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T08:29:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Italy has fined Meta €805 million for unauthorized access to user photos.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Italy has fined Meta €805 million for unauthorized access to user photos.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -450,6 +696,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-170",
+      "headline": "Palestinian martyred, others injured in Israeli airstrike on tent sheltering displaced people in Khan Yunis, Southern Gaza",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/738230/region/palestinian-martyred-others-injured-in-israeli-airstrike-on-tent-sheltering-displaced-people-in-khan-yunis-southern-gaza",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Continued military strikes in Gaza represent an ongoing escalation of the regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Continued military strikes in Gaza represent an ongoing escalation of the regional conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-023",
       "headline": "Israeli air strike kills senior Hamas commander in Gaza",
       "headline_en": null,
@@ -488,6 +777,109 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-180",
+      "headline": "Hindalco's Novelis to sell China units for $265 million to Shenzhen Hongzhi",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/hindalco-novelis-to-sell-china-units-for-usd-265-million-to-shenzhen-hongzhi-20034341.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:01:53Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Novelis is divesting its China units for $265 million, a significant asset disposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Novelis is divesting its China units for $265 million, a significant asset disposal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindalco",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Novelis",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-157",
+      "headline": "Energiekonzerne: Kanadier, Norweger und Briten in der engeren Auswahl für Uniper-Übernahme",
+      "headline_en": "Energy giants: Canadians, Norwegians, and British shortlisted for Uniper takeover",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/energie-kanadier-norweger-und-briten-in-auswahl-fuer-uniper-uebernahme/100269874.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T08:57:37Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Canadian, Norwegian, and British suitors have reportedly entered the shortlist for the acquisition of German energy company Uniper.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Canadian, Norwegian, and British suitors have reportedly entered the shortlist for the acquisition of German energy company Uniper.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uniper",
+          "ticker": "UN01",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -641,6 +1033,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-174",
+      "headline": "PEGBIO CO-B (02565): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF THE GROUP'S CORE PRODUCT PAIDAKANG (VISEPEGENATIDE INJECTION) INTO THE 2026 NRDL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Core product Paidakang included in the 2026 National Reimbursement Drug List, likely boosting commercial adoption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Core product Paidakang included in the 2026 National Reimbursement Drug List, likely boosting commercial adoption.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PEGBIO CO-B",
+          "ticker": "02565",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -901,6 +1342,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-175",
+      "headline": "GRAND PHARMA (00512): VOLUNTARY ANNOUNCEMENT: SIX OF THE GROUP'S PRODUCTS ARE SUCCESSFULLY INCLUDED IN THE NATIONAL REIMBURSEMENT DRUG CATALOG 2026, COMMERCIAL INSURANCE INNOVATIVE DRUG CATALOG AND OTHER INDUSTRY-RELATED LISTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T10:04:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Six products included in the 2026 National Reimbursement Drug Catalog, improving market access and revenue potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Six products included in the 2026 National Reimbursement Drug Catalog, improving market access and revenue potential.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GRAND PHARMA",
+          "ticker": "00512",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-084",
       "headline": "Kaynes Tech Q2 Results: Higher expenses result in earnings miss; Announces JV with Toyokawa Techno",
       "headline_en": null,
@@ -995,6 +1485,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-162",
+      "headline": "$4.4b coal miner New Hope eyes rare $250m hybrid securities offer",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/4-4b-coal-miner-new-hope-eyes-rare-250m-hybrid-securities-offer-20261115-p61e9z?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:25:58Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "New Hope is planning a $250 million hybrid securities offering to manage its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "New Hope is planning a $250 million hybrid securities offering to manage its capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New Hope Corporation",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1241,6 +1780,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-164",
+      "headline": "Coal India's Mahanadi Coalfields IPO: Stage set for launch, price band tomorrow; GMP, allotment, listing, other details",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/ipo/coal-indias-mahanadi-coalfields-ipo-stage-set-for-launch-price-band-tomorrow-gmp-allotment-listing-other-details-11794731994241.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:35:41Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Mahanadi Coalfields is preparing for an IPO with price band and listing details expected shortly.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Mahanadi Coalfields is preparing for an IPO with price band and listing details expected shortly.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanadi Coalfields",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-110",
       "headline": "Bad-news bandit Lendlease running out of options",
       "headline_en": null,
@@ -1383,596 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-026",
-      "headline": "Jensen Huang’s affair will shut back-door trade of AI chips to China",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/asia/jensen-huang-s-affair-will-shut-back-door-trade-of-ai-chips-to-china-20261115-p61d8g?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T01:22:15Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "New restrictions on AI chip exports to China will impact revenue for major semiconductor manufacturers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "New restrictions on AI chip exports to China will impact revenue for major semiconductor manufacturers.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-140",
-      "headline": "‎Anaam accumulated losses fall to 9% of capital",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1953851",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T09:58:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Anaam reported that its accumulated losses have fallen to 9% of capital, indicating a material improvement in its financial position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Anaam reported that its accumulated losses have fallen to 9% of capital, indicating a material improvement in its financial position.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anaam",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-112",
-      "headline": "‎Lime Industries secures SAR 50M SIDF financing",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1953806",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T09:48:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Lime Industries secured SAR 50 million in financing from SIDF.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Lime Industries secured SAR 50 million in financing from SIDF.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lime Industries",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-148",
-      "headline": "Tata Heir Questions Big Bets as $185 Billion Group Feud Deepens",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-15/tata-heir-questions-big-bets-as-185-billion-group-feud-deepens",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T07:55:57Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-135",
-      "headline": "Ola Electric founder Bhavish Aggarwal has a new plan to sell e-scooters: Shut down company-owned outlets and…",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/ola-electric-founder-bhavish-aggarwal-has-a-new-plan-to-sell-e-scooters-shut-down-company-owned-outlets-and-11794724920505.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T06:50:43Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Ola Electric is shifting its retail strategy by closing company-owned outlets, which may impact operational costs and customer service reach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Ola Electric is shifting its retail strategy by closing company-owned outlets, which may impact operational costs and customer service reach.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ola Electric",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-073",
-      "headline": "Judge temporarily blocks Trump from closing Washington DC golf course for renovation",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c6j9mn7l14y0o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T03:21:04Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A court order prevents the Trump Organization from proceeding with planned renovations at its Washington DC golf course property.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A court order prevents the Trump Organization from proceeding with planned renovations at its Washington DC golf course property.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Trump Organization",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-070",
-      "headline": "'Handshake' deals could fall: Musk flags risks for Nvidia after Jensen Huang's exit",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/handshake-deals-could-fall-through-musk-flags-supply-chain-risks-for-nvidia-after-jensen-huangs-exit/articleshow/135845938.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T03:02:09Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Elon Musk has publicly flagged potential operational risks for Nvidia following the departure of CEO Jensen Huang.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Elon Musk has publicly flagged potential operational risks for Nvidia following the departure of CEO Jensen Huang.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-069",
-      "headline": "Delhi Police Foil Alleged Firing Plot Targeting Amitabh Bachchan's Mumbai Residence, 2 Accused Arrested",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/entertainment/delhi-police-foil-alleged-firing-plot-targeting-amitabh-bachchans-mumbai-residence-2-accused-arrested",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:24:36Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A security threat targeting a high-profile individual's residence involves police intervention and potential public safety concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A security threat targeting a high-profile individual's residence involves police intervention and potential public safety concerns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amitabh Bachchan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-053",
-      "headline": "Investors urge board to consider return of Jensen Huang, Musk says Nvidia will lose critical deals without its founder",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/investors-urge-board-to-consider-return-of-jensen-huang-musk-says-nvidia-will-lose-critical-deals-without-its-founder-11794708086815.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:14:05Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Public commentary from a high-profile figure regarding potential leadership instability at Nvidia creates management uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Public commentary from a high-profile figure regarding potential leadership instability at Nvidia creates management uncertainty.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-150",
-      "headline": "‎Al Ansari 9M earnings drop 24% to AED 231.1M",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/financial-reports/company-report/15618/2026/72?preview=true",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T10:37:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Al Ansari's 9M earnings dropped 24% to AED 231.1M, a significant decline in profitability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Al Ansari's 9M earnings dropped 24% to AED 231.1M, a significant decline in profitability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Al Ansari",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-134",
-      "headline": "RWA protocol stUSDT winds down three years after $2.3B TVL peak",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/rwa-protocol-stusdt-winds-down-three-years-after-23b-tvl-peak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T06:27:26Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The RWA protocol stUSDT is winding down after previously reaching a peak of $2.3 billion in Total Value Locked (TVL).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The RWA protocol stUSDT is winding down after previously reaching a peak of $2.3 billion in Total Value Locked (TVL).",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "stUSDT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-046",
-      "headline": "Cerebras beats estimates, but its biggest customer is waiting",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/cbrs-cerebras-beats-estimates-but-its-biggest-customer-is-waiting-morgan-stanley-maintains-price-target-after-earnings",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Cerebras reported earnings beating estimates, but highlighted customer concentration risk with its largest client.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Cerebras reported earnings beating estimates, but highlighted customer concentration risk with its largest client.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cerebras Systems",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -239560,77 +239558,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-f84033bb08f889ea",
-      "idea_version_started_at": "2026-11-14T18:53:54Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The 805 million euro fine represents a direct, unhedged hit to net income and sets a negative precedent for regulatory scrutiny regarding data privacy practices in the EU.",
-      "why_now": "The fine was announced on 2026-11-14, creating immediate downward pressure on earnings expectations.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 73,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c69a16d63dd0",
-        "EVT-31a467b1ce15"
-      ],
-      "primary_source_event_id": "EVT-c69a16d63dd0",
-      "source_headlines": [
-        "Italy Fines Meta \"805 Million Over Access To Users' Photos",
-        "Italy fines Meta $880 million over accessing users' photos"
-      ],
-      "source_headline": "Italy Fines Meta \"805 Million Over Access To Users' Photos",
-      "source_url": "https://www.ndtvprofit.com/business/italy-fines-meta-805-million-over-access-to-users-photos-12327825#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-14T18:33:08Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-14T18:15:10Z",
-      "updated_at": "2026-11-14T18:53:54Z",
-      "decay_at": "2026-11-16T06:33:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7aae17417c6a",
       "idea_version": "IDEAV-9784bab5cbb48881",
       "idea_version_started_at": "2026-11-14T20:09:32Z",
@@ -239695,6 +239622,76 @@
       "surfaced_at": "2026-11-14T20:09:32Z",
       "updated_at": "2026-11-14T20:09:32Z",
       "decay_at": "2026-11-16T07:51:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-de3e71f17fb8c0ef",
+      "idea_version_started_at": "2026-11-15T08:50:06Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Italy's €805 million fine for unauthorized user photo access will hurt Meta's revenue and margins.",
+      "why_now": "The fine was announced on 2026-11-15, creating an immediate regulatory hit.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb5b47f822f9"
+      ],
+      "primary_source_event_id": "EVT-eb5b47f822f9",
+      "source_headlines": [
+        "Italy fines Meta €805 mn over unauthorized access to user photos"
+      ],
+      "source_headline": "Italy fines Meta €805 mn over unauthorized access to user photos",
+      "source_url": "https://www.gulf-times.com/article/738222/business/italy-fines-meta-805-mn-over-unauthorized-access-to-user-photos",
+      "source_name": "Gulf Times — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T08:29:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-14T18:15:10Z",
+      "updated_at": "2026-11-15T08:50:06Z",
+      "decay_at": "2026-11-16T20:29:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240188,6 +240185,150 @@
       "surfaced_at": "2026-11-15T03:29:20Z",
       "updated_at": "2026-11-15T03:29:20Z",
       "decay_at": "2026-11-16T15:00:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-13f962c9cc6f",
+      "idea_version": "IDEAV-78fc005eab303bdb",
+      "idea_version_started_at": "2026-11-15T09:29:19Z",
+      "ticker": "HINDALCO",
+      "company": "Hindalco Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The divestment of two China units for $265 million allows the company to deleverage and focus capital on higher-margin core operations.",
+      "why_now": "The sale was announced on 2026-11-15.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-72cf2c4f0e51"
+      ],
+      "primary_source_event_id": "EVT-72cf2c4f0e51",
+      "source_headlines": [
+        "Hindalco's Novelis to sell two China units for $265 million"
+      ],
+      "source_headline": "Hindalco's Novelis to sell two China units for $265 million",
+      "source_url": "https://www.thehindubusinessline.com/companies/hindalcos-novelis-to-sell-two-china-units-for-265-million/article71704408.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T09:18:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T09:29:19Z",
+      "updated_at": "2026-11-15T09:29:19Z",
+      "decay_at": "2026-11-16T21:18:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-72309e2e1a40",
+      "idea_version": "IDEAV-d589b8b9da0da5c7",
+      "idea_version_started_at": "2026-11-15T09:11:53Z",
+      "ticker": "SIPCHEM",
+      "company": "Sahara International Petrochemical Company",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The completion of the Al-Waha plant expansion increases production capacity by over 30%, directly boosting potential revenue and volume output for the company's core petrochemical products.",
+      "why_now": "The expansion was officially completed and announced on 2026-11-15, providing an immediate catalyst for volume growth.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4287e804a21a"
+      ],
+      "primary_source_event_id": "EVT-4287e804a21a",
+      "source_headlines": [
+        "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%"
+      ],
+      "source_headline": "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1953814",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T08:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T09:11:53Z",
+      "updated_at": "2026-11-15T09:11:53Z",
+      "decay_at": "2026-11-16T20:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241277,6 +241418,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b8d2e558a5c6",
+      "idea_version": "IDEAV-b82e24c7434e96bb",
+      "idea_version_started_at": "2026-11-15T09:11:53Z",
+      "ticker": "UN01",
+      "company": "Uniper SE",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The formal shortlisting of major international energy players for a takeover bid creates a floor for the stock price and potential acquisition premium upside.",
+      "why_now": "The shortlist was reported on 2026-11-15, signaling the active phase of the M&A process.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6c76be6271f3"
+      ],
+      "primary_source_event_id": "EVT-6c76be6271f3",
+      "source_headlines": [
+        "Energy giants: Canadians, Norwegians, and British shortlisted for Uniper takeover"
+      ],
+      "source_headline": "Energiekonzerne: Kanadier, Norweger und Briten in der engeren Auswahl für Uniper-Übernahme",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/energie-kanadier-norweger-und-briten-in-auswahl-fuer-uniper-uebernahme/100269874.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 96,
+      "newest_source_at": "2026-11-15T08:57:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T09:11:53Z",
+      "updated_at": "2026-11-15T09:11:53Z",
+      "decay_at": "2026-11-16T20:57:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-fe0a4c2c5819",
       "idea_version": "IDEAV-f643dbdf4e843431",
       "idea_version_started_at": "2026-11-15T06:44:12Z",
@@ -241343,6 +241556,77 @@
       "surfaced_at": "2026-11-15T06:44:12Z",
       "updated_at": "2026-11-15T06:44:12Z",
       "decay_at": "2026-11-16T17:00:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-dca5e6c0fbc2",
+      "idea_version": "IDEAV-07add941f1947908",
+      "idea_version_started_at": "2026-11-15T10:14:15Z",
+      "ticker": "02565",
+      "company": "PEGBIO CO-B",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The inclusion of the core product Paidakang in the 2026 National Reimbursement Drug List (NRDL) significantly expands the addressable market and revenue potential in China.",
+      "why_now": "The official filing confirming the inclusion was published on 2026-11-15.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-09b50932c0c2"
+      ],
+      "primary_source_event_id": "EVT-09b50932c0c2",
+      "source_headlines": [
+        "PEGBIO CO-B (02565): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF THE GROUP'S CORE PRODUCT PAIDAKANG (VISEPEGENATIDE INJECTION) INTO THE 2026 NRDL"
+      ],
+      "source_headline": "PEGBIO CO-B (02565): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF THE GROUP'S CORE PRODUCT PAIDAKANG (VISEPEGENATIDE INJECTION) INTO THE 2026 NRDL",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-15T10:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T10:14:15Z",
+      "updated_at": "2026-11-15T10:14:15Z",
+      "decay_at": "2026-11-16T22:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -242497,76 +242781,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-28f02b2450e7",
-      "idea_version": "IDEAV-794c57c48b586e4e",
-      "idea_version_started_at": "2026-11-12T12:14:16Z",
-      "ticker": "RR.L",
-      "company": "Rolls-Royce",
-      "exchange": "London",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company confirmed its FY26 outlook and announced a significant £1.5 billion interim share buyback, signaling strong cash flow generation and capital discipline.",
-      "why_now": "The buyback announcement and order growth were confirmed in the 9-month update on 2026-11-12.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e630df5d39f"
-      ],
-      "primary_source_event_id": "EVT-3e630df5d39f",
-      "source_headlines": [
-        "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up"
-      ],
-      "source_headline": "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up",
-      "source_url": "https://www.nasdaq.com/articles/rolls-royce-9-month-orders-climb-confirms-fy26-view-plans-ps15-bln-interim-buyback-shares",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T08:56:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T12:14:16Z",
-      "updated_at": "2026-11-12T12:14:16Z",
-      "decay_at": "2026-11-13T20:56:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a2c6368d0a7f",
       "idea_version": "IDEAV-0df45bbea323643c",
       "idea_version_started_at": "2026-11-13T14:20:45Z",
@@ -243336,148 +243550,6 @@
       "surfaced_at": "2026-11-09T19:22:55Z",
       "updated_at": "2026-11-12T19:23:01Z",
       "decay_at": "2026-11-14T04:43:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b1db4cfd6b4d",
-      "idea_version": "IDEAV-9bedcfb4b9fb6e4c",
-      "idea_version_started_at": "2026-11-12T14:12:08Z",
-      "ticker": "RYCEY",
-      "company": "Rolls-Royce",
-      "exchange": "OTC Markets",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Strong order growth and the initiation of a £1.5 billion share buyback program signal robust cash flow generation and management confidence.",
-      "why_now": "The buyback and order update were confirmed on 2026-11-12.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e630df5d39f"
-      ],
-      "primary_source_event_id": "EVT-3e630df5d39f",
-      "source_headlines": [
-        "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up"
-      ],
-      "source_headline": "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up",
-      "source_url": "https://www.nasdaq.com/articles/rolls-royce-9-month-orders-climb-confirms-fy26-view-plans-ps15-bln-interim-buyback-shares",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T08:56:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T14:12:08Z",
-      "updated_at": "2026-11-12T14:12:08Z",
-      "decay_at": "2026-11-13T20:56:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-75e2e4285cbd",
-      "idea_version": "IDEAV-f569e04b884cd3bd",
-      "idea_version_started_at": "2026-11-12T12:14:16Z",
-      "ticker": "PAGEIND.NS",
-      "company": "Page Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported weak operating performance in Q2, leading to a significant earnings miss and investor disappointment.",
-      "why_now": "The negative earnings report was released on 2026-11-12.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a4d375b4016"
-      ],
-      "primary_source_event_id": "EVT-4a4d375b4016",
-      "source_headlines": [
-        "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared"
-      ],
-      "source_headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
-      "source_url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T09:12:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T12:14:16Z",
-      "updated_at": "2026-11-12T12:14:16Z",
-      "decay_at": "2026-11-13T21:12:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -245415,79 +245487,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-592b06bbc851",
-      "idea_version": "IDEAV-31e51e00d854597a",
-      "idea_version_started_at": "2026-11-12T14:12:08Z",
-      "ticker": "PAGEIND",
-      "company": "Page Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Weak operating performance in Q2 indicates margin compression and potential demand headwinds for the apparel manufacturer.",
-      "why_now": "The earnings report was released on 2026-11-12, triggering a nearly 10% decline in the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a4d375b4016"
-      ],
-      "primary_source_event_id": "EVT-4a4d375b4016",
-      "source_headlines": [
-        "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared"
-      ],
-      "source_headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
-      "source_url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T09:12:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T14:12:08Z",
-      "updated_at": "2026-11-12T14:12:08Z",
-      "decay_at": "2026-11-13T21:12:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3ebff2cb046d",
       "idea_version": "IDEAV-09aa700544623c42",
       "idea_version_started_at": "2026-11-12T13:36:01Z",
@@ -245570,33 +245569,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 20
       },
       "short": {
-        "total_count": 277,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 25
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1908,
-      "oldest_retained_at": "2026-10-20T21:43:13Z",
+      "evicted_count": 1912,
+      "oldest_retained_at": "2026-10-21T04:49:23Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1253,
-          "oldest_retained_at": "2026-11-02T11:00:00Z"
+          "evicted_count": 1255,
+          "oldest_retained_at": "2026-11-02T12:45:00Z"
         },
         "short": {
-          "evicted_count": 656,
-          "oldest_retained_at": "2026-10-20T21:43:13Z"
+          "evicted_count": 658,
+          "oldest_retained_at": "2026-10-21T04:49:23Z"
         }
       }
     },
@@ -249006,8 +249005,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T21:12:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T09:29:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249082,8 +249081,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T21:12:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T09:29:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249155,8 +249154,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T20:56:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T09:12:04Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249229,8 +249228,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T20:56:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T09:12:04Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -282712,8 +282711,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2492,
-    "live_count": 35,
+    "surfaced_total": 2496,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -282732,9 +282731,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1046,
-    "news_picked_today": 221,
-    "news_dropped_today": 825
+    "news_seen_today": 1409,
+    "news_picked_today": 281,
+    "news_dropped_today": 1128
   },
   "book_momentum": {
     "live_count": 8,
