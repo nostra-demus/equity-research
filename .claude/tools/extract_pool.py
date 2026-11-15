@@ -1824,9 +1824,9 @@ def _numeric_reading_check(text):
     """
     warnings = []
     lines = text.split("\n")
+    money_lines = [bool(_MONEY_CONTEXT.search(line)) for line in lines]
     for index, line in enumerate(lines):
-        context = "\n".join(lines[max(0, index - 8):index + 1])
-        if not _MONEY_CONTEXT.search(context):
+        if not any(money_lines[max(0, index - 8):index + 1]):
             continue
         for match in _REPEATED_NUMBER.finditer(line):
             token = match.group()
