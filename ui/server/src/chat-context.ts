@@ -509,7 +509,10 @@ export function buildChatPrompts(args: {
     'Plain English, short sentences (doctrine §21). Keep technical terms (EBITDA, FCF, net debt, ROIC, …) but add a short plain meaning the first time one appears. Lead with the answer; be concise and specific.',
     "Numbers must match the CONTEXT exactly — do not recompute or round away precision, and keep the company's own currency and units.",
     ...(computedBlock
-      ? ['A COMPUTED SCENARIO block is in the CONTEXT. It was produced by the engine\'s deterministic calculator, NOT by you. Lead with its result, state the numbers exactly as given (never recompute or re-round them), cite the source it shows, and carry its confidence and any caution/non-linearity note into the answer.']
+      ? [
+        'A COMPUTED SCENARIO block is in the CONTEXT. It was produced by the engine\'s deterministic calculator, NOT by you. Lead with its result, state the numbers exactly as given (never recompute or re-round them), cite the source it shows, and carry its confidence and any caution/non-linearity note into the answer.',
+        "When a result combines multiple selected components, show each component's name and supplied amount alongside the combined result, even if the calculator's formula subtracts other components from the group total. Keep every amount's period, basis and source qualification. If a selected component's amount is absent for that period/basis, say it is unavailable; never backfill or split the combined amount. Preserve any withheld result and unresolved gap.",
+      ]
       : []),
     ...(assembled.hasChangeBlock ? [CHANGE_RULE] : []),
     ...(assembled.linkedRuns?.length

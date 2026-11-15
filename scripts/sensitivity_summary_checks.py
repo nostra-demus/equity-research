@@ -67,7 +67,54 @@ def _mitigation_violations(var, s, required):
     return det
 
 
-def check_sensitivity_summary(sidecar, run_date=None):
+# Exact existing JSON-schema type declarations, asserted against that schema by the focused tests.
+# They apply only at NEW additive whole-sidecar admission; legacy-only behavior is unchanged.
+_LEGACY_ROOT_TYPES = {
+    "schema_version": "string", "ticker": "string", "as_of": "string", "currency": "string",
+    "base_metric": "string", "base_value": "number", "base_value_source": ["string", "null"],
+    "base_period": ["string", "null"], "revenue_base": ["number", "null"],
+    "revenue_period": ["string", "null"], "sensitivities": "array",
+}
+_LEGACY_ROW_TYPES = {
+    "variable": "string", "label": ["string", "null"], "unit": ["string", "null"],
+    "base_value": ["number", "null"], "coefficient": "number", "impact_metric": ["string", "null"],
+    "confidence": ["string", "null"], "basis": ["string", "null"],
+    "valid_range": ["object", "null"], "non_linearity": ["string", "null"],
+    "source": ["string", "null"], "mitigation_basis": ["string", "null"],
+    "mitigation_scope": ["string", "null"], "embedded_hedges": ["string", "null"],
+    "embedded_hedges_as_of": ["string", "null"], "realised_offset_pct": ["number", "null"],
+    "realised_offset_source": ["string", "null"],
+}
+
+
+def _legacy_schema_type_violations(sidecar):
+    """Existing coefficient-schema types at NEW whole-sidecar admission, with no added basis enum."""
+    def matches(value, types):
+        for kind in types if isinstance(types, list) else [types]:
+            if kind == "number":
+                try:
+                    if _isnum(value):
+                        return True
+                except OverflowError:
+                    pass
+            elif ((kind == "string" and isinstance(value, str)) or (kind == "null" and value is None)
+                  or (kind == "array" and isinstance(value, list)) or (kind == "object" and isinstance(value, dict))):
+                return True
+        return False
+    errors = [f"{key} violates its existing schema type {types}" for key, types in _LEGACY_ROOT_TYPES.items()
+              if key in sidecar and not matches(sidecar[key], types)]
+    for row in sidecar.get("sensitivities", []) if isinstance(sidecar.get("sensitivities"), list) else []:
+        if not isinstance(row, dict):
+            continue  # Existing guard reports non-object rows.
+        errors.extend(f"sensitivity {key} violates its existing schema type {types}"
+                      for key, types in _LEGACY_ROW_TYPES.items() if key in row and not matches(row[key], types))
+        vr = row.get("valid_range")
+        if isinstance(vr, dict) and (set(vr) - {"low", "high"} or any(not matches(v, "number") for v in vr.values())):
+            errors.append("sensitivity valid_range violates its existing closed numeric-object schema")
+    return errors
+
+
+def _check_legacy_sensitivity_summary(sidecar, run_date=None):
     """Core check. Returns None (no sidecar → N/A, soft presence) or a list of violations (empty = pass).
     Pure + module-level so the selftest drives every branch fixture-free.
 
@@ -139,6 +186,17 @@ def check_sensitivity_summary(sidecar, run_date=None):
                 det.append(f"sensitivity {s['variable']!r} does not compute through sensitivity_math "
                            f"({r.get('error', 'no numeric impact') if isinstance(r, dict) else 'no result'})")
     return det
+
+
+def check_sensitivity_summary(sidecar, run_date=None):
+    """Both recorded operation families use their shared deterministic authority. An additive-only
+    identity does not need invented coefficients; any supplied legacy fields retain the full old guard.
+    A disclosed displayed gap is valid diagnostic data, not a fabricated reliable remainder.
+    """
+    if isinstance(sidecar, dict) and "additive_identities" in sidecar:
+        from sensitivity_math import validate_additive_sidecar
+        return validate_additive_sidecar(sidecar, run_date)
+    return _check_legacy_sensitivity_summary(sidecar, run_date)
 
 
 def scan_committed(root="."):

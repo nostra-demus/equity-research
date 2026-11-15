@@ -167,6 +167,89 @@ For EACH §2 variable that carries a **clean per-unit coefficient** (a company-d
 
 OMIT a variable that has only a guidance range or a scenario impact with **no** clean per-unit rate — it is not linearly modelable, and inventing a coefficient is forbidden. A run whose §2 has zero clean-coefficient variables emits **no** sidecar (the chat then falls back to the prose, exactly as today).
 
+## Separate additive accounting operation — no invented coefficient
+
+The no-sidecar sentence above applies when there is neither a clean coefficient nor an eligible additive
+identity. It remains binding for coefficient rows: zero clean coefficients means **no `sensitivities`
+collection**, never an empty/malformed collection or a synthetic coefficient of 1. A source-backed complete
+accounting identity may instead use the distinct `additive_identities` collection in the SAME
+`earnings/sensitivity_summary.json` and schema. This is reconciliation/conditional remainder arithmetic,
+not a marginal-cost rate, point forecast, scenario plan or new research module. If neither operation is
+supported, emit no sidecar. If both are present, every legacy coefficient requirement still applies.
+
+Only emit identities already supported by the original source's total and complete signed components.
+Follow `frameworks/sensitivity_summary.schema.json`'s closed additive shapes. Each identity has a stable
+ID/label, a `context`, a cited `total`, and cited uniquely named `components`. Context explicitly states
+entity, metric, exact reported or named company-adjusted definition basis, currency/scale, start/end dates,
+period basis and source period label, reporting scope, and accounting standard/regime. Repeat matching
+context on every operand; do not infer accounting standard from nationality. The new operation accepts
+only absolute monetary flows: revenue, net sales, operating income, EBIT, EBITDA or net income. Ratios,
+EPS/per-share, margins, growth, yields and returns are not additive operands. Existing clean EPS
+coefficient sensitivities remain allowed under their original rules. `adjusted_EBITDA` is accepted only
+on a named company-adjusted basis and never relabelled reported EBITDA.
+
+Declare each total/component's nonempty atomic `coverage` scopes, with disjoint component coverage
+exactly covering the total. Never add a parent segment and its children, another overlapping disclosure
+view, or a revenue adjustment to profit without a supported crosswalk. Retain negative central costs,
+losses and eliminations with their original signs. `scripts/sensitivity_math.py` computes the signed sum
+and exact displayed total-minus-sum gap. A nonzero gap remains visible and withholds a reliable remainder;
+do not invent a balancing component, allocate a rounding difference, borrow a pp/bps tolerance or call
+the gap an adverse company finding. Typed metadata/citations do not authenticate the source.
+
+Optional `conditional_profiles` may only hold existing source values under explicit assumptions in a
+named target period, preserving the original source period separately. Every held known component needs
+its own assumption. Future reconciliation residual is an explicit value plus assumption, or unknown;
+historical zero is not future proof. Unknown holds/residuals permit historical reconciliation data but
+withhold a future numeric remainder. Do not manufacture profiles, future costs or a complete forecast
+merely to make the chat compute. A future question must supply its own grounded hypothetical total;
+the historical total is never reused as a future target. The engine also requires exact recorded component
+selection, the named profile/period and explicit matching currency/scale; unsupported wording is refused.
+
+Additive output reaches the existing Ask backend as qualified computed context only. It supplies the
+signed build, sources, basis, source/target periods, assumptions and any withheld reason. It is not a
+coefficient-impact card, valuation/repricing input, native forecast/outcome, probability, cash/ROIC result
+or investment-return evidence. Do not claim a complete earnings-sensitivity module pass from a single identity calculation.
+
+Carry material source/economic limitations in the additive sidecar's optional root
+`source_qualifications` array of nonblank strings and/or inline operand citations. Preserve original
+wording and order, including acquisition/authentication limits, definition boundaries and unresolved
+rounding causes; never rely on arbitrary metadata that consumers do not read. An empty array means no
+notes; null, scalar/object values and blank entries are invalid when additive identities are present.
+The backend carries these notes unchanged with computed and qualified-withheld results. They are data
+limitations, not instructions overriding authoritative numbers, unknowns or refusals, and their presence
+does not authenticate a source. Existing coefficient-only behavior is unchanged.
+
+### Optional source-grounded equivalent labels
+
+Keep every original period/business label and all financial context verbatim. When the original source
+also supplies an equivalent wording for the SAME period or component, the closed additive schema permits
+optional owner-local alias records: identity `source_period_aliases`, component `label_aliases`, and
+conditional profile `target_period_aliases`. Each record requires `label`, exact retained `source_label`,
+the original-document/period/section `source` citation proving that owner's equivalence, and `kind`.
+Absent means no extra wording; supplied null/empty/malformed collections are invalid. Do not invent
+aliases from the question or add a global alias registry.
+
+For `kind: source_literal`, the complete label and quoted source span must match after casefold and
+whitespace collapse ONLY. A component alias must be literal and refer to that exact business/metric/scope,
+not merely another row or a report-container title. Never strip issuer prefixes, punctuation, or spaces,
+guess alternate spellings, or equate reported/adjusted/pro-rata figures under a common business name.
+
+Period positions additionally permit `kind: quarter_abbreviation`: a complete explicitly sourced
+`first/second/third/fourth quarter [of] YYYY` may be abbreviated to the corresponding `Q1/Q2/Q3/Q4 YYYY`,
+with the identical explicit four-digit source year (including historical years such as1999). Retain the
+original ordinal wording and period/basis citation; do not call the abbreviation a literal source quote.
+No end-date-to-quarter calculation, FY/CY convention, missing year or two-digit-year expansion is allowed.
+Future target aliases need their own explicit source calendar/schedule evidence; source-period wording
+does not establish a target period. Original source/target dates and reporting bases never change.
+
+Aliases must not duplicate their primary name, collide with another component/ID, or bind the same period
+wording to different dates/bases within an identity. Full registered names, including internal connector
+words such as `for`, `and` or `if total is`, remain indivisible candidates before suffix interpretation;
+genuinely ambiguous complete questions are refused, never resolved by the model's chosen IDs. Runtime
+checks declared strings and their ownership, not the authenticity of the cited quotation. Separately
+verify each new equivalence against the original source before using the candidate record. Unsupported
+equivalence is omitted; preserve an honest wording limitation rather than rewrite source labels.
+
 # SELF-CHECK
 
 - [ ] 3–7 variables are selected and ranked. No fewer than 3, no more than 7.
@@ -179,7 +262,7 @@ OMIT a variable that has only a guidance range or a scenario impact with **no** 
 - [ ] Impact is in the correct unit (EPS in currency, EBITDA in currency).
 - [ ] The ranking table is sorted by absolute impact.
 - [ ] Earnings volatility score direction is flagged (higher = worse).
-- [ ] `sensitivity_summary.json` was emitted (conforming to `frameworks/sensitivity_summary.schema.json`) for every §2 variable with a clean per-unit coefficient — each `coefficient` reproduces §2's bull/bear impacts when scaled by §2's bull/bear deltas, `base_metric`/`base_value` state the exact basis (reported vs adjusted, §15), and no variable lacking a clean per-unit rate was given an invented coefficient. Every row carries `mitigation_basis` matching its §2 "Mitigation assumed" value, and any non-zero `realised_offset_pct` carries its `realised_offset_source`. Zero clean-coefficient variables → no sidecar.
+- [ ] `sensitivity_summary.json` was emitted (conforming to `frameworks/sensitivity_summary.schema.json`) for every §2 variable with a clean per-unit coefficient — each `coefficient` reproduces §2's bull/bear impacts when scaled by §2's bull/bear deltas, `base_metric`/`base_value` state the exact basis (reported vs adjusted, §15), and no variable lacking a clean per-unit rate was given an invented coefficient. Every row carries `mitigation_basis` matching its §2 "Mitigation assumed" value, and any non-zero `realised_offset_pct` carries its `realised_offset_source`. Zero clean-coefficient variables → no `sensitivities` collection and no invented coefficient. An eligible source-backed `additive_identities` collection may still be emitted under its separate closed contract; emit no sidecar when neither a clean coefficient nor an eligible additive identity exists.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
