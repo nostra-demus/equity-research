@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T22:54:57Z",
+  "generated_at": "2026-11-15T22:56:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-326",
+      "headline": "AKA: Aureka Completes Acquisition of Mill and Mine Operations [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AKA?key=2924-03161939-3A706573",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T22:49:22Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Aureka completed the acquisition of mill and mine operations, representing a material expansion of its asset base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aureka completed the acquisition of mill and mine operations, representing a material expansion of its asset base.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aureka",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-325",
       "headline": "IGO: GG8: Acquisition of Cosmos and Simon Lawson to Exec Chairman",
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-145",
-      "headline": "Kaynes Technology Q2 Results: Net Profit Slides Over 61%, Margin Narrows",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/kaynes-technology-q2-results-net-profit-slides-over-61-percent-margin-narrows-12329140#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T06:48:12Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Reported a significant net profit decline of over 61% and narrowing margins for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported a significant net profit decline of over 61% and narrowing margins for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kaynes Technology",
-          "ticker": "KAYNES",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
