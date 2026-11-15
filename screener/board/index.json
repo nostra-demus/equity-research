@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T14:41:06Z",
+  "generated_at": "2026-11-15T14:42:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -93,6 +93,55 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-245",
+      "headline": "US FDA Rejects Summit’s China-Originated Lung Cancer Drug",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/us-fda-rejects-summit-s-china-originated-lung-cancer-drug",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T14:23:44Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The FDA rejection of a key drug candidate is a major negative event for the company's pipeline and future revenue expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FDA rejection of a key drug candidate is a major negative event for the company's pipeline and future revenue expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Summit Therapeutics",
+          "ticker": "SMMT",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1866,66 +1915,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-200",
-      "headline": "Anthropic Just Delivered Great News for AMD Investors and Bad News for Nvidia",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/15/anthropic-just-delivered-great-news-for-amd-investors-and-bad-news-for-nvidia/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T10:20:02Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Anthropic's news impacts both AMD (positive) and Nvidia (negative) in the AI sector, potentially shifting market dynamics and investor expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Anthropic's news impacts both AMD (positive) and Nvidia (negative) in the AI sector, potentially shifting market dynamics and investor expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -283187,9 +283176,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2500,
-    "news_picked_today": 441,
-    "news_dropped_today": 1881
+    "news_seen_today": 2512,
+    "news_picked_today": 445,
+    "news_dropped_today": 1889
   },
   "book_momentum": {
     "live_count": 8,
