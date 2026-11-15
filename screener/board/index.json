@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T06:29:52Z",
+  "generated_at": "2026-11-15T06:40:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-117",
@@ -1381,6 +1381,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-134",
+      "headline": "RWA protocol stUSDT winds down three years after $2.3B TVL peak",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/rwa-protocol-stusdt-winds-down-three-years-after-23b-tvl-peak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T06:27:26Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The RWA protocol stUSDT is winding down after previously reaching a peak of $2.3 billion in Total Value Locked (TVL).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The RWA protocol stUSDT is winding down after previously reaching a peak of $2.3 billion in Total Value Locked (TVL).",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "stUSDT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-046",
       "headline": "Cerebras beats estimates, but its biggest customer is waiting",
       "headline_en": null,
@@ -1926,50 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-088",
-      "headline": "IBC appeal clock starts from NCLAT order pronouncement: Supreme Court",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/ibc-appeal-clock-starts-from-nclat-order-pronouncement-supreme-court-4218924",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T04:09:23Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The Supreme Court ruled that the limitation period for IBC appeals begins from the date the NCLAT order is pronounced, establishing legal clarity for corporate insolvency timelines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The Supreme Court ruled that the limitation period for IBC appeals begins from the date the NCLAT order is pronounced, establishing legal clarity for corporate insolvency timelines.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -240620,222 +240625,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-785361ba10ab",
-      "idea_version": "IDEAV-8be517a9b511f654",
-      "idea_version_started_at": "2026-11-15T00:19:25Z",
-      "ticker": "EOAN",
-      "company": "E.ON SE",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Germany's targeted €4 billion buyout of E.ON and RWE's Urenco stake offers direct non-dilutive capital realization and balance sheet enhancement for E.ON.",
-      "why_now": "Reported on November 13, 2026, presenting a live public M&A buyout catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c2052eaec173"
-      ],
-      "primary_source_event_id": "EVT-c2052eaec173",
-      "source_headlines": [
-        "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
-      ],
-      "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
-      "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
-      "source_name": "OilPrice.com",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T18:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-15T00:19:25Z",
-      "updated_at": "2026-11-15T00:19:25Z",
-      "decay_at": "2026-11-15T06:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-096248e6a8a2",
-      "idea_version": "IDEAV-6c1afa14df3de769",
-      "idea_version_started_at": "2026-11-14T22:39:34Z",
-      "ticker": "RWE",
-      "company": "RWE",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Germany is reportedly considering a €4 billion buyout of RWE's stake in Urenco, which could provide a significant cash infusion or valuation uplift.",
-      "why_now": "News broke on November 13, 2026, that Germany is actively eyeing the buyout, creating a near-term M&A catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c2052eaec173"
-      ],
-      "primary_source_event_id": "EVT-c2052eaec173",
-      "source_headlines": [
-        "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
-      ],
-      "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
-      "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
-      "source_name": "OilPrice.com",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T18:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-14T22:39:34Z",
-      "updated_at": "2026-11-14T22:39:34Z",
-      "decay_at": "2026-11-15T06:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f25de09dd4c8",
-      "idea_version": "IDEAV-42b050ced4226871",
-      "idea_version_started_at": "2026-11-14T22:39:34Z",
-      "ticker": "EONGN",
-      "company": "E.ON",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Germany is reportedly considering a €4 billion buyout of E.ON’s stake in Urenco, which could provide a significant cash infusion or valuation uplift.",
-      "why_now": "News broke on November 13, 2026, that Germany is actively eyeing the buyout, creating a near-term M&A catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c2052eaec173"
-      ],
-      "primary_source_event_id": "EVT-c2052eaec173",
-      "source_headlines": [
-        "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
-      ],
-      "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
-      "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
-      "source_name": "OilPrice.com",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T18:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-14T22:39:34Z",
-      "updated_at": "2026-11-14T22:39:34Z",
-      "decay_at": "2026-11-15T06:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8f3693de9b05",
       "idea_version": "IDEAV-b4571006468bf685",
       "idea_version_started_at": "2026-11-14T14:14:26Z",
@@ -243690,6 +243479,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-785361ba10ab",
+      "idea_version": "IDEAV-8be517a9b511f654",
+      "idea_version_started_at": "2026-11-15T00:19:25Z",
+      "ticker": "EOAN",
+      "company": "E.ON SE",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Germany's targeted €4 billion buyout of E.ON and RWE's Urenco stake offers direct non-dilutive capital realization and balance sheet enhancement for E.ON.",
+      "why_now": "Reported on November 13, 2026, presenting a live public M&A buyout catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2052eaec173"
+      ],
+      "primary_source_event_id": "EVT-c2052eaec173",
+      "source_headlines": [
+        "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
+      ],
+      "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
+      "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
+      "source_name": "OilPrice.com",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T18:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T00:19:25Z",
+      "updated_at": "2026-11-15T00:19:25Z",
+      "decay_at": "2026-11-15T06:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d3a5f53bdf92",
       "idea_version": "IDEAV-f5cf0bcef3b90a38",
       "idea_version_started_at": "2026-11-15T00:19:25Z",
@@ -243755,6 +243616,78 @@
       "surfaced_at": "2026-11-15T00:19:25Z",
       "updated_at": "2026-11-15T00:19:25Z",
       "decay_at": "2026-11-15T01:14:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-096248e6a8a2",
+      "idea_version": "IDEAV-6c1afa14df3de769",
+      "idea_version_started_at": "2026-11-14T22:39:34Z",
+      "ticker": "RWE",
+      "company": "RWE",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Germany is reportedly considering a €4 billion buyout of RWE's stake in Urenco, which could provide a significant cash infusion or valuation uplift.",
+      "why_now": "News broke on November 13, 2026, that Germany is actively eyeing the buyout, creating a near-term M&A catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2052eaec173"
+      ],
+      "primary_source_event_id": "EVT-c2052eaec173",
+      "source_headlines": [
+        "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
+      ],
+      "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
+      "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
+      "source_name": "OilPrice.com",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T18:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T22:39:34Z",
+      "updated_at": "2026-11-14T22:39:34Z",
+      "decay_at": "2026-11-15T06:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -243897,6 +243830,78 @@
       "surfaced_at": "2026-11-13T16:37:25Z",
       "updated_at": "2026-11-14T22:39:34Z",
       "decay_at": "2026-11-14T23:49:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f25de09dd4c8",
+      "idea_version": "IDEAV-42b050ced4226871",
+      "idea_version_started_at": "2026-11-14T22:39:34Z",
+      "ticker": "EONGN",
+      "company": "E.ON",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Germany is reportedly considering a €4 billion buyout of E.ON’s stake in Urenco, which could provide a significant cash infusion or valuation uplift.",
+      "why_now": "News broke on November 13, 2026, that Germany is actively eyeing the buyout, creating a near-term M&A catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2052eaec173"
+      ],
+      "primary_source_event_id": "EVT-c2052eaec173",
+      "source_headlines": [
+        "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
+      ],
+      "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
+      "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
+      "source_name": "OilPrice.com",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T18:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T22:39:34Z",
+      "updated_at": "2026-11-14T22:39:34Z",
+      "decay_at": "2026-11-15T06:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -245633,14 +245638,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 24
       },
       "short": {
         "total_count": 277,
@@ -245664,6 +245669,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-096248e6a8a2",
+        "idea_version": "IDEAV-6c1afa14df3de769",
+        "idea_version_started_at": "2026-11-14T22:39:34Z",
+        "ticker": "RWE",
+        "company": "RWE",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Germany is reportedly considering a €4 billion buyout of RWE's stake in Urenco, which could provide a significant cash infusion or valuation uplift.",
+        "why_now": "News broke on November 13, 2026, that Germany is actively eyeing the buyout, creating a near-term M&A catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c2052eaec173"
+        ],
+        "primary_source_event_id": "EVT-c2052eaec173",
+        "source_headlines": [
+          "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
+        ],
+        "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
+        "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
+        "source_name": "OilPrice.com",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T18:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-14T22:39:34Z",
+        "updated_at": "2026-11-14T22:39:34Z",
+        "decay_at": "2026-11-15T06:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T06:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-785361ba10ab",
+        "idea_version": "IDEAV-8be517a9b511f654",
+        "idea_version_started_at": "2026-11-15T00:19:25Z",
+        "ticker": "EOAN",
+        "company": "E.ON SE",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Germany's targeted €4 billion buyout of E.ON and RWE's Urenco stake offers direct non-dilutive capital realization and balance sheet enhancement for E.ON.",
+        "why_now": "Reported on November 13, 2026, presenting a live public M&A buyout catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c2052eaec173"
+        ],
+        "primary_source_event_id": "EVT-c2052eaec173",
+        "source_headlines": [
+          "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
+        ],
+        "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
+        "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
+        "source_name": "OilPrice.com",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T18:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-15T00:19:25Z",
+        "updated_at": "2026-11-15T00:19:25Z",
+        "decay_at": "2026-11-15T06:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T06:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f25de09dd4c8",
+        "idea_version": "IDEAV-42b050ced4226871",
+        "idea_version_started_at": "2026-11-14T22:39:34Z",
+        "ticker": "EONGN",
+        "company": "E.ON",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Germany is reportedly considering a €4 billion buyout of E.ON’s stake in Urenco, which could provide a significant cash infusion or valuation uplift.",
+        "why_now": "News broke on November 13, 2026, that Germany is actively eyeing the buyout, creating a near-term M&A catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c2052eaec173"
+        ],
+        "primary_source_event_id": "EVT-c2052eaec173",
+        "source_headlines": [
+          "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake"
+        ],
+        "source_headline": "Germany Eyes €4 Billion Buyout of RWE and E.ON’s Urenco Stake",
+        "source_url": "https://oilprice.com/Latest-Energy-News/World-News/Germany-Eyes-4-Billion-Buyout-of-RWE-and-EONs-Urenco-Stake.html",
+        "source_name": "OilPrice.com",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T18:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-14T22:39:34Z",
+        "updated_at": "2026-11-14T22:39:34Z",
+        "decay_at": "2026-11-15T06:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T06:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0a9dc564d53d",
         "idea_version": "IDEAV-7454750a932f998f",
@@ -274813,154 +275043,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-18073b7432d4",
-        "idea_version": "IDEAV-f9ad1dd298e6f882",
-        "idea_version_started_at": "2026-11-01T10:30:47Z",
-        "ticker": "07489",
-        "company": "Voyah Auto",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Voyah Auto's October 2026 delivery update is a direct indicator of its sales performance and potential revenue generation in the current period.",
-        "why_now": "The October 2026 delivery numbers offer immediate insight into the company's sales trajectory.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e04a8d80486e"
-        ],
-        "primary_source_event_id": "EVT-e04a8d80486e",
-        "source_headlines": [
-          "VOYAH AUTO (07489): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE"
-        ],
-        "source_headline": "VOYAH AUTO (07489): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100035.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 95,
-        "newest_source_at": "2026-11-01T10:12:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T10:30:47Z",
-        "updated_at": "2026-11-01T10:30:47Z",
-        "decay_at": "2026-11-02T22:12:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:33:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cfd6cecaafb2",
-        "idea_version": "IDEAV-34389ea0fbfa9859",
-        "idea_version_started_at": "2026-11-01T10:30:47Z",
-        "ticker": "02015",
-        "company": "Li Auto",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Li Auto reported its October 2026 delivery update, which is a key indicator of revenue growth for the electric vehicle manufacturer.",
-        "why_now": "The delivery update for October 2026 provides current sales performance data.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5affd2a918b8"
-        ],
-        "primary_source_event_id": "EVT-5affd2a918b8",
-        "source_headlines": [
-          "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE"
-        ],
-        "source_headline": "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100027.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T10:08:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T10:30:47Z",
-        "updated_at": "2026-11-01T10:30:47Z",
-        "decay_at": "2026-11-02T22:08:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:33:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-41c5501266bc",
         "idea_version": "IDEAV-03b730a97de42b8a",
         "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -275027,80 +275109,6 @@
         "surfaced_at": "2026-11-01T10:30:47Z",
         "updated_at": "2026-11-01T10:30:47Z",
         "decay_at": "2026-11-02T22:04:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:33:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a3db829cb1b9",
-        "idea_version": "IDEAV-ea93237a732ab274",
-        "idea_version_started_at": "2026-11-01T10:06:03Z",
-        "ticker": "00175",
-        "company": "Geely Auto",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported unaudited sales volume for October 2026, providing a direct update on revenue momentum and market share capture in the competitive Chinese EV and ICE vehicle market.",
-        "why_now": "The filing was released on 2026-11-01, providing immediate data for valuation adjustments.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ea5c523a493f"
-        ],
-        "primary_source_event_id": "EVT-ea5c523a493f",
-        "source_headlines": [
-          "GEELY AUTO GEELY AUTO-R (00175 80175): UNAUDITED SALES VOLUME IN OCTOBER 2026"
-        ],
-        "source_headline": "GEELY AUTO GEELY AUTO-R (00175 80175): UNAUDITED SALES VOLUME IN OCTOBER 2026",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100003.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-11-01T10:02:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T10:06:03Z",
-        "updated_at": "2026-11-01T10:06:03Z",
-        "decay_at": "2026-11-02T22:02:00Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -282775,7 +282783,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2489,
-    "live_count": 37,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -282794,9 +282802,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 744,
-    "news_picked_today": 159,
-    "news_dropped_today": 585
+    "news_seen_today": 760,
+    "news_picked_today": 165,
+    "news_dropped_today": 595
   },
   "book_momentum": {
     "live_count": 8,
