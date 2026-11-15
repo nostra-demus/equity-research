@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-22T23:50:46Z",
+  "archived_at": "2026-11-15T11:03:32Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-b9904f623df5",
-    "idea_version": "IDEAV-1cd9d06103fff5cb",
-    "idea_version_started_at": "2026-10-20T00:46:02Z",
-    "ticker": "ATKR",
-    "company": "Atkore Inc.",
-    "exchange": "NYSE",
+    "idea_id": "IDEA-e1d40a598d73",
+    "idea_version": "IDEAV-896aa4599f6ab45d",
+    "idea_version_started_at": "2026-11-12T13:36:01Z",
+    "ticker": "SZG.DE",
+    "company": "Salzgitter",
+    "exchange": "XETRA",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "The filing of a 25-NSE delisting notification indicates severe financial distress or regulatory non-compliance, signaling a high risk of equity impairment.",
-    "why_now": "The delisting notice was issued on October 19, 2026, making this a live liquidity and solvency event.",
-    "conviction": 85,
+    "reason": "The company issued a downward revision to its FY26 guidance, signaling deteriorating earnings expectations.",
+    "why_now": "The guidance update was announced on November 12, 2026.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 76,
+    "trade_score": 65,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 15,
       "timing": 10,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -46,30 +47,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "balance_sheet_survival",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-eb571881eeac"
+      "EVT-22048ffb244a"
     ],
-    "primary_source_event_id": "EVT-eb571881eeac",
+    "primary_source_event_id": "EVT-22048ffb244a",
     "source_headlines": [
-      "25-NSE - Atkore Inc. (0001666138) (Subject)"
+      "Salzgitter Announces Revised FY26 Guidance - Update"
     ],
-    "source_headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
-    "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+    "source_headline": "Salzgitter Announces Revised FY26 Guidance - Update",
+    "source_url": "https://www.nasdaq.com/articles/salzgitter-announces-revised-fy26-guidance-update",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-19T14:02:31Z",
+    "newest_source_at": "2026-11-12T10:45:22Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-20T00:46:02Z",
-    "updated_at": "2026-10-20T00:46:02Z",
-    "decay_at": "2026-10-21T02:02:31Z",
+    "surfaced_at": "2026-11-12T13:36:01Z",
+    "updated_at": "2026-11-12T13:36:01Z",
+    "decay_at": "2026-11-13T22:45:22Z",
     "status": "live",
     "promoted_signal_id": null
   }
