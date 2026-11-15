@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T01:19:20Z",
+  "generated_at": "2026-11-15T01:23:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -286,6 +286,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-025",
+      "headline": "‘Holy Grail of spaceflight’: SpaceX pulls off first-ever midair 'catch' of Starship returning from orbit",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/holy-grail-of-spaceflight-spacex-pulls-off-first-ever-midair-catch-of-starship-returning-from-orbit-11794704126187.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T01:15:33Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "SpaceX successfully demonstrated a major technical milestone in reusable rocket technology, enhancing its competitive advantage in launch costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "SpaceX successfully demonstrated a major technical milestone in reusable rocket technology, enhancing its competitive advantage in launch costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -281051,7 +281100,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4871,
+    "inbox_unconsumed": 4872,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -281060,9 +281109,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 127,
-    "news_picked_today": 24,
-    "news_dropped_today": 103
+    "news_seen_today": 135,
+    "news_picked_today": 26,
+    "news_dropped_today": 109
   },
   "book_momentum": {
     "live_count": 8,
