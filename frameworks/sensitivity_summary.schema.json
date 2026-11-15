@@ -6,7 +6,7 @@
   "type": "object",
   "required": ["schema_version", "ticker"],
   "anyOf": [{"required": ["schema_version", "ticker", "base_metric", "base_value", "sensitivities"]}, {"required": ["additive_identities"]}],
-  "allOf": [{"if": {"anyOf": [{"required": ["sensitivities"]}, {"required": ["base_metric"]}, {"required": ["base_value"]}, {"required": ["base_value_source"]}, {"required": ["base_period"]}, {"required": ["revenue_base"]}, {"required": ["revenue_period"]}]}, "then": {"required": ["schema_version", "ticker", "base_metric", "base_value", "sensitivities"]}}],
+  "allOf": [{"if": {"anyOf": [{"required": ["sensitivities"]}, {"required": ["base_metric"]}, {"required": ["base_value"]}, {"required": ["base_value_source"]}, {"required": ["base_period"]}, {"required": ["revenue_base"]}, {"required": ["revenue_period"]}]}, "then": {"required": ["schema_version", "ticker", "base_metric", "base_value", "sensitivities"]}}, {"if": {"required": ["additive_identities"]}, "then": {"properties": {"source_qualifications": {"type": "array", "items": {"type": "string", "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"}, "description": "Exact supplied source/economic limitations, retained in order as data alongside additive results. Empty means no notes; no source authentication or authority to override arithmetic/refusals."}}}}],
   "additionalProperties": true,
   "properties": {
     "additive_identities": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/additive_identity"}, "description": "Distinct source-bound signed accounting identities. No causal coefficient is implied. Shared runtime checks exact context, nonoverlap coverage, displayed gap, whole-sidecar legacy integrity and grounded question; any unresolved gap withholds reliable remainder. Explicit future holds/residual assumptions are conditional, never forecasts."},
@@ -230,6 +230,25 @@
         "label": {
           "type": "string",
           "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "label_aliases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/additive_alias"
+              },
+              {
+                "properties": {
+                  "kind": {
+                    "const": "source_literal"
+                  }
+                }
+              }
+            ]
+          },
+          "description": "Optional literal source names for this exact signed component/basis/scope, never generic issuer-prefix stripping or fuzzy aliases."
         }
       }
     },
@@ -314,6 +333,14 @@
               ]
             }
           }
+        },
+        "target_period_aliases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/additive_alias"
+          },
+          "description": "Optional cited equivalent period labels; absent means no extra wording. No calendar/fiscal inference. Original context period label/dates/basis remain unchanged."
         }
       }
     },
@@ -354,8 +381,47 @@
           "items": {
             "$ref": "#/definitions/additive_profile"
           }
+        },
+        "source_period_aliases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/additive_alias"
+          },
+          "description": "Optional cited equivalent period labels; absent means no extra wording. No calendar/fiscal inference. Original context period label/dates/basis remain unchanged."
         }
       }
+    },
+    "additive_alias": {
+      "type": "object",
+      "required": [
+        "label",
+        "source_label",
+        "source",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "source_label": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "source": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "kind": {
+          "enum": [
+            "source_literal",
+            "quarter_abbreviation"
+          ]
+        }
+      },
+      "description": "Declared owner-specific source literal or complete explicit ordinal/four-digit year abbreviation. Runtime validates normalized equality/transform, ownership and collisions; citations do not authenticate the original source."
     }
   }
 }

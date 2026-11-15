@@ -27,6 +27,19 @@ class AdditiveSensitivityTests(unittest.TestCase):
         self.assertEqual(result["kind"], "additive")
         return result
 
+    @staticmethod
+    def alias(label, source_label=None, kind="source_literal"):
+        # Generic software controls below are not additional claims about an issuer's original wording.
+        return {"label": label, "source_label": label if source_label is None else source_label,
+                "source": "Software disclosure control: exact same owner/period/basis label evidence", "kind": kind}
+
+    @staticmethod
+    def period_label(sidecar, label):
+        ident = sidecar["additive_identities"][0]
+        for ctx in [ident["context"], ident["total"]["context"]] + [p["context"] for p in ident["components"]]:
+            ctx["period_label"] = label
+        return ident
+
     def reject(self, sidecar, request):
         r = self.result(sidecar, request)
         self.assertNotEqual(r["status"], "computed", r)
@@ -143,6 +156,38 @@ class AdditiveSensitivityTests(unittest.TestCase):
         req["question"] = req["question"].replace("how much is Google Cloud", "how much is Google Cloud and Other Bets")
         self.reject(sc, req)
 
+    def test_reconcile_requires_unique_complete_sibling_identity_and_period_parse(self):
+        # Constructed software labels: a literal 'for' can belong to either identity or period.
+        # Neither the model's chosen ID nor a primary-name preference may select the meaning.
+        for use_alias in (False, True):
+            sc, _ = self.fixture()
+            first = self.period_label(sc, "Source period wording" if use_alias else "Q3 for 2026")
+            first["label"] = "Group operating income"
+            if use_alias:
+                first["source_period_aliases"] = [self.alias("Q3 for 2026")]
+            second = copy.deepcopy(first)
+            second.update(identity_id="second-software-identity", label="Group operating income for Q3")
+            second.pop("source_period_aliases", None)
+            second.pop("conditional_profiles", None)
+            for ctx in [second["context"], second["total"]["context"]] + [p["context"] for p in second["components"]]:
+                ctx.update(entity="Separate software entity", currency="EUR", period_start="2026-01-01",
+                           period_end="2026-12-31", period_basis="cumulative_flow", period_label="2026")
+            sc["additive_identities"].append(second)
+            self.assertEqual(validate_additive_sidecar(sc), [])
+            question = "Reconcile Group operating income for Q3 for 2026?"
+            for identity in (first, second):
+                req = {"operation": "additive", "identity_id": identity["identity_id"], "mode": "reconcile", "question": question}
+                result = self.reject(sc, req)
+                self.assertEqual(result["reason"], "ambiguous_identity_binding")
+                self.assertIsNone(result["source_total"])
+            second["label"] = "Distinct annual operating income"
+            for identity, period in ((first, "Q3 for 2026"), (second, "2026")):
+                req = {"operation": "additive", "identity_id": identity["identity_id"], "mode": "reconcile",
+                       "question": "Reconcile " + identity["label"] + " for " + period + "?"}
+                self.assertEqual(self.result(sc, req)["status"], "computed")
+                other_id = second["identity_id"] if identity is first else first["identity_id"]
+                self.assertEqual(self.reject(sc, dict(req, identity_id=other_id))["reason"], "ambiguous_identity_binding")
+
     def test_whole_sidecar_rejects_malformed_supplied_legacy(self):
         for bad in [None, {}, [], [True], [{"variable": "input", "coefficient": 1}]]:
             sc, req = self.fixture()
@@ -151,6 +196,56 @@ class AdditiveSensitivityTests(unittest.TestCase):
         sc, req = self.fixture()
         sc["base_value"] = 100
         self.reject(sc, req)
+
+    def test_source_qualifications_travel_unchanged_with_computed_and_withheld_results(self):
+        notes = ["  Supplied reproduction: independent original acquisition not established.  ",
+                 "Company-adjusted definition retained; a rounding warning does not prove this gap's cause."]
+        for index in range(len(FIXTURES)):
+            sc, req = self.fixture(index)
+            unqualified = self.result(sc, req)
+            self.assertEqual(unqualified["source_qualifications"], [])
+            sc["source_qualifications"] = notes
+            result = self.result(sc, req)
+            self.assertEqual(result["source_qualifications"], notes)
+            self.assertEqual({k: v for k, v in result.items() if k != "source_qualifications"},
+                             {k: v for k, v in unqualified.items() if k != "source_qualifications"})
+            self.assertEqual(check_sensitivity_summary(sc, "2026-11-15"), [])
+        sc, req, _ = self.future()
+        sc["source_qualifications"] = notes
+        result = self.reject(sc, req)
+        self.assertEqual(result["reason"], "unknown_future_residual")
+        self.assertEqual(result["source_qualifications"], notes)
+
+    def test_source_qualification_shape_is_admitted_before_additive_arithmetic(self):
+        for bad in [None, "source note", {}, [None], [True], [1], [{}], [""], [" \t\ufeff"]]:
+            sc, req = self.fixture()
+            sc["source_qualifications"] = bad
+            result = self.reject(sc, req)
+            self.assertEqual(result["reason"], "invalid_source_qualifications")
+            self.assertIsNone(result["source_total"])
+            self.assertIsNone(result["displayed_gap"])
+            self.assertTrue(check_sensitivity_summary(sc, "2026-11-15"))
+        sc, req = self.fixture()
+        sc["source_qualifications"] = []
+        self.assertEqual(self.result(sc, req)["remainder"], 10303)
+        self.assertEqual(self.result(sc, req)["source_qualifications"], [])
+
+    def test_source_qualification_contract_does_not_tighten_legacy_only_behavior(self):
+        from sensitivity_math import resolve_scenario
+        legacy = {"schema_version": "1", "ticker": "TEST", "base_metric": "EPS", "base_value": 1,
+                  "base_period": "Q3 2026", "sensitivities": [{"variable": "input", "coefficient": 0.1,
+                  "source": "Software disclosure", "basis": "unknown", "mitigation_basis": "zero_bound"}]}
+        expected = resolve_scenario(legacy, "input", {"delta": 2})
+        for extra in [None, "legacy arbitrary metadata", {}, [""], [True]]:
+            changed = dict(legacy, source_qualifications=extra)
+            self.assertEqual(resolve_scenario(changed, "input", {"delta": 2}), expected)
+            self.assertEqual(check_sensitivity_summary(changed, "2026-11-15"), [])
+        schema = json.loads((ROOT / "frameworks/sensitivity_summary.schema.json").read_text())
+        self.assertNotIn("source_qualifications", schema["properties"])
+        rules = [rule for rule in schema["allOf"]
+                 if rule.get("if", {}).get("required") == ["additive_identities"]]
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0]["then"]["properties"]["source_qualifications"]["type"], "array")
 
     def test_coexisting_legacy_types_match_unchanged_schema(self):
         schema = json.loads((ROOT / "frameworks/sensitivity_summary.schema.json").read_text())
@@ -224,6 +319,88 @@ class AdditiveSensitivityTests(unittest.TestCase):
         self.assertEqual(len(r["assumptions"]), 7)
         self.assertEqual(r["displayed_gap"], 1)
         self.assertIsNone(r["remainder"])
+
+    def test_source_period_aliases_preserve_original_labels_and_source_citations(self):
+        sc, req = self.fixture()
+        ident = self.period_label(sc, "Three Months Ended September 30, 2026")
+        ident["source_period_aliases"] = [self.alias("Q3 2026")]
+        r = self.result(sc, req)
+        self.assertEqual(r["remainder"], 10303)
+        self.assertEqual(r["source_period"]["label"], "Three Months Ended September 30, 2026")
+        self.assertEqual(r["source_period_aliases"], ident["source_period_aliases"])
+        self.assertEqual(r["sources"], [ident["total"]["source"]] + [p["source"] for p in ident["components"]])
+        reconcile = {"operation": "additive", "identity_id": ident["identity_id"], "mode": "reconcile",
+                     "question": "Reconcile " + ident["label"] + " for Q3 2026?"}
+        self.assertEqual(self.result(sc, reconcile)["status"], "computed")
+        del ident["source_period_aliases"]
+        self.reject(sc, req)
+
+    def test_four_digit_ordinal_alias_is_linguistic_not_date_inference(self):
+        sc, req = self.fixture(1)
+        ident = self.period_label(sc, "Three Months Ended September 30, 1999")
+        for ctx in [ident["context"], ident["total"]["context"]] + [p["context"] for p in ident["components"]]:
+            ctx.update(period_start="1999-07-01", period_end="1999-09-30")
+        req["question"] = req["question"].replace("2026", "1999")
+        ident["source_period_aliases"] = [self.alias("Q3 1999", "third quarter of 1999", "quarter_abbreviation")]
+        self.assertEqual(self.result(sc, req)["remainder"], 11121)
+        for label, literal in [("Q4 1999", "third quarter of 1999"), ("Q3 2026", "third quarter of 1999"),
+                               ("Q3 1999", "third quarter"), ("Q3 99", "third quarter of 99"),
+                               ("FY1999 Q3", "third quarter of 1999"), ("Q3 1999", "September 30, 1999")]:
+            ident["source_period_aliases"] = [self.alias(label, literal, "quarter_abbreviation")]
+            self.reject(sc, req)
+
+    def test_alias_admission_refuses_invalid_ownership_collisions_and_period_maps(self):
+        for aliases in [None, [], [{}], [dict(self.alias("other"), extra=1)], [self.alias("Q3 2026")],
+                        [self.alias("Other", "Different")]]:
+            sc, req = self.fixture()
+            sc["additive_identities"][0]["source_period_aliases"] = aliases
+            self.reject(sc, req)
+        sc, req = self.fixture(1)
+        parts = sc["additive_identities"][0]["components"]
+        for alias in [self.alias("Other Bets"), self.alias("other_bets"), self.alias("Q3 2026", "third quarter of 2026", "quarter_abbreviation")]:
+            parts[1]["label_aliases"] = [alias]
+            self.reject(sc, req)
+        sc, req = self.fixture()
+        profile = sc["additive_identities"][0]["conditional_profiles"][0]
+        profile["target_period_aliases"] = [self.alias("Q3 2026")]
+        self.reject(sc, req)  # Same wording cannot mean sourceQ3 and targetQ4 dates/bases.
+
+    def test_complete_component_names_precede_for_and_total_suffix_interpretation(self):
+        for label in ["Solutions for Banking", "Solutions and Services", "Services plus Support", "Tools & Platforms", "Services Co."]:
+            sc, req = self.fixture(1)
+            part = sc["additive_identities"][0]["components"][1]
+            part.update(label="Original source business", label_aliases=[self.alias(label)])
+            req["question"] = req["question"].replace("Google Cloud", label)
+            self.assertEqual(self.result(sc, req)["remainder"], 11121)
+            self.assertEqual(self.result(sc, req)["components"][1]["label"], "Original source business")
+        sc, req = self.fixture()
+        ident = sc["additive_identities"][0]
+        ident["components"][0]["label"] = "Core"
+        ident["components"][1]["label"] = "Core if total is 31000 USD million"
+        question = "Using the Q3 2026 consolidated operating income identity, how much is Core if total is 31000 USD million?"
+        # Both raw meanings are complete. A model's selected scope/target cannot choose between them.
+        self.reject(sc, dict(req, question=question, remainder_component_ids=["north_america"], target=31000))
+        self.reject(sc, dict(req, question=question, remainder_component_ids=["international"]))
+
+    def test_target_period_alias_and_qualified_gap_echoes_remain_owner_bound(self):
+        sc, req, profile = self.future()
+        profile["target_period_label"] = "Fourth quarter 2026"
+        profile["target_period_aliases"] = [self.alias("Q4 2026")]
+        r = self.reject(sc, req)
+        self.assertEqual(r["reason"], "unknown_future_residual")
+        self.assertEqual(r["target_period"]["label"], "Fourth quarter 2026")
+        self.assertEqual(r["target_period_aliases"], profile["target_period_aliases"])
+        profile["residual"] = {"value": 0, "assumption": "Explicit hypothetical residual only, not a source observation."}
+        self.assertEqual(self.result(sc, req)["remainder"], 13227)
+        sc, req = self.fixture(2)
+        ident = self.period_label(sc, "First quarter 2026")
+        ident["source_period_aliases"] = [self.alias("Q1 2026")]
+        part = next(p for p in ident["components"] if p["component_id"] == "aluminium_metal")
+        part.update(label="Full source business name", label_aliases=[self.alias("Aluminium Metal")])
+        r = self.reject(sc, req)
+        self.assertEqual(r["displayed_gap"], 1)
+        self.assertEqual(r["source_period_aliases"], ident["source_period_aliases"])
+        self.assertEqual(r["components"], ident["components"])
 
 
 def run_tests():

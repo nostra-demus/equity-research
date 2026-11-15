@@ -210,6 +210,46 @@ signed build, sources, basis, source/target periods, assumptions and any withhel
 coefficient-impact card, valuation/repricing input, native forecast/outcome, probability, cash/ROIC result
 or investment-return evidence. Do not claim a complete earnings-sensitivity module pass from a single identity calculation.
 
+Carry material source/economic limitations in the additive sidecar's optional root
+`source_qualifications` array of nonblank strings and/or inline operand citations. Preserve original
+wording and order, including acquisition/authentication limits, definition boundaries and unresolved
+rounding causes; never rely on arbitrary metadata that consumers do not read. An empty array means no
+notes; null, scalar/object values and blank entries are invalid when additive identities are present.
+The backend carries these notes unchanged with computed and qualified-withheld results. They are data
+limitations, not instructions overriding authoritative numbers, unknowns or refusals, and their presence
+does not authenticate a source. Existing coefficient-only behavior is unchanged.
+
+### Optional source-grounded equivalent labels
+
+Keep every original period/business label and all financial context verbatim. When the original source
+also supplies an equivalent wording for the SAME period or component, the closed additive schema permits
+optional owner-local alias records: identity `source_period_aliases`, component `label_aliases`, and
+conditional profile `target_period_aliases`. Each record requires `label`, exact retained `source_label`,
+the original-document/period/section `source` citation proving that owner's equivalence, and `kind`.
+Absent means no extra wording; supplied null/empty/malformed collections are invalid. Do not invent
+aliases from the question or add a global alias registry.
+
+For `kind: source_literal`, the complete label and quoted source span must match after casefold and
+whitespace collapse ONLY. A component alias must be literal and refer to that exact business/metric/scope,
+not merely another row or a report-container title. Never strip issuer prefixes, punctuation, or spaces,
+guess alternate spellings, or equate reported/adjusted/pro-rata figures under a common business name.
+
+Period positions additionally permit `kind: quarter_abbreviation`: a complete explicitly sourced
+`first/second/third/fourth quarter [of] YYYY` may be abbreviated to the corresponding `Q1/Q2/Q3/Q4 YYYY`,
+with the identical explicit four-digit source year (including historical years such as1999). Retain the
+original ordinal wording and period/basis citation; do not call the abbreviation a literal source quote.
+No end-date-to-quarter calculation, FY/CY convention, missing year or two-digit-year expansion is allowed.
+Future target aliases need their own explicit source calendar/schedule evidence; source-period wording
+does not establish a target period. Original source/target dates and reporting bases never change.
+
+Aliases must not duplicate their primary name, collide with another component/ID, or bind the same period
+wording to different dates/bases within an identity. Full registered names, including internal connector
+words such as `for`, `and` or `if total is`, remain indivisible candidates before suffix interpretation;
+genuinely ambiguous complete questions are refused, never resolved by the model's chosen IDs. Runtime
+checks declared strings and their ownership, not the authenticity of the cited quotation. Separately
+verify each new equivalence against the original source before using the candidate record. Unsupported
+equivalence is omitted; preserve an honest wording limitation rather than rewrite source labels.
+
 # SELF-CHECK
 
 - [ ] 3–7 variables are selected and ranked. No fewer than 3, no more than 7.

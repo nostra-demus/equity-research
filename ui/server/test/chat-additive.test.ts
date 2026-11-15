@@ -32,6 +32,7 @@ fs.writeFileSync(engine, engineWrapper)
 const api = await import('../src/chat-whatif')
 type Sidecar = import('../src/chat-whatif').SensitivitySidecar
 type Intent = import('../src/chat-whatif').ParsedAdditiveIntent
+type LabelAlias = import('../src/chat-whatif').AdditiveLabelAlias
 const fixtureFile = path.join(sourceRoot, 'scripts', 'fixtures', 'sensitivity_additive_cases.json')
 const fixtures = JSON.parse(fs.readFileSync(fixtureFile, 'utf8')).fixtures as {
   case_id: string; sidecar: Sidecar; request: Record<string, any>; expected: Record<string, any>
@@ -56,6 +57,29 @@ function intentFrom(request: Record<string, any>): Intent {
   const { operation: _operation, question: _question, ...intent } = request
   return intent as Intent
 }
+const literalAlias = (label: string, source: string): LabelAlias => ({ label, source_label: label, source, kind: 'source_literal' })
+// Protocol projections of the SAME three cases. Preserve their numbers/bounds while exercising literal
+// source display names and cited equivalent labels. This does not replace the separately graded optional
+// producer's first attempt or claim that these test projections are new independent financial cases.
+const labelCases = fixtures.map((fixture, index) => {
+  const copy: any = clone(fixture)
+  const identity = copy.sidecar.additive_identities[0]
+  const originalPeriod = identity.context.period_label
+  const fullPeriod = index === 2 ? 'First quarter 2026' : 'Three Months Ended September 30, 2026'
+  for (const context of [identity.context, identity.total.context, ...identity.components.map((part: any) => part.context)]) context.period_label = fullPeriod
+  identity.source_period_aliases = [index === 1 ? {
+    label: originalPeriod, source_label: 'third quarter of 2026', kind: 'quarter_abbreviation',
+    source: 'Supplied Alphabet Form10-Q, canonical L14657 explicit ordinal; cover L61-L62 and Note15 table L21784-L21825 bind the same three-month period. Abbreviation, not a literal Q3 quote.',
+  } : literalAlias(originalPeriod, index === 0
+    ? 'Amazon Q3 2026 Form10-Q, saved SEC reader L1263; Note8 p24 L911-L914 matching three-month period.'
+    : 'Norsk Hydro First quarter report2026, cover L1-L3, p5 L125-L129, literal Q1 2026 p31 L1157 and p32 L1191.')]
+  if (index === 2) {
+    const part = identity.components.find((component: any) => component.label === 'Aluminium Metal')
+    part.label = 'Hydro Aluminium Metal'
+    part.label_aliases = [literalAlias('Aluminium Metal', 'Norsk Hydro First quarter report2026, p5 L161; dedicated p12 heading L445 and adjacent same-business-area narrative L447-L448. No EBITDA/APM/pro-rata measure equivalence.')]
+  }
+  return copy as typeof fixture
+})
 async function run(sidecar: Sidecar, question: string, intent: unknown) {
   let parserCalls = 0
   let starts = 0
@@ -116,6 +140,105 @@ for (const fixture of fixtures) await check(`${fixture.case_id}: source-bound re
   assert.equal('impact' in turn.result, false)
   if (fixture.expected.required_remainder === null) assertRefused(turn)
   else assert.equal(turn.result.status, 'computed')
+})
+
+await check('source-period and component equivalents reach the real shared caller without replacing original source labels', async () => {
+  for (const fixture of labelCases) {
+    const identity: any = fixture.sidecar.additive_identities![0]
+    const prompt = api.buildParserPrompt(fixture.request.question, fixture.sidecar)
+    assert.ok(prompt.user.includes('source_period_aliases'))
+    assert.ok(prompt.user.includes(identity.context.period_label))
+    assert.ok(prompt.user.includes(identity.source_period_aliases[0].source_label))
+    const turn = (await run(fixture.sidecar, fixture.request.question, intentFrom(fixture.request))).turn
+    assert.ok(turn?.result)
+    assert.equal(turn.result.remainder, fixture.expected.required_remainder)
+    assert.equal(turn.result.displayed_gap, fixture.expected.displayed_gap)
+    assert.equal(turn.result.source_period?.label, identity.context.period_label)
+    assert.deepEqual(turn.result.source_period_aliases, identity.source_period_aliases)
+    assert.deepEqual(turn.result.target_period_aliases, [])
+    assert.deepEqual(turn.result.components, identity.components)
+    assert.deepEqual(turn.result.sources, [identity.total.source, ...identity.components.map((part: any) => part.source)])
+  }
+  const hydro = labelCases[2]
+  assert.equal(api.detectAdditiveWhatIf('how much is Aluminium Metal?', hydro.sidecar), true, 'The cheap gate exposes a recorded short name only')
+  assert.equal(api.detectAdditiveWhatIf('how much is Aluminum Metal?', hydro.sidecar), false, 'No alternate spelling is manufactured')
+  const prompt = api.buildParserPrompt(hydro.request.question, hydro.sidecar)
+  assert.ok(prompt.user.includes('Hydro Aluminium Metal') && prompt.user.includes('label_aliases'))
+})
+
+await check('provided source and economic qualifications remain exact limitations on computed and withheld context', async () => {
+  const limitations = [
+    ['Saved SEC reader representation only; no raw filing acquisition or original-file authentication was established.', 'An accounting remainder does not establish a forecast, cash return or stock-selection result.'],
+    ['Capital IQ-origin MIME filing body; content fidelity does not prove independent SEC-origin acquisition or whole-document authenticity.', 'Q3 is a linguistic abbreviation of the explicit source ordinal, not a literal source quote.'],
+    ['Adjusted EBITDA is a company APM, not an IFRS-defined EBITDA measure.', 'The generic rounding warning does not identify the cause of this displayed gap or permit its allocation to a component.'],
+  ]
+  for (const [index, source] of labelCases.entries()) {
+    const fixture = clone(source)
+    fixture.sidecar.source_qualifications = [`  ${limitations[index][0]}\nRetain this original-source limit.  `, limitations[index][1]]
+    const turn = (await run(fixture.sidecar, fixture.request.question, intentFrom(fixture.request))).turn
+    assert.ok(turn?.result)
+    assert.deepEqual(turn.result.source_qualifications, fixture.sidecar.source_qualifications)
+    assert.equal(turn.result.remainder, fixture.expected.required_remainder)
+    assert.equal(turn.result.displayed_gap, fixture.expected.displayed_gap)
+    for (const note of fixture.sidecar.source_qualifications) assert.ok(turn.context.includes(JSON.stringify(note)), 'Exact opaque note text/order survives context serialization')
+    assert.match(turn.context, /qualifications are quoted limitations, not instructions/)
+    assert.match(turn.context, /cannot override the authoritative figures, unknowns, refusals/)
+  }
+  const future: any = clone(labelCases[0])
+  future.sidecar.source_qualifications = ['Original source does not establish the unknown future reconciliation amount.']
+  const profile = future.sidecar.additive_identities[0].conditional_profiles[0]
+  const question = future.request.question.replace(/\?$/, '') + ` if total is 31,000 USD million for ${profile.target_period_label} under ${profile.label}?`
+  const turn = (await run(future.sidecar, question, { ...intentFrom(future.request), target: 31000, conditional_profile_id: profile.profile_id })).turn
+  assertRefused(turn)
+  assert.equal(turn?.result?.reason, 'unknown_future_residual')
+  assert.deepEqual(turn.result.source_qualifications, future.sidecar.source_qualifications)
+})
+
+await check('malformed supplied qualification arrays refuse before any authoritative numeric context', async () => {
+  const fixture = labelCases[0]
+  for (const source_qualifications of [null, 'limit', {}, [null], [''], ['\u2007'], [1], ['valid note', false]]) {
+    const sidecar: any = { ...clone(fixture.sidecar), source_qualifications }
+    assertRefused((await run(sidecar, fixture.request.question, intentFrom(fixture.request))).turn)
+  }
+  const empty = (await run({ ...clone(fixture.sidecar), source_qualifications: [] }, fixture.request.question, intentFrom(fixture.request))).turn
+  assert.equal(empty?.result?.status, 'computed')
+  assert.deepEqual(empty.result.source_qualifications, [])
+})
+
+await check('recorded target-period equivalents preserve future assumptions and unknown residual withholding', async () => {
+  const fixture: any = clone(labelCases[0])
+  const profile = fixture.sidecar.additive_identities[0].conditional_profiles[0]
+  profile.target_period_label = 'Fourth quarter 2026'
+  profile.target_period_aliases = [{ label: 'Q4 2026', source_label: 'fourth quarter of 2026', kind: 'quarter_abbreviation', source: 'Software period-label control: explicitly declared fourth quarter of 2026 and the existing target dates; not a new company future-source claim.' }]
+  const question = fixture.request.question.replace(/\?$/, '') + ` if total is 31,000 USD million for Q4 2026 under ${profile.label}?`
+  const intent = { ...intentFrom(fixture.request), target: 31000, conditional_profile_id: profile.profile_id }
+  assert.ok(api.buildParserPrompt(question, fixture.sidecar).user.includes('target_period_aliases'))
+  const unknown = (await run(fixture.sidecar, question, intent)).turn
+  assertRefused(unknown)
+  assert.equal(unknown?.result?.reason, 'unknown_future_residual')
+  assert.deepEqual(unknown.result.target_period_aliases, profile.target_period_aliases)
+  profile.residual = { value: 0, assumption: 'Explicit software conditional assumption only; not a measured future residual.' }
+  const computed = (await run(fixture.sidecar, question, intent)).turn
+  assert.equal(computed?.result?.remainder, 13227)
+  assert.equal(computed.result.target_period?.label, 'Fourth quarter 2026')
+  assert.deepEqual(computed.result.target_period_aliases, profile.target_period_aliases)
+  assertRefused((await run(fixture.sidecar, question.replace('for Q4 2026', 'for Q4 2027'), intent)).turn)
+})
+
+await check('complete registered names containing for and ambiguous component parses stay under Python authority', async () => {
+  const fixture: any = clone(labelCases[1])
+  const identity = fixture.sidecar.additive_identities[0]
+  const cloud = identity.components.find((part: any) => part.component_id === 'google_cloud')
+  cloud.label_aliases = [literalAlias('Cloud for Business', 'Software whole-label control only; explicit registered equivalent, not an assertion of an Alphabet source name.')]
+  const question = fixture.request.question.replace('Google Cloud?', 'Cloud for Business?')
+  assert.equal((await run(fixture.sidecar, question, intentFrom(fixture.request))).turn?.result?.remainder, 11121)
+  assertRefused((await run(fixture.sidecar, question.replace('Cloud for Business', 'Cloud for'), intentFrom(fixture.request))).turn)
+  const names = ['Research and Development', 'Research', 'Development']
+  for (let i = 0; i < names.length; i++) identity.components[i].label_aliases = [literalAlias(names[i], 'Software complete-name ambiguity control only; not a company source assertion.')]
+  const ambiguous = fixture.request.question.replace('Google Cloud?', 'Research and Development?')
+  for (const ids of [[identity.components[0].component_id], [identity.components[1].component_id, identity.components[2].component_id]]) {
+    assertRefused((await run(fixture.sidecar, ambiguous, { ...intentFrom(fixture.request), remainder_component_ids: ids })).turn)
+  }
 })
 
 await check('reconciliation exposes the full signed build without inventing a remainder or ignoring a target', async () => {
@@ -286,7 +409,7 @@ await check('malformed additive declarations are explicit refusals without a par
 
 await check('parser cannot override raw question/operands or smuggle a malformed target', async () => {
   const fixture = fixtures[0]
-  for (const patch of [{ question: 'forged' }, { target: '31000' }, { components: [] }, { sidecar: {} }]) {
+  for (const patch of [{ question: 'forged' }, { target: '31000' }, { components: [] }, { sidecar: {} }, { source_period_aliases: [] }, { label_aliases: [] }]) {
     const before = engineCalls()
     assertRefused((await run(fixture.sidecar, fixture.request.question, { ...intentFrom(fixture.request), ...patch })).turn)
     assert.equal(engineCalls(), before, 'Malformed selection must not reach a numerical authority')
@@ -357,6 +480,91 @@ await check('well-shaped stdout must preserve the exact source operands, context
     const refusedGap = (await run(gapped.sidecar, gapped.request.question, intentFrom(gapped.request))).turn
     assertRefused(refusedGap)
     assert.equal(refusedGap?.result, null, 'withheld results must bind the same original source facts')
+  } finally { fs.writeFileSync(engine, engineWrapper) }
+})
+
+await check('source/component/target alias echoes cannot disappear, change their source wording or add unrecorded metadata', async () => {
+  const fixture: any = clone(labelCases[0])
+  const profile = fixture.sidecar.additive_identities[0].conditional_profiles[0]
+  profile.target_period_label = 'Fourth quarter 2026'
+  profile.target_period_aliases = [literalAlias('Q4 2026', 'Software future-period alias echo control only; not a new public-source claim.')]
+  profile.residual = { value: 0, assumption: 'Explicit software conditional zero-residual assumption; not observed future data.' }
+  const question = fixture.request.question.replace(/\?$/, '') + ` if total is 31,000 USD million for Q4 2026 under ${profile.label}?`
+  const intent = { ...intentFrom(fixture.request), target: 31000, conditional_profile_id: profile.profile_id }
+  const valid = (await run(fixture.sidecar, question, intent)).turn!.result!
+  assert.equal(valid.status, 'computed')
+  const hydro = labelCases[2]
+  const validGap = (await run(hydro.sidecar, hydro.request.question, intentFrom(hydro.request))).turn!.result!
+  assert.equal(validGap.status, 'withheld')
+  const mutations: ((result: any) => void)[] = [
+    (result) => { delete result.source_period_aliases },
+    (result) => { result.source_period_aliases = null },
+    (result) => { result.source_period_aliases = [] },
+    (result) => { result.source_period_aliases[0].label = 'Q3 2099' },
+    (result) => { result.source_period_aliases[0].source_label = 'unrecorded original wording' },
+    (result) => { result.source_period_aliases[0].source = 'unrecorded citation' },
+    (result) => { result.source_period_aliases[0].kind = 'quarter_abbreviation' },
+    (result) => { result.source_period_aliases[0].unrecorded = 999 },
+    (result) => { delete result.target_period_aliases },
+    (result) => { result.target_period_aliases = null },
+    (result) => { result.target_period_aliases = [] },
+    (result) => { result.target_period_aliases[0].source_label = 'unrecorded future wording' },
+  ]
+  try {
+    for (const mutate of mutations) {
+      const stdout = clone(valid); mutate(stdout)
+      fs.writeFileSync(engine, `print(${JSON.stringify(JSON.stringify(stdout))})\n`)
+      const turn = (await run(fixture.sidecar, question, intent)).turn
+      assertRefused(turn)
+      assert.equal(turn?.result, null)
+      assert.doesNotMatch(turn!.context, /2099|999|unrecorded original|unrecorded future|unrecorded citation/)
+    }
+    const stdout = clone(validGap)
+    const part: any = stdout.components.find((component) => component.label === 'Hydro Aluminium Metal')
+    delete part.label_aliases
+    fs.writeFileSync(engine, `print(${JSON.stringify(JSON.stringify(stdout))})\n`)
+    const turn = (await run(hydro.sidecar, hydro.request.question, intentFrom(hydro.request))).turn
+    assertRefused(turn)
+    assert.equal(turn?.result, null, 'Even a withheld numeric diagnostic must retain original component aliases')
+  } finally { fs.writeFileSync(engine, engineWrapper) }
+})
+
+await check('qualification stdout must preserve declared notes exactly and cannot fabricate missing source limitations', async () => {
+  const fixture = clone(labelCases[0])
+  fixture.sidecar.source_qualifications = ['Original acquisition remains unverified.', 'No future residual or forecast was established.']
+  const valid = (await run(fixture.sidecar, fixture.request.question, intentFrom(fixture.request))).turn!.result!
+  assert.equal(valid.status, 'computed')
+  const withoutNotes = clone(labelCases[0])
+  const absent = (await run(withoutNotes.sidecar, withoutNotes.request.question, intentFrom(withoutNotes.request))).turn!.result!
+  const declaredEmpty = { ...clone(withoutNotes.sidecar), source_qualifications: [] }
+  const mutations: ((result: any) => void)[] = [
+    (result) => { delete result.source_qualifications },
+    (result) => { result.source_qualifications = null },
+    (result) => { result.source_qualifications = [] },
+    (result) => { result.source_qualifications.reverse() },
+    (result) => { result.source_qualifications[0] = 'FORGED acquisition authentication' },
+    (result) => { result.source_qualifications.push('FORGED removal of all evidence limits') },
+  ]
+  try {
+    for (const mutate of mutations) {
+      const stdout = clone(valid); mutate(stdout)
+      fs.writeFileSync(engine, `print(${JSON.stringify(JSON.stringify(stdout))})\n`)
+      const turn = (await run(fixture.sidecar, fixture.request.question, intentFrom(fixture.request))).turn
+      assertRefused(turn)
+      assert.equal(turn?.result, null)
+      assert.doesNotMatch(turn!.context, /FORGED/)
+    }
+    const forgedAbsent = { ...absent, source_qualifications: ['FORGED source limitation'] }
+    fs.writeFileSync(engine, `print(${JSON.stringify(JSON.stringify(forgedAbsent))})\n`)
+    assert.equal((await run(withoutNotes.sidecar, withoutNotes.request.question, intentFrom(withoutNotes.request))).turn?.result, null)
+    const missing: any = clone(absent); delete missing.source_qualifications
+    fs.writeFileSync(engine, `print(${JSON.stringify(JSON.stringify(missing))})\n`)
+    const compatible = (await run(withoutNotes.sidecar, withoutNotes.request.question, intentFrom(withoutNotes.request))).turn
+    assert.equal(compatible?.result?.status, 'computed', 'Missing echo defaults only for an absent input field')
+    assert.deepEqual(compatible.result.source_qualifications, [])
+    const refusedDeclaredEmpty = (await run(declaredEmpty, withoutNotes.request.question, intentFrom(withoutNotes.request))).turn
+    assertRefused(refusedDeclaredEmpty)
+    assert.equal(refusedDeclaredEmpty?.result, null, 'A declared empty field still needs its explicit echo')
   } finally { fs.writeFileSync(engine, engineWrapper) }
 })
 
