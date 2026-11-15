@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T08:39:45Z",
+  "generated_at": "2026-11-15T08:43:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-144",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-154",
+      "headline": "Italy fines Meta €805 mn over unauthorized access to user photos",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/738222/business/italy-fines-meta-805-mn-over-unauthorized-access-to-user-photos",
+      "source_name": "Gulf Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T08:29:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Italy has fined Meta €805 million for unauthorized access to user photos.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Italy has fined Meta €805 million for unauthorized access to user photos.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1880,98 +1929,43 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261115-134",
-      "headline": "RWA protocol stUSDT winds down three years after $2.3B TVL peak",
+      "inbox_id": "INB-20261115-152",
+      "headline": "India, US agree on preferential market access for Indian goods in America: Goyal",
       "headline_en": null,
-      "url": "https://cointelegraph.com/news/rwa-protocol-stusdt-winds-down-three-years-after-23b-tvl-peak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
+      "url": "https://www.cnbctv18.com/economy/india-us-agree-on-preferential-market-access-for-indian-goods-in-america-goyal-20034323.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-11-15T06:27:26Z",
+      "found_at": "2026-11-15T08:37:41Z",
       "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The RWA protocol stUSDT is winding down after previously reaching a peak of $2.3 billion in Total Value Locked (TVL).",
+      "prelim_note": "India and the US have agreed on preferential market access for Indian goods in America, which could boost Indian exports.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 86,
-      "triage_reason": "The RWA protocol stUSDT is winding down after previously reaching a peak of $2.3 billion in Total Value Locked (TVL).",
-      "region": "GLOBAL",
+      "triage_reason": "India and the US have agreed on preferential market access for Indian goods in America, which could boost Indian exports.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 72,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 72,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
+        "scope": 2,
         "event": 4,
-        "size": -1,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "stUSDT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-046",
-      "headline": "Cerebras beats estimates, but its biggest customer is waiting",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/cbrs-cerebras-beats-estimates-but-its-biggest-customer-is-waiting-morgan-stanley-maintains-price-target-after-earnings",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Cerebras reported earnings beating estimates, but highlighted customer concentration risk with its largest client.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Cerebras reported earnings beating estimates, but highlighted customer concentration risk with its largest client.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "regulatory",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "regulatory"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cerebras Systems",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -282732,9 +282726,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1050,
-    "news_picked_today": 222,
-    "news_dropped_today": 828
+    "news_seen_today": 1058,
+    "news_picked_today": 225,
+    "news_dropped_today": 833
   },
   "book_momentum": {
     "live_count": 8,
