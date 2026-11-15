@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T06:44:32Z",
+  "generated_at": "2026-11-15T08:34:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-144",
+      "headline": "‎Al Ansari Financial posts 24% drop in 9M 2026 earnings to AED 231.1M; Q3 at AED 79.8M",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/financial-reports/company-report/15618/2026/72?preview=true",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Al Ansari Financial reported a 24% decline in 9M 2026 earnings to AED 231.1M.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Al Ansari Financial reported a 24% decline in 9M 2026 earnings to AED 231.1M.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Al Ansari Financial Services",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-117",
       "headline": "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
@@ -43,6 +92,110 @@
           "name": "Sipchem",
           "ticker": null,
           "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-136",
+      "headline": "ONGC takes charge of Cambay block as Vedanta records ₹379 crore impairment",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ongc-takes-charge-of-cambay-block-as-vedanta-records-379-crore-impairment/article71704266.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T06:59:58Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Vedanta recorded a ₹379 crore impairment on its Cambay block, signaling a significant asset write-down.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta recorded a ₹379 crore impairment on its Cambay block, signaling a significant asset write-down.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "ONGC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-145",
+      "headline": "Kaynes Technology Q2 Results: Net Profit Slides Over 61%, Margin Narrows",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/kaynes-technology-q2-results-net-profit-slides-over-61-percent-margin-narrows-12329140#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T06:48:12Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Reported a significant net profit decline of over 61% and narrowing margins for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported a significant net profit decline of over 61% and narrowing margins for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaynes Technology",
+          "ticker": "KAYNES",
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -543,6 +696,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-151",
+      "headline": "Megaspeed says Alice Huang left in 2025 as it launches internal probe into reports about its business",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/15/megaspeed-alice-huang-probe-nvidia-scandal.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T08:22:21Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The departure of a key executive coupled with an internal probe into business practices indicates significant governance and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The departure of a key executive coupled with an internal probe into business practices indicates significant governance and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Megaspeed",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-128",
       "headline": "‎Acwa secures financial close of SAR 847.5M for Bash II wind farm in Uzbekistan",
       "headline_en": null,
@@ -588,6 +791,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-141",
+      "headline": "South Korea calms fears over 260,000 Nvidia chip order after Jensen Huang’s exit",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/asia/east-asia/article/3374477/south-korea-calms-fears-over-260000-nvidia-chip-order-after-jensen-huangs-exit",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T07:13:34Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Reports of a leadership change at Nvidia and potential disruption to a 260,000 chip order represent a significant operational and management risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Reports of a leadership change at Nvidia and potential disruption to a 260,000 chip order represent a significant operational and management risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -742,6 +995,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-143",
+      "headline": "Binghatti says it will repay sukuk in February as corporate cash jumps sevenfold",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/binghatti-says-it-will-repay-sukuk-in-february-as-corporate-cash-jumps-sevenfold",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T07:18:25Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Binghatti confirmed it will repay its sukuk in February, supported by a sevenfold increase in corporate cash, reducing default risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Binghatti confirmed it will repay its sukuk in February, supported by a sevenfold increase in corporate cash, reducing default risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binghatti",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1136,6 +1438,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-140",
+      "headline": "‎Anaam accumulated losses fall to 9% of capital",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1953851",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T09:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Anaam reported that its accumulated losses have fallen to 9% of capital, indicating a material improvement in its financial position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Anaam reported that its accumulated losses have fallen to 9% of capital, indicating a material improvement in its financial position.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anaam",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-112",
       "headline": "‎Lime Industries secures SAR 50M SIDF financing",
       "headline_en": null,
@@ -1180,6 +1531,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-148",
+      "headline": "Tata Heir Questions Big Bets as $185 Billion Group Feud Deepens",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/tata-heir-questions-big-bets-as-185-billion-group-feud-deepens",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T07:55:57Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Internal leadership friction within the $185 billion Tata Group creates uncertainty regarding future capital allocation and strategic direction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-135",
+      "headline": "Ola Electric founder Bhavish Aggarwal has a new plan to sell e-scooters: Shut down company-owned outlets and…",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/ola-electric-founder-bhavish-aggarwal-has-a-new-plan-to-sell-e-scooters-shut-down-company-owned-outlets-and-11794724920505.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T06:50:43Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Ola Electric is shifting its retail strategy by closing company-owned outlets, which may impact operational costs and customer service reach.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Ola Electric is shifting its retail strategy by closing company-owned outlets, which may impact operational costs and customer service reach.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola Electric",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1381,6 +1831,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-150",
+      "headline": "‎Al Ansari 9M earnings drop 24% to AED 231.1M",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/financial-reports/company-report/15618/2026/72?preview=true",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Al Ansari's 9M earnings dropped 24% to AED 231.1M, a significant decline in profitability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Al Ansari's 9M earnings dropped 24% to AED 231.1M, a significant decline in profitability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Al Ansari",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-134",
       "headline": "RWA protocol stUSDT winds down three years after $2.3B TVL peak",
       "headline_en": null,
@@ -1474,507 +1973,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-097",
-      "headline": "Duxton Farms chairman Ed Peter to exit as second pay strike looms",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/agriculture/duxton-farms-chairman-ed-peter-to-exit-as-second-pay-strike-looms-20261115-p61axn?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Duxton Farms chairman is exiting amid a second pay strike, indicating significant governance and management instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Duxton Farms chairman is exiting amid a second pay strike, indicating significant governance and management instability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Duxton Farms",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-091",
-      "headline": "H-1B is ‘not a business model’: Infosys, TCS, Wipro face fresh scrutiny as US visa crackdown widens",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/h1b-is-not-a-business-model-infosys-tcs-wipro-face-fresh-scrutiny-as-us-visa-crackdown-widens-11794714759722.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T04:24:27Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Increased US visa scrutiny poses a material risk to the business models and margins of major Indian IT services firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Increased US visa scrutiny poses a material risk to the business models and margins of major Indian IT services firms.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "TCS",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Wipro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-086",
-      "headline": "SpaceX catches Starship for first time, drawing praise in Washington",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/technology/6221123-spacex-starship-historic-landing-lawmakers-react/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T04:14:36Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a major technical milestone with the Starship catch, validating its reusable launch system.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SpaceX successfully demonstrated a major technical milestone with the Starship catch, validating its reusable launch system.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-063",
-      "headline": "SpaceX’s Starship returns from orbit and is captured by launch pad arms in a dramatic first",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/spacexs-starship-returns-from-orbit-and-is-captured-by-launch-pad-arms-in-a-dramatic-first-1.500747715",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:25:54Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a major technical milestone with the Starship launch pad capture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SpaceX successfully demonstrated a major technical milestone with the Starship launch pad capture.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-055",
-      "headline": "SpaceX Starship returns to landing pad from orbit, acing test for reusable rockets",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/spacex-starship-returns-landing-pad-orbit-acing-test-reusable-rockets",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:12:55Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a key technical milestone in rocket reusability, which is critical for its long-term cost structure and operational viability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SpaceX successfully demonstrated a key technical milestone in rocket reusability, which is critical for its long-term cost structure and operational viability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-035",
-      "headline": "SpaceX’s Starship nails a smooth return with historic catch",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/15/aje-onl-nf_spacexs-starship-nails-a-smooth-return-141126?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-15T01:22:01Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully demonstrated a major technical milestone with the Starship booster catch, validating its reusable launch architecture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SpaceX successfully demonstrated a major technical milestone with the Starship booster catch, validating its reusable launch architecture.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-008",
-      "headline": "Single L3Harris router may have triggered US aviation system shutdown",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/single-l3harris-router-may-have-triggered-us-aviation-system-shutdown/article71703978.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:16:49Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A technical failure in a critical aviation component manufactured by L3Harris Technologies may lead to regulatory scrutiny or liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A technical failure in a critical aviation component manufactured by L3Harris Technologies may lead to regulatory scrutiny or liability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "L3Harris Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-003",
-      "headline": "SpaceX successfully catches Starship rocket, in milestone for the space industry",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=d207a64b-a8d1-43ca-8ed3-030683015ffa&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-14T23:55:28Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "SpaceX successfully caught a Starship rocket, representing a significant technological milestone for the aerospace industry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SpaceX successfully caught a Starship rocket, representing a significant technological milestone for the aerospace industry.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-077",
-      "headline": "China, US discuss tariffs, farm trade ahead of Xi-Trump meeting in Shenzhen",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/china-us-discuss-tariffs-farm-trade-ahead-xi-trump-meeting-shenzhen",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T03:47:30Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "China and the US are discussing tariffs and farm trade ahead of a meeting between their leaders, which could impact global trade relations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "China and the US are discussing tariffs and farm trade ahead of a meeting between their leaders, which could impact global trade relations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-068",
-      "headline": "HD Hyundai launches 600-ton autonomous vessel with US defense firm Anduril",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10936725",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T03:02:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "HD Hyundai launched a 600-ton autonomous vessel in collaboration with US defense firm Anduril, signaling a significant technological advancement in maritime defense.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "HD Hyundai launched a 600-ton autonomous vessel in collaboration with US defense firm Anduril, signaling a significant technological advancement in maritime defense.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HD Hyundai",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Anduril Industries",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -239703,146 +239701,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-55c79e1fb994",
-      "idea_version": "IDEAV-8bd115e5283a160a",
-      "idea_version_started_at": "2026-11-14T03:26:30Z",
-      "ticker": "CBRS",
-      "company": "Cerebras Systems",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Cloud revenue growth of 265% and a raised outlook demonstrate strong demand for their AI compute infrastructure.",
-      "why_now": "The earnings report and guidance hike were released on November 13, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-84cc9cca9237"
-      ],
-      "primary_source_event_id": "EVT-84cc9cca9237",
-      "source_headlines": [
-        "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)"
-      ],
-      "source_headline": "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)",
-      "source_url": "https://www.benzinga.com/markets/earnings/26/11/63224006/cerebras-stock-jumps-on-q3-cloud-revenue-up-265-despite-missed-guidance",
-      "source_name": "Benzinga",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T19:52:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-14T03:26:30Z",
-      "updated_at": "2026-11-14T03:26:30Z",
-      "decay_at": "2026-11-15T07:52:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0c58fc228db1",
-      "idea_version": "IDEAV-8a5bdbea6442436e",
-      "idea_version_started_at": "2026-11-14T03:26:30Z",
-      "ticker": "PFE",
-      "company": "Pfizer",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 revenue forecast by $1.5 billion, signaling improved operational momentum.",
-      "why_now": "The guidance increase was announced on November 13, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-548adec65e57"
-      ],
-      "primary_source_event_id": "EVT-548adec65e57",
-      "source_headlines": [
-        "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?"
-      ],
-      "source_headline": "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?",
-      "source_url": "https://www.fool.com/investing/2026/11/13/pfizer-just-raised-its-2026-revenue-forecast-by-15/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-13T19:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T11:51:50Z",
-      "updated_at": "2026-11-14T03:26:30Z",
-      "decay_at": "2026-11-15T07:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-457dc04b7a30",
       "idea_version": "IDEAV-ca064395134d5367",
       "idea_version_started_at": "2026-11-15T01:33:50Z",
@@ -240330,6 +240188,79 @@
       "surfaced_at": "2026-11-15T03:29:20Z",
       "updated_at": "2026-11-15T03:29:20Z",
       "decay_at": "2026-11-16T15:00:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-89fdf8aeee80",
+      "idea_version": "IDEAV-6a3384f4a9503fcb",
+      "idea_version_started_at": "2026-11-15T07:06:24Z",
+      "ticker": "VEDL",
+      "company": "Vedanta",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company recorded a ₹379 crore impairment on its Cambay block, signaling poor asset performance and potential negative impacts on near-term earnings.",
+      "why_now": "The impairment was reported on 2026-11-15.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3f5281752a25"
+      ],
+      "primary_source_event_id": "EVT-3f5281752a25",
+      "source_headlines": [
+        "ONGC takes charge of Cambay block as Vedanta records ₹379 crore impairment"
+      ],
+      "source_headline": "ONGC takes charge of Cambay block as Vedanta records ₹379 crore impairment",
+      "source_url": "https://www.thehindubusinessline.com/companies/ongc-takes-charge-of-cambay-block-as-vedanta-records-379-crore-impairment/article71704266.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T06:59:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T07:06:24Z",
+      "updated_at": "2026-11-15T07:06:24Z",
+      "decay_at": "2026-11-16T18:59:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241707,6 +241638,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-69be6242b6c3",
+      "idea_version": "IDEAV-3683518de6323918",
+      "idea_version_started_at": "2026-11-15T07:06:24Z",
+      "ticker": "OLAELEC",
+      "company": "Ola Electric",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The decision to shut down company-owned outlets suggests a pivot to a less capital-intensive model that may indicate underlying demand weakness or unsustainable customer acquisition costs.",
+      "why_now": "The restructuring plan was announced on 2026-11-15.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-256aff80b371"
+      ],
+      "primary_source_event_id": "EVT-256aff80b371",
+      "source_headlines": [
+        "Ola Electric founder Bhavish Aggarwal has a new plan to sell e-scooters: Shut down company-owned outlets and…"
+      ],
+      "source_headline": "Ola Electric founder Bhavish Aggarwal has a new plan to sell e-scooters: Shut down company-owned outlets and…",
+      "source_url": "https://www.livemint.com/companies/ola-electric-founder-bhavish-aggarwal-has-a-new-plan-to-sell-e-scooters-shut-down-company-owned-outlets-and-11794724920505.html",
+      "source_name": "Mint",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-15T06:50:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T07:06:24Z",
+      "updated_at": "2026-11-15T07:06:24Z",
+      "decay_at": "2026-11-16T18:50:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b1b9987637d7",
       "idea_version": "IDEAV-c46629a78fb41361",
       "idea_version_started_at": "2026-11-15T05:19:32Z",
@@ -242142,6 +242145,146 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-55c79e1fb994",
+      "idea_version": "IDEAV-8bd115e5283a160a",
+      "idea_version_started_at": "2026-11-14T03:26:30Z",
+      "ticker": "CBRS",
+      "company": "Cerebras Systems",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Cloud revenue growth of 265% and a raised outlook demonstrate strong demand for their AI compute infrastructure.",
+      "why_now": "The earnings report and guidance hike were released on November 13, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-84cc9cca9237"
+      ],
+      "primary_source_event_id": "EVT-84cc9cca9237",
+      "source_headlines": [
+        "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)"
+      ],
+      "source_headline": "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)",
+      "source_url": "https://www.benzinga.com/markets/earnings/26/11/63224006/cerebras-stock-jumps-on-q3-cloud-revenue-up-265-despite-missed-guidance",
+      "source_name": "Benzinga",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T19:52:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-14T03:26:30Z",
+      "updated_at": "2026-11-14T03:26:30Z",
+      "decay_at": "2026-11-15T07:52:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0c58fc228db1",
+      "idea_version": "IDEAV-8a5bdbea6442436e",
+      "idea_version_started_at": "2026-11-14T03:26:30Z",
+      "ticker": "PFE",
+      "company": "Pfizer",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 revenue forecast by $1.5 billion, signaling improved operational momentum.",
+      "why_now": "The guidance increase was announced on November 13, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-548adec65e57"
+      ],
+      "primary_source_event_id": "EVT-548adec65e57",
+      "source_headlines": [
+        "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?"
+      ],
+      "source_headline": "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?",
+      "source_url": "https://www.fool.com/investing/2026/11/13/pfizer-just-raised-its-2026-revenue-forecast-by-15/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-13T19:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T11:51:50Z",
+      "updated_at": "2026-11-14T03:26:30Z",
+      "decay_at": "2026-11-15T07:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-213a42c487e6",
       "idea_version": "IDEAV-6009dfd80144dddb",
       "idea_version_started_at": "2026-11-13T00:55:31Z",
@@ -242354,76 +242497,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-2841b56336e0",
-      "idea_version": "IDEAV-716478cb1f682f5b",
-      "idea_version_started_at": "2026-11-12T12:14:16Z",
-      "ticker": "HAL.NS",
-      "company": "Hindustan Aeronautics Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 15.48% jump in net profit with revenue exceeding ₹13,100 crore, reflecting strong execution in its order book.",
-      "why_now": "The Q2 earnings results were released on 2026-11-12.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-547e743e635b"
-      ],
-      "primary_source_event_id": "EVT-547e743e635b",
-      "source_headlines": [
-        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
-      ],
-      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
-      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T08:22:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T12:14:16Z",
-      "updated_at": "2026-11-12T12:14:16Z",
-      "decay_at": "2026-11-13T20:22:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-28f02b2450e7",
       "idea_version": "IDEAV-794c57c48b586e4e",
       "idea_version_started_at": "2026-11-12T12:14:16Z",
@@ -242488,76 +242561,6 @@
       "surfaced_at": "2026-11-12T12:14:16Z",
       "updated_at": "2026-11-12T12:14:16Z",
       "decay_at": "2026-11-13T20:56:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7b8fdba65d04",
-      "idea_version": "IDEAV-bd4db5445c1f3099",
-      "idea_version_started_at": "2026-11-12T12:14:16Z",
-      "ticker": "BA.L",
-      "company": "BAE Systems",
-      "exchange": "London",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its free cash flow guidance by 50%, driven by sustained increases in global defense spending.",
-      "why_now": "The guidance upgrade was released on 2026-11-12.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ce66e9225566"
-      ],
-      "primary_source_event_id": "EVT-ce66e9225566",
-      "source_headlines": [
-        "BAE Boosts Free Cash Flow Guidance 50% as Defense Spending Rises"
-      ],
-      "source_headline": "BAE Boosts Free Cash Flow Guidance 50% as Defense Spending Rises",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/bae-boosts-free-cash-flow-guidance-50-as-defense-spending-rises",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T08:07:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T12:14:16Z",
-      "updated_at": "2026-11-12T12:14:16Z",
-      "decay_at": "2026-11-13T20:07:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -245485,79 +245488,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7c0521e054d8",
-      "idea_version": "IDEAV-7459d739f5534044",
-      "idea_version_started_at": "2026-11-12T14:12:08Z",
-      "ticker": "HAL",
-      "company": "Hindustan Aeronautics Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 15.48% jump in net profit and revenue exceeding ₹13,100 crore demonstrates strong execution in the defense sector.",
-      "why_now": "The Q2 earnings results were reported on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-547e743e635b"
-      ],
-      "primary_source_event_id": "EVT-547e743e635b",
-      "source_headlines": [
-        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
-      ],
-      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
-      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T08:22:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T14:12:08Z",
-      "updated_at": "2026-11-12T14:12:08Z",
-      "decay_at": "2026-11-13T20:22:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3ebff2cb046d",
       "idea_version": "IDEAV-09aa700544623c42",
       "idea_version_started_at": "2026-11-12T13:36:01Z",
@@ -245640,14 +245570,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 22
       },
       "short": {
         "total_count": 277,
@@ -245657,12 +245587,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1905,
+      "evicted_count": 1908,
       "oldest_retained_at": "2026-10-20T21:43:13Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1250,
-          "oldest_retained_at": "2026-11-02T02:18:55Z"
+          "evicted_count": 1253,
+          "oldest_retained_at": "2026-11-02T11:00:00Z"
         },
         "short": {
           "evicted_count": 656,
@@ -245671,6 +245601,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-55c79e1fb994",
+        "idea_version": "IDEAV-8bd115e5283a160a",
+        "idea_version_started_at": "2026-11-14T03:26:30Z",
+        "ticker": "CBRS",
+        "company": "Cerebras Systems",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Cloud revenue growth of 265% and a raised outlook demonstrate strong demand for their AI compute infrastructure.",
+        "why_now": "The earnings report and guidance hike were released on November 13, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-84cc9cca9237"
+        ],
+        "primary_source_event_id": "EVT-84cc9cca9237",
+        "source_headlines": [
+          "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)"
+        ],
+        "source_headline": "Cerebras Stock Jumps on Q3 Cloud Revenue Up 265%, Raised Outlook (CORRECTED)",
+        "source_url": "https://www.benzinga.com/markets/earnings/26/11/63224006/cerebras-stock-jumps-on-q3-cloud-revenue-up-265-despite-missed-guidance",
+        "source_name": "Benzinga",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T19:52:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-14T03:26:30Z",
+        "updated_at": "2026-11-14T03:26:30Z",
+        "decay_at": "2026-11-15T07:52:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T07:52:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0c58fc228db1",
+        "idea_version": "IDEAV-8a5bdbea6442436e",
+        "idea_version_started_at": "2026-11-14T03:26:30Z",
+        "ticker": "PFE",
+        "company": "Pfizer",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its 2026 revenue forecast by $1.5 billion, signaling improved operational momentum.",
+        "why_now": "The guidance increase was announced on November 13, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-548adec65e57"
+        ],
+        "primary_source_event_id": "EVT-548adec65e57",
+        "source_headlines": [
+          "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?"
+        ],
+        "source_headline": "Pfizer Just Raised Its 2026 Revenue Forecast by $1.5 Billion. Is the High-Yield Stock a Buy Right Now?",
+        "source_url": "https://www.fool.com/investing/2026/11/13/pfizer-just-raised-its-2026-revenue-forecast-by-15/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-13T19:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-12T11:51:50Z",
+        "updated_at": "2026-11-14T03:26:30Z",
+        "decay_at": "2026-11-15T07:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-15T07:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-096248e6a8a2",
         "idea_version": "IDEAV-6c1afa14df3de769",
@@ -249226,8 +249302,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T20:22:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T08:34:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249302,8 +249378,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T20:22:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T08:34:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249375,8 +249451,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T20:07:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T08:14:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274897,154 +274973,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-188d857a638c",
-        "idea_version": "IDEAV-d322f4d3660c27d4",
-        "idea_version_started_at": "2026-11-01T10:30:47Z",
-        "ticker": "09866",
-        "company": "NIO",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "NIO released its October 2026 delivery update, which serves as a primary driver for its revenue and market share in the electric vehicle segment.",
-        "why_now": "The October 2026 delivery figures provide timely information on sales momentum.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2c84b8bc2b39"
-        ],
-        "primary_source_event_id": "EVT-2c84b8bc2b39",
-        "source_headlines": [
-          "NIO-SW (09866): VOLUNTARY ANNOUNCEMENT - OCTOBER 2026 DELIVERY UPDATE"
-        ],
-        "source_headline": "NIO-SW (09866): VOLUNTARY ANNOUNCEMENT - OCTOBER 2026 DELIVERY UPDATE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100051.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-11-01T10:22:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T10:30:47Z",
-        "updated_at": "2026-11-01T10:30:47Z",
-        "decay_at": "2026-11-02T22:22:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:33:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-496e451faee8",
-        "idea_version": "IDEAV-270c8bd493651265",
-        "idea_version_started_at": "2026-11-01T10:30:47Z",
-        "ticker": "01211",
-        "company": "BYD Company",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "BYD Company announced its production and sales volume for October 2026, a direct measure of its top-line performance in the automotive sector.",
-        "why_now": "The October 2026 sales data offers a current snapshot of the company's market activity.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1e5ea9fccd29"
-        ],
-        "primary_source_event_id": "EVT-1e5ea9fccd29",
-        "source_headlines": [
-          "BYD COMPANY BYD COMPANY-R (01211 81211): VOLUNTARY ANNOUNCEMENT PRODUCTION AND SALES VOLUME FOR OCTOBER 2026"
-        ],
-        "source_headline": "BYD COMPANY BYD COMPANY-R (01211 81211): VOLUNTARY ANNOUNCEMENT PRODUCTION AND SALES VOLUME FOR OCTOBER 2026",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100043.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-11-01T10:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T10:30:47Z",
-        "updated_at": "2026-11-01T10:30:47Z",
-        "decay_at": "2026-11-02T22:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:33:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-41c5501266bc",
         "idea_version": "IDEAV-03b730a97de42b8a",
         "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -282784,7 +282712,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2490,
+    "surfaced_total": 2492,
     "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -282804,9 +282732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 768,
-    "news_picked_today": 166,
-    "news_dropped_today": 602
+    "news_seen_today": 1046,
+    "news_picked_today": 221,
+    "news_dropped_today": 825
   },
   "book_momentum": {
     "live_count": 8,
