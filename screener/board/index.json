@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T14:17:03Z",
+  "generated_at": "2026-11-15T14:17:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -1306,6 +1306,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-242",
+      "headline": "Estonia Says Russia Behind Failed Arson Attempt on Drone-Maker",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-15/estonia-says-russia-behind-failed-arson-attempt-on-drone-maker",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T13:43:59Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Geopolitical escalation involving a state-sponsored attack on a drone manufacturer, posing significant operational and security risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Geopolitical escalation involving a state-sponsored attack on a drone manufacturer, posing significant operational and security risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-221",
       "headline": "AirMozambique Warns of Flight Cancellations Due to Fuel Shortage",
       "headline_en": null,
@@ -1883,56 +1926,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-190",
-      "headline": "SUNSHINE PHARMA (06887): VOLUNTARY ANNOUNCEMENT SUCCESSFUL INCLUSION OF OLORIGLIFLOZIN CAPSULES IN THE 2026 NATIONAL REIMBURSEMENT DRUG LIST",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T10:24:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Successful inclusion of Olorigliflozin in the 2026 NRDL provides a clear path for commercial scaling in China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Successful inclusion of Olorigliflozin in the 2026 NRDL provides a clear path for commercial scaling in China.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sunshine Guojian Pharmaceutical",
-          "ticker": "06887",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -283194,9 +283187,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2359,
-    "news_picked_today": 429,
-    "news_dropped_today": 1789
+    "news_seen_today": 2400,
+    "news_picked_today": 436,
+    "news_dropped_today": 1823
   },
   "book_momentum": {
     "live_count": 8,
