@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T03:23:54Z",
+  "generated_at": "2026-11-15T03:29:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -441,6 +441,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-073",
+      "headline": "Judge temporarily blocks Trump from closing Washington DC golf course for renovation",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/c6j9mn7l14y0o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T03:21:04Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A court order prevents the Trump Organization from proceeding with planned renovations at its Washington DC golf course property.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A court order prevents the Trump Organization from proceeding with planned renovations at its Washington DC golf course property.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Trump Organization",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1220,6 +1269,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-074",
+      "headline": "India-New Zealand trade pact: 17 agencies cleared to issue certificates for exports",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/economy/india-new-zealand-trade-pact-17-agencies-cleared-to-issue-certificates-for-exports-20034209.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T03:22:51Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "The Indian government has authorized 17 agencies to facilitate export certification under the trade pact with New Zealand, reducing administrative friction for exporters.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The Indian government has authorized 17 agencies to facilitate export certification under the trade pact with New Zealand, reducing administrative friction for exporters.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-033",
       "headline": "Italy pitches Germany observer status in fighter jet program",
       "headline_en": null,
@@ -1843,104 +1935,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-017",
-      "headline": "29 kmpl mileage, ₹1.5 lakh savings? Renault Duster's new deal has a catch",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/29-kmpl-mileage-rs1-5-lakh-savings-renault-dusters-new-deal-has-a-catch-567345-2026-11-15?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:30:09Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Renault is offering promotional deals on the Duster model in India, though the impact on overall margins is not quantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Renault is offering promotional deals on the Duster model in India, though the impact on overall margins is not quantified.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Renault",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-054",
-      "headline": "Hyundai Home Shopping to debut fully AI-generated sales show",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10937399",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T02:22:55Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Hyundai Home Shopping is launching an AI-generated sales show, representing an operational shift toward automation in retail.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Hyundai Home Shopping is launching an AI-generated sales show, representing an operational shift toward automation in retail.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Home Shopping",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282041,9 +282035,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 368,
-    "news_picked_today": 77,
-    "news_dropped_today": 291
+    "news_seen_today": 372,
+    "news_picked_today": 79,
+    "news_dropped_today": 293
   },
   "book_momentum": {
     "live_count": 8,
