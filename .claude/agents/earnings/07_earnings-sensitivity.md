@@ -167,6 +167,49 @@ For EACH §2 variable that carries a **clean per-unit coefficient** (a company-d
 
 OMIT a variable that has only a guidance range or a scenario impact with **no** clean per-unit rate — it is not linearly modelable, and inventing a coefficient is forbidden. A run whose §2 has zero clean-coefficient variables emits **no** sidecar (the chat then falls back to the prose, exactly as today).
 
+## Separate additive accounting operation — no invented coefficient
+
+The no-sidecar sentence above applies when there is neither a clean coefficient nor an eligible additive
+identity. It remains binding for coefficient rows: zero clean coefficients means **no `sensitivities`
+collection**, never an empty/malformed collection or a synthetic coefficient of1. A source-backed complete
+accounting identity may instead use the distinct `additive_identities` collection in the SAME
+`earnings/sensitivity_summary.json` and schema. This is reconciliation/conditional remainder arithmetic,
+not a marginal-cost rate, point forecast, scenario plan or new research module. If neither operation is
+supported, emit no sidecar. If both are present, every legacy coefficient requirement still applies.
+
+Only emit identities already supported by the original source's total and complete signed components.
+Follow `frameworks/sensitivity_summary.schema.json`'s closed additive shapes. Each identity has a stable
+ID/label, a `context`, a cited `total`, and cited uniquely named `components`. Context explicitly states
+entity, metric, exact reported or named company-adjusted definition basis, currency/scale, start/end dates,
+period basis and source period label, reporting scope, and accounting standard/regime. Repeat matching
+context on every operand; do not infer accounting standard from nationality. The new operation accepts
+only absolute monetary flows: revenue, net sales, operating income, EBIT, EBITDA or net income. Ratios,
+EPS/per-share, margins, growth, yields and returns are not additive operands. Existing clean EPS
+coefficient sensitivities remain allowed under their original rules. `adjusted_EBITDA` is accepted only
+on a named company-adjusted basis and never relabelled reported EBITDA.
+
+Declare each total/component's nonempty atomic `coverage` scopes, with disjoint component coverage
+exactly covering the total. Never add a parent segment and its children, another overlapping disclosure
+view, or a revenue adjustment to profit without a supported crosswalk. Retain negative central costs,
+losses and eliminations with their original signs. `scripts/sensitivity_math.py` computes the signed sum
+and exact displayed total-minus-sum gap. A nonzero gap remains visible and withholds a reliable remainder;
+do not invent a balancing component, allocate a rounding difference, borrow a pp/bps tolerance or call
+the gap an adverse company finding. Typed metadata/citations do not authenticate the source.
+
+Optional `conditional_profiles` may only hold existing source values under explicit assumptions in a
+named target period, preserving the original source period separately. Every held known component needs
+its own assumption. Future reconciliation residual is an explicit value plus assumption, or unknown;
+historical zero is not future proof. Unknown holds/residuals permit historical reconciliation data but
+withhold a future numeric remainder. Do not manufacture profiles, future costs or a complete forecast
+merely to make the chat compute. A future question must supply its own grounded hypothetical total;
+the historical total is never reused as a future target. The engine also requires exact recorded component
+selection, the named profile/period and explicit matching currency/scale; unsupported wording is refused.
+
+Additive output reaches the existing Ask backend as qualified computed context only. It supplies the
+signed build, sources, basis, source/target periods, assumptions and any withheld reason. It is not a
+coefficient-impact card, valuation/repricing input, native forecast/outcome, probability, cash/ROIC result
+or investment-return evidence. Do not claim a complete07 pass from a single identity calculation.
+
 # SELF-CHECK
 
 - [ ] 3–7 variables are selected and ranked. No fewer than 3, no more than 7.
@@ -179,7 +222,7 @@ OMIT a variable that has only a guidance range or a scenario impact with **no** 
 - [ ] Impact is in the correct unit (EPS in currency, EBITDA in currency).
 - [ ] The ranking table is sorted by absolute impact.
 - [ ] Earnings volatility score direction is flagged (higher = worse).
-- [ ] `sensitivity_summary.json` was emitted (conforming to `frameworks/sensitivity_summary.schema.json`) for every §2 variable with a clean per-unit coefficient — each `coefficient` reproduces §2's bull/bear impacts when scaled by §2's bull/bear deltas, `base_metric`/`base_value` state the exact basis (reported vs adjusted, §15), and no variable lacking a clean per-unit rate was given an invented coefficient. Every row carries `mitigation_basis` matching its §2 "Mitigation assumed" value, and any non-zero `realised_offset_pct` carries its `realised_offset_source`. Zero clean-coefficient variables → no sidecar.
+- [ ] `sensitivity_summary.json` was emitted (conforming to `frameworks/sensitivity_summary.schema.json`) for every §2 variable with a clean per-unit coefficient — each `coefficient` reproduces §2's bull/bear impacts when scaled by §2's bull/bear deltas, `base_metric`/`base_value` state the exact basis (reported vs adjusted, §15), and no variable lacking a clean per-unit rate was given an invented coefficient. Every row carries `mitigation_basis` matching its §2 "Mitigation assumed" value, and any non-zero `realised_offset_pct` carries its `realised_offset_source`. Zero clean-coefficient variables → no `sensitivities` collection and no invented coefficient. An eligible source-backed `additive_identities` collection may still be emitted under its separate closed contract; emit no sidecar when neither a clean coefficient nor an eligible additive identity exists.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

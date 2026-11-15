@@ -2,11 +2,14 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/sensitivity_summary.schema.json",
   "title": "Sensitivity Summary (what-if levers)",
-  "description": "Machine-readable sensitivity COEFFICIENTS the earnings-sensitivity orb (07_earnings-sensitivity) has already extracted, emitted alongside its markdown so the cockpit chat can answer what-if questions ('Adjusted EBITDA / operating margin if the aluminium price moves +$45/mt?') DETERMINISTICALLY. The number is never produced by the language model: scripts/sensitivity_math.py scales the recorded per-unit coefficient linearly, exactly as scripts/valuation_math.py recomputes fair value from valuation_summary.json. Each sensitivity carries the orb's own confidence, source, valid scenario range, and non-linearity note so a modelled answer is as reliable as the disclosed coefficient it scales, and no more.",
+  "description": "Machine-readable sensitivity COEFFICIENTS the earnings-sensitivity orb (07_earnings-sensitivity) has already extracted, emitted alongside its markdown so the cockpit chat can answer what-if questions ('Adjusted EBITDA / operating margin if the aluminium price moves +$45/mt?') DETERMINISTICALLY. The number is never produced by the language model: scripts/sensitivity_math.py scales the recorded per-unit coefficient linearly, exactly as scripts/valuation_math.py recomputes fair value from valuation_summary.json. Each sensitivity carries the orb's own confidence, source, valid scenario range, and non-linearity note so a modelled answer is as reliable as the disclosed coefficient it scales, and no more. Separately, additive_identities can record complete source-bound signed monetary-flow identities for exact reconciliation/conditional remainder questions; additive-only files need no invented sensitivity coefficient. All existing coefficient requirements remain when legacy fields are supplied.",
   "type": "object",
-  "required": ["schema_version", "ticker", "base_metric", "base_value", "sensitivities"],
+  "required": ["schema_version", "ticker"],
+  "anyOf": [{"required": ["schema_version", "ticker", "base_metric", "base_value", "sensitivities"]}, {"required": ["additive_identities"]}],
+  "allOf": [{"if": {"anyOf": [{"required": ["sensitivities"]}, {"required": ["base_metric"]}, {"required": ["base_value"]}, {"required": ["base_value_source"]}, {"required": ["base_period"]}, {"required": ["revenue_base"]}, {"required": ["revenue_period"]}]}, "then": {"required": ["schema_version", "ticker", "base_metric", "base_value", "sensitivities"]}}],
   "additionalProperties": true,
   "properties": {
+    "additive_identities": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/additive_identity"}, "description": "Distinct source-bound signed accounting identities. No causal coefficient is implied. Shared runtime checks exact context, nonoverlap coverage, displayed gap, whole-sidecar legacy integrity and grounded question; any unresolved gap withholds reliable remainder. Explicit future holds/residual assumptions are conditional, never forecasts."},
     "schema_version": {"type": "string"},
     "ticker": {"type": "string"},
     "as_of": {"type": "string", "description": "run date (YYYY-MM-DD)"},
@@ -68,6 +71,290 @@
             }
           }
         ]
+      }
+    }
+  },
+  "definitions": {
+    "additive_context": {
+      "type": "object",
+      "required": [
+        "entity",
+        "metric",
+        "basis",
+        "currency",
+        "scale",
+        "period_start",
+        "period_end",
+        "period_basis",
+        "period_label",
+        "scope",
+        "accounting_standard"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "period_label": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "accounting_standard": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "metric": {
+          "type": "string",
+          "pattern": "^\\s*(?:[rR][eE][vV][eE][nN][uU][eE]|[nN][eE][tT]_[sS][aA][lL][eE][sS]|[oO][pP][eE][rR][aA][tT][iI][nN][gG]_[iI][nN][cC][oO][mM][eE]|[eE][bB][iI][tT]|[eE][bB][iI][tT][dD][aA]|[nN][eE][tT]_[iI][nN][cC][oO][mM][eE]|[aA][dD][jJ][uU][sS][tT][eE][dD]_[eE][bB][iI][tT][dD][aA])\\s*$"
+        },
+        "basis": {
+          "type": "string",
+          "pattern": "^(?:reported|company_adjusted:[A-Za-z0-9_.-]+)$"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "scale": {
+          "enum": [
+            "units",
+            "thousands",
+            "millions"
+          ]
+        },
+        "period_start": {
+          "type": "string",
+          "format": "date"
+        },
+        "period_end": {
+          "type": "string",
+          "format": "date"
+        },
+        "period_basis": {
+          "enum": [
+            "standalone_flow",
+            "cumulative_flow"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "metric": {
+                "pattern": "^\\s*[aA][dD][jJ][uU][sS][tT][eE][dD]_[eE][bB][iI][tT][dD][aA]\\s*$"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "basis": {
+                "pattern": "^company_adjusted:[A-Za-z0-9_.-]+$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "additive_total": {
+      "type": "object",
+      "required": [
+        "value",
+        "source",
+        "context",
+        "coverage"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "source": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "context": {
+          "$ref": "#/definitions/additive_context"
+        },
+        "coverage": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+          }
+        }
+      }
+    },
+    "additive_component": {
+      "type": "object",
+      "required": [
+        "value",
+        "source",
+        "context",
+        "coverage",
+        "component_id",
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "source": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "context": {
+          "$ref": "#/definitions/additive_context"
+        },
+        "coverage": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+          }
+        },
+        "component_id": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "label": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        }
+      }
+    },
+    "additive_profile": {
+      "type": "object",
+      "required": [
+        "profile_id",
+        "label",
+        "target_period_start",
+        "target_period_end",
+        "target_period_basis",
+        "target_period_label",
+        "assumption",
+        "component_holds",
+        "residual"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "label": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "target_period_label": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "assumption": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "target_period_start": {
+          "type": "string",
+          "format": "date"
+        },
+        "target_period_end": {
+          "type": "string",
+          "format": "date"
+        },
+        "target_period_basis": {
+          "enum": [
+            "standalone_flow",
+            "cumulative_flow"
+          ]
+        },
+        "component_holds": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "residual": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "assumption": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "additive_identity": {
+      "type": "object",
+      "required": [
+        "identity_id",
+        "label",
+        "context",
+        "total",
+        "components"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "identity_id": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "label": {
+          "type": "string",
+          "pattern": "[^\\u0009-\\u000D\\u001C-\\u0020\\u0085\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]"
+        },
+        "context": {
+          "$ref": "#/definitions/additive_context"
+        },
+        "total": {
+          "$ref": "#/definitions/additive_total"
+        },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/additive_component"
+          }
+        },
+        "conditional_profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/additive_profile"
+          }
+        }
       }
     }
   }

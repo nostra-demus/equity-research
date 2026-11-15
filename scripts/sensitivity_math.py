@@ -23,6 +23,7 @@ from __future__ import annotations
 import math
 import re
 from datetime import date
+from decimal import Decimal, localcontext
 from typing import Optional
 
 
@@ -358,6 +359,362 @@ def resolve_scenario(sidecar: dict, variable: str, req: dict) -> dict:
 # ---------------------------------------------------------------------------
 # selftest — fixture-free CI gate, grounded in NHY_2026-07-19's real recorded coefficients
 # ---------------------------------------------------------------------------
+# Additive accounting uses the same authority/CLI as coefficients, but is a different operation. A
+# source identity is not a marginal-cost rate. No coefficient or mitigation state is manufactured.
+ADDITIVE_METRICS = {"revenue", "net_sales", "operating_income", "ebit", "ebitda", "net_income"}
+ADDITIVE_CONTEXT = {"entity", "metric", "basis", "currency", "scale", "period_start", "period_end",
+                    "period_basis", "period_label", "scope", "accounting_standard"}
+_ADDITIVE_UNKNOWN = {"unknown", "unavailable", "unresolved", "not assessable", "not available", "n/a"}
+_LEGACY_FIELDS = {"sensitivities", "base_metric", "base_value", "base_value_source", "base_period",
+                  "revenue_base", "revenue_period"}
+
+
+def _add_key(s):
+    return " ".join(s.split()).casefold() if isinstance(s, str) else ""
+
+
+def _add_text(s):
+    return isinstance(s, str) and bool(re.search(DISCLOSED_POSITIONS_NONBLANK, s))
+
+
+def _add_isnum(v):
+    try:
+        return _isnum(v)
+    except OverflowError:
+        return False
+
+
+def _add_closed(o, required, optional=()):
+    return isinstance(o, dict) and set(required) <= set(o) <= set(required) | set(optional)
+
+
+def _add_dates(start, end):
+    try:
+        return all(isinstance(s, str) and re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", s)
+                   for s in (start, end)) and date.fromisoformat(start) <= date.fromisoformat(end)
+    except ValueError:
+        return False
+
+
+def _add_context(ctx):
+    if not _add_closed(ctx, ADDITIVE_CONTEXT) or any(not _add_text(v) or _add_key(v) in _ADDITIVE_UNKNOWN
+                                                   for v in ctx.values()):
+        return None
+    c = dict(ctx)
+    c["metric"] = c["metric"].strip().casefold()
+    adjusted = re.fullmatch(r"company_adjusted:[A-Za-z0-9_.-]+", c["basis"])
+    if c["metric"] == "adjusted_ebitda" and adjusted:
+        c["metric"] = "ebitda"
+    if c["metric"] not in ADDITIVE_METRICS or not (c["basis"] == "reported" or adjusted):
+        return None
+    if not re.fullmatch(r"[A-Z]{3}", c["currency"]) or c["scale"] not in ("units", "thousands", "millions"):
+        return None
+    if c["period_basis"] not in ("standalone_flow", "cumulative_flow") or not _add_dates(c["period_start"], c["period_end"]):
+        return None
+    return c
+
+
+def _add_coverage(value):
+    if not isinstance(value, list) or not value or any(not _add_text(x) for x in value):
+        return None
+    keys = [_add_key(x) for x in value]
+    return set(keys) if len(set(keys)) == len(keys) else None
+
+
+def _add_unique(rows, id_key):
+    names = {}
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict) or any(not _add_text(row.get(k)) for k in (id_key, "label")):
+            return False
+        for name in (_add_key(row[id_key]), _add_key(row["label"])):
+            if name in names and names[name] != i:
+                return False
+            names[name] = i
+    return True
+
+
+def validate_additive_sidecar(sidecar, run_date=None):
+    """Declared shape/basis/coverage only, not source authentication. Unknown future assumptions can be
+    retained as data; they withhold a future solve. A supplied broken coefficient collection is never ignored.
+    """
+    if not isinstance(sidecar, dict):
+        return ["invalid_shape: sidecar is not an object"]
+    errors = []
+    if any(not _add_text(sidecar.get(k)) for k in ("schema_version", "ticker")):
+        errors.append("invalid_shape: schema_version and ticker must be nonblank")
+    if any(k in sidecar for k in _LEGACY_FIELDS):
+        # Reuse the existing guard, not a weaker second copy of its coefficient/source/mitigation rules.
+        from sensitivity_summary_checks import _check_legacy_sensitivity_summary, _legacy_schema_type_violations
+        legacy_errors = _legacy_schema_type_violations(sidecar)
+        if not legacy_errors:
+            legacy_errors = _check_legacy_sensitivity_summary(sidecar, run_date)
+        errors.extend("invalid_legacy: " + e for e in legacy_errors)
+    identities = sidecar.get("additive_identities")
+    if not isinstance(identities, list) or not identities or not _add_unique(identities, "identity_id"):
+        return errors + ["ambiguous_identity_or_component: additive identities need unique IDs/labels"]
+    for ident in identities:
+        if not _add_closed(ident, ("identity_id", "label", "context", "total", "components"), ("conditional_profiles",)):
+            errors.append("invalid_shape: additive identity has missing/unknown fields")
+            continue
+        ctx = _add_context(ident["context"])
+        if ctx is None:
+            errors.append("context_mismatch: unsupported monetary-flow metric or incomplete source context")
+            continue
+        total, parts = ident["total"], ident["components"]
+        if not _add_closed(total, ("value", "source", "context", "coverage")):
+            errors.append("invalid_shape: total has missing/unknown fields")
+            continue
+        coverage = _add_coverage(total["coverage"])
+        if coverage is None:
+            errors.append("declared_scope_overlap_or_gap: total coverage is blank/duplicated")
+        if not _add_isnum(total["value"]) or not _add_text(total["source"]):
+            errors.append("missing_source_or_number: total needs a finite signed amount and citation")
+        if _add_context(total["context"]) != ctx:
+            errors.append("context_mismatch: total context differs from identity")
+        if not isinstance(parts, list) or not parts or not _add_unique(parts, "component_id"):
+            errors.append("ambiguous_identity_or_component: components need unique IDs/labels")
+            continue
+        seen = set()
+        ids = {p["component_id"] for p in parts}
+        for part in parts:
+            if not _add_closed(part, ("component_id", "label", "value", "source", "context", "coverage")):
+                errors.append("invalid_shape: component has missing/unknown fields")
+                continue
+            pc = _add_coverage(part["coverage"])
+            if pc is None or seen.intersection(pc) or coverage is None or not pc <= coverage:
+                errors.append("declared_scope_overlap_or_gap: component coverage overlaps or escapes total")
+            if pc:
+                seen.update(pc)
+            if not _add_isnum(part["value"]) or not _add_text(part["source"]):
+                errors.append("missing_source_or_number: every component needs a finite signed amount and citation")
+            if _add_context(part["context"]) != ctx:
+                errors.append("context_mismatch: component context differs from total")
+        if seen != coverage:
+            errors.append("declared_scope_overlap_or_gap: components do not cover declared total scope")
+        profiles = ident.get("conditional_profiles", [])
+        if not isinstance(profiles, list) or not _add_unique(profiles, "profile_id"):
+            errors.append("ambiguous_identity_or_component: profiles need unique IDs/labels")
+            continue
+        for profile in profiles:
+            required = ("profile_id", "label", "target_period_start", "target_period_end", "target_period_basis",
+                        "target_period_label", "assumption", "component_holds", "residual")
+            if not _add_closed(profile, required):
+                errors.append("invalid_shape: conditional profile has missing/unknown fields")
+                continue
+            if not _add_dates(profile["target_period_start"], profile["target_period_end"]) or profile["target_period_basis"] != ctx["period_basis"]:
+                errors.append("context_mismatch: profile target dates/basis are invalid")
+            if any(not _add_text(profile[k]) for k in ("target_period_label", "assumption")):
+                errors.append("invalid_shape: conditional profile needs period label and explicit assumption")
+            holds, residual = profile["component_holds"], profile["residual"]
+            if not isinstance(holds, dict) or not set(holds) <= ids or any(v is not None and not _add_text(v) for v in holds.values()):
+                errors.append("invalid_shape: component holds must name recorded IDs and explicit text or null")
+            if not _add_closed(residual, (), ("value", "assumption")) or (residual.get("value") is not None and not _add_isnum(residual["value"])) or (residual.get("assumption") is not None and not _add_text(residual["assumption"])):
+                errors.append("invalid_shape: residual must be a finite explicit value or unknown, with assumption text or null")
+    return errors
+
+
+def _add_period(ctx):
+    return {"start": ctx["period_start"], "end": ctx["period_end"], "basis": ctx["period_basis"], "label": ctx["period_label"]}
+
+
+def _add_decimal(value):
+    return Decimal(str(value))
+
+
+def _add_number(value):
+    return int(value) if value == value.to_integral_value() else float(value)
+
+
+def _add_selection(expression, parts):
+    """Consume whole recorded labels plus separators. Internal 'and' stays inside a label."""
+    solutions = {}
+    def consume(text, selected):
+        if len(solutions) > 1:
+            return
+        candidates = [p for p in parts if text == _add_key(p["label"]) or text.startswith(_add_key(p["label"]) + " ")
+                      or text.startswith(_add_key(p["label"]) + ",") or text.startswith(_add_key(p["label"]) + "&")]
+        for part in candidates:
+            if part["component_id"] in selected:
+                continue
+            chosen = selected + [part["component_id"]]
+            rest = text[len(_add_key(part["label"])):].lstrip()
+            if not rest:
+                solutions[tuple(sorted(chosen))] = chosen
+            else:
+                sep = re.match(r"^(?:,\s*(?:(?:and|plus)\s+)?|(?:and|plus)\s+|&\s*)", rest)
+                if sep and rest[sep.end():]:
+                    consume(rest[sep.end():], chosen)
+    consume(_add_key(expression), [])
+    return next(iter(solutions.values())) if len(solutions) == 1 else None
+
+
+def _add_prefixes(ident, ctx, explicit_only=False):
+    metric = ctx["metric"].replace("_", " ")
+    descriptions = {_add_key(ident["label"])}
+    if not explicit_only:
+        descriptions |= {metric, "consolidated " + metric}
+        descriptions |= ({"reported " + metric, "consolidated reported " + metric} if ctx["basis"] == "reported" else {"company-adjusted " + metric})
+    return {"using " + article + _add_key(ctx["period_label"]) + " " + desc + " identity"
+            for article in ("", "the ") for desc in descriptions}
+
+
+def _add_identity_grounding(sidecar, ident, req):
+    """Do not let a model choose between two identities satisfying the same generic metric intro."""
+    if not _add_text(req.get("question")):
+        return False
+    q = _add_key(req["question"]).rstrip("?!. ")
+    if req["mode"] == "reconcile":
+        return q == "reconcile " + _add_key(ident["label"]) + " for " + _add_key(ident["context"]["period_label"])
+    prefix = q.split("how much is ", 1)[0].rstrip(" ,:")
+    explicit, generic = [], []
+    for candidate in sidecar["additive_identities"]:
+        ctx = _add_context(candidate["context"])
+        if prefix in _add_prefixes(candidate, ctx, explicit_only=True):
+            explicit.append(candidate["identity_id"])
+        if prefix in _add_prefixes(candidate, ctx):
+            generic.append(candidate["identity_id"])
+    matches = explicit or generic
+    return len(matches) == 1 and matches[0] == ident["identity_id"]
+
+
+def _add_ground(ident, req, ctx):
+    """Conservative supported question syntax; model IDs/values alone confer no authority."""
+    question = req.get("question")
+    if not _add_text(question):
+        return "question_binding_mismatch", "The original question is required."
+    q = _add_key(question).rstrip("?!. ")
+    if req["mode"] == "reconcile":
+        expected = "reconcile " + _add_key(ident["label"]) + " for " + _add_key(ctx["period_label"])
+        if q != expected or any(k in req for k in ("target", "conditional_profile_id", "remainder_component_ids")):
+            return "question_binding_mismatch", "Reconcile only the named source-period identity; target/profile fields are not ignored."
+        return None
+    if q.count("how much is ") != 1:
+        return "component_binding_mismatch", "Use 'how much is' followed by exact recorded component labels."
+    prefix, tail = q.split("how much is ", 1)
+    if prefix.rstrip(" ,:") not in _add_prefixes(ident, ctx):
+        return "period_or_identity_binding_mismatch", "Name the recorded source-period identity before the component question."
+    suffix = ""
+    cut = re.search(r"\s+(?:if total is|for)\s+", tail)
+    if cut:
+        selection, suffix = tail[:cut.start()], tail[cut.start():].strip()
+    else:
+        selection = tail
+    selected = _add_selection(selection, ident["components"])
+    requested = req.get("remainder_component_ids")
+    if not selected or not isinstance(requested, list) or any(not isinstance(x, str) for x in requested) or len(set(requested)) != len(requested) or set(selected) != set(requested):
+        return "component_binding_mismatch", "The selected remainder components must exactly match the question, without exclusions or substitutions."
+    if "target" in req:
+        # Explicit TOTAL + exact currency/scale prevents years, component amounts and 31billion→31million.
+        num = r"[+\-−]?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?"
+        match = re.match(r"^if total is (" + num + r") ([a-z]{3}) (units?|thousands?|millions?)(?= |$)", suffix)
+        scales = {"unit": "units", "units": "units", "thousand": "thousands", "thousands": "thousands", "million": "millions", "millions": "millions"}
+        if not match or not _add_isnum(req["target"]) or match[2].upper() != ctx["currency"] or scales[match[3]] != ctx["scale"]:
+            return "target_binding_mismatch", "State one total in the recorded currency and scale, e.g. 'if total is 31000 USD million'; no conversion is assumed."
+        amount = Decimal(match[1].replace(",", "").replace("−", "-"))
+        if amount != _add_decimal(req["target"]):
+            return "target_binding_mismatch", "The parsed target is not the exact total amount written in the question."
+        suffix = suffix[match.end():].strip()
+    elif suffix.startswith("if total"):
+        return "target_binding_mismatch", "The total clause cannot be silently ignored."
+    if "conditional_profile_id" in req:
+        profiles = [p for p in ident.get("conditional_profiles", []) if p["profile_id"] == req["conditional_profile_id"]]
+        if len(profiles) != 1 or "target" not in req:
+            return "period_or_profile_binding_mismatch", "A conditional profile requires an explicit grounded hypothetical total."
+        p = profiles[0]
+        expected = "for " + _add_key(p["target_period_label"]) + " under " + _add_key(p["label"])
+        if suffix != expected:
+            return "period_or_profile_binding_mismatch", "Name the exact target period and recorded profile; relative/ambiguous periods are unsupported."
+    elif suffix:
+        return "period_or_profile_binding_mismatch", "Unsupported target text, period or conditional profile; no historical total is relabelled as future."
+    return None
+
+
+def resolve_additive(sidecar, req):
+    """Reconcile one bound signed identity or solve a recorded component/group remainder. Pure; no IO,
+    source verification, forecast or inferred coefficient. Raw user question is checked here, not trusted
+    from model intent. Results are internal backend context, never coefficient/valuation cards.
+    """
+    out = {"kind": "additive", "status": "invalid", "reason": None, "detail": None,
+           "identity_id": req.get("identity_id") if isinstance(req, dict) else None,
+           "mode": req.get("mode") if isinstance(req, dict) else None, "context": None,
+           "label": None, "source_metric": None, "total": None,
+           "conditional_profile_id": None, "conditional_profile_label": None, "assumed_residual": None,
+           "source_period": None, "target_period": None, "source_total": None, "chosen_total": None,
+           "target_hypothetical": False, "component_sum": None, "component_sum_exact": None,
+           "displayed_gap": None, "displayed_gap_exact": None, "reconciliation_state": None,
+           "components": [], "known_components": [], "remainder_component_ids": [], "remainder": None,
+           "remainder_exact": None, "symbolic_build": None, "sources": [], "assumptions": [],
+           "conditional_not_forecast": False, "interpretation": "Accounting identity only; not a forecast or source authentication."}
+    def refuse(reason, detail, status="invalid"):
+        out.update(status=status, reason=reason, detail=detail)
+        return out
+    required = ("operation", "question", "identity_id", "mode")
+    if not _add_closed(req, required, ("sidecar", "remainder_component_ids", "target", "conditional_profile_id")) or req["operation"] != "additive" or req["mode"] not in ("reconcile", "remainder"):
+        return refuse("invalid_shape", "A closed additive request with original question, identity and mode is required.")
+    errors = validate_additive_sidecar(sidecar)
+    if errors:
+        return refuse(errors[0].split(":", 1)[0], "; ".join(errors))
+    identities = [i for i in sidecar["additive_identities"] if i["identity_id"] == req["identity_id"]]
+    if len(identities) != 1:
+        return refuse("unknown_identity", "No exact unique recorded identity matches.")
+    ident, ctx = identities[0], _add_context(identities[0]["context"])
+    if not _add_identity_grounding(sidecar, ident, req):
+        return refuse("ambiguous_identity_binding", "The question must uniquely identify one recorded source-period identity; name its distinguishing label.")
+    ground = _add_ground(ident, req, ctx)
+    if ground:
+        return refuse(*ground)
+    parts = ident["components"]
+    # Decimal arithmetic retains the represented source amounts; no pp/bps or other hidden tolerance.
+    with localcontext() as precision:
+        precision.prec = 1000
+        total = _add_decimal(ident["total"]["value"])
+        summed = sum((_add_decimal(p["value"]) for p in parts), Decimal(0))
+        gap = total - summed
+        chosen = _add_decimal(req["target"]) if "target" in req else total
+        if not all(math.isfinite(float(v)) for v in (summed, gap, chosen)):
+            return refuse("invalid_number", "The represented result exceeds finite numeric output.")
+        out.update(context=ctx, label=ident["label"], source_metric=ident["context"]["metric"], total=ident["total"],
+                   source_period=_add_period(ctx), target_period=_add_period(ctx),
+                   source_total=ident["total"]["value"], chosen_total=_add_number(chosen),
+                   target_hypothetical="target" in req, component_sum=_add_number(summed), component_sum_exact=str(summed),
+                   displayed_gap=_add_number(gap), displayed_gap_exact=str(gap),
+                   reconciliation_state="exact_displayed" if gap == 0 else "unresolved_displayed_gap",
+                   components=parts, sources=[ident["total"]["source"]] + [p["source"] for p in parts],
+                   conditional_not_forecast="target" in req,
+                   symbolic_build=" + ".join(f"({p['label']}: {p['value']})" for p in parts) + f" = {summed}; source total {total}; displayed gap {gap}")
+        selected = set(req["remainder_component_ids"]) if req["mode"] == "remainder" else set()
+        known = [p for p in parts if p["component_id"] not in selected] if selected else []
+        out.update(known_components=known, remainder_component_ids=req.get("remainder_component_ids", []))
+        profile = None
+        if "conditional_profile_id" in req:
+            profile = next(p for p in ident["conditional_profiles"] if p["profile_id"] == req["conditional_profile_id"])
+            holds, r = profile["component_holds"], profile["residual"]
+            out.update(target_period={"start": profile["target_period_start"], "end": profile["target_period_end"], "basis": profile["target_period_basis"], "label": profile["target_period_label"]},
+                       conditional_profile_id=profile["profile_id"], conditional_profile_label=profile["label"],
+                       assumed_residual=r.get("value"), conditional_not_forecast=True,
+                       assumptions=[profile["assumption"]] + [holds[p["component_id"]] for p in known if _add_text(holds.get(p["component_id"]))]
+                       + ([r["assumption"]] if _add_text(r.get("assumption")) else []))
+        if gap != 0:
+            return refuse("unresolved_displayed_gap", "The displayed total differs from signed components; the gap is not allocated or silently rounded away. Reliable remainder withheld.", "withheld")
+        if req["mode"] == "reconcile":
+            out["status"] = "computed"
+            return out
+        residual = Decimal(0)
+        if profile is not None:
+            holds, r = profile["component_holds"], profile["residual"]
+            if any(not _add_text(holds.get(p["component_id"])) for p in known):
+                return refuse("missing_hold_assumption", "Every held source component needs its explicit target-period assumption.", "withheld")
+            if not _add_isnum(r.get("value")) or not _add_text(r.get("assumption")):
+                return refuse("unknown_future_residual", "A historical zero gap does not establish the future reconciliation term; explicit value and assumption required.", "withheld")
+            residual = _add_decimal(r["value"])
+        result = chosen - sum((_add_decimal(p["value"]) for p in known), Decimal(0)) - residual
+        if not math.isfinite(float(result)):
+            return refuse("invalid_number", "The represented remainder exceeds finite numeric output.")
+        out.update(status="computed", remainder=_add_number(result), remainder_exact=str(result),
+                   symbolic_build=f"{chosen} - [" + " + ".join(f"({p['label']}: {p['value']})" for p in known) + f"] - ({residual} reconciliation term) = {result}")
+        return out
+
+
 def _approx(a, b, tol=0.05) -> bool:
     return a is not None and b is not None and abs(a - b) <= tol
 
@@ -556,6 +913,10 @@ def _selftest() -> int:
     if fails:
         print("SENSITIVITY MATH SELFTEST FAIL:", ", ".join(fails))
         return 1
+    # Existing CI already invokes this selftest; the new operation must not be an unrun utility.
+    from test_sensitivity_additive import run_tests
+    if not run_tests():
+        return 1
     print("SENSITIVITY MATH SELFTEST PASS — NHY aluminium +$45/mt = +NOK 675m Adj. EBITDA (+32.6bps), "
           "recorded coefficient scaled linearly; range/confidence/source + §9 mitigation label carried; unknown-variable refused")
     return 0
@@ -580,7 +941,9 @@ if __name__ == "__main__":
                 raise ValueError("scenario request must be a JSON object")
             # resolve_scenario handles all intents (delta / target_level / target / target_margin) through the
             # one forward code path, so level and reverse arithmetic live here, not in the TS caller.
-            print(json.dumps(resolve_scenario(req.get("sidecar") or {}, req.get("variable"), req)))
+            result = (resolve_additive(req.get("sidecar"), req) if req.get("operation") == "additive"
+                      else resolve_scenario(req.get("sidecar") or {}, req.get("variable"), req))
+            print(json.dumps(result, allow_nan=False))
         except Exception as e:
             print(json.dumps({"error": f"scenario request failed: {e}"}))
         raise SystemExit(0)

@@ -1,0 +1,522 @@
+{
+  "description": "Three source-bound accounting identity reconstruction fixtures; software cases, not forecasts or source authentication. Source fields cite original disclosure; NHY IFRS report company APM remains distinct and displayed gap1 withheld.",
+  "fixtures": [
+    {
+      "case_id": "AMZN_Q3_2026_REPORTED_OPERATING_INCOME",
+      "sidecar": {
+        "schema_version": "1.0",
+        "ticker": "AMZN",
+        "additive_identities": [
+          {
+            "identity_id": "identity_1",
+            "label": "Consolidated reported operating income",
+            "context": {
+              "entity": "Amazon.com, Inc.",
+              "metric": "operating_income",
+              "basis": "reported",
+              "currency": "USD",
+              "scale": "millions",
+              "period_start": "2026-07-01",
+              "period_end": "2026-09-30",
+              "period_basis": "standalone_flow",
+              "period_label": "Q3 2026",
+              "scope": "consolidated_group",
+              "accounting_standard": "US_GAAP"
+            },
+            "total": {
+              "value": 28076,
+              "source": "Q3 2026 Form10-Q, Note8 Segment Information,p24, three months endedSeptember30,2026; saved SEC readerL930\u2013933.",
+              "context": {
+                "entity": "Amazon.com, Inc.",
+                "metric": "operating_income",
+                "basis": "reported",
+                "currency": "USD",
+                "scale": "millions",
+                "period_start": "2026-07-01",
+                "period_end": "2026-09-30",
+                "period_basis": "standalone_flow",
+                "period_label": "Q3 2026",
+                "scope": "consolidated_group",
+                "accounting_standard": "US_GAAP"
+              },
+              "coverage": [
+                "north_america",
+                "international",
+                "aws"
+              ]
+            },
+            "components": [
+              {
+                "component_id": "north_america",
+                "label": "North America",
+                "value": 8723,
+                "source": "Same table, readerL915\u2013918.",
+                "context": {
+                  "entity": "Amazon.com, Inc.",
+                  "metric": "operating_income",
+                  "basis": "reported",
+                  "currency": "USD",
+                  "scale": "millions",
+                  "period_start": "2026-07-01",
+                  "period_end": "2026-09-30",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q3 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "US_GAAP"
+                },
+                "coverage": [
+                  "north_america"
+                ]
+              },
+              {
+                "component_id": "international",
+                "label": "International",
+                "value": 1580,
+                "source": "Same table, readerL920\u2013923.",
+                "context": {
+                  "entity": "Amazon.com, Inc.",
+                  "metric": "operating_income",
+                  "basis": "reported",
+                  "currency": "USD",
+                  "scale": "millions",
+                  "period_start": "2026-07-01",
+                  "period_end": "2026-09-30",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q3 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "US_GAAP"
+                },
+                "coverage": [
+                  "international"
+                ]
+              },
+              {
+                "component_id": "aws",
+                "label": "AWS",
+                "value": 17773,
+                "source": "Same table, readerL925\u2013928.",
+                "context": {
+                  "entity": "Amazon.com, Inc.",
+                  "metric": "operating_income",
+                  "basis": "reported",
+                  "currency": "USD",
+                  "scale": "millions",
+                  "period_start": "2026-07-01",
+                  "period_end": "2026-09-30",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q3 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "US_GAAP"
+                },
+                "coverage": [
+                  "aws"
+                ]
+              }
+            ],
+            "conditional_profiles": [
+              {
+                "profile_id": "held_reference_q4_2026",
+                "label": "Q4 2026 held AWS reference",
+                "target_period_start": "2026-10-01",
+                "target_period_end": "2026-12-31",
+                "target_period_basis": "standalone_flow",
+                "target_period_label": "Q4 2026",
+                "assumption": "Conditional historical-reference hold only, not a Q4 prediction.",
+                "component_holds": {
+                  "aws": "Assume Q3 2026 reported AWS operating income is held into Q4 2026."
+                },
+                "residual": {
+                  "value": null,
+                  "assumption": null
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "operation": "additive",
+        "identity_id": "identity_1",
+        "mode": "remainder",
+        "remainder_component_ids": [
+          "north_america",
+          "international"
+        ],
+        "question": "Using the Q3 2026 consolidated operating income identity, how much is North America plus International?"
+      },
+      "expected": {
+        "selected_component_or_group": [
+          "north_america",
+          "international"
+        ],
+        "displayed_sum": 28076,
+        "displayed_gap": 0,
+        "required_remainder": 10303,
+        "status": "computed",
+        "reason": "Known reported-table reconstruction only; no future forecast."
+      }
+    },
+    {
+      "case_id": "ALPHABET_Q3_2026_REPORTED_OPERATING_INCOME",
+      "sidecar": {
+        "schema_version": "1.0",
+        "ticker": "GOOGL",
+        "additive_identities": [
+          {
+            "identity_id": "identity_2",
+            "label": "Total income from operations",
+            "context": {
+              "entity": "Alphabet Inc.",
+              "metric": "operating_income",
+              "basis": "reported",
+              "currency": "USD",
+              "scale": "millions",
+              "period_start": "2026-07-01",
+              "period_end": "2026-09-30",
+              "period_basis": "standalone_flow",
+              "period_label": "Q3 2026",
+              "scope": "consolidated_group",
+              "accounting_standard": "US_GAAP"
+            },
+            "total": {
+              "value": 40576,
+              "source": "Supplied Q3 2026 Form10-Q, Note15, three months endedSeptember30,2026; canonical22128\u201322143.",
+              "context": {
+                "entity": "Alphabet Inc.",
+                "metric": "operating_income",
+                "basis": "reported",
+                "currency": "USD",
+                "scale": "millions",
+                "period_start": "2026-07-01",
+                "period_end": "2026-09-30",
+                "period_basis": "standalone_flow",
+                "period_label": "Q3 2026",
+                "scope": "consolidated_group",
+                "accounting_standard": "US_GAAP"
+              },
+              "coverage": [
+                "google_services",
+                "google_cloud",
+                "other_bets",
+                "alphabet_level_activities"
+              ]
+            },
+            "components": [
+              {
+                "component_id": "google_services",
+                "label": "Google Services",
+                "value": 39157,
+                "source": "Same table canonical22005\u201322020.",
+                "context": {
+                  "entity": "Alphabet Inc.",
+                  "metric": "operating_income",
+                  "basis": "reported",
+                  "currency": "USD",
+                  "scale": "millions",
+                  "period_start": "2026-07-01",
+                  "period_end": "2026-09-30",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q3 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "US_GAAP"
+                },
+                "coverage": [
+                  "google_services"
+                ]
+              },
+              {
+                "component_id": "google_cloud",
+                "label": "Google Cloud",
+                "value": 11121,
+                "source": "Same table canonical22044\u201322053.",
+                "context": {
+                  "entity": "Alphabet Inc.",
+                  "metric": "operating_income",
+                  "basis": "reported",
+                  "currency": "USD",
+                  "scale": "millions",
+                  "period_start": "2026-07-01",
+                  "period_end": "2026-09-30",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q3 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "US_GAAP"
+                },
+                "coverage": [
+                  "google_cloud"
+                ]
+              },
+              {
+                "component_id": "other_bets",
+                "label": "Other Bets",
+                "value": -2047,
+                "source": "Same table canonical22071\u201322081; parentheses denote loss.",
+                "context": {
+                  "entity": "Alphabet Inc.",
+                  "metric": "operating_income",
+                  "basis": "reported",
+                  "currency": "USD",
+                  "scale": "millions",
+                  "period_start": "2026-07-01",
+                  "period_end": "2026-09-30",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q3 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "US_GAAP"
+                },
+                "coverage": [
+                  "other_bets"
+                ]
+              },
+              {
+                "component_id": "alphabet_level_activities",
+                "label": "Alphabet-level activities",
+                "value": -7655,
+                "source": "Same table canonical22099\u201322111; parentheses denote cost/loss.",
+                "context": {
+                  "entity": "Alphabet Inc.",
+                  "metric": "operating_income",
+                  "basis": "reported",
+                  "currency": "USD",
+                  "scale": "millions",
+                  "period_start": "2026-07-01",
+                  "period_end": "2026-09-30",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q3 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "US_GAAP"
+                },
+                "coverage": [
+                  "alphabet_level_activities"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "operation": "additive",
+        "identity_id": "identity_2",
+        "mode": "remainder",
+        "remainder_component_ids": [
+          "google_cloud"
+        ],
+        "question": "Using the Q3 2026 consolidated operating income identity, how much is Google Cloud?"
+      },
+      "expected": {
+        "selected_component_or_group": [
+          "google_cloud"
+        ],
+        "displayed_sum": 40576,
+        "displayed_gap": 0,
+        "required_remainder": 11121,
+        "status": "computed",
+        "reason": "Known reported-table reconstruction only; no future forecast."
+      }
+    },
+    {
+      "case_id": "NHY_Q1_2026_COMPANY_ADJUSTED_EBITDA",
+      "sidecar": {
+        "schema_version": "1.0",
+        "ticker": "NHY",
+        "additive_identities": [
+          {
+            "identity_id": "identity_3",
+            "label": "Company Adjusted EBITDA",
+            "context": {
+              "entity": "Norsk Hydro ASA",
+              "metric": "adjusted_EBITDA",
+              "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+              "currency": "NOK",
+              "scale": "millions",
+              "period_start": "2026-01-01",
+              "period_end": "2026-03-31",
+              "period_basis": "standalone_flow",
+              "period_label": "Q1 2026",
+              "scope": "consolidated_group",
+              "accounting_standard": "IFRS"
+            },
+            "total": {
+              "value": 8668,
+              "source": "First quarter report2026,p5 key financials/APM footnote; canonical158\u2013169.",
+              "context": {
+                "entity": "Norsk Hydro ASA",
+                "metric": "adjusted_EBITDA",
+                "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+                "currency": "NOK",
+                "scale": "millions",
+                "period_start": "2026-01-01",
+                "period_end": "2026-03-31",
+                "period_basis": "standalone_flow",
+                "period_label": "Q1 2026",
+                "scope": "consolidated_group",
+                "accounting_standard": "IFRS"
+              },
+              "coverage": [
+                "bauxite_and_alumina",
+                "energy",
+                "aluminium_metal",
+                "metal_markets",
+                "extrusions",
+                "other_and_eliminations"
+              ]
+            },
+            "components": [
+              {
+                "component_id": "bauxite_and_alumina",
+                "label": "Bauxite and Alumina",
+                "value": 747,
+                "source": "Same p5 table canonical163.",
+                "context": {
+                  "entity": "Norsk Hydro ASA",
+                  "metric": "adjusted_EBITDA",
+                  "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+                  "currency": "NOK",
+                  "scale": "millions",
+                  "period_start": "2026-01-01",
+                  "period_end": "2026-03-31",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q1 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "IFRS"
+                },
+                "coverage": [
+                  "bauxite_and_alumina"
+                ]
+              },
+              {
+                "component_id": "energy",
+                "label": "Energy",
+                "value": 787,
+                "source": "Same p5 table canonical164.",
+                "context": {
+                  "entity": "Norsk Hydro ASA",
+                  "metric": "adjusted_EBITDA",
+                  "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+                  "currency": "NOK",
+                  "scale": "millions",
+                  "period_start": "2026-01-01",
+                  "period_end": "2026-03-31",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q1 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "IFRS"
+                },
+                "coverage": [
+                  "energy"
+                ]
+              },
+              {
+                "component_id": "aluminium_metal",
+                "label": "Aluminium Metal",
+                "value": 5034,
+                "source": "Same p5 table canonical165.",
+                "context": {
+                  "entity": "Norsk Hydro ASA",
+                  "metric": "adjusted_EBITDA",
+                  "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+                  "currency": "NOK",
+                  "scale": "millions",
+                  "period_start": "2026-01-01",
+                  "period_end": "2026-03-31",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q1 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "IFRS"
+                },
+                "coverage": [
+                  "aluminium_metal"
+                ]
+              },
+              {
+                "component_id": "metal_markets",
+                "label": "Metal Markets",
+                "value": 541,
+                "source": "Same p5 table canonical166.",
+                "context": {
+                  "entity": "Norsk Hydro ASA",
+                  "metric": "adjusted_EBITDA",
+                  "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+                  "currency": "NOK",
+                  "scale": "millions",
+                  "period_start": "2026-01-01",
+                  "period_end": "2026-03-31",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q1 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "IFRS"
+                },
+                "coverage": [
+                  "metal_markets"
+                ]
+              },
+              {
+                "component_id": "extrusions",
+                "label": "Extrusions",
+                "value": 1299,
+                "source": "Same p5 table canonical167.",
+                "context": {
+                  "entity": "Norsk Hydro ASA",
+                  "metric": "adjusted_EBITDA",
+                  "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+                  "currency": "NOK",
+                  "scale": "millions",
+                  "period_start": "2026-01-01",
+                  "period_end": "2026-03-31",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q1 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "IFRS"
+                },
+                "coverage": [
+                  "extrusions"
+                ]
+              },
+              {
+                "component_id": "other_and_eliminations",
+                "label": "Other and eliminations",
+                "value": 259,
+                "source": "Same p5 table canonical168.",
+                "context": {
+                  "entity": "Norsk Hydro ASA",
+                  "metric": "adjusted_EBITDA",
+                  "basis": "company_adjusted:Hydro_Adjusted_EBITDA",
+                  "currency": "NOK",
+                  "scale": "millions",
+                  "period_start": "2026-01-01",
+                  "period_end": "2026-03-31",
+                  "period_basis": "standalone_flow",
+                  "period_label": "Q1 2026",
+                  "scope": "consolidated_group",
+                  "accounting_standard": "IFRS"
+                },
+                "coverage": [
+                  "other_and_eliminations"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "operation": "additive",
+        "identity_id": "identity_3",
+        "mode": "remainder",
+        "remainder_component_ids": [
+          "aluminium_metal"
+        ],
+        "question": "Using the Q1 2026 company-adjusted EBITDA identity, how much is Aluminium Metal?"
+      },
+      "expected": {
+        "selected_component_or_group": [
+          "aluminium_metal"
+        ],
+        "displayed_sum": 8667,
+        "displayed_gap": 1,
+        "required_remainder": null,
+        "status": "withheld_unresolved_displayed_gap",
+        "reason": "Do not assign displayed gap1 to the selected component."
+      }
+    }
+  ]
+}

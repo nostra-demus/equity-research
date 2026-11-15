@@ -107,7 +107,7 @@ import { readValuationSummary, readOverrides, appendOverride } from './valuation
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn, warmCodexChatRuntime } from './chat-llm'
 import { publicChatModelCatalogue, resolveChatRequestModel } from './chat-models'
-import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
+import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, runAdditiveAccounting, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
 import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
 import { selectCallMemories } from './call-learning'
@@ -6320,7 +6320,25 @@ app.post('/api/chat', async (req, reply) => {
   const computedPayloads: unknown[] = []
   let parserCostUsd = 0 // the what-if parse's cost — folded into the turn's reported/persisted cost
   try {
-    if (detectWhatIf(last.content)) {
+    // The parser is shared by both deterministic operations and still uses the selected turn model/budget.
+    // Neither the parser nor the answer model is allowed to do the accounting arithmetic.
+    const parserCall = async (system: string, user: string) => {
+      let out = ''
+      const r = await runChatTurn({
+        system, user, model, signal: ac.signal,
+        timeoutMs: CHAT.parserTimeoutMs, thinkingTokens: 0, budgetUsd: CHAT.parserBudgetUsd,
+        onToken: (t) => { out += t },
+      })
+      parserCostUsd += r.costUsd || 0
+      return r.error ? null : out
+    }
+    // Accounting identities also support numberless recorded reconstructions. This real loader-to-CLI
+    // path precedes the digit-only coefficient gate. Its typed result/refusal is backend context only:
+    // no fake sensitivity card, causal coefficient, repricing or carried-forward scenario is created.
+    const additive = await runAdditiveAccounting(runRoot, last.content, parserCall, ac.signal, () => send({ type: 'chat-status', stage: 'modeling' }))
+    if (additive) {
+      computedBlock = additive.context
+    } else if (detectWhatIf(last.content)) {
       const loaded = loadSidecar(runRoot)
       if (loaded) {
         // 'modeling' covers the whole parse→compute span; runs without a sidecar never reach here (no flicker).
@@ -6329,16 +6347,6 @@ app.post('/api/chat', async (req, reply) => {
         // off, a tight timeout, and its OWN small $ ceiling (never a second full turn budget). The model
         // only interprets; validateIntents rejects anything it invents; the engine computes. Its cost is
         // captured and folded into the turn's reported/persisted cost below.
-        const parserCall = async (system: string, user: string) => {
-          let out = ''
-          const r = await runChatTurn({
-            system, user, model, signal: ac.signal,
-            timeoutMs: CHAT.parserTimeoutMs, thinkingTokens: 0, budgetUsd: CHAT.parserBudgetUsd,
-            onToken: (t) => { out += t },
-          })
-          parserCostUsd += r.costUsd || 0
-          return r.error ? null : out
-        }
         const pr = await parseWhatIf(last.content, loaded.sidecar, parserCall)
         const v = pr ? validateIntents(pr, last.content, loaded.sidecar) : null
         if (v?.plans.length) {
