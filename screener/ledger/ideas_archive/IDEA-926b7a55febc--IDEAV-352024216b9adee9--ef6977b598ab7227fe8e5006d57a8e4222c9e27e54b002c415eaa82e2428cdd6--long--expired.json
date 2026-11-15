@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-15T12:58:44Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-926b7a55febc",
+    "idea_version": "IDEAV-352024216b9adee9",
+    "idea_version_started_at": "2026-11-12T19:23:01Z",
+    "ticker": "02221",
+    "company": "New Concepts Holdings",
+    "exchange": "HKEX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company issued a positive profit alert indicating a turnaround from loss to profit, suggesting a material improvement in operational margins.",
+    "why_now": "The official profit alert filing was released on November 12, 2026.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 20,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-6545fe1e19d6"
+    ],
+    "primary_source_event_id": "EVT-6545fe1e19d6",
+    "source_headlines": [
+      "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT"
+    ],
+    "source_headline": "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201398.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-12T12:45:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-12T19:23:01Z",
+    "updated_at": "2026-11-12T19:23:01Z",
+    "decay_at": "2026-11-14T00:45:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
