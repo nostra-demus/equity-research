@@ -718,6 +718,22 @@ viol.extend(rc.eval_bb_sector_cycle_compounding_cap(_live_date, _v02_txt, _v03_t
 # pinned on a rerun so gating on it would make this check permanently N/A on the ordinary rerun path).
 _v04_txt = _read_orb("valuation", "04_*.md")
 viol.extend(rc.eval_bd_cost_of_capital_reality_test(_live_date, _v04_txt) or [])
+# check BJ — §16 "no double-charging a quality gap" (live pre-publish; mirrors eval.py check BJ via
+# scripts/sector_valuation_checks.py, the §16 module check W already imports as `svc`). On an earnings-based
+# multiple (EV/EBITDA, EV/EBIT, P/E, P/FCF) the weaker margin is already in the denominator, so a haircut
+# sized as `own margin ÷ peer margin` charges it twice (03's DOUBLE-COUNT TEST). Flags (F) that formula in
+# 03's prose, (L) a ledger row that says "Yes — in the denominator" yet sizes its adjustment by a margin
+# ratio, (P) a sidecar-recorded earnings-multiple haircut with no quality-adjustment ledger in 03. Defect it
+# closes: HAIER_2026-08-13 based its peers BASE case on `9.71x × (8.7% / 11.5%) = 7.35x` LTM EV/EBITDA —
+# the doctrine's own example, shipped clean. `_live_date` for the same rerun-safety reason as BB/BD above.
+_bj_pi = None
+try:
+    with open(os.path.join(run, "valuation", "valuation_summary.json"), encoding="utf-8") as _fh:
+        _bj_sc = json.load(_fh)
+    _bj_pi = _bj_sc.get("peers_internals") if isinstance(_bj_sc, dict) else None
+except (OSError, ValueError, UnicodeDecodeError):
+    pass  # absent/unreadable sidecar is AP's finding below; BJ still judges rules F and L on 03's text
+viol.extend(svc.eval_bj_quality_double_count(_live_date, _v03_txt, _bj_pi) or [])
 # check BE — §15 driver-attribution residual, earnings decomposition/bridge (live pre-publish; mirrors
 # eval.py check BE via scripts/rating_caps.py, same shared detection module as BB above). Mechanizes
 # earnings/MODULE_RULES.md's Driver Attribution rule (CLAUDE.md §15): 02_revenue-drivers.md §6a and

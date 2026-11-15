@@ -261,6 +261,20 @@ from ledger_records import resolve_integrity_status, supersession_target_violati
 # Import (not copy): eval.py is the single caller of this function for retrospective grading;
 # sector_valuation_checks.py is the single source of the detection logic, imported by both callers.
 from sector_valuation_checks import SECTOR_DATE, _FIN_INSTITUTION_FORBIDDEN, SECTOR_FORBIDDEN, eval_w_sector_valuation
+# Check BJ (§16 no double-charging a quality gap) lives in the same §16 module, for the same two callers.
+from sector_valuation_checks import BJ_DATE, eval_bj_quality_double_count
+
+def _bj_inputs(run):
+    """(03 peers-orb markdown or None, valuation_summary.json peers_internals or None) for check BJ."""
+    md=None; pi=None
+    try:
+        with open(os.path.join(run,"valuation","03_relative-valuation-peers.md"),encoding="utf-8") as fh: md=fh.read()
+    except (OSError,UnicodeDecodeError): pass
+    try:
+        with open(os.path.join(run,"valuation","valuation_summary.json"),encoding="utf-8") as fh: sc=json.load(fh)
+        pi=sc.get("peers_internals") if isinstance(sc,dict) else None
+    except (OSError,ValueError,UnicodeDecodeError): pass
+    return md,pi
 
 # ── Check X (conviction-run evidence-integrity floor) — module-level so `eval.py selftest` can drive it ──
 # A run in a conviction basket (Selected/Short) dated >= VERIFY_FLOOR_DATE must carry a verify-evidence
@@ -2869,6 +2883,43 @@ if scope=="selftest":
         if not ok: bibad+=1
         print(f"  [{'ok' if ok else 'XX'}] BI({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=bibad
+    # BJ — §16 no double-charging a quality gap. No committed run reaches BJ_DATE, so drive every branch
+    # here. RED: the REAL HAIER_2026-08-13 03 §5 line (the doctrine's own example) and its sidecar; the
+    # pre-ledger ORCL/UBER/NHY shape (earnings-multiple haircut, no ledger). GREEN: the real look-alikes —
+    # NIVABUPA's ROE-scaled P/TangBV (§16 allows a return haircut on book), BURL/V ledgers that adjust for a
+    # named non-margin reason, NU's no-adjustment rows, a premium, an orb quoting the formula to reject it.
+    BJ=eval_bj_quality_double_count
+    _bj_haier=("This ratio is applied as a haircut to the peer median EV/EBITDA multiple: `9.71x × (8.7% / 11.5%) = "
+               "7.35x`. This is this agent's own method, chosen because EV/EBITDA (unlike EV/Sales or P/E) does not "
+               "already normalize for margin differences.")
+    _bj_hd="| Multiple adjusted | Peer median | Adjusted to | Gap already in the denominator? | What the extra adjustment pays for | How it was sized |\n|---|---:|---:|---|---|---|\n"
+    _bj_burl=_bj_hd+"| NTM P/E | 25.925x | 23.333x | Yes — EPS already contains the lower margin | Narrow moat; **not** lower margin | 10% judgment discount |\n"
+    _bj_pi=lambda m,med,app:{"metric_name":m,"median_multiple":med,"applied_multiple":app}
+    bjcases=[
+        ("2026-11-14",_bj_haier,_bj_pi("EV/LTM EBITDA",9.71,7.35),None),                                   # predates BJ_DATE
+        ("2026-11-15",None,None,None),                                                                     # no peers orb
+        ("2026-11-15",_bj_haier,None,["double count","9.71x × (8.7% / 11.5%"]),                             # HAIER (real), rule F
+        ("2026-11-15",_bj_haier,_bj_pi("EV/LTM EBITDA",9.71,7.35),["double count","unaudited haircut"]),    # HAIER + sidecar, F + P
+        ("2026-11-15","Peer median applied unadjusted.",_bj_pi("NTM EV/EBITDA",15.19,11.5),["unaudited haircut","24.3%"]),  # ORCL shape
+        ("2026-11-15",_bj_burl,_bj_pi("NTM P/E",25.925,23.333),[]),                                        # BURL (real): ledgered, non-margin reason
+        ("2026-11-15",_bj_hd+"| NTM EV/EBITDA | 10.0x | 7.6x | Yes | margin gap | `10.0x × (8.7% / 11.5%)` |\n",None,
+         ["ledger row","denominator"]),                                                                    # rule L
+        ("2026-11-15",_bj_hd+"| NTM P/E | 7.61x | 7.61x | **Yes** | No adjustment | 8.7% / 11.5% not applied |\n",None,[]),  # no adjustment
+        ("2026-11-15",_bj_hd+"| EV/Sales | 5.35x | 4.55x | No — revenue is margin-blind | margin | 39.4% / 48.1% |\n",None,[]),  # §16-allowed
+        ("2026-11-15","Quality adjustment: ICICI Lombard P/TangBV of 5.5× × (10.7% / 17.8% ROE) margin-free.",None,[]),  # NIVABUPA (real): book
+        ("2026-11-15","`9.71x × (8.7% / 11.5%)` on EV/EBITDA margin would double-count the gap, so it is not used.",None,[]),  # self-aware
+        ("2026-11-15","EV/EBITDA margin 21.7% vs 21.9% — no gap.",_bj_pi("NTM P/E",22.06,24.5),[]),       # a premium charges nothing
+        ("2026-11-15","no ledger",_bj_pi("NTM EV/Sales",0.93,0.8),[]),                                      # revenue multiple: allowed
+    ]
+    bjbad=0
+    for dt_,md_,pi_,exp in bjcases:
+        got=BJ(dt_,md_,pi_)
+        if exp is None: ok=(got is None)
+        elif not exp:   ok=(isinstance(got,list) and len(got)==0)
+        else:           ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
+        if not ok: bjbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BJ({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=bjbad
 
     # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
     # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
@@ -4818,6 +4869,16 @@ for drp in runs:
         add("BI_fx_conversion_consistency",False,"; ".join(biresult))
     else:
         add("BI_fx_conversion_consistency",True,"every currency conversion in the run implies a consistent rate per currency pair")
+    # BJ §16 no double-charging a quality gap (forward-looking; landing BJ_DATE) — an earnings-multiple
+    #   haircut sized as own margin ÷ peer margin, or recorded with no quality-adjustment ledger.
+    bj_md,bj_pi=_bj_inputs(run)
+    bjresult=eval_bj_quality_double_count(ddte,bj_md,bj_pi)
+    if bjresult is None:
+        add("BJ_quality_double_count",True,f"run predates the gate ({ddte}) or has no peers orb — N/A",na=True)
+    elif bjresult:
+        add("BJ_quality_double_count",False,"; ".join(bjresult))
+    else:
+        add("BJ_quality_double_count",True,"no earnings-multiple haircut is sized by the margin gap the denominator already carries")
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
@@ -4935,6 +4996,11 @@ for drp in runs:
         if r:
             retro.append({"check":"BI_fx_conversion_consistency","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates BI_DATE ({BI_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if bjresult is None:
+        r=eval_bj_quality_double_count(BJ_DATE,bj_md,bj_pi)
+        if r:
+            retro.append({"check":"BJ_quality_double_count","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BJ_DATE ({BJ_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     if bhresult is None:
         r=eval_bh_net_debt_basis_label(BH_DATE,thesis)
         if r:
@@ -5034,9 +5100,10 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","eval_bj_quality_double_count","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one","BI_DATE","eval_bi_fx_conversion_consistency","_BI_PAIR"],
+ "scripts/sector_valuation_checks.py":["SECTOR_DATE","eval_w_sector_valuation","BJ_DATE","eval_bj_quality_double_count","_BJ_FORMULA","_bj_ledger_rows"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  # BF — without this row the whole basis-check module could be deleted and the suite would still
  # print PASS, which is the hole this registry exists to close (see its own comment above).
