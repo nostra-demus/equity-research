@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-301c9958417a",
-  "idea_version": "IDEAV-f84033bb08f889ea",
-  "idea_version_started_at": "2026-11-14T18:53:54Z",
+  "idea_version": "IDEAV-de3e71f17fb8c0ef",
+  "idea_version_started_at": "2026-11-15T08:50:06Z",
   "ticker": "META",
   "company": "Meta Platforms",
   "exchange": "NASDAQ",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The 805 million euro fine represents a direct, unhedged hit to net income and sets a negative precedent for regulatory scrutiny regarding data privacy practices in the EU.",
-  "why_now": "The fine was announced on 2026-11-14, creating immediate downward pressure on earnings expectations.",
-  "conviction": 65,
+  "reason": "Italy's €805 million fine for unauthorized user photo access will hurt Meta's revenue and margins.",
+  "why_now": "The fine was announced on 2026-11-15, creating an immediate regulatory hit.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 73,
+  "trade_score": 66,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,13 +23,14 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,19 +47,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-c69a16d63dd0",
-    "EVT-31a467b1ce15"
+    "EVT-eb5b47f822f9"
   ],
-  "primary_source_event_id": "EVT-c69a16d63dd0",
+  "primary_source_event_id": "EVT-eb5b47f822f9",
   "source_headlines": [
-    "Italy Fines Meta \"805 Million Over Access To Users' Photos",
-    "Italy fines Meta $880 million over accessing users' photos"
+    "Italy fines Meta €805 mn over unauthorized access to user photos"
   ],
-  "source_headline": "Italy Fines Meta \"805 Million Over Access To Users' Photos",
-  "source_url": "https://www.ndtvprofit.com/business/italy-fines-meta-805-million-over-access-to-users-photos-12327825#publisher=newsstand",
-  "source_name": "NDTV Profit",
+  "source_headline": "Italy fines Meta €805 mn over unauthorized access to user photos",
+  "source_url": "https://www.gulf-times.com/article/738222/business/italy-fines-meta-805-mn-over-unauthorized-access-to-user-photos",
+  "source_name": "Gulf Times — Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-14T18:33:08Z",
+  "newest_source_at": "2026-11-15T08:29:00Z",
   "prior_coverage": {
     "has_run": true,
     "latest_run": "analyses/META_2026-08-31",
@@ -66,8 +65,8 @@
     "data_pool_present": true
   },
   "surfaced_at": "2026-11-14T18:15:10Z",
-  "updated_at": "2026-11-14T18:53:54Z",
-  "decay_at": "2026-11-16T06:33:08Z",
+  "updated_at": "2026-11-15T08:50:06Z",
+  "decay_at": "2026-11-16T20:29:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
