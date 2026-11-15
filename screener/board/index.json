@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T16:49:07Z",
+  "generated_at": "2026-11-15T16:50:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -93,6 +93,60 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-256",
+      "headline": "Hindalco arm Novelis to sell China assets for ₹2,490 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/hindalco-arm-novelis-to-sell-china-assets-for-2490-cr/article71705618.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T16:38:22Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Novelis, a subsidiary of Hindalco, is divesting China assets for 24.9 billion INR, impacting capital structure and operational footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novelis, a subsidiary of Hindalco, is divesting China assets for 24.9 billion INR, impacting capital structure and operational footprint.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindalco Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Novelis",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1865,50 +1919,6 @@
         "regulatory"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-198",
-      "headline": "US aviation regulator to audit India's aviation safety oversight standards",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/us-aviation-regulator-to-audit-indias-aviation-safety-oversight-standards-4219109",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T10:20:23Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A US aviation regulator auditing India's safety standards could lead to significant regulatory changes or restrictions for Indian aviation companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A US aviation regulator auditing India's safety standards could lead to significant regulatory changes or restrictions for Indian aviation companies.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
