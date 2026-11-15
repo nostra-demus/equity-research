@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T11:22:38Z",
+  "generated_at": "2026-11-15T11:23:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-205",
@@ -240172,6 +240172,149 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8a29f9caadb3",
+      "idea_version": "IDEAV-ac18a486e1df77fe",
+      "idea_version_started_at": "2026-11-15T11:22:53Z",
+      "ticker": "00017",
+      "company": "New World Development",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of a massive rights issue (11 shares for every 1 held) indicates severe balance sheet stress and will result in significant equity dilution for existing shareholders.",
+      "why_now": "The exchange filing detailing the dilutive capital action was released today, November 15, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ed192a3f80e8"
+      ],
+      "primary_source_event_id": "EVT-ed192a3f80e8",
+      "source_headlines": [
+        "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ELEVEN (11) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A FU"
+      ],
+      "source_headline": "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ELEVEN (11) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A FU",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T10:58:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T11:22:53Z",
+      "updated_at": "2026-11-15T11:22:53Z",
+      "decay_at": "2026-11-16T22:58:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9a4fb8f4339f",
+      "idea_version": "IDEAV-c0a2914f052fdcec",
+      "idea_version_started_at": "2026-11-15T11:22:53Z",
+      "ticker": "KAYNES",
+      "company": "Kaynes Technology",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 62% crash in quarterly profit due to rising costs, indicating significant margin compression that is likely to persist as operational expenses outpace revenue growth.",
+      "why_now": "The earnings report was released today, November 15, 2026, and the market has yet to fully digest the impact of the margin collapse.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7815932bf1be"
+      ],
+      "primary_source_event_id": "EVT-7815932bf1be",
+      "source_headlines": [
+        "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth"
+      ],
+      "source_headline": "Kaynes Technology Q2 Profit Crashes 62% To ₹45 Crore, Rising Costs Hit Margins Despite Revenue Growth",
+      "source_url": "https://www.freepressjournal.in/business/kaynes-technology-q2-profit-crashes-62-to-45-crore-rising-costs-hit-margins-despite-revenue-growth",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T08:58:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T04:40:32Z",
+      "updated_at": "2026-11-15T11:22:53Z",
+      "decay_at": "2026-11-16T20:58:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4910fe8eea23",
       "idea_version": "IDEAV-0f019eba0c98e8a5",
       "idea_version_started_at": "2026-11-15T10:34:12Z",
@@ -242179,78 +242322,6 @@
       "surfaced_at": "2026-11-15T03:10:58Z",
       "updated_at": "2026-11-15T03:10:58Z",
       "decay_at": "2026-11-16T14:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9a4fb8f4339f",
-      "idea_version": "IDEAV-3efe397932656c49",
-      "idea_version_started_at": "2026-11-15T04:40:32Z",
-      "ticker": "KAYNES",
-      "company": "Kaynes Technology India Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company missed Q2 earnings expectations due to significantly higher operating expenses despite revenue growth.",
-      "why_now": "The Q2 results were just released on November 15, 2024, creating an immediate negative catalyst for the stock price.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e7e0c73cbe7e"
-      ],
-      "primary_source_event_id": "EVT-e7e0c73cbe7e",
-      "source_headlines": [
-        "Kaynes Tech Q2 Results: Higher expenses result in earnings miss; Announces JV with Toyokawa Techno"
-      ],
-      "source_headline": "Kaynes Tech Q2 Results: Higher expenses result in earnings miss; Announces JV with Toyokawa Techno",
-      "source_url": "https://www.cnbctv18.com/market/kaynes-tech-q2-results-revenue-expenses-margins-toyokawa-jv-cash-flow-metrics-share-price-20034225.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 90,
-      "newest_source_at": "2026-11-15T04:08:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-15T04:40:32Z",
-      "updated_at": "2026-11-15T04:40:32Z",
-      "decay_at": "2026-11-16T16:08:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -245828,77 +245899,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-31ac6088f15f",
-      "idea_version": "IDEAV-9fb9aceec602a756",
-      "idea_version_started_at": "2026-11-12T16:29:30Z",
-      "ticker": "00922",
-      "company": "Anxianyuan China",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings growth.",
-      "why_now": "The positive profit alert was filed on 2026-11-12.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6d46457b612f"
-      ],
-      "primary_source_event_id": "EVT-6d46457b612f",
-      "source_headlines": [
-        "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201118.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-12T11:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-12T16:29:30Z",
-      "updated_at": "2026-11-12T16:29:30Z",
-      "decay_at": "2026-11-13T23:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5880efc59f2d",
       "idea_version": "IDEAV-75d5d0ba16547141",
       "idea_version_started_at": "2026-11-12T16:29:30Z",
@@ -245980,14 +245980,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       },
       "short": {
         "total_count": 274,
@@ -245997,12 +245997,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1914,
+      "evicted_count": 1915,
       "oldest_retained_at": "2026-10-21T11:01:14Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1256,
-          "oldest_retained_at": "2026-11-02T13:45:34Z"
+          "evicted_count": 1257,
+          "oldest_retained_at": "2026-11-02T14:00:00Z"
         },
         "short": {
           "evicted_count": 659,
@@ -249270,8 +249270,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-13T23:08:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-15T11:23:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -283122,8 +283122,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2504,
-    "live_count": 46,
+    "surfaced_total": 2505,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
