@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-15T00:28:28Z",
+  "generated_at": "2026-11-15T00:38:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-010",
+      "headline": "Nvidia's Ousted CEO Said a 1-Gigawatt Data Center Delay Costs $10 Billion a Quarter. Here's Why That Matters for Power Stocks.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nvidias-ousted-ceo-said-1-gigawatt-data-center-delay-costs-10-billion-quarter-heres-why",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Nvidia's CEO indicates a 1-gigawatt data center delay results in a $10 billion quarterly revenue impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Nvidia's CEO indicates a 1-gigawatt data center delay results in a $10 billion quarterly revenue impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-008",
       "headline": "Single L3Harris router may have triggered US aviation system shutdown",
@@ -143,6 +192,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-012",
+      "headline": "SpaceX’s Starship captured by launchpad arms in dramatic first",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/15/spacexs-starship-captured-by-launchpad-arms-in-dramatic-first?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-15T00:14:22Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "SpaceX successfully captured the Starship launch vehicle, a significant technical milestone for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "SpaceX successfully captured the Starship launch vehicle, a significant technical milestone for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-013",
+      "headline": "Carney says he's 'making progress' with Trump on possible US-Canada trade deal",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/international/6221010-carney-trump-canada-us-trade-progress/",
+      "source_name": "The Hill — Business News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:26:46Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Progress on a potential US-Canada trade deal suggests a reduction in cross-border trade friction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Progress on a potential US-Canada trade deal suggests a reduction in cross-border trade friction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-006",
       "headline": "Uber Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Driver Data Is Exposed",
       "headline_en": null,
@@ -193,6 +334,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-011",
+      "headline": "Japan-led probe finds 1,000 servers likely used for AI-driven cyberattacks",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/91455",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A Japan-led investigation identified 1,000 servers used for AI-driven cyberattacks, highlighting systemic security risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "A Japan-led investigation identified 1,000 servers used for AI-driven cyberattacks, highlighting systemic security risks.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-001",
       "headline": "EZaccessMD Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Patient Data Is Exposed",
       "headline_en": null,
@@ -236,6 +420,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-014",
+      "headline": "Houthi drone shot down over Saudi Arabia's Eastern Region",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/houthi-drone-shot-down-over-saudi-arabias-eastern-region",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T00:36:10Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A military escalation involving drone attacks in Saudi Arabia's Eastern Region, a critical hub for global oil infrastructure, poses a significant geopolitical risk to energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A military escalation involving drone attacks in Saudi Arabia's Eastern Region, a critical hub for global oil infrastructure, poses a significant geopolitical risk to energy markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -280360,7 +280587,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4856,
+    "inbox_unconsumed": 4861,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -280369,9 +280596,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 43,
-    "news_picked_today": 9,
-    "news_dropped_today": 34
+    "news_seen_today": 68,
+    "news_picked_today": 14,
+    "news_dropped_today": 54
   },
   "book_momentum": {
     "live_count": 8,
