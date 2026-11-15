@@ -30,6 +30,7 @@ CATALOGUE_PATH = "frameworks/memory/phase0/catalogue.json"
 DATA_ROOTS = ("analyses/", "commodity/", "screener/", "watchlist/")
 IGNORED_NAMES = frozenset({".gitkeep"})
 MAX_PROPOSED_BYTES = 4 * 1024 * 1024
+VERSION_TOKEN = "{version}"
 
 
 class CatalogueError(RuntimeError):
@@ -137,11 +138,19 @@ def uncovered_paths(paths: list[str], patterns: list[str]) -> list[str]:
 
 
 def segment_glob(pattern: str) -> re.Pattern[str]:
-    """Compile repository globs: ``*`` stays in one segment; only ``**`` crosses ``/``."""
+    """Compile repository paths: ``*``/``?`` stay in one segment; ``**`` crosses ``/``.
+
+    ``{version}`` is one or more decimal digits, matching the canonical audit reader's
+    ``\\d+`` contract (including zero, leading zeros and Unicode decimal digits).
+    It grants filename coverage only; payload, identity, hash and seal checks still apply.
+    """
     translated: list[str] = []
     index = 0
     while index < len(pattern):
-        if pattern.startswith("**", index):
+        if pattern.startswith(VERSION_TOKEN, index):
+            translated.append(r"\d+")
+            index += len(VERSION_TOKEN)
+        elif pattern.startswith("**", index):
             translated.append(".*")
             index += 2
         elif pattern[index] == "*":
