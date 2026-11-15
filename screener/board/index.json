@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T07:15:59Z",
+  "generated_at": "2026-11-15T07:20:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-117",
@@ -643,6 +643,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-141",
+      "headline": "South Korea calms fears over 260,000 Nvidia chip order after Jensen Huang’s exit",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/asia/east-asia/article/3374477/south-korea-calms-fears-over-260000-nvidia-chip-order-after-jensen-huangs-exit",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T07:13:34Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Reports of a leadership change at Nvidia and potential disruption to a 260,000 chip order represent a significant operational and management risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Reports of a leadership change at Nvidia and potential disruption to a 260,000 chip order represent a significant operational and management risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,55 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-008",
-      "headline": "Single L3Harris router may have triggered US aviation system shutdown",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/single-l3harris-router-may-have-triggered-us-aviation-system-shutdown/article71703978.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:16:49Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "A technical failure in a critical aviation component manufactured by L3Harris Technologies may lead to regulatory scrutiny or liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A technical failure in a critical aviation component manufactured by L3Harris Technologies may lead to regulatory scrutiny or liability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "L3Harris Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282955,9 +282956,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 869,
-    "news_picked_today": 185,
-    "news_dropped_today": 684
+    "news_seen_today": 878,
+    "news_picked_today": 187,
+    "news_dropped_today": 691
   },
   "book_momentum": {
     "live_count": 8,
