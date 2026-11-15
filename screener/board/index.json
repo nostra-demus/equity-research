@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T03:11:31Z",
+  "generated_at": "2026-11-15T03:13:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -392,6 +392,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-069",
+      "headline": "Delhi Police Foil Alleged Firing Plot Targeting Amitabh Bachchan's Mumbai Residence, 2 Accused Arrested",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/entertainment/delhi-police-foil-alleged-firing-plot-targeting-amitabh-bachchans-mumbai-residence-2-accused-arrested",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T02:24:36Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "A security threat targeting a high-profile individual's residence involves police intervention and potential public safety concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A security threat targeting a high-profile individual's residence involves police intervention and potential public safety concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amitabh Bachchan",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,55 +1935,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-029",
-      "headline": "비블리안, 무신사 뷰티 성수·홍대점 입점…해외 고객 접점 확대",
-      "headline_en": "Biblian enters Musinsa Beauty Seongsu and Hongdae stores... expanding touchpoints with overseas customers",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281286",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Biblian expanding retail presence through Musinsa Beauty stores to reach more customers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Biblian expanding retail presence through Musinsa Beauty stores to reach more customers.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Biblian",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -282035,9 +282035,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 333,
-    "news_picked_today": 69,
-    "news_dropped_today": 264
+    "news_seen_today": 359,
+    "news_picked_today": 72,
+    "news_dropped_today": 287
   },
   "book_momentum": {
     "live_count": 8,
