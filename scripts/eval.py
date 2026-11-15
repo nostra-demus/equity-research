@@ -2911,6 +2911,8 @@ if scope=="selftest":
         ("2026-11-15","EV/EBITDA margin 21.7% vs 21.9% — no gap.",_bj_pi("NTM P/E",22.06,24.5),[]),       # a premium charges nothing
         ("2026-11-15","no ledger",_bj_pi("NTM EV/Sales",0.93,0.8),[]),                                      # revenue multiple: allowed
         ("2026-11-15","no ledger",_bj_pi("Debit-weighted EV ratio",10.0,8.0),[]),                           # 'ebit' inside 'debit' is not EBIT
+        ("2026-11-15","EV/Sales carries no margin unlike P/E, so we haircut 5.35x × (39.4% / 48.1%) for the margin gap.",None,[]),  # §16-allowed EV/Sales haircut; 'unlike P/E' is a contrast, not the target — must NOT fire
+        ("2026-11-15","We compare the peers and then haircut the P/E 25x × (8.7% / 11.5%) for the margin gap.",None,["double count"]),  # genuine earnings-multiple prose haircut (no contrastive marker) still fires
     ]
     # A data row that quotes the ledger header phrase is not parsed as a second ledger (header needs |---|).
     from sector_valuation_checks import _bj_ledger_rows

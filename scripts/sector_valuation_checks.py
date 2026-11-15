@@ -178,6 +178,12 @@ _BJ_BOOK = re.compile(r"\bP\s*/\s*(?:T(?:ang)?)?B(?:V|ook)?\b|\btangible book\b|
                       r"\bEV\s*/\s*(?:Sales|Revenue)\b", re.I)
 _BJ_MULT_NAME = re.compile(r"\bEV\s*/\s*(?:LTM\s+|NTM\s+)?(?:EBITDA|EBIT|Sales|Revenue)\b|\bP\s*/\s*(?:E|FCF|B|BV|TBV|TangBV|"
                            r"tangible book|book)\b", re.I)
+# A multiple named only to CONTRAST it against the real target ("…margin-blind unlike P/E", "…vs P/E")
+# is NOT the multiple the haircut is applied to. When such a marker sits immediately before a name, that
+# name is skipped in rule F's "nearest multiple before the formula" resolution — otherwise a §16-LEGITIMATE
+# EV/Sales or P/B margin haircut gets mis-attributed to the earnings multiple mentioned in passing and
+# wrongly flagged (the one direction this check must never fire; §16 permits margin haircuts on revenue/book).
+_BJ_CONTRAST = re.compile(r"\b(?:unlike|versus|vs\.?|whereas|rather than|compared to|relative to|not)\b[\s\w]{0,10}$", re.I)
 _BJ_SELF_AWARE = re.compile(r"double[\s-]?(?:count|charg)|\btwice\b", re.I)
 _BJ_LEDGER_HEAD = re.compile(r"gap already in the denominator", re.I)
 _BJ_NUM = re.compile(r"-?\d+(?:\.\d+)?")
@@ -235,7 +241,8 @@ def eval_bj_quality_double_count(decision_date, peers_md, peers_internals=None):
         m = _BJ_FORMULA.search(ln)
         if not m or not re.search(r"margin", ln, re.I) or _BJ_SELF_AWARE.search(ln):
             continue
-        before = list(_BJ_MULT_NAME.finditer(ln, 0, m.start()))
+        before = [mm for mm in _BJ_MULT_NAME.finditer(ln, 0, m.start())
+                  if not _BJ_CONTRAST.search(ln[:mm.start()])]
         after = _BJ_MULT_NAME.search(ln, m.start())
         target = before[-1].group(0) if before else (after.group(0) if after else "")
         if _BJ_EARN.search(target) and not _BJ_BOOK.search(target):
