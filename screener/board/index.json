@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-15T11:33:23Z",
+  "generated_at": "2026-11-15T11:43:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261115-216",
+      "headline": "BAIYUNSHAN PH (00874): (1) MAJOR TRANSACTION PROPOSED PUBLIC LISTING BY GP CORP. TO INTRODUCE STRATEGIC INVESTORS AND IMPLEMENT A PRIVATE PLACEMENT OF SHARES; AND (2) NOTICE OF THE EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T11:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Proposed public listing by a subsidiary to introduce strategic investors and implement a private placement of shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proposed public listing by a subsidiary to introduce strategic investors and implement a private placement of shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAIYUNSHAN PH",
+          "ticker": "00874",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261115-205",
       "headline": "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): (1) PROPOSED RIGHTS ISSUE ON THE BASIS OF ELEVEN (11) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A FU",
@@ -844,6 +894,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261115-219",
+      "headline": "Israeli airstrike kills senior Hamas commander in Gaza",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/israeli-airstrike-kills-senior-hamas-commander-gaza",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T11:20:44Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "An Israeli airstrike killing a senior Hamas commander is a significant escalation of geopolitical conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "An Israeli airstrike killing a senior Hamas commander is a significant escalation of geopolitical conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261115-213",
       "headline": "Jordan condemns Iran's drone strike on Bahrain",
       "headline_en": null,
@@ -1142,6 +1235,56 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-217",
+      "headline": "PARENTING NET (01736): (I) PROPOSED CAPITALISATION OF LOANS; (II) CONNECTED TRANSACTION; AND (III) ISSUE OF NEW SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500057.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-15T11:28:00Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Proposed capitalization of loans, a connected transaction, and issuance of new shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Proposed capitalization of loans, a connected transaction, and issuance of new shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PARENTING NET",
+          "ticker": "01736",
+          "listing_country": "CN"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1802,156 +1945,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-151",
-      "headline": "Megaspeed says Alice Huang left in 2025 as it launches internal probe into reports about its business",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/15/megaspeed-alice-huang-probe-nvidia-scandal.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T08:22:21Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The departure of a key executive coupled with an internal probe into business practices indicates significant governance and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The departure of a key executive coupled with an internal probe into business practices indicates significant governance and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Megaspeed",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-206",
-      "headline": "GREEN TEA GROUP (06831): ANNOUNCEMENT PURSUANT TO RULES 13.51B(2) AND 13.51(2) OF THE LISTING RULES; RESIGNATION OF INDEPENDENT NON-EXECUTIVE DIRECTOR; AND NON-COMPLIANCE WITH RULES 3.10(1), 3.21 AND 3.27A OF THE LISTING RULES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500053.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T11:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "The company announced the resignation of an independent director and is currently in non-compliance with multiple HKEX listing rules regarding board composition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The company announced the resignation of an independent director and is currently in non-compliance with multiple HKEX listing rules regarding board composition.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Green Tea Group",
-          "ticker": "06831",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-182",
-      "headline": "JW THERAP-B (02126): INSIDE INFORMATION - INVESTOR PRESENTATION ON INCLUSION OF CARTEYVA IN NRDL AND BUSINESS UPDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1115/2026111500023.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T10:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Inclusion of Carteyva in the NRDL is a significant commercial milestone for the company's revenue outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Inclusion of Carteyva in the NRDL is a significant commercial milestone for the company's revenue outlook.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JW Therapeutics",
-          "ticker": "02126",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -283142,9 +283135,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1681,
-    "news_picked_today": 344,
-    "news_dropped_today": 1337
+    "news_seen_today": 1728,
+    "news_picked_today": 350,
+    "news_dropped_today": 1378
   },
   "book_momentum": {
     "live_count": 8,
