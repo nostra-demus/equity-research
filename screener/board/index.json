@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T01:33:25Z",
+  "generated_at": "2026-11-15T01:37:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-022",
@@ -239267,6 +239267,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-457dc04b7a30",
+      "idea_version": "IDEAV-ca064395134d5367",
+      "idea_version_started_at": "2026-11-15T01:33:50Z",
+      "ticker": "SSNLF",
+      "company": "Samsung Electronics",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Aggressive $34 billion capital expenditure on High Bandwidth Memory (HBM) capacity risks exacerbating a supply glut, which would compress margins in the memory segment.",
+      "why_now": "The report regarding the scale of the HBM investment and associated glut risks was published on November 15, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c50666fc8b4a"
+      ],
+      "primary_source_event_id": "EVT-c50666fc8b4a",
+      "source_headlines": [
+        "Samsung’s $34 Billion HBM Bet Raises Memory Glut Risks"
+      ],
+      "source_headline": "Samsung’s $34 Billion HBM Bet Raises Memory Glut Risks",
+      "source_url": "https://247wallst.com/investing/2026/11/14/samsungs-34-billion-hbm-bet-raises-memory-glut-risks/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T01:08:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T01:33:50Z",
+      "updated_at": "2026-11-15T01:33:50Z",
+      "decay_at": "2026-11-16T13:08:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-ee97c8a6a859c6ba",
       "idea_version_started_at": "2026-11-14T14:14:26Z",
@@ -281336,8 +281406,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2472,
-    "live_count": 21,
+    "surfaced_total": 2473,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
