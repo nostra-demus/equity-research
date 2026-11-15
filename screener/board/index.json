@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T11:51:56Z",
+  "generated_at": "2026-11-15T12:03:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261115-216",
@@ -93,6 +93,55 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261115-223",
+      "headline": "Hindalco's Novelis Cuts China Exposure, Sells Two Subsidiaries For $265 Million-Deal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/hindalcos-novelis-cuts-china-exposure-sells-two-subsidiaries-for-265-million-deal-12329818#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-15T10:55:03Z",
+      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
+      "prelim_note": "Hindalco subsidiary Novelis is divesting two subsidiaries for $265 million to reduce China exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hindalco subsidiary Novelis is divesting two subsidiaries for $265 million to reduce China exposure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindalco Industries",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1886,60 +1935,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261115-131",
-      "headline": "Brookfield and KKR vie over $700mn deal for Gulf retailer Eyewa",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/a240f6b7-724c-4ad5-a4b1-2e04897e2fe8?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T05:00:04Z",
-      "sweep_file": "screener/inbox/2026-11-15_sweep.json",
-      "prelim_note": "Brookfield and KKR are competing for a $700mn acquisition of Eyewa, a significant deal in the regional retail sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Brookfield and KKR are competing for a $700mn acquisition of Eyewa, a significant deal in the regional retail sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Asset Management",
-          "ticker": "BAM",
-          "listing_country": "US"
-        },
-        {
-          "name": "KKR & Co. Inc.",
-          "ticker": "KKR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -283272,9 +283267,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1768,
-    "news_picked_today": 359,
-    "news_dropped_today": 1409
+    "news_seen_today": 1808,
+    "news_picked_today": 367,
+    "news_dropped_today": 1441
   },
   "book_momentum": {
     "live_count": 8,
