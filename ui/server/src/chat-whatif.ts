@@ -137,7 +137,10 @@ export function detectAdditiveWhatIf(question: string, sidecar?: SensitivitySide
   if (!sidecar) return true // only a cheap candidate gate; no parse until recorded data is loaded
   if (!('additive_identities' in sidecar)) return false
   if (!hasAdditiveIdentities(sidecar)) return true // declared-but-malformed data gets an explicit refusal, not prose arithmetic
-  if (/\breconcil(?:e|iation)\b|\bidentity\b/i.test(q)) return true
+  // An explicit reconcile request belongs here. A bare "reconcile"/"identity" word inside a quantified
+  // coefficient what-if ("If aluminium rises 10%, how does EBITDA reconcile?") stays on the coefficient path.
+  if (/^\s*reconcil(?:e|iation)\b/i.test(q)) return true
+  if (/\breconcil(?:e|iation)\b|\bidentity\b/i.test(q) && !detectWhatIf(q)) return true
   // Do not steal an existing coefficient question such as "how much is EBITDA if input price rises…".
   // A direct reconstruction starts with a recorded component label; Python verifies the WHOLE selection.
   const selection = q.match(/\bhow\s+much\s+is\s+(.+)/i)?.[1]?.toLowerCase().replace(/\s+/g, ' ')

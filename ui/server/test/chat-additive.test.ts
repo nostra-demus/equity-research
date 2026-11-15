@@ -120,6 +120,9 @@ await check('loader/detector supports numberless additive data without stealing 
     assert.equal(api.detectAdditiveWhatIf(fixture.request.question, loaded.sidecar), true)
     assert.equal(api.detectWhatIf(fixture.request.question), false, 'These historical queries must not depend on the old digit gate')
     assert.equal(api.detectAdditiveWhatIf('how much is EBITDA if input price rises 10?', loaded.sidecar), false)
+    assert.equal(api.detectAdditiveWhatIf('If aluminium rises 10%, how does EBITDA reconcile?', loaded.sidecar), false,
+      'A quantified coefficient what-if that mentions reconcile must stay on the coefficient path')
+    assert.equal(api.detectAdditiveWhatIf('If input price rises 10%, what happens to the EBITDA identity?', loaded.sidecar), false)
   }
 })
 
