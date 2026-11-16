@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T16:31:02Z",
+  "generated_at": "2026-11-16T16:32:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-434",
@@ -1530,6 +1530,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-454",
+      "headline": "Canaccord CEO launches $1.6-billion bid to take company private",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-canaccord-ceo-launches-16-billion-bid-to-take-company-private/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T14:33:38Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Canaccord Genuity Group CEO has launched a $1.6-billion bid to take the company private.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Canaccord Genuity Group CEO has launched a $1.6-billion bid to take the company private.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Canaccord Genuity Group",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-322",
       "headline": "H World Group Profit Climbs In Q3, Raises FY26 Outlook",
       "headline_en": null,
@@ -1920,55 +1969,6 @@
           "name": "Advantage Energy",
           "ticker": null,
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-366",
-      "headline": "Hindustan Zinc Approves ₹80,000 Crore Expansion Plan To Nearly Double Metal Production Capacity To 2 MTPA In 3-5 Years",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hindustan-zinc-approves-80000-crore-expansion-plan-to-nearly-double-metal-production-capacity-to-2-mtpa-in-3-5-years",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T10:48:34Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Hindustan Zinc approved an ₹80,000 crore expansion plan to nearly double its metal production capacity to 2 MTPA.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hindustan Zinc approved an ₹80,000 crore expansion plan to nearly double its metal production capacity to 2 MTPA.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindustan Zinc",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
