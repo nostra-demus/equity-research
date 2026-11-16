@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T20:02:23Z",
+  "generated_at": "2026-11-16T20:03:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1376,6 +1376,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-540",
+      "headline": "Nvidia’s Board Not Considering Reinstating Jensen Huang as CEO",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/nvidias-board-not-considering-reinstating-jensen-huang-as-ceo-a2b913b1?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T19:54:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The board's refusal to reinstate the founder/visionary CEO Jensen Huang is a major governance and leadership event for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The board's refusal to reinstate the founder/visionary CEO Jensen Huang is a major governance and leadership event for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-539",
       "headline": "Foodtastic’s proposed $1-billion takeover of MTY gains investor support, company says",
       "headline_en": null,
@@ -1921,56 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-467",
-      "headline": "Aramark Reports Fiscal 2026 Results, Authorizes New $1 Billion Share Repurchase Program and Raises Quarterly Dividend by 17%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aramark-reports-fiscal-2026-results-authorizes-new-1-billion-share-repurchase-program-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T16:02:03Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Aramark reported fiscal 2026 results, authorized a new $1 billion share repurchase program, and raised its quarterly dividend by 17%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aramark reported fiscal 2026 results, authorized a new $1 billion share repurchase program, and raised its quarterly dividend by 17%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aramark",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
