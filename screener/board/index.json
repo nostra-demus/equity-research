@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T06:00:39Z",
+  "generated_at": "2026-11-16T06:01:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-198",
@@ -145,6 +145,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-216",
+      "headline": "Rex posts losses as US owner fails to get planes back in the air",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/transport/rex-posts-losses-as-us-owner-fails-to-get-planes-back-in-the-air-20261116-p61ei1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:35:21Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Regional Express (Rex) reported losses and continues to face significant operational grounding issues with its fleet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Regional Express (Rex) reported losses and continues to face significant operational grounding issues with its fleet.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Regional Express Holdings",
+          "ticker": "REX",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1910,61 +1960,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-144",
-      "headline": "Johnson & Johnson Set To Buy Ollin Biosciences For Up To $3.4 Bln: Report",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/johnson-johnson-set-buy-ollin-biosciences-34-bln-report",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T02:57:22Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Reported $3.4 billion acquisition of Ollin Biosciences by J&J.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Reported $3.4 billion acquisition of Ollin Biosciences by J&J.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": -8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "rumor"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Johnson & Johnson",
-          "ticker": "JNJ",
-          "listing_country": "US"
-        },
-        {
-          "name": "Ollin Biosciences",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285216,9 +285211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10743,
-    "news_picked_today": 349,
-    "news_dropped_today": 3414
+    "news_seen_today": 11011,
+    "news_picked_today": 355,
+    "news_dropped_today": 3676
   },
   "book_momentum": {
     "live_count": 8,
