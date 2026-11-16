@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-16T10:10:18Z",
+  "generated_at": "2026-11-16T10:11:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261116-265",
+      "headline": "GOODBABY INTL (01086): JOINT ANNOUNCEMENT MONTHLY UPDATE ON (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS AND (2) PROPOSED WITHDRAWAL OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600896.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T09:51:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Goodbaby International announced a proposal for privatization and withdrawal of listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Goodbaby International announced a proposal for privatization and withdrawal of listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goodbaby International",
+          "ticker": "01086",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261116-260",
       "headline": "VIRSCEND EDU (01565): PROFIT WARNING",
@@ -1922,55 +1971,6 @@
           "name": "Yotta",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-037",
-      "headline": "Centurion to acquire Kim Chuan Lane industrial property for S$61 million through joint venture",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/centurion-acquire-kim-chuan-lane-industrial-property-s61-million-through-joint-venture",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:24:20Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Centurion is acquiring an industrial property for S$61 million, representing a capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Centurion is acquiring an industrial property for S$61 million, representing a capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Centurion Corporation",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "mid",
@@ -285224,9 +285224,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 200299,
-    "news_picked_today": 457,
-    "news_dropped_today": 6958
+    "news_seen_today": 206837,
+    "news_picked_today": 466,
+    "news_dropped_today": 7045
   },
   "book_momentum": {
     "live_count": 8,
