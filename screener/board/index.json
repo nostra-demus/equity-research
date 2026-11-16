@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-16T12:06:41Z",
+  "generated_at": "2026-11-16T12:07:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261116-320",
+      "headline": "ARTINI HLDG (00789): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111601365.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T12:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Artini Holdings issued a profit warning, indicating a decline in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Artini Holdings issued a profit warning, indicating a decline in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Artini Holdings",
+          "ticker": "00789",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261116-298",
       "headline": "AGILE GROUP (03383): SIGNIFICANT PROGRESS OF OFFSHORE DEBT RESTRUCTURING (1) ENTRY INTO THE RSA WITH INITIAL PARTICIPATING CREDITORS; AND (2) INVITATION TO OTHER CREDITORS TO ACCEDE TO THE RSA",
@@ -1922,56 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-207",
-      "headline": "Kaynes Tech Shares Plunge 20% After Q2 Profit Tanks, Company Re-States Prior Financials",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/kaynes-tech-shares-plunge-10-after-q2-profit-tanks-12331776#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T04:20:54Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Kaynes Tech shares fell 20% following a profit decline and the announcement of financial restatements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kaynes Tech shares fell 20% following a profit decline and the announcement of financial restatements.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kaynes Technology",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285222,9 +285221,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 408609,
-    "news_picked_today": 559,
-    "news_dropped_today": 8536
+    "news_seen_today": 412995,
+    "news_picked_today": 562,
+    "news_dropped_today": 8581
   },
   "book_momentum": {
     "live_count": 8,
