@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T15:01:57Z",
+  "generated_at": "2026-11-16T15:02:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-321",
@@ -1377,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-350",
+      "headline": "Nvidia amassed $530 billion in financial guarantees to corner the AI market — supply commitments rose by nearly a quarter of a trillion dollars in a single quarter",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-amassed-usd530-billion-in-financial-guarantees-to-corner-the-ai-market-supply-commitments-rose-by-nearly-a-quarter-of-a-trillion-dollars-in-a-single-quarter",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Nvidia has committed $530 billion in financial guarantees for supply chain capacity, indicating massive scale expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia has committed $530 billion in financial guarantees for supply chain capacity, indicating massive scale expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-313",
       "headline": "Canadian Natural To Acquire Advantage Energy In $2.53 Bln Deal",
       "headline_en": null,
@@ -1921,57 +1970,6 @@
       "companies": [
         {
           "name": "Kaynes Tech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-208",
-      "headline": "Inox Wind shares tumble 10% as Q2 margins disappoint, CEO resigns. Why Motilal Oswal cut target price, earnings estimates",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/inox-wind-shares-tumble-10-as-q2-margins-disappoint-ceo-resigns-why-motilal-oswal-cut-target-price-earnings-estimates/articleshow/135873554.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T05:08:58Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Inox Wind reported a 10% share price drop following disappointing Q2 margins and the resignation of its CEO, leading to analyst estimate cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Inox Wind reported a 10% share price drop following disappointing Q2 margins and the resignation of its CEO, leading to analyst estimate cuts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "executive_exit",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Inox Wind",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -243700,82 +243698,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e6f803a425f0",
-      "idea_version": "IDEAV-f4cfcae397bde284",
-      "idea_version_started_at": "2026-11-15T03:29:20Z",
-      "ticker": "SPCE",
-      "company": "Space Exploration Technologies Corp.",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SpaceX faces accusations of lying about Starshield restrictions and criticism over its Starship program's operational success, suggesting potential regulatory or political headwinds.",
-      "why_now": "Recent events include a successful Starship catch and ongoing political commentary from Zelenskyy, creating immediate uncertainty.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a02b6184eaaa",
-        "EVT-e72e67fedeba",
-        "EVT-d1c8e5bbe6b6"
-      ],
-      "primary_source_event_id": "EVT-a02b6184eaaa",
-      "source_headlines": [
-        "HD Hyundai launches 600-ton autonomous vessel with US defense firm Anduril",
-        "Zelenskyy accuses Musk’s SpaceX of lying about restrictions for Starshield, says curbs more ‘political’ than ‘technical’",
-        "SpaceX makes history with successful rocket catch in Texas"
-      ],
-      "source_headline": "HD Hyundai launches 600-ton autonomous vessel with US defense firm Anduril",
-      "source_url": "https://www.koreaherald.com/article/10936725",
-      "source_name": "The Korea Herald — Business",
-      "materiality_max": 82,
-      "newest_source_at": "2026-11-15T03:02:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-15T03:29:20Z",
-      "updated_at": "2026-11-15T03:29:20Z",
-      "decay_at": "2026-11-16T15:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-745c66d9e6b2ecd2",
       "idea_version_started_at": "2026-11-12T19:23:01Z",
@@ -247835,6 +247757,82 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e6f803a425f0",
+      "idea_version": "IDEAV-f4cfcae397bde284",
+      "idea_version_started_at": "2026-11-15T03:29:20Z",
+      "ticker": "SPCE",
+      "company": "Space Exploration Technologies Corp.",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SpaceX faces accusations of lying about Starshield restrictions and criticism over its Starship program's operational success, suggesting potential regulatory or political headwinds.",
+      "why_now": "Recent events include a successful Starship catch and ongoing political commentary from Zelenskyy, creating immediate uncertainty.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a02b6184eaaa",
+        "EVT-e72e67fedeba",
+        "EVT-d1c8e5bbe6b6"
+      ],
+      "primary_source_event_id": "EVT-a02b6184eaaa",
+      "source_headlines": [
+        "HD Hyundai launches 600-ton autonomous vessel with US defense firm Anduril",
+        "Zelenskyy accuses Musk’s SpaceX of lying about restrictions for Starshield, says curbs more ‘political’ than ‘technical’",
+        "SpaceX makes history with successful rocket catch in Texas"
+      ],
+      "source_headline": "HD Hyundai launches 600-ton autonomous vessel with US defense firm Anduril",
+      "source_url": "https://www.koreaherald.com/article/10936725",
+      "source_name": "The Korea Herald — Business",
+      "materiality_max": 82,
+      "newest_source_at": "2026-11-15T03:02:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T03:29:20Z",
+      "updated_at": "2026-11-15T03:29:20Z",
+      "decay_at": "2026-11-16T15:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-e4d18d7b4bb8",
       "idea_version": "IDEAV-f44312c3e604eeff",
       "idea_version_started_at": "2026-11-15T03:10:58Z",
@@ -248062,9 +248060,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 560,
     "shown_count": 499,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -248072,9 +248070,9 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 285,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 36
       }
     },
     "retention": {
@@ -248093,6 +248091,85 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e6f803a425f0",
+        "idea_version": "IDEAV-f4cfcae397bde284",
+        "idea_version_started_at": "2026-11-15T03:29:20Z",
+        "ticker": "SPCE",
+        "company": "Space Exploration Technologies Corp.",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "SpaceX faces accusations of lying about Starshield restrictions and criticism over its Starship program's operational success, suggesting potential regulatory or political headwinds.",
+        "why_now": "Recent events include a successful Starship catch and ongoing political commentary from Zelenskyy, creating immediate uncertainty.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a02b6184eaaa",
+          "EVT-e72e67fedeba",
+          "EVT-d1c8e5bbe6b6"
+        ],
+        "primary_source_event_id": "EVT-a02b6184eaaa",
+        "source_headlines": [
+          "HD Hyundai launches 600-ton autonomous vessel with US defense firm Anduril",
+          "Zelenskyy accuses Musk’s SpaceX of lying about restrictions for Starshield, says curbs more ‘political’ than ‘technical’",
+          "SpaceX makes history with successful rocket catch in Texas"
+        ],
+        "source_headline": "HD Hyundai launches 600-ton autonomous vessel with US defense firm Anduril",
+        "source_url": "https://www.koreaherald.com/article/10936725",
+        "source_name": "The Korea Herald — Business",
+        "materiality_max": 82,
+        "newest_source_at": "2026-11-15T03:02:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-15T03:29:20Z",
+        "updated_at": "2026-11-15T03:29:20Z",
+        "decay_at": "2026-11-16T15:02:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-16T15:02:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5e5081cdcedf",
         "idea_version": "IDEAV-52896cf5afde21cd",
@@ -285112,86 +285189,12 @@
         "archived_at": "2026-10-26T13:59:13Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fc93f470f6d7",
-        "idea_version": "IDEAV-db4336a31f698ae9",
-        "idea_version_started_at": "2026-10-23T18:41:34Z",
-        "ticker": "LKQ",
-        "company": "LKQ Corporation",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company announced a CEO transition, a third-quarter earnings shortfall, and the withdrawal of its 2026 financial guidance, signaling significant operational instability.",
-        "why_now": "The news was released on October 23, 2026, and the market has not yet fully digested the implications of the withdrawn guidance.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 74,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bcd74c016a3b",
-          "EVT-fe2e15493aa0"
-        ],
-        "primary_source_event_id": "EVT-bcd74c016a3b",
-        "source_headlines": [
-          "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
-          "LKQ Corporation Appoints Salvatore A. Abbate as CEO, Announces Preliminary Third Quarter 2026 Results and Withdraws 2026 Guidance"
-        ],
-        "source_headline": "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
-        "source_url": "https://www.wsj.com/business/c-suite/lkq-ousts-ceo-warns-of-third-quarter-shortfall-95426635?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T13:33:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-23T18:41:34Z",
-        "updated_at": "2026-10-23T18:41:34Z",
-        "decay_at": "2026-10-25T01:33:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T13:59:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2508,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -285210,9 +285213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 577679,
-    "news_picked_today": 711,
-    "news_dropped_today": 11624
+    "news_seen_today": 578865,
+    "news_picked_today": 723,
+    "news_dropped_today": 11660
   },
   "book_momentum": {
     "live_count": 8,
