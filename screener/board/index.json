@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T01:56:12Z",
+  "generated_at": "2026-11-16T01:57:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -291,6 +291,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-097",
+      "headline": "Mahanadi Coalfields fixes price band for ₹8,981 crore IPO; details here",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/mahanadi-coalfields-ipo-price-band-fixed-subscription-issue-to-open-on-november-19-20034562.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T01:46:02Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Mahanadi Coalfields has set a price band for its ₹8,981 crore IPO, a significant capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Mahanadi Coalfields has set a price band for its ₹8,981 crore IPO, a significant capital market event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanadi Coalfields",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1136,6 +1185,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-099",
+      "headline": "Raymond bets big on aerospace as Singhania eyes next growth phase",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/raymond-bets-big-on-aerospace-as-singhania-eyes-next-growth-phase/article71705005.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T01:42:04Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Raymond is making a significant strategic pivot into the aerospace sector to drive future growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Raymond is making a significant strategic pivot into the aerospace sector to drive future growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Raymond",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-079",
       "headline": "법원, 고려아연 주총 결의 취소 판결",
       "headline_en": "Court rules to cancel Korea Zinc shareholder meeting resolution",
@@ -1860,104 +1958,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-046",
-      "headline": "Samsung SDI to supply LFP batteries to Jupiter Power",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261116002300320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:33:07Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Samsung SDI is expanding its product portfolio by supplying LFP batteries to Jupiter Power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Samsung SDI is expanding its product portfolio by supplying LFP batteries to Jupiter Power.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung SDI",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-034",
-      "headline": "McDonald's taking five popular items off its menu",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/mcdonalds-taking-five-popular-items-off-its-menu",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:17:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "McDonald's is removing five menu items, which may impact customer traffic and revenue mix.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "McDonald's is removing five menu items, which may impact customer traffic and revenue mix.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "McDonald's",
-          "ticker": "MCD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285209,9 +285209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 821,
-    "news_picked_today": 101,
-    "news_dropped_today": 326
+    "news_seen_today": 845,
+    "news_picked_today": 106,
+    "news_dropped_today": 345
   },
   "book_momentum": {
     "live_count": 8,
