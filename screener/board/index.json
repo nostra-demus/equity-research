@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T00:44:08Z",
+  "generated_at": "2026-11-16T00:45:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -1713,6 +1713,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-049",
+      "headline": "Stocks in news: Tata Motors PV, Eicher Motors, Belrise Industries and Patanjali Foods",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/stocks-in-news-tata-motors-pv-eicher-motors-belrise-industries-and-patanjali-foods/articleshow/135863309.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Routine roundup of stocks in the news with no specific material event disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Routine roundup of stocks in the news with no specific material event disclosed.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Eicher Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Patanjali Foods",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-032",
       "headline": "Rightmove records £6,745 fall in the average home asking price in November",
       "headline_en": null,
@@ -1876,49 +1935,6 @@
       "triage_score": 47,
       "triage_reason": "A rare trilateral meeting between the leaders of the US, China, and Russia at APEC represents a significant geopolitical event.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-048",
-      "headline": "USS Theodore Roosevelt aircraft carrier arrives in Middle East",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/us/2026/11/16/uss-theodore-roosevelt-middle-east-centcom/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:28:33Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "The deployment of a US aircraft carrier to the Middle East represents a significant geopolitical escalation in a volatile region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The deployment of a US aircraft carrier to the Middle East represents a significant geopolitical escalation in a volatile region.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -285195,9 +285211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 302,
-    "news_picked_today": 48,
-    "news_dropped_today": 122
+    "news_seen_today": 321,
+    "news_picked_today": 51,
+    "news_dropped_today": 138
   },
   "book_momentum": {
     "live_count": 8,
