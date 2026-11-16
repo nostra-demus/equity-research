@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T02:35:10Z",
+  "generated_at": "2026-11-16T02:36:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -781,6 +781,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-120",
+      "headline": "Michigan pension fund drags Intel to court after 29% stock plunge in a day wiped out $140 billion in market value",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/michigan-pension-fund-drags-intel-to-court-after-29-stock-plunge-in-a-day-wiped-out-140-billion-in-market-value-11794795451046.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T02:29:39Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "A pension fund has filed a lawsuit against Intel following a 29% stock price decline, indicating potential legal risk and management scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A pension fund has filed a lawsuit against Intel following a 29% stock price decline, indicating potential legal risk and management scrutiny.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": "INTC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-070",
-      "headline": "Former EY partner Peter White promoted illegal tax schemes, court rules",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/professional-services/former-ey-partner-promoted-illegal-tax-schemes-court-rules-20261116-p61ef2?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:59:59Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "A court ruling against a former partner of a major accounting firm regarding illegal tax schemes poses reputational and potential regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A court ruling against a former partner of a major accounting firm regarding illegal tax schemes poses reputational and potential regulatory risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EY",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
