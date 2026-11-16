@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T17:37:07Z",
+  "generated_at": "2026-11-16T17:38:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1430,6 +1430,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-467",
+      "headline": "Aramark Reports Fiscal 2026 Results, Authorizes New $1 Billion Share Repurchase Program and Raises Quarterly Dividend by 17%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aramark-reports-fiscal-2026-results-authorizes-new-1-billion-share-repurchase-program-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T16:02:03Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Aramark reported fiscal 2026 results, authorized a new $1 billion share repurchase program, and raised its quarterly dividend by 17%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aramark reported fiscal 2026 results, authorized a new $1 billion share repurchase program, and raised its quarterly dividend by 17%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aramark",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-464",
+      "headline": "Medtronic to buy Contego Medical for $380M",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/medtronic-to-buy-contego-medical-for-380m/874754/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T15:56:23Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Medtronic is set to acquire Contego Medical for $380 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Medtronic is set to acquire Contego Medical for $380 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medtronic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Contego Medical",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-423",
       "headline": "'I would not mind that': Trump backs return of Nvidia boss following affairs... but shares sink again ahead of crucial results",
       "headline_en": null,
@@ -1873,105 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-312",
-      "headline": "Applied Nutrition FY26 Profit Up, Backs FY27 View In Line With Market, Warns On Margin, Stock Down",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/applied-nutrition-fy26-profit-backs-fy27-view-line-market-warns-margin-stock-down",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T11:17:26Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Applied Nutrition reported profit growth but warned on margins, causing a stock decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Applied Nutrition reported profit growth but warned on margins, causing a stock decline.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Applied Nutrition",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-350",
-      "headline": "Nvidia amassed $530 billion in financial guarantees to corner the AI market — supply commitments rose by nearly a quarter of a trillion dollars in a single quarter",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-amassed-usd530-billion-in-financial-guarantees-to-corner-the-ai-market-supply-commitments-rose-by-nearly-a-quarter-of-a-trillion-dollars-in-a-single-quarter",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Nvidia has committed $530 billion in financial guarantees for supply chain capacity, indicating massive scale expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia has committed $530 billion in financial guarantees for supply chain capacity, indicating massive scale expansion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285211,9 +285216,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 633468,
-    "news_picked_today": 956,
-    "news_dropped_today": 12267
+    "news_seen_today": 635317,
+    "news_picked_today": 974,
+    "news_dropped_today": 12321
   },
   "book_momentum": {
     "live_count": 8,
