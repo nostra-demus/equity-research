@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T00:41:10Z",
+  "generated_at": "2026-11-16T00:42:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -43,6 +43,55 @@
           "name": "Adicon Holdings",
           "ticker": "09860",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-042",
+      "headline": "IIFCL tightens loan terms as Yotta's debt tops $1.4 billion",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/as-yotta-debt-crosses-1-4b-with-new-iifcl-loan-for-noida-dc-lenders-grow-wary-11794711701363.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:30:25Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Yotta's debt has reached $1.4 billion, prompting lender IIFCL to tighten loan terms due to credit risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yotta's debt has reached $1.4 billion, prompting lender IIFCL to tighten loan terms due to credit risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yotta",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -351,6 +400,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-039",
+      "headline": "Transasia BioMedicals explores up to 20% stake sale to raise $200 million",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/transasia-biomedicals-explores-up-to-20-stake-sale-to-raise-200-million-11794755869514.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:30:51Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Transasia BioMedicals is exploring a potential 20% stake sale to raise $200 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Transasia BioMedicals is exploring a potential 20% stake sale to raise $200 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transasia BioMedicals",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-013",
       "headline": "EVEREST MED (01952): VOLUNTARY ANNOUNCEMENT BUSINESS UPDATE ON THE INCLUSION OF VELSIPITY AND XERAVA IN 2026 NATIONAL REIMBURSEMENT DRUG LIST",
       "headline_en": null,
@@ -596,6 +695,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-041",
+      "headline": "Ola Electric's cash cushion dwindles as market share slips and losses persist",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/ola-electric-cash-reserves-fall-sales-market-share-loss-11794733370775.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:32:51Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Ola Electric faces declining cash reserves, shrinking market share, and persistent losses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Ola Electric faces declining cash reserves, shrinking market share, and persistent losses.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola Electric",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-030",
       "headline": "Jensen Huang weighs Nvidia comeback days after shock exit: FT",
       "headline_en": null,
@@ -640,6 +788,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-040",
+      "headline": "Bharat Semi raises $24 million in seed round led by Info Edge, South Park Common",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/start-ups/bharat-semi-raises-24-million-seed-funding-info-edge-deeptech-startup-11794722449154.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:30:46Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Bharat Semi raised $24 million in a seed funding round.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Bharat Semi raised $24 million in a seed funding round.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Semi",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -738,6 +935,104 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-045",
+      "headline": "Samsung Heavy wins 342.4 bln-won order for LNG carrier",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261116002400320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Samsung Heavy Industries secured a 342.4 billion won order for an LNG carrier, directly impacting revenue backlog.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Samsung Heavy Industries secured a 342.4 billion won order for an LNG carrier, directly impacting revenue backlog.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Heavy Industries",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-046",
+      "headline": "Samsung SDI to supply LFP batteries to Jupiter Power",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261116002300320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:33:07Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Samsung SDI is expanding its product portfolio by supplying LFP batteries to Jupiter Power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Samsung SDI is expanding its product portfolio by supplying LFP batteries to Jupiter Power.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung SDI",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1467,6 +1762,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-043",
+      "headline": "With nine portfolio firms eyeing IPOs, Oister Global launches ₹600 cr deep-tech fund",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/start-ups/oister-global-deep-tech-fund-rs-600-crore-startup-ipo-plans-11794646321044.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:30:23Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Oister Global launched a 600 crore rupee deep-tech fund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Oister Global launched a 600 crore rupee deep-tech fund.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oister Global",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-019",
       "headline": "Innovent Announces Positive CHMP Opinion, Recommending Zybrivo® (sintilimab) for First-Line Treatment of Non-squamous Non-Small Cell Lung Cancer",
       "headline_en": null,
@@ -1517,107 +1861,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-038",
-      "headline": "Houthis advance on Aden as govt bolsters city defences",
+      "inbox_id": "INB-20261116-044",
+      "headline": "Trump, Xi and Putin Set for Rare APEC Trilateral Talks",
       "headline_en": null,
-      "url": "https://www.newarab.com/news/houthis-advance-aden-govt-bolsters-city-defences",
-      "source_name": "The New Arab",
+      "url": "https://www.bloomberg.com/news/videos/2026-11-16/trump-xi-and-putin-set-for-rare-apec-trilateral-talks-video",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:15:21Z",
+      "found_at": "2026-11-16T00:34:26Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Escalation of military conflict in Yemen poses significant geopolitical and regional stability risks.",
+      "prelim_note": "A rare trilateral meeting between the leaders of the US, China, and Russia at APEC represents a significant geopolitical event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 47,
-      "triage_reason": "Escalation of military conflict in Yemen poses significant geopolitical and regional stability risks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-028",
-      "headline": "Iran war live: Tehran warns it may strike first before another US attack",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/11/16/iran-war-live-tehran-warns-it-may-strike-first-before-another-us-attack?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Escalation of geopolitical conflict in the Middle East poses significant risks to global markets and energy supply.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Escalation of geopolitical conflict in the Middle East poses significant risks to global markets and energy supply.",
+      "triage_reason": "A rare trilateral meeting between the leaders of the US, China, and Russia at APEC represents a significant geopolitical event.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-033",
-      "headline": "US aircraft carrier USS Theodore Roosevelt enters Mid-East as Iran blockade expands",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/us-aircraft-carrier-uss-theodore-roosevelt-enters-mid-east-as-iran-blockade-expands-1.500748546",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T23:57:33Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Military escalation in the Middle East with US naval involvement increases regional risk and potential supply chain disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Military escalation in the Middle East with US naval involvement increases regional risk and potential supply chain disruption.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -1646,216 +1904,43 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-020",
-      "headline": "Hanwha Power signe un contrat clé en main de conversion d'une unité flottante de stockage et de regazéification (FSRU) avec Energos Infrastructure",
-      "headline_en": "Hanwha Power signs turnkey FSRU conversion contract with Energos Infrastructure",
-      "url": "https://www.prnewswire.com/news-releases/hanwha-power-signe-un-contrat-cle-en-main-de-conversion-dune-unite-flottante-de-stockage-et-de-regazeification-fsru-avec-energos-infrastructure-302938512.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha Power",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Energos Infrastructure",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-021",
-      "headline": "Hanwha Power firma un contrato llave en mano con Energos Infrastructure",
-      "headline_en": "Hanwha Power signs turnkey FSRU conversion contract with Energos Infrastructure",
-      "url": "https://www.prnewswire.com/news-releases/hanwha-power-firma-un-contrato-llave-en-mano-con-energos-infrastructure-302938518.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha Power",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Energos Infrastructure",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-018",
-      "headline": "Hanwha Power Signs Turnkey FSRU Conversion Contract with Energos Infrastructure",
+      "inbox_id": "INB-20261116-048",
+      "headline": "USS Theodore Roosevelt aircraft carrier arrives in Middle East",
       "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/hanwha-power-signs-turnkey-fsru-conversion-contract-with-energos-infrastructure-302938497.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-16T00:00:00Z",
+      "url": "https://www.thenationalnews.com/news/us/2026/11/16/uss-theodore-roosevelt-middle-east-centcom/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T00:28:33Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
+      "prelim_note": "The deployment of a US aircraft carrier to the Middle East represents a significant geopolitical escalation in a volatile region.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
-      "region": "GLOBAL",
+      "triage_score": 47,
+      "triage_reason": "The deployment of a US aircraft carrier to the Middle East represents a significant geopolitical escalation in a volatile region.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 5,
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
+        "scope_id": "macro",
+        "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "commercial"
+        "macro_sector"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha Power",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Energos Infrastructure",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-017",
-      "headline": "Hanwha Power unterzeichnet schlüsselfertigen FSRU-Umbauvertrag mit Energos Infrastructure",
-      "headline_en": "Hanwha Power signs turnkey FSRU conversion contract with Energos Infrastructure",
-      "url": "https://www.prnewswire.com/news-releases/hanwha-power-unterzeichnet-schlusselfertigen-fsru-umbauvertrag-mit-energos-infrastructure-302938515.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Securing a turnkey conversion contract represents a significant operational win for Hanwha Power.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha Power",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Energos Infrastructure",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -285101,7 +285186,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4925,
+    "inbox_unconsumed": 4927,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -285110,9 +285195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 269,
-    "news_picked_today": 38,
-    "news_dropped_today": 99
+    "news_seen_today": 302,
+    "news_picked_today": 48,
+    "news_dropped_today": 122
   },
   "book_momentum": {
     "live_count": 8,
