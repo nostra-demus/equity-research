@@ -1703,6 +1703,82 @@ def test_reported_return_changes_preserve_forecast_calibration():
               "return resolution leaves original forecast/record/review inputs unchanged")
 
 
+def test_forecast_resolution_coverage():
+    # CLAUDE.md §11/§19 — the Brier is computed over SETTLED forecasts; a matured forecast that a review
+    # marked "not assessable" (or that no review reached) silently left the sample. The scoreboard must
+    # report the matured denominator, name every unscored matured forecast, and bound the Brier.
+    standing, reviews_by_run = [], {}
+    for i in range(10):  # 10 runs, each: one matured forecast confirmed at 60%  → scored
+        rr = f"analyses/R{i}_2026-06-01"
+        ledger = [{"prediction": f"p{i}", "probability": 60, "owner_module": "earnings",
+                   "time_window": "Q2 results, 2026-07-01"}]
+        reviews = [{"review_date": "2026-07-10", "_path": f"{rr}/reviews/2026-07-10_decision_review.json",
+                    "forecast_results": [{"prediction": f"p{i}", "status": "confirmed"}]}]
+        if i == 0:  # this run also carries the unscored and not-yet-matured cases
+            ledger += [
+                {"prediction": "na", "probability": 80, "time_window": "2026-07-01"},   # matured, not assessable
+                {"prediction": "op", "probability": 30, "time_window": "2026-07-01"},   # matured, still open
+                {"prediction": "nv", "probability": 50, "time_window": "2026-07-01"},   # matured, never reviewed
+                {"prediction": "fut", "probability": 50, "time_window": "2026-12-31"},  # not matured → not counted
+                {"prediction": "und", "probability": 50, "time_window": "someday"},     # undated → not counted
+                {"prediction": "bad", "probability": 0.7, "time_window": "2026-07-01"}, # matured, unscorable prob
+            ]
+            reviews[0]["forecast_results"] += [{"prediction": "na", "status": "not assessable"},
+                                               {"prediction": "op", "status": "still open"},
+                                               {"prediction": "bad", "status": "confirmed"}]
+        standing.append({"run_root": rr, "record": {"ticker": f"R{i}", "decision": "Watchlist",
+                         "decision_date": "2026-06-01", "basket": "Watchlist", "forecast_ledger": ledger}})
+        reviews_by_run[rr] = reviews
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews_by_run.get(r, []))
+    fr = out["forecast_resolution"]
+    check(out["calibration"]["n"] == 10 and out["calibration"]["brier"] == 0.16,
+          f"the Brier itself is unchanged by the coverage block (10 × (0.6−1)² → 0.16; got {out['calibration']})")
+    check(fr["n_matured"] == 14 and fr["n_matured_scored"] == 10 and fr["n_matured_unscored"] == 4,
+          f"14 matured (10 scored + na/op/nv/bad), future + undated excluded (got {fr['n_matured']}/{fr['n_matured_scored']})")
+    check(fr["n_undated"] == 1, f"undated forecast counted as undated, not matured (got {fr['n_undated']})")
+    check(fr["unscored_by_bucket"] == {"not_assessable": 1, "still_open": 1, "never_reviewed": 1, "settled_not_scored": 1},
+          f"each unscored matured forecast lands in its own bucket (got {fr['unscored_by_bucket']})")
+    check(fr["n_unscored_without_scorable_probability"] == 1, "the mis-scaled 0.7 probability is named but not bounded")
+    check(fr["coverage"] == round(10 / 14, 4) and fr["below_floor"] is False,
+          f"coverage 10/14 ≈ 71% clears the 70% floor (got {fr['coverage']}, below_floor={fr['below_floor']})")
+    # bounds: base 10×0.16 = 1.6; scorable unscored probs 0.8, 0.3, 0.5
+    # best adds 0.2²+0.3²+0.5² = 0.38 → 1.98/13; worst adds 0.8²+0.7²+0.5² = 1.38 → 2.98/13
+    bd = fr["brier_bounds_if_unscored_matured_settled"]
+    check(bd == {"best": round(1.98 / 13, 6), "worst": round(2.98 / 13, 6), "n": 13, "n_unscored_added": 3},
+          f"Brier bounds pinned to hand arithmetic (got {bd})")
+    check(sorted(u["prediction"] for u in fr["unscored"]) == ["bad", "na", "nv", "op"],
+          "every unscored matured forecast is named")
+    check("It covers 10 of 14 matured ledger forecasts" in out["honesty_statement"],
+          f"the coverage clause travels with the quoted Brier (got: {out['honesty_statement'][-400:]})")
+    check("Coverage is below" not in out["honesty_statement"], "no below-floor warning when coverage clears it")
+    check("(10 of 14 matured forecasts scored)" in out["verdict"], f"verdict carries coverage (got {out['verdict']})")
+    md = C.render_markdown(dict(out))
+    check("## Matured forecasts not in the Brier sample" in md and "| not assessable |" in md
+          and "| never reviewed |" in md and "| nv |" in md,
+          "markdown names the unscored matured forecasts in their own section")
+
+    # below floor: add 6 more never-reviewed matured forecasts → coverage 10/20 = 50%
+    standing[1]["record"]["forecast_ledger"] = standing[1]["record"]["forecast_ledger"] + [
+        {"prediction": f"x{j}", "probability": 50, "time_window": "2026-07-01"} for j in range(6)]
+    out2 = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews_by_run.get(r, []))
+    fr2 = out2["forecast_resolution"]
+    check(fr2["coverage"] == 0.5 and fr2["below_floor"] is True, f"10/20 matured → below the 70% floor (got {fr2['coverage']})")
+    check("Coverage is below the 70% floor" in out2["honesty_statement"], "below-floor coverage is stated in plain words")
+    check(out2["calibration"]["brier"] == 0.16, "the gated Brier, slices and AG inputs never move with coverage")
+
+    # provisional runs stay out of the coverage population exactly as they stay out of the Brier
+    standing[2]["integrity"] = {"status": "provisional", "verdict": "Material"}
+    out3 = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews_by_run.get(r, []))
+    check(out3["forecast_resolution"]["n_matured"] == 19, f"a provisional run's forecasts leave the coverage denominator too (got {out3['forecast_resolution']['n_matured']})")
+
+    # below the Brier floor: coverage still reported, no bounds, no clause appended to a withheld Brier
+    small = standing[:3]
+    out4 = C.build(standing=small, today="2026-07-18", reviews_provider=lambda r: reviews_by_run.get(r, []))
+    check(isinstance(out4["calibration"], str) and out4["forecast_resolution"]["brier_bounds_if_unscored_matured_settled"] is None,
+          "no Brier → no bounds (nothing to bound)")
+    check(out4["forecast_resolution"]["n_matured"] > 0, "coverage counts are honest at any N")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -1740,7 +1816,8 @@ def main():
                test_reported_return_unknown_legacy_and_version_selection,
                test_reported_return_identity_basis_finite_and_rounding,
                test_reported_return_earliest_tracking_anchor,
-               test_reported_return_changes_preserve_forecast_calibration):
+               test_reported_return_changes_preserve_forecast_calibration,
+               test_forecast_resolution_coverage):
         print(f"[{fn.__name__}]")
         fn()
     print()

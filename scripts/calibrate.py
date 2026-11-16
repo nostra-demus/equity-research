@@ -90,6 +90,8 @@ from ledger_records import load_standing_records  # noqa: E402
 from market_prices import load_feed  # noqa: E402 — optional price feed (EXTERNAL_DATA §7A); absent → graceful fallback
 from provider_calibration import execution_identity as shared_execution_identity  # noqa: E402
 from overdue_checks import forecast_sentence_key, unique_forecast_sentence_targets  # noqa: E402
+from overdue_checks import _as_due_date as forecast_due_date, review_forecast_links  # noqa: E402 — the SAME
+#   due-date reader and review linkage check AS uses, so "matured" and "still unresolved" mean one thing
 
 PERF_DIR = os.path.join(REPO, "analyses", "performance")
 
@@ -532,6 +534,7 @@ def match_resolved_forecasts(record, reviews):
     # text then falls through to _by_reference (an explicit forecast_index / '#N' still resolves), and
     # is otherwise excluded — never guessed. Eval checks that `prediction` exists, not that it is unique.
     normalized_predictions = [_norm(e.get("prediction")) if isinstance(e, dict) else "" for e in ledger]
+    position = {id(e): i for i, e in enumerate(ledger)}  # identity → 0-based ledger index (resolution coverage)
     text_counts = {}
     for k in normalized_predictions:
         if k:
@@ -600,8 +603,122 @@ def match_resolved_forecasts(record, reviews):
             "forecast_type": _slice_key(src.get("forecast_type")),
             "thesis_type": _thesis_type_keys(record),               # multi-label — see _thesis_type_keys
             "ticker": _norm(record.get("ticker")),                  # for the distinct-ticker slice gate (§ effective-N)
+            "ledger_index": position[id(src)],                      # which ledger row this scored (resolution coverage)
         })
     return out
+
+
+# ── Forecast resolution coverage (CLAUDE.md §11/§19 — the denominator the Brier score leaves out) ──
+# The Brier score is computed over the forecasts a review managed to SETTLE. A forecast whose window has
+# closed but which a review marked "not assessable" (or which no review ever reached) simply drops out of
+# that sample. On 2026-11-16 that was 29 of 50 matured ledger forecasts across the standing record (16 of
+# them explicitly "not assessable") against a published Brier over 13: the scoreboard was quoting the
+# calibration of the forecasts the engine could check as if it were the engine's calibration. Whether a
+# forecast becomes checkable is not independent of how it was written (vendor-consensus beat/miss calls
+# need data the pool often never receives), so the dropped set is not a random sample — §3 "do not hide
+# missing data" and §11 "data sufficiency caps conviction" apply to the scoreboard itself.
+# This block reports the matured denominator, names every unscored matured forecast, and bounds the Brier
+# score: if every unscored matured forecast had settled the way that HELPS (best) or HURTS (worst) the
+# score, the Brier over the full matured-plus-scored set would lie in [best, worst]. It never changes
+# `calibration` itself, the AG gate, or the Step 4C haircut (calibrate.md: those mirrors stay fixed).
+MIN_RESOLUTION_COVERAGE = 0.70   # §11 "good, with gaps" starts at 70: below it the Brier describes only
+                                 # the checkable subset and the honesty statement says so
+
+_RESOLUTION_BUCKETS = ("not_assessable", "still_open", "never_reviewed", "settled_not_scored")
+
+
+def _scorable_prob(entry):
+    """The 0-1 probability calibrate would score for a ledger entry, or None (same rule as the pairs)."""
+    prob = _finite_num(entry.get("probability")) if isinstance(entry, dict) else None
+    if prob is None or (0 < prob < 1) or prob < 0 or prob > 100:
+        return None
+    return prob / 100.0
+
+
+def forecast_resolution_coverage(record, reviews, pairs, today):
+    """Per-record resolution coverage. Pure. `pairs` are this record's match_resolved_forecasts output.
+    Returns {n_ledger, n_undated, n_matured, n_matured_scored, n_scored_early, unscored: [...]} where each
+    unscored row is a MATURED (due date before `today`) ledger forecast that did not enter the Brier sample,
+    with the bucket its latest review mention puts it in and its scorable probability (None if unscorable)."""
+    ledger = record.get("forecast_ledger", []) or []
+    ledger = ledger if isinstance(ledger, list) else []
+    scored = {p.get("ledger_index") for p in pairs}
+    tagged = [dict(r, _basename=os.path.basename(str(r.get("_path") or ""))) for r in reviews if isinstance(r, dict)]
+    links = review_forecast_links(ledger, tagged)
+    res = {"n_ledger": 0, "n_undated": 0, "n_matured": 0, "n_matured_scored": 0, "n_scored_early": 0, "unscored": []}
+    for i, e in enumerate(ledger):
+        if not isinstance(e, dict):
+            continue
+        res["n_ledger"] += 1
+        due = forecast_due_date(e)
+        if not due:
+            res["n_undated"] += 1
+            if i in scored:
+                res["n_scored_early"] += 1  # settled, but no machine-readable window to call it matured
+            continue
+        if due >= today:
+            if i in scored:
+                res["n_scored_early"] += 1
+            continue
+        res["n_matured"] += 1
+        if i in scored:
+            res["n_matured_scored"] += 1
+            continue
+        link = links.get(i)
+        st = link["status"] if link else None
+        if st is None:
+            bucket = "never_reviewed"
+        elif st == "not assessable":
+            bucket = "not_assessable"
+        elif _realized(st) is not None:
+            bucket = "settled_not_scored"  # a review settled it but it is not in the sample (e.g. invalid probability,
+            #                                or the settling review is not the run's latest) — a join gap to fix
+        else:
+            bucket = "still_open"
+        res["unscored"].append({"ledger_index": i, "due_date": due, "bucket": bucket,
+                                "last_review_status": st, "last_review_date": (link or {}).get("review_date") or None,
+                                "prob": _scorable_prob(e), "prediction": str(e.get("prediction") or "")[:140]})
+    return res
+
+
+def resolution_coverage_summary(per_record, scored_pairs):
+    """Aggregate per-record coverage (list of (ticker, run, coverage)) over the SAME population as the gated
+    Brier, plus the [best, worst] Brier bounds when every scorable unscored matured forecast is added at its
+    most favourable / least favourable outcome. Pure."""
+    n_matured = sum(c["n_matured"] for _, _, c in per_record)
+    n_matured_scored = sum(c["n_matured_scored"] for _, _, c in per_record)
+    unscored = [dict(u, ticker=t, run=r) for t, r, c in per_record for u in c["unscored"]]
+    buckets = {b: sum(1 for u in unscored if u["bucket"] == b) for b in _RESOLUTION_BUCKETS}
+    coverage = round(n_matured_scored / n_matured, 4) if n_matured else None
+    bounds = None
+    scorable = [u["prob"] for u in unscored if u["prob"] is not None]
+    if scored_pairs and scorable:
+        base = sum((p["prob"] - p["realized"]) ** 2 for p in scored_pairs)
+        n = len(scored_pairs) + len(scorable)
+        best = base + sum(min(q, 1 - q) ** 2 for q in scorable)
+        worst = base + sum(max(q, 1 - q) ** 2 for q in scorable)
+        bounds = {"best": round(best / n, 6), "worst": round(worst / n, 6), "n": n,
+                  "n_unscored_added": len(scorable)}
+    return {
+        "n_ledger_forecasts": sum(c["n_ledger"] for _, _, c in per_record),
+        "n_undated": sum(c["n_undated"] for _, _, c in per_record),
+        "n_matured": n_matured,
+        "n_matured_scored": n_matured_scored,
+        "n_scored_before_maturity_or_undated": sum(c["n_scored_early"] for _, _, c in per_record),
+        "n_matured_unscored": len(unscored),
+        "unscored_by_bucket": buckets,
+        "n_unscored_without_scorable_probability": sum(1 for u in unscored if u["prob"] is None),
+        "coverage": coverage,
+        "coverage_floor": MIN_RESOLUTION_COVERAGE,
+        "below_floor": coverage is not None and coverage < MIN_RESOLUTION_COVERAGE,
+        "brier_bounds_if_unscored_matured_settled": bounds,
+        "unscored": sorted(unscored, key=lambda u: (u["due_date"], str(u["ticker"]), u["run"], u["ledger_index"])),
+        "note": ("Population = the gated Brier's (provisional runs excluded). 'Matured' = the forecast's own due "
+                 "date (resolves_on / due_date / resolve_by, else the time_window text — the check-AS reader) is "
+                 "before generated_at. An unscored matured forecast is UNKNOWN, not neutral: the bounds show how "
+                 "far the Brier could move if those forecasts had settled. Settle them with "
+                 "/research:review-decisions (fetch the print into data/<TICKER>/), or mark them expired."),
+    }
 
 
 def _return_finite_num(value):
@@ -953,6 +1070,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         standing = [e for e in standing if _norm(e["record"].get("ticker")) == _norm(scope)]
 
     inventory, all_pairs, directional = [], [], []
+    resolution_rows = []         # (ticker, run, per-record coverage) — gated population only (see below)
     directional_all = []         # integrity-BLIND directional hits (provisional runs INCLUDED) — the
                                  # all-published-calls comparator that guards against look-ahead survivorship
                                  # (a losing call audited-and-flagged AFTER its outcome must not silently
@@ -1036,6 +1154,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if not provisional:
             for p in pairs:
                 all_pairs.append(p)
+            resolution_rows.append((tkr, _run_date(run_root),
+                                    forecast_resolution_coverage(rec, reviews, pairs, now)))
             if dh is not None and legacy_lane:
                 directional.append({"ticker": tkr, "hit": dh, "basket": basket,
                                     "review_date": priced_rev.get("review_date") if priced_rev else None,
@@ -1360,6 +1480,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         out["calibration_by_thesis_type"] = _slice_multi(all_pairs, "thesis_type")
     else:
         out["calibration"] = f"insufficient resolved forecasts (N={n_resolved}; floor {MIN_RESOLVED_FORECASTS}) — Brier/reliability withheld"
+    out["forecast_resolution"] = resolution_coverage_summary(
+        resolution_rows, all_pairs if isinstance(out["calibration"], dict) else [])
 
     # ── integrity-BLIND calibration (all published calls) — look-ahead / survivorship guard ──
     # Same guard as integrity_blind_hit_rate above, extended to Brier/calibration slices per Codex P1
@@ -1731,12 +1853,36 @@ def _honesty(out):
         text += (f"Brier calibration IS available: {out['calibration']['brier']} over "
                  f"{out['calibration']['n']} separately resolved probability forecasts; numeric review-return "
                  "fields do not automatically resolve those statuses. ")
+        text += _coverage_sentence(out.get("forecast_resolution"))
     else:
         text += f"Probability-forecast Brier/reliability withheld ({n_res}; floor {MIN_RESOLVED_FORECASTS}). "
     mts = out.get("months_to_significance") or {}
     if mts.get("projectable"):
         text += (f"Conditional legacy proxy-threshold projection: ~{mts['months_to_significance']:.0f} months "
                  "at the observed arrival rate, not a prediction of future source validity or investment skill.")
+    return text
+
+
+def _coverage_sentence(fr):
+    """The resolution-coverage qualifier that travels with every quoted Brier (CLAUDE.md §3: the
+    qualifier keeps at every layer). Empty when nothing has matured."""
+    if not isinstance(fr, dict) or not fr.get("n_matured"):
+        return ""
+    b = fr["unscored_by_bucket"]
+    text = (f"It covers {fr['n_matured_scored']} of {fr['n_matured']} matured ledger forecasts "
+            f"({fr['coverage']:.0%}); {fr['n_matured_unscored']} matured forecasts never entered the sample "
+            f"({b['not_assessable']} not assessable, {b['still_open']} still open, {b['never_reviewed']} never "
+            f"reviewed, {b['settled_not_scored']} settled but not scored)")
+    early = fr.get("n_scored_before_maturity_or_undated") or 0
+    text += (f"; the other {early} scored forecast(s) settled before their window closed or carry no "
+             "machine-readable window. " if early else ". ")
+    bd = fr.get("brier_bounds_if_unscored_matured_settled")
+    if bd:
+        text += (f"Had those settled, the Brier over {bd['n']} forecasts would lie between {bd['best']} (all "
+                 f"favourable) and {bd['worst']} (all unfavourable). ")
+    if fr.get("below_floor"):
+        text += (f"Coverage is below the {fr['coverage_floor']:.0%} floor: read the Brier as the calibration "
+                 "of the forecasts the engine could check, not of the engine. ")
     return text
 
 
@@ -1754,7 +1900,10 @@ def _verdict(out):
     if out["hit_rate"] is not None:
         parts.append(f"legacy proxy hit rate {out['hit_rate']:.0%} (95% CI [{out['hit_rate_ci95'][0]:.0%},{out['hit_rate_ci95'][1]:.0%}])")
     if isinstance(out["calibration"], dict):
-        parts.append(f"Brier {out['calibration']['brier']}")
+        fr = out.get("forecast_resolution") or {}
+        cov = (f" ({fr['n_matured_scored']} of {fr['n_matured']} matured forecasts scored)"
+               if fr.get("n_matured") else "")
+        parts.append(f"Brier {out['calibration']['brier']}{cov}")
     if out["selected_minus_rejected_pct"] is not None:
         parts.append(f"legacy checkpoint-label Selected−Rejected proxy {out['selected_minus_rejected_pct']:+.1f}pp")
     return " · ".join(parts) + "."
@@ -1789,6 +1938,11 @@ def render_markdown(out):
     L.append(f"- Decisions: **{out['n_decisions']}**")
     L.append(f"- Reviews filed: **{out['n_reviews']}**")
     L.append(f"- Forecasts resolved (Brier-scorable): **{out['n_resolved_forecasts']}** / floor {MIN_RESOLVED_FORECASTS}")
+    fr = out.get("forecast_resolution") or {}
+    if fr.get("n_matured"):
+        L.append(f"- Matured forecasts scored: **{fr['n_matured_scored']} of {fr['n_matured']}** "
+                 f"({fr['coverage']:.0%}; floor {fr['coverage_floor']:.0%}) — "
+                 f"{fr['n_matured_unscored']} matured but unscored")
     L.append(f"- Directional calls resolved (hit-rate-scorable): **{out['n_directional_calls_resolved']}** / floor {MIN_DIRECTIONAL_HITS}")
     es = out["effective_sample"]
     L.append(f"- Effective sample: **{es['effective_n']}** independent (of {es['n_raw']} raw across {es['n_clusters']} tickers)")
@@ -1888,6 +2042,26 @@ def render_markdown(out):
                      f"| {'yes' if r.get('banner') else '—'} |")
     else:
         L.append("_None — every standing run is verified or unaudited (an unaudited run is NOT excluded)._")
+    L.append("")
+    # Matured-but-unscored forecasts are NAMED too: they are the denominator the Brier leaves out, and each
+    # one is a concrete settle-it action (fetch the print, re-review) rather than an abstract gap (§11/§19).
+    fr = out.get("forecast_resolution") or {}
+    L.append("## Matured forecasts not in the Brier sample (resolution coverage)")
+    if fr.get("n_matured_unscored"):
+        bd = fr.get("brier_bounds_if_unscored_matured_settled")
+        L.append(f"{fr['n_matured_unscored']} of {fr['n_matured']} matured ledger forecasts (gated population) "
+                 f"never settled, so the Brier above covers {fr['coverage']:.0%} of what has come due"
+                 + (f"; had they settled it would lie in [{bd['best']}, {bd['worst']}]" if bd else "") + ".")
+        L.append("")
+        L.append("| Due | Ticker | Run | # | Prob | Why unscored | Last review | Forecast |")
+        L.append("|---|---|---|---|---|---|---|---|")
+        for u in fr.get("unscored", []):
+            pr = f"{u['prob']:.0%}" if u.get("prob") is not None else "—"
+            pred = str(u.get("prediction") or "").replace("|", "/")
+            L.append(f"| {u['due_date']} | {u['ticker']} | {u['run']} | {u['ledger_index'] + 1} | {pr} "
+                     f"| {u['bucket'].replace('_', ' ')} | {u.get('last_review_date') or '—'} | {pred} |")
+    else:
+        L.append("_None — every matured ledger forecast in the gated population is in the Brier sample._")
     L.append("")
     L.append("## Inventory")
     L.append("| Ticker | Run | Decision | Basket | Provider cohort | Integrity | Conf | Resolved fc | Dir hit | Latest review |")
