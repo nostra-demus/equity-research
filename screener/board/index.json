@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T17:30:07Z",
+  "generated_at": "2026-11-16T17:31:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1376,6 +1376,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-457",
+      "headline": "Eli Lilly to Buy Calytrix Bio for Up to $1.5 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/eli-lilly-to-buy-calytrix-bio-for-up-to-1-5-billion-591745e4?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T16:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Eli Lilly is acquiring Calytrix Bio for $1.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly is acquiring Calytrix Bio for $1.5 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Calytrix Bio",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-423",
       "headline": "'I would not mind that': Trump backs return of Nvidia boss following affairs... but shares sink again ahead of crucial results",
       "headline_en": null,
@@ -1918,55 +1972,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-352",
-      "headline": "Baidu Profit Misses as It Searches for New Growth Driver",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/baidu-profit-misses-as-it-searches-for-new-growth-driver-4d1e6d8d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T10:54:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Baidu reported a profit miss, signaling challenges in its core growth drivers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Baidu reported a profit miss, signaling challenges in its core growth drivers.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Baidu",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -242330,79 +242335,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-51bba3caca9e",
-      "idea_version": "IDEAV-f62c80e90ede7022",
-      "idea_version_started_at": "2026-11-15T05:44:21Z",
-      "ticker": "NVL",
-      "company": "Novelis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Novelis is selling its China operations, indicating a strategic shift away from a key market which may impact future revenue and growth prospects.",
-      "why_now": "The company announced a $265 million sale of its China exposure on November 15, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a41363cdef04"
-      ],
-      "primary_source_event_id": "EVT-a41363cdef04",
-      "source_headlines": [
-        "Novelis Cuts China Exposure With $265 Million Sale"
-      ],
-      "source_headline": "Novelis Cuts China Exposure With $265 Million Sale",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/novelis-cuts-china-exposure-with-265-million-sale",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-15T05:30:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-15T05:44:21Z",
-      "updated_at": "2026-11-15T05:44:21Z",
-      "decay_at": "2026-11-16T17:30:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1f9eea8b1f45",
       "idea_version": "IDEAV-ab24865293ff127a",
       "idea_version_started_at": "2026-11-15T11:43:54Z",
@@ -244945,6 +244877,79 @@
       "surfaced_at": "2026-11-15T06:04:56Z",
       "updated_at": "2026-11-15T06:04:56Z",
       "decay_at": "2026-11-16T17:10:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-51bba3caca9e",
+      "idea_version": "IDEAV-f62c80e90ede7022",
+      "idea_version_started_at": "2026-11-15T05:44:21Z",
+      "ticker": "NVL",
+      "company": "Novelis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Novelis is selling its China operations, indicating a strategic shift away from a key market which may impact future revenue and growth prospects.",
+      "why_now": "The company announced a $265 million sale of its China exposure on November 15, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a41363cdef04"
+      ],
+      "primary_source_event_id": "EVT-a41363cdef04",
+      "source_headlines": [
+        "Novelis Cuts China Exposure With $265 Million Sale"
+      ],
+      "source_headline": "Novelis Cuts China Exposure With $265 Million Sale",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/novelis-cuts-china-exposure-with-265-million-sale",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T05:30:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T05:44:21Z",
+      "updated_at": "2026-11-15T05:44:21Z",
+      "decay_at": "2026-11-16T17:30:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -248052,9 +248057,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 568,
     "shown_count": 499,
-    "hidden_count": 68,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -248062,9 +248067,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       }
     },
     "retention": {
@@ -248083,6 +248088,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-51bba3caca9e",
+        "idea_version": "IDEAV-f62c80e90ede7022",
+        "idea_version_started_at": "2026-11-15T05:44:21Z",
+        "ticker": "NVL",
+        "company": "Novelis",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Novelis is selling its China operations, indicating a strategic shift away from a key market which may impact future revenue and growth prospects.",
+        "why_now": "The company announced a $265 million sale of its China exposure on November 15, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a41363cdef04"
+        ],
+        "primary_source_event_id": "EVT-a41363cdef04",
+        "source_headlines": [
+          "Novelis Cuts China Exposure With $265 Million Sale"
+        ],
+        "source_headline": "Novelis Cuts China Exposure With $265 Million Sale",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/novelis-cuts-china-exposure-with-265-million-sale",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-15T05:30:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-15T05:44:21Z",
+        "updated_at": "2026-11-15T05:44:21Z",
+        "decay_at": "2026-11-16T17:30:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-16T17:30:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b3f7b1e6cb59",
         "idea_version": "IDEAV-9601aed2b30685b2",
@@ -285106,86 +285187,12 @@
         "archived_at": "2026-10-26T21:49:01Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-114b61823f33",
-        "idea_version": "IDEAV-61395174fb35a932",
-        "idea_version_started_at": "2026-10-24T02:27:44Z",
-        "ticker": "GNTX",
-        "company": "Gentex",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Gentex is experiencing a decline in profitability and has lowered its FY26 revenue outlook, reflecting operational headwinds.",
-        "why_now": "The guidance reduction was issued on 2026-10-23, indicating immediate pressure on the company's financial performance.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9a8e0c07caa1"
-        ],
-        "primary_source_event_id": "EVT-9a8e0c07caa1",
-        "source_headlines": [
-          "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line"
-        ],
-        "source_headline": "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line",
-        "source_url": "https://www.nasdaq.com/articles/gentex-q3-profit-slips-trims-fy26-revenue-outlook-fy27-revenue-line",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T16:25:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T02:27:44Z",
-        "updated_at": "2026-10-24T02:27:44Z",
-        "decay_at": "2026-10-25T04:25:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T17:25:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2508,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -285204,9 +285211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 629841,
-    "news_picked_today": 944,
-    "news_dropped_today": 12255
+    "news_seen_today": 631619,
+    "news_picked_today": 956,
+    "news_dropped_today": 12267
   },
   "book_momentum": {
     "live_count": 8,
