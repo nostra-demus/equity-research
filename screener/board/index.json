@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T04:16:22Z",
+  "generated_at": "2026-11-16T04:17:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-126",
@@ -93,6 +93,55 @@
           "name": "Adicon Holdings",
           "ticker": "09860",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-156",
+      "headline": "VA Tech Wabag shares fall 10% after Saudi Arabia Water Authority cancels ₹2,332 crore desalination plant project",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/va-tech-wabag-share-price-300-mld-yanbu-desalination-plant-project-cancelled-second-time-saudi-arabia-water-authority-20034619.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T04:04:16Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "VA Tech Wabag shares fell 10% after the cancellation of a ₹2,332 crore desalination project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "VA Tech Wabag shares fell 10% after the cancellation of a ₹2,332 crore desalination project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VA Tech Wabag",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -643,6 +692,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-153",
+      "headline": "Jefferies Backs All Adani Group Stocks, Sees $51 Billion Capex Push And 23% Earnings CAGR Through FY29",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/jefferies-turns-bullish-on-adani-groups-infrastructure-bet-reiterates-buy-on-six-stocks-12331651#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T03:03:48Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Jefferies projects a $51 billion capex push for Adani Group through FY29, signaling significant growth investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Jefferies projects a $51 billion capex push for Adani Group through FY29, signaling significant growth investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-125",
       "headline": "Yemen’s Hodeidah airport targeted by air strikes",
       "headline_en": null,
@@ -931,31 +1029,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-072",
-      "headline": "LS Electric wins US$93.83 mln order for AI data center power systems in U.S.",
+      "inbox_id": "INB-20261116-163",
+      "headline": "LS Electric wins $94m US AI data center equipment deal",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261116002700320",
-      "source_name": "Yonhap News Agency — All News (English)",
+      "url": "https://www.koreaherald.com/article/10938560",
+      "source_name": "The Korea Herald — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:50:09Z",
+      "found_at": "2026-11-16T04:04:05Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "LS Electric secured a $93.83 million order for data center power systems, a significant contract win.",
+      "prelim_note": "LS Electric secured a $94 million contract for AI data center equipment in the US, representing a significant new revenue win.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 97,
-      "triage_reason": "LS Electric secured a $93.83 million order for data center power systems, a significant contract win.",
+      "triage_reason": "LS Electric secured a $94 million contract for AI data center equipment in the US, representing a significant new revenue win.",
       "region": "KR",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -971,7 +1069,7 @@
         {
           "name": "LS Electric",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "mid",
@@ -1281,6 +1379,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-155",
+      "headline": "Pricol shares fall up to 10% after announcing Warburg Pincus deal for Pricol Autotech",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pricol-share-price-falls-after-announcing-warburg-pincus-deal-for-pricol-autotech-20034666.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T04:08:34Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Pricol shares fell 10% following the announcement of a deal involving Warburg Pincus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Pricol shares fell 10% following the announcement of a deal involving Warburg Pincus.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pricol",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-024",
       "headline": "JUNSHI BIO (01877): VOLUNTARY ANNOUNCEMENT - NEW INDICATION OF TUOYI HAS BEEN INCLUDED IN THE NATIONAL REIMBURSEMENT DRUG LIST",
       "headline_en": null,
@@ -1325,6 +1472,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-148",
+      "headline": "Tata Motors PV shares crack 9% as Motilal Oswal cuts earnings estimates, stays bearish after Q2 results",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-pv-shares-in-focus-as-motilal-oswal-cuts-earnings-estimates-stays-bearish-after-q2-results/articleshow/135871690.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T03:46:03Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Tata Motors shares fell 9% following a downgrade in earnings estimates by Motilal Oswal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Tata Motors shares fell 9% following a downgrade in earnings estimates by Motilal Oswal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1772,204 +1968,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-135",
-      "headline": "Eicher Motors shares in focus as Q2 profit rises 15% YoY. Why CLSA hiked target but cut earnings estimates",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/eicher-motors-shares-in-focus-as-q2-profit-rises-15-yoy-why-clsa-hiked-target-but-cut-earnings-estimates/articleshow/135871640.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T03:39:32Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Eicher Motors reported a 15% YoY profit increase, but analyst earnings estimates were cut despite a target price hike.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Eicher Motors reported a 15% YoY profit increase, but analyst earnings estimates were cut despite a target price hike.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eicher Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-109",
-      "headline": "40 Amazon Leo Satellites Lost As ULA’s Vulcan Rocket Suffers Launch Mishap",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/technology/40-amazon-leo-satellites-lost-as-ula-s-vulcan-rocket-suffers-launch-mishap-12331475#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:53:37Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Loss of 40 Amazon satellites due to a ULA Vulcan rocket launch failure represents a significant operational and asset loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Loss of 40 Amazon satellites due to a ULA Vulcan rocket launch failure represents a significant operational and asset loss.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-039",
-      "headline": "Transasia BioMedicals explores up to 20% stake sale to raise $200 million",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/transasia-biomedicals-explores-up-to-20-stake-sale-to-raise-200-million-11794755869514.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:30:51Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Transasia BioMedicals is exploring a potential 20% stake sale to raise $200 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Transasia BioMedicals is exploring a potential 20% stake sale to raise $200 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Transasia BioMedicals",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-013",
-      "headline": "EVEREST MED (01952): VOLUNTARY ANNOUNCEMENT BUSINESS UPDATE ON THE INCLUSION OF VELSIPITY AND XERAVA IN 2026 NATIONAL REIMBURSEMENT DRUG LIST",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600049.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T23:01:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Everest Med's drugs Velsipity and Xerava were included in the 2026 National Reimbursement Drug List.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Everest Med's drugs Velsipity and Xerava were included in the 2026 National Reimbursement Drug List.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Everest Med",
-          "ticker": "01952",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285221,9 +285219,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2432,
-    "news_picked_today": 227,
-    "news_dropped_today": 1026
+    "news_seen_today": 2487,
+    "news_picked_today": 246,
+    "news_dropped_today": 1062
   },
   "book_momentum": {
     "live_count": 8,
