@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-16T11:47:31Z",
+  "generated_at": "2026-11-16T11:48:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261116-298",
+      "headline": "AGILE GROUP (03383): SIGNIFICANT PROGRESS OF OFFSHORE DEBT RESTRUCTURING (1) ENTRY INTO THE RSA WITH INITIAL PARTICIPATING CREDITORS; AND (2) INVITATION TO OTHER CREDITORS TO ACCEDE TO THE RSA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111601315.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T11:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Agile Group has entered into a Restructuring Support Agreement with initial creditors to address its offshore debt, a critical step in avoiding default.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Agile Group has entered into a Restructuring Support Agreement with initial creditors to address its offshore debt, a critical step in avoiding default.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Agile Group",
+          "ticker": "03383",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261116-287",
       "headline": "EUROEYES (01846): DISCLOSEABLE AND CONNECTED TRANSACTIONS - ACQUISITION OF 30% EQUITY INTERESTS IN TARGET COMPANIES AND CAPITAL REDUCTIONS",
@@ -881,6 +930,110 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-312",
+      "headline": "Applied Nutrition FY26 Profit Up, Backs FY27 View In Line With Market, Warns On Margin, Stock Down",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/applied-nutrition-fy26-profit-backs-fy27-view-line-market-warns-margin-stock-down",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T11:17:26Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Applied Nutrition reported profit growth but warned on margins, causing a stock decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Applied Nutrition reported profit growth but warned on margins, causing a stock decline.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Applied Nutrition",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-313",
+      "headline": "Canadian Natural To Acquire Advantage Energy In $2.53 Bln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/canadian-natural-acquire-advantage-energy-253-bln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T10:52:38Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Canadian Natural Resources is acquiring Advantage Energy in a $2.53 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Canadian Natural Resources is acquiring Advantage Energy in a $2.53 billion deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Canadian Natural Resources",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Advantage Energy",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1826,153 +1979,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-178",
-      "headline": "Allcargo Global Shifts From Losses To Profits In Q2, Revenue Jumps 23% As EBITDA Skyrockets 270%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/allcargo-global-shifts-from-losses-to-profits-in-q2-revenue-jumps-23-as-ebitda-skyrockets-270",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T04:05:07Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Allcargo Global reported a shift to profitability with a 23% revenue increase and a 270% jump in EBITDA for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Allcargo Global reported a shift to profitability with a 23% revenue increase and a 270% jump in EBITDA for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allcargo Global",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-156",
-      "headline": "VA Tech Wabag shares fall 10% after Saudi Arabia Water Authority cancels ₹2,332 crore desalination plant project",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/va-tech-wabag-share-price-300-mld-yanbu-desalination-plant-project-cancelled-second-time-saudi-arabia-water-authority-20034619.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T04:04:16Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "VA Tech Wabag shares fell 10% after the cancellation of a ₹2,332 crore desalination project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "VA Tech Wabag shares fell 10% after the cancellation of a ₹2,332 crore desalination project.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VA Tech Wabag",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-171",
-      "headline": "DEE Development Engineers Bags Bigger Orders And Stronger Profits, Q2 Earnings Rise 32% As Order Book Surges 94%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/dee-development-engineers-bags-bigger-orders-and-stronger-profits-q2-earnings-rise-32-as-order-book-surges-94",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T03:53:18Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "DEE Development Engineers reported a 32% rise in Q2 profits and a 94% surge in order book.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DEE Development Engineers reported a 32% rise in Q2 profits and a 94% surge in order book.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DEE Development Engineers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285223,9 +285229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 367998,
-    "news_picked_today": 523,
-    "news_dropped_today": 8308
+    "news_seen_today": 372059,
+    "news_picked_today": 540,
+    "news_dropped_today": 8339
   },
   "book_momentum": {
     "live_count": 8,
