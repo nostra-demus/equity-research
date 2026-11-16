@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T14:46:55Z",
+  "generated_at": "2026-11-16T14:47:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-321",
@@ -1278,6 +1278,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-342",
+      "headline": "Dar Global launches $267m project in Jeddah amid Saudi expansion push",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/property/2026/11/16/dar-global-launches-267m-project-in-jeddah-amid-saudi-expansion-push/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T11:32:09Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Dar Global launched a $267 million project in Jeddah.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dar Global launched a $267 million project in Jeddah.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dar Global",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-312",
       "headline": "Applied Nutrition FY26 Profit Up, Backs FY27 View In Line With Market, Warns On Margin, Stock Down",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
           "name": "Inox Wind",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-190",
-      "headline": "Akeso shares plummet as Chinese firm’s cancer drug ivonescimab faces FDA setback",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/china-business/article/3374543/akeso-shares-plummet-chinese-firms-cancer-drug-ivonescimab-faces-fda-setback",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T05:00:10Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Akeso's key drug candidate faces a significant FDA setback, directly impacting the company's growth prospects and valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Akeso's key drug candidate faces a significant FDA setback, directly impacting the company's growth prospects and valuation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Akeso",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -285211,9 +285211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 572767,
-    "news_picked_today": 682,
-    "news_dropped_today": 11557
+    "news_seen_today": 574049,
+    "news_picked_today": 702,
+    "news_dropped_today": 11585
   },
   "book_momentum": {
     "live_count": 8,
