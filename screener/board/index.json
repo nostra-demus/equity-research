@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T22:02:34Z",
+  "generated_at": "2026-11-16T22:03:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1431,6 +1431,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-587",
+      "headline": "Chevron nears $5bn deal for Blackstone-backed oil group in US Gulf",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/92e1c14a-f836-40b0-8d9e-0ed1c1d2fea9?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T21:20:03Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Chevron is nearing a $5 billion acquisition of a Blackstone-backed oil group in the US Gulf.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron is nearing a $5 billion acquisition of a Blackstone-backed oil group in the US Gulf.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-582",
       "headline": "Lilly strikes up to $5.9B cancer deal with Stipple Bio",
       "headline_en": null,
@@ -1525,55 +1574,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-557",
-      "headline": "Chevron nears roughly $5bn deal for Blackstone-backed oil producer in US gulf",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/92e1c14a-f836-40b0-8d9e-0ed1c1d2fea9?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T20:18:59Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Chevron is nearing a $5bn acquisition of an oil producer, representing a significant capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chevron is nearing a $5bn acquisition of an oil producer, representing a significant capital deployment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285229,9 +285229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 756025,
-    "news_picked_today": 1403,
-    "news_dropped_today": 15012
+    "news_seen_today": 757463,
+    "news_picked_today": 1410,
+    "news_dropped_today": 15029
   },
   "book_momentum": {
     "live_count": 8,
