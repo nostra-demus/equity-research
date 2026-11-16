@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T02:01:11Z",
+  "generated_at": "2026-11-16T02:02:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -51,13 +51,13 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-063",
-      "headline": "ASX falls; Adore dives 37pc after slashing guidance",
+      "inbox_id": "INB-20261116-100",
+      "headline": "ASX falls on mining slump; Adore dives 37pc after slashing guidance",
       "headline_en": null,
       "url": "https://www.afr.com/markets/equity-markets/asx-to-wobble-australian-dollar-hits-10-month-lows-20261116-p61e95?ref=rss&utm_medium=rss&utm_source=rss_feed",
       "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:03:29Z",
+      "found_at": "2026-11-16T01:54:36Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
       "prelim_note": "Adore Beauty Group slashed its guidance, resulting in a 37% share price decline.",
       "dedup_status": "new",
@@ -67,15 +67,15 @@
       "triage_reason": "Adore Beauty Group slashed its guidance, resulting in a 37% share price decline.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 7,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -90,7 +90,7 @@
       "companies": [
         {
           "name": "Adore Beauty Group",
-          "ticker": null,
+          "ticker": "ABY",
           "listing_country": "AU"
         }
       ],
