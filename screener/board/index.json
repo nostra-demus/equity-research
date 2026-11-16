@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T05:03:32Z",
+  "generated_at": "2026-11-16T05:04:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-126",
@@ -1869,6 +1869,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-184",
+      "headline": "Belrise Industries shares rally 11% on strong Q2; company announces H-One merger",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/belrise-industries-share-price-strong-q2-company-announces-h-one-merger-20034689.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T04:57:02Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The company reported strong Q2 results and announced a merger with H-One, which is a significant corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company reported strong Q2 results and announced a merger with H-One, which is a significant corporate action.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Belrise Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-176",
       "headline": "SK Hynix in 24/7 race to complete colossal chip plant",
       "headline_en": null,
@@ -1910,55 +1960,6 @@
           "name": "SK Hynix",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-148",
-      "headline": "Tata Motors PV shares crack 9% as Motilal Oswal cuts earnings estimates, stays bearish after Q2 results",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-pv-shares-in-focus-as-motilal-oswal-cuts-earnings-estimates-stays-bearish-after-q2-results/articleshow/135871690.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T03:46:03Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Tata Motors shares fell 9% following a downgrade in earnings estimates by Motilal Oswal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Tata Motors shares fell 9% following a downgrade in earnings estimates by Motilal Oswal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
