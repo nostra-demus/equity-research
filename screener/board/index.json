@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T02:26:12Z",
+  "generated_at": "2026-11-16T02:27:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-115",
+      "headline": "Vikram Solar shares in focus after Q2 profit plunges 95%, margins under pressure",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/vikram-solar-share-price-q2-result-reaction-profit-falls-95-percent-margin-pressure-outlook-20034565.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T02:07:33Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Vikram Solar reported a 95% plunge in Q2 profit, indicating significant margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vikram Solar reported a 95% plunge in Q2 profit, indicating significant margin pressure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vikram Solar",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1185,6 +1234,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-116",
+      "headline": "Intel sued by shareholders following 29% stock plunge",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/intel-sued-by-shareholders-following-29-pc-stock-plunge-20033591.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T02:19:57Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Intel is facing a shareholder lawsuit following a significant 29% stock price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Intel is facing a shareholder lawsuit following a significant 29% stock price decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-102",
       "headline": "LG Chem Buyback Falls Short, Palliser Says, Pressing for Board Changes",
       "headline_en": null,
@@ -1328,55 +1426,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-026",
-      "headline": "Intel sued by shareholders following 29% stock plunge",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/intel-sued-by-shareholders-following-29-stock-plunge",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:02:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Intel is facing a shareholder lawsuit following a significant stock price decline, indicating potential legal and governance risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Intel is facing a shareholder lawsuit following a significant stock price decline, indicating potential legal and governance risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1962,6 @@
           "name": "Nvidia",
           "ticker": "NVDA",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-083",
-      "headline": "삼성SDI, 주피터파워와 LFP 배터리 공급계약 체결",
-      "headline_en": "Samsung SDI signs LFP battery supply contract with Jupiter Power",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281319",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T23:38:40Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Samsung SDI signed an LFP battery supply contract with Jupiter Power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Samsung SDI signed an LFP battery supply contract with Jupiter Power.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung SDI",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -285216,9 +285216,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1074,
-    "news_picked_today": 120,
-    "news_dropped_today": 425
+    "news_seen_today": 1115,
+    "news_picked_today": 133,
+    "news_dropped_today": 453
   },
   "book_momentum": {
     "live_count": 8,
