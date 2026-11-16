@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T12:54:47Z",
+  "generated_at": "2026-11-16T12:55:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-321",
@@ -779,6 +779,55 @@
           "name": "Vault Intelligence Ltd",
           "ticker": "VAU",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-327",
+      "headline": "POT: Suspension of Notes from Official Quotation and Removal [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.POT?key=2924-03162231-2A1710818",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T08:00:29Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "POT is being removed from official quotation, indicating a terminal event for the listed entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "POT is being removed from official quotation, indicating a terminal event for the listed entity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "POT",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-197",
-      "headline": "Kinetic Engineering Shifts Into Top Gear In Q2, Revenue Zooms 99% To ₹78.31 Crore As Company Returns To Profit",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/kinetic-engineering-shifts-into-top-gear-in-q2-revenue-zooms-99-to-7831-crore-as-company-returns-to-profit",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T04:41:16Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Kinetic Engineering reported a 99 percent revenue increase to 78.31 crore and a return to profitability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kinetic Engineering reported a 99 percent revenue increase to 78.31 crore and a return to profitability.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kinetic Engineering",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285210,9 +285210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 500543,
-    "news_picked_today": 584,
-    "news_dropped_today": 9447
+    "news_seen_today": 504033,
+    "news_picked_today": 589,
+    "news_dropped_today": 9514
   },
   "book_momentum": {
     "live_count": 8,
