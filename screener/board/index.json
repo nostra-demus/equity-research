@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T09:55:16Z",
+  "generated_at": "2026-11-16T09:56:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-253",
@@ -42,6 +42,55 @@
         {
           "name": "XPENG",
           "ticker": "09868",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-257",
+      "headline": "CHINA OILFIELD (02883): DISCLOSEABLE TRANSACTION - INVESTMENT IN THE CONSTRUCTION OF 59 OILFIELD SUPPORT VESSELS ACROSS SIX TYPES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600744.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T09:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "China Oilfield announced an investment in the construction of 59 support vessels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Oilfield announced an investment in the construction of 59 support vessels.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA OILFIELD",
+          "ticker": "02883",
           "listing_country": "CN"
         }
       ],
@@ -1925,49 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-125",
-      "headline": "Yemen’s Hodeidah airport targeted by air strikes",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/yemens-hodeidah-airport-targeted-air-strikes",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T03:02:59Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Military strikes on critical infrastructure in Yemen represent a significant geopolitical escalation in a volatile region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Military strikes on critical infrastructure in Yemen represent a significant geopolitical escalation in a volatile region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285218,9 +285224,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 186750,
-    "news_picked_today": 441,
-    "news_dropped_today": 6782
+    "news_seen_today": 190084,
+    "news_picked_today": 446,
+    "news_dropped_today": 6849
   },
   "book_momentum": {
     "live_count": 8,
