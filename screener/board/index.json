@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T14:35:55Z",
+  "generated_at": "2026-11-16T14:36:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-321",
@@ -1224,6 +1224,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-334",
+      "headline": "Banken: EU und Fed erlauben Commerzbank-Übernahme durch Unicredit",
+      "headline_en": "Banks: EU and Fed allow Commerzbank takeover by Unicredit",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken/banken-eu-und-fed-erlauben-commerzbank-uebernahme-durch-unicredit/100270206.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T11:40:48Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "EU and Fed regulators have approved the acquisition of Commerzbank by Unicredit, a major cross-border banking M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EU and Fed regulators have approved the acquisition of Commerzbank by Unicredit, a major cross-border banking M&A event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commerzbank",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Unicredit",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-312",
       "headline": "Applied Nutrition FY26 Profit Up, Backs FY27 View In Line With Market, Warns On Margin, Stock Down",
       "headline_en": null,
@@ -1923,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-202",
-      "headline": "Tata Motors PV Shares Slide Over 8% As Company Slips To Loss In Q2",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tata-motors-pv-shares-slide-over-8-as-company-slips-to-loss-in-q2-12331803#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T04:47:23Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Tata Motors reported a net loss for Q2, causing an 8% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors reported a net loss for Q2, causing an 8% share price decline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285207,9 +285212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 568897,
-    "news_picked_today": 671,
-    "news_dropped_today": 11544
+    "news_seen_today": 570203,
+    "news_picked_today": 682,
+    "news_dropped_today": 11557
   },
   "book_momentum": {
     "live_count": 8,
