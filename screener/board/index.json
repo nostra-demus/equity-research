@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T04:46:21Z",
+  "generated_at": "2026-11-16T04:47:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-126",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-181",
+      "headline": "Senco Gold raises FY27 revenue growth guidance to 25-30%, sees margins recovering",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/senco-gold-raises-growth-guidance-25-30-percent-expects-margin-recovery-h2-q2-earnings-results-boardroom-alpha-article-20034626.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T04:39:03Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Senco Gold raised its FY27 revenue growth guidance to 25-30%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Senco Gold raised its FY27 revenue growth guidance to 25-30%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Senco Gold",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1962,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-120",
-      "headline": "Michigan pension fund drags Intel to court after 29% stock plunge in a day wiped out $140 billion in market value",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/michigan-pension-fund-drags-intel-to-court-after-29-stock-plunge-in-a-day-wiped-out-140-billion-in-market-value-11794795451046.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T02:29:39Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "A pension fund has filed a lawsuit against Intel following a 29% stock price decline, indicating potential legal risk and management scrutiny.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A pension fund has filed a lawsuit against Intel following a 29% stock price decline, indicating potential legal risk and management scrutiny.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": "INTC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285213,9 +285213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2702,
-    "news_picked_today": 269,
-    "news_dropped_today": 1140
+    "news_seen_today": 2737,
+    "news_picked_today": 277,
+    "news_dropped_today": 1167
   },
   "book_momentum": {
     "live_count": 8,
