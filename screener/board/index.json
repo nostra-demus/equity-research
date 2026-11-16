@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-16T16:56:04Z",
+  "generated_at": "2026-11-16T16:57:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261116-456",
+      "headline": "S. DRAGON (08493): 1) DECISION OF THE GEM LISTING COMMITTEE ON CANCELLATION OF LISTING; (2) POSSIBLE REQUEST FOR REVIEW BY THE GEM LISTING REVIEW COMMITTEE; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1116/2026111601673.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T14:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "GEM Listing Committee decides to cancel listing of S. Dragon (08493); trading suspended with review pending—a forced delisting signals default, insolvency, or severe compliance failure, destroying equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GEM Listing Committee decides to cancel listing of S. Dragon (08493); trading suspended with review pending—a forced delisting signals default, insolvency, or severe compliance failure, destroying equity value.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 87,
+      "rank_factors": {
+        "materiality": 87,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S. Dragon",
+          "ticker": "08493",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261116-434",
       "headline": "NOVOSENSE (02676): Overseas Regulatory Announcement - Announcement of Suzhou Novosense Microelectronics Co., Ltd. on the Proposed Cash Acquisition of Part of the Equity Interests in Ningbo Airtouch Intelligent Technology Co., Ltd.",
@@ -1915,60 +1964,6 @@
           "name": "Baidu",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-313",
-      "headline": "Canadian Natural To Acquire Advantage Energy In $2.53 Bln Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/canadian-natural-acquire-advantage-energy-253-bln-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T10:52:38Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Canadian Natural Resources is acquiring Advantage Energy in a $2.53 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Canadian Natural Resources is acquiring Advantage Energy in a $2.53 billion deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Canadian Natural Resources",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Advantage Energy",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -285209,9 +285204,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 616095,
-    "news_picked_today": 931,
-    "news_dropped_today": 12196
+    "news_seen_today": 617525,
+    "news_picked_today": 934,
+    "news_dropped_today": 12217
   },
   "book_momentum": {
     "live_count": 8,
