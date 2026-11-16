@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T04:07:20Z",
+  "generated_at": "2026-11-16T04:08:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-126",
@@ -1133,6 +1133,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-145",
+      "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Expanded Coverage on National Reimbursement Drug List for ELUNATE and ORPATHYS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600267.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T04:02:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "HUTCHMED's drugs ELUNATE and ORPATHYS have been included in the National Reimbursement Drug List, which is expected to expand market access and sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "HUTCHMED's drugs ELUNATE and ORPATHYS have been included in the National Reimbursement Drug List, which is expected to expand market access and sales.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUTCHMED",
+          "ticker": "00013",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-073",
       "headline": "BUS: Becoming a substantial holder",
       "headline_en": null,
@@ -1916,55 +1966,6 @@
         {
           "name": "Everest Med",
           "ticker": "01952",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-014",
-      "headline": "ASCENTAGE (06855): VOLUNTARY ANNOUNCEMENT - ASCENTAGE PHARMA ANNOUNCES INCLUSION OF LISAFTOCLAX IN CHINA'S 2026 NATIONAL REIMBURSEMENT DRUG LIST AND SUCCESSFUL RENEWAL OF COVERAGE FOR OLVEREMBATINIB",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600045.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-15T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Ascentage Pharma's drug Lisafotoclax was included in the 2026 NRDL and Olverembatinib coverage was renewed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Ascentage Pharma's drug Lisafotoclax was included in the 2026 NRDL and Olverembatinib coverage was renewed.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ascentage Pharma",
-          "ticker": "06855",
           "listing_country": "CN"
         }
       ],
@@ -285220,9 +285221,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2208,
-    "news_picked_today": 217,
-    "news_dropped_today": 867
+    "news_seen_today": 2377,
+    "news_picked_today": 227,
+    "news_dropped_today": 1026
   },
   "book_momentum": {
     "live_count": 8,
