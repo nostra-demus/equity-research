@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T03:06:18Z",
+  "generated_at": "2026-11-16T03:07:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -439,6 +439,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-125",
+      "headline": "Yemen’s Hodeidah airport targeted by air strikes",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/yemens-hodeidah-airport-targeted-air-strikes",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T03:02:59Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Military strikes on critical infrastructure in Yemen represent a significant geopolitical escalation in a volatile region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Military strikes on critical infrastructure in Yemen represent a significant geopolitical escalation in a volatile region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-066",
-      "headline": "PhysicsWallah shares worth over ₹19,000 crore free up today as major shareholder lock-in ends",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/physicswallah-share-price-shareholder-lock-in-ending-today-over-19000-crore-q2-results-shareholding-retail-mfs-20034522.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:52:56Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "PhysicsWallah faces a significant liquidity event as a major shareholder lock-in period expires for shares worth ₹19,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "PhysicsWallah faces a significant liquidity event as a major shareholder lock-in period expires for shares worth ₹19,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PhysicsWallah",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
