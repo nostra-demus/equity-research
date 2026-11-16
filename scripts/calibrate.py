@@ -2057,7 +2057,10 @@ def render_markdown(out):
         L.append("|---|---|---|---|---|---|---|---|")
         for u in fr.get("unscored", []):
             pr = f"{u['prob']:.0%}" if u.get("prob") is not None else "—"
-            pred = str(u.get("prediction") or "").replace("|", "/")
+            # Collapse ALL whitespace (incl. newlines/tabs) to single spaces before the pipe swap: a
+            # literal newline in the prediction text would otherwise split this GFM table row across two
+            # lines and break the table (the `|`→`/` swap only guards against spurious columns).
+            pred = " ".join(str(u.get("prediction") or "").split()).replace("|", "/")
             L.append(f"| {u['due_date']} | {u['ticker']} | {u['run']} | {u['ledger_index'] + 1} | {pr} "
                      f"| {u['bucket'].replace('_', ' ')} | {u.get('last_review_date') or '—'} | {pred} |")
     else:

@@ -1779,6 +1779,40 @@ def test_forecast_resolution_coverage():
     check(out4["forecast_resolution"]["n_matured"] > 0, "coverage counts are honest at any N")
 
 
+def test_resolution_markdown_newline_prediction_stays_one_row():
+    # GFM table rule (CommonMark GFM §Tables): a table row is a SINGLE line; a literal newline in a
+    # free-text cell splits the row and breaks the table. Regression for the gemini-code-assist finding on
+    # PR #825 — the unscored-forecast cell handled '|' but not newlines, so a multi-line prediction spilled
+    # out of the table. Expected: the Forecast cell is collapsed to one line, so every rendered line in the
+    # coverage-table region is a valid pipe-delimited row.
+    standing = [{
+        "run_root": "analyses/R0_2026-06-01",
+        "record": {"ticker": "R0", "decision": "Watchlist", "decision_date": "2026-06-01",
+                   "basket": "Watchlist", "forecast_ledger": [
+                       *[{"prediction": f"scored forecast {i}", "probability": 60,
+                          "owner_module": "earnings", "time_window": "2026-07-01"} for i in range(10)],
+                       {"prediction": "line one of the call\nline two | with a pipe\tand a tab",
+                        "probability": 50, "time_window": "2026-07-01"},  # matured, never reviewed, multi-line
+                   ]}}]
+    reviews = {"analyses/R0_2026-06-01": [
+        {"review_date": "2026-07-10", "_path": "analyses/R0_2026-06-01/reviews/2026-07-10_decision_review.json",
+         "forecast_results": [{"prediction": f"scored forecast {i}", "status": "confirmed"} for i in range(10)]}]}
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: reviews.get(r, []))
+    md = C.render_markdown(dict(out))
+    lines = md.splitlines()
+    start = next(i for i, l in enumerate(lines) if l.startswith("| Due |"))
+    # Walk the contiguous table block; every non-blank line must be a well-formed pipe row.
+    block = []
+    for l in lines[start:]:
+        if not l.strip():
+            break
+        block.append(l)
+    spilled = [l for l in block if not (l.startswith("|") and l.rstrip().endswith("|"))]
+    check(not spilled, f"no table row spilled across lines (GFM one-line-per-row); got spilled={spilled}")
+    check(any("line one of the call line two / with a pipe and a tab" in l for l in block),
+          "the multi-line prediction is collapsed to a single spaced cell with '|' swapped to '/'")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -1817,7 +1851,8 @@ def main():
                test_reported_return_identity_basis_finite_and_rounding,
                test_reported_return_earliest_tracking_anchor,
                test_reported_return_changes_preserve_forecast_calibration,
-               test_forecast_resolution_coverage):
+               test_forecast_resolution_coverage,
+               test_resolution_markdown_newline_prediction_stays_one_row):
         print(f"[{fn.__name__}]")
         fn()
     print()
