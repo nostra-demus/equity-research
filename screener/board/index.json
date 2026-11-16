@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T01:34:10Z",
+  "generated_at": "2026-11-16T01:35:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -1902,37 +1902,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-074",
-      "headline": "Cisco posts its best growth in 15 years. Why isn't Wall Street buying?",
+      "inbox_id": "INB-20261116-088",
+      "headline": "BS1: Full Year Statutory Accounts",
       "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/csco-cisco-morgan-stanley-maintains-price-target-on-cisco-after-strongest-growth-in-15-years",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:17:00Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BS1?key=2924-03162026-2A1710726",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T01:30:27Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Cisco reported significant growth, but the market reaction suggests a disconnect between operational performance and investor expectations.",
+      "prelim_note": "The company released its full-year statutory accounts, which is a routine but material financial disclosure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Cisco reported significant growth, but the market reaction suggests a disconnect between operational performance and investor expectations.",
-      "region": "US",
+      "triage_score": 79,
+      "triage_reason": "The company released its full-year statutory accounts, which is a routine but material financial disclosure.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
+        "materiality": 55,
+        "source_tier": 8,
         "scope": 6,
         "event": 5,
-        "size": 2,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
+        "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1940,12 +1940,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Cisco",
+          "name": "BS1",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
