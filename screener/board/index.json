@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-16T03:16:20Z",
+  "generated_at": "2026-11-16T03:17:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261116-126",
+      "headline": "FND: Receipt of section 249D notice and director resignation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FND?key=2924-03162076-3A706598",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T03:10:13Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Receipt of a section 249D notice indicates an activist shareholder move to requisition a meeting, coupled with a director resignation, signaling potential board instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Receipt of a section 249D notice indicates an activist shareholder move to requisition a meeting, coupled with a director resignation, signaling potential board instability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FND",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261116-003",
       "headline": "ADICON HOLDINGS (09860): MAJOR ACQUISITION IN RELATION TO ACQUISITION OF 100% OF THE ISSUED SHARES OF THE TARGET COMPANY - TERMINATION OF THE SHARE PURCHASE AGREEMENT",
@@ -1474,6 +1524,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-127",
+      "headline": "Investors sue chip giant Intel after 29% stock plunge",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cw62p42p288do?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T03:04:01Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Shareholder lawsuit following a significant 29% stock decline represents a material legal risk and potential impact on management credibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Shareholder lawsuit following a significant 29% stock decline represents a material legal risk and potential impact on management credibility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-117",
       "headline": "Patanjali Foods earnings estimates cut by Jefferies after Q2 results, but second half seen stronger",
       "headline_en": null,
@@ -1862,104 +1961,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-079",
-      "headline": "법원, 고려아연 주총 결의 취소 판결",
-      "headline_en": "Court rules to cancel Korea Zinc shareholder meeting resolution",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281341",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:17:44Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "A court has ruled to cancel a Korea Zinc shareholder meeting resolution, creating governance uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A court has ruled to cancel a Korea Zinc shareholder meeting resolution, creating governance uncertainty.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Zinc",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-086",
-      "headline": "Kakao Prepares for Historic Split of Internet Empire in AI Chase",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-16/kakao-prepares-for-historic-split-of-internet-empire-in-ai-chase",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:10:04Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Kakao is preparing a major corporate restructuring to focus on AI, which could significantly alter its operational structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Kakao is preparing a major corporate restructuring to focus on AI, which could significantly alter its operational structure.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kakao",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285211,9 +285212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1449,
-    "news_picked_today": 166,
-    "news_dropped_today": 574
+    "news_seen_today": 1475,
+    "news_picked_today": 172,
+    "news_dropped_today": 594
   },
   "book_momentum": {
     "live_count": 8,
