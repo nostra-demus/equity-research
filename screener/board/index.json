@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T05:01:34Z",
+  "generated_at": "2026-11-16T05:02:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-126",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-182",
+      "headline": "Kaynes Technology crashes 15% after Q2 shocker. Here’s what spooked investors",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/kaynes-technology-crashes-15-after-q2-shocker-heres-what-spooked-investors/articleshow/135872866.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T04:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Kaynes Technology shares fell 15% following a disappointing Q2 earnings report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kaynes Technology shares fell 15% following a disappointing Q2 earnings report.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaynes Technology",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1962,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-128",
-      "headline": "Kaynes Tech shares react to Q2 results, questions raised on financials restatement",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/kaynes-tech-share-price-q2-result-reaction-financials-restated-stake-sale-earnings-miss-fy27-guidance-cash-flow-buy-sell-20034601.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T03:05:55Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Kaynes Technology is facing questions regarding a financial restatement following its Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Kaynes Technology is facing questions regarding a financial restatement following its Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kaynes Technology",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285213,9 +285213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4148,
-    "news_picked_today": 277,
-    "news_dropped_today": 1827
+    "news_seen_today": 4179,
+    "news_picked_today": 284,
+    "news_dropped_today": 1851
   },
   "book_momentum": {
     "live_count": 8,
