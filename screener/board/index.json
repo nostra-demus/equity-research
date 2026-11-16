@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T20:25:23Z",
+  "generated_at": "2026-11-16T20:26:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1376,6 +1376,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-547",
+      "headline": "Allina Health, Sutter Health notch Minn. AG's approval for $26B combination",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/providers/allina-health-join-sutter-health-26b-proposed-merger",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T20:13:39Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Allina Health and Sutter Health received regulatory approval for a $26 billion combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allina Health and Sutter Health received regulatory approval for a $26 billion combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allina Health",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Sutter Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-540",
       "headline": "Nvidia’s Board Not Considering Reinstating Jensen Huang as CEO",
       "headline_en": null,
@@ -1472,6 +1526,55 @@
           "name": "Foodtastic",
           "ticker": null,
           "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-543",
+      "headline": "Plug Power Has About $134 Million in Cash and Is Burning $28 Million a Quarter. Here's Why That Matters.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/plug-power-has-about-134-million-cash-and-burning-28-million-quarter-heres-why-matters",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T19:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Plug Power has only $134 million in cash while burning $28 million per quarter, highlighting significant liquidity and going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Plug Power has only $134 million in cash while burning $28 million per quarter, highlighting significant liquidity and going-concern risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Plug Power",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1865,109 +1968,6 @@
           "name": "Nvidia",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-457",
-      "headline": "Eli Lilly to Buy Calytrix Bio for Up to $1.5 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/eli-lilly-to-buy-calytrix-bio-for-up-to-1-5-billion-591745e4?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T16:58:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Eli Lilly is acquiring Calytrix Bio for $1.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eli Lilly is acquiring Calytrix Bio for $1.5 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Calytrix Bio",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-530",
-      "headline": "J&J bets $2.2B on Ollin’s vision loss drug",
-      "headline_en": null,
-      "url": "https://www.biopharmadive.com/news/Johnson-johnson-ollin-acquire-ophthalmology-vegf-ang2-drugs/874728/",
-      "source_name": "BioPharma Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T16:57:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Johnson & Johnson is acquiring rights to a vision loss drug for $2.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Johnson & Johnson is acquiring rights to a vision loss drug for $2.2 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Johnson & Johnson",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -285217,9 +285217,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 713911,
-    "news_picked_today": 1202,
-    "news_dropped_today": 14133
+    "news_seen_today": 715523,
+    "news_picked_today": 1209,
+    "news_dropped_today": 14150
   },
   "book_momentum": {
     "live_count": 8,
