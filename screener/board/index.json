@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T22:13:35Z",
+  "generated_at": "2026-11-16T22:14:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1933,21 +1933,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-534",
-      "headline": "Diamondback to Buy Double Eagle’s Midland Stake for $5 Billion",
+      "inbox_id": "INB-20261116-593",
+      "headline": "Quebecor Makes $21.96 Billion Bid for Telus in Canadian Telecom Deal",
       "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/Diamondback-to-Buy-Double-Eagles-Midland-Stake-for-5-Billion.html",
-      "source_name": "OilPrice.com",
+      "url": "https://www.wsj.com/business/deals/quebecor-proposes-combination-with-telus-a6b8a209?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-16T18:30:00Z",
+      "found_at": "2026-11-16T18:31:00Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Diamondback Energy is acquiring Double Eagle's Midland stake for $5 billion, a significant M&A transaction.",
+      "prelim_note": "Quebecor has made a $21.96 billion bid for Telus, a major M&A event in the Canadian telecom sector.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Diamondback Energy is acquiring Double Eagle's Midland stake for $5 billion, a significant M&A transaction.",
-      "region": "US",
+      "triage_reason": "Quebecor has made a $21.96 billion bid for Telus, a major M&A event in the Canadian telecom sector.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -1956,9 +1956,9 @@
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 5,
+        "recency": 3,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -1971,9 +1971,14 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Diamondback Energy",
+          "name": "Quebecor",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
+        },
+        {
+          "name": "Telus",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -285229,9 +285234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 760267,
-    "news_picked_today": 1434,
-    "news_dropped_today": 15077
+    "news_seen_today": 761609,
+    "news_picked_today": 1443,
+    "news_dropped_today": 15116
   },
   "book_momentum": {
     "live_count": 8,
