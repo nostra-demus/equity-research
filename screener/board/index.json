@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-16T11:02:24Z",
+  "generated_at": "2026-11-16T11:03:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261116-287",
+      "headline": "EUROEYES (01846): DISCLOSEABLE AND CONNECTED TRANSACTIONS - ACQUISITION OF 30% EQUITY INTERESTS IN TARGET COMPANIES AND CAPITAL REDUCTIONS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111601161.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T10:53:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "EuroEyes is acquiring a 30% equity interest in target companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EuroEyes is acquiring a 30% equity interest in target companies.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EuroEyes",
+          "ticker": "01846",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261116-266",
       "headline": "CHINA SANJIANG (02198): THE NOVATION AGREEMENTS - ACQUISITION OF TWO VERY LARGE ETHANE CARRIERS",
@@ -739,20 +788,69 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-285",
-      "headline": "Jensen Huang Resigns: 3 Things to Watch From Nvidia on Nov. 17",
+      "inbox_id": "INB-20261116-293",
+      "headline": "Saffery slapped with £700k fine over Greensill audit failures",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/16/jensen-huang-resigns-3-things-to-watch-from-nvidia-on-nov-17/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.cityam.com/saffery-slapped-with-near-1m-fine-over-greensill-audit-failures/",
+      "source_name": "City A.M.",
       "input_nature": "news_headline",
-      "found_at": "2026-11-16T10:02:02Z",
+      "found_at": "2026-11-16T10:33:35Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang is reported to be resigning, a major leadership change for the company.",
+      "prelim_note": "Saffery was fined £700k for audit failures.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang is reported to be resigning, a major leadership change for the company.",
+      "triage_reason": "Saffery was fined £700k for audit failures.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saffery",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-292",
+      "headline": "Jensen Huang Resigns: 3 Things to Watch From Nvidia on Nov. 17",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jensen-huang-resigns-3-things-watch-nvidia-nov-17",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T10:22:02Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Jensen Huang is resigning as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang is resigning as CEO of Nvidia, a major leadership change for a mega-cap company.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -772,6 +870,7 @@
         "size_bucket": "mega"
       },
       "event_types": [
+        "management",
         "executive_exit"
       ],
       "issuer_linkage": "primary",
@@ -1864,104 +1963,6 @@
       },
       "event_types": [
         "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-134",
-      "headline": "Vikram Solar shares fall nearly 9% after Q2 profit plunges 95%, margins under pressure",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/vikram-solar-share-price-q2-result-reaction-profit-falls-95-percent-margin-pressure-outlook-20034565.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T03:42:01Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Vikram Solar reported a 95% plunge in Q2 profit with significant margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vikram Solar reported a 95% plunge in Q2 profit with significant margin pressure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vikram Solar",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-123",
-      "headline": "Tata Motors PV Q2 Review: Jefferies, Goldman Sachs, Kotak Cut Target Prices; See Up To 45% EPS Downgrade",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tata-motors-pv-q2-review-jefferies-goldman-sachs-kotak-cut-target-prices-see-up-to-45-eps-downgrade-12331580#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T02:35:35Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Tata Motors faces up to 45% EPS downgrade following analyst target price cuts from Jefferies, Goldman Sachs, and Kotak.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors faces up to 45% EPS downgrade following analyst target price cuts from Jefferies, Goldman Sachs, and Kotak.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
         "guidance_change"
       ],
       "issuer_linkage": "primary",
@@ -285223,9 +285224,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 288129,
-    "news_picked_today": 501,
-    "news_dropped_today": 7634
+    "news_seen_today": 291997,
+    "news_picked_today": 512,
+    "news_dropped_today": 7743
   },
   "book_momentum": {
     "live_count": 8,
