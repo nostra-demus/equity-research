@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T19:21:15Z",
+  "generated_at": "2026-11-16T19:22:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1376,6 +1376,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-532",
+      "headline": "Nvidia's board of directors opposes restoring Jensen Huang as CEO",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/jensen-huang-nvidia-ceo-reinstatement-petition/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T18:35:33Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The board of directors at Nvidia has officially opposed the return of Jensen Huang as CEO, representing a major governance and leadership conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The board of directors at Nvidia has officially opposed the return of Jensen Huang as CEO, representing a major governance and leadership conflict.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-534",
+      "headline": "Diamondback to Buy Double Eagle’s Midland Stake for $5 Billion",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Diamondback-to-Buy-Double-Eagles-Midland-Stake-for-5-Billion.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T18:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Diamondback Energy is acquiring Double Eagle's Midland stake for $5 billion, a significant M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Diamondback Energy is acquiring Double Eagle's Midland stake for $5 billion, a significant M&A transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diamondback Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-538",
+      "headline": "Nvidia Board Shuts The Door On Jensen Huang's Return As CEO: Report",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/nvidia-board-shuts-the-door-on-jensen-huangs-return-as-ceo-report-12335668#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T18:13:43Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Nvidia's board has formally rejected the return of Jensen Huang as CEO, confirming leadership instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia's board has formally rejected the return of Jensen Huang as CEO, confirming leadership instability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-483",
       "headline": "Tesla to Invest Over $3 Billion to Expand German Factory in Cybercab Bet",
       "headline_en": null,
@@ -1821,159 +1968,6 @@
           "name": "Contego Medical",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-423",
-      "headline": "'I would not mind that': Trump backs return of Nvidia boss following affairs... but shares sink again ahead of crucial results",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16296669/Nvidia-shares-sink-ahead-crucial-results-talk-boss-comeback-branded-ridiculous-following-affairs.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T15:48:06Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "The US President-elect commented on the potential return of Nvidia's CEO following an ouster, impacting market sentiment ahead of earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The US President-elect commented on the potential return of Nvidia's CEO following an ouster, impacting market sentiment ahead of earnings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-431",
-      "headline": "Johnson & Johnson to Buy Ollin Biosciences for $2.2 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/health/pharma/johnson-johnson-to-buy-ollin-biosciences-for-2-2-billion-dee42c0c?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T15:08:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Johnson & Johnson announced a $2.2 billion acquisition of Ollin Biosciences.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Johnson & Johnson announced a $2.2 billion acquisition of Ollin Biosciences.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 3,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Johnson & Johnson",
-          "ticker": "JNJ",
-          "listing_country": "US"
-        },
-        {
-          "name": "Ollin Biosciences",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-429",
-      "headline": "Trump 'certainly would not mind' Huang returning as Nvidia CEO",
-      "headline_en": null,
-      "url": "https://thehill.com/homenews/administration/6222441-tim-cook-nvda-ceo-option/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T14:58:30Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Political commentary on the leadership of a $3T+ company is highly material to market stability and governance expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Political commentary on the leadership of a $3T+ company is highly material to market stability and governance expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
