@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T01:31:10Z",
+  "generated_at": "2026-11-16T01:32:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -1136,6 +1136,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-086",
+      "headline": "Kakao Prepares for Historic Split of Internet Empire in AI Chase",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-16/kakao-prepares-for-historic-split-of-internet-empire-in-ai-chase",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T01:10:04Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Kakao is preparing a major corporate restructuring to focus on AI, which could significantly alter its operational structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Kakao is preparing a major corporate restructuring to focus on AI, which could significantly alter its operational structure.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kakao",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-066",
       "headline": "PhysicsWallah shares worth over ₹19,000 crore free up today as major shareholder lock-in ends",
       "headline_en": null,
@@ -1724,6 +1773,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-087",
+      "headline": "(URGENT) Supreme Court to rule on ex-PM Han's insurrection case Thursday",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261116002800315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T01:14:42Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The Supreme Court is set to rule on a high-profile political case involving a former Prime Minister, which carries significant political risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The Supreme Court is set to rule on a high-profile political case involving a former Prime Minister, which carries significant political risk.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-068",
       "headline": "His Kidney Drug Just Won FDA Approval After Cutting a Key Disease Marker by 43%. One $74,730 Infusion Could Leave Him Owing Nearly $15,000 Under Original Medicare",
       "headline_en": null,
@@ -1849,98 +1941,6 @@
       "companies": [
         {
           "name": "Cisco",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-001",
-      "headline": "Loan repayment cap for MFIs to stay: RBI",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/loan-repayment-cap-for-mfis-to-stay-rbi/articleshow/135868297.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-15T23:43:26Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "The RBI maintaining a loan repayment cap for microfinance institutions limits their ability to manage borrower debt-to-income ratios and credit risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "The RBI maintaining a loan repayment cap for microfinance institutions limits their ability to manage borrower debt-to-income ratios and credit risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-062",
-      "headline": "Is Meta Stock Still a Buy After Borrowing About $25 Billion This Month?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/meta-stock-still-buy-after-borrowing-about-25-billion-month",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:07:01Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Meta has borrowed $25 billion in debt, which impacts the company's capital structure and interest expense.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Meta has borrowed $25 billion in debt, which impacts the company's capital structure and interest expense.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
           "ticker": null,
           "listing_country": "US"
         }
