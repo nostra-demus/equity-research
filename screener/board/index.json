@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T03:55:20Z",
+  "generated_at": "2026-11-16T03:56:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-126",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-137",
+      "headline": "Coal India unit Mahanadi seeks $9.6 billion valuation in IPO",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/stock-markets/coal-india-unit-mahanadi-seeks-96-billion-valuation-in-ipo/article71706709.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T03:46:49Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Mahanadi Coalfields, a unit of Coal India, is seeking a $9.6 billion valuation for its upcoming IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mahanadi Coalfields, a unit of Coal India, is seeking a $9.6 billion valuation for its upcoming IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1476,6 +1525,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-135",
+      "headline": "Eicher Motors shares in focus as Q2 profit rises 15% YoY. Why CLSA hiked target but cut earnings estimates",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/eicher-motors-shares-in-focus-as-q2-profit-rises-15-yoy-why-clsa-hiked-target-but-cut-earnings-estimates/articleshow/135871640.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T03:39:32Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Eicher Motors reported a 15% YoY profit increase, but analyst earnings estimates were cut despite a target price hike.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Eicher Motors reported a 15% YoY profit increase, but analyst earnings estimates were cut despite a target price hike.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eicher Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-109",
       "headline": "40 Amazon Leo Satellites Lost As ULA’s Vulcan Rocket Suffers Launch Mishap",
       "headline_en": null,
@@ -1864,105 +1963,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-102",
-      "headline": "LG Chem Buyback Falls Short, Palliser Says, Pressing for Board Changes",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281357",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T02:06:01Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Activist investor Palliser is pressing for board changes at LG Chem, citing dissatisfaction with buyback execution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Activist investor Palliser is pressing for board changes at LG Chem, citing dissatisfaction with buyback execution.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Chem",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-108",
-      "headline": "Amber Enterprises Q2 Review: Nirmal Bang Turns Cautious, Lowers Rating, Target Price; Key Reasons",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/amber-enterprises-q2-review-nirmal-bang-turns-cautious-lowers-rating-target-price-key-reasons-12331488#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:55:45Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Nirmal Bang downgraded Amber Enterprises and lowered its target price following Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Nirmal Bang downgraded Amber Enterprises and lowered its target price following Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amber Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285214,9 +285214,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1745,
-    "news_picked_today": 197,
-    "news_dropped_today": 697
+    "news_seen_today": 1759,
+    "news_picked_today": 202,
+    "news_dropped_today": 706
   },
   "book_momentum": {
     "live_count": 8,
