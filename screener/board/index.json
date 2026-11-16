@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T18:48:12Z",
+  "generated_at": "2026-11-16T18:49:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1573,6 +1573,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-514",
+      "headline": "Jensen Huang Boasted in 2024 He Managed 'Not to Get Fired' in 31 Years at Nvidia — An Affair Scandal Ended His Run 2 Years Later",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/news/26/11/63304978/jensen-huang-boasted-in-2024-he-managed-not-to-get-fired-in-31-years-at-nvidia-an-affair-scandal-ended-his-run-2-years-later",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T17:00:09Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The departure of Jensen Huang due to a scandal is a critical management event for Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The departure of Jensen Huang due to a scandal is a critical management event for Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-457",
       "headline": "Eli Lilly to Buy Calytrix Bio for Up to $1.5 Billion",
       "headline_en": null,
@@ -1617,6 +1666,55 @@
         },
         {
           "name": "Calytrix Bio",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-530",
+      "headline": "J&J bets $2.2B on Ollin’s vision loss drug",
+      "headline_en": null,
+      "url": "https://www.biopharmadive.com/news/Johnson-johnson-ollin-acquire-ophthalmology-vegf-ang2-drugs/874728/",
+      "source_name": "BioPharma Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T16:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Johnson & Johnson is acquiring rights to a vision loss drug for $2.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Johnson & Johnson is acquiring rights to a vision loss drug for $2.2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Johnson & Johnson",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1879,105 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-430",
-      "headline": "Nvidia CEO Ouster Reverberates Globally",
-      "headline_en": null,
-      "url": "https://www.wsj.com/cio-journal/nvidia-ceo-ouster-reverberates-globally-c882938d?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T14:37:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "The ouster of Nvidia's CEO is a major leadership crisis for one of the world's most valuable companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The ouster of Nvidia's CEO is a major leadership crisis for one of the world's most valuable companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-454",
-      "headline": "Canaccord CEO launches $1.6-billion bid to take company private",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-canaccord-ceo-launches-16-billion-bid-to-take-company-private/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T14:33:38Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Canaccord Genuity Group CEO has launched a $1.6-billion bid to take the company private.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Canaccord Genuity Group CEO has launched a $1.6-billion bid to take the company private.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Canaccord Genuity Group",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285219,9 +285218,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 664415,
-    "news_picked_today": 1062,
-    "news_dropped_today": 12737
+    "news_seen_today": 665770,
+    "news_picked_today": 1089,
+    "news_dropped_today": 12782
   },
   "book_momentum": {
     "live_count": 8,
