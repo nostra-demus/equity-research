@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T05:31:34Z",
+  "generated_at": "2026-11-16T05:32:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-198",
@@ -249,6 +249,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-202",
+      "headline": "Tata Motors PV Shares Slide Over 8% As Company Slips To Loss In Q2",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/tata-motors-pv-shares-slide-over-8-as-company-slips-to-loss-in-q2-12331803#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T04:47:23Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Tata Motors reported a net loss for Q2, causing an 8% share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors reported a net loss for Q2, causing an 8% share price decline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-197",
       "headline": "Kinetic Engineering Shifts Into Top Gear In Q2, Revenue Zooms 99% To ₹78.31 Crore As Company Returns To Profit",
       "headline_en": null,
@@ -440,6 +489,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-207",
+      "headline": "Kaynes Tech Shares Plunge 20% After Q2 Profit Tanks, Company Re-States Prior Financials",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/kaynes-tech-shares-plunge-10-after-q2-profit-tanks-12331776#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T04:20:54Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Kaynes Tech shares fell 20% following a profit decline and the announcement of financial restatements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kaynes Tech shares fell 20% following a profit decline and the announcement of financial restatements.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaynes Technology",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1861,104 +1960,6 @@
         {
           "name": "HUTCHMED",
           "ticker": "00013",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-073",
-      "headline": "BUS: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BUS?key=2924-03162020-6A1355151",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-16T01:14:12Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "A substantial holder filing indicates a significant change in ownership, which is a material event for the company's capital structure and investor base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A substantial holder filing indicates a significant change in ownership, which is a material event for the company's capital structure and investor base.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BUS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-059",
-      "headline": "NEW WORLD DEV NWD (MTN) N2905 NWD (MTN) N2802 NWD FIN GSPCSE NWD (MTN) N2706 NWCL N2701 NWD (MTN) N2907 NWD FIN GSPCSA NWD (MTN) N4912 NWD (MTN) N3005 NWD FIN GSPCSB NWD FIN GSPCSC NWD (MTN) N3101 NWD FIN GSPCSD NWD (MTN) N5106 (00017 04526 05149 05312 05321 05343 05418 05856 40110 40223 40262 40504 40534 40711 40742): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600157.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-16T00:54:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "New World Development is resuming trading on the HKEX after a suspension, which is a significant event for liquidity and market access.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "New World Development is resuming trading on the HKEX after a suspension, which is a significant event for liquidity and market access.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": "00017",
           "listing_country": "CN"
         }
       ],
@@ -285214,9 +285215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4673,
-    "news_picked_today": 327,
-    "news_dropped_today": 2059
+    "news_seen_today": 4713,
+    "news_picked_today": 335,
+    "news_dropped_today": 2091
   },
   "book_momentum": {
     "live_count": 8,
