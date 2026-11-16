@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T03:21:18Z",
+  "generated_at": "2026-11-16T03:22:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-126",
@@ -1027,6 +1027,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-128",
+      "headline": "Kaynes Tech shares react to Q2 results, questions raised on financials restatement",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/kaynes-tech-share-price-q2-result-reaction-financials-restated-stake-sale-earnings-miss-fy27-guidance-cash-flow-buy-sell-20034601.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T03:05:55Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Kaynes Technology is facing questions regarding a financial restatement following its Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Kaynes Technology is facing questions regarding a financial restatement following its Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaynes Technology",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-120",
       "headline": "Michigan pension fund drags Intel to court after 29% stock plunge in a day wiped out $140 billion in market value",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-099",
-      "headline": "Raymond bets big on aerospace as Singhania eyes next growth phase",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/raymond-bets-big-on-aerospace-as-singhania-eyes-next-growth-phase/article71705005.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:42:04Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Raymond is making a significant strategic pivot into the aerospace sector to drive future growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Raymond is making a significant strategic pivot into the aerospace sector to drive future growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Raymond",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
