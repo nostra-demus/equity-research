@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T11:10:31Z",
+  "generated_at": "2026-11-16T11:11:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-287",
@@ -42,6 +42,55 @@
         {
           "name": "EuroEyes",
           "ticker": "01846",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-296",
+      "headline": "CR CONSTRUCTION (01582): INSIDE INFORMATION - WINDING UP PETITION AGAINST A SUBSIDIARY OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111601061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T10:28:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "A winding-up petition has been filed against a subsidiary of CR Construction, posing a material legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A winding-up petition has been filed against a subsidiary of CR Construction, posing a material legal and operational risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CR CONSTRUCTION",
+          "ticker": "01582",
           "listing_country": "CN"
         }
       ],
@@ -1919,56 +1968,6 @@
       "companies": [
         {
           "name": "Coal India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-132",
-      "headline": "Tata Motors PV shares fall over 8% after multiple price target cuts on Q2 loss, JLR guidance revision",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tata-motors-pv-share-price-q2-result-reaction-buy-sell-motilal-cuts-target-eps-estimates-jlr-headwinds-20034512.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T03:46:27Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Tata Motors reported a Q2 loss and revised JLR guidance, leading to multiple analyst price target cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors reported a Q2 loss and revised JLR guidance, leading to multiple analyst price target cuts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -285224,9 +285223,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 295745,
-    "news_picked_today": 512,
-    "news_dropped_today": 7791
+    "news_seen_today": 299445,
+    "news_picked_today": 516,
+    "news_dropped_today": 7883
   },
   "book_momentum": {
     "live_count": 8,
