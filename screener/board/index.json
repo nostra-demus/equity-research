@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T19:48:20Z",
+  "generated_at": "2026-11-16T19:49:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1376,6 +1376,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-539",
+      "headline": "Foodtastic’s proposed $1-billion takeover of MTY gains investor support, company says",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-foodtastic-mty-takeover-offer-november-16/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T19:34:11Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Foodtastic is pursuing a $1 billion acquisition of MTY Food Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Foodtastic is pursuing a $1 billion acquisition of MTY Food Group.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTY Food Group",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Foodtastic",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-532",
       "headline": "Nvidia's board of directors opposes restoring Jensen Huang as CEO",
       "headline_en": null,
@@ -1917,60 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-464",
-      "headline": "Medtronic to buy Contego Medical for $380M",
-      "headline_en": null,
-      "url": "https://www.medtechdive.com/news/medtronic-to-buy-contego-medical-for-380m/874754/",
-      "source_name": "MedTech Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T15:56:23Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Medtronic is set to acquire Contego Medical for $380 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Medtronic is set to acquire Contego Medical for $380 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Medtronic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Contego Medical",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285217,9 +285217,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 695715,
-    "news_picked_today": 1170,
-    "news_dropped_today": 13493
+    "news_seen_today": 697839,
+    "news_picked_today": 1171,
+    "news_dropped_today": 13660
   },
   "book_momentum": {
     "live_count": 8,
