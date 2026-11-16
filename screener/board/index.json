@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T01:41:12Z",
+  "generated_at": "2026-11-16T01:42:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -1283,6 +1283,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-089",
+      "headline": "Berkshire-backed dividend stock retreats from 52-week high amid CEO shake-up",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/berkshire-hathaway-backed-dividend-stock-siriusxm-retreats-from-52-week-high-amid-ceo-shake-up",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T01:33:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "A CEO shake-up at a Berkshire-backed company is a material event affecting management stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A CEO shake-up at a Berkshire-backed company is a material event affecting management stability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-070",
       "headline": "Former EY partner Peter White promoted illegal tax schemes, court rules",
       "headline_en": null,
@@ -1479,6 +1528,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-094",
+      "headline": "Agribusiness giant launches review as property slump bites",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/agriculture/agribusiness-giant-launches-review-as-property-slump-bites-20261116-p61c05?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T01:33:26Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "An agribusiness giant is initiating a strategic review due to a property slump, indicating potential financial distress or restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "An agribusiness giant is initiating a strategic review due to a property slump, indicating potential financial distress or restructuring.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-040",
       "headline": "Bharat Semi raises $24 million in seed round led by Info Edge, South Park Common",
       "headline_en": null,
@@ -1523,6 +1615,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-093",
+      "headline": "Rocket launch in US fails, destroying payload of 40 Amazon satellites",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/united-states-canada/article/3374525/rocket-launch-us-fails-destroying-payload-40-amazon-satellites",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T01:32:37Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The loss of 40 satellites in a failed rocket launch represents a tangible operational and capital loss for Amazon's Project Kuiper.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The loss of 40 satellites in a failed rocket launch represents a tangible operational and capital loss for Amazon's Project Kuiper.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1773,179 +1914,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261116-087",
-      "headline": "(URGENT) Supreme Court to rule on ex-PM Han's insurrection case Thursday",
+      "inbox_id": "INB-20261116-091",
+      "headline": "Microsoft lifts Indian cloud prices by 15 percent, cuts costs in China",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261116002800315",
-      "source_name": "Yonhap News Agency — All News (English)",
+      "url": "https://www.theregister.com/off-prem/2026/11/15/microsoft-lifts-indian-cloud-prices-by-15-percent-cuts-costs-in-china/5309993",
+      "source_name": "The Register",
       "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:14:42Z",
+      "found_at": "2026-11-15T23:46:01Z",
       "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "The Supreme Court is set to rule on a high-profile political case involving a former Prime Minister, which carries significant political risk.",
+      "prelim_note": "Microsoft is adjusting pricing by 15 percent in India and cutting costs in China, impacting regional revenue and operational strategy.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The Supreme Court is set to rule on a high-profile political case involving a former Prime Minister, which carries significant political risk.",
-      "region": "KR",
+      "triage_score": 82,
+      "triage_reason": "Microsoft is adjusting pricing by 15 percent in India and cutting costs in China, impacting regional revenue and operational strategy.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-068",
-      "headline": "His Kidney Drug Just Won FDA Approval After Cutting a Key Disease Marker by 43%. One $74,730 Infusion Could Leave Him Owing Nearly $15,000 Under Original Medicare",
-      "headline_en": null,
-      "url": "https://247wallst.com/personal-finance/2026/11/15/his-kidney-drug-just-won-fda-approval-after-cutting-a-key-disease-marker-by-43-one-74730-infusion-could-leave-him-owing-nearly-15000-under-original-medicare/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T01:04:13Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "FDA approval of a new kidney drug is a major milestone for the developer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "FDA approval of a new kidney drug is a major milestone for the developer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "unknown"
+        "size_bucket": "mega"
       },
       "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-058",
-      "headline": "US and Russia to oppose talks on limiting autonomous weapons",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/11/us-and-russia-oppose-talks-limiting-autonomous-weapons",
-      "source_name": "Al-Monitor",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:46:28Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "The US and Russia are opposing international talks on limiting autonomous weapons, impacting the regulatory landscape for defense and AI sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The US and Russia are opposing international talks on limiting autonomous weapons, impacting the regulatory landscape for defense and AI sectors.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-088",
-      "headline": "BS1: Full Year Statutory Accounts",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BS1?key=2924-03162026-2A1710726",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-16T01:30:27Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "The company released its full-year statutory accounts, which is a routine but material financial disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "The company released its full-year statutory accounts, which is a routine but material financial disclosure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "BS1",
+          "name": "Microsoft",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285197,9 +285209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 726,
-    "news_picked_today": 93,
-    "news_dropped_today": 281
+    "news_seen_today": 761,
+    "news_picked_today": 100,
+    "news_dropped_today": 309
   },
   "book_momentum": {
     "live_count": 8,
