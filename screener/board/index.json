@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T15:50:58Z",
+  "generated_at": "2026-11-16T15:51:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-321",
@@ -1874,6 +1874,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-404",
+      "headline": "Energie: Bund plant Milliarden-Staatseinstieg in Atomtechnik-Konzern – offenbar um US-Beteiligung zu verhindern",
+      "headline_en": "Energy: Federal government plans multi-billion state entry into nuclear technology group – apparently to prevent US participation",
+      "url": "https://www.handelsblatt.com/politik/deutschland/energie-bund-plant-vier-milliarden-fuer-staatseinstieg-in-atomtechnik-konzern/100269531.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T09:46:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The German government is planning a multi-billion euro state entry into a nuclear technology firm to prevent a US acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The German government is planning a multi-billion euro state entry into a nuclear technology firm to prevent a US acquisition.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nucera",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-261",
       "headline": "Nvidia stock falls again as investors price in fallout from Jensen Huang's resignation",
       "headline_en": null,
@@ -1918,56 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-252",
-      "headline": "Tata Motors PV Shares Slide Over 9% After ₹5,531 Crore Q2 Loss, JLR Cuts FY27 Guidance",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-motors-pv-shares-slide-over-9-after-5531-crore-q2-loss-jlr-cuts-fy27-guidance",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T08:51:44Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Tata Motors reported a loss of ₹5,531 crore and cut its FY27 guidance, causing a share price drop of over 9%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors reported a loss of ₹5,531 crore and cut its FY27 guidance, causing a share price drop of over 9%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285208,9 +285207,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 590961,
-    "news_picked_today": 822,
-    "news_dropped_today": 11921
+    "news_seen_today": 591739,
+    "news_picked_today": 846,
+    "news_dropped_today": 11969
   },
   "book_momentum": {
     "live_count": 8,
