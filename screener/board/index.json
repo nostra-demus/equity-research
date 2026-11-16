@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-16T09:01:14Z",
+  "generated_at": "2026-11-16T09:02:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261116-247",
+      "headline": "CARRY WEALTH (00643): (1) INSIDE INFORMATION AND SUSPENSION OF DUTIES AND POWERS OF TWO INDEPENDENT NON-EXECUTIVE DIRECTORS; (2) ESTABLISHMENT OF AN INDEPENDENT INVESTIGATION COMMITTEE; AND (3) NON-COMPLIANCE WITH THE LISTING RULES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1116/2026111600452.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Suspension of two independent non-executive directors, establishment of independent investigation committee, and non-compliance with listing rules signal a governance and compliance crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suspension of two independent non-executive directors, establishment of independent investigation committee, and non-compliance with listing rules signal a governance and compliance crisis.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carry Wealth",
+          "ticker": "00643",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261116-223",
       "headline": "EQT: EQT completes acquisition of PIML",
@@ -1914,55 +1963,6 @@
           "name": "New World Development",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-101",
-      "headline": "Hong Kong developer New World’s shares tumble 47% on $3.2bn rights issue plan",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/9daa3a26-c49c-4c94-91af-0d4c2116d2e4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T02:01:43Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "New World Development announced a $3.2 billion rights issue, causing a 47% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "New World Development announced a $3.2 billion rights issue, causing a 47% share price decline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": null,
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "large",
@@ -285216,9 +285216,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 120626,
-    "news_picked_today": 393,
-    "news_dropped_today": 6422
+    "news_seen_today": 123762,
+    "news_picked_today": 402,
+    "news_dropped_today": 6437
   },
   "book_momentum": {
     "live_count": 8,
