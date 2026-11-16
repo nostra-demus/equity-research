@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T20:55:28Z",
+  "generated_at": "2026-11-16T20:56:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1376,6 +1376,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-558",
+      "headline": "The FDA declined to approve one of biotech’s most closely watched cancer drugs. The company’s stock tumbled.",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/the-fda-declined-to-approve-one-of-biotechs-most-closely-watched-cancer-drugs-d7c6a0a3?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T20:41:00Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "The FDA rejected a key cancer drug, which will negatively impact the company's revenue expectations and stock price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FDA rejected a key cancer drug, which will negatively impact the company's revenue expectations and stock price.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown Biotech",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-557",
       "headline": "Chevron nears roughly $5bn deal for Blackstone-backed oil producer in US gulf",
       "headline_en": null,
@@ -1921,56 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-500",
-      "headline": "Thoma Bravo’s Proofpoint Launches $2 Billion Debt Deal for M&A",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-16/thoma-bravo-s-proofpoint-launches-2-billion-debt-deal-for-m-a",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T17:14:10Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Proofpoint is launching a $2 billion debt deal specifically to fund M&A activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Proofpoint is launching a $2 billion debt deal specifically to fund M&A activity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Proofpoint",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285215,9 +285215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 726845,
-    "news_picked_today": 1262,
-    "news_dropped_today": 14313
+    "news_seen_today": 728387,
+    "news_picked_today": 1269,
+    "news_dropped_today": 14330
   },
   "book_momentum": {
     "live_count": 8,
