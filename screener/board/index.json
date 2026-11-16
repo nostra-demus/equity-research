@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T09:41:16Z",
+  "generated_at": "2026-11-16T09:42:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-247",
@@ -341,6 +341,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-252",
+      "headline": "Tata Motors PV Shares Slide Over 9% After ₹5,531 Crore Q2 Loss, JLR Cuts FY27 Guidance",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-motors-pv-shares-slide-over-9-after-5531-crore-q2-loss-jlr-cuts-fy27-guidance",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T08:51:44Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Tata Motors reported a loss of ₹5,531 crore and cut its FY27 guidance, causing a share price drop of over 9%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors reported a loss of ₹5,531 crore and cut its FY27 guidance, causing a share price drop of over 9%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1967,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-122",
-      "headline": "New World stock plunge to new lows after it plans $3.2bn rights issue",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/markets/property/new-world-stock-plunge-to-new-lows-after-it-plans-3.2bn-rights-issue",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T02:38:27Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "New World Development announced a $3.2 billion rights issue, causing a significant stock price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "New World Development announced a $3.2 billion rights issue, causing a significant stock price decline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285216,9 +285217,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 166350,
-    "news_picked_today": 420,
-    "news_dropped_today": 6611
+    "news_seen_today": 173150,
+    "news_picked_today": 427,
+    "news_dropped_today": 6676
   },
   "book_momentum": {
     "live_count": 8,
