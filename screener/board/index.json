@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T03:00:18Z",
+  "generated_at": "2026-11-16T03:01:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-003",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-123",
+      "headline": "Tata Motors PV Q2 Review: Jefferies, Goldman Sachs, Kotak Cut Target Prices; See Up To 45% EPS Downgrade",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/tata-motors-pv-q2-review-jefferies-goldman-sachs-kotak-cut-target-prices-see-up-to-45-eps-downgrade-12331580#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T02:35:35Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Tata Motors faces up to 45% EPS downgrade following analyst target price cuts from Jefferies, Goldman Sachs, and Kotak.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors faces up to 45% EPS downgrade following analyst target price cuts from Jefferies, Goldman Sachs, and Kotak.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-041",
-      "headline": "Ola Electric's cash cushion dwindles as market share slips and losses persist",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/ola-electric-cash-reserves-fall-sales-market-share-loss-11794733370775.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T00:32:51Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Ola Electric faces declining cash reserves, shrinking market share, and persistent losses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Ola Electric faces declining cash reserves, shrinking market share, and persistent losses.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ola Electric",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
