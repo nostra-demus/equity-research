@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T21:58:34Z",
+  "generated_at": "2026-11-16T21:59:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261116-456",
@@ -1376,6 +1376,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261116-585",
+      "headline": "Northrop Grumman Nabs $1.6 Billion Lockheed Martin Order For PAC-3 MSE Propulsion",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/northrop-grumman-nabs-1-6-billion-lockheed-martin-order-for-pac-3-mse-propulsion/weapons/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T21:27:40Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Northrop Grumman secured a $1.6 billion order from Lockheed Martin for missile propulsion components.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Northrop Grumman secured a $1.6 billion order from Lockheed Martin for missile propulsion components.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Northrop Grumman",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261116-582",
+      "headline": "Lilly strikes up to $5.9B cancer deal with Stipple Bio",
+      "headline_en": null,
+      "url": "https://endpoints.news/lilly-strikes-up-to-5-9b-cancer-deal-with-stipple-bio/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T21:01:05Z",
+      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
+      "prelim_note": "Eli Lilly is entering a cancer research deal worth up to $5.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly is entering a cancer research deal worth up to $5.9 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261116-558",
       "headline": "The FDA declined to approve one of biotech’s most closely watched cancer drugs. The company’s stock tumbled.",
       "headline_en": null,
@@ -1873,104 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-538",
-      "headline": "Nvidia Board Shuts The Door On Jensen Huang's Return As CEO: Report",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/nvidia-board-shuts-the-door-on-jensen-huangs-return-as-ceo-report-12335668#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T18:13:43Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Nvidia's board has formally rejected the return of Jensen Huang as CEO, confirming leadership instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia's board has formally rejected the return of Jensen Huang as CEO, confirming leadership instability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261116-483",
-      "headline": "Tesla to Invest Over $3 Billion to Expand German Factory in Cybercab Bet",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/autos/tesla-to-invest-over-3-billion-to-expand-german-factory-in-cybercab-bet-6355017a?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T17:42:00Z",
-      "sweep_file": "screener/inbox/2026-11-16_sweep.json",
-      "prelim_note": "Tesla is committing over $3 billion to expand its German factory, a major capacity investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla is committing over $3 billion to expand its German factory, a major capacity investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241758,79 +241764,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8f8d5f22e7d9",
-      "idea_version": "IDEAV-23c9fdc9bc8accb5",
-      "idea_version_started_at": "2026-11-15T10:34:12Z",
-      "ticker": "2310",
-      "company": "Sahara International Petrochemical Co. (Sipchem)",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sipchem has completed the Al-Waha plant expansion, increasing overall polypropylene production capacity at the unit by over 30% to directly drive higher top-line volumes and operating cash flow.",
-      "why_now": "The completion of the plant expansion was announced on November 15, 2026, marking immediate operational readiness for the increased capacity.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4287e804a21a",
-        "EVT-feb5fedea299"
-      ],
-      "primary_source_event_id": "EVT-4287e804a21a",
-      "source_headlines": [
-        "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
-        "‎Sipchem completes Al-Waha plant expansion, boosting capacity by over 30%"
-      ],
-      "source_headline": "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1953814",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-15T09:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-15T10:34:12Z",
-      "updated_at": "2026-11-15T10:34:12Z",
-      "decay_at": "2026-11-16T21:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1f9eea8b1f45",
       "idea_version": "IDEAV-ab24865293ff127a",
       "idea_version_started_at": "2026-11-15T11:43:54Z",
@@ -244298,6 +244231,79 @@
       "surfaced_at": "2026-11-15T10:34:12Z",
       "updated_at": "2026-11-15T10:34:12Z",
       "decay_at": "2026-11-16T20:58:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8f8d5f22e7d9",
+      "idea_version": "IDEAV-23c9fdc9bc8accb5",
+      "idea_version_started_at": "2026-11-15T10:34:12Z",
+      "ticker": "2310",
+      "company": "Sahara International Petrochemical Co. (Sipchem)",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sipchem has completed the Al-Waha plant expansion, increasing overall polypropylene production capacity at the unit by over 30% to directly drive higher top-line volumes and operating cash flow.",
+      "why_now": "The completion of the plant expansion was announced on November 15, 2026, marking immediate operational readiness for the increased capacity.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4287e804a21a",
+        "EVT-feb5fedea299"
+      ],
+      "primary_source_event_id": "EVT-4287e804a21a",
+      "source_headlines": [
+        "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
+        "‎Sipchem completes Al-Waha plant expansion, boosting capacity by over 30%"
+      ],
+      "source_headline": "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1953814",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T09:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T10:34:12Z",
+      "updated_at": "2026-11-15T10:34:12Z",
+      "decay_at": "2026-11-16T21:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -248056,14 +248062,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 578,
+    "total_count": 579,
     "shown_count": 499,
-    "hidden_count": 79,
+    "hidden_count": 80,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 35
       },
       "short": {
         "total_count": 295,
@@ -248087,6 +248093,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8f8d5f22e7d9",
+        "idea_version": "IDEAV-23c9fdc9bc8accb5",
+        "idea_version_started_at": "2026-11-15T10:34:12Z",
+        "ticker": "2310",
+        "company": "Sahara International Petrochemical Co. (Sipchem)",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sipchem has completed the Al-Waha plant expansion, increasing overall polypropylene production capacity at the unit by over 30% to directly drive higher top-line volumes and operating cash flow.",
+        "why_now": "The completion of the plant expansion was announced on November 15, 2026, marking immediate operational readiness for the increased capacity.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4287e804a21a",
+          "EVT-feb5fedea299"
+        ],
+        "primary_source_event_id": "EVT-4287e804a21a",
+        "source_headlines": [
+          "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
+          "‎Sipchem completes Al-Waha plant expansion, boosting capacity by over 30%"
+        ],
+        "source_headline": "‎Sipchem completes Al-Waha plant expansions, raising production capacity by over 30%",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1953814",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-15T09:59:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-15T10:34:12Z",
+        "updated_at": "2026-11-15T10:34:12Z",
+        "decay_at": "2026-11-16T21:59:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-16T21:59:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-13f962c9cc6f",
         "idea_version": "IDEAV-78fc005eab303bdb",
@@ -278502,80 +278584,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-84e6c3b46773",
-        "idea_version": "IDEAV-1c3d144dd0118d2b",
-        "idea_version_started_at": "2026-11-02T03:12:16Z",
-        "ticker": "ILT",
-        "company": "Iluka Resources Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Iluka Resources announced multiple superb intercepts at its Orient East drilling site, indicating potential for increased mineral reserves and future production.",
-        "why_now": "The company filed an ASX announcement on November 1, 2026, detailing the drilling results, which is a fresh catalyst for re-evaluation.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1e9e0c2dc20a"
-        ],
-        "primary_source_event_id": "EVT-1e9e0c2dc20a",
-        "source_headlines": [
-          "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]"
-        ],
-        "source_headline": "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ILT?key=2924-03156892-3A705610",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 89,
-        "newest_source_at": "2026-11-01T22:19:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T03:12:16Z",
-        "updated_at": "2026-11-02T03:12:16Z",
-        "decay_at": "2026-11-03T10:19:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b30a77d203d3",
         "idea_version": "IDEAV-39d0930379bf6c2f",
         "idea_version_started_at": "2026-11-02T02:34:40Z",
@@ -285202,7 +285210,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2508,
-    "live_count": 12,
+    "live_count": 11,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -285221,9 +285229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 754515,
-    "news_picked_today": 1390,
-    "news_dropped_today": 14953
+    "news_seen_today": 756025,
+    "news_picked_today": 1403,
+    "news_dropped_today": 15012
   },
   "book_momentum": {
     "live_count": 8,
