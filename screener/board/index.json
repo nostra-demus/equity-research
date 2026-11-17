@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T19:50:55Z",
+  "generated_at": "2026-11-17T19:52:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -1003,6 +1003,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-583",
+      "headline": "Jensen Huang Is Out as Nvidia’s CEO. Here’s What Analysts Think the Stock Is Worth Without Him.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jensen-huang-out-nvidias-ceo-heres-what-analysts-think-stock-worth-without-him",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T19:16:02Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Jensen Huang is stepping down as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang is stepping down as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-576",
       "headline": "Pacira BioSciences, Inc. Acquired by Viatris Inc. for $36.50 Per Share in Cash",
       "headline_en": null,
@@ -1951,55 +2000,6 @@
         {
           "name": "BP",
           "ticker": "BP",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-533",
-      "headline": "BP launches offer to buy back up to $6 billion of bonds",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/bonds/bp-launches-offer-to-buy-back-up-to-6-billion-of-bonds/articleshow/135929675.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T14:34:57Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "BP is launching a bond buyback offer of up to $6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BP is launching a bond buyback offer of up to $6 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BP",
-          "ticker": null,
           "listing_country": "GB"
         }
       ],
