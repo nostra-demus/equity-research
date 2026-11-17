@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T22:19:54Z",
+  "generated_at": "2026-11-17T22:21:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-634",
@@ -1343,6 +1343,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-639",
+      "headline": "Nvidia Q3 Earnings: AI Chipmaker Posts Record $115-Billion Revenue; Q4 Guidance Beats Street Estimates",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/nvidia-q3-earnings-ai-chipmaker-posts-record-115-billion-revenue-q4-guidance-beats-street-estimates-12341325#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T21:42:40Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Nvidia reported record revenue of $115 billion and provided Q4 guidance that beat analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reported record revenue of $115 billion and provided Q4 guidance that beat analyst estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-633",
       "headline": "Nvidia Reports Strong $115.8 Billion Quarterly Revenue In First Earnings Post-Jensen Huang",
       "headline_en": null,
@@ -1934,55 +1984,6 @@
       },
       "event_types": [
         "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-563",
-      "headline": "Nvidia’s Huang signals willingness to return as CEO; board sets up national security panel",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/nvidias-huang-signals-willingness-to-return-as-ceo-board-sets-up-national-security-panel/article71713311.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T17:36:42Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang signaling a return to a role he already holds suggests a major governance or health crisis, compounded by the formation of a national security panel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang signaling a return to a role he already holds suggests a major governance or health crisis, compounded by the formation of a national security panel.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
