@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T03:11:58Z",
+  "generated_at": "2026-11-17T03:12:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -1594,6 +1594,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-339",
+      "headline": "Maha Forest Dept orders Adani to stop project after wildlife fee was cut from Rs 227 crore to Rs 2.27 crore: Report",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/maha-forest-dept-orders-adani-to-stop-project-after-wildlife-fee-was-cut-from-rs-227-crore-to-rs-2-27-crore-report-567743-2026-11-17?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T02:59:57Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Adani project ordered to stop due to a massive discrepancy in wildlife fees (Rs 227 crore vs Rs 2.27 crore).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Adani project ordered to stop due to a massive discrepancy in wildlife fees (Rs 227 crore vs Rs 2.27 crore).",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-255",
       "headline": "ASX falls on miners; David Jones owes unsecured creditors $180m",
       "headline_en": null,
@@ -1927,55 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-136",
-      "headline": "Former Chubb insurance boss alleges fraudulent accounting",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/former-chubb-insurance-boss-alleges-fraudulent-accounting-20261117-p61eqx?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:47:49Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Former Chubb insurance boss alleges fraudulent accounting, raising potential governance and financial reporting risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Former Chubb insurance boss alleges fraudulent accounting, raising potential governance and financial reporting risks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chubb",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287211,9 +287213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10336,
-    "news_picked_today": 445,
-    "news_dropped_today": 1208
+    "news_seen_today": 10420,
+    "news_picked_today": 461,
+    "news_dropped_today": 1276
   },
   "book_momentum": {
     "live_count": 8,
