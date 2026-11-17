@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T21:03:43Z",
+  "generated_at": "2026-11-17T21:04:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-586",
@@ -1047,6 +1047,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-587",
+      "headline": "SEC Is Probing Nvidia Amid Departure of CEO Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/sec-is-probing-nvidia-amid-departure-of-ceo-jensen-huang-ee7643f8?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T20:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The SEC is investigating Nvidia and the CEO is departing, representing a major governance and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The SEC is investigating Nvidia and the CEO is departing, representing a major governance and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-582",
       "headline": "Viatris Inc. Completes Acquisition of Pacira BioSciences for approximately $1.69 billion",
       "headline_en": null,
@@ -1950,60 +2000,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-544",
-      "headline": "Canadian Natural to Acquire Advantage Energy for $1.8B",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/canadian_natural_to_acquire_advantage_energy_for_18b-17-nov-2026-185106-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T15:05:29Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Canadian Natural Resources is acquiring Advantage Energy for $1.8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Canadian Natural Resources is acquiring Advantage Energy for $1.8 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Canadian Natural Resources",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Advantage Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
