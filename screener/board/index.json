@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T02:34:50Z",
+  "generated_at": "2026-11-17T02:35:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-321",
+      "headline": "As Bitcoin Plummets, Trump Media Warns It May Have To Sell Some To Repay Noteholders. Here’s Why Nov. 30 Is The Key Date For Its $1 Billion In Notes",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/16/as-bitcoin-plummets-trump-media-warns-it-may-have-to-sell-some-to-repay-noteholders-heres-why-nov-30-is-the-key-date-for-its-1-billion-in-notes/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T02:24:54Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Trump Media faces potential asset liquidation to repay $1 billion in notes by November 30.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trump Media faces potential asset liquidation to repay $1 billion in notes by November 30.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trump Media",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1495,6 +1544,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-323",
+      "headline": "Major burger chain buying 163 franchisee units out of bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/wendys-has-a-plan-to-save-163-locations-from-bankruptcy-closure",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T00:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A major burger chain is acquiring 163 franchisee units out of bankruptcy, expanding its corporate-owned footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "A major burger chain is acquiring 163 franchisee units out of bankruptcy, expanding its corporate-owned footprint.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-220",
       "headline": "U.S. moves to curb China’s remote access to Nvidia’s AI chips",
       "headline_en": null,
@@ -1890,104 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-047",
-      "headline": "IMPACT THERAP-B (07630): INSIDE INFORMATION - APPROVAL BY THE EUROPEAN COMMISSION FOR MARKETING OF SENAPARIB",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-16T22:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "The company received European Commission marketing approval for its drug Senaparib.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company received European Commission marketing approval for its drug Senaparib.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Impact Therapeutics",
-          "ticker": "07630",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-277",
-      "headline": "FDA device recall (Class I) — Tandem Diabetes Care, Inc.: Tandem Mobi Insulin Pump, Models: 1004004, 1010750, 1012676, 1012719, 1013655, 1013656, 1013501, 1013700, 1014081, 1014801, 1014811, 1014813, 1014936, 1016911, — Tandem Diabetes Care, Inc. ( Tandem ) has identified that certain Tandem Mobi insulin pumps may generate false-positive",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-0316-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Tandem Diabetes Care issued a Class I recall for its Mobi insulin pump due to false-positive occlusion alarms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Tandem Diabetes Care issued a Class I recall for its Mobi insulin pump due to false-positive occlusion alarms.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tandem Diabetes Care",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
