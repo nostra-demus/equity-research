@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T00:31:49Z",
+  "generated_at": "2026-11-17T00:32:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-045",
@@ -683,6 +683,56 @@
           "name": "SK Hynix",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-064",
+      "headline": "Microsoft 365 outage: Software bug went unnoticed since July",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/microsoft-365-outage-software-bug-went-unnoticed-since-july/article71709579.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T23:31:40Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Microsoft 365 software bug undetected for 4+ months caused outage; raises quality control, SDLC governance, and operational risk concerns for a core SaaS platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Microsoft 365 software bug undetected for 4+ months caused outage; raises quality control, SDLC governance, and operational risk concerns for a core SaaS platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1613,6 +1663,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-061",
+      "headline": "Enlivex Therapeutics Ltd. Enters into Securities Purchase Agreement for $7,500,000 Registered Direct Offering",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/enlivex-therapeutics-ltd-enters-securities-purchase-agreement-7500000-registered-direct",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T23:41:47Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Enlivex Therapeutics announced $7.5M registered direct offering, diluting existing shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Enlivex Therapeutics announced $7.5M registered direct offering, diluting existing shares.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enlivex Therapeutics Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-015",
       "headline": "Price hike stalls Hyundai Avante as Tucson sales surge",
       "headline_en": null,
@@ -1711,6 +1810,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-063",
+      "headline": "Fannie Mae changes 2027 mortgage rate, housing market predictions",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/real-estate/fannie-mae-mortgage-rate-housing-market-predictions-2027",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T23:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Fannie Mae changed 2027 mortgage-rate forecast; direction and magnitude not stated in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Fannie Mae changed 2027 mortgage-rate forecast; direction and magnitude not stated in headline.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fannie Mae",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-035",
       "headline": "IBM in talks for 2 large projects in India: CEO Krishna",
       "headline_en": null,
@@ -1804,153 +1953,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-012",
-      "headline": "Sensex Today | Stock Market LIVE Updates: Nifty rises above 25,200; Inox Wind down 10%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stock-market-live-updates-sensex-nifty-50-today-nifty-bank-midcaps-smallcaps-tata-motors-pv-kaynes-eicher-zaggle-manipal-share-price-liveblog-20034520.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T05:45:20Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Inox Wind shares are down 10% following market updates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Inox Wind shares are down 10% following market updates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Inox Wind",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-018",
-      "headline": "Jio Explores ISRO, Skyroot Aerospace For Satellite Internet Launches",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/jio-explores-isro-skyroot-aerospace-for-satellite-internet-launches",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T05:35:03Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Jio is exploring partnerships with ISRO and Skyroot for satellite internet, indicating potential infrastructure expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Jio is exploring partnerships with ISRO and Skyroot for satellite internet, indicating potential infrastructure expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Jio",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-021",
-      "headline": "롯데그룹, 2027년 정기 인사 단행…\"신임 임원 44%가 40대 '젊은 리더십' 전면 배치\"",
-      "headline_en": "Lotte Group, 2027 regular personnel appointments... \"44% of new executives are in their 40s, placing 'young leadership' at the forefront\"",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281396",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T05:14:09Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Routine management reshuffle at Lotte Group focusing on younger leadership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Routine management reshuffle at Lotte Group focusing on younger leadership.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lotte Group",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287184,9 +287186,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1388,
-    "news_picked_today": 58,
-    "news_dropped_today": 180
+    "news_seen_today": 1518,
+    "news_picked_today": 65,
+    "news_dropped_today": 221
   },
   "book_momentum": {
     "live_count": 8,
