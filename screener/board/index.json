@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T22:49:08Z",
+  "generated_at": "2026-11-17T22:50:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-652",
@@ -1341,6 +1341,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-658",
+      "headline": "Nvidia Beats Estimates, Raises Guidance in First Earnings Report After Huang’s Ouster",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/ai/nvidia-nvda-3q-2027-earnings-report-stock-6e642303?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T22:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Nvidia beat earnings estimates and raised guidance, indicating strong ongoing demand for its products.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia beat earnings estimates and raised guidance, indicating strong ongoing demand for its products.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-655",
       "headline": "Nvidia reports bumper results as firm says it not reinstating Huang",
       "headline_en": null,
@@ -1930,60 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-582",
-      "headline": "Viatris Inc. Completes Acquisition of Pacira BioSciences for approximately $1.69 billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/viatris-inc-completes-acquisition-pacira-biosciences-approximately-169-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T19:18:45Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Viatris completed the acquisition of Pacira BioSciences for approximately $1.69 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Viatris completed the acquisition of Pacira BioSciences for approximately $1.69 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viatris Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Pacira BioSciences",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287219,9 +287215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5613232,
-    "news_picked_today": 1437,
-    "news_dropped_today": 10484
+    "news_seen_today": 5624431,
+    "news_picked_today": 1450,
+    "news_dropped_today": 10495
   },
   "book_momentum": {
     "live_count": 8,
