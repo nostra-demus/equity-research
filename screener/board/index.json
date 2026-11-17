@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T00:27:47Z",
+  "generated_at": "2026-11-17T00:28:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-045",
@@ -241,6 +241,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-046",
+      "headline": "HUAJIN INTL (02738): VOLUNTARY ANNOUNCEMENT UPDATE ON RECENT ENFORCEMENT CASES AND CONSUMPTION RESTRICTION ORDERS IN RESPECT OF CERTAIN SUBSIDIARIES OF THE GROUP",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T22:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company disclosed ongoing enforcement cases and consumption restriction orders against its subsidiaries.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company disclosed ongoing enforcement cases and consumption restriction orders against its subsidiaries.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huajin International Holdings",
+          "ticker": "02738",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-047",
+      "headline": "IMPACT THERAP-B (07630): INSIDE INFORMATION - APPROVAL BY THE EUROPEAN COMMISSION FOR MARKETING OF SENAPARIB",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T22:09:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company received European Commission marketing approval for its drug Senaparib.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The company received European Commission marketing approval for its drug Senaparib.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Impact Therapeutics",
+          "ticker": "07630",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -975,6 +1073,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-049",
+      "headline": "BANKOFZHENGZHOU (06196): ANNOUNCEMENT ON THE REDEMPTION OF 2021 INDEFINITE-TERM CAPITAL BONDS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The bank announced the redemption of its 2021 indefinite-term capital bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "The bank announced the redemption of its 2021 indefinite-term capital bonds.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Zhengzhou",
+          "ticker": "06196",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-044",
       "headline": "HCL: Supply of Rifle-Rated Combat Helmets to Pakistan Army [price-sensitive]",
       "headline_en": null,
@@ -1016,6 +1163,55 @@
           "name": "HCL",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-048",
+      "headline": "LEGION CONSO (02129): INSIDE INFORMATION - DISPOSAL OF SHARES HELD BY A CONTROLLING SHAREHOLDER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T22:07:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A controlling shareholder is disposing of shares, which may impact liquidity or control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "A controlling shareholder is disposing of shares, which may impact liquidity or control.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Legion Consortium",
+          "ticker": "02129",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -1122,6 +1318,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-054",
+      "headline": "S&P Global Announces Pricing of Public Offering of $750,000,000 Senior Notes due 2031, $600,000,000 Senior Notes due 2034 and $650,000,000 Senior Notes due 2036 | SPGI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/SPGI/s-p-global-announces-pricing-of-public-offering-of-750-000-000-svg3o6ml17so.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-16T23:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "S&P Global is pricing $2 billion in aggregate senior notes across three tranches.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "S&P Global is pricing $2 billion in aggregate senior notes across three tranches.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S&P Global",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-016",
       "headline": "Eicher races to meet Royal Enfield demand wave amid margin woes",
       "headline_en": null,
@@ -1220,6 +1465,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-052",
+      "headline": "Freedom Holding Corp. Reports 81% Increase in Quarterly Revenue to $910.1 Million",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/16/3404230/0/en/freedom-holding-corp-reports-81-increase-in-quarterly-revenue-to-910-1-million.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-16T23:46:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Freedom Holding Corp reported an 81% increase in quarterly revenue to $910.1 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Freedom Holding Corp reported an 81% increase in quarterly revenue to $910.1 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Freedom Holding Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-031",
       "headline": "Cementos Pacasmayo S.A.A. Board Approves Amended Tender Offer Report Following Regulator Observations",
       "headline_en": null,
@@ -1264,6 +1558,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-057",
+      "headline": "FDA approves Roche’s Wilserdly (giredestrant), a next-generation oral SERD, for ER-positive, ESR1-mutated advanced breast cancer",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/16/3404197/0/en/fda-approves-roche-s-wilserdly-giredestrant-a-next-generation-oral-serd-for-er-positive-esr1-mutated-advanced-breast-cancer.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-16T22:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "FDA approved Roche's Wilserdly for breast cancer, a significant product milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "FDA approved Roche's Wilserdly for breast cancer, a significant product milestone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Roche",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1604,337 +1948,6 @@
           "name": "Lotte Group",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-006",
-      "headline": "Goldman Sachs, Morgan Stanley diverge on 2027 calls for H-shares vs A-shares",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/markets/article/3374550/goldman-sachs-morgan-stanley-diverge-2027-calls-h-shares-vs-shares",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T06:00:09Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Diverging analyst views on Chinese equity markets from major investment banks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Diverging analyst views on Chinese equity markets from major investment banks.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Goldman Sachs",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Morgan Stanley",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-026",
-      "headline": "XPENG Reports Q3 2026 Results: Both Deliveries and Revenue Reach Record Highs, Overseas Market 2026 Full-Year Sales Target Exceeds 100,000 Units",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/16/3404225/0/en/xpeng-reports-q3-2026-results-both-deliveries-and-revenue-reach-record-highs-overseas-market-2026-full-year-sales-target-exceeds-100-000-units.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-16T23:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "The company reported record revenue and deliveries, indicating strong growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "The company reported record revenue and deliveries, indicating strong growth.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XPENG",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-028",
-      "headline": "Accord Announces Third Quarter Financial Results and Amendment to its Banking Facility",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261116081020/en/Accord-Announces-Third-Quarter-Financial-Results-and-Amendment-to-its-Banking-Facility/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Funding News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-16T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "The company released quarterly financial results and amended its banking facility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "The company released quarterly financial results and amended its banking facility.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accord",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-011",
-      "headline": "Jay Shah reappointed unopposed as ICC chair for second term",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/sports/jay-shah-icc-chairman-reappointed-second-term-icc-board-cricket-olympics-los-angeles-2028-20034776.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T05:49:01Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Jay Shah's reappointment as ICC chair is a leadership continuity event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Jay Shah's reappointment as ICC chair is a leadership continuity event.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-017",
-      "headline": "Oil drops as attack on Bahrain offset by robust regional output",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/markets/oil-drops-as-attack-on-bahrain-offset-by-robust-regional-output/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T05:40:30Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Oil prices fluctuate due to regional geopolitical tensions and supply output dynamics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Oil prices fluctuate due to regional geopolitical tensions and supply output dynamics.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-002",
-      "headline": "BREAKING NEWS: U.S., China, Russia leaders to meet at 3:30 p.m. Thursday in Shenzen, China",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/91565",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T06:13:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "A high-level meeting between leaders of the US, China, and Russia is a major geopolitical event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "A high-level meeting between leaders of the US, China, and Russia is a major geopolitical event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-027",
-      "headline": "M&T Bank Corporation Announces Increased Common Stock Dividend",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/mt-bank-corporation-announces-increased-common-stock-dividend-302941131.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-16T22:49:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "The company announced an increase in its common stock dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "The company announced an increase in its common stock dividend.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "M&T Bank Corporation",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -287171,9 +287184,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1210,
-    "news_picked_today": 45,
-    "news_dropped_today": 145
+    "news_seen_today": 1388,
+    "news_picked_today": 58,
+    "news_dropped_today": 180
   },
   "book_momentum": {
     "live_count": 8,
