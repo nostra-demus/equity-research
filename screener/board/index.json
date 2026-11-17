@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T02:27:50Z",
+  "generated_at": "2026-11-17T02:28:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -748,6 +748,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-316",
+      "headline": "Aegis Logistics closes ₹3,600 crore QIP - 80% of shares issued to four major funds",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/aegis-logistics-share-price-3600-crore-fund-raise-qip-four-major-funds-get-majority-allotment-details-20035397.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T02:15:59Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Aegis Logistics closed a ₹3,600 crore QIP, with 80% of shares issued to four major funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Aegis Logistics closed a ₹3,600 crore QIP, with 80% of shares issued to four major funds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Logistics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-194",
       "headline": "$985 Million For Launches Awarded By Space Force To SpaceX, ULA, And Blue Origin",
       "headline_en": null,
@@ -1293,6 +1342,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-295",
+      "headline": "FDA device recall (Class I) — Cardinal Health 200, LLC: Cardinal Health Presource PBDS kits, Containing BD Alaris Pump Infusion Sets used with BD Alaris Pump Module Model 8100, labeled as: KIT, CATH LAB ADMIT, CATALO — Kits contain infusion sets which were recalled for performance issues.",
+      "headline_en": null,
+      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-0214-2027%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-11T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Class I recall (most serious) for Cardinal Health kits containing previously recalled BD Alaris pump sets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Class I recall (most serious) for Cardinal Health kits containing previously recalled BD Alaris pump sets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cardinal Health, Inc.",
+          "ticker": "CAH",
+          "listing_country": "US"
+        },
+        {
+          "name": "Becton, Dickinson and Company",
+          "ticker": "BDX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-255",
       "headline": "ASX falls on miners; David Jones owes unsecured creditors $180m",
       "headline_en": null,
@@ -1387,6 +1491,105 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-268",
+      "headline": "FDA drug recall (Class II) — Fresenius Medical Care Renal Therapies Group, LLC: DELFLEX Peritoneal Dialysis Solution with 4.25% Dextrose, Low Magnesium/ Low Calcium and Attached stay safe Exchange Set, 2,500 mL Single dose bag, Sterile and — Lack of Assurance of Sterility:complaints have been received related to potential leaks from small perforations in the p",
+      "headline_en": null,
+      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0171-2027%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-11T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Fresenius Medical Care recalled DELFLEX Peritoneal Dialysis Solution due to sterility concerns and potential leaks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Fresenius Medical Care recalled DELFLEX Peritoneal Dialysis Solution due to sterility concerns and potential leaks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fresenius Medical Care",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-306",
+      "headline": "FDA device recall (Class I) — Edwards Lifesciences, LLC: Generic Name: Edwards Commander M Delivery System Generic Name: Edwards Commander M Delivery System Model/Catalog Number: 9880CM29A Software Version: Not applic — Due to a manufacturing issue which may result in cardiovascular balloon rupturing.",
+      "headline_en": null,
+      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-0287-2027%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-11T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Class I recall for Edwards Lifesciences delivery system due to manufacturing issues causing balloon ruptures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Class I recall for Edwards Lifesciences delivery system due to manufacturing issues causing balloon ruptures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Edwards Lifesciences Corporation",
+          "ticker": "EW",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1692,6 +1895,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-277",
+      "headline": "FDA device recall (Class I) — Tandem Diabetes Care, Inc.: Tandem Mobi Insulin Pump, Models: 1004004, 1010750, 1012676, 1012719, 1013655, 1013656, 1013501, 1013700, 1014081, 1014801, 1014811, 1014813, 1014936, 1016911, — Tandem Diabetes Care, Inc. ( Tandem ) has identified that certain Tandem Mobi insulin pumps may generate false-positive",
+      "headline_en": null,
+      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-0316-2027%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-11T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Tandem Diabetes Care issued a Class I recall for its Mobi insulin pump due to false-positive occlusion alarms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Tandem Diabetes Care issued a Class I recall for its Mobi insulin pump due to false-positive occlusion alarms.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tandem Diabetes Care",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-181",
       "headline": "Korea Zinc Forms Solar Recycling Venture",
       "headline_en": null,
@@ -1736,246 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-260",
-      "headline": "Rio Tinto agrees to pay US$250m to begin repairing ‘devastation’ left by Panguna mine",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/world/2026/nov/17/rio-tinto-250m-panguna-mine-clean-up-bougainville-png",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T02:02:30Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Rio Tinto agreed to pay US$250m for environmental remediation related to the Panguna mine.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Rio Tinto agreed to pay US$250m for environmental remediation related to the Panguna mine.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-228",
-      "headline": "US prosecutors make final case against Huawei in theft, fraud trial",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/us/diplomacy/article/3374662/us-prosecutors-make-final-case-against-huawei-theft-fraud-trial",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T01:43:37Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Huawei faces final arguments in a high-profile theft and fraud trial.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Huawei faces final arguments in a high-profile theft and fraud trial.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-213",
-      "headline": "David Jones owes $180m to lenders, suppliers and gift cardholders",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/david-jones-lender-hilco-injects-more-money-to-buy-stock-20261117-p61ek9?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T01:35:24Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Retailer David Jones owes A$180m to lenders, suppliers and gift cardholders, pointing to a solvency and creditor-recovery problem.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Retailer David Jones owes A$180m to lenders, suppliers and gift cardholders, pointing to a solvency and creditor-recovery problem.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 66,
-      "rank_factors": {
-        "materiality": 66,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 4,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-161",
-      "headline": "Worley on the hook for misleading investors after class action rout",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/infrastructure/worley-on-the-hook-for-misleading-investors-after-class-action-rout-20261117-p61er5?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:59:28Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Worley is facing a class action lawsuit regarding misleading investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Worley is facing a class action lawsuit regarding misleading investors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Worley",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-229",
-      "headline": "Burger chain buying 163 franchise units in Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/wendys-has-a-plan-to-save-163-locations-from-bankruptcy-closure",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "A burger chain is acquiring 163 franchise units out of bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A burger chain is acquiring 163 franchise units out of bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287211,9 +287223,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8562,
-    "news_picked_today": 336,
-    "news_dropped_today": 876
+    "news_seen_today": 8736,
+    "news_picked_today": 405,
+    "news_dropped_today": 951
   },
   "book_momentum": {
     "live_count": 8,
