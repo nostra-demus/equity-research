@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T09:32:11Z",
+  "generated_at": "2026-11-17T09:33:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-398",
@@ -296,6 +296,154 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-402",
+      "headline": "IQE lifts guidance again as AI and data centre demand drives growth",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/iqe-lifts-guidance-again-as-ai-and-data-centre-demand-drives-growth/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T09:10:44Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "IQE has raised its financial guidance due to strong AI and data center demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IQE has raised its financial guidance due to strong AI and data center demand.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IQE",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-400",
+      "headline": "Turkey Fund Assets Shrink by $54 Billion Amid Manipulation Probe",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-17/turkey-fund-assets-shrink-by-54-billion-amid-manipulation-probe",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T08:58:50Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A $54 billion shrinkage in fund assets amid a manipulation probe indicates significant financial and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $54 billion shrinkage in fund assets amid a manipulation probe indicates significant financial and regulatory risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Turkey Wealth Fund",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-401",
+      "headline": "Bird Construction To Buy Kel-Gor For $200 Mln, Announces $200 Mln Share Bought Deal Offering",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bird-construction-buy-kel-gor-200-mln-announces-200-mln-share-bought-deal-offering",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T08:42:13Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Bird Construction is acquiring Kel-Gor for $200 million and simultaneously launching a $200 million share offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bird Construction is acquiring Kel-Gor for $200 million and simultaneously launching a $200 million share offering.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bird Construction",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1850,157 +1998,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-152",
-      "headline": "Commerce Department Rule Aims to Further Limit Chip Shipments to China",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/asia/commerce-department-rule-aims-to-further-limit-chip-shipments-to-china-c6244c33?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T22:35:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "New US Commerce Department rules further restrict chip exports to China, impacting the semiconductor industry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "New US Commerce Department rules further restrict chip exports to China, impacting the semiconductor industry.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-397",
-      "headline": "LAI SUN INT'L LAI SUN DEV LAI FUNG HOLD (00191 00488 01125): JOINT ANNOUNCEMENT: POSSIBLE SPIN-OFF AND SEPARATE LISTING OF THE REIT ON THE SHANGHAI STOCK EXCHANGE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700670.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-17T09:24:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Lai Sun group companies are exploring a potential spin-off and separate listing of a REIT on the Shanghai Stock Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Lai Sun group companies are exploring a potential spin-off and separate listing of a REIT on the Shanghai Stock Exchange.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lai Sun International",
-          "ticker": "00191",
-          "listing_country": "CN"
-        },
-        {
-          "name": "Lai Sun Development",
-          "ticker": "00488",
-          "listing_country": "CN"
-        },
-        {
-          "name": "Lai Fung Holdings",
-          "ticker": "01125",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-350",
-      "headline": "CR CONSTRUCTION (01582): CLARIFICATION ANNOUNCEMENT IN RELATION TO THE WINDING UP PETITION AGAINST A SUBSIDIARY OF THE COMPANY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700125.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-17T04:01:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "CR Construction issued a clarification regarding a winding-up petition filed against one of its subsidiaries.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "CR Construction issued a clarification regarding a winding-up petition filed against one of its subsidiaries.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CR Construction",
-          "ticker": "01582",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287236,9 +287233,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 691578,
-    "news_picked_today": 688,
-    "news_dropped_today": 4345
+    "news_seen_today": 703306,
+    "news_picked_today": 696,
+    "news_dropped_today": 4361
   },
   "book_momentum": {
     "live_count": 8,
