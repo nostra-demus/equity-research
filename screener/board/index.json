@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T14:11:30Z",
+  "generated_at": "2026-11-17T14:12:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -1053,6 +1053,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-513",
+      "headline": "Mars CFO: $1.4 billion U.S. manufacturing investment aims to deliver ‘durable growth’",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/17/mars-cfo-1-4-billion-u-s-manufacturing-investment-aims-to-deliver-durable-growth/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T13:27:25Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Major $1.4 billion manufacturing investment announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major $1.4 billion manufacturing investment announcement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mars",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-488",
       "headline": "UL Solutions To Acquire Worldly In $350 Mln Deal",
       "headline_en": null,
@@ -1960,60 +2009,6 @@
           "name": "Toyota Kirloskar Auto Parts",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-365",
-      "headline": "Canadian Natural Resources Limited Enters into Agreement to Acquire Advantage Energy Ltd.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/canadian-natural-resources-limited-enters-agreement-acquire-advantage-energy-ltd",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T04:28:19Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Canadian Natural Resources Limited has entered into a definitive agreement to acquire Advantage Energy Ltd.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Canadian Natural Resources Limited has entered into a definitive agreement to acquire Advantage Energy Ltd.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Canadian Natural Resources Limited",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Advantage Energy Ltd.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -287252,9 +287247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2023529,
-    "news_picked_today": 988,
-    "news_dropped_today": 6517
+    "news_seen_today": 2040991,
+    "news_picked_today": 1013,
+    "news_dropped_today": 6540
   },
   "book_momentum": {
     "live_count": 8,
