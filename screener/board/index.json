@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T05:01:59Z",
+  "generated_at": "2026-11-17T05:03:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-343",
@@ -247,6 +247,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-363",
+      "headline": "US says criminal probe of Megaspeed commenced in 2024",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/australia-news-live-updates-australian-men-admit-trying-to-traffic-fighter-jet-parts-to-china-nvidia-casts-shadow-over-trump-xi-summit-20261117-p61eoa?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T03:20:37Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A criminal probe into Megaspeed represents a significant legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A criminal probe into Megaspeed represents a significant legal and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Megaspeed",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,56 +1937,6 @@
       "source_name": "Business Korea — All Articles (CDN)",
       "input_nature": "news_headline",
       "found_at": "2026-11-17T01:16:51Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Hyundai Motor's domestic plant utilization dropped to 93.6% due to strike disruptions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Hyundai Motor's domestic plant utilization dropped to 93.6% due to strike disruptions.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-215",
-      "headline": "Hyundai Plant Utilization Falls Amid Strike Disruptions",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281473",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T01:14:20Z",
       "sweep_file": "screener/inbox/2026-11-17_sweep.json",
       "prelim_note": "Hyundai Motor's domestic plant utilization dropped to 93.6% due to strike disruptions.",
       "dedup_status": "new",
@@ -287211,9 +287210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 21626,
-    "news_picked_today": 573,
-    "news_dropped_today": 2036
+    "news_seen_today": 22890,
+    "news_picked_today": 579,
+    "news_dropped_today": 2078
   },
   "book_momentum": {
     "live_count": 8,
