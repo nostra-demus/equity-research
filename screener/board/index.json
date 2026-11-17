@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T21:45:47Z",
+  "generated_at": "2026-11-17T21:46:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-603",
@@ -1096,6 +1096,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-619",
+      "headline": "KFC Franchisee Blames Bankruptcy on Rising Costs, Falling Sales",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-17/kfc-franchisee-blames-bankruptcy-on-rising-costs-falling-sales",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T21:28:54Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A KFC franchisee filing for bankruptcy due to financial distress is a material event for that entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A KFC franchisee filing for bankruptcy due to financial distress is a material event for that entity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KFC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-614",
       "headline": "Nvidia releases quarterly earnings after Jensen Huang's resignation as CEO",
       "headline_en": null,
@@ -1182,6 +1231,55 @@
         "earnings_revenue_margin",
         "guidance_change",
         "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-624",
+      "headline": "Nvidia Gives Upbeat Outlook in First Update Since CEO Ouster",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-17/nvidia-delivers-solid-outlook-in-first-post-huang-earnings",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T21:24:23Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Nvidia provided an upbeat outlook in its latest update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia provided an upbeat outlook in its latest update.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1894,109 +1992,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-558",
-      "headline": "MongoDB, Inc. Announces Acquisition of Firebolt Analytics Inc. on November 17, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/mongodb-inc-announces-acquisition-firebolt-analytics-inc-november-17-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T16:38:47Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "The acquisition of Firebolt Analytics is a material corporate action involving capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The acquisition of Firebolt Analytics is a material corporate action involving capital deployment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MongoDB, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-551",
-      "headline": "Millicom to acquire Entel Peru for $1.7bn",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/millicom-agrees-to-buy-entel-peru-for-1714-million/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T16:19:20Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Millicom to acquire Entel Peru for $1.7bn, a significant M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Millicom to acquire Entel Peru for $1.7bn, a significant M&A transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Millicom",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Entel Peru",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287232,9 +287227,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5232821,
-    "news_picked_today": 1327,
-    "news_dropped_today": 9970
+    "news_seen_today": 5243920,
+    "news_picked_today": 1342,
+    "news_dropped_today": 10003
   },
   "book_momentum": {
     "live_count": 8,
