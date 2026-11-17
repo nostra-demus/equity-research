@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-17T00:24:45Z",
+  "generated_at": "2026-11-17T00:25:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261117-045",
+      "headline": "ACW: Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACW?key=2924-03162507-2A1710968",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T23:33:12Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Company suspended from trading on the ASX, indicating a potential material issue or lack of information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company suspended from trading on the ASX, indicating a potential material issue or lack of information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ACW",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261117-032",
       "headline": "ANI Pharmaceuticals, Inc. Details Offer to Acquire Egetis Therapeutics for SEK 5.6B",
@@ -1889,55 +1938,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-023",
-      "headline": "CVS or Aetna Layoffs Nov 2026",
-      "headline_en": null,
-      "url": "https://www.reddit.com/r/Layoffs/comments/1xxn1vu/cvs_or_aetna_layoffs_nov_2026",
-      "source_name": "Reddit r/Layoffs",
-      "input_nature": "social_discussion",
-      "found_at": "2026-11-16T11:29:23Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Unverified rumor of future layoffs at CVS/Aetna.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Unverified rumor of future layoffs at CVS/Aetna.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": -12,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "social",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVS Health",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287171,9 +287171,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1008,
-    "news_picked_today": 44,
-    "news_dropped_today": 122
+    "news_seen_today": 1210,
+    "news_picked_today": 45,
+    "news_dropped_today": 145
   },
   "book_momentum": {
     "live_count": 8,
