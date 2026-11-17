@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T17:57:52Z",
+  "generated_at": "2026-11-17T17:58:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -949,6 +949,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-564",
+      "headline": "Conagra Cut Its Dividend 50%. The Stock Market Was Warning Investors",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/17/conagra-cut-its-dividend-50-the-stock-market-was-warning-investors/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T17:47:59Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Conagra Brands cut its dividend by 50%, a significant negative signal for capital allocation and cash flow stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Conagra Brands cut its dividend by 50%, a significant negative signal for capital allocation and cash flow stability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "dividend_cut",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Conagra Brands",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-563",
+      "headline": "Nvidia’s Huang signals willingness to return as CEO; board sets up national security panel",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/nvidias-huang-signals-willingness-to-return-as-ceo-board-sets-up-national-security-panel/article71713311.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T17:36:42Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang signaling a return to a role he already holds suggests a major governance or health crisis, compounded by the formation of a national security panel.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang signaling a return to a role he already holds suggests a major governance or health crisis, compounded by the formation of a national security panel.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-569",
+      "headline": "Jensen Huang wants job back, as Nvidia to reveal first earnings since scandal",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/jensen-huang-wants-job-back-as-nvidia-to-reveal-first-earnings-since-scandal-1.500751108",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T17:06:15Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Reports of a scandal at Nvidia and leadership instability regarding CEO Jensen Huang are highly material to the company's outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of a scandal at Nvidia and leadership instability regarding CEO Jensen Huang are highly material to the company's outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-559",
       "headline": "Jensen Huang says he ‘would be honored’ to return as CEO in first statement since resigning from Nvidia",
       "headline_en": null,
@@ -1852,163 +1999,6 @@
           "name": "Prestige Estates Projects",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-492",
-      "headline": "FTAI Infrastructure Inc. Subsidiary Closes Acquisition of DRUbit LLC for $255 million Enterprise Value",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ftai-infrastructure-inc-subsidiary-closes-acquisition-drubit-llc-255-million-enterprise",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T13:31:26Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "FTAI Infrastructure has acquired DRUbit LLC for $255 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FTAI Infrastructure has acquired DRUbit LLC for $255 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FTAI Infrastructure",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "DRUbit LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-513",
-      "headline": "Mars CFO: $1.4 billion U.S. manufacturing investment aims to deliver ‘durable growth’",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/11/17/mars-cfo-1-4-billion-u-s-manufacturing-investment-aims-to-deliver-durable-growth/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T13:27:25Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Major $1.4 billion manufacturing investment announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major $1.4 billion manufacturing investment announcement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mars",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-488",
-      "headline": "UL Solutions To Acquire Worldly In $350 Mln Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ul-solutions-acquire-worldly-350-mln-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T13:21:57Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "UL Solutions is acquiring Worldly for $350 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UL Solutions is acquiring Worldly for $350 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UL Solutions",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Worldly",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -287247,9 +287237,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3550819,
-    "news_picked_today": 1191,
-    "news_dropped_today": 8138
+    "news_seen_today": 3572499,
+    "news_picked_today": 1198,
+    "news_dropped_today": 8155
   },
   "book_momentum": {
     "live_count": 8,
