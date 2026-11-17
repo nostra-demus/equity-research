@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T13:42:22Z",
+  "generated_at": "2026-11-17T13:43:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -895,6 +895,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-473",
+      "headline": "Diamondback to Acquire Double Eagle Assets in Midland Basin",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/diamondback_to_acquire_double_eagle_assets_in_midland_basin-17-nov-2026-185101-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T12:32:49Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Diamondback Energy is acquiring Double Eagle assets, representing a significant M&A transaction in the energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Diamondback Energy is acquiring Double Eagle assets, representing a significant M&A transaction in the energy sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diamondback Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,55 +2011,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-317",
-      "headline": "GXO Logistics, Inc. Announces 2030 Financial Targets and Preliminary 2027 Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/gxo-logistics-inc-announces-2030-financial-targets-and-preliminary-2027-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T02:03:49Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "GXO Logistics provided long-term financial targets and a preliminary 2027 outlook, which directly impacts analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GXO Logistics provided long-term financial targets and a preliminary 2027 outlook, which directly impacts analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GXO Logistics",
-          "ticker": "GXO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287246,9 +287246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1873218,
-    "news_picked_today": 947,
-    "news_dropped_today": 6270
+    "news_seen_today": 1881546,
+    "news_picked_today": 964,
+    "news_dropped_today": 6301
   },
   "book_momentum": {
     "live_count": 8,
