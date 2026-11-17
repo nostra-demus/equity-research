@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T21:39:47Z",
+  "generated_at": "2026-11-17T21:40:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-603",
@@ -1096,6 +1096,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-614",
+      "headline": "Nvidia releases quarterly earnings after Jensen Huang's resignation as CEO",
+      "headline_en": null,
+      "url": "https://www.foxbusiness.com/markets/nvidia-releases-quarterly-earnings-after-jensen-huangs-resignation-ceo",
+      "source_name": "Fox Business — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T21:27:53Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Nvidia earnings release following the unexpected resignation of CEO Jensen Huang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia earnings release following the unexpected resignation of CEO Jensen Huang.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-606",
       "headline": "Nvidia tops estimates, issues strong guidance, adds $150 billion to buyback authorization",
       "headline_en": null,
@@ -1942,60 +1992,6 @@
         },
         {
           "name": "Entel Peru",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-552",
-      "headline": "Emaar Development board backs Dh15-a-share buyout offer from Emaar Properties",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/property/emaar-development-board-backs-dh15-a-share-buyout-offer-from-emaar-properties-1.500751011",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T16:01:22Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Emaar Properties board backs a buyout offer for Emaar Development at Dh15-a-share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emaar Properties board backs a buyout offer for Emaar Development at Dh15-a-share.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emaar Development",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Emaar Properties",
           "ticker": null,
           "listing_country": null
         }
@@ -287236,9 +287232,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5199764,
-    "news_picked_today": 1315,
-    "news_dropped_today": 9958
+    "news_seen_today": 5221722,
+    "news_picked_today": 1327,
+    "news_dropped_today": 9970
   },
   "book_momentum": {
     "live_count": 8,
