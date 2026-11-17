@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T15:17:31Z",
+  "generated_at": "2026-11-17T15:18:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -949,6 +949,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-538",
+      "headline": "BP p.l.c. Launches Cash Tender Offers for USD Notes for Aggregate Purchase Consideration of Up to $6 Billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bp-plc-launches-cash-tender-offers-usd-notes-aggregate-purchase-consideration-6-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T14:42:04Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "BP launched a cash tender offer for notes up to $6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BP launched a cash tender offer for notes up to $6 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": "BP",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-531",
       "headline": "Nvidia shares try to rebound ahead of earnings as company company reels from Huang resignation",
       "headline_en": null,
@@ -1043,6 +1092,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-540",
+      "headline": "Humana Inc. Announces Pricing and Final Results of Cash Tender Offers Up to $1,500,000,000",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/humana-inc-announces-pricing-and-final-results-cash-tender-offers-1500000000",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T14:30:56Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Humana announced the final results of a $1.5 billion cash tender offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Humana announced the final results of a $1.5 billion cash tender offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Humana Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,109 +2007,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-405",
-      "headline": "Pool Corporation to Acquire Team Horner Group, Inc.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pool-corporation-acquire-team-horner-group-inc",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T07:58:31Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Pool Corporation is acquiring Team Horner Group, representing a clear M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pool Corporation is acquiring Team Horner Group, representing a clear M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pool Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Team Horner Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-385",
-      "headline": "Getty Images Holdings, Inc. Reports Third Quarter 2026 Results and Initiates Chapter 11 Restructuring",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/getty-images-holdings-inc-reports-third-quarter-2026-results-and-initiates-chapter-11",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T06:58:30Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Getty Images reported Q3 results and initiated Chapter 11 restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Getty Images reported Q3 results and initiated Chapter 11 restructuring.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Getty Images Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287247,9 +287242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2444025,
-    "news_picked_today": 1076,
-    "news_dropped_today": 6933
+    "news_seen_today": 2454376,
+    "news_picked_today": 1085,
+    "news_dropped_today": 6948
   },
   "book_momentum": {
     "live_count": 8,
