@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T01:44:50Z",
+  "generated_at": "2026-11-17T01:45:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -1142,6 +1142,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-225",
+      "headline": "Freeport-McMoRan Subsidiary PT Freeport Indonesia Announces Proposed Senior Notes Offering",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/freeport-mcmoran-subsidiary-pt-freeport-indonesia-announces-proposed-senior-notes-offering",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T01:31:02Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "PT Freeport Indonesia is proposing a new senior notes offering, increasing debt leverage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "PT Freeport Indonesia is proposing a new senior notes offering, increasing debt leverage.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Freeport-McMoRan",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-136",
       "headline": "Former Chubb insurance boss alleges fraudulent accounting",
       "headline_en": null,
@@ -1923,60 +1972,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-169",
-      "headline": "SK hynix’s Nvidia Revenue Nears 35 Trillion Won, Doubling in a Year",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281466",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T04:16:54Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "SK hynix's revenue from Nvidia has doubled in a year to 35 trillion won.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "SK hynix's revenue from Nvidia has doubled in a year to 35 trillion won.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        },
         {
           "name": "Nvidia",
           "ticker": null,
