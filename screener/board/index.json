@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T17:37:40Z",
+  "generated_at": "2026-11-17T17:38:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -949,6 +949,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-559",
+      "headline": "Jensen Huang says he ‘would be honored’ to return as CEO in first statement since resigning from Nvidia",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/17/jensen-huang-honored-return-ceo-nvidia-board-approval-public-statement/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T17:01:56Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Jensen Huang's potential return as CEO following a resignation is a major leadership event for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang's potential return as CEO following a resignation is a major leadership event for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NVIDIA Corporation",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-562",
+      "headline": "Worthington Enterprises, Inc. Raises Long-Term EBITDA Margin Target to 25%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/worthington-enterprises-inc-raises-long-term-ebitda-margin-target-25",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T16:59:46Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company raised its long-term EBITDA margin target to 25%, a specific and material guidance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company raised its long-term EBITDA margin target to 25%, a specific and material guidance update.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Worthington Enterprises, Inc.",
+          "ticker": "WOR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-555",
       "headline": "Nvidia stock falls ahead of earnings as company reels from Huang resignation",
       "headline_en": null,
@@ -1042,55 +1140,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-554",
-      "headline": "Jensen Huang says willing to return as Nvidia CEO, 5 days after exit",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/jensen-huang-says-willing-to-return-as-nvidia-ceo-5-days-after-exit",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T16:21:03Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Jensen Huang expresses willingness to return as CEO of Nvidia just 5 days after his departure, signaling a potential major leadership reversal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jensen Huang expresses willingness to return as CEO of Nvidia just 5 days after his departure, signaling a potential major leadership reversal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1963,55 +2012,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-493",
-      "headline": "The Walt Disney Company Reports Fourth Quarter and Fiscal Year 2026 Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/walt-disney-company-reports-fourth-quarter-and-fiscal-year-2026-results",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T13:21:24Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "The Walt Disney Company has released its Q4 and full-year 2026 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Walt Disney Company has released its Q4 and full-year 2026 financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Walt Disney Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287247,9 +287247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3400478,
-    "news_picked_today": 1179,
-    "news_dropped_today": 7886
+    "news_seen_today": 3422168,
+    "news_picked_today": 1188,
+    "news_dropped_today": 8045
   },
   "book_momentum": {
     "live_count": 8,
