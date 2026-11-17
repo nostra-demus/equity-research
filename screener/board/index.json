@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-17T12:16:14Z",
+  "generated_at": "2026-11-17T12:17:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261117-452",
+      "headline": "CSSC SHIPPING (03877): MAJOR AND CONNECTED TRANSACTIONS IN RELATION TO THE ACQUISITION OF VESSELS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111701307.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T12:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "CSSC Shipping announced a major acquisition of vessels, representing a significant capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CSSC Shipping announced a major acquisition of vessels, representing a significant capital deployment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSSC Shipping",
+          "ticker": "03877",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261117-449",
       "headline": "TIGERMED (03347): (1) PRIVATIZATION AND SEPARATION TRANSACTION OF FRONTAGE HOLDINGS CORPORATION; AND (2) NOTICE OF 2026 FOURTH EXTRAORDINARY GENERAL MEETING",
@@ -1956,61 +2005,6 @@
           "name": "Mayne Pharma",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-134",
-      "headline": "Perion Network Ltd. Reports Third Quarter 2026 Results and Definitive Merger Agreement with Affle",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/perion-network-ltd-reports-third-quarter-2026-results-and-definitive-merger-agreement",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:11:11Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Perion Network reported Q3 2026 results and announced a definitive merger agreement with Affle.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Perion Network reported Q3 2026 results and announced a definitive merger agreement with Affle.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Perion Network Ltd.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Affle",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -287249,9 +287243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1390259,
-    "news_picked_today": 852,
-    "news_dropped_today": 5621
+    "news_seen_today": 1404651,
+    "news_picked_today": 872,
+    "news_dropped_today": 5673
   },
   "book_momentum": {
     "live_count": 8,
