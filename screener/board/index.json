@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T07:34:04Z",
+  "generated_at": "2026-11-17T07:35:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-343",
@@ -303,6 +303,56 @@
           "name": "Merck KGaA",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-391",
+      "headline": "Aytu BioPharma, Inc. Reports Fiscal 2027 First Quarter Results and Pending Merger with Rosemont for $2.70 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aytu-biopharma-inc-reports-fiscal-2027-first-quarter-results-and-pending-merger-rosemont",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T05:38:36Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Aytu BioPharma reported earnings and announced a pending merger with Rosemont at $2.70 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aytu BioPharma reported earnings and announced a pending merger with Rosemont at $2.70 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aytu BioPharma, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1559,6 +1609,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-388",
+      "headline": "Seanergy Maritime Holdings Corp. Reports Record Nine-Month Net Income of $61.9 Million and Raises Quarterly Dividend to $0.40 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/seanergy-maritime-holdings-corp-reports-record-nine-month-net-income-619-million-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T06:18:41Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Seanergy Maritime reported $61.9 million in net income and increased its quarterly dividend to $0.40 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Seanergy Maritime reported $61.9 million in net income and increased its quarterly dividend to $0.40 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seanergy Maritime Holdings Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-113",
       "headline": "Nvidia shares fall 4% as board reportedly rules out Huang return",
       "headline_en": null,
@@ -1891,110 +1991,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-387",
-      "headline": "XP Inc. Reports 3Q26 Financial Results and Announces R$1.5 billion Buyback",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/xp-inc-reports-3q26-financial-results-and-announces-r-15-billion-buyback",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T06:48:25Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "XP Inc. reported 3Q26 results and announced a R$1.5 billion buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "XP Inc. reported 3Q26 results and announced a R$1.5 billion buyback.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XP Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-366",
-      "headline": "Chip trouble! US reveals 2024 criminal probe into Nvidia's Singapore partner Megaspeed",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/chip-trouble-us-reveals-2024-criminal-probe-into-nvidias-singapore-partner-megaspeed-4220931",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T05:24:16Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "A criminal probe into a partner of a major semiconductor company poses potential supply chain and regulatory risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "A criminal probe into a partner of a major semiconductor company poses potential supply chain and regulatory risks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Megaspeed",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
