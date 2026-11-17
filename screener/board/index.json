@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T01:10:58Z",
+  "generated_at": "2026-11-17T01:11:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-045",
@@ -737,13 +737,13 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261117-146",
-      "headline": "ASX falls on miners; David Jones owes creditors estimated $180m",
+      "inbox_id": "INB-20261117-160",
+      "headline": "ASX plummets on miners; David Jones owes creditors estimated $180m",
       "headline_en": null,
       "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-nasdaq-hit-by-fresh-selloff-us-dollar-strengthens-20261117-p61eoj?ref=rss&utm_medium=rss&utm_source=rss_feed",
       "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:52:42Z",
+      "found_at": "2026-11-17T01:03:10Z",
       "sweep_file": "screener/inbox/2026-11-17_sweep.json",
       "prelim_note": "David Jones owes creditors an estimated $180 million, indicating significant financial distress.",
       "dedup_status": "new",
@@ -753,15 +753,15 @@
       "triage_reason": "David Jones owes creditors an estimated $180 million, indicating significant financial distress.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 6,
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -879,6 +879,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-161",
+      "headline": "Worley on the hook for misleading investors after class action rout",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/worley-on-the-hook-for-misleading-investors-after-class-action-rout-20261117-p61er5?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T00:59:28Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Worley is facing a class action lawsuit regarding misleading investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Worley is facing a class action lawsuit regarding misleading investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Worley",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1276,6 +1325,104 @@
           "name": "FLOWING CLOUD",
           "ticker": "06610",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-158",
+      "headline": "Veritone, Inc. Announces $38.7 Million Convertible Notes Exchange and $40.0 Million Term Loan Commitment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/veritone-inc-announces-387-million-convertible-notes-exchange-and-400-million-term-loan",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T00:31:19Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Veritone is restructuring its debt through a $38.7 million note exchange and securing a $40 million term loan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Veritone is restructuring its debt through a $38.7 million note exchange and securing a $40 million term loan.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Veritone, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-159",
+      "headline": "Akebia Therapeutics, Inc. Enters into $140.0 million Senior Secured Term Loan Facility",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/akebia-therapeutics-inc-enters-1400-million-senior-secured-term-loan-facility",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T00:31:18Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Akebia Therapeutics is securing a $140 million senior secured term loan facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Akebia Therapeutics is securing a $140 million senior secured term loan facility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akebia Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1808,164 +1955,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-003",
-      "headline": "SK Hynix plans chip testing hub to boost global competitiveness of smaller South Korean players",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/sk-hynix-plans-chip-testing-hub-boost-global-competitiveness-smaller-south-korean-players",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T06:08:53Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "SK Hynix is investing in a new chip testing hub to support the South Korean semiconductor ecosystem.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "SK Hynix is investing in a new chip testing hub to support the South Korean semiconductor ecosystem.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-121",
-      "headline": "Mélanie Joly is speaking a new language on potential Quebecor-Telus deal",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/commentary/article-melanie-joly-potential-quebecor-telus-deal/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:33:29Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Mélanie Joly is speaking a new language on a potential Quebecor-Telus deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Mélanie Joly is speaking a new language on a potential Quebecor-Telus deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Quebecor",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Telus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-109",
-      "headline": "PB Balaji drove Tata Motors out of debt. JLR is dragging it back in",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/pb-balaji-drove-tata-motors-out-of-debt-jlr-is-dragging-it-back-in-11794823794702.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:30:18Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Reports indicate JLR performance is negatively impacting Tata Motors' debt reduction efforts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Reports indicate JLR performance is negatively impacting Tata Motors' debt reduction efforts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": "TATAMOTORS",
-          "listing_country": "IN"
-        },
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287201,9 +287190,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4843,
-    "news_picked_today": 162,
-    "news_dropped_today": 484
+    "news_seen_today": 5040,
+    "news_picked_today": 166,
+    "news_dropped_today": 504
   },
   "book_momentum": {
     "live_count": 8,
