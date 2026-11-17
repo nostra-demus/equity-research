@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-17T21:15:47Z",
+  "generated_at": "2026-11-17T21:16:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261117-603",
+      "headline": "10-K - GOLUB CAPITAL BDC, Inc. (0001476765) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1476765/000147676526000085/0001476765-26-000085-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-K (Annual Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-17T21:09:18Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Annual 10-K filing for Golub Capital BDC containing audited financial results for the fiscal year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Annual 10-K filing for Golub Capital BDC containing audited financial results for the fiscal year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GOLUB CAPITAL BDC, Inc.",
+          "ticker": "GBDC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261117-586",
       "headline": "IFT: Interim results for the period ended 30 September 2026 [price-sensitive]",
@@ -1950,55 +1999,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-542",
-      "headline": "Nvidia shares try to rebound ahead of earnings as company reels from Huang resignation",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/17/nvidia-stock-earnings-jensen-huang-resignation.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T15:17:16Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang has resigned, a major leadership event for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang has resigned, a major leadership event for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287234,9 +287234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5047430,
-    "news_picked_today": 1289,
-    "news_dropped_today": 9696
+    "news_seen_today": 5058351,
+    "news_picked_today": 1298,
+    "news_dropped_today": 9807
   },
   "book_momentum": {
     "live_count": 8,
