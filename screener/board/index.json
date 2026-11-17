@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T00:47:50Z",
+  "generated_at": "2026-11-17T00:48:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-045",
@@ -243508,78 +243508,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-16a841936d98",
-      "idea_version": "IDEAV-34f350aeb558fc28",
-      "idea_version_started_at": "2026-11-15T12:58:39Z",
-      "ticker": "0017",
-      "company": "New World Development Company Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "New World Development is proposing a $3.2 billion rights issue, which typically dilutes existing shareholders and can signal financial strain.",
-      "why_now": "The proposal for the rights issue was reported on November 15, 2026, making this a live event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-25b44b380b57"
-      ],
-      "primary_source_event_id": "EVT-25b44b380b57",
-      "source_headlines": [
-        "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'"
-      ],
-      "source_headline": "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'",
-      "source_url": "https://asia.nikkei.com/business/markets/property/hong-kong-s-new-world-proposes-3.2bn-rights-issue-for-capital-reset",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-15T12:48:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-15T12:58:39Z",
-      "updated_at": "2026-11-15T12:58:39Z",
-      "decay_at": "2026-11-17T00:48:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-745c66d9e6b2ecd2",
       "idea_version_started_at": "2026-11-12T19:23:01Z",
@@ -245334,6 +245262,78 @@
       "surfaced_at": "2026-11-15T03:29:20Z",
       "updated_at": "2026-11-15T03:29:20Z",
       "decay_at": "2026-11-16T15:00:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-16a841936d98",
+      "idea_version": "IDEAV-34f350aeb558fc28",
+      "idea_version_started_at": "2026-11-15T12:58:39Z",
+      "ticker": "0017",
+      "company": "New World Development Company Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "New World Development is proposing a $3.2 billion rights issue, which typically dilutes existing shareholders and can signal financial strain.",
+      "why_now": "The proposal for the rights issue was reported on November 15, 2026, making this a live event.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-25b44b380b57"
+      ],
+      "primary_source_event_id": "EVT-25b44b380b57",
+      "source_headlines": [
+        "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'"
+      ],
+      "source_headline": "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'",
+      "source_url": "https://asia.nikkei.com/business/markets/property/hong-kong-s-new-world-proposes-3.2bn-rights-issue-for-capital-reset",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-15T12:48:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-15T12:58:39Z",
+      "updated_at": "2026-11-15T12:58:39Z",
+      "decay_at": "2026-11-17T00:48:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -250020,9 +250020,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 589,
+    "total_count": 590,
     "shown_count": 499,
-    "hidden_count": 90,
+    "hidden_count": 91,
     "side_counts": {
       "long": {
         "total_count": 293,
@@ -250030,9 +250030,9 @@
         "hidden_count": 43
       },
       "short": {
-        "total_count": 297,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 48
       }
     },
     "retention": {
@@ -250051,6 +250051,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-16a841936d98",
+        "idea_version": "IDEAV-34f350aeb558fc28",
+        "idea_version_started_at": "2026-11-15T12:58:39Z",
+        "ticker": "0017",
+        "company": "New World Development Company Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "New World Development is proposing a $3.2 billion rights issue, which typically dilutes existing shareholders and can signal financial strain.",
+        "why_now": "The proposal for the rights issue was reported on November 15, 2026, making this a live event.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-25b44b380b57"
+        ],
+        "primary_source_event_id": "EVT-25b44b380b57",
+        "source_headlines": [
+          "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'"
+        ],
+        "source_headline": "Hong Kong's New World proposes $3.2bn rights issue for capital 'reset'",
+        "source_url": "https://asia.nikkei.com/business/markets/property/hong-kong-s-new-world-proposes-3.2bn-rights-issue-for-capital-reset",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-15T12:48:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-15T12:58:39Z",
+        "updated_at": "2026-11-15T12:58:39Z",
+        "decay_at": "2026-11-17T00:48:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-17T00:48:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-df6e1a3d7dbe",
         "idea_version": "IDEAV-a71d86751aacf7c2",
@@ -287086,85 +287161,12 @@
         "archived_at": "2026-10-27T14:32:31Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-485c669a88ce",
-        "idea_version": "IDEAV-053b0e5261e9a2bd",
-        "idea_version_started_at": "2026-10-25T21:58:59Z",
-        "ticker": "AXP",
-        "company": "American Express",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A global reduction of 3,500 jobs indicates significant cost-cutting measures necessitated by slowing revenue growth or margin pressure.",
-        "why_now": "The layoff announcement occurred on October 24, 2026, and the market is still assessing the underlying weakness in the business model.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 61,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-60c1ee1b345c"
-        ],
-        "primary_source_event_id": "EVT-60c1ee1b345c",
-        "source_headlines": [
-          "American Express Is Cutting 3,500 Jobs Globally--Here's Why"
-        ],
-        "source_headline": "American Express Is Cutting 3,500 Jobs Globally--Here's Why",
-        "source_url": "https://www.ndtvprofit.com/world/american-express-is-cutting-3-500-jobs-globally-heres-why-12230066#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T12:19:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T21:58:59Z",
-        "updated_at": "2026-10-25T21:58:59Z",
-        "decay_at": "2026-10-26T00:19:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T14:32:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2508,
-    "live_count": 1,
+    "live_count": 0,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
