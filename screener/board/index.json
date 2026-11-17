@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T19:12:57Z",
+  "generated_at": "2026-11-17T19:13:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -944,6 +944,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-576",
+      "headline": "Pacira BioSciences, Inc. Acquired by Viatris Inc. for $36.50 Per Share in Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pacira-biosciences-inc-acquired-viatris-inc-3650-share-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T18:59:12Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Viatris Inc. is acquiring Pacira BioSciences for $36.50 per share in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris Inc. is acquiring Pacira BioSciences for $36.50 per share in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacira BioSciences, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Viatris Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1956,56 +2010,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-530",
-      "headline": "Spire Inc. Reports Fiscal 2026 Results, Lowers Fiscal 2027 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/spire-inc-reports-fiscal-2026-results-lowers-fiscal-2027-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T14:01:20Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Spire Inc. reported fiscal 2026 results and lowered its fiscal 2027 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Spire Inc. reported fiscal 2026 results and lowered its fiscal 2027 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spire Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287241,9 +287245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4127057,
-    "news_picked_today": 1225,
-    "news_dropped_today": 8656
+    "news_seen_today": 4137983,
+    "news_picked_today": 1232,
+    "news_dropped_today": 8673
   },
   "book_momentum": {
     "live_count": 8,
