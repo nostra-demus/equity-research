@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T10:51:09Z",
+  "generated_at": "2026-11-17T10:52:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-412",
@@ -1715,6 +1715,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-417",
+      "headline": "YANKUANG ENERGY (01171): ANNOUNCEMENT ON COMPLETION OF INDUSTRIAL AND COMMERCIAL CHANGE REGISTRATION FOR DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF EQUITY INTEREST IN THE TARGET COMPANIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111701084.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T10:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Yankuang Energy completed the registration for a previously announced acquisition of equity interests.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Yankuang Energy completed the registration for a previously announced acquisition of equity interests.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yankuang Energy",
+          "ticker": "01171",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-411",
       "headline": "BAIC MOTOR (01958): POSSIBLE DISCLOSEABLE TRANSACTION - DISPOSAL OF ASSETS BY BAIC POWERTRAIN",
       "headline_en": null,
@@ -1955,55 +2004,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-042",
-      "headline": "PU6: Removal from Official List",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PU6?key=2924-03162526-2A1710981",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-16T23:52:42Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Removal from the official list indicates a delisting event, which is a critical liquidity and status event for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Removal from the official list indicates a delisting event, which is a critical liquidity and status event for shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PU6",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
