@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T11:27:12Z",
+  "generated_at": "2026-11-17T11:28:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-420",
@@ -590,6 +590,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-431",
+      "headline": "Canadian carrier Québecor submits CA$31bn takeover offer of Telus",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/canadian-carrier-qu%C3%A9becor-submits-ca31bn-takeover-offer-of-telus/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T11:22:29Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Québecor has submitted a CA$31 billion takeover offer for Telus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Québecor has submitted a CA$31 billion takeover offer for Telus.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Québecor",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Telus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1956,55 +2010,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-417",
-      "headline": "YANKUANG ENERGY (01171): ANNOUNCEMENT ON COMPLETION OF INDUSTRIAL AND COMMERCIAL CHANGE REGISTRATION FOR DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF EQUITY INTEREST IN THE TARGET COMPANIES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111701084.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-17T10:44:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Yankuang Energy completed the registration for a previously announced acquisition of equity interests.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Yankuang Energy completed the registration for a previously announced acquisition of equity interests.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yankuang Energy",
-          "ticker": "01171",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287240,9 +287245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1148291,
-    "news_picked_today": 806,
-    "news_dropped_today": 5187
+    "news_seen_today": 1155100,
+    "news_picked_today": 811,
+    "news_dropped_today": 5206
   },
   "book_momentum": {
     "live_count": 8,
