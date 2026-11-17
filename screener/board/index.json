@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T19:31:54Z",
+  "generated_at": "2026-11-17T19:33:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -1204,6 +1204,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-580",
+      "headline": "Vukile’s R16bn acquisition, rising SAMRO royalties, and COP31",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/moneyweb-radio/safm-market-update/vukiles-r16bn-acquisition-rising-samro-royalties-and-cop31/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T17:35:27Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Vukile Property Fund announced a R16 billion acquisition, representing a major capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vukile Property Fund announced a R16 billion acquisition, representing a major capital deployment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vukile Property Fund",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-569",
       "headline": "Jensen Huang wants job back, as Nvidia to reveal first earnings since scandal",
       "headline_en": null,
@@ -1950,66 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-525",
-      "headline": "Red Cat Plunges 34% After Revenue Miss, Pulled Guidance and Needham Target Cut; Ondas and AeroVironment Dip",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/17/red-cat-plunges-34-after-revenue-miss-pulled-guidance-and-needham-target-cut-ondas-and-aerovironment-dip/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T14:17:53Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Red Cat shares fell 34% following a revenue miss and pulled guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Red Cat shares fell 34% following a revenue miss and pulled guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Red Cat",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Ondas",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AeroVironment",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
