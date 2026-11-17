@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T05:46:03Z",
+  "generated_at": "2026-11-17T05:47:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-343",
@@ -1688,6 +1688,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-366",
+      "headline": "Chip trouble! US reveals 2024 criminal probe into Nvidia's Singapore partner Megaspeed",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/chip-trouble-us-reveals-2024-criminal-probe-into-nvidias-singapore-partner-megaspeed-4220931",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T05:24:16Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A criminal probe into a partner of a major semiconductor company poses potential supply chain and regulatory risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A criminal probe into a partner of a major semiconductor company poses potential supply chain and regulatory risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Megaspeed",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-354",
       "headline": "Anfield Energy Inc. Details BRS Inc. Acquisition and Extends Uranium Mining Lease",
       "headline_en": null,
@@ -1930,55 +1984,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-327",
-      "headline": "US moves to curb China's remote access to AI chips after Nvidia scandal",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/us-moves-to-curb-china-s-remote-access-to-ai-chips-after-nvidia-scandal",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T02:38:46Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "New US restrictions on remote access to AI chips for China create significant operational and regulatory hurdles for Nvidia and the broader semiconductor sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "New US restrictions on remote access to AI chips for China create significant operational and regulatory hurdles for Nvidia and the broader semiconductor sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
