@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T14:57:27Z",
+  "generated_at": "2026-11-17T14:58:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -900,6 +900,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-534",
+      "headline": "Isomorphic Labs raises $5B as it looks to take drug candidates to clinical trials",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/11/17/isomorphic-labs-raises-5b-as-it-looks-to-take-drug-candidates-to-clinical-trials/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T14:50:58Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Isomorphic Labs raised $5 billion to advance drug candidates to clinical trials.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Isomorphic Labs raised $5 billion to advance drug candidates to clinical trials.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Isomorphic Labs",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-531",
       "headline": "Nvidia shares try to rebound ahead of earnings as company company reels from Huang resignation",
       "headline_en": null,
@@ -942,6 +991,55 @@
           "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-533",
+      "headline": "BP launches offer to buy back up to $6 billion of bonds",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/bp-launches-offer-to-buy-back-up-to-6-billion-of-bonds/articleshow/135929675.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T14:34:57Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "BP is launching a bond buyback offer of up to $6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BP is launching a bond buyback offer of up to $6 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "mega",
@@ -1914,114 +2012,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-382",
-      "headline": "Avio Gets €2 Billion Takeover Bid From Finland’s Iceye",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-17/avio-gets-2-billion-takeover-bid-from-finland-s-iceye",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T06:41:37Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Avio received a €2 billion takeover bid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Avio received a €2 billion takeover bid.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avio",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Iceye",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-378",
-      "headline": "Rapid Micro Biosystems, Inc. to be Acquired by Merck KGaA, Darmstadt, Germany for $0.75 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/rapid-micro-biosystems-inc-be-acquired-merck-kgaa-darmstadt-germany-075-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T06:38:25Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Acquisition of Rapid Micro Biosystems by Merck KGaA.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of Rapid Micro Biosystems by Merck KGaA.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rapid Micro Biosystems",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Merck KGaA",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287257,9 +287247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2301505,
-    "news_picked_today": 1066,
-    "news_dropped_today": 6799
+    "news_seen_today": 2321777,
+    "news_picked_today": 1072,
+    "news_dropped_today": 6865
   },
   "book_momentum": {
     "live_count": 8,
