@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T14:52:30Z",
+  "generated_at": "2026-11-17T14:53:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -895,6 +895,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-531",
+      "headline": "Nvidia shares try to rebound ahead of earnings as company company reels from Huang resignation",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/17/nvidia-stock-earnings-jensen-huang-resignation.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T14:40:03Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The resignation of Jensen Huang from Nvidia is a major negative event for the company ahead of earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of Jensen Huang from Nvidia is a major negative event for the company ahead of earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1969,56 +2019,6 @@
           "name": "Merck KGaA",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-391",
-      "headline": "Aytu BioPharma, Inc. Reports Fiscal 2027 First Quarter Results and Pending Merger with Rosemont for $2.70 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aytu-biopharma-inc-reports-fiscal-2027-first-quarter-results-and-pending-merger-rosemont",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T05:38:36Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Aytu BioPharma reported earnings and announced a pending merger with Rosemont at $2.70 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aytu BioPharma reported earnings and announced a pending merger with Rosemont at $2.70 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aytu BioPharma, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -287257,9 +287257,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2271437,
-    "news_picked_today": 1060,
-    "news_dropped_today": 6757
+    "news_seen_today": 2291333,
+    "news_picked_today": 1066,
+    "news_dropped_today": 6799
   },
   "book_momentum": {
     "live_count": 8,
