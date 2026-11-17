@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T05:10:57Z",
+  "generated_at": "2026-11-17T05:12:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-343",
@@ -195,6 +195,60 @@
           "name": "Toyota Kirloskar Auto Parts",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-365",
+      "headline": "Canadian Natural Resources Limited Enters into Agreement to Acquire Advantage Energy Ltd.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/canadian-natural-resources-limited-enters-agreement-acquire-advantage-energy-ltd",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T04:28:19Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Canadian Natural Resources Limited has entered into a definitive agreement to acquire Advantage Energy Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Canadian Natural Resources Limited has entered into a definitive agreement to acquire Advantage Energy Ltd.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Canadian Natural Resources Limited",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Advantage Energy Ltd.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1922,56 +1976,6 @@
           "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-214",
-      "headline": "현대차, 국내 공장 파업 여파 가동률 93.6%로 하락",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281474",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T01:16:51Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Hyundai Motor's domestic plant utilization dropped to 93.6% due to strike disruptions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Hyundai Motor's domestic plant utilization dropped to 93.6% due to strike disruptions.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
