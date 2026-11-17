@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T18:27:57Z",
+  "generated_at": "2026-11-17T18:29:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -998,6 +998,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-572",
+      "headline": "In His First Statement Since His Resignation, Former CEO Jensen Huang Just Delivered Stunning News to Nvidia Shareholders",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/his-first-statement-his-resignation-former-ceo-jensen-huang-just-delivered-stunning-news",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T17:43:02Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-563",
       "headline": "Nvidia’s Huang signals willingness to return as CEO; board sets up national security panel",
       "headline_en": null,
@@ -1950,55 +1999,6 @@
           "name": "Amer Sports",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-480",
-      "headline": "Prestige Estates acquires 50% stake in Advent Convention for ₹4,500 cr Mumbai commercial project",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/prestige-estates-share-price-acquires-50-stake-in-advent-convention-for-rs-4500-cr-mumbai-commercial-project-20036111.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T13:39:14Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Prestige Estates is acquiring a 50% stake in a project for ₹4,500 crore, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Prestige Estates is acquiring a 50% stake in a project for ₹4,500 crore, representing a significant capital investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prestige Estates Projects",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -287237,9 +287237,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3799502,
-    "news_picked_today": 1200,
-    "news_dropped_today": 8273
+    "news_seen_today": 3821420,
+    "news_picked_today": 1213,
+    "news_dropped_today": 8332
   },
   "book_momentum": {
     "live_count": 8,
