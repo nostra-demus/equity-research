@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T03:50:58Z",
+  "generated_at": "2026-11-17T03:51:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-343",
@@ -149,6 +149,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-344",
+      "headline": "Nvidia to declare Q3 results, first after CEO Jensen Huang’s exit and growing pushback against AI buildout",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/company-results/nvidia-to-declare-q3-results-first-after-ceo-jensen-huang-s-exit-and-growing-pushback-against-ai-buildout-11794886324117.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T03:44:35Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Nvidia is reporting Q3 earnings amidst significant leadership transition and market skepticism regarding AI capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reporting Q3 earnings amidst significant leadership transition and market skepticism regarding AI capital expenditure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -945,6 +994,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-347",
+      "headline": "Centre hikes windfall tax on diesel, ATF exports; petrol levy unchanged — Check details",
+      "headline_en": null,
+      "url": "https://www.livemint.com/economy/centre-hikes-windfall-tax-on-diesel-atf-exports-petrol-levy-unchanged-check-details-11794885175607.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T03:47:19Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The government has hiked the windfall tax on diesel and ATF exports, directly impacting the margins of oil marketing and refining companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The government has hiked the windfall tax on diesel and ATF exports, directly impacting the margins of oil marketing and refining companies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,105 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-306",
-      "headline": "FDA device recall (Class I) — Edwards Lifesciences, LLC: Generic Name: Edwards Commander M Delivery System Generic Name: Edwards Commander M Delivery System Model/Catalog Number: 9880CM29A Software Version: Not applic — Due to a manufacturing issue which may result in cardiovascular balloon rupturing.",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-0287-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Class I recall for Edwards Lifesciences delivery system due to manufacturing issues causing balloon ruptures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Class I recall for Edwards Lifesciences delivery system due to manufacturing issues causing balloon ruptures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edwards Lifesciences Corporation",
-          "ticker": "EW",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-242",
-      "headline": "Nvidia Weighs Tighter AI Financing as $500 Billion Funding Plan Remains Under Discussion",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281484",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T05:11:54Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Nvidia is reportedly considering tighter financing conditions for AI projects, potentially impacting sector-wide capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nvidia is reportedly considering tighter financing conditions for AI projects, potentially impacting sector-wide capital expenditure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287219,9 +287212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10749,
-    "news_picked_today": 503,
-    "news_dropped_today": 1392
+    "news_seen_today": 10762,
+    "news_picked_today": 508,
+    "news_dropped_today": 1400
   },
   "book_momentum": {
     "live_count": 8,
