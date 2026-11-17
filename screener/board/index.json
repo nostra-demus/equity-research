@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T14:26:30Z",
+  "generated_at": "2026-11-17T14:27:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -895,6 +895,66 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-525",
+      "headline": "Red Cat Plunges 34% After Revenue Miss, Pulled Guidance and Needham Target Cut; Ondas and AeroVironment Dip",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/17/red-cat-plunges-34-after-revenue-miss-pulled-guidance-and-needham-target-cut-ondas-and-aerovironment-dip/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T14:17:53Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Red Cat shares fell 34% following a revenue miss and pulled guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Red Cat shares fell 34% following a revenue miss and pulled guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Red Cat",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ondas",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "AeroVironment",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1960,55 +2020,6 @@
           "name": "Technology One",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-357",
-      "headline": "Toyota Kirloskar Auto Parts invests ₹460 crore in hybrid tech plant, raises capacity to 3.6 lakh units",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/auto/toyota-kirloskar-auto-parts-bengaluru-e-drive-manufacturing-hybrid-vehicle-production-20035543.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T04:37:21Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Toyota Kirloskar Auto Parts is investing 460 crore INR in a new hybrid tech plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Toyota Kirloskar Auto Parts is investing 460 crore INR in a new hybrid tech plant.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota Kirloskar Auto Parts",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -287247,9 +287258,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2119585,
-    "news_picked_today": 1019,
-    "news_dropped_today": 6630
+    "news_seen_today": 2137173,
+    "news_picked_today": 1032,
+    "news_dropped_today": 6641
   },
   "book_momentum": {
     "live_count": 8,
