@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T02:11:52Z",
+  "generated_at": "2026-11-17T02:12:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -886,6 +886,104 @@
           "name": "Huajin International Holdings",
           "ticker": "02738",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-258",
+      "headline": "John Marshall Bancorp, Inc. Announces Federal Reserve Approval for Bank Merger",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/john-marshall-bancorp-inc-announces-federal-reserve-approval-bank-merger",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T01:51:16Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "John Marshall Bancorp received regulatory approval for a bank merger, a key step in completing the transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "John Marshall Bancorp received regulatory approval for a bank merger, a key step in completing the transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "John Marshall Bancorp, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-257",
+      "headline": "Eagle Financial Services, Inc. Announces Federal Reserve Approval for Bank Merger",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eagle-financial-services-inc-announces-federal-reserve-approval-bank-merger",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T01:51:16Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Eagle Financial Services received regulatory approval for a bank merger, a key step in completing the transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Eagle Financial Services received regulatory approval for a bank merger, a key step in completing the transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eagle Financial Services, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1878,104 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-155",
-      "headline": "Mayne Pharma rockets 79pc on takeover bid; Chalmers aims to cut red tape on tax; Gilbert + Tobin private equity partner resigns",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/mayne-pharma-rockets-79pc-on-takeover-bid-chalmers-aims-to-cut-red-tape-on-tax-gilbert-tobin-private-equity-partner-resigns-20261117-p61eu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T01:02:54Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Mayne Pharma received a takeover bid causing a 79% share price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Mayne Pharma received a takeover bid causing a 79% share price increase.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mayne Pharma",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-107",
-      "headline": "Mahanadi Coalfields seeks ₹90,000 crore valuation in ₹8,981 crore IPO",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/mahanadi-coalfields-seeks-90-000-crore-valuation-in-8-981-crore-ipo-11794832350577.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:30:38Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Mahanadi Coalfields is seeking a significant ₹90,000 crore valuation for an ₹8,981 crore IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Mahanadi Coalfields is seeking a significant ₹90,000 crore valuation for an ₹8,981 crore IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahanadi Coalfields",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287211,9 +287211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8268,
-    "news_picked_today": 313,
-    "news_dropped_today": 826
+    "news_seen_today": 8294,
+    "news_picked_today": 321,
+    "news_dropped_today": 844
   },
   "book_momentum": {
     "live_count": 8,
