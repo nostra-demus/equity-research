@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T22:05:50Z",
+  "generated_at": "2026-11-17T22:06:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-625",
@@ -1294,6 +1294,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-633",
+      "headline": "Nvidia Reports Strong $115.8 Billion Quarterly Revenue In First Earnings Post-Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/fionariley/2026/11/17/nvidia-reports-strong-1158-billion-quarterly-revenue-in-first-earnings-post-jensen-huang/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T21:35:26Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Nvidia reported quarterly revenue of $115.8 billion, a significant figure for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia reported quarterly revenue of $115.8 billion, a significant figure for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-619",
       "headline": "KFC Franchisee Blames Bankruptcy on Rising Costs, Falling Sales",
       "headline_en": null,
@@ -1944,55 +1993,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-569",
-      "headline": "Jensen Huang wants job back, as Nvidia to reveal first earnings since scandal",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/jensen-huang-wants-job-back-as-nvidia-to-reveal-first-earnings-since-scandal-1.500751108",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T17:06:15Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Reports of a scandal at Nvidia and leadership instability regarding CEO Jensen Huang are highly material to the company's outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reports of a scandal at Nvidia and leadership instability regarding CEO Jensen Huang are highly material to the company's outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287228,9 +287228,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5344121,
-    "news_picked_today": 1362,
-    "news_dropped_today": 10127
+    "news_seen_today": 5355338,
+    "news_picked_today": 1369,
+    "news_dropped_today": 10168
   },
   "book_momentum": {
     "live_count": 8,
