@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T02:06:52Z",
+  "generated_at": "2026-11-17T02:07:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -1043,31 +1043,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261117-160",
-      "headline": "ASX plummets on miners; David Jones owes creditors estimated $180m",
+      "inbox_id": "INB-20261117-255",
+      "headline": "ASX falls on miners; David Jones owes unsecured creditors $180m",
       "headline_en": null,
       "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-nasdaq-hit-by-fresh-selloff-us-dollar-strengthens-20261117-p61eoj?ref=rss&utm_medium=rss&utm_source=rss_feed",
       "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-11-17T01:03:10Z",
+      "found_at": "2026-11-17T01:55:29Z",
       "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "David Jones owes creditors an estimated $180 million, indicating significant financial distress.",
+      "prelim_note": "David Jones owes unsecured creditors $180 million, indicating significant financial distress.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "David Jones owes creditors an estimated $180 million, indicating significant financial distress.",
+      "triage_reason": "David Jones owes unsecured creditors $180 million, indicating significant financial distress.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1186,6 +1186,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-251",
+      "headline": "Sensex Today | Stock Market LIVE Updates: Cummins India in focus after UBS, JPMorgan cut target",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stock-market-live-updates-sensex-nifty-50-expiry-today-oil-nifty-bank-record-high-bajaj-fin-aegis-senco-share-price-liveblog-20035375.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T01:51:35Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Cummins India faces downward pressure following target price cuts by UBS and JPMorgan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Cummins India faces downward pressure following target price cuts by UBS and JPMorgan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cummins India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1731,6 +1780,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-256",
+      "headline": "AirAsia, Malaysia Airports in US$122 million debt repayment talks",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/asean/airasia-malaysia-airports-us122-million-debt-repayment-talks",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T02:01:05Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "AirAsia and Malaysia Airports are in talks regarding a $122 million debt repayment, highlighting liquidity pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "AirAsia and Malaysia Airports are in talks regarding a $122 million debt repayment, highlighting liquidity pressure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AirAsia",
+          "ticker": null,
+          "listing_country": "MY"
+        },
+        {
+          "name": "Malaysia Airports",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-247",
+      "headline": "Rhythm Pharmaceuticals’ obesity drug cuts BMI by up to 18.8% in two-year trial",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/science/rhythm-pharmaceuticals-obesity-drug-cuts-bmi-by-up-to-188-in-two-year-trial/article71709575.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T01:58:28Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Rhythm Pharmaceuticals reported positive clinical trial results for its obesity drug, showing an 18.8% BMI reduction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Rhythm Pharmaceuticals reported positive clinical trial results for its obesity drug, showing an 18.8% BMI reduction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rhythm Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-155",
       "headline": "Mayne Pharma rockets 79pc on takeover bid; Chalmers aims to cut red tape on tax; Gilbert + Tobin private equity partner resigns",
       "headline_en": null,
@@ -1824,156 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-129",
-      "headline": "LS Electric expands Vietnam factory to boost production",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261117001800320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:04:51Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "LS Electric is expanding its Vietnam factory to boost production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "LS Electric is expanding its Vietnam factory to boost production capacity.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LS ELECTRIC Co., Ltd.",
-          "ticker": "010120",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-125",
-      "headline": "Panama President Orders Formal Talks With First Quantum on Mine",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-17/panama-president-orders-formal-talks-with-first-quantum-on-mine",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:04:31Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Panama's President ordering formal talks on First Quantum's key copper mine indicates potential movement toward resolving the operational shutdown.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Panama's President ordering formal talks on First Quantum's key copper mine indicates potential movement toward resolving the operational shutdown.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "operations",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Quantum Minerals Ltd.",
-          "ticker": "FM",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-074",
-      "headline": "Warren Buffett’s Berkshire Just Revealed a New $689 Million Stock. The Company’s IPO Was Less Than Five Months Ago",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/16/warren-buffetts-berkshire-just-revealed-a-new-689-million-stock-the-companys-ipo-was-less-than-five-months-ago/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T23:17:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Berkshire Hathaway's disclosure of a new $689 million position in a recently IPO'd company is a significant signal for market participants.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Berkshire Hathaway's disclosure of a new $689 million position in a recently IPO'd company is a significant signal for market participants.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287209,9 +287211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8180,
-    "news_picked_today": 297,
-    "news_dropped_today": 780
+    "news_seen_today": 8242,
+    "news_picked_today": 313,
+    "news_dropped_today": 826
   },
   "book_momentum": {
     "live_count": 8,
