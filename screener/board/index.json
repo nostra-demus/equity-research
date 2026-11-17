@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T00:07:45Z",
+  "generated_at": "2026-11-17T00:08:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-004",
@@ -56,6 +56,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-009",
+      "headline": "Abu Dhabi’s Mubadala taps into Britain’s wealth market with £1.17bn bet",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/ab-dhabis-mubadala-taps-into-britains-wealth-market-with-1-17bn-bet",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:49:17Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Mubadala is investing £1.17 billion into the UK wealth market, a significant capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Mubadala is investing £1.17 billion into the UK wealth market, a significant capital deployment.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mubadala",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-003",
       "headline": "SK Hynix plans chip testing hub to boost global competitiveness of smaller South Korean players",
       "headline_en": null,
@@ -100,6 +149,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-007",
+      "headline": "Social Security ‘Deteriorating Rapidly,’ Says Market Commentator as Fund Deficit Hit Record $221 Billion in Fiscal Year 2026",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/news/financing/26/11/63279024/social-security-deteriorating-rapidly-says-market-commentator-as-fund-deficit-hit-record-221-billion-in-fiscal-year-2026",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:55:11Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The Social Security fund deficit reached a record $221 billion in fiscal year 2026, signaling long-term fiscal pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The Social Security fund deficit reached a record $221 billion in fiscal year 2026, signaling long-term fiscal pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -203,6 +295,202 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-014",
+      "headline": "Belrise Industries shares jump 11% as Q2 profit rises 25% YoY; revenue grows 17%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/belrise-industries-shares-jump-11-as-q2-profit-rises-25-yoy-revenue-grows-17/articleshow/135874517.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:44:19Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Belrise Industries reported a 25% YoY profit increase and 17% revenue growth, driving an 11% share price jump.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Belrise Industries reported a 25% YoY profit increase and 17% revenue growth, driving an 11% share price jump.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Belrise Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-010",
+      "headline": "Coal India’s Mahanadi Coalfields IPO expected profit calculator on GMP: What retail, HNI investors can gain on listing?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/ipo/coal-india-s-mahanadi-coalfields-ipo-expected-profit-calculator-on-gmp-what-retail-hni-investors-can-gain-on-listing-11794806101034.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:49:08Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Speculation on Coal India's subsidiary IPO profit potential is relevant for retail and institutional investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Speculation on Coal India's subsidiary IPO profit potential is relevant for retail and institutional investors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-008",
+      "headline": "J&K Bank finances 81 CA storage units, exposure reaches ₹2,000 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/jk-bank-finances-81-ca-storage-units-exposure-reaches-2000-crore/article71706907.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:52:08Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "J&K Bank has financed 81 storage units with an exposure of ₹2,000 crore, indicating significant credit expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "J&K Bank has financed 81 storage units with an exposure of ₹2,000 crore, indicating significant credit expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "J&K Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-012",
+      "headline": "Sensex Today | Stock Market LIVE Updates: Nifty rises above 25,200; Inox Wind down 10%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stock-market-live-updates-sensex-nifty-50-today-nifty-bank-midcaps-smallcaps-tata-motors-pv-kaynes-eicher-zaggle-manipal-share-price-liveblog-20034520.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:45:20Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Inox Wind shares are down 10% following market updates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Inox Wind shares are down 10% following market updates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Inox Wind",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-006",
       "headline": "Goldman Sachs, Morgan Stanley diverge on 2027 calls for H-shares vs A-shares",
       "headline_en": null,
@@ -257,6 +545,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-011",
+      "headline": "Jay Shah reappointed unopposed as ICC chair for second term",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/sports/jay-shah-icc-chairman-reappointed-second-term-icc-board-cricket-olympics-los-angeles-2028-20034776.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:49:01Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Jay Shah's reappointment as ICC chair is a leadership continuity event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Jay Shah's reappointment as ICC chair is a leadership continuity event.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-002",
       "headline": "BREAKING NEWS: U.S., China, Russia leaders to meet at 3:30 p.m. Thursday in Shenzen, China",
       "headline_en": null,
@@ -282,6 +613,49 @@
         "size": 0,
         "recency": 1,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-013",
+      "headline": "Israeli military jeep runs over Palestinians in occupied West Bank",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-military-jeep-runs-over-palestinians-occupied-west-bank",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T05:45:51Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A military vehicle running over civilians in the West Bank is a violent escalation in a conflict zone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "A military vehicle running over civilians in the West Bank is a violent escalation in a conflict zone.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -285519,7 +285893,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4933,
+    "inbox_unconsumed": 4941,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -285528,9 +285902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 94,
-    "news_picked_today": 6,
-    "news_dropped_today": 18
+    "news_seen_today": 164,
+    "news_picked_today": 14,
+    "news_dropped_today": 34
   },
   "book_momentum": {
     "live_count": 8,
