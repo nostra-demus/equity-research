@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T04:41:59Z",
+  "generated_at": "2026-11-17T04:43:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-343",
@@ -149,6 +149,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-357",
+      "headline": "Toyota Kirloskar Auto Parts invests ₹460 crore in hybrid tech plant, raises capacity to 3.6 lakh units",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/auto/toyota-kirloskar-auto-parts-bengaluru-e-drive-manufacturing-hybrid-vehicle-production-20035543.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T04:37:21Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Toyota Kirloskar Auto Parts is investing 460 crore INR in a new hybrid tech plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota Kirloskar Auto Parts is investing 460 crore INR in a new hybrid tech plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota Kirloskar Auto Parts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1536,6 +1585,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-354",
+      "headline": "Anfield Energy Inc. Details BRS Inc. Acquisition and Extends Uranium Mining Lease",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anfield-energy-inc-details-brs-inc-acquisition-and-extends-uranium-mining-lease",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T04:10:09Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company is acquiring BRS Inc. and expanding its uranium mining capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company is acquiring BRS Inc. and expanding its uranium mining capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anfield Energy Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-258",
       "headline": "John Marshall Bancorp, Inc. Announces Federal Reserve Approval for Bank Merger",
       "headline_en": null,
@@ -1877,112 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-295",
-      "headline": "FDA device recall (Class I) — Cardinal Health 200, LLC: Cardinal Health Presource PBDS kits, Containing BD Alaris Pump Infusion Sets used with BD Alaris Pump Module Model 8100, labeled as: KIT, CATH LAB ADMIT, CATALO — Kits contain infusion sets which were recalled for performance issues.",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-0214-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Class I recall (most serious) for Cardinal Health kits containing previously recalled BD Alaris pump sets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Class I recall (most serious) for Cardinal Health kits containing previously recalled BD Alaris pump sets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cardinal Health, Inc.",
-          "ticker": "CAH",
-          "listing_country": "US"
-        },
-        {
-          "name": "Becton, Dickinson and Company",
-          "ticker": "BDX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-339",
-      "headline": "Maha Forest Dept orders Adani to stop project after wildlife fee was cut from Rs 227 crore to Rs 2.27 crore: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/maha-forest-dept-orders-adani-to-stop-project-after-wildlife-fee-was-cut-from-rs-227-crore-to-rs-2-27-crore-report-567743-2026-11-17?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T02:59:57Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Adani project ordered to stop due to a massive discrepancy in wildlife fees (Rs 227 crore vs Rs 2.27 crore).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Adani project ordered to stop due to a massive discrepancy in wildlife fees (Rs 227 crore vs Rs 2.27 crore).",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287218,9 +287211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13945,
-    "news_picked_today": 557,
-    "news_dropped_today": 1884
+    "news_seen_today": 14007,
+    "news_picked_today": 571,
+    "news_dropped_today": 1918
   },
   "book_momentum": {
     "live_count": 8,
