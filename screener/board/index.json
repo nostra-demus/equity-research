@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T15:37:34Z",
+  "generated_at": "2026-11-17T15:38:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -944,6 +944,110 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-546",
+      "headline": "Lucky Strike CEO Makes Take-Private Offer as Loan Hits Distress",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-17/lucky-strike-ceo-makes-take-private-offer-as-loan-hits-distress",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T15:13:07Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The CEO of Lucky Strike has made a take-private offer as the company's debt hits distress levels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of Lucky Strike has made a take-private offer as the company's debt hits distress levels.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lucky Strike",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-544",
+      "headline": "Canadian Natural to Acquire Advantage Energy for $1.8B",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/canadian_natural_to_acquire_advantage_energy_for_18b-17-nov-2026-185106-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T15:05:29Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Canadian Natural Resources is acquiring Advantage Energy for $1.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Canadian Natural Resources is acquiring Advantage Energy for $1.8 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Canadian Natural Resources",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Advantage Energy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,106 +2010,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-401",
-      "headline": "Bird Construction To Buy Kel-Gor For $200 Mln, Announces $200 Mln Share Bought Deal Offering",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/bird-construction-buy-kel-gor-200-mln-announces-200-mln-share-bought-deal-offering",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T08:42:13Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Bird Construction is acquiring Kel-Gor for $200 million and simultaneously launching a $200 million share offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bird Construction is acquiring Kel-Gor for $200 million and simultaneously launching a $200 million share offering.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bird Construction",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-409",
-      "headline": "Aethlon Medical, Inc. Discloses Updated Investor Presentation for North Immunology Merger and Anticipated $180M PIPE Raise",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aethlon-medical-inc-discloses-updated-investor-presentation-north-immunology-merger-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T08:18:40Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Aethlon Medical announced a merger and a $180M PIPE financing raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aethlon Medical announced a merger and a $180M PIPE financing raise.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aethlon Medical, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287241,9 +287245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2557699,
-    "news_picked_today": 1089,
-    "news_dropped_today": 7088
+    "news_seen_today": 2578519,
+    "news_picked_today": 1093,
+    "news_dropped_today": 7108
   },
   "book_momentum": {
     "live_count": 8,
