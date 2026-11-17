@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T03:20:58Z",
+  "generated_at": "2026-11-17T03:21:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -697,6 +697,56 @@
           "name": "Orezone Gold",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-341",
+      "headline": "NN, Inc. Outlines $100M Long-Term Data Center Goal and Reconfirms 2026 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nn-inc-outlines-100m-long-term-data-center-goal-and-reconfirms-2026-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T02:51:43Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "NN, Inc. announced a $100M long-term data center investment goal and reconfirmed 2026 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "NN, Inc. announced a $100M long-term data center investment goal and reconfirmed 2026 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NN, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1926,55 +1976,6 @@
           "name": "Cummins India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-225",
-      "headline": "Freeport-McMoRan Subsidiary PT Freeport Indonesia Announces Proposed Senior Notes Offering",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/freeport-mcmoran-subsidiary-pt-freeport-indonesia-announces-proposed-senior-notes-offering",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T01:31:02Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "PT Freeport Indonesia is proposing a new senior notes offering, increasing debt leverage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "PT Freeport Indonesia is proposing a new senior notes offering, increasing debt leverage.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Freeport-McMoRan",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -287213,9 +287214,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10482,
-    "news_picked_today": 464,
-    "news_dropped_today": 1291
+    "news_seen_today": 10508,
+    "news_picked_today": 470,
+    "news_dropped_today": 1311
   },
   "book_momentum": {
     "live_count": 8,
