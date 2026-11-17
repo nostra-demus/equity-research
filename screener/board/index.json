@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T18:48:57Z",
+  "generated_at": "2026-11-17T18:49:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -944,6 +944,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-575",
+      "headline": "Integer Holdings Corporation Completed Acquisition by KKR Affiliate for $127.00 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/integer-holdings-corporation-completed-acquisition-kkr-affiliate-12700-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T18:19:41Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Integer Holdings Corporation completed its acquisition by a KKR affiliate for $127.00 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Integer Holdings Corporation completed its acquisition by a KKR affiliate for $127.00 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Integer Holdings Corporation",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,56 +2006,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-479",
-      "headline": "Amer Sports Unleashes $1 Billion Buyback, Raises 2026 Outlook",
-      "headline_en": null,
-      "url": "https://www.benzinga.com/markets/earnings/26/11/63338366/amer-sports-unleashes-1-billion-buyback-raises-2026-outlook",
-      "source_name": "Benzinga",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T13:41:48Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Amer Sports announced a $1 billion share buyback and raised its 2026 outlook, signaling strong capital allocation and growth expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amer Sports announced a $1 billion share buyback and raised its 2026 outlook, signaling strong capital allocation and growth expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amer Sports",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287237,9 +287241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3963519,
-    "news_picked_today": 1216,
-    "news_dropped_today": 8401
+    "news_seen_today": 3974478,
+    "news_picked_today": 1220,
+    "news_dropped_today": 8493
   },
   "book_momentum": {
     "live_count": 8,
