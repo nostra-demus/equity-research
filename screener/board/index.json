@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T16:17:35Z",
+  "generated_at": "2026-11-17T16:18:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-457",
@@ -892,6 +892,55 @@
           "name": "ACW",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-550",
+      "headline": "AI drugmaker Isomorphic restocks with $5B fundraise",
+      "headline_en": null,
+      "url": "https://www.biopharmadive.com/news/isomorphic-labs-ai-drug-discovery-financing/874863/",
+      "source_name": "BioPharma Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T15:51:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Isomorphic Labs raised $5 billion in funding, a significant capital injection for an AI drug discovery firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Isomorphic Labs raised $5 billion in funding, a significant capital injection for an AI drug discovery firm.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Isomorphic Labs",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -1961,55 +2010,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-400",
-      "headline": "Turkey Fund Assets Shrink by $54 Billion Amid Manipulation Probe",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-17/turkey-fund-assets-shrink-by-54-billion-amid-manipulation-probe",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T08:58:50Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "A $54 billion shrinkage in fund assets amid a manipulation probe indicates significant financial and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $54 billion shrinkage in fund assets amid a manipulation probe indicates significant financial and regulatory risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Turkey Wealth Fund",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287245,9 +287245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2832361,
-    "news_picked_today": 1105,
-    "news_dropped_today": 7336
+    "news_seen_today": 2843014,
+    "news_picked_today": 1111,
+    "news_dropped_today": 7354
   },
   "book_momentum": {
     "live_count": 8,
