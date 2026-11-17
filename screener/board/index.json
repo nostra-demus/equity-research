@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T19:40:54Z",
+  "generated_at": "2026-11-17T19:42:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-553",
@@ -944,6 +944,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-582",
+      "headline": "Viatris Inc. Completes Acquisition of Pacira BioSciences for approximately $1.69 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/viatris-inc-completes-acquisition-pacira-biosciences-approximately-169-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T19:18:45Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Viatris completed the acquisition of Pacira BioSciences for approximately $1.69 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris completed the acquisition of Pacira BioSciences for approximately $1.69 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Pacira BioSciences",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1950,55 +2004,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-540",
-      "headline": "Humana Inc. Announces Pricing and Final Results of Cash Tender Offers Up to $1,500,000,000",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/humana-inc-announces-pricing-and-final-results-cash-tender-offers-1500000000",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T14:30:56Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Humana announced the final results of a $1.5 billion cash tender offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Humana announced the final results of a $1.5 billion cash tender offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Humana Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
