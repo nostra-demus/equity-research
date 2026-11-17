@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T01:51:52Z",
+  "generated_at": "2026-11-17T01:52:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -1240,6 +1240,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-239",
+      "headline": "Justice Department to Review DoorDash-Instacart Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-16/justice-department-to-review-doordash-instacart-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T23:07:36Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The US DOJ is reviewing the potential DoorDash-Instacart deal, introducing regulatory risk to the transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The US DOJ is reviewing the potential DoorDash-Instacart deal, introducing regulatory risk to the transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-047",
       "headline": "IMPACT THERAP-B (07630): INSIDE INFORMATION - APPROVAL BY THE EUROPEAN COMMISSION FOR MARKETING OF SENAPARIB",
       "headline_en": null,
@@ -1333,6 +1388,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-228",
+      "headline": "US prosecutors make final case against Huawei in theft, fraud trial",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/us/diplomacy/article/3374662/us-prosecutors-make-final-case-against-huawei-theft-fraud-trial",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T01:43:37Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Huawei faces final arguments in a high-profile theft and fraud trial.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Huawei faces final arguments in a high-profile theft and fraud trial.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huawei",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1432,6 +1536,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-229",
+      "headline": "Burger chain buying 163 franchise units in Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/wendys-has-a-plan-to-save-163-locations-from-bankruptcy-closure",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T00:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "A burger chain is acquiring 163 franchise units out of bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A burger chain is acquiring 163 franchise units out of bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1783,202 +1930,56 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261117-198",
-      "headline": "Ex-Robinhood Software Engineer Pleads Guilty to Illegal Trading",
+      "inbox_id": "INB-20261117-237",
+      "headline": "CVC plans to back out of Italian deal with Advent, triggering potential legal clash",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-16/ex-robinhood-software-engineer-pleads-guilty-to-illegal-trading",
-      "source_name": "Bloomberg",
+      "url": "https://www.ft.com/content/bd65d6e0-3ecb-498c-b684-c7e4c782a0ae?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
       "input_nature": "news_headline",
-      "found_at": "2026-11-16T22:53:33Z",
+      "found_at": "2026-11-16T23:08:52Z",
       "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "A former Robinhood software engineer pleaded guilty to illegal trading, highlighting internal control and compliance risks.",
+      "prelim_note": "CVC Capital Partners is planning to withdraw from an Italian deal with Advent International, risking a legal dispute.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "A former Robinhood software engineer pleaded guilty to illegal trading, highlighting internal control and compliance risks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Robinhood",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-091",
-      "headline": "M4M: CZN: Chalice Modular Plant MOU [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.M4M?key=2924-03162537-6A1355337",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-17T00:21:32Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Chalice Mining and M4M signed a memorandum of understanding for a modular plant, indicating potential commercial development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Chalice Mining and M4M signed a memorandum of understanding for a modular plant, indicating potential commercial development.",
+      "triage_reason": "CVC Capital Partners is planning to withdraw from an Italian deal with Advent International, risking a legal dispute.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
+        "materiality": 65,
+        "source_tier": 0,
         "scope": 5,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "commercial"
+        "mna",
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Chalice Mining",
-          "ticker": "CZN",
+          "name": "CVC Capital Partners",
+          "ticker": null,
           "listing_country": null
         },
         {
-          "name": "M4M",
-          "ticker": "M4M",
+          "name": "Advent International",
+          "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-025",
-      "headline": "FLOWING CLOUD (06610): PROPOSED RIGHTS ISSUE ON THE BASIS OF FOUR (4) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-16T22:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "The company announced a rights issue on a non-underwritten basis, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The company announced a rights issue on a non-underwritten basis, which is dilutive to existing shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FLOWING CLOUD",
-          "ticker": "06610",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-180",
-      "headline": "Trump Open to Huang Return, but Nvidia Board Rules Out Reinstatement",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281472",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T04:40:48Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Nvidia's board has formally ruled out the reinstatement of a former executive, clarifying leadership stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Nvidia's board has formally ruled out the reinstatement of a former executive, clarifying leadership stability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287214,9 +287215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8016,
-    "news_picked_today": 273,
-    "news_dropped_today": 733
+    "news_seen_today": 8072,
+    "news_picked_today": 291,
+    "news_dropped_today": 763
   },
   "book_momentum": {
     "live_count": 8,
