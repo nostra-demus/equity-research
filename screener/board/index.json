@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T01:31:52Z",
+  "generated_at": "2026-11-17T01:32:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-179",
@@ -1877,6 +1877,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-192",
+      "headline": "Berkshire Hathaway raised its stake in Delta in the third quarter. It also trimmed a key bank holding",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/16/berkshire-hathaway-raised-its-stake-in-delta-air-in-the-third-quarter.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-16T23:01:19Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Berkshire Hathaway increased its stake in Delta Air Lines, signaling institutional confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Berkshire Hathaway increased its stake in Delta Air Lines, signaling institutional confidence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-183",
       "headline": "Berkshire Boosts Stake in Lennar, Doubling Down on Its U.S. Housing Bet",
       "headline_en": null,
@@ -1926,60 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-038",
-      "headline": "Intel Stock Sell-Off Deepens After Nvidia Cuts Stake",
-      "headline_en": null,
-      "url": "https://www.benzinga.com/trading-ideas/movers/26/11/63327363/intel-stock-sell-off-deepens-after-nvidia-cuts-stake",
-      "source_name": "Benzinga",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-16T22:48:25Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Intel stock is reacting to a significant stake reduction by Nvidia, signaling a loss of confidence or portfolio rebalancing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Intel stock is reacting to a significant stake reduction by Nvidia, signaling a loss of confidence or portfolio rebalancing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287215,9 +287215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7250,
-    "news_picked_today": 217,
-    "news_dropped_today": 621
+    "news_seen_today": 7350,
+    "news_picked_today": 227,
+    "news_dropped_today": 635
   },
   "book_momentum": {
     "live_count": 8,
