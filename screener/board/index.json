@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-17T00:16:45Z",
+  "generated_at": "2026-11-17T00:17:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261117-025",
+      "headline": "FLOWING CLOUD (06610): PROPOSED RIGHTS ISSUE ON THE BASIS OF FOUR (4) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T22:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company announced a rights issue on a non-underwritten basis, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The company announced a rights issue on a non-underwritten basis, which is dilutive to existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FLOWING CLOUD",
+          "ticker": "06610",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261117-004",
       "headline": "Trump administration to name Nvidia, OpenAI and several others as AI national champions",
@@ -438,6 +487,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-024",
+      "headline": "CCOE (08286): PROPOSED CHANGE OF AUDITOR AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1117/2026111700025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-16T23:11:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company is proposing a change of auditor, which is a significant corporate governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "The company is proposing a change of auditor, which is a significant corporate governance event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCOE",
+          "ticker": "08286",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-016",
       "headline": "Eicher races to meet Royal Enfield demand wave amid margin woes",
       "headline_en": null,
@@ -835,6 +933,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-026",
+      "headline": "XPENG Reports Q3 2026 Results: Both Deliveries and Revenue Reach Record Highs, Overseas Market 2026 Full-Year Sales Target Exceeds 100,000 Units",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/16/3404225/0/en/xpeng-reports-q3-2026-results-both-deliveries-and-revenue-reach-record-highs-overseas-market-2026-full-year-sales-target-exceeds-100-000-units.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-16T23:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company reported record revenue and deliveries, indicating strong growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "The company reported record revenue and deliveries, indicating strong growth.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XPENG",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-028",
+      "headline": "Accord Announces Third Quarter Financial Results and Amendment to its Banking Facility",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261116081020/en/Accord-Announces-Third-Quarter-Financial-Results-and-Amendment-to-its-Banking-Facility/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-16T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company released quarterly financial results and amended its banking facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "The company released quarterly financial results and amended its banking facility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accord",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-011",
       "headline": "Jay Shah reappointed unopposed as ICC chair for second term",
       "headline_en": null,
@@ -873,6 +1070,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-029",
+      "headline": "XPENG Reports Q3 2026 Results: Both Deliveries and Revenue Reach Record Highs, Overseas Market 2026 Full-Year Sales Target Exceeds 100,000 Units | XPEV Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/XPEV/xpeng-reports-q3-2026-results-both-deliveries-and-revenue-reach-kl805u6iaylj.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-16T23:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company reported record revenue and deliveries, indicating strong growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "The company reported record revenue and deliveries, indicating strong growth.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XPENG",
+          "ticker": "XPEV",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -959,6 +1205,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-027",
+      "headline": "M&T Bank Corporation Announces Increased Common Stock Dividend",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/mt-bank-corporation-announces-increased-common-stock-dividend-302941131.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-16T22:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "The company announced an increase in its common stock dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "The company announced an increase in its common stock dividend.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "M&T Bank Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -286318,7 +286613,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4950,
+    "inbox_unconsumed": 4956,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -286327,9 +286622,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 484,
-    "news_picked_today": 23,
-    "news_dropped_today": 71
+    "news_seen_today": 758,
+    "news_picked_today": 29,
+    "news_dropped_today": 89
   },
   "book_momentum": {
     "live_count": 8,
