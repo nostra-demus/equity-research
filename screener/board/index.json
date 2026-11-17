@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T04:21:03Z",
+  "generated_at": "2026-11-17T04:22:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261117-343",
@@ -1150,6 +1150,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261117-348",
+      "headline": "BOAN BIOTECH (06955): VOLUNTARY ANNOUNCEMENT COMPLETION OF PHASE 3 TRIAL OF BA1104 (NIVOLUMAB) IN CHINA, WITH PRIMARY ENDPOINT MET",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700177.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T04:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "Boan Biotech announced the successful completion of a Phase 3 clinical trial for BA1104, meeting its primary endpoint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Boan Biotech announced the successful completion of a Phase 3 clinical trial for BA1104, meeting its primary endpoint.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boan Biotech",
+          "ticker": "06955",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261117-113",
       "headline": "Nvidia shares fall 4% as board reportedly rules out Huang return",
       "headline_en": null,
@@ -1237,6 +1286,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261117-350",
+      "headline": "CR CONSTRUCTION (01582): CLARIFICATION ANNOUNCEMENT IN RELATION TO THE WINDING UP PETITION AGAINST A SUBSIDIARY OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1117/2026111700125.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T04:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
+      "prelim_note": "CR Construction issued a clarification regarding a winding-up petition filed against one of its subsidiaries.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "CR Construction issued a clarification regarding a winding-up petition filed against one of its subsidiaries.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CR Construction",
+          "ticker": "01582",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,98 +1983,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-323",
-      "headline": "Major burger chain buying 163 franchisee units out of bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/wendys-has-a-plan-to-save-163-locations-from-bankruptcy-closure",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T00:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "A major burger chain is acquiring 163 franchisee units out of bankruptcy, expanding its corporate-owned footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "A major burger chain is acquiring 163 franchisee units out of bankruptcy, expanding its corporate-owned footprint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261117-268",
-      "headline": "FDA drug recall (Class II) — Fresenius Medical Care Renal Therapies Group, LLC: DELFLEX Peritoneal Dialysis Solution with 4.25% Dextrose, Low Magnesium/ Low Calcium and Attached stay safe Exchange Set, 2,500 mL Single dose bag, Sterile and — Lack of Assurance of Sterility:complaints have been received related to potential leaks from small perforations in the p",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0171-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-17_sweep.json",
-      "prelim_note": "Fresenius Medical Care recalled DELFLEX Peritoneal Dialysis Solution due to sterility concerns and potential leaks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Fresenius Medical Care recalled DELFLEX Peritoneal Dialysis Solution due to sterility concerns and potential leaks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fresenius Medical Care",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287212,9 +287218,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12967,
-    "news_picked_today": 522,
-    "news_dropped_today": 1704
+    "news_seen_today": 13134,
+    "news_picked_today": 523,
+    "news_dropped_today": 1727
   },
   "book_momentum": {
     "live_count": 8,
