@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T09:33:04Z",
+  "generated_at": "2026-11-18T09:34:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-149",
@@ -297,6 +297,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-165",
+      "headline": "Eurobank to Buy 65% of Bulgaria’s Fibank for €650 Million",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/eurobank-to-buy-65-stake-in-bulgaria-s-fibank-for-650-million",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T08:30:20Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Eurobank is acquiring a 65% stake in Bulgaria's Fibank for €650 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eurobank is acquiring a 65% stake in Bulgaria's Fibank for €650 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eurobank",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Fibank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1116,6 +1170,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-166",
+      "headline": "JINHUI HOLDINGS (00137): Major Transaction - Disposal of a Vessel",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800484.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T08:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Jinhui Holdings announced the disposal of a vessel, representing a major transaction for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Jinhui Holdings announced the disposal of a vessel, representing a major transaction for the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jinhui Holdings",
+          "ticker": "00137",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-098",
       "headline": "The AES Corporation Announces FERC Approval for Merger with Closing Expected December 2, 2026",
       "headline_en": null,
@@ -1209,6 +1312,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-153",
+      "headline": "Krishna Reddy raises ₹7,000 crore to buy out uncle PP Reddy’s stake in Megha Engineering: Report",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/krishna-reddy-raises-rs-7-000-crore-to-buy-out-uncle-pp-reddy-s-stake-in-megha-engineering-report-11794990852503.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T08:44:10Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Krishna Reddy is acquiring a stake in Megha Engineering for ₹7,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Krishna Reddy is acquiring a stake in Megha Engineering for ₹7,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Megha Engineering",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1848,159 +2000,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-014",
-      "headline": "Larbi Inc. Recalls Yellow Dock Root Because of Possible Health Risk",
-      "headline_en": null,
-      "url": "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/larbi-inc-recalls-yellow-dock-root-because-possible-health-risk",
-      "source_name": "U.S. Food & Drug Administration (Recalls)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-17T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Larbi Inc. issued a product recall for Yellow Dock Root due to potential health risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Larbi Inc. issued a product recall for Yellow Dock Root due to potential health risks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Larbi Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-044",
-      "headline": "Nvidia no longer selling US-approved Hopper chips to China, Interim CEO Kress says",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nvidia-no-longer-selling-us-approved-hopper-chips-to-china-interim-ceo-kress-says-20036351.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T01:08:44Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Nvidia is halting sales of US-approved Hopper chips to China, impacting revenue exposure to a major market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Nvidia is halting sales of US-approved Hopper chips to China, impacting revenue exposure to a major market.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-097",
-      "headline": "Transocean Ltd. Supplements Joint Proxy Statement for Valaris Limited Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/transocean-ltd-supplements-joint-proxy-statement-valaris-limited-acquisition",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T03:48:43Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Transocean is moving forward with the Valaris acquisition by supplementing its proxy statement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Transocean is moving forward with the Valaris acquisition by supplementing its proxy statement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Transocean",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Valaris",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289230,9 +289229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3589780,
-    "news_picked_today": 207,
-    "news_dropped_today": 5793
+    "news_seen_today": 3619262,
+    "news_picked_today": 224,
+    "news_dropped_today": 5824
   },
   "book_momentum": {
     "live_count": 8,
