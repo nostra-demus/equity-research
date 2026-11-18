@@ -1,6 +1,305 @@
 {
-  "generated_at": "2026-11-18T00:03:32Z",
+  "generated_at": "2026-11-18T00:04:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261118-001",
+      "headline": "ZTO EXPRESS-W (02057): INSIDE INFORMATION - ANNOUNCEMENT OF THE 2026 THIRD QUARTER UNAUDITED FINANCIAL RESULTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "ZTO Express announced its unaudited financial results for the third quarter of 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ZTO Express announced its unaudited financial results for the third quarter of 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZTO Express",
+          "ticker": "02057",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-002",
+      "headline": "MEDLIVE (02192): ADOPTION OF REVISED DIVIDEND POLICY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T22:02:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Medlive adopted a revised dividend policy, which is a routine corporate governance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Medlive adopted a revised dividend policy, which is a routine corporate governance update.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medlive",
+          "ticker": "02192",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-006",
+      "headline": "DENGLIN TECH-P (09917): VOLUNTARY ANNOUNCEMENT - BUSINESS DEVELOPMENT UPDATES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T22:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Denglin Tech provided a voluntary business development update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Denglin Tech provided a voluntary business development update.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Denglin Tech",
+          "ticker": "09917",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-005",
+      "headline": "HSBC HOLDINGS (00005): Notification of Transactions by Persons Discharging Managerial Responsibilities",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800013.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T23:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "HSBC Holdings reported routine transactions by persons discharging managerial responsibilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "HSBC Holdings reported routine transactions by persons discharging managerial responsibilities.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-004",
+      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800015.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T23:07:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "HSBC Holdings reported routine share buyback transactions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "HSBC Holdings reported routine share buyback transactions.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-003",
+      "headline": "Riassunto: Quaise Energy firma un accordo con Google per l'acquisto di 50 MW di potenza geotermica",
+      "headline_en": "Summary: Quaise Energy signs an agreement with Google to purchase 50 MW of geothermal power",
+      "url": "http://www.businesswire.com/news/home/20261117645145/it/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-17T23:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Quaise Energy signed an agreement with Google to purchase 50 MW of geothermal power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Quaise Energy signed an agreement with Google to purchase 50 MW of geothermal power.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Quaise Energy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261117-659",
       "headline": "MAP: GSS: End of Proposed Merger with Microba Life Sciences [price-sensitive]",
@@ -287217,7 +287516,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4967,
+    "inbox_unconsumed": 4973,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
