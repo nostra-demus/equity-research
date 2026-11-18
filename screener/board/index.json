@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T05:28:01Z",
+  "generated_at": "2026-11-18T05:29:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -1706,6 +1706,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-114",
+      "headline": "Julius Baer faces renewed legal battle after ex-banker’s fraud conviction",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/4395fce6-500b-4161-a078-9e9affca435f?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T05:00:07Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Julius Baer faces a renewed legal battle following a fraud conviction, increasing legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Julius Baer faces a renewed legal battle following a fraud conviction, increasing legal and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Julius Baer",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-058",
       "headline": "YOW: Yowie Appoints Lead Managers to Advance Capital Raising [price-sensitive]",
       "headline_en": null,
@@ -1946,60 +1995,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-087",
-      "headline": "Vireo Growth Inc. and Planet 13 Amend Merger Agreement Following IDFPR Request",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vireo-growth-inc-and-planet-13-amend-merger-agreement-following-idfpr-request",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T02:28:53Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Vireo Growth and Planet 13 amended their merger agreement due to regulatory requests, indicating potential deal complexity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Vireo Growth and Planet 13 amended their merger agreement due to regulatory requests, indicating potential deal complexity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vireo Growth Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Planet 13",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
