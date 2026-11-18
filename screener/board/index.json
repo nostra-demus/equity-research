@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T09:50:06Z",
+  "generated_at": "2026-11-18T09:51:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-149",
@@ -1268,6 +1268,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-191",
+      "headline": "METIS TECHBIO-P (07666): INSIDE INFORMATION PROPOSED A SHARE LISTING PLAN",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800698.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T09:20:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "The company is proposing an A-share listing plan, which represents a significant strategic expansion into the mainland Chinese capital market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company is proposing an A-share listing plan, which represents a significant strategic expansion into the mainland Chinese capital market.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "METIS TECHBIO-P",
+          "ticker": "07666",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-042",
       "headline": "LIO: Pause in Trading [price-sensitive]",
       "headline_en": null,
@@ -1660,6 +1709,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-181",
+      "headline": "SpiceJet board approves up to Rs 5,500 crore fundraise to support fleet expansion, drive revival",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/spicejet-board-approves-up-to-rs-5500-crore-fundraise-to-support-fleet-expansion-drive-revival/articleshow/135958224.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T09:40:01Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Board approved 55 billion INR fundraise for fleet expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Board approved 55 billion INR fundraise for fleet expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-183",
+      "headline": "SpiceJet Approves 55 Billion Rupee Fundraising to Aid Turnaround",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/spicejet-approves-55-billion-rupee-fundraising-to-aid-turnaround",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T09:17:11Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Company approved 55 billion INR fundraising for turnaround.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Company approved 55 billion INR fundraising for turnaround.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-153",
       "headline": "Krishna Reddy raises ₹7,000 crore to buy out uncle PP Reddy’s stake in Megha Engineering: Report",
       "headline_en": null,
@@ -1851,153 +1998,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-143",
-      "headline": "WC1: Director Resignation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WC1?key=2924-03163417-6A1355697",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T08:00:13Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "ASX regulatory disclosure of director resignation; material governance event, but severity (CEO/CFO/chair vs. non-executive) and reason undisclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "ASX regulatory disclosure of director resignation; material governance event, but severity (CEO/CFO/chair vs. non-executive) and reason undisclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WC1",
-          "ticker": "WC1",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-093",
-      "headline": "LEGION CONSO (02129): INSIDE INFORMATION - COMPLETION OF DISPOSAL OF SHARES HELD BY A CONTROLLING SHAREHOLDER",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800387.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Legion Consortium announced the completion of a share disposal by a controlling shareholder.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Legion Consortium announced the completion of a share disposal by a controlling shareholder.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Legion Consortium",
-          "ticker": "02129",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-060",
-      "headline": "ANO: Proposed Capital Reduction of 3 Cents [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANO?key=2924-03163171-2A1711266",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T01:53:42Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "ANO announced a proposed capital reduction of 3 cents per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "ANO announced a proposed capital reduction of 3 cents per share.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ANO",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
