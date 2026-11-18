@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T05:14:05Z",
+  "generated_at": "2026-11-18T05:15:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -199,6 +199,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-111",
+      "headline": "'Do Not Intend To Reinstate Him': Nvidia Board Chairman Rules Out Jensen Huang's Return As CEO, Announces Search For Permanent Successor | Video",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/do-not-intend-to-reinstate-him-nvidia-board-chairman-rules-out-jensen-huangs-return-as-ceo-announces-search-for-permanent-successor-video",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T04:42:54Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "The Nvidia board has ruled out the return of Jensen Huang and is searching for a successor, representing a major leadership transition event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Nvidia board has ruled out the return of Jensen Huang and is searching for a successor, representing a major leadership transition event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,55 +2001,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-048",
-      "headline": "Fairfax to sell 13% via 3.4k cr block deal, exit IIFL Finance",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/fairfax-to-sell-13-via-3-4k-cr-block-deal-exit-iifl-finance/articleshow/135944596.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T00:55:42Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Fairfax is exiting its position in IIFL Finance through a 3.4 billion rupee block deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Fairfax is exiting its position in IIFL Finance through a 3.4 billion rupee block deal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289229,9 +289230,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2056022,
-    "news_picked_today": 132,
-    "news_dropped_today": 2676
+    "news_seen_today": 2077582,
+    "news_picked_today": 135,
+    "news_dropped_today": 2721
   },
   "book_momentum": {
     "live_count": 8,
