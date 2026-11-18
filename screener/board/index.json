@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T00:38:38Z",
+  "generated_at": "2026-11-18T00:39:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-001",
@@ -495,6 +495,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-024",
+      "headline": "MQG: Ceasing to be a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MQG?key=2924-03162792-2A1711091",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T08:00:44Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Macquarie Group has ceased to be a substantial holder in an unnamed entity, indicating a change in institutional ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Macquarie Group has ceased to be a substantial holder in an unnamed entity, indicating a change in institutional ownership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Group",
+          "ticker": "MQG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-025",
+      "headline": "[TSE]Decision on Transfer Date (from Growth Market to Prime Market): Northsand,Inc.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/listing/stocks/transfers/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-17T08:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Northsand, Inc. is transferring its listing from the Growth Market to the Prime Market, which typically increases liquidity and institutional visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Northsand, Inc. is transferring its listing from the Growth Market to the Prime Market, which typically increases liquidity and institutional visibility.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Northsand, Inc.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288356,7 +288454,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4990,
+    "inbox_unconsumed": 4992,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -288365,9 +288463,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248635,
-    "news_picked_today": 19,
-    "news_dropped_today": 317
+    "news_seen_today": 259445,
+    "news_picked_today": 23,
+    "news_dropped_today": 337
   },
   "book_momentum": {
     "live_count": 8,
