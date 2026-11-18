@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T21:15:15Z",
+  "generated_at": "2026-11-18T21:16:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-296",
@@ -1963,51 +1963,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261118-034",
-      "headline": "Century Casinos, Inc. Announces Restatement of Previously Issued Financial Statements and Preliminary Third Quarter 2026 Financial Results",
+      "inbox_id": "INB-20261118-299",
+      "headline": "Palo Alto Networks Reports Fiscal First Quarter 2027 Financial Results",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/century-casinos-inc-announces-restatement-previously-issued-financial-statements-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T00:41:23Z",
+      "url": "https://www.prnewswire.com/news-releases/palo-alto-networks-reports-fiscal-first-quarter-2027-financial-results-302944393.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T21:05:00Z",
       "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Century Casinos announced a restatement of financial statements and preliminary Q3 2026 results, which is a significant accounting red flag.",
+      "prelim_note": "Palo Alto Networks reported fiscal Q1 2027 financial results.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Century Casinos announced a restatement of financial statements and preliminary Q3 2026 results, which is a significant accounting red flag.",
+      "triage_score": 42,
+      "triage_reason": "Palo Alto Networks reported fiscal Q1 2027 financial results.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
+        "materiality": 60,
+        "source_tier": -36,
         "scope": 6,
-        "event": 7,
-        "size": -1,
+        "event": 5,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "accounting_restatement",
         "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Century Casinos, Inc.",
-          "ticker": "CNTY",
+          "name": "Palo Alto Networks",
+          "ticker": "PANW",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289237,9 +289236,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6798598,
-    "news_picked_today": 593,
-    "news_dropped_today": 16927
+    "news_seen_today": 6811605,
+    "news_picked_today": 606,
+    "news_dropped_today": 16986
   },
   "book_momentum": {
     "live_count": 8,
