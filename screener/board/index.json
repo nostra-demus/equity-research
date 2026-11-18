@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T22:26:21Z",
+  "generated_at": "2026-11-18T22:27:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-309",
@@ -1042,20 +1042,74 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261118-306",
-      "headline": "Palo Alto Networks to Buy Applied Compute in $4.5 Billion Deal",
+      "inbox_id": "INB-20261118-331",
+      "headline": "Challenger Rejects New $4.4 Billion Daiichi Life Takeover Bid",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-18/palo-alto-networks-to-buy-applied-compute-in-4-5-billion-deal",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/challenger-rejects-new-4-4-billion-daiichi-life-takeover-bid",
       "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-11-18T21:19:57Z",
+      "found_at": "2026-11-18T22:08:57Z",
       "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Palo Alto Networks is acquiring Applied Compute for $4.5 billion.",
+      "prelim_note": "Challenger rejected a $4.4 billion takeover bid from Daiichi Life.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Palo Alto Networks is acquiring Applied Compute for $4.5 billion.",
+      "triage_reason": "Challenger rejected a $4.4 billion takeover bid from Daiichi Life.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Challenger Ltd",
+          "ticker": "CGF",
+          "listing_country": null
+        },
+        {
+          "name": "Daiichi Life Holdings",
+          "ticker": "8750",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-325",
+      "headline": "Palo Alto inks $4.5 billion deal for AI startup Applied Compute, shares pop 8% on earnings",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/18/palo-alto-networks-panw-q1-2027-earnings-.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:03:58Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Palo Alto Networks announced a $4.5 billion acquisition of Applied Compute alongside earnings, causing shares to rise 8%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Palo Alto Networks announced a $4.5 billion acquisition of Applied Compute alongside earnings, causing shares to rise 8%.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1067,30 +1121,76 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
-        "mna"
+        "mna",
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Palo Alto Networks",
-          "ticker": null,
+          "ticker": "PANW",
           "listing_country": "US"
-        },
-        {
-          "name": "Applied Compute",
-          "ticker": null,
-          "listing_country": null
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-327",
+      "headline": "Palo Alto Posts Q1 Double Beat, Announces Applied Compute Acquisition",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/markets/earnings/26/11/63414200/palo-alto-posts-q1-double-beat-announces-applied-compute-acquisition",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T21:26:04Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Palo Alto reported a double beat on earnings and announced a major acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Palo Alto reported a double beat on earnings and announced a major acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Palo Alto Networks",
+          "ticker": "PANW",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,106 +2001,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-051",
-      "headline": "Nvidia Q3 results FY27: Revenue more than doubles to $115.8 billion; board begins CEO search, rules out Huang's return",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/company-results/nvidia-q3-results-fy27-revenue-more-than-doubles-to-115-8-billion-board-begins-ceo-search-rules-out-huangs-return-11794961338156.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T01:24:59Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Nvidia reported Q3 revenue of $115.8 billion, more than doubling, while initiating a CEO search.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reported Q3 revenue of $115.8 billion, more than doubling, while initiating a CEO search.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-082",
-      "headline": "KPMG cuts hundreds of jobs, 20 partners as scandal hits revenue",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/professional-services/kpmg-cuts-hundreds-of-jobs-20-partners-20261118-p61f7w?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T01:13:47Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "KPMG is cutting hundreds of jobs and 20 partners following a scandal that impacted revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KPMG is cutting hundreds of jobs and 20 partners following a scandal that impacted revenue.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPMG",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289230,9 +289230,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7042652,
-    "news_picked_today": 667,
-    "news_dropped_today": 17501
+    "news_seen_today": 7055814,
+    "news_picked_today": 703,
+    "news_dropped_today": 17609
   },
   "book_momentum": {
     "live_count": 8,
