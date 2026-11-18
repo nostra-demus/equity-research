@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T05:23:02Z",
+  "generated_at": "2026-11-18T05:24:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -1603,6 +1603,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-112",
+      "headline": "Credit firm Alceon mulled working with Bathla weeks before collapse",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/credit-firm-alceon-mulled-working-with-bathla-weeks-before-collapse-20261118-p61f84?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T05:17:32Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Alceon was linked to the collapse of Bathla, indicating potential credit risk or operational exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Alceon was linked to the collapse of Bathla, indicating potential credit risk or operational exposure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alceon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-038",
       "headline": "ASX falls amid bank sell-off; Nvidia jumps 5pc; Nuix soars on takeover bid",
       "headline_en": null,
@@ -1951,56 +2000,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-064",
-      "headline": "Nvidia results beat expectations as ousted CEO told no way back",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10941037",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T02:05:33Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Earnings beat expectations and confirmed the permanent departure of the former CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Earnings beat expectations and confirmed the permanent departure of the former CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
