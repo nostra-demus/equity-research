@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T08:57:59Z",
+  "generated_at": "2026-11-18T08:59:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -1263,6 +1263,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-143",
+      "headline": "WC1: Director Resignation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WC1?key=2924-03163417-6A1355697",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T08:00:13Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "ASX regulatory disclosure of director resignation; material governance event, but severity (CEO/CFO/chair vs. non-executive) and reason undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "ASX regulatory disclosure of director resignation; material governance event, but severity (CEO/CFO/chair vs. non-executive) and reason undisclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WC1",
+          "ticker": "WC1",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-093",
       "headline": "LEGION CONSO (02129): INSIDE INFORMATION - COMPLETION OF DISPOSAL OF SHARES HELD BY A CONTROLLING SHAREHOLDER",
       "headline_en": null,
@@ -1859,6 +1908,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-145",
+      "headline": "Workday To Acquire AI Semantic Layer Provider Honeydew",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/workday-acquire-ai-semantic-layer-provider-honeydew",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T07:54:16Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Workday announces acquisition of AI semantic-layer provider Honeydew; deal is confirmed and named but no value or integration terms disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Workday announces acquisition of AI semantic-layer provider Honeydew; deal is confirmed and named but no value or integration terms disclosed.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Workday",
+          "ticker": "WDAY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-142",
       "headline": "PVR Inox shares jump 6% in 2 days, hit fresh 52-week high as CRISIL upgrades outlook to positive. What is it seeing",
       "headline_en": null,
@@ -1903,104 +2001,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-123",
-      "headline": "Prestige Estates acquires 50% stake in Mumbai project with ₹4,500 crore GDV",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/prestige-estates-share-price-acquires-50-stake-in-advent-convention-for-rs-4500-cr-mumbai-commercial-project-20036111.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T06:00:33Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Prestige Estates acquired a 50% stake in a Mumbai project with a gross development value of ₹4,500 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Prestige Estates acquired a 50% stake in a Mumbai project with a gross development value of ₹4,500 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prestige Estates",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-112",
-      "headline": "Credit firm Alceon mulled working with Bathla weeks before collapse",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/credit-firm-alceon-mulled-working-with-bathla-weeks-before-collapse-20261118-p61f84?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T05:17:32Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Alceon was linked to the collapse of Bathla, indicating potential credit risk or operational exposure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Alceon was linked to the collapse of Bathla, indicating potential credit risk or operational exposure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alceon",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
