@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T06:55:22Z",
+  "generated_at": "2026-11-18T06:56:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -196,6 +196,110 @@
           "name": "ZTO Express",
           "ticker": "02057",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-128",
+      "headline": "Accor To Buy 44.3% More Stake In Ennismore In Around €1.6 Bln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/accor-buy-443-more-stake-ennismore-around-eu16-bln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T05:49:50Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Accor is acquiring an additional 44.3% stake in Ennismore for approximately 1.6 billion euros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accor is acquiring an additional 44.3% stake in Ennismore for approximately 1.6 billion euros.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accor",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Ennismore",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-129",
+      "headline": "Infratil H1 Proportionate Operational EBITDAF Rises; Lifts FY27 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/infratil-h1-proportionate-operational-ebitdaf-rises-lifts-fy27-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T05:46:09Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Infratil reported higher H1 EBITDAF and raised its FY27 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infratil reported higher H1 EBITDAF and raised its FY27 guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infratil",
+          "ticker": null,
+          "listing_country": "NZ"
         }
       ],
       "size_bucket": "large",
@@ -958,6 +1062,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-126",
+      "headline": "Nuix takeover offer caps off a wild six-year rollercoaster ride",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/nuix-takeover-offer-caps-off-a-wild-six-year-rollercoaster-ride-20261118-p61f9o?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T06:48:08Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Nuix is the subject of a takeover offer, which is a material event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Nuix is the subject of a takeover offer, which is a material event for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nuix",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-030",
       "headline": "HLTH 2026 Daily Tracker: Oura, Counsel Health CEOs talk $625M acquisition; Why DJ Steve Aoki is investing in innovative science",
       "headline_en": null,
@@ -1652,6 +1805,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-123",
+      "headline": "Prestige Estates acquires 50% stake in Mumbai project with ₹4,500 crore GDV",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/prestige-estates-share-price-acquires-50-stake-in-advent-convention-for-rs-4500-cr-mumbai-commercial-project-20036111.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T06:00:33Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Prestige Estates acquired a 50% stake in a Mumbai project with a gross development value of ₹4,500 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Prestige Estates acquired a 50% stake in a Mumbai project with a gross development value of ₹4,500 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-112",
       "headline": "Credit firm Alceon mulled working with Bathla weeks before collapse",
       "headline_en": null,
@@ -1794,202 +1996,6 @@
       "companies": [
         {
           "name": "Julius Baer",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-058",
-      "headline": "YOW: Yowie Appoints Lead Managers to Advance Capital Raising [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.YOW?key=2924-03163164-6A1355586",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T01:42:47Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Yowie Group is initiating a capital raising process, which impacts the company's capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Yowie Group is initiating a capital raising process, which impacts the company's capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yowie Group",
-          "ticker": "YOW",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-059",
-      "headline": "BH6: Manda Lodges IPO Prospectus and BH6 Priority Offer [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BH6?key=2924-03163161-3A706821",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T01:41:22Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Manda is lodging an IPO prospectus, signaling a new public offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Manda is lodging an IPO prospectus, signaling a new public offering.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Manda",
-          "ticker": "BH6",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-099",
-      "headline": "IIFL Finance share price: NBFC stock jumps 6% after ₹3,454 cr block deal: Why is Fairfax selling entire 13.25% stake?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/iifl-finance-share-price-nbfc-stock-jumps-6-after-rs-3-454-cr-block-deal-why-is-fairfax-selling-entire-13-25-stake-11794973879183.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T04:13:33Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Fairfax is selling its entire 13.25% stake in IIFL Finance via a block deal worth ₹3,454 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Fairfax is selling its entire 13.25% stake in IIFL Finance via a block deal worth ₹3,454 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-103",
-      "headline": "Indonesia’s Franky Widjaja Resigns as Palm Giant’s Commissioner",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-18/indonesia-s-franky-widjaja-resigns-as-palm-giant-s-commissioner",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T04:12:04Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Franky Widjaja has resigned as commissioner of a major palm oil company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Franky Widjaja has resigned as commissioner of a major palm oil company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Golden Agri-Resources",
           "ticker": null,
           "listing_country": null
         }
@@ -289224,9 +289230,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2917569,
-    "news_picked_today": 152,
-    "news_dropped_today": 3664
+    "news_seen_today": 2931219,
+    "news_picked_today": 167,
+    "news_dropped_today": 3745
   },
   "book_momentum": {
     "live_count": 8,
