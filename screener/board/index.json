@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-18T20:42:15Z",
+  "generated_at": "2026-11-18T20:43:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261118-296",
+      "headline": "OCA: 1HY27 Results Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCA?key=2924-03163453-3A706869",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T20:32:06Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "The company is releasing its 1HY27 financial results, which is a price-sensitive event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is releasing its 1HY27 financial results, which is a price-sensitive event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oceania Healthcare",
+          "ticker": "OCA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261118-291",
       "headline": "ENVISION GREEN (01783): VERY SUBSTANTIAL ACQUISITION IN RELATION TO THE PURCHASE OF INTELLIGENT COMPUTING SERVERS, PROPOSED PURCHASE OF INTELLIGENT COMPUTING SERVERS AND NOTICE OF EGM",
@@ -1955,56 +2004,6 @@
         {
           "name": "Century Casinos, Inc.",
           "ticker": "CNTY",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-035",
-      "headline": "IRIDEX Corporation Reports Third Quarter 2026 Revenue of $10.2 million and Lowers Full Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/iridex-corporation-reports-third-quarter-2026-revenue-102-million-and-lowers-full-year",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T00:41:22Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "IRIDEX reported Q3 2026 revenue of $10.2 million and lowered its full-year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IRIDEX reported Q3 2026 revenue of $10.2 million and lowered its full-year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IRIDEX Corporation",
-          "ticker": "IRIX",
           "listing_country": "US"
         }
       ],
@@ -289238,9 +289237,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6695106,
-    "news_picked_today": 548,
-    "news_dropped_today": 16612
+    "news_seen_today": 6708157,
+    "news_picked_today": 561,
+    "news_dropped_today": 16695
   },
   "book_momentum": {
     "live_count": 8,
