@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T06:12:17Z",
+  "generated_at": "2026-11-18T06:13:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -199,6 +199,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-117",
+      "headline": "Nuix shares soar after $1b takeover bid from US private equity firm",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/nuix-receives-almost-1b-takeover-bid-from-us-private-equity-firm-20261118-p61f4c?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T05:29:23Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Nuix received a $1 billion takeover bid from a private equity firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nuix received a $1 billion takeover bid from a private equity firm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nuix",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1946,55 +1995,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-100",
-      "headline": "IIFL Finance shares jump 5% after 13% stake changes hands in block deal, Fairfax likely seller",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/iifl-finance-shares-jump-5-after-13-stake-changes-hands-in-block-deal-fairfax-likely-seller/articleshow/135948021.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T04:00:36Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Fairfax is selling a 13% stake in IIFL Finance through a large block deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Fairfax is selling a 13% stake in IIFL Finance through a large block deal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289224,9 +289224,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2542594,
-    "news_picked_today": 140,
-    "news_dropped_today": 3268
+    "news_seen_today": 2566588,
+    "news_picked_today": 145,
+    "news_dropped_today": 3287
   },
   "book_momentum": {
     "live_count": 8,
