@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T08:18:55Z",
+  "generated_at": "2026-11-18T08:19:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -196,6 +196,60 @@
           "name": "ZTO Express",
           "ticker": "02057",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-141",
+      "headline": "AES Receives Final FERC Approval For Acquisition By Blackrock, EQT -Led Consortium",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aes-receives-final-ferc-approval-acquisition-blackrock-eqt-led-consortium",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T07:02:07Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Final regulatory approval received for the acquisition of AES by a Blackrock and EQT-led consortium.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Final regulatory approval received for the acquisition of AES by a Blackrock and EQT-led consortium.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AES Corp",
+          "ticker": "AES",
+          "listing_country": "US"
+        },
+        {
+          "name": "BlackRock",
+          "ticker": "BLK",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1805,6 +1859,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-142",
+      "headline": "PVR Inox shares jump 6% in 2 days, hit fresh 52-week high as CRISIL upgrades outlook to positive. What is it seeing",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-jump-6-in-2-days-hit-fresh-52-week-high-as-crisil-upgrades-outlook-to-positive-what-is-it-seeing/articleshow/135952435.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T06:43:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "CRISIL upgraded the outlook to positive, driving a 6% share price increase and 52-week high.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "CRISIL upgraded the outlook to positive, driving a 6% share price increase and 52-week high.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR Inox",
+          "ticker": "PVRINOX",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-123",
       "headline": "Prestige Estates acquires 50% stake in Mumbai project with ₹4,500 crore GDV",
       "headline_en": null,
@@ -1898,109 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-038",
-      "headline": "ASX falls amid bank sell-off; Nvidia jumps 5pc; Nuix soars on takeover bid",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/markets-live-asx-to-open-lower-jensen-huang-says-he-wants-to-return-to-nvidia-20261118-p61f2d?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T01:02:47Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Nuix received a takeover bid, which is a material event for its shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nuix received a takeover bid, which is a material event for its shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nuix",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-114",
-      "headline": "Julius Baer faces renewed legal battle after ex-banker’s fraud conviction",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/4395fce6-500b-4161-a078-9e9affca435f?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T05:00:07Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Julius Baer faces a renewed legal battle following a fraud conviction, increasing legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Julius Baer faces a renewed legal battle following a fraud conviction, increasing legal and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Julius Baer",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289230,9 +289230,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3231307,
-    "news_picked_today": 168,
-    "news_dropped_today": 5400
+    "news_seen_today": 3245682,
+    "news_picked_today": 182,
+    "news_dropped_today": 5458
   },
   "book_momentum": {
     "live_count": 8,
