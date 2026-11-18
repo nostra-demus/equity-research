@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T01:09:32Z",
+  "generated_at": "2026-11-18T01:10:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-026",
@@ -96,6 +96,66 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-039",
+      "headline": "David Jones to slash 1500 jobs; Nuix soars on takeover bid; Nvidia’s partners are on notice",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/david-jones-to-slash-1500-jobs-nuix-soars-on-takeover-bid-nvidia-s-partners-are-on-notice-20261118-p61f7l?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T00:58:09Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "David Jones announced 1500 job cuts, representing a significant operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "David Jones announced 1500 job cuts, representing a significant operational restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "David Jones",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Nuix",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -443,6 +503,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-038",
+      "headline": "ASX falls amid bank sell-off; Nvidia jumps 5pc; Nuix soars on takeover bid",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/markets-live-asx-to-open-lower-jensen-huang-says-he-wants-to-return-to-nvidia-20261118-p61f2d?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T01:02:47Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Nuix received a takeover bid, which is a material event for its shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Nuix received a takeover bid, which is a material event for its shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nuix",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1128,6 +1242,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-040",
+      "headline": "AVG: AVG 2026 AGM Address and Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVG?key=2924-03163139-2A1711258",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T00:58:57Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "AGM presentations are routine corporate governance events.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "AGM presentations are routine corporate governance events.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AVG",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-032",
       "headline": "RBR: Mozambique LNG Update",
       "headline_en": null,
@@ -1770,6 +1933,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-037",
+      "headline": "EQUITY ALERT: Rosen Law Firm Files Securities Class Action Lawsuit on Behalf of Build-A-Bear Workshop, Inc. Investors – BBW",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261117974135/en/EQUITY-ALERT-Rosen-Law-Firm-Files-Securities-Class-Action-Lawsuit-on-Behalf-of-Build-A-Bear-Workshop-Inc.-Investors-%E2%80%93-BBW/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Lawsuit News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T00:53:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Securities class action lawsuits can impact management credibility and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Securities class action lawsuits can impact management credibility and legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Build-A-Bear Workshop, Inc.",
+          "ticker": "BBW",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288990,7 +289202,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5003,
+    "inbox_unconsumed": 5007,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -288999,9 +289211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 420118,
-    "news_picked_today": 36,
-    "news_dropped_today": 588
+    "news_seen_today": 430808,
+    "news_picked_today": 40,
+    "news_dropped_today": 608
   },
   "book_momentum": {
     "live_count": 8,
