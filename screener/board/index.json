@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-18T13:35:40Z",
+  "generated_at": "2026-11-18T13:36:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261118-218",
+      "headline": "CHINAHEALTHWISE (00348): JOINT ANNOUNCEMENT: 1. SALE & PURCHASE OF SHARES IN CHINA HEALTHWISE HOLDINGS LTD; 2. POSSIBLE MANDATORY CONDITIONAL CASH OFFER BY GET NICE SECURITIES LTD FOR & ON BEHALF OF HWA SHENG INTERNATIONAL INVESTMENT LTD FOR ALL ISSUED SHARES OF CHINA HEALTHWISE HOLDINGS LTD (OTHER THAN THOSE OWNED/AGREED TO BE ACQUIRED BY THE OFFEROR, ITS ULTIMATE BENEFICIAL OWNER & PARTIES ACTING IN CONCERT WITH THEM); 3. INDEPENDENT BOARD COMMITTEE & INDEPENDENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111801287.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T11:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "China Healthwise Holdings is subject to a possible mandatory conditional cash offer for all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Healthwise Holdings is subject to a possible mandatory conditional cash offer for all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Healthwise Holdings",
+          "ticker": "00348",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261118-200",
       "headline": "TK NEW ENERGY (08326): PROFIT WARNING",
@@ -1856,6 +1905,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-208",
+      "headline": "TRILLION HLDG (02175): DISCLOSEABLE TRANSACTION SUPPLEMENTAL AGREEMENT IN RELATION TO THE ACQUISITION OF THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111801409.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T12:41:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Trillion Holdings entered a supplemental agreement regarding a previously disclosed acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Trillion Holdings entered a supplemental agreement regarding a previously disclosed acquisition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trillion Holdings",
+          "ticker": "02175",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-166",
       "headline": "JINHUI HOLDINGS (00137): Major Transaction - Disposal of a Vessel",
       "headline_en": null,
@@ -1900,104 +1998,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-098",
-      "headline": "The AES Corporation Announces FERC Approval for Merger with Closing Expected December 2, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aes-corporation-announces-ferc-approval-merger-closing-expected-december-2-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T03:38:43Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "The AES Corporation received FERC approval for its merger, with a confirmed closing date of December 2, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The AES Corporation received FERC approval for its merger, with a confirmed closing date of December 2, 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The AES Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-175",
-      "headline": "SGM: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SGM?key=2924-03163433-2A1711386",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T08:51:33Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "SGM disclosed becoming a substantial (5%+) holder; can plausibly alter board composition, strategy, and capital allocation, but holder identity and intent are not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SGM disclosed becoming a substantial (5%+) holder; can plausibly alter board composition, strategy, and capital allocation, but holder identity and intent are not disclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SGM",
-          "ticker": "SGM",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289227,9 +289227,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4728558,
-    "news_picked_today": 290,
-    "news_dropped_today": 10486
+    "news_seen_today": 4742161,
+    "news_picked_today": 317,
+    "news_dropped_today": 10507
   },
   "book_momentum": {
     "live_count": 8,
