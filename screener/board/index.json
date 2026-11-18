@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T00:48:32Z",
+  "generated_at": "2026-11-18T00:49:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-026",
@@ -740,6 +740,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-028",
+      "headline": "AUI: Dividend/Distribution - AUI [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AUI?key=2924-03163131-3A706812",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T00:40:47Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Australian United Investment Company declared a dividend distribution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Australian United Investment Company declared a dividend distribution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Australian United Investment Company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-007",
       "headline": "UNISOUND (09678): VOLUNTARY ANNOUNCEMENT RELEASE OF U2-FLASH-1118, A BRAND-NEW UPGRADED VERSION OF THE LARGE MODEL",
       "headline_en": null,
@@ -1083,6 +1132,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-029",
+      "headline": "Chemung Financial Corporation Declares Quarterly Cash Dividend of $0.36 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/chemung-financial-corporation-declares-quarterly-cash-dividend-036-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T00:20:55Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Chemung Financial Corporation declared a quarterly cash dividend of $0.36 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Chemung Financial Corporation declared a quarterly cash dividend of $0.36 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chemung Financial Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288553,7 +288651,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4994,
+    "inbox_unconsumed": 4996,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -288562,9 +288660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 302589,
-    "news_picked_today": 27,
-    "news_dropped_today": 381
+    "news_seen_today": 313371,
+    "news_picked_today": 29,
+    "news_dropped_today": 499
   },
   "book_momentum": {
     "live_count": 8,
