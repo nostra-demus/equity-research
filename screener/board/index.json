@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T04:59:05Z",
+  "generated_at": "2026-11-18T05:00:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-094",
@@ -810,6 +810,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-107",
+      "headline": "3D MEDICINES (01244): VOLUNTARY ANNOUNCEMENT LATEST PROGRESS IN COLLABORATION PROGRAMS: POSITIVE DATA ACHIEVED IN THE GLOBAL PIVOTAL PHASE 3 REGAL TRIAL FOR 3D189",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800391.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T04:09:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Company reported positive Phase 3 clinical trial data for its 3D189 drug candidate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Company reported positive Phase 3 clinical trial data for its 3D189 drug candidate.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "3D Medicines",
+          "ticker": "01244",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-030",
       "headline": "HLTH 2026 Daily Tracker: Oura, Counsel Health CEOs talk $625M acquisition; Why DJ Steve Aoki is investing in innovative science",
       "headline_en": null,
@@ -1051,6 +1100,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-109",
+      "headline": "ESR: Scoping Study Retraction",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ESR?key=2924-03163276-6A1355633",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T04:39:28Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Company is retracting a previously released scoping study, which may impact market confidence in prior disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Company is retracting a previously released scoping study, which may impact market confidence in prior disclosures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ESR",
+          "ticker": "ESR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1902,109 +2000,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-012",
-      "headline": "HBT Financial, Inc. Obtains All Regulatory Approvals for Acquisition of Tri-County Financial Group, Inc., with Closing Expected on or After January 1, 2027",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/hbt-financial-inc-obtains-all-regulatory-approvals-acquisition-tri-county-financial-group",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-17T23:40:45Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "HBT Financial received regulatory approval for its acquisition of Tri-County Financial Group, with a closing date set for January 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "HBT Financial received regulatory approval for its acquisition of Tri-County Financial Group, with a closing date set for January 2027.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HBT Financial, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Tri-County Financial Group, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-104",
-      "headline": "Unilever’s McCormick tie-up gets saucy with CMA probe",
-      "headline_en": null,
-      "url": "https://www.cityam.com/unilever-mccormick-cma-probe/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "The CMA has launched a probe into the Unilever-McCormick tie-up.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The CMA has launched a probe into the Unilever-McCormick tie-up.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unilever",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289234,9 +289229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1952448,
-    "news_picked_today": 120,
-    "news_dropped_today": 2568
+    "news_seen_today": 1972636,
+    "news_picked_today": 132,
+    "news_dropped_today": 2604
   },
   "book_momentum": {
     "live_count": 8,
