@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T23:40:40Z",
+  "generated_at": "2026-11-18T23:41:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-338",
@@ -1140,6 +1140,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-340",
+      "headline": "General Pants goes under, putting hundreds of jobs at risk",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/retail/general-pants-goes-under-putting-hundreds-of-jobs-at-risk-20261119-p61fi8?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:45:15Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "General Pants has entered administration, putting hundreds of jobs at risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "General Pants has entered administration, putting hundreds of jobs at risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Pants",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-336",
       "headline": "Palo Alto inks $4.5 billion deal for AI startup Applied Compute, shares pop 7% on earnings",
       "headline_en": null,
@@ -1950,56 +2000,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-111",
-      "headline": "'Do Not Intend To Reinstate Him': Nvidia Board Chairman Rules Out Jensen Huang's Return As CEO, Announces Search For Permanent Successor | Video",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/do-not-intend-to-reinstate-him-nvidia-board-chairman-rules-out-jensen-huangs-return-as-ceo-announces-search-for-permanent-successor-video",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T04:42:54Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "The Nvidia board has ruled out the return of Jensen Huang and is searching for a successor, representing a major leadership transition event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Nvidia board has ruled out the return of Jensen Huang and is searching for a successor, representing a major leadership transition event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289229,9 +289229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7301554,
-    "news_picked_today": 840,
-    "news_dropped_today": 18096
+    "news_seen_today": 7314318,
+    "news_picked_today": 853,
+    "news_dropped_today": 18179
   },
   "book_momentum": {
     "live_count": 8,
