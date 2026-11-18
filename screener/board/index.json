@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T21:22:20Z",
+  "generated_at": "2026-11-18T21:23:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-296",
@@ -1963,50 +1963,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261118-299",
-      "headline": "Palo Alto Networks Reports Fiscal First Quarter 2027 Financial Results",
+      "inbox_id": "INB-20261118-300",
+      "headline": "SUN: Update - Notification of buy-back - SUN",
       "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/palo-alto-networks-reports-fiscal-first-quarter-2027-financial-results-302944393.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T21:05:00Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SUN?key=2924-03163454-2A1711414",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T21:01:46Z",
       "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Palo Alto Networks reported fiscal Q1 2027 financial results.",
+      "prelim_note": "Suncorp Group announced a share buy-back update.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Palo Alto Networks reported fiscal Q1 2027 financial results.",
-      "region": "US",
+      "triage_score": 71,
+      "triage_reason": "Suncorp Group announced a share buy-back update.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
+        "materiality": 50,
+        "source_tier": 8,
         "scope": 6,
-        "event": 5,
+        "event": 0,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Palo Alto Networks",
-          "ticker": "PANW",
-          "listing_country": "US"
+          "name": "Suncorp Group",
+          "ticker": "SUN",
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
