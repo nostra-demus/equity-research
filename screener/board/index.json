@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-18T15:29:43Z",
+  "generated_at": "2026-11-18T15:30:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261118-291",
+      "headline": "ENVISION GREEN (01783): VERY SUBSTANTIAL ACQUISITION IN RELATION TO THE PURCHASE OF INTELLIGENT COMPUTING SERVERS, PROPOSED PURCHASE OF INTELLIGENT COMPUTING SERVERS AND NOTICE OF EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111801547.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T14:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Envision Green announced a very substantial acquisition of intelligent computing servers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Envision Green announced a very substantial acquisition of intelligent computing servers.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Envision Green",
+          "ticker": "01783",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261118-273",
       "headline": "DFZQ (03958): MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH APPROVAL OF REGISTRATION OF THE PROPOSED TRANSACTION BY THE CSRC",
@@ -1950,56 +1999,6 @@
       "event_types": [
         "earnings_revenue_margin",
         "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-019",
-      "headline": "Nvidia Q3 results: Revenue jumps 103% to $115.8 billion; announces $0.25 per-share dividend",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/nvidia-q3-results-revenue-jumps-103-to-115-8-billion-announces-0-25-per-share-dividend/articleshow/135943816.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T00:01:11Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Nvidia reported Q3 revenue of $115.8 billion, a 103% increase, and announced a $0.25 per-share dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reported Q3 revenue of $115.8 billion, a 103% increase, and announced a $0.25 per-share dividend.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -289239,9 +289238,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5320956,
-    "news_picked_today": 431,
-    "news_dropped_today": 11545
+    "news_seen_today": 5335981,
+    "news_picked_today": 434,
+    "news_dropped_today": 11566
   },
   "book_momentum": {
     "live_count": 8,
