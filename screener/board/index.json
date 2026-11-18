@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-18T21:34:16Z",
+  "generated_at": "2026-11-18T21:35:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261118-309",
+      "headline": "CGF: Revised non-binding offer received [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CGF?key=2924-03163486-2A1711410",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T21:20:11Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Challenger Limited received a revised non-binding takeover offer, which is a significant event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Challenger Limited received a revised non-binding takeover offer, which is a significant event for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Challenger Limited",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261118-296",
       "headline": "OCA: 1HY27 Results Announcement [price-sensitive]",
@@ -1952,66 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-039",
-      "headline": "David Jones to slash 1500 jobs; Nuix soars on takeover bid; Nvidia’s partners are on notice",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/david-jones-to-slash-1500-jobs-nuix-soars-on-takeover-bid-nvidia-s-partners-are-on-notice-20261118-p61f7l?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T00:58:09Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "David Jones announced 1500 job cuts, representing a significant operational restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "David Jones announced 1500 job cuts, representing a significant operational restructuring.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Nuix",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289241,9 +289230,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6863549,
-    "news_picked_today": 622,
-    "news_dropped_today": 17090
+    "news_seen_today": 6876526,
+    "news_picked_today": 629,
+    "news_dropped_today": 17107
   },
   "book_momentum": {
     "live_count": 8,
