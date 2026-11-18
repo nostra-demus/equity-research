@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T02:43:46Z",
+  "generated_at": "2026-11-18T02:44:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-069",
@@ -1889,28 +1889,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261118-068",
-      "headline": "LLC: Response to ASX Price Query [price-sensitive]",
+      "inbox_id": "INB-20261118-076",
+      "headline": "ITS: Notification of cessation of securities - ITS",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LLC?key=2924-03163174-2A1711268",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ITS?key=2924-03163198-3A706830",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T01:57:57Z",
+      "found_at": "2026-11-18T02:36:42Z",
       "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "A response to an ASX price query indicates potential market sensitivity regarding recent trading activity.",
+      "prelim_note": "The company announced a cessation of securities, which is a formal capital structure adjustment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "A response to an ASX price query indicates potential market sensitivity regarding recent trading activity.",
+      "triage_score": 74,
+      "triage_reason": "The company announced a cessation of securities, which is a formal capital structure adjustment.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
+        "event": 0,
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
@@ -1918,16 +1918,16 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
+        "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "LLC",
+          "name": "ITS",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1938,20 +1938,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261118-053",
-      "headline": "SFC: SFC 2026 AGM Presentation with commentary [price-sensitive]",
+      "inbox_id": "INB-20261118-075",
+      "headline": "SHM: AGM Chair's Address and CEO Presentation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SFC?key=2924-03163152-6A1355583",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SHM?key=2924-03163199-2A1711280",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-18T01:26:52Z",
+      "found_at": "2026-11-18T02:37:32Z",
       "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "SFC released an AGM presentation marked as price-sensitive, indicating potential material disclosure.",
+      "prelim_note": "The company is holding its Annual General Meeting and presenting CEO updates, which is a standard but material corporate governance event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 73,
-      "triage_reason": "SFC released an AGM presentation marked as price-sensitive, indicating potential material disclosure.",
+      "triage_reason": "The company is holding its Annual General Meeting and presenting CEO updates, which is a standard but material corporate governance event.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1976,7 +1976,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SFC",
+          "name": "SHM",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -289211,9 +289211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1050951,
-    "news_picked_today": 82,
-    "news_dropped_today": 1334
+    "news_seen_today": 1071611,
+    "news_picked_today": 84,
+    "news_dropped_today": 1404
   },
   "book_momentum": {
     "live_count": 8,
