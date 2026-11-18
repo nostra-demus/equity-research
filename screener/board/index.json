@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T01:17:32Z",
+  "generated_at": "2026-11-18T01:18:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-026",
@@ -356,6 +356,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-042",
+      "headline": "LIO: Pause in Trading [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LIO?key=2924-03163142-6A1355576",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T01:03:52Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "A trading halt labeled as price-sensitive indicates a significant, non-public event that could materially impact the company's valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A trading halt labeled as price-sensitive indicates a significant, non-public event that could materially impact the company's valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,55 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-037",
-      "headline": "EQUITY ALERT: Rosen Law Firm Files Securities Class Action Lawsuit on Behalf of Build-A-Bear Workshop, Inc. Investors – BBW",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261117974135/en/EQUITY-ALERT-Rosen-Law-Firm-Files-Securities-Class-Action-Lawsuit-on-Behalf-of-Build-A-Bear-Workshop-Inc.-Investors-%E2%80%93-BBW/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Lawsuit News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T00:53:00Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Securities class action lawsuits can impact management credibility and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Securities class action lawsuits can impact management credibility and legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Build-A-Bear Workshop, Inc.",
-          "ticker": "BBW",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -289211,9 +289211,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 484206,
-    "news_picked_today": 40,
-    "news_dropped_today": 608
+    "news_seen_today": 505506,
+    "news_picked_today": 42,
+    "news_dropped_today": 678
   },
   "book_momentum": {
     "live_count": 8,
