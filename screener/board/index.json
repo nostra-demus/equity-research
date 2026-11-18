@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T01:28:32Z",
+  "generated_at": "2026-11-18T01:29:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-026",
@@ -710,6 +710,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-048",
+      "headline": "Fairfax to sell 13% via 3.4k cr block deal, exit IIFL Finance",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/fairfax-to-sell-13-via-3-4k-cr-block-deal-exit-iifl-finance/articleshow/135944596.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T00:55:42Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Fairfax is exiting its position in IIFL Finance through a 3.4 billion rupee block deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Fairfax is exiting its position in IIFL Finance through a 3.4 billion rupee block deal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-012",
       "headline": "HBT Financial, Inc. Obtains All Regulatory Approvals for Acquisition of Tri-County Financial Group, Inc., with Closing Expected on or After January 1, 2027",
       "headline_en": null,
@@ -759,6 +808,50 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-047",
+      "headline": "China warns US of retaliation over new AI chip restrictions",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/china-warns-us-of-retaliation-over-new-ai-chip-restrictions-20036371.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T01:21:10Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "China's threat of retaliation against US AI chip restrictions signals potential escalation in trade tensions affecting the semiconductor sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "China's threat of retaliation against US AI chip restrictions signals potential escalation in trade tensions affecting the semiconductor sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,104 +1963,6 @@
       },
       "event_types": [
         "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC Holdings",
-          "ticker": "00005",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-021",
-      "headline": "Wells Fargo Upgrades Zimmer Biomet Holdings to Overweight from Equal-Weight",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/wells-fargo-upgrades-zimmer-biomet-holdings-overweight-equal-weight",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T00:21:53Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Analyst upgrade to overweight can influence institutional positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Analyst upgrade to overweight can influence institutional positioning.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zimmer Biomet Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-004",
-      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800015.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-17T23:07:00Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "HSBC Holdings reported routine share buyback transactions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "HSBC Holdings reported routine share buyback transactions.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -289207,9 +289202,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 558680,
-    "news_picked_today": 46,
-    "news_dropped_today": 722
+    "news_seen_today": 579906,
+    "news_picked_today": 48,
+    "news_dropped_today": 768
   },
   "book_momentum": {
     "live_count": 8,
