@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T00:17:29Z",
+  "generated_at": "2026-11-18T00:18:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261118-001",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-012",
+      "headline": "HBT Financial, Inc. Obtains All Regulatory Approvals for Acquisition of Tri-County Financial Group, Inc., with Closing Expected on or After January 1, 2027",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hbt-financial-inc-obtains-all-regulatory-approvals-acquisition-tri-county-financial-group",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T23:40:45Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "HBT Financial received regulatory approval for its acquisition of Tri-County Financial Group, with a closing date set for January 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "HBT Financial received regulatory approval for its acquisition of Tri-County Financial Group, with a closing date set for January 2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HBT Financial, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Tri-County Financial Group, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -345,6 +399,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261118-011",
+      "headline": "Shionogi Completes Acquisition of IntraBio Inc. and Adds AQNEURSA® (levacetylleucine) to Growing Rare Disease Global Portfolio",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261117876530/en/Shionogi-Completes-Acquisition-of-IntraBio-Inc.-and-Adds-AQNEURSA%C2%AE-levacetylleucine-to-Growing-Rare-Disease-Global-Portfolio/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Shionogi completed the acquisition of IntraBio Inc., expanding its rare disease portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Shionogi completed the acquisition of IntraBio Inc., expanding its rare disease portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shionogi",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "IntraBio Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261118-005",
       "headline": "HSBC HOLDINGS (00005): Notification of Transactions by Persons Discharging Managerial Responsibilities",
       "headline_en": null,
@@ -438,6 +546,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261118-013",
+      "headline": "Live Oak Bancshares, Inc. Declares Cash Dividends Payable December 15, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/live-oak-bancshares-inc-declares-cash-dividends-payable-december-15-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-17T23:40:45Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "Routine dividend declaration by Live Oak Bancshares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Routine dividend declaration by Live Oak Bancshares.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Live Oak Bancshares, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287712,7 +287869,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4977,
+    "inbox_unconsumed": 4980,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
