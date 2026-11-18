@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-18T23:10:39Z",
+  "generated_at": "2026-11-18T23:11:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261118-338",
+      "headline": "SCN: Paynes Find Acquisition Expands Murchison Gold Portfolio [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCN?key=2924-03163714-6A1355821",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-18T22:59:17Z",
+      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
+      "prelim_note": "SCN is acquiring a gold portfolio, which is a material expansion of its asset base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SCN is acquiring a gold portfolio, which is a material expansion of its asset base.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SCN",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261118-337",
       "headline": "WC1: Suspension from Quotation [price-sensitive]",
@@ -1946,55 +1995,6 @@
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261118-085",
-      "headline": "Ecolab Inc. Expands One Ecolab Initiative, Anticipates $485 million in Restructuring Costs",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ecolab-inc-expands-one-ecolab-initiative-anticipates-485-million-restructuring-costs",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T02:48:32Z",
-      "sweep_file": "screener/inbox/2026-11-18_sweep.json",
-      "prelim_note": "Ecolab Inc. announced a restructuring plan with quantified costs of $485 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ecolab Inc. announced a restructuring plan with quantified costs of $485 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ecolab Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -289229,9 +289229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7198587,
-    "news_picked_today": 765,
-    "news_dropped_today": 17907
+    "news_seen_today": 7211548,
+    "news_picked_today": 789,
+    "news_dropped_today": 17955
   },
   "book_momentum": {
     "live_count": 8,
