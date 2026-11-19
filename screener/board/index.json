@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T21:31:18Z",
+  "generated_at": "2026-11-19T21:36:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -1740,6 +1740,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-695",
+      "headline": "LG Display Withdraws 3 Trillion Won OLED Investment",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281746",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T13:57:03Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "LG Display is cancelling a 3 trillion won investment, signaling a significant shift in capital allocation and growth strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LG Display is cancelling a 3 trillion won investment, signaling a significant shift in capital allocation and growth strategy.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LG Display",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-400",
       "headline": "Disney plans $3 billion cost cuts by 2029, warns of more layoffs despite strong quarterly results",
       "headline_en": null,
@@ -1932,55 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-386",
-      "headline": "Anthropic raises more than $100B in IPO. And, Dems nominate Jeffries for House speaker",
-      "headline_en": null,
-      "url": "https://www.npr.org/2026/11/19/g-s1-154344/up-first-newsletter-house-democrats-trump-xi-putin-anthropic",
-      "source_name": "NPR — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:26:01Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic raising over $100B in an IPO is a massive capital event. The second part of the headline is political and not material.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic raising over $100B in an IPO is a massive capital event. The second part of the headline is political and not material.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285352,9 +285352,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2282629,
-    "news_picked_today": 1702,
-    "news_dropped_today": 10394
+    "news_seen_today": 2295111,
+    "news_picked_today": 1721,
+    "news_dropped_today": 10447
   },
   "book_momentum": {
     "live_count": 8,
