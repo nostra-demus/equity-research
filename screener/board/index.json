@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-11-19T13:53:22Z",
+  "generated_at": "2026-11-19T13:57:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261119-375",
+      "headline": "GLOBAL UIN (08496): (1) INSIDER INFORMATION; (2) FURTHER DELAY IN THE PUBLICATION OF THE 2025 ANNUAL RESULTS; (3) FURTHER DELAY IN THE DESPATCH OF THE 2025 ANNUAL REPORT; (4) FURTHER POSTPONEMENT OF THE BOARD MEETING; (4) NON-COMPLIANCE WITH RULES 5.05(2) AND 5.28 OF THE GEM LISTING RULES; AND (6) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1119/2026111901315.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-19T13:26:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Global UIN announced continued trading suspension and failure to publish 2025 annual results, indicating significant governance and financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Global UIN announced continued trading suspension and failure to publish 2025 annual results, indicating significant governance and financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global UIN",
+          "ticker": "08496",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-380",
+      "headline": "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901261.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-19T12:51:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "China Huajun Group reported an application for bankruptcy liquidation against one of its subsidiaries.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Huajun Group reported an application for bankruptcy liquidation against one of its subsidiaries.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Huajun Group",
+          "ticker": "00377",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261119-358",
       "headline": "WAN LEADER (08482): POSITIVE PROFIT ALERT",
@@ -1873,104 +1972,6 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-133",
-      "headline": "Anthropic surpasses SpaceX to become world's biggest IPO, raises $81.3 billion in upsized offering",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/anthropic-becomes-biggest-ipo-of-the-world-upsized-issue-fund-raise-valuation-market-cap-listing-timeline-financials-risk-factors-spacex-20037260.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T00:05:45Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic raised $81.3 billion in a record-breaking IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic raised $81.3 billion in a record-breaking IPO.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-204",
-      "headline": "Anthropic clinches biggest-ever IPO with US$81.3 billion offering",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/anthropic-clinches-biggest-ever-ipo-us81-3-billion-offering",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T23:59:40Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic is reportedly planning an IPO valued at US$81.3 billion, which would be a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic is reportedly planning an IPO valued at US$81.3 billion, which would be a major capital market event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -291206,9 +291207,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1574532,
-    "news_picked_today": 801,
-    "news_dropped_today": 5799
+    "news_seen_today": 1593736,
+    "news_picked_today": 825,
+    "news_dropped_today": 5823
   },
   "book_momentum": {
     "live_count": 8,
