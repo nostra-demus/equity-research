@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T23:22:16Z",
+  "generated_at": "2026-11-19T23:31:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -942,6 +942,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-775",
+      "headline": "Intuit Inc. Reports First-Quarter Fiscal 2027 Results and Enters Agreement to Sell Mailchimp to Bending Spoons for $3.68 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/intuit-inc-reports-first-quarter-fiscal-2027-results-and-enters-agreement-sell-mailchimp",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T22:52:36Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Intuit reported Q1 2027 results and agreed to sell Mailchimp for $3.68 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intuit reported Q1 2027 results and agreed to sell Mailchimp for $3.68 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intuit",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Mailchimp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-769",
       "headline": "Anthropic Shares Jump 17% After $107.3 Billion IPO Breaks Record",
       "headline_en": null,
@@ -1085,55 +1140,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-749",
-      "headline": "Bending Spoons to Buy Mailchimp From Intuit for $3.7 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-19/bending-spoons-to-buy-mailchimp-from-intuit-for-3-7-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T21:38:27Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Bending Spoons is acquiring Mailchimp from Intuit for $3.7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bending Spoons is acquiring Mailchimp from Intuit for $3.7 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intuit",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285342,9 +285348,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2419100,
-    "news_picked_today": 1955,
-    "news_dropped_today": 12157
+    "news_seen_today": 2425176,
+    "news_picked_today": 1985,
+    "news_dropped_today": 12343
   },
   "book_momentum": {
     "live_count": 8,
