@@ -1752,7 +1752,11 @@ def test_forecast_resolution_coverage():
     check("It covers 10 of 14 matured ledger forecasts" in out["honesty_statement"],
           f"the coverage clause travels with the quoted Brier (got: {out['honesty_statement'][-400:]})")
     check("Coverage is below" not in out["honesty_statement"], "no below-floor warning when coverage clears it")
-    check("(10 of 14 matured forecasts scored)" in out["verdict"], f"verdict carries coverage (got {out['verdict']})")
+    # calibrate.md: a quoted Brier carries its coverage, the bucket counts and the [best, worst] range —
+    # the verdict is the one line the CLI prints, so all three are in it (Codex #825).
+    check("(10 of 14 matured forecasts scored; unscored: 1 not assessable, 1 still open, 1 never reviewed, "
+          "1 settled not scored; Brier between 0.152308 and 0.229231 had the 3 with a usable probability settled)"
+          in out["verdict"], f"verdict carries coverage, buckets and bounds (got {out['verdict']})")
     # CLAUDE.md §3 — a range that leaves a forecast out must say so (Codex #825): the mis-scaled 0.7 row
     # is in the unscored count but cannot be placed in the bounds, so the quote names the scope.
     check("Had the 3 of them with a usable probability settled" in out["honesty_statement"]
@@ -1760,6 +1764,8 @@ def test_forecast_resolution_coverage():
           f"bounds are labelled as covering only the scorable unscored forecasts (got: {out['honesty_statement'][-500:]})")
     check("below the" not in out["verdict"], "no below-floor reading in the verdict when coverage clears the floor")
     md = C.render_markdown(dict(out))
+    check("never settled" not in md and "4 of 14 matured ledger forecasts (gated population) are not in the Brier sample" in md,
+          "the section headline does not call a settled-but-unscorable forecast unsettled")
     check("## Matured forecasts not in the Brier sample" in md and "| not assessable |" in md
           and "| never reviewed |" in md and "| nv |" in md,
           "markdown names the unscored matured forecasts in their own section")
@@ -1808,10 +1814,14 @@ def test_forecast_resolution_coverage():
                  "window_start": "2026-11-01T00:00:00Z", "window_end": "2026-11-30T23:59:59Z"},
                 {"prediction": "c", "probability": 50, "time_window": "2026-11-01 to 2026-11-10"},
                 # an oversized JSON integer probability must be unscorable, not abort the report
-                {"prediction": "d", "probability": 10 ** 1000, "time_window": "2026-11-01"}]}}]
+                {"prediction": "d", "probability": 10 ** 1000, "time_window": "2026-11-01"},
+                # the ledger's approximate form: mid-2026 has fully passed by 2026-11-19, mid-2027 has not
+                {"prediction": "e", "probability": 50, "time_window": "by FY26 audited annual report (~mid-2026)"},
+                {"prediction": "f", "probability": 50, "time_window": "by FY27 results (mid-2027)"}]}}]
     out5 = C.build(standing=rng, today="2026-11-19", reviews_provider=lambda r: [])
     fr5 = out5["forecast_resolution"]
-    check(sorted(u["prediction"] for u in fr5["unscored"]) == ["c", "d"] and fr5["n_matured"] == 2,
+    check(sorted(u["prediction"] for u in fr5["unscored"]) == ["c", "d", "e"] and fr5["n_matured"] == 3
+          and fr5["n_undated"] == 0,
           f"only windows that have CLOSED count as matured (got {[u['prediction'] for u in fr5['unscored']]})")
     check(fr5["n_unscored_without_scorable_probability"] == 1, "an oversized probability is named as unscorable")
 

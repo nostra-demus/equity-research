@@ -1936,7 +1936,18 @@ def _verdict(out):
             # The verdict is the one line the CLI prints, so the below-floor reading has to be in it (§3).
             floor = (f"; below the {fr['coverage_floor']:.0%} coverage floor — the calibration of the "
                      "forecasts the engine could check, not of the engine" if fr.get("below_floor") else "")
-            cov = f" ({fr['n_matured_scored']} of {fr['n_matured']} matured forecasts scored{floor})"
+            # ... and so do the bucket counts and the [best, worst] range (calibrate.md: never the Brier alone).
+            bk = fr["unscored_by_bucket"]
+            gaps = ", ".join(f"{bk[k]} {k.replace('_', ' ')}" for k in _RESOLUTION_BUCKETS if bk.get(k))
+            bd = fr.get("brier_bounds_if_unscored_matured_settled")
+            rng = ""
+            if bd:
+                ex = bd.get("n_unscored_excluded") or 0
+                rng = (f"; Brier between {bd['best']} and {bd['worst']} had "
+                       + ("they" if not ex else f"the {bd['n_unscored_added']} with a usable probability")
+                       + " settled")
+            cov = (f" ({fr['n_matured_scored']} of {fr['n_matured']} matured forecasts scored"
+                   + (f"; unscored: {gaps}" if gaps else "") + rng + floor + ")")
         parts.append(f"Brier {out['calibration']['brier']}{cov}")
     if out["selected_minus_rejected_pct"] is not None:
         parts.append(f"legacy checkpoint-label Selected−Rejected proxy {out['selected_minus_rejected_pct']:+.1f}pp")
@@ -2085,7 +2096,7 @@ def render_markdown(out):
     L.append("## Matured forecasts not in the Brier sample (resolution coverage)")
     if fr.get("n_matured_unscored"):
         head = (f"{fr['n_matured_unscored']} of {fr['n_matured']} matured ledger forecasts (gated population) "
-                f"never settled")
+                f"are not in the Brier sample")
         if isinstance(out.get("calibration"), dict):
             L.append(f"{head}, so the Brier above covers {_cov_pct(fr['coverage'])} of what has come due. "
                      + _bounds_clause(fr) + _below_floor_clause(fr))
