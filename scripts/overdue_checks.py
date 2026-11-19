@@ -44,6 +44,11 @@ def due_date_from_text(text):
     earnings July 31, 2026' / 'FY2026 results release (~March 2027)'). ISO date, 'Month DD, YYYY',
     or bare 'Month YYYY' (closes on the 28th, the only day every month has). None if undateable."""
     tw = str(text or "")
+    # A RANGE ('2026-11-01 to 2026-11-30') closes on its SECOND date. Reading the first one calls the
+    # forecast due on the day its window opens — a false "overdue" for the whole length of the window.
+    m = re.search(r"\d{4}-\d{2}-\d{2}\s*(?:to|through|thru|until|till|[-–—/])\s*(\d{4}-\d{2}-\d{2})", tw, re.I)
+    if m and isdate(m.group(1)):
+        return m.group(1)
     m = re.search(r"(\d{4})-(\d{2})-(\d{2})", tw)
     if m and isdate(m.group(0)):
         return m.group(0)
@@ -60,12 +65,17 @@ def due_date_from_text(text):
     return None
 
 def _as_due_date(entry):
-    """forecast_ledger's own due date: prefers an explicit resolve/due field, else free-text
-    time_window."""
+    """forecast_ledger's own due date: prefers an explicit resolve/due field, then the explicit
+    `window_end`, else free-text time_window."""
     for k in ("resolves_on", "due_date", "resolve_by"):
         v = entry.get(k)
         if isdate(v):
             return v
+    # `window_end` is the ledger's own machine-readable close ('2026-11-30' or '2026-11-30T23:59:59Z').
+    # It outranks the free text: the window is open until it ends, whatever date the text mentions first.
+    we = entry.get("window_end")
+    if isinstance(we, str) and isdate(we[:10]):
+        return we[:10]
     return due_date_from_text(entry.get("time_window"))
 
 AS_RESOLVED = ("confirmed", "falsified", "expired", "resolved", "closed", "superseded", "void", "withdrawn")

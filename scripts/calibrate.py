@@ -368,7 +368,10 @@ def _finite_num(v):
     inflate the sample. Every numeric value that enters the scoreboard passes through here first."""
     if isinstance(v, bool) or not isinstance(v, (int, float)):
         return None
-    return float(v) if math.isfinite(v) else None
+    try:
+        return float(v) if math.isfinite(v) else None
+    except OverflowError:  # an oversized JSON integer (10**1000) is not a usable number — never abort a report
+        return None
 
 
 def _realized(status):
@@ -697,8 +700,10 @@ def resolution_coverage_summary(per_record, scored_pairs):
         n = len(scored_pairs) + len(scorable)
         best = base + sum(min(q, 1 - q) ** 2 for q in scorable)
         worst = base + sum(max(q, 1 - q) ** 2 for q in scorable)
+        # `n_unscored_excluded` > 0 means the range is NOT a bound for the whole missing set: those forecasts
+        # carry no usable probability, so they cannot be placed anywhere in it. Every quote says so.
         bounds = {"best": round(best / n, 6), "worst": round(worst / n, 6), "n": n,
-                  "n_unscored_added": len(scorable)}
+                  "n_unscored_added": len(scorable), "n_unscored_excluded": len(unscored) - len(scorable)}
     return {
         "n_ledger_forecasts": sum(c["n_ledger"] for _, _, c in per_record),
         "n_undated": sum(c["n_undated"] for _, _, c in per_record),
@@ -714,7 +719,8 @@ def resolution_coverage_summary(per_record, scored_pairs):
         "brier_bounds_if_unscored_matured_settled": bounds,
         "unscored": sorted(unscored, key=lambda u: (u["due_date"], str(u["ticker"]), u["run"], u["ledger_index"])),
         "note": ("Population = the gated Brier's (provisional runs excluded). 'Matured' = the forecast's own due "
-                 "date (resolves_on / due_date / resolve_by, else the time_window text — the check-AS reader) is "
+                 "date (resolves_on / due_date / resolve_by, then window_end, else the time_window text, a range closing "
+                 "on its second date — the check-AS reader) is "
                  "before generated_at. An unscored matured forecast is UNKNOWN, not neutral: the bounds show how "
                  "far the Brier could move if those forecasts had settled. Settle them with "
                  "/research:review-decisions (fetch the print into data/<TICKER>/), or mark them expired."),
@@ -1863,6 +1869,36 @@ def _honesty(out):
     return text
 
 
+def _cov_pct(coverage):
+    """Coverage as a percentage that can never read as clearing a floor it missed: truncated, not
+    rounded, to one decimal (16 of 23 = 69.57% prints 69.5%, never '70%' beside 'below the 70% floor')."""
+    return f"{math.floor(coverage * 1000 + 1e-9) / 10:g}%"
+
+
+def _bounds_clause(fr):
+    """The [best, worst] Brier range with its scope stated: it covers only the unscored forecasts that
+    carry a usable probability. '' when there are no bounds."""
+    bd = fr.get("brier_bounds_if_unscored_matured_settled")
+    if not bd:
+        return ""
+    ex = bd.get("n_unscored_excluded") or 0
+    who = ("those" if not ex else
+           f"the {bd['n_unscored_added']} of them with a usable probability")
+    text = (f"Had {who} settled, the Brier over {bd['n']} forecasts would lie between {bd['best']} (all "
+            f"favourable) and {bd['worst']} (all unfavourable)")
+    if ex:
+        text += (f"; the other {ex} carry no usable probability, so this range is not a bound for the "
+                 "whole unscored set")
+    return text + ". "
+
+
+def _below_floor_clause(fr):
+    if not fr.get("below_floor"):
+        return ""
+    return (f"Coverage is below the {fr['coverage_floor']:.0%} floor: read the Brier as the calibration "
+            "of the forecasts the engine could check, not of the engine. ")
+
+
 def _coverage_sentence(fr):
     """The resolution-coverage qualifier that travels with every quoted Brier (CLAUDE.md §3: the
     qualifier keeps at every layer). Empty when nothing has matured."""
@@ -1870,19 +1906,13 @@ def _coverage_sentence(fr):
         return ""
     b = fr["unscored_by_bucket"]
     text = (f"It covers {fr['n_matured_scored']} of {fr['n_matured']} matured ledger forecasts "
-            f"({fr['coverage']:.0%}); {fr['n_matured_unscored']} matured forecasts never entered the sample "
+            f"({_cov_pct(fr['coverage'])}); {fr['n_matured_unscored']} matured forecasts never entered the sample "
             f"({b['not_assessable']} not assessable, {b['still_open']} still open, {b['never_reviewed']} never "
             f"reviewed, {b['settled_not_scored']} settled but not scored)")
     early = fr.get("n_scored_before_maturity_or_undated") or 0
     text += (f"; the other {early} scored forecast(s) settled before their window closed or carry no "
              "machine-readable window. " if early else ". ")
-    bd = fr.get("brier_bounds_if_unscored_matured_settled")
-    if bd:
-        text += (f"Had those settled, the Brier over {bd['n']} forecasts would lie between {bd['best']} (all "
-                 f"favourable) and {bd['worst']} (all unfavourable). ")
-    if fr.get("below_floor"):
-        text += (f"Coverage is below the {fr['coverage_floor']:.0%} floor: read the Brier as the calibration "
-                 "of the forecasts the engine could check, not of the engine. ")
+    text += _bounds_clause(fr) + _below_floor_clause(fr)
     return text
 
 
@@ -1901,8 +1931,12 @@ def _verdict(out):
         parts.append(f"legacy proxy hit rate {out['hit_rate']:.0%} (95% CI [{out['hit_rate_ci95'][0]:.0%},{out['hit_rate_ci95'][1]:.0%}])")
     if isinstance(out["calibration"], dict):
         fr = out.get("forecast_resolution") or {}
-        cov = (f" ({fr['n_matured_scored']} of {fr['n_matured']} matured forecasts scored)"
-               if fr.get("n_matured") else "")
+        cov = ""
+        if fr.get("n_matured"):
+            # The verdict is the one line the CLI prints, so the below-floor reading has to be in it (§3).
+            floor = (f"; below the {fr['coverage_floor']:.0%} coverage floor — the calibration of the "
+                     "forecasts the engine could check, not of the engine" if fr.get("below_floor") else "")
+            cov = f" ({fr['n_matured_scored']} of {fr['n_matured']} matured forecasts scored{floor})"
         parts.append(f"Brier {out['calibration']['brier']}{cov}")
     if out["selected_minus_rejected_pct"] is not None:
         parts.append(f"legacy checkpoint-label Selected−Rejected proxy {out['selected_minus_rejected_pct']:+.1f}pp")
@@ -1941,8 +1975,10 @@ def render_markdown(out):
     fr = out.get("forecast_resolution") or {}
     if fr.get("n_matured"):
         L.append(f"- Matured forecasts scored: **{fr['n_matured_scored']} of {fr['n_matured']}** "
-                 f"({fr['coverage']:.0%}; floor {fr['coverage_floor']:.0%}) — "
-                 f"{fr['n_matured_unscored']} matured but unscored")
+                 f"({_cov_pct(fr['coverage'])}; floor {fr['coverage_floor']:.0%}) — "
+                 f"{fr['n_matured_unscored']} matured but unscored"
+                 + (" — **below the floor: any Brier in this report describes only the forecasts the "
+                    "engine could check**" if fr.get("below_floor") else ""))
     L.append(f"- Directional calls resolved (hit-rate-scorable): **{out['n_directional_calls_resolved']}** / floor {MIN_DIRECTIONAL_HITS}")
     es = out["effective_sample"]
     L.append(f"- Effective sample: **{es['effective_n']}** independent (of {es['n_raw']} raw across {es['n_clusters']} tickers)")
@@ -2048,10 +2084,16 @@ def render_markdown(out):
     fr = out.get("forecast_resolution") or {}
     L.append("## Matured forecasts not in the Brier sample (resolution coverage)")
     if fr.get("n_matured_unscored"):
-        bd = fr.get("brier_bounds_if_unscored_matured_settled")
-        L.append(f"{fr['n_matured_unscored']} of {fr['n_matured']} matured ledger forecasts (gated population) "
-                 f"never settled, so the Brier above covers {fr['coverage']:.0%} of what has come due"
-                 + (f"; had they settled it would lie in [{bd['best']}, {bd['worst']}]" if bd else "") + ".")
+        head = (f"{fr['n_matured_unscored']} of {fr['n_matured']} matured ledger forecasts (gated population) "
+                f"never settled")
+        if isinstance(out.get("calibration"), dict):
+            L.append(f"{head}, so the Brier above covers {_cov_pct(fr['coverage'])} of what has come due. "
+                     + _bounds_clause(fr) + _below_floor_clause(fr))
+        else:
+            # No Brier was computed (below the resolved-forecast floor), so there is nothing for the
+            # coverage to qualify — report the coverage alone and never refer to a Brier that is withheld.
+            L.append(f"{head}: {_cov_pct(fr['coverage'])} of what has come due has been scored. "
+                     "The Brier is withheld, so this is resolution coverage only.")
         L.append("")
         L.append("| Due | Ticker | Run | # | Prob | Why unscored | Last review | Forecast |")
         L.append("|---|---|---|---|---|---|---|---|")

@@ -1744,7 +1744,8 @@ def test_forecast_resolution_coverage():
     # bounds: base 10×0.16 = 1.6; scorable unscored probs 0.8, 0.3, 0.5
     # best adds 0.2²+0.3²+0.5² = 0.38 → 1.98/13; worst adds 0.8²+0.7²+0.5² = 1.38 → 2.98/13
     bd = fr["brier_bounds_if_unscored_matured_settled"]
-    check(bd == {"best": round(1.98 / 13, 6), "worst": round(2.98 / 13, 6), "n": 13, "n_unscored_added": 3},
+    check(bd == {"best": round(1.98 / 13, 6), "worst": round(2.98 / 13, 6), "n": 13, "n_unscored_added": 3,
+                 "n_unscored_excluded": 1},
           f"Brier bounds pinned to hand arithmetic (got {bd})")
     check(sorted(u["prediction"] for u in fr["unscored"]) == ["bad", "na", "nv", "op"],
           "every unscored matured forecast is named")
@@ -1752,6 +1753,12 @@ def test_forecast_resolution_coverage():
           f"the coverage clause travels with the quoted Brier (got: {out['honesty_statement'][-400:]})")
     check("Coverage is below" not in out["honesty_statement"], "no below-floor warning when coverage clears it")
     check("(10 of 14 matured forecasts scored)" in out["verdict"], f"verdict carries coverage (got {out['verdict']})")
+    # CLAUDE.md §3 — a range that leaves a forecast out must say so (Codex #825): the mis-scaled 0.7 row
+    # is in the unscored count but cannot be placed in the bounds, so the quote names the scope.
+    check("Had the 3 of them with a usable probability settled" in out["honesty_statement"]
+          and "not a bound for the whole unscored set" in out["honesty_statement"],
+          f"bounds are labelled as covering only the scorable unscored forecasts (got: {out['honesty_statement'][-500:]})")
+    check("below the" not in out["verdict"], "no below-floor reading in the verdict when coverage clears the floor")
     md = C.render_markdown(dict(out))
     check("## Matured forecasts not in the Brier sample" in md and "| not assessable |" in md
           and "| never reviewed |" in md and "| nv |" in md,
@@ -1765,6 +1772,12 @@ def test_forecast_resolution_coverage():
     check(fr2["coverage"] == 0.5 and fr2["below_floor"] is True, f"10/20 matured → below the 70% floor (got {fr2['coverage']})")
     check("Coverage is below the 70% floor" in out2["honesty_statement"], "below-floor coverage is stated in plain words")
     check(out2["calibration"]["brier"] == 0.16, "the gated Brier, slices and AG inputs never move with coverage")
+    # §3: the qualifier travels with the number — the verdict is the one line the CLI prints, and the
+    # Markdown restates the Brier, so both carry the below-floor reading (Codex #825).
+    check("below the 70% coverage floor" in out2["verdict"], f"verdict carries the below-floor reading (got {out2['verdict']})")
+    md2 = C.render_markdown(dict(out2))
+    check("below the floor: any Brier in this report describes only the forecasts the engine could check" in md2
+          and "Coverage is below the 70% floor" in md2, "markdown carries the below-floor reading beside the counts and in the coverage section")
 
     # provisional runs stay out of the coverage population exactly as they stay out of the Brier
     standing[2]["integrity"] = {"status": "provisional", "verdict": "Material"}
@@ -1777,6 +1790,30 @@ def test_forecast_resolution_coverage():
     check(isinstance(out4["calibration"], str) and out4["forecast_resolution"]["brier_bounds_if_unscored_matured_settled"] is None,
           "no Brier → no bounds (nothing to bound)")
     check(out4["forecast_resolution"]["n_matured"] > 0, "coverage counts are honest at any N")
+    # A withheld Brier is never described as covering anything (CLAUDE.md §1/§3; Codex #825).
+    md4 = C.render_markdown(dict(out4))
+    check("the Brier above" not in md4 and "The Brier is withheld, so this is resolution coverage only" in md4,
+          "markdown reports coverage alone when the Brier is withheld")
+
+    # Display precision at the floor: 16 of 23 = 69.57% is BELOW the 70% floor and must not print as 70%.
+    check(C._cov_pct(round(16 / 23, 4)) == "69.5%" and C._cov_pct(0.7) == "70%" and C._cov_pct(0.5) == "50%",
+          f"coverage is truncated, never rounded up across the floor (got {C._cov_pct(round(16 / 23, 4))})")
+
+    # A forecast window is open until it ENDS (§19 time window): an explicit window_end, or the second date
+    # of a ranged time_window, is the maturity date — not the first date in the text (Codex #825, BURL shape).
+    rng = [{"run_root": "analyses/W0_2026-10-01", "record": {"ticker": "W0", "decision": "Watchlist",
+            "decision_date": "2026-10-01", "basket": "Watchlist", "forecast_ledger": [
+                {"prediction": "a", "probability": 50, "time_window": "2026-11-01 to 2026-11-30"},
+                {"prediction": "b", "probability": 50, "time_window": "2026-11-01 onward",
+                 "window_start": "2026-11-01T00:00:00Z", "window_end": "2026-11-30T23:59:59Z"},
+                {"prediction": "c", "probability": 50, "time_window": "2026-11-01 to 2026-11-10"},
+                # an oversized JSON integer probability must be unscorable, not abort the report
+                {"prediction": "d", "probability": 10 ** 1000, "time_window": "2026-11-01"}]}}]
+    out5 = C.build(standing=rng, today="2026-11-19", reviews_provider=lambda r: [])
+    fr5 = out5["forecast_resolution"]
+    check(sorted(u["prediction"] for u in fr5["unscored"]) == ["c", "d"] and fr5["n_matured"] == 2,
+          f"only windows that have CLOSED count as matured (got {[u['prediction'] for u in fr5['unscored']]})")
+    check(fr5["n_unscored_without_scorable_probability"] == 1, "an oversized probability is named as unscorable")
 
 
 def test_resolution_markdown_newline_prediction_stays_one_row():
