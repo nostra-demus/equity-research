@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T19:34:37Z",
+  "generated_at": "2026-11-19T19:36:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -598,37 +598,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261119-440",
-      "headline": "Anthropic valued at $2tn as shares begin trading at $111.50 each – business live",
+      "inbox_id": "INB-20261119-502",
+      "headline": "Anthropic valued at $2tn as shares begin trading after record-breaking IPO – business live",
       "headline_en": null,
       "url": "https://www.theguardian.com/business/live/2026/nov/19/anthropic-float-stock-market-nasdaq-raises-81bn-record-ipo-latest-news-updates",
       "source_name": "The Guardian — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-19T18:11:11Z",
+      "found_at": "2026-11-19T19:01:01Z",
       "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic has completed its IPO with a valuation of $2 trillion and shares trading at $111.50.",
+      "prelim_note": "Anthropic has completed a record-breaking IPO with a $2 trillion valuation, representing a major market event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Anthropic has completed its IPO with a valuation of $2 trillion and shares trading at $111.50.",
+      "triage_reason": "Anthropic has completed a record-breaking IPO with a $2 trillion valuation, representing a major market event.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "mna"
@@ -641,7 +641,105 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-505",
+      "headline": "Bitmine Just Posted a Staggering $6.3 Billion Loss on Its Ethereum Position. Here's What ETH Investors Need to Know.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bitmine-just-posted-staggering-63-billion-loss-its-ethereum-position-heres-what-eth",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T18:45:02Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Bitmine reported a $6.3 billion loss on its Ethereum position, representing a massive financial impairment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bitmine reported a $6.3 billion loss on its Ethereum position, representing a massive financial impairment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bitmine",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-540",
+      "headline": "Assassin’s Creed Owner Sees 26% Drop in Holiday Quarter Bookings",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-19/assassin-s-creed-owner-sees-26-drop-in-holiday-quarter-bookings",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T18:33:35Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Ubisoft reported a 26% drop in holiday quarter bookings, a significant negative performance indicator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ubisoft reported a 26% drop in holiday quarter bookings, a significant negative performance indicator.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ubisoft",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,105 +1983,6 @@
       "companies": [
         {
           "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-232",
-      "headline": "Privia Health Group, Inc. Reports $374.0 Million in 2025 MSSP Shared Savings and Increases Full-Year 2026 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/privia-health-group-inc-reports-3740-million-2025-mssp-shared-savings-and-increases-full",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T02:41:28Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Privia Health reported $374 million in savings and increased full-year 2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Privia Health reported $374 million in savings and increased full-year 2026 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Privia Health Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-231",
-      "headline": "Lowe's Companies, Inc. Reports Third Quarter 2026 Sales and Earnings Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/lowes-companies-inc-reports-third-quarter-2026-sales-and-earnings-results",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T02:41:28Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Lowe's reported Q3 2026 financial results, a primary source event for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lowe's reported Q3 2026 financial results, a primary source event for investors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lowe's Companies",
           "ticker": null,
           "listing_country": "US"
         }
