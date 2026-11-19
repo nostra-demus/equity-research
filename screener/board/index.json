@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T00:50:55Z",
+  "generated_at": "2026-11-19T00:51:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-032",
@@ -450,6 +450,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-110",
+      "headline": "Anthropic prices IPO at $83 in historic $1 trillion offering",
+      "headline_en": null,
+      "url": "https://www.axios.com/2026/11/18/anthropic-ipo-1-trillion",
+      "source_name": "Axios",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:16:32Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic priced its IPO at $83 per share, resulting in a $1 trillion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Anthropic priced its IPO at $83 per share, resulting in a $1 trillion valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-111",
+      "headline": "Anthropic prices IPO at $83 per share, giving it a $1.5 trillion valuation",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/18/anthropic-prices-ipo-83-per-share-1-5-trillion/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:07:59Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic priced its IPO at $83 per share, resulting in a $1.5 trillion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Anthropic priced its IPO at $83 per share, resulting in a $1.5 trillion valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-067",
       "headline": "Anthropic IPO (Live Updates): Shares Priced At $83",
       "headline_en": null,
@@ -543,6 +641,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-104",
+      "headline": "CMS proposes sweeping Medicare integrity rule it says will save $90B",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/regulatory/cms-proposes-sweeping-medicare-integrity-rule-it-says-will-save-90b",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:21:50Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "CMS proposed a new integrity rule projected to save $90B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "CMS proposed a new integrity rule projected to save $90B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1136,6 +1277,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-103",
+      "headline": "Fierce Healthcare Layoff Tracker—athenahealth cutting 4% of workforce; Ascension lays off 51 amid outsourcing",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/finance/fierce-healthcare-layoff-tracker-2026-job-cuts-eliminations-health-systems-hospitals",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:21:50Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Significant workforce reductions at athenahealth (4%) and Ascension (51 employees).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Significant workforce reductions at athenahealth (4%) and Ascension (51 employees).",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "athenahealth",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ascension",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-058",
       "headline": "KPMG Canada Clients’ Tax Data Accessed Amid Spate of Hacks",
       "headline_en": null,
@@ -1474,6 +1669,146 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-109",
+      "headline": "Department of Labor moves to end expedited green cards for nurses, physical therapists",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/regulatory/department-labor-moves-end-expedited-green-cards-nurses-physical-therapists",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:21:50Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "The Department of Labor's move to end expedited green cards for nurses and physical therapists will likely exacerbate labor shortages in the healthcare sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "The Department of Labor's move to end expedited green cards for nurses and physical therapists will likely exacerbate labor shortages in the healthcare sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-095",
+      "headline": "HLTH 2026: Noom, Hims & Hers expand into booming peptide market",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/health-tech/hlth-2026-hims-hers-noom-launch-peptide-brands",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:21:50Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Expansion into the peptide market represents a new revenue stream for these companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Expansion into the peptide market represents a new revenue stream for these companies.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Noom",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Hims & Hers",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-098",
+      "headline": "Heidi Overton’s FDA nomination pulled by White House",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/pharma/overtons-fda-nomination-has-been-pulled-white-house",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:21:50Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Withdrawal of a high-level FDA nomination is a significant regulatory development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Withdrawal of a high-level FDA nomination is a significant regulatory development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-080",
       "headline": "Alberta sets limits on where AI data centres can be built amid backlash",
       "headline_en": null,
@@ -1517,6 +1852,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-096",
+      "headline": "Longevity platform Hone Health nabs $228M to build out offerings",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/digital-health/longevity-platform-hone-health-nabs-228m-build-out-offerings",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:21:50Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Company raised $228M in funding to expand operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Company raised $228M in funding to expand operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hone Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-088",
       "headline": "Brazil Senate Backs Lula Fiscal Plan as Markets Demand More",
       "headline_en": null,
@@ -1555,408 +1939,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-081",
-      "headline": "Federal Reserve policymakers concerned about financial system risks, minutes show",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/federal-reserve-policymakers-concerned-about-financial-system-risks-minutes-show",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T22:20:17Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Federal Reserve policymakers expressed concern regarding financial system risks in recent minutes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Federal Reserve policymakers expressed concern regarding financial system risks in recent minutes.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-094",
-      "headline": "Target’s Shoppers Are Coming Back as Store Traffic Jumps 5% After Falling 2.2% a Year Ago. Can the Momentum Last?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/18/targets-shoppers-are-coming-back-as-store-traffic-jumps-5-after-falling-22-a-year-ago-can-the-momentum-last/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T22:09:36Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Target reported a 5% increase in store traffic, indicating a recovery in consumer engagement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Target reported a 5% increase in store traffic, indicating a recovery in consumer engagement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Target",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-066",
-      "headline": "HPE Adds Former JPMorgan Exec to Board, Amends Agreement With Elliott Investment",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/hpe-adds-former-jpmorgan-exec-to-board-amends-agreement-with-elliott-investment-fb99517b?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T22:02:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "HPE is adding a new board member and amending its agreement with activist investor Elliott Investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "HPE is adding a new board member and amending its agreement with activist investor Elliott Investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hewlett Packard Enterprise",
-          "ticker": "HPE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-015",
-      "headline": "Shoppers Drug Mart/Pharmaprix annonce la vente de QHR Technologies à LGI Solutions Santé et le maintien de sa collaboration dans le secteur canadien des soins de santé",
-      "headline_en": "Shoppers Drug Mart/Pharmaprix announces the sale of QHR Technologies to LGI Solutions Santé and the maintenance of its collaboration in the Canadian healthcare sector",
-      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405596/0/fr/shoppers-drug-mart-pharmaprix-annonce-la-vente-de-qhr-technologies-%C3%A0-lgi-solutions-sant%C3%A9-et-le-maintien-de-sa-collaboration-dans-le-secteur-canadien-des-soins-de-sant%C3%A9.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Shoppers Drug Mart is selling QHR Technologies to LGI Healthcare Solutions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Shoppers Drug Mart is selling QHR Technologies to LGI Healthcare Solutions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shoppers Drug Mart",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "QHR Technologies",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "LGI Solutions Santé",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-014",
-      "headline": "Shoppers Drug Mart announces the sale of QHR Technologies to LGI Healthcare Solutions along with continued collaboration in Canadian healthcare",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405596/0/en/shoppers-drug-mart-announces-the-sale-of-qhr-technologies-to-lgi-healthcare-solutions-along-with-continued-collaboration-in-canadian-healthcare.html",
-      "source_name": "GlobeNewswire — Mergers & Acquisitions",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Shoppers Drug Mart is selling QHR Technologies to LGI Healthcare Solutions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Shoppers Drug Mart is selling QHR Technologies to LGI Healthcare Solutions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shoppers Drug Mart",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "QHR Technologies",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "LGI Healthcare Solutions",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-044",
-      "headline": "Developer lodges plans for Hong Kong towers a second time after 10% reduction in flats",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/article/3374847/developer-lodges-plans-hong-kong-towers-second-time-after-10-reduction-flats",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T23:00:05Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "A developer reduced the scale of a Hong Kong project by 10% after a previous rejection, indicating regulatory or market headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "A developer reduced the scale of a Hong Kong project by 10% after a previous rejection, indicating regulatory or market headwinds.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-001",
-      "headline": "Asante Announces Comprehensive Strategic Review Alongside Operational Turnaround Plan",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405651/0/en/asante-announces-comprehensive-strategic-review-alongside-operational-turnaround-plan.html",
-      "source_name": "GlobeNewswire — Calendar of Events",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:36:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Company announced a comprehensive strategic review and operational turnaround plan, which are significant events for corporate direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Company announced a comprehensive strategic review and operational turnaround plan, which are significant events for corporate direction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Asante",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-005",
-      "headline": "Z Squared Inc. (Nasdaq: ZSQR) Secures Option on Approximately 89.56 Acres to Expand Union County AI Campus, Advancing Development Plan Targeting 150 MW AI-Ready Capacity",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/z-squared-inc-nasdaq-zsqr-secures-option-on-approximately-89-56-acres-to-expand-union-county-ai-campus-advancing-development-plan-targeting-150-mw-ai-ready-capacity-302943505.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Z Squared Inc. secured 89.56 acres to expand an AI campus targeting 150 MW of capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Z Squared Inc. secured 89.56 acres to expand an AI campus targeting 150 MW of capacity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Z Squared Inc.",
-          "ticker": "ZSQR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
