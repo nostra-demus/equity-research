@@ -3291,7 +3291,42 @@ if scope=="selftest":
     _bk_strfl = {"forecast_id":"F6","threshold":"At least 12%","comparable_basis":"H1 vs H1","fired_last_two_periods":"no"}
     _bk_event = {"forecast_id":"F7","threshold":"Filed","confirmation_trigger":"The FY2026 10-K is filed by 2027-03-01 with a clean opinion.","falsification_trigger":"No such filing by 2027-03-01."}
     _bk_label = {"forecast_id":"F8","threshold":"Q1 FY27 results","confirmation_trigger":"Q1 FY27 results disclose the plant start-up."}
+    # Regression fixtures for the #826 numeric-detection fixes. Expected values pinned to CLAUDE.md §17 /
+    # HARD GATE 11 and the BK contract above: a QUARTER+CALENDAR-YEAR label ('Q3 2027') and any S-/F-
+    # registration FORM name are period/document labels, not thresholds → N/A; a literal numeric 0 threshold
+    # (§15 FCF-above-0 shape) IS a numeric bar and must demand the two fields, not be dropped by `v or ""`.
+    _bk_qyear = {"forecast_id":"F9","confirmation_trigger":"The Q3 2027 filing reports the plant start-up."}      # F4
+    _bk_sform = {"forecast_id":"F10","confirmation_trigger":"The merger closes per the S-4 registration statement."}  # F1
+    _bk_zero  = {"forecast_id":"F11","threshold":0,"confirmation_trigger":"FCF turns positive","falsification_trigger":"FCF remains negative"}  # F6
+    # #826 follow-up (Codex on 80e3559): a natural-language calendar DATE is not a numeric bar (DECISION_LEDGER.md:
+    # "a calendar date ... is not a number") -> N/A. And numeric detection is contract-scoped to threshold /
+    # confirmation / falsification, NOT `prediction`: a number living only in the narrative `prediction` with
+    # QUALITATIVE triggers settles qualitatively, so N/A is correct (adding `prediction` would over-trigger).
+    _bk_nldate  = {"forecast_id":"F12","confirmation_trigger":"The regulator filing grants the permit by March 1, 2027."}       # NEW-1 FIX
+    _bk_nldate2 = {"forecast_id":"F13","confirmation_trigger":"The scheme is sanctioned by 1 March 2027 per the order."}        # NEW-1 FIX (D Month YYYY)
+    _bk_dated_t = {"forecast_id":"F14","threshold":"EBIT margin above 12% by March 1, 2027","fired_last_two_periods":False}     # guard: real threshold near a date stays numeric
+    _bk_predonly= {"forecast_id":"F15","prediction":"Revenue will exceed $1 billion","confirmation_trigger":"The FY27 filing reports growth.","falsification_trigger":"The FY27 filing reports no growth."}  # NEW-2 WON'T-FIX lock
+    # #826 2nd follow-up (Codex on c18e54e): a numbered LOCAL filing (SEBI LODR Reg 30, the §27 default case)
+    # and a slash/dash numeric DATE are document/date labels, not thresholds -> N/A.
+    _bk_sebireg = {"forecast_id":"F16","confirmation_trigger":"The SEBI LODR Reg 30 filing announces the transaction."}  # NEW-3 FIX
+    _bk_slashdt = {"forecast_id":"F17","confirmation_trigger":"The regulator filing grants the permit by 1/3/2027."}     # NEW-4 FIX
+    _bk_ratio_g = {"forecast_id":"F18","threshold":"Net debt / EBITDA above 3","fired_last_two_periods":False}           # guard: single-slash ratio stays numeric
+    _bk_dotdate = {"forecast_id":"F19","confirmation_trigger":"The regulator filing grants the permit by 01.03.2027."}   # NEW-5 FIX (dotted date)
+    _bk_decimal = {"forecast_id":"F20","threshold":"EBIT margin above 12.5% by 01.03.2027","fired_last_two_periods":False}  # guard: decimal 12.5% survives the dotted-date strip
     bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
+        (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
+        (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
+        (BK_DATE,[_bk_zero],["forecast_ledger[0] (F11) pins a numeric threshold but has no comparable_basis",
+                             "forecast_ledger[0] (F11) missing fired_last_two_periods"]),  # #826 F6: literal 0 is numeric
+        (BK_DATE,[_bk_nldate],None),                                    # #826 NEW-1: 'March 1, 2027' is a date, not a bar
+        (BK_DATE,[_bk_nldate2],None),                                   # #826 NEW-1: '1 March 2027' is a date, not a bar
+        (BK_DATE,[_bk_dated_t],["forecast_ledger[0] (F14) pins a numeric threshold but has no comparable_basis"]),  # guard: 12% survives the date strip
+        (BK_DATE,[_bk_predonly],None),                                  # #826 NEW-2: number only in `prediction`, qualitative triggers -> contract-scoped N/A
+        (BK_DATE,[_bk_sebireg],None),                                   # #826 NEW-3: 'SEBI LODR Reg 30' is a local filing label, not a bar
+        (BK_DATE,[_bk_slashdt],None),                                   # #826 NEW-4: '1/3/2027' is a date, not a bar
+        (BK_DATE,[_bk_ratio_g],["forecast_ledger[0] (F18) pins a numeric threshold but has no comparable_basis"]),  # guard: single-slash ratio '3' survives
+        (BK_DATE,[_bk_dotdate],None),                                   # #826 NEW-5: '01.03.2027' dotted date is not a bar
+        (BK_DATE,[_bk_decimal],["forecast_ledger[0] (F20) pins a numeric threshold but has no comparable_basis"]),  # guard: 12.5% survives the dotted-date strip -> numeric
         (BK_DATE,[_bk_ok],[]),
         (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
         (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
@@ -5198,7 +5233,7 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
 ]
 FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
-    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "eval_ba_kill_criteria_trigger_test",
+    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "eval_ba_kill_criteria_trigger_test",
 ]
 FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bk_forecast_trigger_test"]
 FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["fired_last_two_periods", "check BK"]

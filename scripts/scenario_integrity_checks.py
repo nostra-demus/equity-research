@@ -752,9 +752,41 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
 # review loop can see it. Rows with no number (pure event forecasts settled by a named document) are N/A.
 # Forward-looking: committed runs predate the field, so they are N/A rather than retro-failed.
 BK_DATE = "2026-12-01"
-# Form names carry digits that are not thresholds ("10-K", "8-K", "DEF 14A", "Form 4"); strip them before
-# AO's period-token test so an event forecast "settled in the 10-K" is not mistaken for a numeric bar.
-_BK_FORM_NAMES = re.compile(r"\b(?:10-?[kq]|8-?k|20-?f|6-?k|40-?f|def\s?14a|s-[13]|13[dfg]|form\s+[34])\b", re.I)
+# Form names carry digits that are not thresholds ("10-K", "8-K", "DEF 14A", "Form 4", and the S-/F-
+# registration series "S-1".."S-11" / "F-1".."F-10"); strip them before AO's period-token test so an event
+# forecast "settled in the 10-K" or "closes per the S-4" is not mistaken for a numeric bar. The `[sf]-\d+`
+# alternative covers the whole registration series, not only S-1/S-3 (Gemini #826: S-4 etc. leaked a digit).
+# `reg(?:ulation)?\s?\d+` covers the Indian SEBI-LODR filings ("SEBI LODR Reg 30/31/33"), the §27 default
+# case — the local equivalent of an 8-K/10-Q intimation; its regulation number is a label, not a threshold
+# (Codex #826 follow-up: "Reg 30" leaked a digit and failed a valid Indian event forecast).
+_BK_FORM_NAMES = re.compile(r"\b(?:10-?[kq]|8-?k|20-?f|6-?k|40-?f|def\s?14a|[sf]-\d+|13[dfg]|form\s+[34]|reg(?:ulation)?\s?\.?\s?\d+)\b", re.I)
+# A quarter/half immediately followed by a bare CALENDAR year ('Q3 2027', '1H 2027', 'Q3 CY2027') is a
+# US-regime period LABEL, not a numeric bar. `_AO_PERIOD_TOKENS` strips 'Q3 FY2027' and 'Mar 2027' but not
+# 'Q3 2027' (the quarter is stripped, the bare year survives), so a pure event forecast 'the Q3 2027 filing
+# reports the plant start-up' reads as numeric and fails check BK for missing comparison fields (Codex #826).
+# Stripped BK-LOCALLY (not in the shared `_AO_PERIOD_TOKENS`, which check AO's committed-corpus results also
+# depend on — widening it there flipped a committed run's AO verdict). Restricted to `20\d{2}`, NOT a bare
+# `\d{4}`, so a quarter followed by a four-digit THRESHOLD ('Q4 2500 crore') keeps its number.
+_BK_QTR_YEAR = re.compile(r"\b(?:q[1-4]|[1-4]q|h[12])\s+(?:cy\s*)?20\d{2}\b", re.I)
+# A natural-language calendar date ('March 1, 2027', '1 March 2027', 'Mar. 1st 2027') is a DATE, not a
+# numeric bar — DECISION_LEDGER.md says so outright ("a calendar date ... is not a number"). `_AO_PERIOD_TOKENS`
+# strips ISO dates ('2027-03-01') and bare 'Mar 2027' but leaves the DAY + year of a month-day-year date, so
+# an event forecast 'the permit is granted by March 1, 2027' leaks '1'/'2027' and fails check BK for missing
+# comparison fields (Codex #826 follow-up). Stripped BK-LOCALLY for the same reason as `_BK_QTR_YEAR`
+# (AO already settles these as document/event rows — widening the shared token would risk its corpus).
+_BK_MONTHS = r"jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec"
+_BK_NL_DATE = re.compile(
+    r"\b(?:" + _BK_MONTHS + r")[a-z]*\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4}\b|"   # Month D[,] YYYY
+    r"\b\d{1,2}(?:st|nd|rd|th)?\s+(?:" + _BK_MONTHS + r")[a-z]*\.?,?\s+\d{4}\b",   # D Month[,] YYYY
+    re.I)
+# A numeric calendar date written with a slash, dash or DOT separator ('1/3/2027', '01-03-27',
+# '01.03.2027' European, '2027/03/01' / '2027.03.01' year-first) is a deadline, not a numeric bar
+# (Codex #826 follow-up). ISO 'YYYY-MM-DD' is already stripped upstream by `_AO_PERIOD_TOKENS`; this covers
+# the day/month/year and year/month/day forms across all three separators — one `[/.\-]` class closes the
+# whole separator space at once. The backreference requires BOTH separators to be the SAME character AND
+# the final group to be 2-4 digits, so a decimal ('12.5%'), a version ('1.2.3') and a single-separator
+# ratio ('Net debt / EBITDA', '3/4') are all untouched and still read numeric.
+_BK_NUM_DATE = re.compile(r"\b\d{1,2}([/.\-])\d{1,2}\1\d{2,4}\b|\b\d{4}([/.\-])\d{1,2}\2\d{1,2}\b")
 
 def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
     """Core of check BK. Returns None (N/A — pre-gate, malformed/empty ledger, or no numeric forecast)
@@ -769,8 +801,15 @@ def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
     for i, e in enumerate(forecast_ledger):
         if not isinstance(e, dict):
             continue  # T flags non-object entries
-        bar = " ".join(str(e.get(k) or "") for k in ("threshold", "confirmation_trigger", "falsification_trigger"))
-        if not _ao_pins_a_number(_BK_FORM_NAMES.sub(" ", bar)):
+        # `str(v or "")` would drop a threshold of literal 0 (a valid numeric bar — e.g. FCF above 0 with
+        # verbal triggers "turns positive" / "remains negative"), letting a numeric forecast skip the gate.
+        # Treat only None/absent as empty, so a falsy-but-present value (0, 0.0) still counts (Codex #826).
+        bar = " ".join("" if e.get(k) is None else str(e.get(k))
+                       for k in ("threshold", "confirmation_trigger", "falsification_trigger"))
+        _stripped = _BK_FORM_NAMES.sub(" ", bar)
+        for _rx in (_BK_QTR_YEAR, _BK_NL_DATE, _BK_NUM_DATE):
+            _stripped = _rx.sub(" ", _stripped)
+        if not _ao_pins_a_number(_stripped):
             continue  # an event forecast settled by a named document has no numeric threshold to benchmark
         numeric += 1
         fid = str(e.get("forecast_id") or f"#{i}")[:60]
