@@ -788,6 +788,71 @@ _BK_NL_DATE = re.compile(
 # ratio ('Net debt / EBITDA', '3/4') are all untouched and still read numeric.
 _BK_NUM_DATE = re.compile(r"\b\d{1,2}([/.\-])\d{1,2}\1\d{2,4}\b|\b\d{4}([/.\-])\d{1,2}\2\d{1,2}\b")
 
+# The strips above remove the label shapes that would otherwise sit next to a comparator or look like a
+# decimal. They can never be the whole answer: the space of numbered LABELS is open-ended (statute sections
+# 'Companies Act Sections 230-232', compact period labels "Q3'27" / '3Q27', case and rule numbers, product
+# names), so "any digit left after the strips is a threshold" keeps failing valid event forecasts one label
+# shape at a time (Codex #826, raised seven times). So the final test is POSITIVE: after the strips, a
+# number is a threshold only when something marks it as a measured quantity —
+#   (a) a unit right after it ('59.3%', '250 bps', '3x', '₹2,500 crore', '$1.2bn'),
+#   (b) a currency right before it ('$1.70', 'Rs 42', 'USD 10'),
+#   (c) a comparator right before it ('above 3', 'at least 12', '>= 42', 'between 10 and 12', 'rises to 500'),
+#   (d) its own shape — a decimal point or thousands separator ('15.5', '1,123'), which labels do not carry, or
+#   (e) the dedicated `threshold` field being a bare number (0, 42, '1.5').
+# A bare integer inside document prose ('Sections 230-232', "Q3'27 filing", 'Phase 3 readout') is a label.
+# A number that follows a document-part noun is a reference, not a quantity: 'Sections 230-232', 'Item 5.02'
+# (an 8-K item), 'Rule 10b-5', 'Note 18', 'Phase 3', 'Clause 10.1 and 10.2'. Stripped with its continuation.
+_BK_REF = r"\d[\w.()]*(?:-\w+)*"
+_BK_REFERENCE = re.compile(
+    r"(?:§+\s*|\b(?:items?|sections?|secs?|clauses?|articles?|rules?|notes?|para(?:graph)?s?|schedules?|"
+    r"exhibits?|annex(?:ure)?s?|appendix|chapters?|parts?|phases?|tranches?|forms?|orders?|nos?)\b\.?\s*)"
+    + _BK_REF + r"(?:\s*(?:,|and|&|–|/)\s*" + _BK_REF + r")*", re.I)
+_BK_NUM = r"\d[\d,]*(?:\.\d+)?"
+_BK_CCY = r"(?:[$₹€£¥]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|hkd|krw|sar|aed|sgd|aud|cad|chf)\s?)"
+_BK_UNIT = (r"(?:%|[xkm]\b|\s?(?:percent(?:age\s+points?)?|per\s+cent|pp|ppts?|bps?|basis\s+points?|times|"
+            r"cr|crores?|lakhs?|lacs?|mn|mm|mln|million|bn|bln|billion|tn|trillion|"
+            r"tonnes?|tons?|mt|mtpa|gw|mw|gwh|mwh|units?|stores?|outlets?|subscribers?|users?|customers?|"
+            r"employees?|branches)\b)")
+_BK_CMP = (r"(?:>=|<=|[<>≥≤=~]|\b(?:above|below|over|under|exceed(?:s|ed|ing)?|at\s+least|at\s+most|"
+           r"(?:more|less|greater|fewer|higher|lower)\s+than|between|reach(?:es|ed|ing)?|hits?|tops?|"
+           r"cross(?:es|ed|ing)?|(?:rises?|falls?|drops?|grows?|increases?|decreases?|declines?|improves?|"
+           r"expands?|contracts?|climbs?|slips?|widens?|narrows?|returns?|recovers?)\s+(?:to|by)|"
+           r"equals?|minimum|maximum|min|max|floor|cap|ceiling)\b)")
+_BK_FILLER = r"(?:\s*(?:of|approximately|approx\.?|about|around|roughly|nearly|c\.)\b)?\s*"
+_BK_THRESHOLD_NUMBER = re.compile(
+    _BK_NUM + _BK_UNIT + "|" +                                # (a) number + unit
+    _BK_CCY + r"\s?" + _BK_NUM + "|" +                        # (b) currency + number
+    _BK_CMP + _BK_FILLER + r"[-+−]?" + _BK_NUM + r"(?![\d'’]|-\d)|" +   # (c) comparator + number
+    r"(?<![\d.,/])\d+\.\d+(?![\d.])|"                        # (d) a decimal ...
+    r"(?<![\d.,/])\d{1,3}(?:,\d{2,3})+(?![\d.])",            #     ... or a thousands-separated number
+    re.I)
+_BK_BARE_NUMBER = re.compile(r"\s*[-+−]?" + _BK_NUM + r"\s*\Z")
+
+def _bk_strip_labels(text):
+    """Remove form names, period labels, calendar dates and document-part references — digits that
+    are never a threshold."""
+    text = _BK_FORM_NAMES.sub(" ", text)
+    for _rx in (_BK_QTR_YEAR, _BK_NL_DATE, _BK_NUM_DATE, _BK_REFERENCE):
+        text = _rx.sub(" ", text)
+    return _AO_PERIOD_TOKENS.sub(" ", text)
+
+def _bk_pins_a_threshold(e):
+    """True if the forecast row `e` pins a numeric THRESHOLD in its threshold / confirmation /
+    falsification text — a measured quantity, not a digit inside a document, period or date label."""
+    # `str(v or "")` would drop a threshold of literal 0 (a valid numeric bar — e.g. FCF above 0 with
+    # verbal triggers "turns positive" / "remains negative"), letting a numeric forecast skip the gate.
+    # Treat only None/absent as empty, so a falsy-but-present value (0, 0.0) still counts (Codex #826).
+    th = e.get("threshold")
+    if isinstance(th, (int, float)) and not isinstance(th, bool):
+        return True
+    fields = ["" if e.get(k) is None else str(e.get(k))
+              for k in ("threshold", "confirmation_trigger", "falsification_trigger")]
+    if _BK_BARE_NUMBER.match(fields[0]):
+        return True  # (e) the dedicated threshold field is nothing but a number
+    # Fields are tested one at a time, so a comparator ending one field cannot pair with a digit
+    # opening the next.
+    return any(_BK_THRESHOLD_NUMBER.search(_bk_strip_labels(f)) for f in fields)
+
 def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
     """Core of check BK. Returns None (N/A — pre-gate, malformed/empty ledger, or no numeric forecast)
     or a list of violation strings (empty list = every numeric forecast row passes). Side-effect-free +
@@ -801,15 +866,7 @@ def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
     for i, e in enumerate(forecast_ledger):
         if not isinstance(e, dict):
             continue  # T flags non-object entries
-        # `str(v or "")` would drop a threshold of literal 0 (a valid numeric bar — e.g. FCF above 0 with
-        # verbal triggers "turns positive" / "remains negative"), letting a numeric forecast skip the gate.
-        # Treat only None/absent as empty, so a falsy-but-present value (0, 0.0) still counts (Codex #826).
-        bar = " ".join("" if e.get(k) is None else str(e.get(k))
-                       for k in ("threshold", "confirmation_trigger", "falsification_trigger"))
-        _stripped = _BK_FORM_NAMES.sub(" ", bar)
-        for _rx in (_BK_QTR_YEAR, _BK_NL_DATE, _BK_NUM_DATE):
-            _stripped = _rx.sub(" ", _stripped)
-        if not _ao_pins_a_number(_stripped):
+        if not _bk_pins_a_threshold(e):
             continue  # an event forecast settled by a named document has no numeric threshold to benchmark
         numeric += 1
         fid = str(e.get("forecast_id") or f"#{i}")[:60]

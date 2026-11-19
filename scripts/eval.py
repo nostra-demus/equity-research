@@ -3313,6 +3313,16 @@ if scope=="selftest":
     _bk_ratio_g = {"forecast_id":"F18","threshold":"Net debt / EBITDA above 3","fired_last_two_periods":False}           # guard: single-slash ratio stays numeric
     _bk_dotdate = {"forecast_id":"F19","confirmation_trigger":"The regulator filing grants the permit by 01.03.2027."}   # NEW-5 FIX (dotted date)
     _bk_decimal = {"forecast_id":"F20","threshold":"EBIT margin above 12.5% by 01.03.2027","fired_last_two_periods":False}  # guard: decimal 12.5% survives the dotted-date strip
+    # #826 root-cause fix: after the label strips the test is POSITIVE — a number is a threshold only when a
+    # unit, currency, comparator, decimal/thousands shape, or a bare `threshold` value marks it as a measured
+    # quantity (CLAUDE.md §17 applies to numeric TRIGGERS; §27 makes local statute/filing labels routine).
+    _bk_legal   = {"forecast_id":"F21","confirmation_trigger":"The NCLT order sanctions the merger under Companies Act Sections 230-232."}  # statute sections are labels
+    _bk_shortyr = {"forecast_id":"F22","confirmation_trigger":"The Q3'27 filing reports the plant start-up.","falsification_trigger":"The 3Q27 filing reports a delay; H1'27 guidance is withdrawn."}  # compact period labels
+    _bk_item    = {"forecast_id":"F23","confirmation_trigger":"An 8-K Item 5.02 discloses the CFO's departure; Rule 10b-5 claims are dismissed.","falsification_trigger":"No such disclosure in the 2026 proxy within 12 months."}  # item/rule numbers, proxy year, time window
+    _bk_legal_t = {"forecast_id":"F24","confirmation_trigger":"The Regulation 33 results filed under Section 133 report gross margin above 12.","fired_last_two_periods":False}  # guard: comparator + bare integer beside labels
+    _bk_bare    = {"forecast_id":"F25","threshold":"42","confirmation_trigger":"EPS beats the bar","comparable_basis":"FY26 EPS (38)"}  # guard: bare-number threshold field
+    _bk_units   = {"forecast_id":"F26","confirmation_trigger":"Store count reaches 500 and volumes rise to 3 mtpa.","fired_last_two_periods":False}  # guard: verb comparator / unit
+    _bk_ccy     = {"forecast_id":"F27","falsification_trigger":"FY27 EPS prints Rs 42 or lower.","fired_last_two_periods":False}  # guard: currency + bare integer
     bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
         (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
         (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
@@ -3327,6 +3337,13 @@ if scope=="selftest":
         (BK_DATE,[_bk_ratio_g],["forecast_ledger[0] (F18) pins a numeric threshold but has no comparable_basis"]),  # guard: single-slash ratio '3' survives
         (BK_DATE,[_bk_dotdate],None),                                   # #826 NEW-5: '01.03.2027' dotted date is not a bar
         (BK_DATE,[_bk_decimal],["forecast_ledger[0] (F20) pins a numeric threshold but has no comparable_basis"]),  # guard: 12.5% survives the dotted-date strip -> numeric
+        (BK_DATE,[_bk_legal],None),                                     # #826: 'Sections 230-232' is a statute reference, not a bar
+        (BK_DATE,[_bk_shortyr],None),                                   # #826: "Q3'27" / '3Q27' / "H1'27" are period labels
+        (BK_DATE,[_bk_item],None),                                      # 'Item 5.02', 'Rule 10b-5', '2026 proxy', '12 months' are not bars
+        (BK_DATE,[_bk_legal_t],["forecast_ledger[0] (F24) pins a numeric threshold but has no comparable_basis"]),  # guard: 'above 12' stays numeric
+        (BK_DATE,[_bk_bare],["forecast_ledger[0] (F25) missing fired_last_two_periods"]),                             # guard: threshold '42' is numeric
+        (BK_DATE,[_bk_units],["forecast_ledger[0] (F26) pins a numeric threshold but has no comparable_basis"]),      # guard: 'reaches 500' / '3 mtpa'
+        (BK_DATE,[_bk_ccy],["forecast_ledger[0] (F27) pins a numeric threshold but has no comparable_basis"]),        # guard: 'Rs 42'
         (BK_DATE,[_bk_ok],[]),
         (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
         (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
@@ -5233,7 +5250,7 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
 ]
 FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
-    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "eval_ba_kill_criteria_trigger_test",
+    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "_BK_REFERENCE", "_BK_THRESHOLD_NUMBER", "_bk_pins_a_threshold", "eval_ba_kill_criteria_trigger_test",
 ]
 FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bk_forecast_trigger_test"]
 FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["fired_last_two_periods", "check BK"]
