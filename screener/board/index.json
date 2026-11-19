@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-19T11:53:50Z",
+  "generated_at": "2026-11-19T11:54:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261119-358",
+      "headline": "WAN LEADER (08482): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1119/2026111901139.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-19T11:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Wan Leader issued a positive profit alert indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wan Leader issued a positive profit alert indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wan Leader",
+          "ticker": "08482",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261119-338",
       "headline": "VICO INTL HLDGS (01621): PROFIT WARNING",
@@ -1919,60 +1968,6 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-032",
-      "headline": "Banken: Bundesregierung und Unicredit einigen sich bei Commerzbank-Übernahme",
-      "headline_en": "Banks: Federal government and Unicredit reach agreement on Commerzbank takeover",
-      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken/banken-bundesregierung-und-unicredit-einigen-sich-bei-commerzbank-uebernahme/100271077.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T23:13:33Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "The German government and UniCredit have reached an agreement regarding the acquisition of Commerzbank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The German government and UniCredit have reached an agreement regarding the acquisition of Commerzbank.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commerzbank",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "UniCredit",
-          "ticker": null,
-          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -291208,9 +291203,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1258167,
-    "news_picked_today": 755,
-    "news_dropped_today": 4669
+    "news_seen_today": 1267279,
+    "news_picked_today": 764,
+    "news_dropped_today": 4756
   },
   "book_momentum": {
     "live_count": 8,
