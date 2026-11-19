@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T01:35:55Z",
+  "generated_at": "2026-11-19T01:36:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-112",
@@ -47,6 +47,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-172",
+      "headline": "S-1MEF - Anthropic, PBC (0002130357) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026074904/0001628280-26-074904-index.htm",
+      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-18T23:42:01Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic filed an S-1 registration statement for an IPO, signaling a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic filed an S-1 registration statement for an IPO, signaling a major capital market event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -233,6 +282,55 @@
       },
       "event_types": [
         "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-170",
+      "headline": "Anthropic IPO raises US$107.3 billion to top SpaceX’s record debut",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/anthropic-ipo-raises-us107-3-billion-top-spacexs-record-debut",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T23:59:40Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic raised $107.3 billion in an IPO, setting a new record.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic raised $107.3 billion in an IPO, setting a new record.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1187,6 +1285,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-166",
+      "headline": "Global-E Online Ltd. Reports Q3 2026 Financial Results and Raises Full Year Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/global-e-online-ltd-reports-q3-2026-financial-results-and-raises-full-year-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T01:10:45Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Global-E Online reported Q3 2026 results and raised full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Global-E Online reported Q3 2026 results and raised full-year outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global-E Online Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-104",
       "headline": "CMS proposes sweeping Medicare integrity rule it says will save $90B",
       "headline_en": null,
@@ -1421,6 +1569,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-169",
+      "headline": "BCE held talks with Telus as it considers response to Quebecor’s takeover proposal",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-bce-held-talks-with-telus-as-it-considers-response-to-quebecors/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T01:22:06Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "BCE held talks with Telus regarding a potential response to a takeover proposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "BCE held talks with Telus regarding a potential response to a takeover proposal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BCE",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Telus",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1764,203 +1966,6 @@
       "companies": [
         {
           "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-163",
-      "headline": "Anthropic Prices at $83 a Share in Record-Sized Offering",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-19/anthropic-prices-at-83-a-share-in-record-sized-offering-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T00:45:46Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic prices IPO at $83 per share in a record-sized offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Anthropic prices IPO at $83 per share in a record-sized offering.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-122",
-      "headline": "BellRing Brands, Inc. Appoints Travis E. Leonard as CFO and Reports Fourth Quarter and Fiscal Year 2026 Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/bellring-brands-inc-appoints-travis-e-leonard-cfo-and-reports-fourth-quarter-and-fiscal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T00:41:51Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "BellRing Brands appointed a new CFO and reported Q4/FY2026 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "BellRing Brands appointed a new CFO and reported Q4/FY2026 results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BellRing Brands, Inc.",
-          "ticker": "BRBR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-031",
-      "headline": "Palo Alto Networks: Accelerating Growth and a $4.5 Billion Bet on the Future of Cybersecurity",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/18/palo-alto-networks-accelerating-growth-and-a-45-billion-bet-on-the-future-of-cybersecurity/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T23:14:09Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Palo Alto Networks is committing 4.5 billion dollars toward cybersecurity growth initiatives.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Palo Alto Networks is committing 4.5 billion dollars toward cybersecurity growth initiatives.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Palo Alto Networks",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-079",
-      "headline": "JPMorgan loses bid to dismiss lurid sexual harassment case",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/jpmorgan-loses-bid-to-dismiss-lurid-sexual-harassment-case-20261119-p61fgk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T22:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "JPMorgan failed to dismiss a sexual harassment lawsuit, posing potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "JPMorgan failed to dismiss a sexual harassment lawsuit, posing potential legal and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan",
           "ticker": null,
           "listing_country": null
         }
@@ -291198,9 +291203,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 305295,
-    "news_picked_today": 187,
-    "news_dropped_today": 653
+    "news_seen_today": 317526,
+    "news_picked_today": 198,
+    "news_dropped_today": 714
   },
   "book_momentum": {
     "live_count": 8,
