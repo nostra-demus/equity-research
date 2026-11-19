@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-0991422acdb8",
+  "idea_version": "IDEAV-e7411fe2b66f63e0",
+  "idea_version_started_at": "2026-11-19T19:29:33Z",
+  "ticker": "WMT",
+  "company": "Walmart",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Walmart exceeded profit estimates and raised its full-year outlook for the third time this year, reflecting sustained market share gains.",
+  "why_now": "The outlook increase was reported on 2026-11-19.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-52aff7667b2f"
+  ],
+  "primary_source_event_id": "EVT-52aff7667b2f",
+  "source_headlines": [
+    "Walmart tops profit estimates, raises outlook for third time this year"
+  ],
+  "source_headline": "Walmart tops profit estimates, raises outlook for third time this year",
+  "source_url": "https://www.theglobeandmail.com/business/article-walmart-results-sales-and-profit-outlook/",
+  "source_name": "The Globe and Mail",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-19T12:27:22Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-19T19:29:33Z",
+  "updated_at": "2026-11-19T19:29:33Z",
+  "decay_at": "2026-11-21T00:27:22Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

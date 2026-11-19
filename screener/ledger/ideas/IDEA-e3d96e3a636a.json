@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-e3d96e3a636a",
+  "idea_version": "IDEAV-b3eb3b51c464a4a3",
+  "idea_version_started_at": "2026-11-19T19:29:33Z",
+  "ticker": "TGT",
+  "company": "Target",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Target reported its strongest sales growth in five years and raised its forward guidance, signaling improved consumer demand and operational efficiency.",
+  "why_now": "The guidance hike was announced on 2026-11-18.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 6,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-2f8e89418618"
+  ],
+  "primary_source_event_id": "EVT-2f8e89418618",
+  "source_headlines": [
+    "Target posts best sales growth in five years, raises guidance"
+  ],
+  "source_headline": "Target posts best sales growth in five years, raises guidance",
+  "source_url": "https://www.cnbc.com/2026/11/18/target-tgt-q3-2026-earnings.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-18T13:29:33Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-19T19:29:33Z",
+  "updated_at": "2026-11-19T19:29:33Z",
+  "decay_at": "2026-11-20T01:29:33Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
