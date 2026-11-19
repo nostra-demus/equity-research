@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T02:20:58Z",
+  "generated_at": "2026-11-19T02:21:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-112",
@@ -189,6 +189,55 @@
       "companies": [
         {
           "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-193",
+      "headline": "Anthropic reportedly prices its IPO at $83 per share, valuing the AI giant at $1.5 trillion",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261119/p2g/00m/0bu/016000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T00:30:08Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic is reportedly pricing its IPO at $83 per share, valuing the company at $1.5 trillion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic is reportedly pricing its IPO at $83 per share, valuing the company at $1.5 trillion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
         }
@@ -439,55 +488,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-180",
-      "headline": "Anthropic prices IPO at $83 US per share, valuing AI giant at $1.51 trillion US",
-      "headline_en": null,
-      "url": "https://www.cbc.ca/news/business/anthropic-ipo-share-price-nasdaq-9.7426856?cmp=rss",
-      "source_name": "CBC — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T23:58:12Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic announced an IPO at a $1.51 trillion valuation, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic announced an IPO at a $1.51 trillion valuation, a major capital market event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1770,6 +1770,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-187",
+      "headline": "Nvidia’s outlook cut to stable by Moody’s on governance concerns",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/nvidias-outlook-cut-stable-moodys-governance-concerns",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T00:17:48Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Moody's changed Nvidia's outlook to stable citing governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Moody's changed Nvidia's outlook to stable citing governance concerns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-169",
       "headline": "BCE held talks with Telus as it considers response to Quebecor’s takeover proposal",
       "headline_en": null,
@@ -1914,60 +1963,6 @@
           "name": "ICICI Bank",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-162",
-      "headline": "Blue Owl Plans $513 Million CMBS for Amazon-Leased Data Center",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-19/blue-owl-plans-513-million-cmbs-for-amazon-leased-data-center",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T00:54:52Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Blue Owl plans a $513 million CMBS issuance backed by an Amazon-leased data center.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Blue Owl plans a $513 million CMBS issuance backed by an Amazon-leased data center.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blue Owl",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -291203,9 +291198,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 449379,
-    "news_picked_today": 284,
-    "news_dropped_today": 1012
+    "news_seen_today": 461154,
+    "news_picked_today": 291,
+    "news_dropped_today": 1029
   },
   "book_momentum": {
     "live_count": 8,
