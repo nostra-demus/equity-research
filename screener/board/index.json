@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T04:27:18Z",
+  "generated_at": "2026-11-19T04:28:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-112",
@@ -440,6 +440,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-275",
+      "headline": "Seatrium net order book at $12.2 billion; expects ‘materially higher’ FY2026 underlying net profit",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/seatrium-net-order-book-at-12-2-billion-expects-materially-higher-fy2026-underlying-net-profit",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T01:52:26Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Company reports a $12.2 billion order book and provides positive forward-looking guidance for FY2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reports a $12.2 billion order book and provides positive forward-looking guidance for FY2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seatrium",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,55 +1942,6 @@
       "launched_signal_id": null,
       "triage_score": 97,
       "triage_reason": "Anthropic has priced its IPO at $83 per share, marking a major capital market event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-069",
-      "headline": "Anthropic Prices IPO At $83, Above Range, In What Could Be Biggest Listing Ever (UPDATED)",
-      "headline_en": null,
-      "url": "https://www.benzinga.com/markets/ipos/26/11/63414118/anthropic-ipo-price-85-per-share-biggest-ipo-ever",
-      "source_name": "Benzinga",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T21:57:24Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic priced its IPO at $83, above the expected range, indicating significant market interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Anthropic priced its IPO at $83, above the expected range, indicating significant market interest.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -291204,9 +291204,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 835773,
-    "news_picked_today": 527,
-    "news_dropped_today": 1969
+    "news_seen_today": 846861,
+    "news_picked_today": 546,
+    "news_dropped_today": 2022
   },
   "book_momentum": {
     "live_count": 8,
