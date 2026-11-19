@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T19:46:41Z",
+  "generated_at": "2026-11-19T19:48:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -787,6 +787,55 @@
           "ticker": null,
           "listing_country": "US"
         },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-574",
+      "headline": "Anthropic Scripts IPO History With Record USD 81 Billion Offering, Valuation Hits USD 1.5 Trillion As Shares Surge 30%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/anthropic-scripts-ipo-history-with-record-usd-81-billion-offering-valuation-hits-usd-15-trillion-as-shares-surge-30",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T17:43:11Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic completed an IPO with a record $81 billion offering and a $1.5 trillion valuation, with shares surging 30%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic completed an IPO with a record $81 billion offering and a $1.5 trillion valuation, with shares surging 30%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
         {
           "name": "Anthropic",
           "ticker": null,
@@ -1900,60 +1949,6 @@
       "triage_score": 100,
       "triage_reason": "UniCredit reached a deal with the German government to facilitate its potential takeover of Commerzbank.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UniCredit",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Commerzbank",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-324",
-      "headline": "UniCredit agrees deal with Berlin on Commerzbank takeover",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/0c6bb979-bc3f-4368-86fc-a0306fd52d78?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:27:50Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "UniCredit reached a deal with Berlin to clear the path for a Commerzbank takeover.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UniCredit reached a deal with Berlin to clear the path for a Commerzbank takeover.",
-      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
