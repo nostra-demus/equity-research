@@ -724,6 +724,70 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
     return issues
 
 
+# ── Check BK (HARD GATE 11 / CLAUDE.md §17 on the FORECAST LEDGER) — a numeric forecast must say what
+# its threshold is compared against, and whether the status quo already clears it. HARD GATE 11 is
+# written for "every threshold in §7 Catalyst Calendar, §9 Risk Register, §10 Kill Criteria, and the
+# Forecast Ledger", and synthesizer.md §10 repeats it: "The same three checks apply to every threshold in
+# the Forecast Ledger's confirmation and falsification triggers — a falsification trigger that cannot fire
+# is the most expensive kind of false comfort the engine can produce." Check BA mechanized it for
+# kill_criteria[] only (comparable_basis + fired_last_two_periods); forecast_ledger[] had no field to
+# carry either answer and no check, so the rule was prose-only for exactly the rows that feed the Brier
+# score and the Phase 6 calibration haircut.
+#
+# Measured on the committed corpus (2026-11-19): 103 forecast rows, 90 pin a number, and 74 of those 90
+# never state a comparable anywhere in prediction / threshold / triggers — e.g. AKAM_2026-09-14
+# "The Q3 FY2026 Form 10-Q reports GAAP gross margin below 59.3%", with no year-ago figure, so nobody can
+# tell whether 59.3% is a decline, a stall, or a bar the status quo already clears. A forecast whose
+# confirmation the status quo already meets is a rubber stamp the review loop then scores as a HIT —
+# it inflates the hit rate and flatters the Brier, which is the engine learning the wrong lesson.
+#
+# Same contract as BA, same field names (one vocabulary for one rule): every forecast_ledger row whose
+# threshold / confirmation / falsification pins a number (AO's own `_ao_pins_a_number`, so a period label
+# alone like "FY27" does not count) must carry `comparable_basis` (non-blank string — the like-for-like
+# period/basis the threshold is measured against; for a price or event level, the reference level and its
+# date) and `fired_last_two_periods` (bool — would the CONFIRMATION trigger, as written, have been met on
+# each of the last two reported periods). Presence/shape only, exactly like BA: whether the comparable is
+# genuinely like-for-like, and whether a `true` row should have been deleted, stays the author's judgment
+# (verify-evidence audits period mismatches), but the answer is now written down where a reviewer and the
+# review loop can see it. Rows with no number (pure event forecasts settled by a named document) are N/A.
+# Forward-looking: committed runs predate the field, so they are N/A rather than retro-failed.
+BK_DATE = "2026-12-01"
+# Form names carry digits that are not thresholds ("10-K", "8-K", "DEF 14A", "Form 4"); strip them before
+# AO's period-token test so an event forecast "settled in the 10-K" is not mistaken for a numeric bar.
+_BK_FORM_NAMES = re.compile(r"\b(?:10-?[kq]|8-?k|20-?f|6-?k|40-?f|def\s?14a|s-[13]|13[dfg]|form\s+[34])\b", re.I)
+
+def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
+    """Core of check BK. Returns None (N/A — pre-gate, malformed/empty ledger, or no numeric forecast)
+    or a list of violation strings (empty list = every numeric forecast row passes). Side-effect-free +
+    module-level so the eval selftest and the live finish gate call the same logic."""
+    if not (_isdate(decision_date) and decision_date >= BK_DATE):
+        return None
+    if not isinstance(forecast_ledger, list) or not forecast_ledger:
+        return None  # T flags a non-list ledger; an empty ledger is allowed (§19)
+    issues = []
+    numeric = 0
+    for i, e in enumerate(forecast_ledger):
+        if not isinstance(e, dict):
+            continue  # T flags non-object entries
+        bar = " ".join(str(e.get(k) or "") for k in ("threshold", "confirmation_trigger", "falsification_trigger"))
+        if not _ao_pins_a_number(_BK_FORM_NAMES.sub(" ", bar)):
+            continue  # an event forecast settled by a named document has no numeric threshold to benchmark
+        numeric += 1
+        fid = str(e.get("forecast_id") or f"#{i}")[:60]
+        cb = e.get("comparable_basis")
+        fl = e.get("fired_last_two_periods")
+        if not (isinstance(cb, str) and cb.strip()):
+            issues.append(f"forecast_ledger[{i}] ({fid}) pins a numeric threshold but has no comparable_basis — "
+                          f"the like-for-like period/basis it is measured against (HARD GATE 11 check 1, §17)")
+        if not isinstance(fl, bool):
+            issues.append(f"forecast_ledger[{i}] ({fid}) missing fired_last_two_periods (bool) — whether the "
+                          f"confirmation trigger, as written, would already have been met on the last two "
+                          f"reported periods (HARD GATE 11 check 3, §17)")
+    if not numeric:
+        return None
+    return issues
+
+
 def _isdate(s):
     import datetime
     try:

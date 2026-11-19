@@ -730,6 +730,8 @@ from scenario_integrity_checks import (
     eval_bc_probability_basis_stated,
     eval_ba_kill_criteria_trigger_test,
     BA_DATE,
+    eval_bk_forecast_trigger_test,
+    BK_DATE,
     eval_am_bear_case_sanity,
     eval_ar_short_bull_case_sanity,
     AM_DATE,
@@ -3280,6 +3282,41 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"BA({_dd!r},kc={_kc!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BK: HARD GATE 11 trigger test carried onto numeric forecast_ledger rows -------------
+    _bk_ok    = {"forecast_id":"F1","threshold":"GAAP gross margin below 59.3%","comparable_basis":"Q3 FY26 vs Q3 FY25 GAAP gross margin (59.9%)","fired_last_two_periods":False}
+    _bk_true  = {"forecast_id":"F2","threshold":"Revenue above $1,123.7m","comparable_basis":"Q3 FY26 vs Q3 FY25 ($1,050m)","fired_last_two_periods":True}
+    _bk_nocb  = {"forecast_id":"F3","confirmation_trigger":"The Q3 FY2026 Form 10-Q reports GAAP gross margin below 59.3%.","fired_last_two_periods":False}  # AKAM_2026-09-14 shape
+    _bk_blank = {"forecast_id":"F4","threshold":"EPS at or above $1.70","comparable_basis":"  ","fired_last_two_periods":False}
+    _bk_nofl  = {"forecast_id":"F5","threshold":"At least 12% year over year","comparable_basis":"Q4 vs Q4 a year earlier"}
+    _bk_strfl = {"forecast_id":"F6","threshold":"At least 12%","comparable_basis":"H1 vs H1","fired_last_two_periods":"no"}
+    _bk_event = {"forecast_id":"F7","threshold":"Filed","confirmation_trigger":"The FY2026 10-K is filed by 2027-03-01 with a clean opinion.","falsification_trigger":"No such filing by 2027-03-01."}
+    _bk_label = {"forecast_id":"F8","threshold":"Q1 FY27 results","confirmation_trigger":"Q1 FY27 results disclose the plant start-up."}
+    bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
+        (BK_DATE,[_bk_ok],[]),
+        (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
+        (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
+        (BK_DATE,[_bk_blank],["forecast_ledger[0] (F4) pins a numeric threshold but has no comparable_basis"]),
+        (BK_DATE,[_bk_nofl],["forecast_ledger[0] (F5) missing fired_last_two_periods"]),
+        (BK_DATE,[_bk_strfl],["forecast_ledger[0] (F6) missing fired_last_two_periods"]),  # a string 'no' is not a bool
+        (BK_DATE,[_bk_ok,_bk_event,_bk_nofl],["forecast_ledger[2] (F5) missing fired_last_two_periods"]),  # index tracks the row; event row skipped
+        (BK_DATE,[_bk_event],None),                                     # 10-K / ISO date are not thresholds → no numeric row → N/A
+        (BK_DATE,[_bk_label],None),                                     # a fiscal-period label alone is not a threshold
+        (BK_DATE,[_bk_event,"plain string row"],None),                  # non-object rows are T's job
+        ("2026-11-30",[_bk_nocb],None),                                 # predates BK_DATE → N/A
+        (BK_DATE,[],None),
+        (BK_DATE,None,None),
+        (BK_DATE,5,None),
+        ("not-a-date",[_bk_nocb],None),
+    ]
+    for _dd,_fl,_want in bkcases:
+        got=eval_bk_forecast_trigger_test(_dd,_fl)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BK({_dd!r},fl={_fl!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     # ---- check BB: §16 Sector Cycle Reality Test compounding cap -----------------------------------
     _bb_elev02 = "## 5. Sector Cycle Reality Test\nSector re-rated ~32%.\nRF-VAL-001: own-history band cycle-elevated — sector index re-rated 32% over the window, cited 2026-08-01\n"
     _bb_elev03 = "## 6. Sector Cycle Reality Test\nPeer group re-rated too.\nRF-VAL-001: peer-median anchor cycle-elevated — peer aggregate re-rated 28% over the window, cited 2026-08-01\n"
@@ -4388,6 +4425,18 @@ for drp in runs:
         add("BA_kill_criteria_trigger_test", False, "; ".join(_bar))
     else:
         add("BA_kill_criteria_trigger_test", True, f"every kill_criteria row carries comparable_basis and fired_last_two_periods ({len(d.get('kill_criteria') or [])} row(s))")
+    # BK — the same HARD GATE 11 trigger test on every NUMERIC forecast_ledger row (forward-looking;
+    # landing BK_DATE). See the BK_DATE block in scripts/scenario_integrity_checks.py. No retrospective
+    # advisory: committed runs predate the field, so all 21 numeric-forecast runs would flag for a field
+    # that did not exist yet — noise, not a still-live defect (contrast BH/BI/BJ).
+    _bkr = eval_bk_forecast_trigger_test(ddte, d.get("forecast_ledger"))
+    if _bkr is None:
+        add("BK_forecast_trigger_test", True,
+            f"N/A (decision_date {ddte!r} predates BK_DATE {BK_DATE!r}, or no numeric forecast_ledger row)", na=True)
+    elif _bkr:
+        add("BK_forecast_trigger_test", False, "; ".join(_bkr))
+    else:
+        add("BK_forecast_trigger_test", True, "every numeric forecast_ledger row carries comparable_basis and fired_last_two_periods")
     # The valuation specialist/synthesis text readers are defined ONCE here, unconditionally, at loop-body
     # scope, so every date-gated cap that consumes them (BB below, then AD/AE/AF/AQ) can call them no
     # matter which gate fires first. They were previously defined inside the AD/AE blocks, which sit
@@ -5145,7 +5194,15 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     # AZ was the only check in this file not registered here, so the whole thing could be deleted and the
     # suite would still report PASS — the exact hole this self-anchor exists to close.
     "check_az_governance_flag_cap_correspondence", "_az_slice", "_az_table_keys", "_az_row_first_cell", "azfails",
+    # BK — HARD GATE 11 on numeric forecast_ledger rows; detector + live wiring + authoring contract.
+    "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
 ]
+FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
+    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "eval_ba_kill_criteria_trigger_test",
+]
+FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bk_forecast_trigger_test"]
+FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["fired_last_two_periods", "check BK"]
+FRAMEWORK_CONTRACTS["frameworks/DECISION_LEDGER.md"] += ["check BK"]
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
     try: jtxt=open(jf).read()
