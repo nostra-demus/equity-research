@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T22:40:51Z",
+  "generated_at": "2026-11-19T22:46:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -51,6 +51,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-762",
+      "headline": "VR1: USA acquisition and Capital Raising Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VR1?key=2924-03164246-2A1711763",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-19T22:15:51Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "VR1 announced a US acquisition and a concurrent capital raising.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "VR1 announced a US acquisition and a concurrent capital raising.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VR1",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,60 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-644",
-      "headline": "Chemiekonzern: BASF zieht Angebot für Konkurrenten zurück – Evonik-Papiere verlieren 20 Prozent",
-      "headline_en": "Chemical group: BASF withdraws offer for competitor – Evonik shares lose 20 percent",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/chemieindustrie-basf-zieht-angebot-zurueck-woran-der-moegliche-evonik-deal-zerbrach/100271324.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T15:05:41Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "BASF withdrew a takeover offer and Evonik shares fell 20 percent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BASF withdrew a takeover offer and Evonik shares fell 20 percent.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BASF",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285346,9 +285342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2362588,
-    "news_picked_today": 1852,
-    "news_dropped_today": 11636
+    "news_seen_today": 2375676,
+    "news_picked_today": 1860,
+    "news_dropped_today": 11700
   },
   "book_momentum": {
     "live_count": 8,
