@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T20:55:57Z",
+  "generated_at": "2026-11-19T21:04:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -1295,6 +1295,196 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-607",
+      "headline": "Europe's biggest gas supplier battling cyberattack – with no timeline for recovery",
+      "headline_en": null,
+      "url": "https://www.theregister.com/cyber-crime/2026/11/19/europes-biggest-gas-supplier-battling-cyberattack-with-no-timeline-for-recovery/5311026",
+      "source_name": "The Register",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T15:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "A cyberattack on Europe's largest gas supplier with no recovery timeline poses a major supply and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A cyberattack on Europe's largest gas supplier with no recovery timeline poses a major supply and operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-610",
+      "headline": "Anthropic IPO is largest in history, overtaking SpaceX",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/future/technology/2026/11/19/anthropic-stock-ipo-ticker-symbol/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T15:31:22Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic has launched the largest IPO in history, valued at over $81 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic has launched the largest IPO in history, valued at over $81 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-614",
+      "headline": "Anthropic to begin public trading at $1.5tn valuation after largest-ever IPO",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/2026/nov/19/anthropic-public-trading-ipo",
+      "source_name": "The Guardian — Stock markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T15:30:36Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic is beginning public trading at a $1.5 trillion valuation, marking a massive market entry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic is beginning public trading at a $1.5 trillion valuation, marking a massive market entry.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-623",
+      "headline": "Telesat pauses debt repayments to GEO subsidiary creditors",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/telesat-pauses-debt-repayments-to-geo-subsidiary-creditors/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T15:23:18Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Telesat has paused debt repayments to its GEO subsidiary creditors, indicating financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Telesat has paused debt repayments to its GEO subsidiary creditors, indicating financial distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telesat",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-403",
       "headline": "UniCredit, Germany reach deal on Commerzbank takeover",
       "headline_en": null,
@@ -1788,202 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-336",
-      "headline": "HRS Aluglaze H1 FY27 Results Show ₹33.7 Crore Revenue And ₹115 Crore Order Book, But A Sharp Profit Fall Raises Questions",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hrs-aluglaze-h1-fy27-results-show-337-crore-revenue-and-115-crore-order-book-but-a-sharp-profit-fall-raises-questions",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T10:19:45Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "The company reported H1 FY27 revenue of ₹33.7 crore and a sharp profit decline, raising concerns about financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company reported H1 FY27 revenue of ₹33.7 crore and a sharp profit decline, raising concerns about financial performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HRS Aluglaze",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-297",
-      "headline": "Anthropic raises $81bn in record-breaking stock market debut",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c6742m39xgzxo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T10:12:16Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic raised $81 billion in an IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic raised $81 billion in an IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-296",
-      "headline": "AI giant Anthropic raises more than $100 billion in record-setting IPO",
-      "headline_en": null,
-      "url": "https://www.npr.org/2026/11/19/nx-s1-6042558/anthropic-ipo-breaks-records-100-billion",
-      "source_name": "NPR — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T10:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic raised over $100 billion in an IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic raised over $100 billion in an IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-298",
-      "headline": "Novartis raises blockbuster drug forecasts to $18 billion as it seeks to prove growth can last",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/19/novartis-stock-cmd-2026-ceo.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:57:53Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Novartis raised its drug sales forecast to $18 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis raised its drug sales forecast to $18 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285355,7 +285349,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2230374,
+    "news_seen_today": 2237149,
     "news_picked_today": 1551,
     "news_dropped_today": 10113
   },
