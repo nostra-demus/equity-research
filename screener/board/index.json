@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-11-19T00:02:47Z",
+  "generated_at": "2026-11-19T00:03:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261119-001",
+      "headline": "Asante Announces Comprehensive Strategic Review Alongside Operational Turnaround Plan",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405651/0/en/asante-announces-comprehensive-strategic-review-alongside-operational-turnaround-plan.html",
+      "source_name": "GlobeNewswire — Calendar of Events",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T13:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Company announced a comprehensive strategic review and operational turnaround plan, which are significant events for corporate direction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Company announced a comprehensive strategic review and operational turnaround plan, which are significant events for corporate direction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Asante",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-002",
+      "headline": "Metso julkistaa vapaaehtoisten takaisinostotarjousten lopulliset tulokset",
+      "headline_en": "Metso announces the final results of voluntary tender offers",
+      "url": "https://news.cision.com/fi/metso-corporation/r/metso-julkistaa-vapaaehtoisten-takaisinostotarjousten-lopulliset-tulokset,c4426378",
+      "source_name": "Cision — Finland Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T13:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Metso announced the final results of its voluntary tender offer for debt buybacks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Metso announced the final results of its voluntary tender offer for debt buybacks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Metso",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261118-338",
       "headline": "SCN: Paynes Find Acquisition Expands Murchison Gold Portfolio [price-sensitive]",
@@ -289220,7 +289319,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5007,
+    "inbox_unconsumed": 5009,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -289229,9 +289328,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 12500,
+    "news_picked_today": 2,
+    "news_dropped_today": 70
   },
   "book_momentum": {
     "live_count": 8,
