@@ -1,0 +1,201 @@
+{
+  "agents": [
+    {
+      "agent": "earnings-data-triage",
+      "model": "claude-opus-5",
+      "calls": 23,
+      "usage": {
+        "input_tokens": 46,
+        "output_tokens": 29849,
+        "cache_read_input_tokens": 1700970,
+        "cache_creation_input_tokens": 118881,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 118881,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.33994625,
+      "runtime_ms": 359060,
+      "module": "earnings"
+    },
+    {
+      "agent": "beat-miss-setup",
+      "model": "claude-opus-5",
+      "calls": 6,
+      "usage": {
+        "input_tokens": 12,
+        "output_tokens": 30540,
+        "cache_read_input_tokens": 380510,
+        "cache_creation_input_tokens": 335055,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 335055,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 3.04790875,
+      "runtime_ms": 383283,
+      "module": "earnings"
+    },
+    {
+      "agent": "earnings-sensitivity",
+      "model": "claude-opus-5",
+      "calls": 26,
+      "usage": {
+        "input_tokens": 52,
+        "output_tokens": 67569,
+        "cache_read_input_tokens": 4933728,
+        "cache_creation_input_tokens": 251591,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 251591,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.72879275,
+      "runtime_ms": 840671,
+      "module": "earnings"
+    },
+    {
+      "agent": "guidance-consensus",
+      "model": "claude-opus-5",
+      "calls": 32,
+      "usage": {
+        "input_tokens": 64,
+        "output_tokens": 45056,
+        "cache_read_input_tokens": 4028151,
+        "cache_creation_input_tokens": 203956,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 203956,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 4.4155205,
+      "runtime_ms": 578064,
+      "module": "earnings"
+    },
+    {
+      "agent": "earnings-quality",
+      "model": "claude-opus-5",
+      "calls": 38,
+      "usage": {
+        "input_tokens": 76,
+        "output_tokens": 56545,
+        "cache_read_input_tokens": 5556113,
+        "cache_creation_input_tokens": 220338,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 220338,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.569174,
+      "runtime_ms": 732697,
+      "module": "earnings"
+    },
+    {
+      "agent": "revenue-drivers",
+      "model": "claude-opus-5",
+      "calls": 34,
+      "usage": {
+        "input_tokens": 68,
+        "output_tokens": 47267,
+        "cache_read_input_tokens": 5127388,
+        "cache_creation_input_tokens": 417793,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 417793,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 6.35691525,
+      "runtime_ms": 621845,
+      "module": "earnings"
+    },
+    {
+      "agent": "earnings-synthesis",
+      "model": "claude-opus-5",
+      "calls": 16,
+      "usage": {
+        "input_tokens": 32,
+        "output_tokens": 39663,
+        "cache_read_input_tokens": 2460100,
+        "cache_creation_input_tokens": 528450,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 528450,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.5245975,
+      "runtime_ms": 497789,
+      "module": "earnings"
+    },
+    {
+      "agent": "historical-financials",
+      "model": "claude-opus-5",
+      "calls": 35,
+      "usage": {
+        "input_tokens": 70,
+        "output_tokens": 42531,
+        "cache_read_input_tokens": 3581031,
+        "cache_creation_input_tokens": 147559,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 147559,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 3.77638425,
+      "runtime_ms": 550315,
+      "module": "earnings"
+    },
+    {
+      "agent": "margin-drivers",
+      "model": "claude-opus-5",
+      "calls": 30,
+      "usage": {
+        "input_tokens": 60,
+        "output_tokens": 50184,
+        "cache_read_input_tokens": 3702612,
+        "cache_creation_input_tokens": 359109,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 359109,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.35063725,
+      "runtime_ms": 656019,
+      "module": "earnings"
+    },
+    {
+      "agent": "earnings-red-flags",
+      "model": "claude-opus-5",
+      "calls": 17,
+      "usage": {
+        "input_tokens": 34,
+        "output_tokens": 52337,
+        "cache_read_input_tokens": 2949564,
+        "cache_creation_input_tokens": 554898,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 554898,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 6.2514895,
+      "runtime_ms": 682554,
+      "module": "earnings"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-opus-5",
+    "calls": 35,
+    "usage": {
+      "input_tokens": 70,
+      "output_tokens": 38608,
+      "cache_read_input_tokens": 3646013,
+      "cache_creation_input_tokens": 141130,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 141130
+      }
+    },
+    "cost": 4.1998565,
+    "runtime_ms": 0
+  }
+}
