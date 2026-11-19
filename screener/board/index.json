@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T21:11:57Z",
+  "generated_at": "2026-11-19T21:17:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -1593,6 +1593,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-673",
+      "headline": "EPFO sees no legal way to recover ₹1,816 crore from Reliance Capital. What it means for PF subscribers",
+      "headline_en": null,
+      "url": "https://www.livemint.com/money/personal-finance/epfo-sees-no-legal-way-to-recover-1-816-crore-from-reliance-capital-what-it-means-for-pf-subscribers-11795097088450.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T14:42:18Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "EPFO sees no legal way to recover ₹1,816 crore from Reliance Capital, indicating a significant financial loss for the EPFO and potential distress for Reliance Capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EPFO sees no legal way to recover ₹1,816 crore from Reliance Capital, indicating a significant financial loss for the EPFO and potential distress for Reliance Capital.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-400",
       "headline": "Disney plans $3 billion cost cuts by 2029, warns of more layoffs despite strong quarterly results",
       "headline_en": null,
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-334",
-      "headline": "FirstFT: Anthropic’s blockbuster IPO raises record $81bn",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/5f8b63e0-aaf7-48d4-8695-c8195043c537?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T10:46:35Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic completed a record-breaking $81 billion IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic completed a record-breaking $81 billion IPO.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285354,9 +285354,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2250588,
-    "news_picked_today": 1610,
-    "news_dropped_today": 10222
+    "news_seen_today": 2257151,
+    "news_picked_today": 1644,
+    "news_dropped_today": 10308
   },
   "book_momentum": {
     "live_count": 8,
