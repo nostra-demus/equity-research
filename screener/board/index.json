@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T02:12:58Z",
+  "generated_at": "2026-11-19T02:13:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-112",
@@ -1088,6 +1088,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-186",
+      "headline": "Anthropic prices IPO at $83, beating target range in blockbuster AI listing",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/anthropic-prices-ipo-at-83-beating-target-range-in-blockbuster-ai-listing/article71718468.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T00:06:48Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic priced its IPO at $83 per share, exceeding its target range.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Anthropic priced its IPO at $83 per share, exceeding its target range.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-110",
       "headline": "Anthropic prices IPO at $83 in historic $1 trillion offering",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
         },
         {
           "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-150",
-      "headline": "Thomson Reuters v. ROSS: Using Copyrighted Works In AI Training Is Not Fair Use",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/legalentertainment/2026/11/18/thomson-reuters-v-ross-using-copyrighted-works-in-ai-training-is-not-fair-use/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T00:32:09Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "A court ruling against AI training on copyrighted works creates significant legal risk for AI-reliant companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A court ruling against AI training on copyrighted works creates significant legal risk for AI-reliant companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Thomson Reuters",
           "ticker": null,
           "listing_country": "US"
         }
@@ -291203,9 +291203,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 425757,
-    "news_picked_today": 267,
-    "news_dropped_today": 981
+    "news_seen_today": 437580,
+    "news_picked_today": 272,
+    "news_dropped_today": 1000
   },
   "book_momentum": {
     "live_count": 8,
