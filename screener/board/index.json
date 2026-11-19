@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T00:32:48Z",
+  "generated_at": "2026-11-19T00:33:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-032",
@@ -56,40 +56,40 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261119-046",
-      "headline": "Erstnotiz: Anthropic legt Aktienpreis für Mega-IPO bei 83 Dollar fest",
-      "headline_en": "First listing: Anthropic sets share price for mega-IPO at 83 dollars",
-      "url": "https://www.handelsblatt.com/finanzen/maerkte/erstnotiz-anthropic-legt-aktienpreis-fuer-mega-ipo-bei-83-dollar-fest/100270370.html",
+      "inbox_id": "INB-20261119-047",
+      "headline": "Erstnotiz: Berichte – Anthropic legt Aktienpreis für Mega-IPO bei 83 Dollar fest",
+      "headline_en": "First listing: Reports – Anthropic sets share price for mega-IPO at 83 dollars",
+      "url": "https://www.handelsblatt.com/finanzen/maerkte/erstnotiz-berichte-anthropic-legt-aktienpreis-fuer-mega-ipo-bei-83-dollar-fest/100270370.html",
       "source_name": "Handelsblatt",
       "input_nature": "news_headline",
       "found_at": "2026-11-18T22:44:46Z",
       "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic set the price for its IPO at $83 per share, a major market event.",
+      "prelim_note": "Anthropic is reportedly setting an IPO price of $83 per share.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Anthropic set the price for its IPO at $83 per share, a major market event.",
+      "triage_score": 100,
+      "triage_reason": "Anthropic is reportedly setting an IPO price of $83 per share.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
         "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -99,7 +99,105 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-056",
+      "headline": "Nvidia’s Outlook Cut to Stable by Moody’s on Governance Concerns",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/moody-s-lowers-nvidia-s-ratings-outlook-to-stable-from-positive",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:29:01Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Moody's downgraded Nvidia's outlook to stable due to governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Moody's downgraded Nvidia's outlook to stable due to governance concerns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-054",
+      "headline": "Moody’s Lowers Nvidia’s Ratings Outlook to Stable From Positive",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/moody-s-lowers-nvidia-s-ratings-outlook-to-stable-from-positive",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:29:01Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Moody's lowered Nvidia's outlook to stable from positive, citing governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Moody's lowered Nvidia's outlook to stable from positive, citing governance concerns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247,6 +345,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-051",
+      "headline": "Stock Market Today, Nov. 18: Recursion Pharmaceuticals Rises 4% on FDA Alignment for REC-4881 Phase 3 Design",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-nov-18-recursion-pharmaceuticals-rises-4-fda-alignment-rec-4881-phase-3",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:40:39Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Recursion Pharmaceuticals received FDA alignment on Phase 3 trial design for REC-4881.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Recursion Pharmaceuticals received FDA alignment on Phase 3 trial design for REC-4881.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Recursion Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -599,6 +746,184 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-048",
+      "headline": "Senate Permit Bill Authors Seek Exemption for Data Centers",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/senate-permit-bill-authors-seek-exemption-for-data-centers",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:44:11Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Proposed legislation seeks to exempt data centers from certain permitting requirements, potentially lowering capital expenditure hurdles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Proposed legislation seeks to exempt data centers from certain permitting requirements, potentially lowering capital expenditure hurdles.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-052",
+      "headline": "UK to End 1,000-Year-Old Property System With New Law",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/uk-to-end-1-000-year-old-property-system-with-new-law",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "The UK is reforming its 1,000-year-old property system, which will impact real estate legal frameworks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "The UK is reforming its 1,000-year-old property system, which will impact real estate legal frameworks.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-055",
+      "headline": "Bhopal Master Plan 2047 Row Intensifies As BJP-Affiliated Farmers Burn Draft Copies, Oppose Land Restrictions Across 78 Villages",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/bhopal-master-plan-2047-row-intensifies-as-bjp-affiliated-farmers-burn-draft-copies-oppose-land-restrictions-across-78-villages",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Local opposition to the Bhopal Master Plan 2047 creates regulatory and operational uncertainty for land development in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Local opposition to the Bhopal Master Plan 2047 creates regulatory and operational uncertainty for land development in the region.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-050",
+      "headline": "Billionaire Bill Ackman Sold 2 Million Shares of Microsoft Stock. But Here's Why He Says He's Still Bullish",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/billionaire-bill-ackman-sold-2-million-shares-microsoft-stock-heres-why-he-says-hes-still",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:42:31Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Bill Ackman sold 2 million shares of Microsoft, though he remains bullish.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Bill Ackman sold 2 million shares of Microsoft, though he remains bullish.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1143,6 +1468,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-049",
+      "headline": "US surges power projection to westernmost island chain as Russia, China loom",
+      "headline_en": null,
+      "url": "https://www.defensenews.com/global/the-americas/2026/11/18/us-surges-power-projection-to-westernmost-island-chain-as-russia-china-loom/",
+      "source_name": "Defense News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:40:38Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "US military surge in the western Pacific indicates a significant escalation in geopolitical tensions with China and Russia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "US military surge in the western Pacific indicates a significant escalation in geopolitical tensions with China and Russia.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-053",
+      "headline": "UK Pledges Long-Range Missiles to Ukraine Despite US Criticism",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-18/uk-pledges-long-range-missiles-to-ukraine-despite-us-criticism",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "The UK's decision to provide long-range missiles to Ukraine marks a significant escalation in the conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "The UK's decision to provide long-range missiles to Ukraine marks a significant escalation in the conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-011",
       "headline": "INOVIO Submits Conditional Marketing Authorization Application to European Medicines Agency for VOCERYQ™ in Adults with Recurrent Respiratory Papillomatosis | INO Stock News",
       "headline_en": null,
@@ -1527,457 +1938,6 @@
           "name": "Alpine Specialty",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-024",
-      "headline": "Inlif (INLF) Advances Commercialization of Its Next-Generation Six-Axis Industrial Robots, Securing More Than US$10 Million in Partner Purchase and Sales Agreements | INLF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/INLF/inlif-inlf-advances-commercialization-of-its-next-generation-six-xyjz1o60y5gy.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Inlif secured over $10 million in purchase and sales agreements for its industrial robots.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Inlif secured over $10 million in purchase and sales agreements for its industrial robots.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Inlif",
-          "ticker": "INLF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-018",
-      "headline": "Fervo Energy and Longroad Energy Execute 105 Megawatt Long-Term Transmission Service Agreement, Expanding Transmission at Cape Station | FRVO Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/FRVO/fervo-energy-and-longroad-energy-execute-105-megawatt-long-term-hgpi0mip4g1c.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Fervo Energy and Longroad Energy executed a 105 megawatt transmission service agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Fervo Energy and Longroad Energy executed a 105 megawatt transmission service agreement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fervo Energy",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Longroad Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-023",
-      "headline": "Nixxy Announces 1-for-20 Reverse Stock Split | NIXX Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/NIXX/nixxy-announces-1-for-20-reverse-stock-7b5grnj3ah7b.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Nixxy announced a 1-for-20 reverse stock split, a significant capital action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Nixxy announced a 1-for-20 reverse stock split, a significant capital action.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nixxy",
-          "ticker": "NIXX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-006",
-      "headline": "Anixa Biosciences and Curia will Develop Final Formulation for Breast Cancer Vaccine in Preparation for Phase 2 Clinical Trial | ANIX Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ANIX/anixa-biosciences-and-curia-will-develop-final-formulation-for-k3wqqs0azcng.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:25:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anixa Biosciences and Curia partner to develop a breast cancer vaccine for Phase 2 trials.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Anixa Biosciences and Curia partner to develop a breast cancer vaccine for Phase 2 trials.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anixa Biosciences",
-          "ticker": "ANIX",
-          "listing_country": "US"
-        },
-        {
-          "name": "Curia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-034",
-      "headline": "NorthStar Earth & Space annonce son inscription à la Bourse de Toronto",
-      "headline_en": "NorthStar Earth & Space announces its listing on the Toronto Stock Exchange",
-      "url": "http://www.businesswire.com/news/home/20261117794714/fr/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T12:07:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "NorthStar Earth & Space announced its listing on the Toronto Stock Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "NorthStar Earth & Space announced its listing on the Toronto Stock Exchange.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NorthStar Earth & Space",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-039",
-      "headline": "Homeward Expands Nationwide With a Cash Offer That Pays Sellers When Their Home Resells",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/homeward-expands-nationwide-with-a-cash-offer-that-pays-sellers-when-their-home-resells-302940388.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Homeward is expanding its operations nationwide with a new cash offer model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Homeward is expanding its operations nationwide with a new cash offer model.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Homeward",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-043",
-      "headline": "Can-Fite Pivotal Phase III Psoriasis Study Under an FDA- and EMA-agreed protocol: All Patients Completed Dosing and Interim Analysis Expected Q1 2027",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405528/0/en/can-fite-pivotal-phase-iii-psoriasis-study-under-an-fda-and-ema-agreed-protocol-all-patients-completed-dosing-and-interim-analysis-expected-q1-2027.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Can-Fite completed dosing for a pivotal Phase III study, a critical step toward potential regulatory approval.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Can-Fite completed dosing for a pivotal Phase III study, a critical step toward potential regulatory approval.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Can-Fite BioPharma",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-042",
-      "headline": "Two Prime Expands Institutional Lending Capabilities With Multi-Asset Collateral and Tri-Party Custody",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261118165512/en/Two-Prime-Expands-Institutional-Lending-Capabilities-With-Multi-Asset-Collateral-and-Tri-Party-Custody/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Two Prime is expanding its institutional lending capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Two Prime is expanding its institutional lending capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Two Prime",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-040",
-      "headline": "Emmecell Announces First Patient Dosed in EMERALD Study of Magnetic Cell Therapy for Corneal Endothelial Disease",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261118271215/en/Emmecell-Announces-First-Patient-Dosed-in-EMERALD-Study-of-Magnetic-Cell-Therapy-for-Corneal-Endothelial-Disease/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Emmecell announced the first patient dosed in its EMERALD study for corneal endothelial disease.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Emmecell announced the first patient dosed in its EMERALD study for corneal endothelial disease.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emmecell",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -291213,9 +291173,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 98776,
-    "news_picked_today": 47,
-    "news_dropped_today": 265
+    "news_seen_today": 110964,
+    "news_picked_today": 57,
+    "news_dropped_today": 279
   },
   "book_momentum": {
     "live_count": 8,
