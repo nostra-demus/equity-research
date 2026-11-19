@@ -800,15 +800,26 @@ _BK_NUM_DATE = re.compile(r"\b\d{1,2}([/.\-])\d{1,2}\1\d{2,4}\b|\b\d{4}([/.\-])\
 #   (d) its own shape — a decimal point or thousands separator ('15.5', '1,123'), which labels do not carry, or
 #   (e) sitting in the dedicated `threshold` field, where any digit left after the strips still counts.
 # A bare integer inside document prose ('Sections 230-232', "Q3'27 filing", 'Phase 3 readout') is a label.
+# TIE-BREAK, stated once so it is not re-argued case by case: where the shape of the text cannot tell a bar
+# from a label, the row is treated as NUMERIC. A forecast wrongly read as numeric costs its author two
+# fields; a numeric forecast wrongly read as an event publishes with no comparable and feeds the Brier score
+# unbenchmarked — the failure this check exists to stop (§24: prefer the error of omission). So a missed
+# bar is a defect to fix here, while a filing window worded like a bar ('filed in 90 days or less') or an
+# issuer whose name looks like a quantity ('3M') stays numeric by design.
+_BK_UNIT = (r"(?:%|[xkm]\b|\s?(?:percent(?:age\s+points?)?|per\s+cent|pp|ppts?|bps?|basis\s+points?|times|"
+            r"cents?|paise|pence|per\s+share|cr|crores?|lakhs?|lacs?|mn|mm|mln|million|bn|bln|billion|tn|trillion|"
+            r"tonnes?|tons?|mt|mtpa|gw|mw|gwh|mwh|units?|stores?|outlets?|subscribers?|users?|customers?|"
+            r"employees?|branches)\b)")
 # A number that follows a document-part noun is a reference, not a quantity: 'Sections 230-232', 'Item 5.02'
 # (an 8-K item), 'Rule 10b-5', 'Note 18', 'Phase 3', 'Clause 10.1 and 10.2'. Stripped with its continuation.
 _BK_REF = r"\d[\w.()]*(?:-\w+)*"
 _BK_REFERENCE = re.compile(
     r"(?:§+\s*|\b(?:items?|sections?|secs?|clauses?|articles?|rules?|notes?|para(?:graph)?s?|schedules?|"
     r"exhibits?|annex(?:ure)?s?|appendix|chapters?|phases?|tranches?|forms?)\b\.?\s*)"
-    # ... unless the number is a measured quantity: 'Recurring revenue forms 30% of total' and 'notes 12.5%
-    # growth' use these words as ordinary verbs, and stripping the number would hide a real bar (Codex #826).
-    r"(?!\d[\d,.]*\s?(?:%|percent|per\s+cent|pp|bps?|basis\s+points?)(?!\w))"
+    # ... unless the number carries a unit: 'Recurring revenue forms 30% of total' and 'the filing notes 500
+    # stores opened' use these words as ordinary verbs, and stripping the number would hide a real bar
+    # (Codex #826). Any unit in `_BK_UNIT` keeps the number, not only a percentage.
+    r"(?!\d[\d,]*(?:\.\d+)?" + _BK_UNIT + r")"
     + _BK_REF + r"(?:\s*(?:,|and|&|–|/)\s*" + _BK_REF + r")*", re.I)
 # Compact period labels the shared tokenizer leaves a year digit in: "Q3'27", "H1'27", "FY'27", '3Q27',
 # '1H27'. The apostrophe or the glued digits mark a label; 'Q4 25%' (a space, then a quantity) is untouched.
@@ -816,15 +827,13 @@ _BK_COMPACT_PERIOD = re.compile(
     r"\b(?:q[1-4]|[1-4]q|h[12]|[12]h|fy)['’]\d{2}\b|\b(?:q[1-4]|[1-4]q|h[12]|[12]h)\d{2}\b", re.I)
 _BK_NUM = r"\d[\d,]*(?:\.\d+)?"
 _BK_CCY = r"(?:[$₹€£¥]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|hkd|krw|sar|aed|sgd|aud|cad|chf)\s?)"
-_BK_UNIT = (r"(?:%|[xkm]\b|\s?(?:percent(?:age\s+points?)?|per\s+cent|pp|ppts?|bps?|basis\s+points?|times|"
-            r"cents?|paise|pence|per\s+share|cr|crores?|lakhs?|lacs?|mn|mm|mln|million|bn|bln|billion|tn|trillion|"
-            r"tonnes?|tons?|mt|mtpa|gw|mw|gwh|mwh|units?|stores?|outlets?|subscribers?|users?|customers?|"
-            r"employees?|branches)\b)")
 _BK_CMP = (r"(?:>=|<=|[<>≥≤=~]|\b(?:above|below|over|under|exceed(?:s|ed|ing)?|at\s+least|at\s+most|"
            r"(?:more|less|greater|fewer|higher|lower)\s+than|between|reach(?:es|ed|ing)?|hits?|tops?|"
            r"cross(?:es|ed|ing)?|(?:rises?|falls?|drops?|grows?|increases?|decreases?|declines?|improves?|"
            r"expands?|contracts?|climbs?|slips?|widens?|narrows?|returns?|recovers?)\s+(?:to|by)|"
-           r"equals?|minimum|maximum|min|max|floor|cap|ceiling)\b)")
+           r"equals?|minimum|maximum|min|max|floor|cap|ceiling|"
+           # a plain statement of level: 'employee count is 500', 'is not 500', 'DSO at 30', 'stands at 42'
+           r"(?:is|are|was|were)(?:\s+not)?|at|totals?|(?:stands?|remains?|stays?|holds?)(?:\s+at)?)\b)")
 _BK_FILLER = r"(?:\s*(?:of|approximately|approx\.?|about|around|roughly|nearly|c\.)\b)?\s*"
 _BK_THRESHOLD_NUMBER = re.compile(
     _BK_NUM + _BK_UNIT + "|" +                                # (a) number + unit

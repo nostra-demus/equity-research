@@ -3329,6 +3329,9 @@ if scope=="selftest":
     _bk_thlabel = {"forecast_id":"F31","threshold":"Q3'27 filing","confirmation_trigger":"The 3Q27 results and H1'27 guidance confirm the start-up."}  # compact period labels in the strict `threshold` field
     _bk_verb    = {"forecast_id":"F32","confirmation_trigger":"Recurring revenue forms 30% of total revenue.","fired_last_two_periods":False}  # guard: 'forms' as a verb keeps its number
     _bk_window  = {"forecast_id":"F33","confirmation_trigger":"The 10-K is filed within 90 days of year end under Form 10 rules."}  # a filing deadline and a form number are not bars
+    _bk_verbunit= {"forecast_id":"F34","confirmation_trigger":"The filing notes 500 stores opened.","fired_last_two_periods":False}  # guard: 'notes' as a verb + any unit keeps its number
+    _bk_copula  = {"forecast_id":"F35","confirmation_trigger":"Employee count is 500.","falsification_trigger":"Employee count is not 500.","fired_last_two_periods":False}  # guard: a plain statement of level
+    _bk_tiebrk  = {"forecast_id":"F36","confirmation_trigger":"The 10-K is filed in 90 days or less after year end.","fired_last_two_periods":False}  # tie-break: a window worded like a bar stays numeric (the cheap error)
     bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
         (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
         (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
@@ -3356,6 +3359,9 @@ if scope=="selftest":
         (BK_DATE,[_bk_thlabel],None),                                   # "Q3'27 filing" in `threshold` is a label, not a bar
         (BK_DATE,[_bk_verb],["forecast_ledger[0] (F32) pins a numeric threshold but has no comparable_basis"]),       # guard: 'forms 30%'
         (BK_DATE,[_bk_window],None),                                    # 'within 90 days' / 'Form 10' are not bars
+        (BK_DATE,[_bk_verbunit],["forecast_ledger[0] (F34) pins a numeric threshold but has no comparable_basis"]),   # guard: 'notes 500 stores'
+        (BK_DATE,[_bk_copula],["forecast_ledger[0] (F35) pins a numeric threshold but has no comparable_basis"]),     # guard: 'is 500' / 'is not 500'
+        (BK_DATE,[_bk_tiebrk],["forecast_ledger[0] (F36) pins a numeric threshold but has no comparable_basis"]),     # tie-break locked: ambiguous shape reads numeric
         (BK_DATE,[_bk_ok],[]),
         (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
         (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
