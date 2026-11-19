@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T21:04:53Z",
+  "generated_at": "2026-11-19T21:11:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -1485,6 +1485,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-644",
+      "headline": "Chemiekonzern: BASF zieht Angebot für Konkurrenten zurück – Evonik-Papiere verlieren 20 Prozent",
+      "headline_en": "Chemical group: BASF withdraws offer for competitor – Evonik shares lose 20 percent",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/chemieindustrie-basf-zieht-angebot-zurueck-woran-der-moegliche-evonik-deal-zerbrach/100271324.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T15:05:41Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "BASF withdrew a takeover offer and Evonik shares fell 20 percent.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BASF withdrew a takeover offer and Evonik shares fell 20 percent.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Evonik",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-403",
       "headline": "UniCredit, Germany reach deal on Commerzbank takeover",
       "headline_en": null,
@@ -1929,55 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-306",
-      "headline": "Japan Tobacco cuts profit forecast by $8.7bn due to asset seizure in Russia",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/politics/international-relations/japan-tobacco-cuts-profit-forecast-by-8.7bn-due-to-asset-seizure-in-russia",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T10:30:18Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Japan Tobacco cut its profit forecast by $8.7 billion due to asset seizures in Russia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Japan Tobacco cut its profit forecast by $8.7 billion due to asset seizures in Russia.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Tobacco",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285349,9 +285354,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2237149,
-    "news_picked_today": 1551,
-    "news_dropped_today": 10113
+    "news_seen_today": 2250588,
+    "news_picked_today": 1610,
+    "news_dropped_today": 10222
   },
   "book_momentum": {
     "live_count": 8,
