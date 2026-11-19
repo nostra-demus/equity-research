@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-19T11:09:45Z",
+  "generated_at": "2026-11-19T11:10:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261119-337",
+      "headline": "SF REIT (02191): Joint Announcement - Delay in Despatch of Circular in relation to (1) Proposed Very Substantial Disposal and Connected Party Transaction; (2) Proposed Special Distribution and Proposed 2026 Second Interim Distribution; and (3) Proposed Termination, Proposed Liquidation, Proposed Delisting and Proposed Deauthorisation of SF REIT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901057.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-19T11:02:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "SF REIT announced a delay in a very substantial disposal and liquidation process, signaling significant operational and structural uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SF REIT announced a delay in a very substantial disposal and liquidation process, signaling significant operational and structural uncertainty.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SF REIT",
+          "ticker": "02191",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261119-277",
       "headline": "COFOE MEDICAL (01187): DISCLOSEABLE TRANSACTION ACQUISITION OF 60% EQUITY INTEREST IN THE TARGET COMPANY",
@@ -1927,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-090",
-      "headline": "BAE Systems to axe more than 1,000 jobs under cost-saving plan",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/bae-systems-jobs-job-cuts-government-b3087552.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T21:47:46Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "BAE Systems announced plans to cut over 1,000 jobs as part of a cost-saving initiative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BAE Systems announced plans to cut over 1,000 jobs as part of a cost-saving initiative.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BAE Systems",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291208,9 +291209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1118583,
-    "news_picked_today": 716,
-    "news_dropped_today": 4060
+    "news_seen_today": 1128036,
+    "news_picked_today": 723,
+    "news_dropped_today": 4173
   },
   "book_momentum": {
     "live_count": 8,
