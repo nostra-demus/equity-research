@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T19:36:38Z",
+  "generated_at": "2026-11-19T19:46:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -794,6 +794,153 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-552",
+      "headline": "Anthropic Just Raised $81 Billion in the Biggest IPO Ever, Ahead of SpaceX. But Is It the Better Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anthropic-just-raised-81-billion-biggest-ipo-ever-ahead-spacex-it-better-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T17:29:01Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic raised $81 billion in a record-breaking IPO, a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic raised $81 billion in a record-breaking IPO, a major capital market event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-549",
+      "headline": "Anthropic valued at over $2 trillion in Nasdaq debut",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/anthropic-valued-at-over-2-trillion-in-nasdaq-debut",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T16:57:50Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic debuted on the Nasdaq with a valuation exceeding $2 trillion, a major market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic debuted on the Nasdaq with a valuation exceeding $2 trillion, a major market event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-573",
+      "headline": "Honda invests $462M in Alabama plant to boost production",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/honda-462m-alabama-plant-boost-production-truck/875064/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T16:46:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Honda is investing $462 million in its Alabama plant to increase production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honda is investing $462 million in its Alabama plant to increase production capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1838,153 +1985,6 @@
           "name": "Commerzbank",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-325",
-      "headline": "Cannerald: Stellplätze für Hanfpflanzen sollten bis zu 30 Prozent Rendite bringen – jetzt ist die Firma insolvent",
-      "headline_en": "Cannerald: Hemp plant plots were supposed to bring up to 30 percent return – now the company is insolvent",
-      "url": "https://www.handelsblatt.com/finanzen/maerkte/aktien/cannerald-meldet-insolvenz-schweizer-cannabisunternehmen-ist-insolvent/100271000.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:16:06Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Cannerald has filed for insolvency after failing to deliver promised returns of up to 30 percent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cannerald has filed for insolvency after failing to deliver promised returns of up to 30 percent.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cannerald",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-245",
-      "headline": "General Pants collapses as retail reckoning widens",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/general-pants-goes-under-putting-hundreds-of-jobs-at-risk-20261119-p61fi8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T02:57:53Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "General Pants has collapsed, representing a formal insolvency/administration event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "General Pants has collapsed, representing a formal insolvency/administration event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "General Pants",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-264",
-      "headline": "Anthropic IPO: Who gains the most from the biggest offering ever?",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/anthropic-ipo-who-will-gain-the-most-from-the-biggest-offering-ever/article71718510.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T02:41:46Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Anthropic is launching an IPO valued as the largest offering ever, representing a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic is launching an IPO valued as the largest offering ever, representing a major capital market event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -285359,9 +285359,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2105358,
-    "news_picked_today": 1243,
-    "news_dropped_today": 8933
+    "news_seen_today": 2121032,
+    "news_picked_today": 1366,
+    "news_dropped_today": 9410
   },
   "book_momentum": {
     "live_count": 8,
