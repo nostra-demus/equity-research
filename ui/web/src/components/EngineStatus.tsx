@@ -3,7 +3,7 @@ import { useStore } from '../lib/store'
 import type { DeploymentLag, HealthState, MarketFeedStatus } from '../lib/types'
 
 // Two presentational pieces, both reading the heartbeat `health` from the store (logic lives there):
-//  - EngineStatusPill: the always-visible top-bar pill (mounted in CommandBar)
+//  - EngineStatusPill: the detailed indicator inside the top-bar status menu
 //  - OfflineBanner:     the unmissable full-width strip when something is wrong (mounted in App)
 
 type PillMeta = { label: string; color: string; pulse?: boolean }

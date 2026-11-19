@@ -91,6 +91,7 @@ a { color: inherit; }
 .barmenu__trigger em { min-width: 21px; padding: 1px 5px; border-radius: var(--r-pill); color: var(--accent-bright); background: var(--accent-wash); font-size: 8.5px; font-style: normal; text-align: center; }
 .barmenu__trigger--alert { border-color: var(--accent-deep); }
 .barmenu__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 6px color-mix(in srgb, var(--good) 55%, transparent); }
+.barmenu__dot.is-updating { background: var(--accent); box-shadow: none; }
 .barmenu__dot.is-bad { background: var(--bad); box-shadow: 0 0 6px color-mix(in srgb, var(--bad) 55%, transparent); }
 .barmenu__panel { position: absolute; top: 41px; right: 0; z-index: 45; width: 292px; padding: 7px; border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); background: var(--surface-1); box-shadow: var(--shadow-2); animation: dlmenu-in 160ms var(--ease-out) both; }
 .barmenu__panel[hidden] { display: none; }

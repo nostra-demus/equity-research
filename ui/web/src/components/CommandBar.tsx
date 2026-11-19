@@ -830,12 +830,17 @@ function StatusMenu({ screenerMode, showScanner, showBridge, onOpenPerformance }
   const status = useStore((s) => s.newsStatus)
   const backlog = status?.backlog?.count ?? 0
   const bad = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const updating = health === 'updating'
   return (
     <BarMenu
       alert={bad || backlog > 0}
       closeOnNavigation
       title="Engine, provider and background scanner status"
-      label={<><span className={`barmenu__dot${bad ? ' is-bad' : ''}`} />Status{backlog > 0 && <em>{backlog > 999 ? `${Math.round(backlog / 1000)}k` : backlog}</em>}</>}
+      label={<>
+        <span className={`barmenu__dot${bad ? ' is-bad' : updating ? ' is-updating' : ''}`} />
+        {updating ? 'Updating…' : 'Status'}
+        {backlog > 0 && <em>{backlog > 999 ? `${Math.round(backlog / 1000)}k` : backlog}</em>}
+      </>}
     >
       <div className="barmenu__label">System</div>
       <div className="barmenu__statusrow"><EngineStatusPill /></div>
