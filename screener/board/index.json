@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T21:40:53Z",
+  "generated_at": "2026-11-19T21:46:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -1889,6 +1889,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-705",
+      "headline": "Palo Alto Is Paying $4.5 Billion for a Startup Ex-OpenAI Researchers Founded Last Year",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/19/palo-alto-is-paying-4-5-billion-for-a-startup-ex-openai-researchers-founded-last-year/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T13:37:48Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Palo Alto Networks is acquiring a startup for $4.5 billion, a significant capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Palo Alto Networks is acquiring a startup for $4.5 billion, a significant capital allocation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Palo Alto Networks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-399",
       "headline": "Holiday airline files for bankruptcy protection",
       "headline_en": null,
@@ -1926,60 +1975,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-384",
-      "headline": "Marsh's Oliver Wyman To Acquire Synpulse",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/marshs-oliver-wyman-acquire-synpulse",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:53:54Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Marsh's Oliver Wyman is acquiring Synpulse, a significant M&A event that will impact both companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marsh's Oliver Wyman is acquiring Synpulse, a significant M&A event that will impact both companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Oliver Wyman",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Synpulse",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -285352,9 +285347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2301287,
-    "news_picked_today": 1732,
-    "news_dropped_today": 10484
+    "news_seen_today": 2308496,
+    "news_picked_today": 1754,
+    "news_dropped_today": 10534
   },
   "book_momentum": {
     "live_count": 8,
