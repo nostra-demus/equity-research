@@ -1954,25 +1954,12 @@ if ! "$GIT" fetch --quiet origin main 2>"$OPS/.fetch.err"; then
   log "WARN git fetch failed before deploy authorization preflight: $(tail -1 "$OPS/.fetch.err" 2>/dev/null)"
   exit 0
 fi
-gitlock_release
 CURRENT_BRANCH_HINT="$("$GIT" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
 LOCAL_HINT="$("$GIT" rev-parse HEAD 2>/dev/null || true)"
 MARKER_HINT="$(cat "$MARK" 2>/dev/null || true)"
 REMOTE_HINT="$("$GIT" rev-parse origin/main 2>/dev/null || true)"
+gitlock_release
 HINT_AUTHORIZED_COMMIT=""
-# Classify what main carries beyond the deployed marker BEFORE publishing the observation. The engine
-# publishes research data to main every few minutes from this very checkout; that delta never needs a
-# build, restart, or release, so it is `data_only` (published as current). Anything else — a program
-# change, a missing or rolled-back marker, unreadable history — stays `observed` (pending) as before.
-HINT_OBSERVED_REASON=observed
-if valid_git_sha "$REMOTE_HINT" && valid_git_sha "$MARKER_HINT" && [ "$MARKER_HINT" != "$REMOTE_HINT" ] \
-    && ! provider_barrier_delta_required "$MARKER_HINT" "$REMOTE_HINT"; then
-  HINT_OBSERVED_REASON=data_only
-fi
-if valid_git_sha "$REMOTE_HINT"; then
-  write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" "$HINT_OBSERVED_REASON" \
-    || log "WARN could not publish deployment status observation"
-fi
 # Audit recovery is deliberately before writer intent and before any build decision. A failed append may
 # follow a deployment that is already healthy and live; retry the exact durable event only. Until it is
 # repaired, block later code releases but leave research admissions and the running engine untouched.
@@ -1989,6 +1976,31 @@ if [ -e "$DEPLOY_AUDIT_PENDING" ]; then
     log "BLOCKED deployment audit remains unresolved — no checkout, build, restart, or admission pause attempted"
     exit 0
   fi
+fi
+# Classify what main carries beyond the deployed marker BEFORE publishing the observation. The engine
+# publishes research data to main every few minutes from this very checkout; that delta never needs a
+# build, restart, or release, so it is `data_only` (published as current). Anything else — a program
+# change, a missing or rolled-back marker, unreadable history — stays `observed` (pending) as before.
+HINT_OBSERVED_REASON=observed
+if valid_git_sha "$REMOTE_HINT" && valid_git_sha "$MARKER_HINT" && [ "$MARKER_HINT" != "$REMOTE_HINT" ] \
+    && ! provider_barrier_delta_required "$MARKER_HINT" "$REMOTE_HINT"; then
+  HINT_OBSERVED_REASON=data_only
+fi
+# Publication and deploy share a checkout. If the captured local tip cannot fast-forward,
+# draining active runs cannot help. Keep the late, locked ancestry check for a publication
+# that races this preflight. A data-only remote delta still leaves the program current.
+if [ "$CURRENT_BRANCH_HINT" = main ] && valid_git_sha "$LOCAL_HINT" && valid_git_sha "$REMOTE_HINT" \
+    && [ "$LOCAL_HINT" != "$REMOTE_HINT" ] && ! "$GIT" merge-base --is-ancestor "$LOCAL_HINT" "$REMOTE_HINT"; then
+  clear_deploy_intent
+  [ "$HINT_OBSERVED_REASON" = data_only ] || HINT_OBSERVED_REASON=local_diverged
+  write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" "$HINT_OBSERVED_REASON" \
+    || log "WARN could not publish local-divergence deployment status"
+  log "SKIP production cannot fast-forward; local=${LOCAL_HINT:0:9} remote=${REMOTE_HINT:0:9}"
+  exit 0
+fi
+if valid_git_sha "$REMOTE_HINT"; then
+  write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" "$HINT_OBSERVED_REASON" \
+    || log "WARN could not publish deployment status observation"
 fi
 if [ "$CURRENT_BRANCH_HINT" != main ]; then
   clear_deploy_intent

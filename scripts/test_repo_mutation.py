@@ -135,6 +135,28 @@ def test_deploy_holds_both_leases_through_build() -> None:
                   "active-run barrier must defer before npm reads or mutates the live tree")
             check(open(os.path.join(ops, ".deployed.sha"), encoding="utf-8").read().strip() == base,
                   "active-run barrier must leave the deployed marker unchanged")
+
+            # Same reviewed target, same active reader, but this checkout has an unpublished tip.
+            # The previous tick left writer intent set. A blocked fast-forward must release it.
+            diverged = os.path.join(tmp, "diverged")
+            run(["git", "clone", "-q", prod, diverged], tmp, env)
+            run(["git", "remote", "set-url", "origin", origin], diverged, env)
+            local_file = "screener/board.json"
+            os.makedirs(os.path.join(diverged, "screener"))
+            with open(os.path.join(diverged, local_file), "w", encoding="utf-8") as handle:
+                handle.write("{}\n")
+            run(["git", "add", local_file], diverged, env)
+            run(["git", "commit", "-qm", "unpublished board"], diverged, env)
+            local_tip = run(["git", "rev-parse", "HEAD"], diverged, env).stdout.strip()
+            run(["bash", DEPLOY], diverged, {**deploy_env, "ENGINE_REPO_ROOT": diverged})
+            with open(os.path.join(barrier_dir, "deployment-status.json"), encoding="utf-8") as handle:
+                blocked = json.load(handle)
+            check(blocked["reason"] == "local_diverged" and blocked["status"] == "pending",
+                  "the real blocker must be visible even while a reader holds the barrier")
+            check(not os.path.exists(os.path.join(barrier_dir, "provider-deploy-pending")),
+                  "an impossible fast-forward must release stale writer intent")
+            check(run(["git", "rev-parse", "HEAD"], diverged, env).stdout.strip() == local_tip,
+                  "the watcher must preserve unpublished commits")
         finally:
             os.close(barrier_fd)
 

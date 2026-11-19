@@ -1,3 +1,4 @@
+import { fmtDuration } from '../lib/format'
 import { useStore } from '../lib/store'
 import type { DeploymentLag, HealthState, MarketFeedStatus } from '../lib/types'
 
@@ -33,7 +34,9 @@ export function EngineStatusPill() {
       ? { label: feed.pill, color: 'var(--accent)', pulse: false }
       : PILL[health]
   return (
-    <button className="estatus" onClick={() => checkNow()} title="Engine connection — click to re-check">
+    <button className="estatus" onClick={() => checkNow()} title={health === 'updating'
+      ? 'Update pending. Existing runs continue. Full runs and saved Continue requests can queue.'
+      : 'Engine connection — click to re-check'}>
       <span className={`estatus__dot${m.pulse ? ' estatus__dot--pulse' : ''}`} style={{ background: m.color }} />
       <span className="estatus__label">{m.label}</span>
     </button>
@@ -43,11 +46,6 @@ export function EngineStatusPill() {
 type BannerMeta = { title: string; body: string; cta: 'retry' | 'reload' | 'refresh'; activity?: 'checking' | 'blocked'; pill?: string }
 type LagBanner = BannerMeta & { pill: string }
 const BANNER: Partial<Record<HealthState, BannerMeta>> = {
-  updating: {
-    title: 'Engine updating',
-    body: 'A reviewed update is being installed. Existing runs keep going. Full runs and saved Continue requests can wait safely and start after it finishes.',
-    cta: 'retry',
-  },
   'engine-offline': {
     title: 'Engine offline',
     body: "The research engine's machine is asleep or offline. You're seeing the last loaded state; live actions are paused.",
@@ -73,12 +71,12 @@ export const DEPLOYMENT_LAG_GRACE_MS = 3 * 60_000
 export function deploymentLagBanner(lag: DeploymentLag, now = Date.now()): LagBanner | null {
   const waited = now - lag.pendingSince
   const minutes = Math.max(1, Math.floor(waited / 60_000))
-  const age = `${minutes} minute${minutes === 1 ? '' : 's'}`
+  const age = minutes < 60 ? `${minutes} minute${minutes === 1 ? '' : 's'}` : fmtDuration(waited)
   switch (lag.reason) {
     case 'dirty_nondata':
       return { title: 'Production update blocked', body: `Main has waited ${age}. Production has unexpected local files; move them outside the production folder, then refresh this status.`, cta: 'refresh', activity: 'blocked', pill: 'Live · update blocked' }
     case 'local_diverged':
-      return { title: 'Production update blocked', body: `Main has waited ${age}. Production has a local commit that is not on main; publish or recover it safely, then refresh this status.`, cta: 'refresh', activity: 'blocked', pill: 'Live · update blocked' }
+      return { title: 'Production update blocked', body: `The engine is live. This release has waited ${age} for local commits to reach main.`, cta: 'refresh', activity: 'blocked', pill: 'Live · update blocked' }
     case 'build_failed':
       return { title: 'Production update failed', body: `Main has waited ${age}. The production build failed and needs a code fix before it can continue.`, cta: 'refresh', activity: 'blocked', pill: 'Live · update failed' }
     case 'audit_pending':

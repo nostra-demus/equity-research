@@ -477,6 +477,10 @@ def test_numeric_audit_catalogue_path_index_tree_parity():
         run(["git", "init", "-q", "-b", "codex/audit-fixture", repo], cwd=temporary, env=env)
         catalogue = json.loads(Path(REPO_ROOT, "frameworks/memory/phase0/catalogue.json").read_text())
         patterns = [pattern for store in catalogue["stores"] for pattern in store["paths"]]
+        # A publisher still running the pre-token matcher validates the NEW catalogue
+        # before deploy can fast-forward. Existing v2 files must pass that older reader.
+        check("installed publishers retain explicit v2 audit coverage during rollout",
+              "analyses/*/expectations_gap_v2.json" in patterns)
         install_catalogue_fixture(repo, patterns)
         run(["git", "add", "."], cwd=repo, env=env)
         run(["git", "commit", "-qm", "fixture: installed catalogue"], cwd=repo, env=env)
