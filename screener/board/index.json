@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T21:56:57Z",
+  "generated_at": "2026-11-19T22:10:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -51,6 +51,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-735",
+      "headline": "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1801169/000135445726001093/0001354457-26-001093-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-19T21:09:40Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Opendoor Technologies filed SEC Form 25-NSE (delisting notification) from official primary source, signaling a material default/survival event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Opendoor Technologies filed SEC Form 25-NSE (delisting notification) from official primary source, signaling a material default/survival event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Opendoor Technologies Inc.",
+          "ticker": "OPEN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-736",
+      "headline": "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1354457/000135445726001093/0001354457-26-001093-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-19T21:09:40Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Nasdaq Stock Market LLC filed SEC Form 25-NSE delisting notice (exchange-initiated), confirming material distress event from regulatory primary source.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nasdaq Stock Market LLC filed SEC Form 25-NSE delisting notice (exchange-initiated), confirming material distress event from regulatory primary source.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 9,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Opendoor Technologies Inc.",
+          "ticker": "OPEN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1884,105 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-400",
-      "headline": "Disney plans $3 billion cost cuts by 2029, warns of more layoffs despite strong quarterly results",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/disney-plans-3-billion-cost-cuts-by-2029-warns-of-more-layoffs-despite-strong-quarterly-results-11795094214232.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T13:38:53Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Disney plans $3 billion in cost cuts by 2029 and warns of more layoffs despite strong quarterly results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Disney plans $3 billion in cost cuts by 2029 and warns of more layoffs despite strong quarterly results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Disney",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-705",
-      "headline": "Palo Alto Is Paying $4.5 Billion for a Startup Ex-OpenAI Researchers Founded Last Year",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/19/palo-alto-is-paying-4-5-billion-for-a-startup-ex-openai-researchers-founded-last-year/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T13:37:48Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Palo Alto Networks is acquiring a startup for $4.5 billion, a significant capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Palo Alto Networks is acquiring a startup for $4.5 billion, a significant capital allocation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Palo Alto Networks",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247894,77 +247893,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4b381cd917e9",
-      "idea_version": "IDEAV-425cf63cc3936162",
-      "idea_version_started_at": "2026-11-19T16:54:13Z",
-      "ticker": "02326",
-      "company": "NPE Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The positive profit alert indicates a significant improvement in profitability, which is a direct catalyst for multiple expansion.",
-      "why_now": "The announcement was made on 2026-11-18, providing a fresh signal for investors to re-evaluate the company's earnings trajectory.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c62452d2367a"
-      ],
-      "primary_source_event_id": "EVT-c62452d2367a",
-      "source_headlines": [
-        "NPE HOLDINGS (02326): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "NPE HOLDINGS (02326): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800914.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-18T10:02:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T16:54:13Z",
-      "updated_at": "2026-11-19T16:54:13Z",
-      "decay_at": "2026-11-19T22:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6bbcaece381e",
       "idea_version": "IDEAV-5718ddf365739bf3",
       "idea_version_started_at": "2026-11-19T15:44:22Z",
@@ -248108,6 +248036,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4b381cd917e9",
+      "idea_version": "IDEAV-425cf63cc3936162",
+      "idea_version_started_at": "2026-11-19T16:54:13Z",
+      "ticker": "02326",
+      "company": "NPE Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The positive profit alert indicates a significant improvement in profitability, which is a direct catalyst for multiple expansion.",
+      "why_now": "The announcement was made on 2026-11-18, providing a fresh signal for investors to re-evaluate the company's earnings trajectory.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c62452d2367a"
+      ],
+      "primary_source_event_id": "EVT-c62452d2367a",
+      "source_headlines": [
+        "NPE HOLDINGS (02326): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "NPE HOLDINGS (02326): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800914.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-18T10:02:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-19T16:54:13Z",
+      "updated_at": "2026-11-19T16:54:13Z",
+      "decay_at": "2026-11-19T22:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1242e9cb0820",
       "idea_version": "IDEAV-7c5b4adff7a939d6",
       "idea_version_started_at": "2026-11-19T15:44:22Z",
@@ -248189,14 +248188,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 500,
+    "total_count": 501,
     "shown_count": 499,
-    "hidden_count": 1,
+    "hidden_count": 2,
     "side_counts": {
       "long": {
-        "total_count": 251,
+        "total_count": 252,
         "shown_count": 250,
-        "hidden_count": 1
+        "hidden_count": 2
       },
       "short": {
         "total_count": 250,
@@ -248220,6 +248219,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4b381cd917e9",
+        "idea_version": "IDEAV-425cf63cc3936162",
+        "idea_version_started_at": "2026-11-19T16:54:13Z",
+        "ticker": "02326",
+        "company": "NPE Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The positive profit alert indicates a significant improvement in profitability, which is a direct catalyst for multiple expansion.",
+        "why_now": "The announcement was made on 2026-11-18, providing a fresh signal for investors to re-evaluate the company's earnings trajectory.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c62452d2367a"
+        ],
+        "primary_source_event_id": "EVT-c62452d2367a",
+        "source_headlines": [
+          "NPE HOLDINGS (02326): POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "NPE HOLDINGS (02326): POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111800914.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-18T10:02:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-19T16:54:13Z",
+        "updated_at": "2026-11-19T16:54:13Z",
+        "decay_at": "2026-11-19T22:02:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-19T22:02:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1242e9cb0820",
         "idea_version": "IDEAV-7c5b4adff7a939d6",
@@ -278480,82 +278553,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0e02a5d86bb3",
-        "idea_version": "IDEAV-3b4b8d05bd288743",
-        "idea_version_started_at": "2026-11-02T04:24:27Z",
-        "ticker": "BANKBARODA",
-        "company": "Bank of Baroda",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Bank of Baroda's Q2 net profit rose 36%, leading to a jump in its share price.",
-        "why_now": "The Q2 earnings report was released today, providing a clear catalyst for the stock's upward movement.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1da103b6696c"
-        ],
-        "primary_source_event_id": "EVT-1da103b6696c",
-        "source_headlines": [
-          "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?"
-        ],
-        "source_headline": "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-baroda-shares-in-focus-as-nse-stake-sale-aids-36-profit-growth-in-q2-what-are-nomura-other-brokerages-saying/articleshow/135443950.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T03:43:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T04:24:27Z",
-        "updated_at": "2026-11-02T04:24:27Z",
-        "decay_at": "2026-11-03T15:43:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4ae4c89c6f69",
         "idea_version": "IDEAV-31724928450997ba",
         "idea_version_started_at": "2026-11-02T04:03:43Z",
@@ -285335,7 +285332,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2517,
-    "live_count": 8,
+    "live_count": 7,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -285354,9 +285351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2315608,
-    "news_picked_today": 1779,
-    "news_dropped_today": 10725
+    "news_seen_today": 2329167,
+    "news_picked_today": 1790,
+    "news_dropped_today": 11122
   },
   "book_momentum": {
     "live_count": 8,
