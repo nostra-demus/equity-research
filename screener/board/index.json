@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T00:28:48Z",
+  "generated_at": "2026-11-19T00:29:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-032",
@@ -48,6 +48,55 @@
           "name": "UniCredit",
           "ticker": null,
           "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-046",
+      "headline": "Erstnotiz: Anthropic legt Aktienpreis für Mega-IPO bei 83 Dollar fest",
+      "headline_en": "First listing: Anthropic sets share price for mega-IPO at 83 dollars",
+      "url": "https://www.handelsblatt.com/finanzen/maerkte/erstnotiz-anthropic-legt-aktienpreis-fuer-mega-ipo-bei-83-dollar-fest/100270370.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:44:46Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic set the price for its IPO at $83 per share, a major market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Anthropic set the price for its IPO at $83 per share, a major market event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -149,6 +198,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-045",
+      "headline": "Meta halts plan to give Zuckerberg new class of shares",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/3c97ea69-1a32-4280-b067-f37f2874f987?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T22:58:24Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Meta halted a plan to issue a new class of shares, which would have consolidated voting power for Zuckerberg.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Meta halted a plan to issue a new class of shares, which would have consolidated voting power for Zuckerberg.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -310,6 +408,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-044",
+      "headline": "Developer lodges plans for Hong Kong towers a second time after 10% reduction in flats",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/article/3374847/developer-lodges-plans-hong-kong-towers-second-time-after-10-reduction-flats",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T23:00:05Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "A developer reduced the scale of a Hong Kong project by 10% after a previous rejection, indicating regulatory or market headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "A developer reduced the scale of a Hong Kong project by 10% after a previous rejection, indicating regulatory or market headwinds.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -513,56 +654,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261119-009",
-      "headline": "ChronoScale Announces New Development Partnership to Accelerate AI Compute Capacity Deployment, Supported by a Significant Capital Raise",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405620/29945/en/chronoscale-announces-new-development-partnership-to-accelerate-ai-compute-capacity-deployment-supported-by-a-significant-capital-raise.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "ChronoScale announced a new development partnership for AI compute capacity and a significant capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "ChronoScale announced a new development partnership for AI compute capacity and a significant capital raise.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ChronoScale",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261119-022",
       "headline": "Modern Mining Plans Its First Commercial-Scale E-Waste Gold Plant, With Capacity for About 40,000 Gold Equivalent Ounces a Year; Files Third Quarter 2026 Financial Statements | MDRN Stock News",
       "headline_en": null,
@@ -715,55 +806,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261119-026",
-      "headline": "CVR Energy Announces Offering of Senior Secured Notes Due 2032 | CVI Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/CVI/cvr-energy-announces-offering-of-senior-secured-notes-due-tcg5b8vfwxzm.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T12:53:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "CVR Energy is raising capital through a senior secured note offering due 2032.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "CVR Energy is raising capital through a senior secured note offering due 2032.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVR Energy",
-          "ticker": "CVI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261119-028",
       "headline": "CA Fastigheter emitterar framgångsrikt seniora icke-säkerställda gröna obligationer om 700 miljoner kronor",
       "headline_en": "CA Fastigheter successfully issues senior unsecured green bonds of 700 million SEK",
@@ -808,55 +850,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-012",
-      "headline": "DSS Announces Completion of Impact Biomedical Business Combination with Zoar Limited | DSS Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/DSS/dss-announces-completion-of-impact-biomedical-business-combination-mtw4rl8mqf1u.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "DSS completed a business combination between Impact Biomedical and Zoar Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "DSS completed a business combination between Impact Biomedical and Zoar Limited.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DSS",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1145,55 +1138,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-010",
-      "headline": "CareCloud Accelerates AI-Powered Growth with Over 40% Reduction in Claim Denials and Multiple New RCM Wins | CCLD Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/CCLD/care-cloud-accelerates-ai-powered-growth-with-over-40-reduction-in-tpg4wenalbcd.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-18T13:14:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "CareCloud reported a 40% reduction in claim denials and new RCM wins, indicating operational efficiency gains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "CareCloud reported a 40% reduction in claim denials and new RCM wins, indicating operational efficiency gains.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CareCloud",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,6 +1831,55 @@
           "name": "Homeward",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-043",
+      "headline": "Can-Fite Pivotal Phase III Psoriasis Study Under an FDA- and EMA-agreed protocol: All Patients Completed Dosing and Interim Analysis Expected Q1 2027",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405528/0/en/can-fite-pivotal-phase-iii-psoriasis-study-under-an-fda-and-ema-agreed-protocol-all-patients-completed-dosing-and-interim-analysis-expected-q1-2027.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Can-Fite completed dosing for a pivotal Phase III study, a critical step toward potential regulatory approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "Can-Fite completed dosing for a pivotal Phase III study, a critical step toward potential regulatory approval.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Can-Fite BioPharma",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -291220,9 +291213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 86564,
-    "news_picked_today": 43,
-    "news_dropped_today": 245
+    "news_seen_today": 98776,
+    "news_picked_today": 47,
+    "news_dropped_today": 265
   },
   "book_momentum": {
     "live_count": 8,
