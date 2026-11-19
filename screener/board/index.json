@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T19:48:37Z",
+  "generated_at": "2026-11-19T19:55:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -740,6 +740,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-576",
+      "headline": "Anthropic shares surge over 30% in world's biggest IPO, valuation tops $2 trillion",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/markets/anthropic-shares-surge-over-30-in-worlds-biggest-ipo-valuation-tops-2-trillion-1.500754119",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T17:56:02Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic completed a record-breaking IPO with a valuation exceeding $2 trillion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic completed a record-breaking IPO with a valuation exceeding $2 trillion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,60 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-315",
-      "headline": "UniCredit Strikes Deal With Germany to Clear Path for Commerzbank Takeover",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/unicredit-strikes-deal-with-germany-to-clear-path-for-commerzbank-takeover-8668f619?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:31:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "UniCredit reached a deal with the German government to facilitate its potential takeover of Commerzbank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UniCredit reached a deal with the German government to facilitate its potential takeover of Commerzbank.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UniCredit",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Commerzbank",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285354,9 +285349,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2121032,
-    "news_picked_today": 1366,
-    "news_dropped_today": 9410
+    "news_seen_today": 2135860,
+    "news_picked_today": 1396,
+    "news_dropped_today": 9476
   },
   "book_momentum": {
     "live_count": 8,
