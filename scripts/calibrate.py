@@ -646,7 +646,11 @@ def forecast_resolution_coverage(record, reviews, pairs, today):
     ledger = record.get("forecast_ledger", []) or []
     ledger = ledger if isinstance(ledger, list) else []
     scored = {p.get("ledger_index") for p in pairs}
-    tagged = [dict(r, _basename=os.path.basename(str(r.get("_path") or ""))) for r in reviews if isinstance(r, dict)]
+    # Superseded correction versions are dropped first, exactly as the Brier pairing does: a `_v1` row that
+    # its `_v2` correction removed must not keep speaking for the forecast (it would report a stale bucket
+    # for a row the scored sample no longer knows).
+    tagged = [dict(r, _basename=os.path.basename(str(r.get("_path") or "")))
+              for r in standing_reviews([r for r in reviews if isinstance(r, dict)])]
     links = review_forecast_links(ledger, tagged)
     res = {"n_ledger": 0, "n_undated": 0, "n_matured": 0, "n_matured_scored": 0, "n_scored_early": 0, "unscored": []}
     for i, e in enumerate(ledger):
@@ -1892,6 +1896,14 @@ def _bounds_clause(fr):
     return text + ". "
 
 
+def _undated_clause(fr):
+    """Forecasts whose window the reader cannot date are outside the matured count altogether. That is a
+    gap in the denominator, so it is stated wherever the coverage is ('' when there are none)."""
+    n = fr.get("n_undated") or 0
+    return (f"{n} more ledger forecast(s) carry no readable window (e.g. 'H1 FY28'), so they are outside "
+            "this count whether or not their window has passed. " if n else "")
+
+
 def _below_floor_clause(fr):
     if not fr.get("below_floor"):
         return ""
@@ -1912,6 +1924,7 @@ def _coverage_sentence(fr):
     early = fr.get("n_scored_before_maturity_or_undated") or 0
     text += (f"; the other {early} scored forecast(s) settled before their window closed or carry no "
              "machine-readable window. " if early else ". ")
+    text += _undated_clause(fr)
     text += _bounds_clause(fr) + _below_floor_clause(fr)
     return text
 
@@ -1946,8 +1959,9 @@ def _verdict(out):
                 rng = (f"; Brier between {bd['best']} and {bd['worst']} had "
                        + ("they" if not ex else f"the {bd['n_unscored_added']} with a usable probability")
                        + " settled")
+            und = f"; {fr['n_undated']} more undated, not counted" if fr.get("n_undated") else ""
             cov = (f" ({fr['n_matured_scored']} of {fr['n_matured']} matured forecasts scored"
-                   + (f"; unscored: {gaps}" if gaps else "") + rng + floor + ")")
+                   + (f"; unscored: {gaps}" if gaps else "") + und + rng + floor + ")")
         parts.append(f"Brier {out['calibration']['brier']}{cov}")
     if out["selected_minus_rejected_pct"] is not None:
         parts.append(f"legacy checkpoint-label Selected−Rejected proxy {out['selected_minus_rejected_pct']:+.1f}pp")
@@ -1988,6 +2002,7 @@ def render_markdown(out):
         L.append(f"- Matured forecasts scored: **{fr['n_matured_scored']} of {fr['n_matured']}** "
                  f"({_cov_pct(fr['coverage'])}; floor {fr['coverage_floor']:.0%}) — "
                  f"{fr['n_matured_unscored']} matured but unscored"
+                 + (f"; {fr['n_undated']} more carry no readable window and are not counted" if fr.get("n_undated") else "")
                  + (" — **below the floor: any Brier in this report describes only the forecasts the "
                     "engine could check**" if fr.get("below_floor") else ""))
     L.append(f"- Directional calls resolved (hit-rate-scorable): **{out['n_directional_calls_resolved']}** / floor {MIN_DIRECTIONAL_HITS}")

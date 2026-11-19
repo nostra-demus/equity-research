@@ -1755,7 +1755,7 @@ def test_forecast_resolution_coverage():
     # calibrate.md: a quoted Brier carries its coverage, the bucket counts and the [best, worst] range —
     # the verdict is the one line the CLI prints, so all three are in it (Codex #825).
     check("(10 of 14 matured forecasts scored; unscored: 1 not assessable, 1 still open, 1 never reviewed, "
-          "1 settled not scored; Brier between 0.152308 and 0.229231 had the 3 with a usable probability settled)"
+          "1 settled not scored; 1 more undated, not counted; Brier between 0.152308 and 0.229231 had the 3 with a usable probability settled)"
           in out["verdict"], f"verdict carries coverage, buckets and bounds (got {out['verdict']})")
     # CLAUDE.md §3 — a range that leaves a forecast out must say so (Codex #825): the mis-scaled 0.7 row
     # is in the unscored count but cannot be placed in the bounds, so the quote names the scope.
@@ -1763,6 +1763,8 @@ def test_forecast_resolution_coverage():
           and "not a bound for the whole unscored set" in out["honesty_statement"],
           f"bounds are labelled as covering only the scorable unscored forecasts (got: {out['honesty_statement'][-500:]})")
     check("below the" not in out["verdict"], "no below-floor reading in the verdict when coverage clears the floor")
+    check("1 more ledger forecast(s) carry no readable window" in out["honesty_statement"],
+          "an undated forecast is a stated gap in the denominator, not a silent one (§3)")
     md = C.render_markdown(dict(out))
     check("never settled" not in md and "4 of 14 matured ledger forecasts (gated population) are not in the Brier sample" in md,
           "the section headline does not call a settled-but-unscorable forecast unsettled")
@@ -1824,6 +1826,20 @@ def test_forecast_resolution_coverage():
           and fr5["n_undated"] == 0,
           f"only windows that have CLOSED count as matured (got {[u['prediction'] for u in fr5['unscored']]})")
     check(fr5["n_unscored_without_scorable_probability"] == 1, "an oversized probability is named as unscorable")
+
+    # A corrected review supersedes its earlier version everywhere: a row `_v1` carried and `_v2` removed
+    # must not keep speaking for the forecast in the coverage buckets (the Brier pairing already drops it).
+    sup = [{"run_root": "analyses/S0_2026-06-01", "record": {"ticker": "S0", "decision": "Watchlist",
+            "decision_date": "2026-06-01", "basket": "Watchlist", "forecast_ledger": [
+                {"prediction": "s", "probability": 50, "time_window": "2026-07-01"}]}}]
+    sup_reviews = [
+        {"review_date": "2026-07-10", "review_window": "30d", "_path": "analyses/S0_2026-06-01/reviews/2026-07-10_30d_decision_review.json",
+         "forecast_results": [{"prediction": "s", "status": "not assessable"}]},
+        {"review_date": "2026-07-10", "review_window": "30d", "_path": "analyses/S0_2026-06-01/reviews/2026-07-10_30d_decision_review_v2.json",
+         "forecast_results": []}]
+    out6 = C.build(standing=sup, today="2026-07-18", reviews_provider=lambda r: sup_reviews)
+    check([u["bucket"] for u in out6["forecast_resolution"]["unscored"]] == ["never_reviewed"],
+          f"a row only the superseded _v1 carried does not set the bucket (got {out6['forecast_resolution']['unscored']})")
 
 
 def test_resolution_markdown_newline_prediction_stays_one_row():
