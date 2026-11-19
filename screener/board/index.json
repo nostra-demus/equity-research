@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T23:49:23Z",
+  "generated_at": "2026-11-19T23:59:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -937,6 +937,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-797",
+      "headline": "Anthropic surges in market debut after biggest IPO on record, despite fears that AI is running amok",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261120/p2g/00m/0bu/011000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T23:39:30Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic's record-breaking IPO debut.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic's record-breaking IPO debut.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-795",
+      "headline": "Anthropic shares surge 17% after record $107.3 billion IPO, valuing AI firm at $1.8 trillion",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/stock-markets/anthropic-shares-surge-17-after-record-1073-billion-ipo-valuing-ai-firm-at-18-trillion/article71721993.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T23:34:41Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anthropic completed a record $107.3 billion IPO, valuing the company at $1.8 trillion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic completed a record $107.3 billion IPO, valuing the company at $1.8 trillion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1896,104 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-573",
-      "headline": "Honda invests $462M in Alabama plant to boost production",
-      "headline_en": null,
-      "url": "https://www.manufacturingdive.com/news/honda-462m-alabama-plant-boost-production-truck/875064/",
-      "source_name": "Manufacturing Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T16:46:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Honda is investing $462 million in its Alabama plant to increase production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Honda is investing $462 million in its Alabama plant to increase production capacity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-414",
-      "headline": "Luxfer Holdings PLC Acquired by Wynnchurch Capital Affiliate for $17.37 Per Share in Take-Private Transaction",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/luxfer-holdings-plc-acquired-wynnchurch-capital-affiliate-1737-share-take-private",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T16:38:37Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Luxfer Holdings PLC is being acquired in a take-private transaction for $17.37 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Luxfer Holdings PLC is being acquired in a take-private transaction for $17.37 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Luxfer Holdings PLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247834,77 +247834,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1f6d8cf01450",
-      "idea_version": "IDEAV-4bab69436492781d",
-      "idea_version_started_at": "2026-11-19T16:54:13Z",
-      "ticker": "00595",
-      "company": "AV Concept Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A positive profit alert signals better-than-expected earnings performance, likely leading to an upward revision in analyst estimates.",
-      "why_now": "The profit alert was filed on 2026-11-18, and the market typically reacts to such guidance updates in the following trading sessions.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b740cd2b8ac7"
-      ],
-      "primary_source_event_id": "EVT-b740cd2b8ac7",
-      "source_headlines": [
-        "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111801347.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-18T11:51:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T16:54:13Z",
-      "updated_at": "2026-11-19T16:54:13Z",
-      "decay_at": "2026-11-19T23:51:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6bbcaece381e",
       "idea_version": "IDEAV-5718ddf365739bf3",
       "idea_version_started_at": "2026-11-19T15:44:22Z",
@@ -248046,6 +247975,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-1f6d8cf01450",
+      "idea_version": "IDEAV-4bab69436492781d",
+      "idea_version_started_at": "2026-11-19T16:54:13Z",
+      "ticker": "00595",
+      "company": "AV Concept Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A positive profit alert signals better-than-expected earnings performance, likely leading to an upward revision in analyst estimates.",
+      "why_now": "The profit alert was filed on 2026-11-18, and the market typically reacts to such guidance updates in the following trading sessions.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b740cd2b8ac7"
+      ],
+      "primary_source_event_id": "EVT-b740cd2b8ac7",
+      "source_headlines": [
+        "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111801347.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-18T11:51:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-19T16:54:13Z",
+      "updated_at": "2026-11-19T16:54:13Z",
+      "decay_at": "2026-11-19T23:51:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-4b381cd917e9",
@@ -248200,14 +248200,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 501,
+    "total_count": 502,
     "shown_count": 499,
-    "hidden_count": 2,
+    "hidden_count": 3,
     "side_counts": {
       "long": {
-        "total_count": 252,
+        "total_count": 253,
         "shown_count": 250,
-        "hidden_count": 2
+        "hidden_count": 3
       },
       "short": {
         "total_count": 250,
@@ -248231,6 +248231,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1f6d8cf01450",
+        "idea_version": "IDEAV-4bab69436492781d",
+        "idea_version_started_at": "2026-11-19T16:54:13Z",
+        "ticker": "00595",
+        "company": "AV Concept Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A positive profit alert signals better-than-expected earnings performance, likely leading to an upward revision in analyst estimates.",
+        "why_now": "The profit alert was filed on 2026-11-18, and the market typically reacts to such guidance updates in the following trading sessions.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b740cd2b8ac7"
+        ],
+        "primary_source_event_id": "EVT-b740cd2b8ac7",
+        "source_headlines": [
+          "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111801347.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-18T11:51:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-19T16:54:13Z",
+        "updated_at": "2026-11-19T16:54:13Z",
+        "decay_at": "2026-11-19T23:51:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-19T23:51:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4b381cd917e9",
         "idea_version": "IDEAV-425cf63cc3936162",
@@ -278414,80 +278488,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-6a108fe22512",
-        "idea_version": "IDEAV-76297bd161f3338b",
-        "idea_version_started_at": "2026-11-02T04:03:43Z",
-        "ticker": "09966",
-        "company": "Alphamab Oncology",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "FDA approval to initiate a Phase I clinical study for JSKN021 provides a critical de-risking event for the company's pipeline and opens the path to potential future licensing deals.",
-        "why_now": "The voluntary announcement regarding the FDA approval was filed on November 02, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1bb29ddedb9c"
-        ],
-        "primary_source_event_id": "EVT-1bb29ddedb9c",
-        "source_headlines": [
-          "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021"
-        ],
-        "source_headline": "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200631.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-11-02T04:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T04:03:43Z",
-        "updated_at": "2026-11-02T04:03:43Z",
-        "decay_at": "2026-11-03T16:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bdc0aa865c9e",
         "idea_version": "IDEAV-b02192a673bf6b05",
         "idea_version_started_at": "2026-11-02T04:24:27Z",
@@ -285344,7 +285344,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2517,
-    "live_count": 7,
+    "live_count": 6,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -285363,9 +285363,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2454339,
-    "news_picked_today": 2039,
-    "news_dropped_today": 12529
+    "news_seen_today": 2460057,
+    "news_picked_today": 2079,
+    "news_dropped_today": 12657
   },
   "book_momentum": {
     "live_count": 8,
