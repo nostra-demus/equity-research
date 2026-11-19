@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T21:36:02Z",
+  "generated_at": "2026-11-19T21:40:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-418",
@@ -1789,6 +1789,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-700",
+      "headline": "Walmart Q3 Net Profit Drops, Despite Sales Growth; Lifts FY27 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/walmart-q3-net-profit-drops-despite-sales-growth-lifts-fy27-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T13:48:15Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Walmart reported a Q3 net profit drop despite sales growth and raised its FY27 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Walmart reported a Q3 net profit drop despite sales growth and raised its FY27 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walmart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-400",
       "headline": "Disney plans $3 billion cost cuts by 2029, warns of more layoffs despite strong quarterly results",
       "headline_en": null,
@@ -1931,56 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-371",
-      "headline": "Walmart tops profit estimates, raises outlook for third time this year",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-walmart-results-sales-and-profit-outlook/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:27:22Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Walmart beat profit estimates and raised its full-year outlook for the third time this year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Walmart beat profit estimates and raised its full-year outlook for the third time this year.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walmart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285352,9 +285352,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2295111,
-    "news_picked_today": 1721,
-    "news_dropped_today": 10447
+    "news_seen_today": 2301287,
+    "news_picked_today": 1732,
+    "news_dropped_today": 10484
   },
   "book_momentum": {
     "live_count": 8,
