@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T00:09:52Z",
+  "generated_at": "2026-11-19T00:10:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-001",
@@ -47,6 +47,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-005",
+      "headline": "Z Squared Inc. (Nasdaq: ZSQR) Secures Option on Approximately 89.56 Acres to Expand Union County AI Campus, Advancing Development Plan Targeting 150 MW AI-Ready Capacity",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/z-squared-inc-nasdaq-zsqr-secures-option-on-approximately-89-56-acres-to-expand-union-county-ai-campus-advancing-development-plan-targeting-150-mw-ai-ready-capacity-302943505.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Z Squared Inc. secured 89.56 acres to expand an AI campus targeting 150 MW of capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Z Squared Inc. secured 89.56 acres to expand an AI campus targeting 150 MW of capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Z Squared Inc.",
+          "ticker": "ZSQR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-007",
+      "headline": "CareCloud Accelerates AI-Powered Growth with Over 40% Reduction in Claim Denials and Multiple New RCM Wins",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/18/3405619/16541/en/carecloud-accelerates-ai-powered-growth-with-over-40-reduction-in-claim-denials-and-multiple-new-rcm-wins.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T13:14:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "CareCloud reports operational efficiency gains with 40% reduction in claim denials.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "CareCloud reports operational efficiency gains with 40% reduction in claim denials.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CareCloud",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -191,6 +289,60 @@
           "name": "KULR",
           "ticker": "KULR",
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-006",
+      "headline": "Anixa Biosciences and Curia will Develop Final Formulation for Breast Cancer Vaccine in Preparation for Phase 2 Clinical Trial | ANIX Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ANIX/anixa-biosciences-and-curia-will-develop-final-formulation-for-k3wqqs0azcng.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-18T13:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Anixa Biosciences and Curia partner to develop a breast cancer vaccine for Phase 2 trials.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "Anixa Biosciences and Curia partner to develop a breast cancer vaccine for Phase 2 trials.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anixa Biosciences",
+          "ticker": "ANIX",
+          "listing_country": "US"
+        },
+        {
+          "name": "Curia",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -289417,7 +289569,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5011,
+    "inbox_unconsumed": 5014,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
