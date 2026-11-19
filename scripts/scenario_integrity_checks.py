@@ -826,7 +826,7 @@ _BK_REFERENCE = re.compile(
 _BK_COMPACT_PERIOD = re.compile(
     r"\b(?:q[1-4]|[1-4]q|h[12]|[12]h|fy)['’]\d{2}\b|\b(?:q[1-4]|[1-4]q|h[12]|[12]h)\d{2}\b", re.I)
 _BK_NUM = r"\d[\d,]*(?:\.\d+)?"
-_BK_CCY = r"(?:[$₹€£¥]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|hkd|krw|sar|aed|sgd|aud|cad|chf)\s?)"
+_BK_CCY = r"(?:[$₹€£¥₩₽₺₪฿₫₱₦₴₸₨₡₲₵₭₮]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|hkd|krw|sar|aed|sgd|aud|cad|chf)\s?)"
 _BK_CMP = (r"(?:>=|<=|[<>≥≤=~]|\b(?:above|below|over|under|exceed(?:s|ed|ing)?|at\s+least|at\s+most|"
            r"(?:more|less|greater|fewer|higher|lower)\s+than|between|reach(?:es|ed|ing)?|hits?|tops?|"
            r"cross(?:es|ed|ing)?|(?:rises?|falls?|drops?|grows?|increases?|decreases?|declines?|improves?|"
@@ -839,6 +839,9 @@ _BK_THRESHOLD_NUMBER = re.compile(
     _BK_NUM + _BK_UNIT + "|" +                                # (a) number + unit
     _BK_CCY + r"\s?" + _BK_NUM + "|" +                        # (b) currency + number
     _BK_CMP + _BK_FILLER + r"[-+−]?" + _BK_NUM + r"(?![\d'’]|-\d)|" +   # (c) comparator + number
+    # ... or a level stated with 'of': 'DSO of 30 days', 'EPS of 42'. A bare year is excluded, so 'by the
+    # end of 2027' and 'the Act of 2013' stay labels.
+    r"\bof\s+(?!(?:19|20)\d{2}\b)" + _BK_NUM + r"(?![\d'’]|-\d)|" +
     # ... or a comparator AFTER it: '30 days or lower', '500 stores or more', '42 or better'
     _BK_NUM + r"(?:\s+[a-z]+){0,2}\s+or\s+(?:lower|higher|more|less|fewer|greater|better|worse|below|above)\b|" +
     r"(?<![\d.,/])\d+\.\d+(?![\d.])|"                        # (d) a decimal ...

@@ -3332,6 +3332,9 @@ if scope=="selftest":
     _bk_verbunit= {"forecast_id":"F34","confirmation_trigger":"The filing notes 500 stores opened.","fired_last_two_periods":False}  # guard: 'notes' as a verb + any unit keeps its number
     _bk_copula  = {"forecast_id":"F35","confirmation_trigger":"Employee count is 500.","falsification_trigger":"Employee count is not 500.","fired_last_two_periods":False}  # guard: a plain statement of level
     _bk_tiebrk  = {"forecast_id":"F36","confirmation_trigger":"The 10-K is filed in 90 days or less after year end.","fired_last_two_periods":False}  # tie-break: a window worded like a bar stays numeric (the cheap error)
+    _bk_oflevel = {"forecast_id":"F37","confirmation_trigger":"The filing reports DSO of 30 days.","fired_last_two_periods":False}  # guard: a level stated with 'of'
+    _bk_ofyear  = {"forecast_id":"F38","confirmation_trigger":"The plant is commissioned by the end of 2027 under the Act of 2013."}  # 'of <year>' is not a level
+    _bk_won     = {"forecast_id":"F39","confirmation_trigger":"EPS prints ₩500.","fired_last_two_periods":False}  # guard: home-currency symbols beyond $ ₹ € £ ¥ (§27)
     bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
         (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
         (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
@@ -3362,6 +3365,9 @@ if scope=="selftest":
         (BK_DATE,[_bk_verbunit],["forecast_ledger[0] (F34) pins a numeric threshold but has no comparable_basis"]),   # guard: 'notes 500 stores'
         (BK_DATE,[_bk_copula],["forecast_ledger[0] (F35) pins a numeric threshold but has no comparable_basis"]),     # guard: 'is 500' / 'is not 500'
         (BK_DATE,[_bk_tiebrk],["forecast_ledger[0] (F36) pins a numeric threshold but has no comparable_basis"]),     # tie-break locked: ambiguous shape reads numeric
+        (BK_DATE,[_bk_oflevel],["forecast_ledger[0] (F37) pins a numeric threshold but has no comparable_basis"]),    # guard: 'DSO of 30 days'
+        (BK_DATE,[_bk_ofyear],None),                                    # 'end of 2027' / 'Act of 2013' are not bars
+        (BK_DATE,[_bk_won],["forecast_ledger[0] (F39) pins a numeric threshold but has no comparable_basis"]),        # guard: '₩500'
         (BK_DATE,[_bk_ok],[]),
         (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
         (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
