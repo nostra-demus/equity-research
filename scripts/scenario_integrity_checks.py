@@ -805,8 +805,15 @@ _BK_NUM_DATE = re.compile(r"\b\d{1,2}([/.\-])\d{1,2}\1\d{2,4}\b|\b\d{4}([/.\-])\
 _BK_REF = r"\d[\w.()]*(?:-\w+)*"
 _BK_REFERENCE = re.compile(
     r"(?:§+\s*|\b(?:items?|sections?|secs?|clauses?|articles?|rules?|notes?|para(?:graph)?s?|schedules?|"
-    r"exhibits?|annex(?:ure)?s?|appendix|chapters?|parts?|phases?|tranches?|forms?|orders?|nos?)\b\.?\s*)"
+    r"exhibits?|annex(?:ure)?s?|appendix|chapters?|phases?|tranches?|forms?)\b\.?\s*)"
+    # ... unless the number is a measured quantity: 'Recurring revenue forms 30% of total' and 'notes 12.5%
+    # growth' use these words as ordinary verbs, and stripping the number would hide a real bar (Codex #826).
+    r"(?!\d[\d,.]*\s?(?:%|percent|per\s+cent|pp|bps?|basis\s+points?)(?!\w))"
     + _BK_REF + r"(?:\s*(?:,|and|&|–|/)\s*" + _BK_REF + r")*", re.I)
+# Compact period labels the shared tokenizer leaves a year digit in: "Q3'27", "H1'27", "FY'27", '3Q27',
+# '1H27'. The apostrophe or the glued digits mark a label; 'Q4 25%' (a space, then a quantity) is untouched.
+_BK_COMPACT_PERIOD = re.compile(
+    r"\b(?:q[1-4]|[1-4]q|h[12]|[12]h|fy)['’]\d{2}\b|\b(?:q[1-4]|[1-4]q|h[12]|[12]h)\d{2}\b", re.I)
 _BK_NUM = r"\d[\d,]*(?:\.\d+)?"
 _BK_CCY = r"(?:[$₹€£¥]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|hkd|krw|sar|aed|sgd|aud|cad|chf)\s?)"
 _BK_UNIT = (r"(?:%|[xkm]\b|\s?(?:percent(?:age\s+points?)?|per\s+cent|pp|ppts?|bps?|basis\s+points?|times|"
@@ -823,6 +830,8 @@ _BK_THRESHOLD_NUMBER = re.compile(
     _BK_NUM + _BK_UNIT + "|" +                                # (a) number + unit
     _BK_CCY + r"\s?" + _BK_NUM + "|" +                        # (b) currency + number
     _BK_CMP + _BK_FILLER + r"[-+−]?" + _BK_NUM + r"(?![\d'’]|-\d)|" +   # (c) comparator + number
+    # ... or a comparator AFTER it: '30 days or lower', '500 stores or more', '42 or better'
+    _BK_NUM + r"(?:\s+[a-z]+){0,2}\s+or\s+(?:lower|higher|more|less|fewer|greater|better|worse|below|above)\b|" +
     r"(?<![\d.,/])\d+\.\d+(?![\d.])|"                        # (d) a decimal ...
     r"(?<![\d.,/])\d{1,3}(?:,\d{2,3})+(?![\d.])",            #     ... or a thousands-separated number
     re.I)
@@ -831,7 +840,7 @@ def _bk_strip_labels(text):
     """Remove form names, period labels, calendar dates and document-part references — digits that
     are never a threshold."""
     text = _BK_FORM_NAMES.sub(" ", text)
-    for _rx in (_BK_QTR_YEAR, _BK_NL_DATE, _BK_NUM_DATE, _BK_REFERENCE):
+    for _rx in (_BK_QTR_YEAR, _BK_COMPACT_PERIOD, _BK_NL_DATE, _BK_NUM_DATE, _BK_REFERENCE):
         text = _rx.sub(" ", text)
     return _AO_PERIOD_TOKENS.sub(" ", text)
 

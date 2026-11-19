@@ -3325,6 +3325,10 @@ if scope=="selftest":
     _bk_ccy     = {"forecast_id":"F27","falsification_trigger":"FY27 EPS prints Rs 42 or lower.","fired_last_two_periods":False}  # guard: currency + bare integer
     _bk_thunit  = {"forecast_id":"F28","threshold":"DSO 30 days","confirmation_trigger":"The filing reports DSO at or under the bar.","fired_last_two_periods":False}  # guard: the threshold field keeps the strict any-digit test — no unit list is complete
     _bk_cents   = {"forecast_id":"F29","confirmation_trigger":"The filing reports earnings of 42 cents per share.","fired_last_two_periods":False}  # guard: money sub-unit in trigger prose
+    _bk_postfix = {"forecast_id":"F30","confirmation_trigger":"The filing reports DSO at 30 days or lower.","fired_last_two_periods":False}  # guard: comparator AFTER the number
+    _bk_thlabel = {"forecast_id":"F31","threshold":"Q3'27 filing","confirmation_trigger":"The 3Q27 results and H1'27 guidance confirm the start-up."}  # compact period labels in the strict `threshold` field
+    _bk_verb    = {"forecast_id":"F32","confirmation_trigger":"Recurring revenue forms 30% of total revenue.","fired_last_two_periods":False}  # guard: 'forms' as a verb keeps its number
+    _bk_window  = {"forecast_id":"F33","confirmation_trigger":"The 10-K is filed within 90 days of year end under Form 10 rules."}  # a filing deadline and a form number are not bars
     bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
         (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
         (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
@@ -3348,6 +3352,10 @@ if scope=="selftest":
         (BK_DATE,[_bk_ccy],["forecast_ledger[0] (F27) pins a numeric threshold but has no comparable_basis"]),        # guard: 'Rs 42'
         (BK_DATE,[_bk_thunit],["forecast_ledger[0] (F28) pins a numeric threshold but has no comparable_basis"]),     # guard: 'DSO 30 days' in `threshold`
         (BK_DATE,[_bk_cents],["forecast_ledger[0] (F29) pins a numeric threshold but has no comparable_basis"]),      # guard: '42 cents per share'
+        (BK_DATE,[_bk_postfix],["forecast_ledger[0] (F30) pins a numeric threshold but has no comparable_basis"]),    # guard: '30 days or lower'
+        (BK_DATE,[_bk_thlabel],None),                                   # "Q3'27 filing" in `threshold` is a label, not a bar
+        (BK_DATE,[_bk_verb],["forecast_ledger[0] (F32) pins a numeric threshold but has no comparable_basis"]),       # guard: 'forms 30%'
+        (BK_DATE,[_bk_window],None),                                    # 'within 90 days' / 'Form 10' are not bars
         (BK_DATE,[_bk_ok],[]),
         (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
         (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
@@ -5254,7 +5262,7 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
 ]
 FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
-    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "_BK_REFERENCE", "_BK_THRESHOLD_NUMBER", "_bk_pins_a_threshold", "eval_ba_kill_criteria_trigger_test",
+    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "_BK_REFERENCE", "_BK_COMPACT_PERIOD", "_BK_THRESHOLD_NUMBER", "_bk_pins_a_threshold", "eval_ba_kill_criteria_trigger_test",
 ]
 FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bk_forecast_trigger_test"]
 FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["fired_last_two_periods", "check BK"]
