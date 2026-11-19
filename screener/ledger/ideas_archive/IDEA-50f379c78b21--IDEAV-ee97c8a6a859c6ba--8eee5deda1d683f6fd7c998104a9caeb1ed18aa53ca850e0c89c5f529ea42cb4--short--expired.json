@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-19T15:14:32Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-50f379c78b21",
+    "idea_version": "IDEAV-ee97c8a6a859c6ba",
+    "idea_version_started_at": "2026-11-14T14:14:26Z",
+    "ticker": "NVDA",
+    "company": "Nvidia",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The sudden resignation of the CEO creates significant leadership uncertainty and strategic risk for the company's future growth trajectory.",
+    "why_now": "The resignation was announced on 2026-11-14, triggering an immediate sell-off.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 65,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-8acb71461f4f"
+    ],
+    "primary_source_event_id": "EVT-8acb71461f4f",
+    "source_headlines": [
+      "Nvidia Stock Falls Below $165 After Its CEO Resigns: Is It a Bargain Buy?"
+    ],
+    "source_headline": "Nvidia Stock Falls Below $165 After Its CEO Resigns: Is It a Bargain Buy?",
+    "source_url": "https://www.fool.com/investing/2026/11/14/nvidia-stock-falls-below-usd165-after-its-ceo-resigns-is-it-a-bargain-buy/?source=iedfolrf0000001",
+    "source_name": "The Motley Fool",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-14T13:41:02Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-07T15:09:40Z",
+    "updated_at": "2026-11-14T14:14:26Z",
+    "decay_at": "2026-11-16T01:41:02Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
