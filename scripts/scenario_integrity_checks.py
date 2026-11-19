@@ -798,7 +798,7 @@ _BK_NUM_DATE = re.compile(r"\b\d{1,2}([/.\-])\d{1,2}\1\d{2,4}\b|\b\d{4}([/.\-])\
 #   (b) a currency right before it ('$1.70', 'Rs 42', 'USD 10'),
 #   (c) a comparator right before it ('above 3', 'at least 12', '>= 42', 'between 10 and 12', 'rises to 500'),
 #   (d) its own shape — a decimal point or thousands separator ('15.5', '1,123'), which labels do not carry, or
-#   (e) the dedicated `threshold` field being a bare number (0, 42, '1.5').
+#   (e) sitting in the dedicated `threshold` field, where any digit left after the strips still counts.
 # A bare integer inside document prose ('Sections 230-232', "Q3'27 filing", 'Phase 3 readout') is a label.
 # A number that follows a document-part noun is a reference, not a quantity: 'Sections 230-232', 'Item 5.02'
 # (an 8-K item), 'Rule 10b-5', 'Note 18', 'Phase 3', 'Clause 10.1 and 10.2'. Stripped with its continuation.
@@ -810,7 +810,7 @@ _BK_REFERENCE = re.compile(
 _BK_NUM = r"\d[\d,]*(?:\.\d+)?"
 _BK_CCY = r"(?:[$₹€£¥]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|hkd|krw|sar|aed|sgd|aud|cad|chf)\s?)"
 _BK_UNIT = (r"(?:%|[xkm]\b|\s?(?:percent(?:age\s+points?)?|per\s+cent|pp|ppts?|bps?|basis\s+points?|times|"
-            r"cr|crores?|lakhs?|lacs?|mn|mm|mln|million|bn|bln|billion|tn|trillion|"
+            r"cents?|paise|pence|per\s+share|cr|crores?|lakhs?|lacs?|mn|mm|mln|million|bn|bln|billion|tn|trillion|"
             r"tonnes?|tons?|mt|mtpa|gw|mw|gwh|mwh|units?|stores?|outlets?|subscribers?|users?|customers?|"
             r"employees?|branches)\b)")
 _BK_CMP = (r"(?:>=|<=|[<>≥≤=~]|\b(?:above|below|over|under|exceed(?:s|ed|ing)?|at\s+least|at\s+most|"
@@ -826,7 +826,6 @@ _BK_THRESHOLD_NUMBER = re.compile(
     r"(?<![\d.,/])\d+\.\d+(?![\d.])|"                        # (d) a decimal ...
     r"(?<![\d.,/])\d{1,3}(?:,\d{2,3})+(?![\d.])",            #     ... or a thousands-separated number
     re.I)
-_BK_BARE_NUMBER = re.compile(r"\s*[-+−]?" + _BK_NUM + r"\s*\Z")
 
 def _bk_strip_labels(text):
     """Remove form names, period labels, calendar dates and document-part references — digits that
@@ -847,11 +846,16 @@ def _bk_pins_a_threshold(e):
         return True
     fields = ["" if e.get(k) is None else str(e.get(k))
               for k in ("threshold", "confirmation_trigger", "falsification_trigger")]
-    if _BK_BARE_NUMBER.match(fields[0]):
-        return True  # (e) the dedicated threshold field is nothing but a number
+    # (e) The `threshold` field exists to hold the bar, so there the test stays the strict one: ANY digit
+    # that survives the label strips is a threshold ('DSO 30 days', '42 cents per share', '42'). No unit
+    # vocabulary can be complete, and missing a real bar is the costly direction — a numeric forecast would
+    # publish with no comparable (Codex #826). The positive test applies only to the two trigger fields,
+    # which are free prose where document, statute and period labels actually occur.
+    if re.search(r"\d", _bk_strip_labels(fields[0])):
+        return True
     # Fields are tested one at a time, so a comparator ending one field cannot pair with a digit
     # opening the next.
-    return any(_BK_THRESHOLD_NUMBER.search(_bk_strip_labels(f)) for f in fields)
+    return any(_BK_THRESHOLD_NUMBER.search(_bk_strip_labels(f)) for f in fields[1:])
 
 def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
     """Core of check BK. Returns None (N/A — pre-gate, malformed/empty ledger, or no numeric forecast)

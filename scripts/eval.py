@@ -3323,6 +3323,8 @@ if scope=="selftest":
     _bk_bare    = {"forecast_id":"F25","threshold":"42","confirmation_trigger":"EPS beats the bar","comparable_basis":"FY26 EPS (38)"}  # guard: bare-number threshold field
     _bk_units   = {"forecast_id":"F26","confirmation_trigger":"Store count reaches 500 and volumes rise to 3 mtpa.","fired_last_two_periods":False}  # guard: verb comparator / unit
     _bk_ccy     = {"forecast_id":"F27","falsification_trigger":"FY27 EPS prints Rs 42 or lower.","fired_last_two_periods":False}  # guard: currency + bare integer
+    _bk_thunit  = {"forecast_id":"F28","threshold":"DSO 30 days","confirmation_trigger":"The filing reports DSO at or under the bar.","fired_last_two_periods":False}  # guard: the threshold field keeps the strict any-digit test — no unit list is complete
+    _bk_cents   = {"forecast_id":"F29","confirmation_trigger":"The filing reports earnings of 42 cents per share.","fired_last_two_periods":False}  # guard: money sub-unit in trigger prose
     bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
         (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
         (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
@@ -3344,6 +3346,8 @@ if scope=="selftest":
         (BK_DATE,[_bk_bare],["forecast_ledger[0] (F25) missing fired_last_two_periods"]),                             # guard: threshold '42' is numeric
         (BK_DATE,[_bk_units],["forecast_ledger[0] (F26) pins a numeric threshold but has no comparable_basis"]),      # guard: 'reaches 500' / '3 mtpa'
         (BK_DATE,[_bk_ccy],["forecast_ledger[0] (F27) pins a numeric threshold but has no comparable_basis"]),        # guard: 'Rs 42'
+        (BK_DATE,[_bk_thunit],["forecast_ledger[0] (F28) pins a numeric threshold but has no comparable_basis"]),     # guard: 'DSO 30 days' in `threshold`
+        (BK_DATE,[_bk_cents],["forecast_ledger[0] (F29) pins a numeric threshold but has no comparable_basis"]),      # guard: '42 cents per share'
         (BK_DATE,[_bk_ok],[]),
         (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
         (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
