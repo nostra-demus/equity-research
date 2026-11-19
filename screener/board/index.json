@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-19T16:20:32Z",
+  "generated_at": "2026-11-19T16:27:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261119-408",
+      "headline": "Suspension of Trading in Bonds of PUNJAB NATIONAL BANK",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261119-45/20261119-45.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-19T16:00:51Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Suspension of trading in bonds of a major bank like Punjab National Bank suggests severe financial distress or default risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suspension of trading in bonds of a major bank like Punjab National Bank suggests severe financial distress or default risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PUNJAB NATIONAL BANK",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261119-375",
       "headline": "GLOBAL UIN (08496): (1) INSIDER INFORMATION; (2) FURTHER DELAY IN THE PUBLICATION OF THE 2025 ANNUAL RESULTS; (3) FURTHER DELAY IN THE DESPATCH OF THE 2025 ANNUAL REPORT; (4) FURTHER POSTPONEMENT OF THE BOARD MEETING; (4) NON-COMPLIANCE WITH RULES 5.05(2) AND 5.28 OF THE GEM LISTING RULES; AND (6) CONTINUED SUSPENSION OF TRADING",
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-177",
-      "headline": "Disney confirms more layoffs after revealing $392 million in severance costs",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/employment/walt-disney-company-more-layoffs-392-million-dollars-severance-costs",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T01:17:00Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Disney confirmed additional layoffs following $392 million in severance costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Disney confirmed additional layoffs following $392 million in severance costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Disney",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -284924,9 +284924,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1706142,
-    "news_picked_today": 905,
-    "news_dropped_today": 6319
+    "news_seen_today": 1756273,
+    "news_picked_today": 912,
+    "news_dropped_today": 6432
   },
   "book_momentum": {
     "live_count": 8,
