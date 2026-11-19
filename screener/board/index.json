@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T01:21:00Z",
+  "generated_at": "2026-11-19T01:21:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-112",
@@ -1770,6 +1770,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261119-148",
+      "headline": "Wolfe Research Initiates Coverage of Celsius Holdings with Outperform",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/wolfe-research-initiates-coverage-celsius-holdings-outperform",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T00:49:54Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Wolfe Research initiated coverage on Celsius Holdings with an Outperform rating, which may influence analyst expectations and investor sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Wolfe Research initiated coverage on Celsius Holdings with an Outperform rating, which may influence analyst expectations and investor sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Celsius Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261119-120",
       "headline": "J&J Snack Foods Corp. Reports Fourth Quarter Fiscal 2026 Results",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-137",
-      "headline": "JPMorgan taps 20-year company veteran Bregje de Best as its next CFO",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/11/18/jpmorgan-taps-20-year-company-veteran-bregje-de-best-as-its-next-cfo/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T23:29:10Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "JPMorgan Chase has appointed a new CFO, a significant leadership change for a mega-cap financial institution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "JPMorgan Chase has appointed a new CFO, a significant leadership change for a mega-cap financial institution.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan Chase",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291187,9 +291187,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 256689,
-    "news_picked_today": 163,
-    "news_dropped_today": 605
+    "news_seen_today": 268838,
+    "news_picked_today": 167,
+    "news_dropped_today": 625
   },
   "book_momentum": {
     "live_count": 8,
