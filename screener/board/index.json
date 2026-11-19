@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T15:54:12Z",
+  "generated_at": "2026-11-19T16:06:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261119-375",
@@ -490,6 +490,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261119-403",
+      "headline": "UniCredit, Germany reach deal on Commerzbank takeover",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/738590/business/unicredit-germany-reach-deal-on-commerzbank-takeover",
+      "source_name": "Gulf Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T14:53:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "UniCredit to acquire Commerzbank with German government approval; major cross-border M&A reshaping both companies' capital structure, regulatory footprint, and shareholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UniCredit to acquire Commerzbank with German government approval; major cross-border M&A reshaping both companies' capital structure, regulatory footprint, and shareholder value.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UniCredit",
+          "ticker": "UCG",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Commerzbank",
+          "ticker": "CBK",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,55 +1975,6 @@
       "companies": [
         {
           "name": "Disney",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-153",
-      "headline": "Nvidia sets record with $65bn Q3 profit",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/nvidia-sets-record-with-65bn-q3-profit/articleshow/135974625.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T00:33:15Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Nvidia reported a record quarterly profit of $65 billion, significantly impacting market expectations for the semiconductor sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reported a record quarterly profit of $65 billion, significantly impacting market expectations for the semiconductor sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
@@ -284919,9 +284924,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1675654,
-    "news_picked_today": 890,
-    "news_dropped_today": 6094
+    "news_seen_today": 1685789,
+    "news_picked_today": 896,
+    "news_dropped_today": 6280
   },
   "book_momentum": {
     "live_count": 8,
