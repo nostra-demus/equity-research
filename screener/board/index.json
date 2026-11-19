@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-19T18:23:48Z",
+  "generated_at": "2026-11-19T18:30:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261119-418",
+      "headline": "ECA2026-839 - Information Regarding the Change of Control of Rallybio Corporation (RLYB) and Avenzo Therapeutics, Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-839",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-19T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
+      "prelim_note": "Rallybio Corporation and Avenzo Therapeutics are undergoing a change of control event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rallybio Corporation and Avenzo Therapeutics are undergoing a change of control event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rallybio Corporation",
+          "ticker": "RLYB",
+          "listing_country": "US"
+        },
+        {
+          "name": "Avenzo Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261119-408",
       "headline": "Suspension of Trading in Bonds of PUNJAB NATIONAL BANK",
@@ -1930,55 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261119-275",
-      "headline": "Seatrium net order book at $12.2 billion; expects ‘materially higher’ FY2026 underlying net profit",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/seatrium-net-order-book-at-12-2-billion-expects-materially-higher-fy2026-underlying-net-profit",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T01:52:26Z",
-      "sweep_file": "screener/inbox/2026-11-19_sweep.json",
-      "prelim_note": "Company reports a $12.2 billion order book and provides positive forward-looking guidance for FY2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reports a $12.2 billion order book and provides positive forward-looking guidance for FY2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seatrium",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -285065,9 +285070,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2028391,
-    "news_picked_today": 1018,
-    "news_dropped_today": 7934
+    "news_seen_today": 2037328,
+    "news_picked_today": 1041,
+    "news_dropped_today": 8079
   },
   "book_momentum": {
     "live_count": 8,
