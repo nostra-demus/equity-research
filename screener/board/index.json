@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T06:00:58Z",
+  "generated_at": "2026-11-20T06:07:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-553",
@@ -1687,6 +1687,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-596",
+      "headline": "Anthropic Will Pay SpaceX Up to $120.5 Billion for Compute Through 2029. That's More Than SpaceX Raised in the Biggest IPO in History.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anthropic-will-pay-spacex-1205-billion-compute-through-2029-thats-more-spacex-raised",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T14:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic is committing up to $120.5 billion for compute services from SpaceX through 2029, a massive commercial contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Anthropic is committing up to $120.5 billion for compute services from SpaceX through 2029, a massive commercial contract.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-338",
       "headline": "Anthropic’s US$1.5 trillion debut rewrites venture capital’s playbook",
       "headline_en": null,
@@ -1929,55 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-531",
-      "headline": "BAE Systems announces it will cut nearly 1,000 jobs in air division – Unite",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/bae-systems-sharon-graham-unite-government-b3087410.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T17:02:16Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "BAE Systems is cutting 1,000 jobs in its air division as part of a cost-saving initiative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "BAE Systems is cutting 1,000 jobs in its air division as part of a cost-saving initiative.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BAE Systems",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287342,9 +287347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 301302,
-    "news_picked_today": 1045,
-    "news_dropped_today": 3851
+    "news_seen_today": 304720,
+    "news_picked_today": 1063,
+    "news_dropped_today": 3905
   },
   "book_momentum": {
     "live_count": 8,
