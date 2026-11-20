@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T03:08:43Z",
+  "generated_at": "2026-11-20T03:15:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-389",
@@ -691,6 +691,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-404",
+      "headline": "Anthropic IPO windfall: Over 5,000 employees become millionaires; 600 join the $100 million club",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/anthropic-ipo-windfall-over-5-000-employees-become-millionaires-600-join-the-100-million-club-11795141454809.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:41:50Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic's IPO is a major liquidity event in the AI sector, creating significant wealth for thousands of employees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Anthropic's IPO is a major liquidity event in the AI sector, creating significant wealth for thousands of employees.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-411",
+      "headline": "Nvidia and AMD cleared for massive AI chip exports to China, disclosure reveals",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/nvidia-and-amd-cleared-for-massive-ai-chip-exports-to-china-disclosure-reveals-101795140785637.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:22:35Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Clearance for massive AI chip exports to China removes a major regulatory hurdle for Nvidia and AMD revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Clearance for massive AI chip exports to China removes a major regulatory hurdle for Nvidia and AMD revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia Corporation",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Advanced Micro Devices, Inc.",
+          "ticker": "AMD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-255",
       "headline": "BAE to slash 1,000 jobs across head office and air business to streamline orders",
       "headline_en": null,
@@ -1033,6 +1137,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-413",
+      "headline": "US cleared nearly 900,000 advanced AI chips for Chinese firms, including Alibaba, Tencent, in six months",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/us-cleared-nearly-900000-advanced-ai-chips-for-chinese-firms-including-alibaba-tencent-in-six-months-20038183.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:42:16Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "US cleared 900,000 AI chips for Chinese firms, directly benefiting Alibaba and Tencent's infrastructure capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "US cleared 900,000 AI chips for Chinese firms, directly benefiting Alibaba and Tencent's infrastructure capabilities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Alibaba Group Holding Limited",
+          "ticker": "BABA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Tencent Holdings Limited",
+          "ticker": "700",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1822,153 +1981,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-276",
-      "headline": "ASX tracks seventh consecutive loss; Monash IVF dives on profit warning",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-markets-live-wall-street-surges-on-back-of-massive-anthropic-ipo-20261120-p61ft1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T00:29:45Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Monash IVF issued a profit warning, which is a material event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Monash IVF issued a profit warning, which is a material event for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monash IVF",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-002",
-      "headline": "Anthropic IPO: Shares signal up to 26% listing-day gain after record $107 billion offering",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/anthropic-ipo-shares-signal-up-to-26-percent-listing-day-gain-after-record-usd-107-billion-offering-ai-spacex-20037942.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:59:01Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic's record $107 billion IPO is pricing with signals of up to a 26% listing-day gain, a major new listing that will set AI-sector valuation benchmarks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Anthropic's record $107 billion IPO is pricing with signals of up to a 26% listing-day gain, a major new listing that will set AI-sector valuation benchmarks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-144",
-      "headline": "Anthropic’s $107 billion sale set to top SpaceX’s IPO as tokenized stocks gain traction",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/markets/2026/11/19/anthropic-s-usd107-billion-raise-set-to-surpass-spacex-s-ipo-haul",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:06:13Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "A $107 billion sale of Anthropic is a massive M&A event that will impact the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A $107 billion sale of Anthropic is a massive M&A event that will impact the AI sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287333,9 +287345,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 192434,
-    "news_picked_today": 590,
-    "news_dropped_today": 1978
+    "news_seen_today": 199066,
+    "news_picked_today": 631,
+    "news_dropped_today": 2153
   },
   "book_momentum": {
     "live_count": 8,
