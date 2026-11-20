@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T21:14:05Z",
+  "generated_at": "2026-11-20T21:20:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1143",
@@ -1145,6 +1145,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1187",
+      "headline": "‘Grand Theft Auto VI’ sets record with $3.79 bil in first-day retail sales, Rockstar Games reports",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/entertainment/sales-of-%27grand-theft-auto-vi%27-skyrocket-as-the-series-makes-its-return-after-13-year-absence",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T21:01:52Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Grand Theft Auto VI generated a record $3.79 billion in first-day sales, a massive revenue event for Take-Two.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grand Theft Auto VI generated a record $3.79 billion in first-day sales, a massive revenue event for Take-Two.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive",
+          "ticker": "TTWO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1182",
+      "headline": "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-20/bayer-s-7-25-billion-roundup-settlement-approved-by-us-judge",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T20:48:14Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "A judge approved a $7.25 billion settlement for Roundup litigation, providing significant legal certainty for Bayer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A judge approved a $7.25 billion settlement for Roundup litigation, providing significant legal certainty for Bayer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer AG",
+          "ticker": "BAYN",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1179",
+      "headline": "YouTube is reportedly preparing to settle social media addiction claims for $3 billion",
+      "headline_en": null,
+      "url": "https://www.theverge.com/streaming/1039096/youtube-social-media-addiction-school-districts-settlement",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T20:43:52Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "YouTube is reportedly preparing to settle social media addiction claims for $3 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "YouTube is reportedly preparing to settle social media addiction claims for $3 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YouTube",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1157",
       "headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
       "headline_en": null,
@@ -1834,155 +1982,6 @@
         {
           "name": "Procter & Gamble",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1058",
-      "headline": "GTA 6 Just Sold an Estimated $2.36 Billion in One Day, Nearly Triple GTA V. Take-Two Stock Is Rising",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/20/gta-6-just-sold-an-estimated-2-36-billion-in-one-day-nearly-triple-gta-v-take-two-stock-is-rising/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T15:07:01Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "GTA 6 sold an estimated $2.36 billion in one day, nearly triple GTA V's sales, causing Take-Two stock to rise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GTA 6 sold an estimated $2.36 billion in one day, nearly triple GTA V's sales, causing Take-Two stock to rise.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Take-Two",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1067",
-      "headline": "Air India losses top Rs 22,000 crore in FY26 as fuel costs, Pakistan airspace curbs hit turnaround",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/air-india-losses-top-rs-22000-crore-in-fy26-as-fuel-costs-pakistan-airspace-curbs-hit-turnaround-568849-2026-11-20?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T14:33:21Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Air India reports Rs 22,000 crore net loss in FY26 driven by fuel costs and Pakistan airspace curbs, undermining turnaround thesis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Air India reports Rs 22,000 crore net loss in FY26 driven by fuel costs and Pakistan airspace curbs, undermining turnaround thesis.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": "AIRINDIA",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1030",
-      "headline": "Jensen Huang Ousted: Timeline Of The Nvidia Scandal—As California Launches Investigation",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/alisondurkee/2026/11/20/jensen-huang-ousted-timeline-of-the-nvidia-scandal-as-california-launches-investigation/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T14:30:20Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Headline claims Nvidia CEO Jensen Huang ousted with California regulatory investigation — if accurate, materially affects management credibility and governance risk for a mega-cap semiconductor company; unverified and requires independent confirmation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Headline claims Nvidia CEO Jensen Huang ousted with California regulatory investigation — if accurate, materially affects management credibility and governance risk for a mega-cap semiconductor company; unverified and requires independent confirmation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 92,
-      "rank_factors": {
-        "materiality": 92,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -288625,9 +288624,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 646811,
-    "news_picked_today": 2520,
-    "news_dropped_today": 22831
+    "news_seen_today": 646904,
+    "news_picked_today": 2546,
+    "news_dropped_today": 22898
   },
   "book_momentum": {
     "live_count": 8,
