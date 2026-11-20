@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T06:36:56Z",
+  "generated_at": "2026-11-20T06:44:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-553",
@@ -1888,6 +1888,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-630",
+      "headline": "United Express, Inc. Announces Non-Reliance on Audited Financial Statements for Fiscal Years Ended June 30, 2024, June 30, 2025 and June 30, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/united-express-inc-announces-non-reliance-audited-financial-statements-fiscal-years-ended",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T12:22:21Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Company announces non-reliance on audited financial statements for three fiscal years, a critical red flag signaling audit failure and materially impairing investor confidence in reported numbers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Company announces non-reliance on audited financial statements for three fiscal years, a critical red flag signaling audit failure and materially impairing investor confidence in reported numbers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Express, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-338",
       "headline": "Anthropic’s US$1.5 trillion debut rewrites venture capital’s playbook",
       "headline_en": null,
@@ -1932,56 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-330",
-      "headline": "Anthropic’s Mega IPO Lives Up to Wall Street Hype but Fails to Revive AI Trade",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/stocks/anthropic-ipo-ai-markets-89e2476f?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic's massive IPO occurred but failed to catalyze the broader AI sector, signaling a shift in market sentiment for AI trades.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Anthropic's massive IPO occurred but failed to catalyze the broader AI sector, signaling a shift in market sentiment for AI trades.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287346,9 +287345,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 312225,
-    "news_picked_today": 1161,
-    "news_dropped_today": 4239
+    "news_seen_today": 316701,
+    "news_picked_today": 1193,
+    "news_dropped_today": 4351
   },
   "book_momentum": {
     "live_count": 8,
