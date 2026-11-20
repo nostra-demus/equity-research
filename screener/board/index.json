@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T09:09:49Z",
+  "generated_at": "2026-11-20T09:16:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-663",
+      "headline": "ASSET CHAIN (00616): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000328.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Profit warning issued; forward earnings expectations revised downward.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning issued; forward earnings expectations revised downward.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Asset Chain",
+          "ticker": "00616",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-655",
       "headline": "[TSE]Decision on Delisting, etc.: DIGITAL HEARTS HOLDINGS Co.,Ltd.",
@@ -46,6 +95,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-669",
+      "headline": "Disney’s sports profit jumped 53% as it bets on live games. It also wants $3 billion in cost cuts",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/20/disney-espn-live-sports-3-billion-cost-cuts/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T08:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Disney sports segment profit rose 53% confirmed; company targets $3 billion in cost reductions, signaling both margin improvement and capital discipline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Disney sports segment profit rose 53% confirmed; company targets $3 billion in cost reductions, signaling both margin improvement and capital discipline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Disney",
+          "ticker": "DIS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1397,6 +1496,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-665",
+      "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): OTP Bank Nyrt. has reached an agreement on acquiring 17.5% of the shares in Ipoteka Bank from the Ministry of Economy and Finance of the Republic of Uzbekistan",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000245.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "OTP Bank Nyrt agrees to acquire 17.5% stake in Ipoteka Bank from Uzbekistan Ministry of Economy; primary-source filing, deal value not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "OTP Bank Nyrt agrees to acquire 17.5% stake in Ipoteka Bank from Uzbekistan Ministry of Economy; primary-source filing, deal value not disclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OTP Bank Nyrt",
+          "ticker": null,
+          "listing_country": "HU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-513",
       "headline": "Japan Tobacco hit by $8.9 billion charge on Russia seizure",
       "headline_en": null,
@@ -1827,155 +1975,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-255",
-      "headline": "BAE to slash 1,000 jobs across head office and air business to streamline orders",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/nov/19/bae-to-slash-1000-jobs-across-head-office-and-air-business-to-streamline-orders",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:19:05Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "BAE Systems is cutting 1,000 jobs to streamline operations, a significant operational restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "BAE Systems is cutting 1,000 jobs to streamline operations, a significant operational restructuring.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BAE Systems",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-260",
-      "headline": "McBride shares sink after warning on profits as cost pressures delay margin recovery",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/mcbride-shares-sink-after-warning-on-profits-as-cost-pressures-delay-margin-recovery/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:10:43Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "McBride issued a profit warning due to cost pressures delaying margin recovery.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "McBride issued a profit warning due to cost pressures delaying margin recovery.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "McBride",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-378",
-      "headline": "Jensen Huang Ousted: Timeline Of The Nvidia Scandal—As Board Chair Dismisses Reinstatement Push",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/alisondurkee/2026/11/18/jensen-huang-ousted-timeline-of-the-nvidia-scandal-as-board-chair-dismisses-reinstatement-push/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T17:49:10Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "The ousting of Nvidia's CEO Jensen Huang is a major corporate governance event that significantly impacts management credibility and company outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The ousting of Nvidia's CEO Jensen Huang is a major corporate governance event that significantly impacts management credibility and company outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287340,9 +287339,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428660,
-    "news_picked_today": 1277,
-    "news_dropped_today": 10099
+    "news_seen_today": 431922,
+    "news_picked_today": 1289,
+    "news_dropped_today": 10135
   },
   "book_momentum": {
     "live_count": 8,
