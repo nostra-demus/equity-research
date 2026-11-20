@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-11-20T10:56:01Z",
+  "generated_at": "2026-11-20T11:00:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-782",
+      "headline": "ROAD KING INFRA (01098): POSSIBLE TRANSACTIONS IN CONNECTION WITH THE PROPOSED RESTRUCTURING INVOLVING: (1) PROPOSED ISSUANCE OF NEW SHARES UNDER SPECIFIC MANDATE, CASH SWEEP REAL ESTATE BONDS AND RELATED CONNECTED TRANSACTIONS; AND (2) VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE PROPOSED DISPOSAL OF 70% EQUITY INTEREST IN A SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001173.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T10:38:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Proposed very substantial disposal of 70% subsidiary stake, new share issuance under specific mandate, and connected transactions materially affecting capital structure and revenue composition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proposed very substantial disposal of 70% subsidiary stake, new share issuance under specific mandate, and connected transactions materially affecting capital structure and revenue composition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Road King Infrastructure",
+          "ticker": "01098",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-787",
+      "headline": "NIU HOLDINGS (08619): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1120/2026112001036.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T10:17:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Official HK Exchange filing warns of reduced profit; confirmed guidance downgrade from primary source affecting near-term earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Official HK Exchange filing warns of reduced profit; confirmed guidance downgrade from primary source affecting near-term earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NIU HOLDINGS",
+          "ticker": "08619",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-732",
       "headline": "FIRST CAP GP (01269): INSIDE INFORMATION - UPDATE ON PROPOSED DEBT RESTRUCTURING - SCHEME CONVENING HEARING AND SANCTION HEARING",
@@ -1885,105 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-654",
-      "headline": "Target boosts full-year sales outlook",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=12b3fbf2-873a-4793-9ae7-161d09284a7c&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T11:46:21Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Target has officially boosted its full-year sales outlook, signaling stronger-than-expected consumer demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Target has officially boosted its full-year sales outlook, signaling stronger-than-expected consumer demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Target",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-672",
-      "headline": "FRONTAGE (01521): Disclosure of Dealings under Rule 22 of the Takeovers Code",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000574.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-20T09:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "FRONTAGE discloses dealings under Hong Kong Takeover Code Rule 22, signalling potential M&A, stake accumulation by acquirer or activist; materiality is high but direction and buyer identity not stated in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "FRONTAGE discloses dealings under Hong Kong Takeover Code Rule 22, signalling potential M&A, stake accumulation by acquirer or activist; materiality is high but direction and buyer identity not stated in headline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FRONTAGE",
-          "ticker": "01521",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287489,9 +287489,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 464866,
-    "news_picked_today": 1475,
-    "news_dropped_today": 12061
+    "news_seen_today": 466858,
+    "news_picked_today": 1484,
+    "news_dropped_today": 12124
   },
   "book_momentum": {
     "live_count": 8,
