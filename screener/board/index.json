@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T05:53:04Z",
+  "generated_at": "2026-11-20T06:00:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-553",
@@ -41,6 +41,98 @@
       "companies": [
         {
           "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-580",
+      "headline": "This Bitcoin miner sold 267 BTC to clear $22 million debt. It still may not survive",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/markets/2026/11/20/this-bitcoin-miner-sold-267-btc-to-clear-usd22-million-debt-it-still-may-not-survive",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T05:32:25Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "A Bitcoin miner sold 267 BTC to pay $22 million in debt and faces ongoing survival concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Bitcoin miner sold 267 BTC to pay $22 million in debt and faces ongoing survival concerns.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-578",
+      "headline": "P&G Plans To Cut Up To 30% Jobs By 2030; Sees Up To $10 Bln In Productivity Savings",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pg-plans-cut-30-jobs-2030-sees-10-bln-productivity-savings",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T05:17:03Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Procter & Gamble plans to cut up to 30% of jobs by 2030 to achieve $10 billion in productivity savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Procter & Gamble plans to cut up to 30% of jobs by 2030 to achieve $10 billion in productivity savings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1886,114 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-532",
-      "headline": "BAE Systems to axe around 1,000 jobs under cost-saving plan",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/bae-systems-job-cuts-government-b3087393.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T17:00:51Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "BAE Systems is cutting 1,000 jobs in its air division as part of a cost-saving initiative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "BAE Systems is cutting 1,000 jobs in its air division as part of a cost-saving initiative.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BAE Systems",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-437",
-      "headline": "WISeKey International Holding AG Subsidiary SEALSQ Signs LOI to Acquire 100% of QuintessenceLabs",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/wisekey-international-holding-ag-subsidiary-sealsq-signs-loi-acquire-100-quintessencelabs",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:48:41Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "SEALSQ (WISeKey subsidiary) signs LOI to acquire 100% of QuintessenceLabs, a quantum-safe cryptography company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SEALSQ (WISeKey subsidiary) signs LOI to acquire 100% of QuintessenceLabs, a quantum-safe cryptography company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WISeKey International Holding AG",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "SEALSQ",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "QuintessenceLabs",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287358,9 +287342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 297460,
-    "news_picked_today": 1020,
-    "news_dropped_today": 3732
+    "news_seen_today": 301302,
+    "news_picked_today": 1045,
+    "news_dropped_today": 3851
   },
   "book_momentum": {
     "live_count": 8,
