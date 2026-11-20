@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T19:52:39Z",
+  "generated_at": "2026-11-20T20:07:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1143",
@@ -48,6 +48,60 @@
           "name": "Everli Global Holdings Inc.",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1145",
+      "headline": "ECA2026-857 - Information Regarding the Business Combination of Black Hawk Acquisition Corporation (BKHA/R/U) and Vesicor Therapeutics Holdings, Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-857",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T23:01:10Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Black Hawk Acquisition Corporation and Vesicor Therapeutics Holdings, Inc. are proceeding with a business combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Black Hawk Acquisition Corporation and Vesicor Therapeutics Holdings, Inc. are proceeding with a business combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Black Hawk Acquisition Corporation",
+          "ticker": "BKHA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Vesicor Therapeutics Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -1042,6 +1096,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1148",
+      "headline": "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/20/gta-vi-boasts-a-record-breaking-launch-with-usd3-79-billion-in-day-one-sales-is-it-time-to-buy-take-two-stock/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T19:55:22Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Take-Two Interactive reported $3.79 billion in day-one sales for GTA VI, a significant revenue event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Take-Two Interactive reported $3.79 billion in day-one sales for GTA VI, a significant revenue event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1102",
       "headline": "KKR in Talks to Buy EdgeCore at Valuation of at Least $8 Billion",
       "headline_en": null,
@@ -1871,105 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1002",
-      "headline": "CytoSorbents Announces $6.25 Mln Stock Financing; Agrees With Avenue Capital On A Debt Amendment",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cytosorbents-announces-625-mln-stock-financing-agrees-avenue-capital-debt-amendment",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T13:54:51Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "CytoSorbents announced a $6.25 million stock financing and a debt amendment, indicating liquidity management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CytoSorbents announced a $6.25 million stock financing and a debt amendment, indicating liquidity management.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CytoSorbents",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-952",
-      "headline": "Agilysys, Inc. Raises Fiscal Year 2027 Annual Revenue Guidance to $374M - $378M",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/agilysys-inc-raises-fiscal-year-2027-annual-revenue-guidance-374m-378m",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T13:40:39Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Agilysys raised its fiscal year 2027 revenue guidance to a range of $374M - $378M.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Agilysys raised its fiscal year 2027 revenue guidance to a range of $374M - $378M.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Agilysys",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288116,9 +288120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 643776,
-    "news_picked_today": 2418,
-    "news_dropped_today": 21250
+    "news_seen_today": 644167,
+    "news_picked_today": 2429,
+    "news_dropped_today": 21503
   },
   "book_momentum": {
     "live_count": 8,
