@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T21:20:02Z",
+  "generated_at": "2026-11-20T21:25:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1143",
@@ -1145,6 +1145,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1190",
+      "headline": "Zscaler stock jumps 20% on report that CrowdStrike in talks to buy security vendor",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/20/zscaler-crowdstrike-deal.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T21:19:18Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Zscaler stock jumped 20% on reports of a potential acquisition by CrowdStrike.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zscaler stock jumped 20% on reports of a potential acquisition by CrowdStrike.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zscaler",
+          "ticker": "ZS",
+          "listing_country": "US"
+        },
+        {
+          "name": "CrowdStrike",
+          "ticker": "CRWD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1194",
+      "headline": "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/20/nvidia-stock-plunge-wipes-out-nearly-usd500-billion-in-one-day-as-sec-reportedly-probes-its-accounting/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T21:07:22Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Nvidia stock dropped significantly following reports of an SEC probe into its accounting practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia stock dropped significantly following reports of an SEC probe into its accounting practices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1187",
       "headline": "‘Grand Theft Auto VI’ sets record with $3.79 bil in first-day retail sales, Rockstar Games reports",
       "headline_en": null,
@@ -1888,104 +1992,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1123",
-      "headline": "Lufthansa plans to cut 1,000 jobs amid Iran war fallout",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/aviation/lufthansa-plans-to-cut-1000-jobs-amid-iran-war-fallout-1.500754870",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T15:47:42Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Lufthansa plans to cut 1,000 jobs due to geopolitical conflict impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lufthansa plans to cut 1,000 jobs due to geopolitical conflict impact.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lufthansa",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1025",
-      "headline": "P&G Has Raised Its Dividend 70 Years In A Row. Now It Plans To Cut Up To 30% Of Its Manufacturing And Logistics Workforce By 2030 As It Targets Up To $10 Billion In Savings",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/20/pg-has-raised-its-dividend-70-years-in-a-row-now-it-plans-to-cut-up-to-30-of-its-manufacturing-and-logistics-workforce-by-2030-as-it-targets-up-to-10-billion-in-savings/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T15:39:26Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "P&G announced a plan to cut 30% of its manufacturing and logistics workforce to achieve $10 billion in savings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "P&G announced a plan to cut 30% of its manufacturing and logistics workforce to achieve $10 billion in savings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Procter & Gamble",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288624,9 +288630,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 646904,
-    "news_picked_today": 2546,
-    "news_dropped_today": 22898
+    "news_seen_today": 648489,
+    "news_picked_today": 2555,
+    "news_dropped_today": 22961
   },
   "book_momentum": {
     "live_count": 8,
