@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T04:22:35Z",
+  "generated_at": "2026-11-20T04:30:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-484",
@@ -53,6 +53,60 @@
           "name": "Mastercard",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-500",
+      "headline": "Intuit Inc. to Sell Mailchimp Business to Bending Spoons US Inc. for $3.68 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/intuit-inc-sell-mailchimp-business-bending-spoons-us-inc-368-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T03:48:47Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Intuit Inc. is selling its Mailchimp business to Bending Spoons US Inc. for $3.68 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intuit Inc. is selling its Mailchimp business to Bending Spoons US Inc. for $3.68 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intuit Inc.",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Bending Spoons US Inc.",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -647,6 +701,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-513",
+      "headline": "Japan Tobacco hit by $8.9 billion charge on Russia seizure",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/20/japan-tobacco-russia-seizure-charge/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Japan Tobacco disclosed an $8.9 billion impairment charge on Russian asset seizure, materially reducing reported earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Japan Tobacco disclosed an $8.9 billion impairment charge on Russian asset seizure, materially reducing reported earnings.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Japan Tobacco",
+          "ticker": "2914.T",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1499,6 +1602,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-488",
+      "headline": "VITASOY INT'L (00345): ANNOUNCEMENT OF RESULTS FOR THE SIX MONTHS ENDED 30TH SEPTEMBER 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000175.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T04:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Release of interim financial results for the period ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Release of interim financial results for the period ended September 30, 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vitasoy International",
+          "ticker": "00345",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-449",
       "headline": "Tesla: Eine Drei-Milliarden-Fabrik für ein Auto ohne Zulassung",
       "headline_en": "Tesla: A three-billion factory for a car without approval",
@@ -1787,203 +1939,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261120-381",
-      "headline": "Fairfax raises stake in IIFL Capital to 44.06%",
+      "inbox_id": "INB-20261120-489",
+      "headline": "Passage Bio, Inc. Reports Financial Information for Proposed Merger with Remix Therapeutics, Inc.",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/fairfax-raises-stake-in-iifl-capital-to-44-06/articleshow/136010311.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.nasdaq.com/articles/passage-bio-inc-reports-financial-information-proposed-merger-remix-therapeutics-inc",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:20:30Z",
+      "found_at": "2026-11-20T03:48:48Z",
       "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Fairfax raised stake in IIFL Capital to 44.06%; material ownership change signals influence short of control; impact on IIFL Capital's independence and minority-shareholder rights unspecified.",
+      "prelim_note": "Disclosure of financial information related to a proposed merger between Passage Bio and Remix Therapeutics.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "Fairfax raised stake in IIFL Capital to 44.06%; material ownership change signals influence short of control; impact on IIFL Capital's independence and minority-shareholder rights unspecified.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-320",
-      "headline": "US approved sale of Nvidia and AMD chips to Chinese companies",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/76342072-2781-4b16-ba3b-816a25214483?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T00:42:44Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "US government approval for Nvidia and AMD chip sales to Chinese companies removes export controls, potentially enabling significant new revenue from previously restricted markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "US government approval for Nvidia and AMD chip sales to Chinese companies removes export controls, potentially enabling significant new revenue from previously restricted markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-347",
-      "headline": "Anthropic IPO set to raise $90.4 billion, could become biggest stock market debut ever",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/anthropic-ipo-set-to-raise-90-4-billion-could-become-biggest-stock-market-debut-ever-11795025331762.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T18:40:11Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic is planning an IPO expected to raise $90.4 billion, which would be a record-breaking market debut.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Anthropic is planning an IPO expected to raise $90.4 billion, which would be a record-breaking market debut.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-444",
-      "headline": "AMD Just Plunged Almost 8%, Lost $67 Billion and Kept Falling After Hours. A Short Seller Says It Shares Nvidia’s China Risk",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/19/amd-just-plunged-almost-8-lost-67-billion-and-kept-falling-after-hours-a-short-seller-says-it-shares-nvidias-china-risk/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:07:02Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "AMD stock dropped nearly 8% and lost $67 billion in market value amid concerns over China-related regulatory and supply risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "AMD stock dropped nearly 8% and lost $67 billion in market value amid concerns over China-related regulatory and supply risks.",
+      "triage_reason": "Disclosure of financial information related to a proposed merger between Passage Bio and Remix Therapeutics.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
+        "event_id": "mna",
+        "size_bucket": "small"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AMD",
+          "name": "Passage Bio",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Remix Therapeutics",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287348,9 +287352,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 246204,
-    "news_picked_today": 752,
-    "news_dropped_today": 2824
+    "news_seen_today": 251894,
+    "news_picked_today": 781,
+    "news_dropped_today": 2915
   },
   "book_momentum": {
     "live_count": 8,
