@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T23:48:40Z",
+  "generated_at": "2026-11-20T23:54:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1212",
@@ -1297,6 +1297,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1219",
+      "headline": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T23:42:43Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Bayer faces a confirmed $7.25 billion payout related to ongoing Roundup litigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bayer faces a confirmed $7.25 billion payout related to ongoing Roundup litigation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1218",
       "headline": "Utz Brands, Inc. Announces Completion of Transaction to Take Utz Private",
       "headline_en": null,
@@ -1942,60 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1096",
-      "headline": "Bending Spoons buys Mailchimp for $3.68 billion",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/11/20/bending-spoons-buys-mailchimp-for-3-68-billion/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T16:16:06Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Bending Spoons is acquiring Mailchimp for $3.68 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bending Spoons is acquiring Mailchimp for $3.68 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bending Spoons",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Mailchimp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288778,9 +288773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 657499,
-    "news_picked_today": 2725,
-    "news_dropped_today": 25675
+    "news_seen_today": 657507,
+    "news_picked_today": 2727,
+    "news_dropped_today": 25681
   },
   "book_momentum": {
     "live_count": 8,
