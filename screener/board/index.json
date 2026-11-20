@@ -1,6 +1,65 @@
 {
-  "generated_at": "2026-11-20T04:16:54Z",
+  "generated_at": "2026-11-20T04:22:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-484",
+      "headline": "Cyberattack: Russian hackers allegedly steal customer data from JPMorgan Chase, Visa and Mastercard; social media reacts",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/cyberattack-russian-hackers-allegedly-steal-customer-data-from-jpmorgan-chase-visa-and-mastercard-social-media-reacts-11795145547056.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T03:51:58Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "A major cyberattack allegedly compromised customer data at JPMorgan Chase, Visa, and Mastercard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major cyberattack allegedly compromised customer data at JPMorgan Chase, Visa, and Mastercard.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Visa",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Mastercard",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-451",
       "headline": "Geospace Technologies Corporation Reports Fiscal Year 2026 Net Loss of $44.3 million",
@@ -1920,55 +1979,6 @@
       "companies": [
         {
           "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-001",
-      "headline": "Anthropic to begin public trading at $1.5tn valuation after largest ever IPO",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/technology/2026/nov/19/anthropic-public-trading-ipo",
-      "source_name": "The Guardian — Stock markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T13:00:48Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic is set to list publicly at a $1.5tn valuation in what is billed as the largest IPO on record, a landmark capital-markets event for the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Anthropic is set to list publicly at a $1.5tn valuation in what is billed as the largest IPO on record, a landmark capital-markets event for the AI sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
         }
@@ -287338,9 +287348,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 243142,
-    "news_picked_today": 739,
-    "news_dropped_today": 2765
+    "news_seen_today": 246204,
+    "news_picked_today": 752,
+    "news_dropped_today": 2824
   },
   "book_momentum": {
     "live_count": 8,
