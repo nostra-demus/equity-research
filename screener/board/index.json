@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T00:33:29Z",
+  "generated_at": "2026-11-20T00:39:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-089",
@@ -52,50 +52,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261120-125",
+      "inbox_id": "INB-20261120-147",
       "headline": "Anthropic Prices at $83 in the Biggest IPO in History. Here’s What to Watch When Trading Starts.",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/anthropic-prices-83-biggest-ipo-history-heres-what-watch-when-trading-starts",
-      "source_name": "Nasdaq",
+      "url": "https://www.fool.com/investing/2026/11/19/anthropic-prices-at-usd83-in-the-biggest-ipo-in-history-here-s-what-to-watch-when-trading-starts/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:25:02Z",
+      "found_at": "2026-11-19T11:05:02Z",
       "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic is launching the largest IPO in history at an $83 price point.",
+      "prelim_note": "Anthropic pricing at $83 for its IPO is a major market event, marking the largest IPO in history.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Anthropic is launching the largest IPO in history at an $83 price point.",
-      "region": "US",
+      "triage_score": 100,
+      "triage_reason": "Anthropic pricing at $83 for its IPO is a major market event, marking the largest IPO in history.",
+      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
         "recency": 1,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Anthropic",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253,6 +253,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-131",
+      "headline": "LATAM Airlines Group S.A. Amends Revolving Credit Facilities to Extend Maturity to November 2031 and Increase Capacity to US$1,810 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/latam-airlines-group-sa-amends-revolving-credit-facilities-extend-maturity-november-2031",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:20:30Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "LATAM Airlines amended credit facilities to increase capacity to US$1,810 million and extend maturity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "LATAM Airlines amended credit facilities to increase capacity to US$1,810 million and extend maturity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LATAM Airlines Group",
+          "ticker": null,
+          "listing_country": "CL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-002",
       "headline": "Anthropic IPO: Shares signal up to 26% listing-day gain after record $107 billion offering",
       "headline_en": null,
@@ -297,6 +346,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-144",
+      "headline": "Anthropic’s $107 billion sale set to top SpaceX’s IPO as tokenized stocks gain traction",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/markets/2026/11/19/anthropic-s-usd107-billion-raise-set-to-surpass-spacex-s-ipo-haul",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:06:13Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "A $107 billion sale of Anthropic is a massive M&A event that will impact the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "A $107 billion sale of Anthropic is a massive M&A event that will impact the AI sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -493,6 +591,109 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-128",
+      "headline": "Dienstleistung: Bertelsmann übernimmt türkischen Logistiker Ekol",
+      "headline_en": "Services: Bertelsmann acquires Turkish logistics company Ekol",
+      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/dienstleistung-bertelsmann-uebernimmt-tuerkischen-logistiker-ekol/100270965.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:23:16Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Bertelsmann is acquiring Turkish logistics firm Ekol.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Bertelsmann is acquiring Turkish logistics firm Ekol.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bertelsmann",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-134",
+      "headline": "EDF Energy snaps up Utilita in major UK expansion",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/edf-energy-utilita-luxion-hampshire-b3087826.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:15:43Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "EDF Energy acquires UK energy retailer Utilita in a confirmed deal; no deal value disclosed, modest strategic scope for mega-cap buyer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "EDF Energy acquires UK energy retailer Utilita in a confirmed deal; no deal value disclosed, modest strategic scope for mega-cap buyer.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EDF Energy",
+          "ticker": "EDF",
+          "listing_country": "FR"
+        },
+        {
+          "name": "Utilita",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1290,6 +1491,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-132",
+      "headline": "Arvind Fashions expects US Polo Assn to clock ₹4,000 crore consumer sales in FY27",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/arvind-fashions-us-polo-assn-india-consumer-sales-target-fy27-20037832.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:22:08Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Arvind Fashions projects consumer sales of ₹4,000 crore for US Polo Assn by FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Arvind Fashions projects consumer sales of ₹4,000 crore for US Polo Assn by FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arvind Fashions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-009",
       "headline": "Binance Wins $6.5B Freezing Order Over Hack That Can Be Served via the Blockchain",
       "headline_en": null,
@@ -1486,6 +1736,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-126",
+      "headline": "SK Telecom Scores Huge Windfall from Anthropic IPO",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281720",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:22:59Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "SK Telecom realized a significant financial gain from the Anthropic IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "SK Telecom realized a significant financial gain from the Anthropic IPO.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Telecom",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-145",
+      "headline": "Mitsubishi Heavy Industries and Sakura Internet sign MoU to establish sovereign AI infrastructure in Japan",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/mitsubishi-heavy-industries-and-sakura-internet-sign-mou-to-establish-sovereign-ai-infrastructure-in-japan/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:03:55Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "The MoU to establish sovereign AI infrastructure in Japan represents a significant capex-related strategic partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The MoU to establish sovereign AI infrastructure in Japan represents a significant capex-related strategic partnership.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsubishi Heavy Industries",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Sakura Internet",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-073",
       "headline": "JOYY Inc. Reports Third Quarter 2026 Net Revenues of US$624.6 million",
       "headline_en": null,
@@ -1628,355 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-087",
-      "headline": "Rakuten Securities rushes to cope with data breach",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/19/companies/rakuten-securities-data-breach/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Data breach at a major financial institution poses operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Data breach at a major financial institution poses operational and reputational risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rakuten Securities",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-092",
-      "headline": "Mumbai Infra Update: BMC Fast-Tracks 2,000 MLD Water Treatment Plant And Pumping Station At Bhandup",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/mumbai-infra-update-bmc-fast-tracks-2000-mld-water-treatment-plant-and-pumping-station-at-bhandup",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:52:38Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "BMC is fast-tracking a major water treatment plant and pumping station project in Mumbai.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "BMC is fast-tracking a major water treatment plant and pumping station project in Mumbai.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BMC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-031",
-      "headline": "Hong Kong adds Hyperliquid to list of ‘suspicious’ crypto platforms",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/hyperliquid-hong-kong-regulators-alert-list?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:44:06Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Hong Kong regulator flagged Hyperliquid as a suspicious platform, increasing operational and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Hong Kong regulator flagged Hyperliquid as a suspicious platform, increasing operational and legal risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyperliquid",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-098",
-      "headline": "Anthropic IPO Fuels AI Enthusiasm",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-19/the-opening-trade-11-19-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:46:46Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic IPO fuels AI sector enthusiasm; mega-cap company capital raise is a major market event and competitive pricing signal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Anthropic IPO fuels AI sector enthusiasm; mega-cap company capital raise is a major market event and competitive pricing signal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-096",
-      "headline": "Anthropic IPO listing today: How much listing gains can investors expect from the AI giant? Check details",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/anthropic-ipo-listing-today-how-much-listing-gains-can-investors-expect-from-the-ai-giant-check-details-11795084304396.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:46:30Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic IPO listing today (2026-11-20) is a major capital event for a mega-cap AI company; pricing and allocation determine market impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Anthropic IPO listing today (2026-11-20) is a major capital event for a mega-cap AI company; pricing and allocation determine market impact.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-061",
-      "headline": "AIM movers: CT Automotive problems and Tavistock Investments close to selling private clients business",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/aim-movers-ct-automotive-problems-and-tavistock-investments-close-to-selling-private-clients-business/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:16:07Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "CT Automotive reports operational problems while Tavistock Investments is pursuing a divestment of its private client business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "CT Automotive reports operational problems while Tavistock Investments is pursuing a divestment of its private client business.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CT Automotive",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Tavistock Investments",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-074",
-      "headline": "Sunlands Technology Group Reports Third Quarter 2026 Net Revenues of RMB331.6 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sunlands-technology-group-reports-third-quarter-2026-net-revenues-rmb3316-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:02:17Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Reported Q3 2026 net revenues of RMB331.6 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Reported Q3 2026 net revenues of RMB331.6 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sunlands Technology Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287343,9 +287347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 41270,
-    "news_picked_today": 130,
-    "news_dropped_today": 326
+    "news_seen_today": 46244,
+    "news_picked_today": 152,
+    "news_dropped_today": 400
   },
   "book_momentum": {
     "live_count": 8,
