@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T03:43:05Z",
+  "generated_at": "2026-11-20T03:51:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-451",
+      "headline": "Geospace Technologies Corporation Reports Fiscal Year 2026 Net Loss of $44.3 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/geospace-technologies-corporation-reports-fiscal-year-2026-net-loss-443-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T03:08:43Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Geospace Technologies reported a significant net loss of $44.3 million for fiscal year 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Geospace Technologies reported a significant net loss of $44.3 million for fiscal year 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Geospace Technologies Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-389",
       "headline": "Atul shares in focus as US Customs investigates unit over alleged duty evasion",
@@ -1299,6 +1348,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-449",
+      "headline": "Tesla: Eine Drei-Milliarden-Fabrik für ein Auto ohne Zulassung",
+      "headline_en": "Tesla: A three-billion factory for a car without approval",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/tesla-eine-drei-milliarden-fabrik-fuer-ein-auto-ohne-zulassung/100270671.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T03:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Tesla announced a €3 billion factory investment; the vehicle it is designed for lacks regulatory approval, creating execution and product-launch risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Tesla announced a €3 billion factory investment; the vehicle it is designed for lacks regulatory approval, creating execution and product-launch risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-384",
       "headline": "SEALSQ Corp Signs Letter of Intent for Proposed Acquisition of 100% of QuintessenceLabs",
       "headline_en": null,
@@ -1888,98 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-259",
-      "headline": "North Korea expanding uranium enrichment facility, UN nuclear watchdog says",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/11/19/north-korea-expanding-uranium-enrichment-facility-un-nuclear-watchdog-says?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-19T09:16:47Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "North Korea expanding uranium enrichment facilities is a major geopolitical escalation and nuclear proliferation risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "North Korea expanding uranium enrichment facilities is a major geopolitical escalation and nuclear proliferation risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-436",
-      "headline": "Mozambique Approves Exxon’s Redesigned $30 Billion Rovuma LNG Plan",
-      "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/Mozambique-Approves-Exxons-Redesigned-30-Billion-Rovuma-LNG-Plan.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T17:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Mozambique regulatory approval of Exxon's $30 billion redesigned Rovuma LNG project commits major capital to long-term LNG capacity expansion and affects the company's cash flow, capital allocation, and strategic position in global energy supply.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Mozambique regulatory approval of Exxon's $30 billion redesigned Rovuma LNG project commits major capital to long-term LNG capacity expansion and affects the company's cash flow, capital allocation, and strategic position in global energy supply.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ExxonMobil Corporation",
-          "ticker": "XOM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287344,9 +287350,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 221534,
-    "news_picked_today": 687,
-    "news_dropped_today": 2337
+    "news_seen_today": 224642,
+    "news_picked_today": 701,
+    "news_dropped_today": 2395
   },
   "book_momentum": {
     "live_count": 8,
