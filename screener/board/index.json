@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T06:44:43Z",
+  "generated_at": "2026-11-20T06:59:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-553",
@@ -1937,43 +1937,48 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261120-338",
-      "headline": "Anthropic’s US$1.5 trillion debut rewrites venture capital’s playbook",
+      "inbox_id": "INB-20261120-637",
+      "headline": "TSMC invests $500 million in Anthropic, acquires 0.03% stake at IPO price",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/anthropics-us1-5-trillion-debut-rewrites-venture-capitals-playbook",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.thehindubusinessline.com/info-tech/tsmc-invests-500-million-in-anthropic-acquires-003-stake-at-ipo-price/article71723133.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-11-20T00:15:49Z",
+      "found_at": "2026-11-20T06:18:04Z",
       "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic completed a US$1.5 trillion IPO, marking a historic event in venture capital and equity markets.",
+      "prelim_note": "TSMC invested $500 million in Anthropic for a 0.03% stake.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 97,
-      "triage_reason": "Anthropic completed a US$1.5 trillion IPO, marking a historic event in venture capital and equity markets.",
-      "region": "US",
+      "triage_reason": "TSMC invested $500 million in Anthropic for a 0.03% stake.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
+        "scope": 5,
+        "event": 9,
         "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": null,
+        "event_id": "mna",
         "size_bucket": "mega"
       },
       "event_types": [
-        "capital_actions"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
+        {
+          "name": "TSMC",
+          "ticker": null,
+          "listing_country": "TW"
+        },
         {
           "name": "Anthropic",
           "ticker": null,
@@ -287345,9 +287350,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 316701,
-    "news_picked_today": 1193,
-    "news_dropped_today": 4351
+    "news_seen_today": 328232,
+    "news_picked_today": 1202,
+    "news_dropped_today": 5110
   },
   "book_momentum": {
     "live_count": 8,
