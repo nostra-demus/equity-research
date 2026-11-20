@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T17:28:02Z",
+  "generated_at": "2026-11-20T17:40:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1068",
@@ -983,6 +983,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1096",
+      "headline": "Bending Spoons buys Mailchimp for $3.68 billion",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/11/20/bending-spoons-buys-mailchimp-for-3-68-billion/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T16:16:06Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Bending Spoons is acquiring Mailchimp for $3.68 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bending Spoons is acquiring Mailchimp for $3.68 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bending Spoons",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Mailchimp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1083",
       "headline": "EasyJet expected to unveil profit fall ahead of £5.7 billion takeover",
       "headline_en": null,
@@ -1028,6 +1082,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1098",
+      "headline": "Tesla proposes $3.1 billion Texas polysilicon refinery",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/LiMiK-Capital-328-million-manufacturing-plant-south-carolina/875286/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T16:05:18Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Tesla is proposing a $3.1 billion polysilicon refinery in Texas, representing a major capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla is proposing a $3.1 billion polysilicon refinery in Texas, representing a major capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1864,104 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-897",
-      "headline": "ReNew Energy Global Plc Schedules December 17, 2026 Shareholder Meetings to Vote on US$7.02 Per Share Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/renew-energy-global-plc-schedules-december-17-2026-shareholder-meetings-vote-us-702-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T11:40:59Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "ReNew Energy Global scheduled a vote on a US$7.02 per share acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ReNew Energy Global scheduled a vote on a US$7.02 per share acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ReNew Energy Global Plc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-798",
-      "headline": "IT Tech Packaging, Inc. Receives Going Concern Audit Opinion for Fiscal Year Ended December 31, 2025",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/it-tech-packaging-inc-receives-going-concern-audit-opinion-fiscal-year-ended-december-31",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T11:10:53Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "IT Tech Packaging received a going concern audit opinion, indicating significant doubt about its ability to continue as a going concern.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IT Tech Packaging received a going concern audit opinion, indicating significant doubt about its ability to continue as a going concern.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IT Tech Packaging, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287964,9 +287969,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 624329,
-    "news_picked_today": 2065,
-    "news_dropped_today": 18863
+    "news_seen_today": 627473,
+    "news_picked_today": 2120,
+    "news_dropped_today": 19048
   },
   "book_momentum": {
     "live_count": 8,
