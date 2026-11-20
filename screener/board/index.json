@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T03:35:59Z",
+  "generated_at": "2026-11-20T03:42:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-389",
@@ -1691,6 +1691,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-444",
+      "headline": "AMD Just Plunged Almost 8%, Lost $67 Billion and Kept Falling After Hours. A Short Seller Says It Shares Nvidia’s China Risk",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/19/amd-just-plunged-almost-8-lost-67-billion-and-kept-falling-after-hours-a-short-seller-says-it-shares-nvidias-china-risk/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:07:02Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "AMD stock dropped nearly 8% and lost $67 billion in market value amid concerns over China-related regulatory and supply risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "AMD stock dropped nearly 8% and lost $67 billion in market value amid concerns over China-related regulatory and supply risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-001",
       "headline": "Anthropic to begin public trading at $1.5tn valuation after largest ever IPO",
       "headline_en": null,
@@ -1931,60 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-078",
-      "headline": "Mitra FMCG, Tanvi Foods announce ₹600 crore strategic integration",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/agri-business/mitra-fmcg-tanvi-foods-announce-600-crore-strategic-integration/article71719989.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:01:57Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Named strategic integration between Mitra FMCG and Tanvi Foods valued at ₹600 crore affects capital structure, revenue composition, and execution risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Named strategic integration between Mitra FMCG and Tanvi Foods valued at ₹600 crore affects capital structure, revenue composition, and execution risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitra FMCG",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Tanvi Foods",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287349,9 +287344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 218351,
-    "news_picked_today": 667,
-    "news_dropped_today": 2285
+    "news_seen_today": 221534,
+    "news_picked_today": 687,
+    "news_dropped_today": 2337
   },
   "book_momentum": {
     "live_count": 8,
