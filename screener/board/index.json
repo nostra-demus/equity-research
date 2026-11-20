@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T04:30:00Z",
+  "generated_at": "2026-11-20T04:34:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-484",
@@ -1488,6 +1488,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-521",
+      "headline": "AMEA Power signs $650m Amunet 2 wind contracts and deal for Egypt’s first wind turbine factory",
+      "headline_en": null,
+      "url": "https://dailynewsegypt.com/2026/11/18/amea-power-signs-650m-amunet-2-wind-contracts-and-deal-for-egypts-first-wind-turbine-factory/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T17:13:02Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "AMEA Power signed $650 million in wind energy contracts and a factory deal in Egypt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "AMEA Power signed $650 million in wind energy contracts and a factory deal in Egypt.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMEA Power",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-437",
       "headline": "WISeKey International Holding AG Subsidiary SEALSQ Signs LOI to Acquire 100% of QuintessenceLabs",
       "headline_en": null,
@@ -1934,60 +1983,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-489",
-      "headline": "Passage Bio, Inc. Reports Financial Information for Proposed Merger with Remix Therapeutics, Inc.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/passage-bio-inc-reports-financial-information-proposed-merger-remix-therapeutics-inc",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T03:48:48Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Disclosure of financial information related to a proposed merger between Passage Bio and Remix Therapeutics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Disclosure of financial information related to a proposed merger between Passage Bio and Remix Therapeutics.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Passage Bio",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Remix Therapeutics",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287352,9 +287347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 251894,
-    "news_picked_today": 781,
-    "news_dropped_today": 2915
+    "news_seen_today": 254657,
+    "news_picked_today": 791,
+    "news_dropped_today": 2929
   },
   "book_momentum": {
     "live_count": 8,
