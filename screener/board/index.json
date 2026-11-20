@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T01:15:42Z",
+  "generated_at": "2026-11-20T01:21:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-089",
@@ -142,6 +142,55 @@
           "name": "Adani Energy Solutions",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-264",
+      "headline": "LG Display scraps 3 tln-won OLED investment plan",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261119010000320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T09:06:09Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "LG Display cancelled a 3 trillion won OLED investment plan, significantly impacting future capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LG Display cancelled a 3 trillion won OLED investment plan, significantly impacting future capacity.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LG Display",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -298,6 +347,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-260",
+      "headline": "McBride shares sink after warning on profits as cost pressures delay margin recovery",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/mcbride-shares-sink-after-warning-on-profits-as-cost-pressures-delay-margin-recovery/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T09:10:43Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "McBride issued a profit warning due to cost pressures delaying margin recovery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "McBride issued a profit warning due to cost pressures delaying margin recovery.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McBride",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1246,6 +1345,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-269",
+      "headline": "Alkem Laboratories gets USFDA warning letter with OAI classification for Daman facility",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/alkem-laboratories-share-price-usfda-warnings-letter-oai-classification-daman-facility-implications-20037644.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T09:00:59Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Alkem Laboratories received a USFDA warning letter with OAI classification, which poses a significant regulatory risk to its Daman facility operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Alkem Laboratories received a USFDA warning letter with OAI classification, which poses a significant regulatory risk to its Daman facility operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alkem Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-030",
       "headline": "Ashton Kutcher struck AI gold? Actor founded Sound Ventures’ Anthropic bet now worth $7B as AI firm goes public today",
       "headline_en": null,
@@ -1834,158 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-070",
-      "headline": "Wohnungsbau: Roboterfabrik für serielles Bauen – Vonovia-Partner Gropyus kämpft ums Überleben",
-      "headline_en": "Housing construction: Robot factory for serial construction – Vonovia partner Gropyus fights for survival",
-      "url": "https://www.handelsblatt.com/finanzen/immobilien/wohnungsbau-vonovia-partner-gropyus-kaempft-ums-ueberleben/100270935.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:08:24Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Gropyus, a partner of Vonovia, is facing potential insolvency, which poses operational and financial risk to the partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Gropyus, a partner of Vonovia, is facing potential insolvency, which poses operational and financial risk to the partnership.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gropyus",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Vonovia",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-069",
-      "headline": "NLC India Renewables files DRHP for IPO with ₹3,300 crore fresh issue",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/stock-markets/nlc-india-renewables-files-drhp-for-ipo-with-3300-crore-fresh-issue/article71719539.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:06:09Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "NLC India Renewables files for an IPO with a fresh issue of ₹3,300 crore, a significant capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "NLC India Renewables files for an IPO with a fresh issue of ₹3,300 crore, a significant capital raise.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NLC India Renewables",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-110",
-      "headline": "Zimbabwe Asks Lenders for Grants to Repay What it Owes Them",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-19/zimbabwe-asks-lenders-for-grants-to-repay-what-it-owes-them",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:37:28Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Zimbabwe is requesting grants to repay outstanding debt, signaling severe sovereign liquidity distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Zimbabwe is requesting grants to repay outstanding debt, signaling severe sovereign liquidity distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zimbabwe",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287352,9 +287348,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 91851,
-    "news_picked_today": 304,
-    "news_dropped_today": 800
+    "news_seen_today": 96568,
+    "news_picked_today": 316,
+    "news_dropped_today": 836
   },
   "book_momentum": {
     "live_count": 8,
