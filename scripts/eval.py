@@ -515,6 +515,7 @@ from rating_caps import (
     BB_DATE, CYCLE_ELEV_TAG, CYCLE_DEPR_TAG, BB_COMPOUND_CAP, eval_bb_sector_cycle_compounding_cap,
     BD_DATE, WACC_ESCALATION_TAG, eval_bd_cost_of_capital_reality_test,
     BE_DATE, REV_DECOMP_TAG, MARGIN_BRIDGE_TAG, BE_RECONCILE_TOLERANCE, eval_be_driver_attribution_residual,
+    BL_DATE, TIMING_WEAK_MAX_BL, extract_catalyst_timing, eval_bl_catalyst_timing_gate,
 )
 
 # ── Check AG (§18 Phase 6 calibration-feedback gate) ─────────────────────────────────────────────
@@ -1413,6 +1414,95 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AE({dec_!r},{dt_!r},bm={bm_r!r},bq={bq_r!r},es={es_!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=aebad
+    # check BL — §17 catalyst-timing gate (derived weak-timing flag + a short needs timing). Every
+    # committed run predates BL_DATE → N/A in the main loop; drive every branch here. Expected values
+    # are pinned to CLAUDE.md §17 / §12 and catalyst/MODULE_RULES.md's five verdict categories, and the
+    # fixtures use the three verdict renderings and the bolded score line real syntheses emit.
+    def _bl_syn(verdict_line, tv_line):
+        return ("# Catalyst Module — X (Synthesis)\n\n## Abstract\n\nVerdict: something in prose.\n\n"
+                "## 1. Catalyst Verdict\n\n"+verdict_line+"\n- Catalyst strength /100: 45\n"+tv_line+"\n"
+                "- Catalyst risk /100 *(higher = worse)*: 60\n\n## 3. Score Cap Application\n\n"
+                "| No scheduled-event data at all | N | Timing visibility; usefulness | timing max 40; usefulness max 60 |\n")
+    BL_TSLA=_bl_syn("- **Verdict:** Dated, evidenced near-term catalysts","- Timing visibility /100: 35")           # the TSLA_2026-07-25 shape
+    BL_DATED=_bl_syn("- **Verdict:** Dated, evidenced near-term catalysts","- Timing visibility /100: **68**")
+    BL_EDGE40=_bl_syn("- **Verdict: Dated, evidenced near-term catalysts**","- Timing visibility /100: 40")
+    BL_EDGE41=_bl_syn("- **Verdict**: Dated, evidenced near-term catalysts","- Timing visibility /100: 41")
+    BL_VAGUE=_bl_syn("- **Verdict:** Catalysts exist but timing vague","- Timing visibility /100: **58**")          # the V_2026-09-23 shape
+    BL_LONG=_bl_syn("- **Verdict:** Long-dated / low-visibility catalysts","- Timing visibility /100: 55")
+    BL_NONE=_bl_syn("- **Verdict:** No proven catalyst yet","- Timing visibility /100: 45")
+    BL_INSUF=_bl_syn("- **Verdict:** Insufficient data","- Timing visibility /100: 50")
+    BL_BOTH=_bl_syn("- **Verdict:** Dated, evidenced near-term catalysts — not \"No proven catalyst yet\"","- Timing visibility /100: 70")
+    BL_NOSCORE=_bl_syn("- **Verdict:** Catalysts exist but timing vague","- Timing visibility: not scored")
+    BL_UNREADABLE="# Catalyst Module\n\nNo verdict block was written.\n"
+    blx=[  # extract_catalyst_timing(text) -> (category, timing_visibility)
+        (BL_TSLA,("dated",35)),(BL_DATED,("dated",68)),(BL_EDGE40,("dated",40)),(BL_EDGE41,("dated",41)),
+        (BL_VAGUE,("vague",58)),(BL_LONG,("long_dated",55)),(BL_NONE,("none",45)),(BL_INSUF,("insufficient",50)),
+        (BL_BOTH,("dated",70)),            # the earliest category marker names the verdict
+        (BL_NOSCORE,("vague",None)),       # the Score-Cap row's "timing max 40" is not the score
+        (BL_UNREADABLE,(None,None)),(None,(None,None)),
+        (_bl_syn("- **Verdict:** Dated, evidenced near-term catalysts","- Timing visibility /100: 135"),("dated",None)),  # out of range → unread
+    ]
+    CI_T={"catalyst_timing_weak":True}; CI_F={"catalyst_timing_weak":False}
+    FLAG="confidence_inputs.catalyst_timing_weak"; SHORT="cannot time the thesis"
+    blcases=[  # (decision, date, catalyst_txt, confidence_inputs, expect: None | [] | [substrings, one per violation])
+        ("Short Candidate","2026-11-19",BL_TSLA,CI_T,None),                 # pre-gate
+        ("Short Candidate","not-a-date",BL_TSLA,CI_T,None),
+        ("Short Candidate",BL_DATE,None,CI_T,None),                         # catalyst module did not run
+        ("Short Candidate",BL_DATE,BL_UNREADABLE,CI_T,None),                # nothing readable → N/A, not a guess
+        # rule 2 — the TSLA miss: flag honestly set, 70 ceiling not binding, short shipped anyway
+        ("Short Candidate",BL_DATE,BL_TSLA,CI_T,[SHORT]),
+        ("Short Candidate",BL_DATE,BL_EDGE40,CI_T,[SHORT]),                 # 40 is still the weak band
+        ("Short Candidate",BL_DATE,BL_EDGE41,CI_F,[]),                      # 41 is "mixed" — not capped
+        ("Short Candidate",BL_DATE,BL_NONE,CI_T,[SHORT]),
+        ("Short Candidate",BL_DATE,BL_INSUF,CI_T,[SHORT]),
+        ("Short Candidate",BL_DATE,BL_DATED,CI_F,[]),                       # a dated, visible calendar: short allowed
+        ("Short Candidate",BL_DATE,BL_VAGUE,CI_T,[]),                       # vague verdict, middling score: 70 ceiling only
+        ("Short Candidate",BL_DATE,BL_LONG,CI_T,[]),
+        ("Short Candidate",BL_DATE,BL_TSLA,CI_F,[FLAG,SHORT]),              # both rules at once
+        ("Short Candidate",BL_DATE,BL_TSLA,None,[SHORT]),                   # no confidence_inputs: rule 2 still bites
+        # the allowed expressions of the same view, and every long, are not capped by rule 2
+        ("Avoid",BL_DATE,BL_TSLA,CI_T,[]),
+        ("Pair Trade / Hedge Required",BL_DATE,BL_TSLA,CI_T,[]),
+        ("Watchlist",BL_DATE,BL_NONE,CI_T,[]),
+        ("Buy",BL_DATE,BL_TSLA,CI_T,[]),                                    # a long with no dated catalyst keeps the 70 ceiling only
+        ("Strong Buy",BL_DATE,BL_NONE,CI_T,[]),
+        # rule 1 — the flag is derived from the catalyst module's read
+        ("Watchlist",BL_DATE,BL_VAGUE,CI_F,[FLAG]),
+        ("Buy",BL_DATE,BL_LONG,CI_F,[FLAG]),
+        ("Watchlist",BL_DATE,BL_TSLA,CI_F,[FLAG]),                          # dated verdict, weak-band score
+        ("Watchlist",BL_DATE,BL_VAGUE,{},[FLAG]),                           # key missing is not true
+        ("Watchlist",BL_DATE,BL_VAGUE,{"catalyst_timing_weak":"true"},[FLAG]),  # a string is not the bool
+        ("Watchlist",BL_DATE,BL_VAGUE,{"catalyst_timing_weak":1},[FLAG]),
+        ("Watchlist",BL_DATE,BL_NOSCORE,CI_F,[FLAG]),                       # verdict alone is enough
+        ("Watchlist",BL_DATE,BL_NONE,{"catalyst_timing_weak":False,"modules_absent":[" Catalyst "]},[]),  # no-catalyst-timing cap accepted
+        ("Watchlist",BL_DATE,BL_INSUF,{"modules_absent":["catalyst"]},[]),
+        ("Watchlist",BL_DATE,BL_VAGUE,{"catalyst_timing_weak":False,"modules_absent":["catalyst"]},[FLAG]),  # ...but only when there is no calendar at all
+        ("Watchlist",BL_DATE,BL_NONE,{"modules_absent":"catalyst"},[FLAG]),  # malformed list is not a declaration
+        ("Watchlist",BL_DATE,BL_DATED,CI_F,[]),                             # strong timing, flag false: correct
+        ("Watchlist",BL_DATE,BL_DATED,CI_T,[]),                             # over-cautious flag is never a violation
+        ("Watchlist",BL_DATE,BL_EDGE41,CI_F,[]),
+        ("Watchlist",BL_DATE,BL_VAGUE,None,[]),                             # confidence_inputs absent: rule 1 is AG's job
+        ("Watchlist",BL_DATE,BL_VAGUE,"oops",[]),
+    ]
+    blbad=0
+    for txt_,exp in blx:
+        got=extract_catalyst_timing(txt_)
+        ok=(got==exp)
+        if not ok: blbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BL extract -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    for dec_,dt_,txt_,ci_,exp in blcases:
+        got=eval_bl_catalyst_timing_gate(dec_,dt_,txt_,ci_)
+        if exp is None:
+            ok=(got is None)
+        else:
+            ok=(isinstance(got,list) and len(got)==len(exp) and all(any(tag in v for v in got) for tag in exp))
+        if not ok: blbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BL dec={dec_!r} date={dt_} ci={ci_!r} -> {None if got is None else len(got)} violation(s)"
+              +("" if ok else f"  EXPECTED {exp}  GOT {got}"))
+    ok=(TIMING_WEAK_MAX_BL==40)   # CLAUDE.md §12: 21–40 weak. Moving this moves a rating cap — make it a deliberate edit.
+    if not ok: blbad+=1
+    print(f"  [{'ok' if ok else 'XX'}] BL weak band ceiling is the §12 value (40)")
+    bad+=blbad
     # check AF — §24 Filter 1 crooks/integrity conviction cap. All golden fixtures predate AF_DATE
     # → always N/A in the main loop; drive every branch here.
     AF=eval_af_filter1_integrity_cap
@@ -4718,6 +4808,23 @@ for drp in runs:
                 f"decision={dec!r} — §24 Filter 1 cap satisfied")
     else:
         add("AF_filter1_integrity_cap",True,f"run predates §24 Filter 1 gate ({ddte}) — N/A",na=True)
+    # BL §17 catalyst-timing gate (forward-looking; landing BL_DATE) — see the BL_DATE comment block in
+    #   rating_caps.py. Reads the catalyst module's own 99 synthesis: (1) when its verdict or its Timing
+    #   visibility score says timing is weak, confidence_inputs.catalyst_timing_weak must be true (the
+    #   flag is derived, not chosen); (2) a "Short Candidate" is capped at "Avoid" / "Pair Trade / Hedge
+    #   Required" when Timing visibility is in the §12 weak band or there is no proven calendar.
+    #   Reads the file directly (not _read_synth_text, which is defined further down this loop body).
+    _bl_files=glob.glob(os.path.join(run,"catalyst","99_*-synthesis.md"))
+    try: bl_txt=open(_bl_files[0],encoding="utf-8").read() if _bl_files else None
+    except Exception: bl_txt=None
+    blresult=eval_bl_catalyst_timing_gate(dec,ddte,bl_txt,d.get("confidence_inputs"))
+    if blresult is None:
+        add("BL_catalyst_timing_gate",True,f"run predates the gate ({ddte}), or no readable catalyst synthesis — N/A",na=True)
+    elif blresult:
+        add("BL_catalyst_timing_gate",False,"; ".join(blresult))
+    else:
+        _blc,_bltv=extract_catalyst_timing(bl_txt)
+        add("BL_catalyst_timing_gate",True,f"catalyst verdict={_blc!r}, Timing visibility={_bltv!r}; decision={dec!r} — weak-timing flag and short-timing cap satisfied")
     # AQ §13 cross-module forensic-mosaic conviction cap (forward-looking; landing AQ_DATE) —
     #   synthesizer.md Pre-Write Gate step 4B. Mechanizes the "3+ independent sub-threshold forensic
     #   signals → compound High accounting-integrity flag" mosaic check, which — unlike its five §24
@@ -5005,6 +5112,11 @@ for drp in runs:
         if r:
             retro.append({"check":"BI_fx_conversion_consistency","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates BI_DATE ({BI_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if blresult is None and bl_txt is not None:
+        r=eval_bl_catalyst_timing_gate(dec,BL_DATE,bl_txt,d.get("confidence_inputs"))
+        if r:
+            retro.append({"check":"BL_catalyst_timing_gate","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BL_DATE ({BL_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     if bjresult is None:
         r=eval_bj_quality_double_count(BJ_DATE,bj_md,bj_pi)
         if r:
@@ -5104,13 +5216,13 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)","cash interest classification must be reconciled","cash finance costs absent from the chosen FCF","unknown is not zero"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001","data_needs_schema_version","entry_orbs","expected_impact","decision value"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Short-timing cap","is read off the catalyst module, not chosen","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001","data_needs_schema_version","entry_orbs","expected_impact","decision value"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","eval_bj_quality_double_count","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
- "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
+ ".claude/commands/research/full.md":["audit_dossier.md","eval_bl_catalyst_timing_gate(dec, _live_date,","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","eval_bj_quality_double_count","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
+ "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES","BL_DATE","TIMING_WEAK_MAX_BL","extract_catalyst_timing","eval_bl_catalyst_timing_gate"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one","BI_DATE","eval_bi_fx_conversion_consistency","_BI_PAIR"],
  "scripts/sector_valuation_checks.py":["SECTOR_DATE","eval_w_sector_valuation","BJ_DATE","eval_bj_quality_double_count","_BJ_FORMULA","_bj_ledger_rows"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
