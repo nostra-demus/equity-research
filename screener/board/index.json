@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T09:49:20Z",
+  "generated_at": "2026-11-20T09:52:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-663",
@@ -95,6 +95,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-680",
+      "headline": "Taiwan's TSMC Suspends China's Access to Advanced Chipmaking Without US Licenses",
+      "headline_en": null,
+      "url": "https://www.arabtimesonline.com/news/taiwans-tsmc-suspends-chinas-access-to-advanced-chipmaking-without-us-licenses/",
+      "source_name": "Arab Times Kuwait — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "TSMC has suspended shipments of advanced AI chips to Chinese customers to comply with US export controls, impacting supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TSMC has suspended shipments of advanced AI chips to Chinese customers to comply with US export controls, impacting supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TSMC",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,55 +1977,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-404",
-      "headline": "Anthropic IPO windfall: Over 5,000 employees become millionaires; 600 join the $100 million club",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/anthropic-ipo-windfall-over-5-000-employees-become-millionaires-600-join-the-100-million-club-11795141454809.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:41:50Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic's IPO is a major liquidity event in the AI sector, creating significant wealth for thousands of employees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Anthropic's IPO is a major liquidity event in the AI sector, creating significant wealth for thousands of employees.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287338,9 +287339,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 441322,
-    "news_picked_today": 1322,
-    "news_dropped_today": 10894
+    "news_seen_today": 442884,
+    "news_picked_today": 1328,
+    "news_dropped_today": 10912
   },
   "book_momentum": {
     "live_count": 8,
