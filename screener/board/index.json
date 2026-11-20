@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T00:24:23Z",
+  "generated_at": "2026-11-20T00:33:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-089",
@@ -42,6 +42,55 @@
       "companies": [
         {
           "name": "TJX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-125",
+      "headline": "Anthropic Prices at $83 in the Biggest IPO in History. Here’s What to Watch When Trading Starts.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anthropic-prices-83-biggest-ipo-history-heres-what-watch-when-trading-starts",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:25:02Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic is launching the largest IPO in history at an $83 price point.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Anthropic is launching the largest IPO in history at an $83 price point.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
         }
@@ -96,6 +145,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-109",
+      "headline": "Warenhäuser: Investorensuche bei Galeria: Streng vertrauliches Schreiben zeigt hohen Verlust",
+      "headline_en": "Department stores: Investor search at Galeria: Strictly confidential letter shows high loss",
+      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/galeria-streng-vertrauliches-schreiben-zeigt-hohen-verlust-der-warenhaeuser/100268740.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:39:08Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Galeria is seeking investors amid reports of high losses, indicating potential insolvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Galeria is seeking investors amid reports of high losses, indicating potential insolvency risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galeria",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -748,6 +846,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-110",
+      "headline": "Zimbabwe Asks Lenders for Grants to Repay What it Owes Them",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-19/zimbabwe-asks-lenders-for-grants-to-repay-what-it-owes-them",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:37:28Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Zimbabwe is requesting grants to repay outstanding debt, signaling severe sovereign liquidity distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Zimbabwe is requesting grants to repay outstanding debt, signaling severe sovereign liquidity distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zimbabwe",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-010",
       "headline": "Lenovo India Q2 revenue up 16%; AI PCs, enterprise demand drive growth",
       "headline_en": null,
@@ -1038,6 +1185,106 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-123",
+      "headline": "Bajaj Group Enters Healthcare With 500-Bed Hospital in Pune",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-19/bajaj-group-enters-healthcare-with-500-bed-hospital-in-pune",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:33:19Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Bajaj Group is diversifying into healthcare with a new 500-bed hospital facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Bajaj Group is diversifying into healthcare with a new 500-bed hospital facility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-118",
+      "headline": "Upland Software, Inc. Outlines Strategic Plan, New Leadership, and FY'28 Financial Targets",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/upland-software-inc-outlines-strategic-plan-new-leadership-and-fy28-financial-targets",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:30:51Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Upland Software announced new leadership, a strategic plan, and FY'28 financial targets; multiple company-moving announcements reshaping forward expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Upland Software announced new leadership, a strategic plan, and FY'28 financial targets; multiple company-moving announcements reshaping forward expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "management",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Upland Software, Inc.",
+          "ticker": "UPLD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1730,250 +1977,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-007",
-      "headline": "Relief for 4,500 Bengaluru homebuyers: Supreme Court bars coercive action till flat possession",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/relief-for-4500-bengaluru-homebuyers-supreme-court-bars-coercive-action-till-flat-possession-4224227",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Supreme Court ruling provides relief to 4,500 homebuyers, impacting real estate developer liability in Bengaluru.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Supreme Court ruling provides relief to 4,500 homebuyers, impacting real estate developer liability in Bengaluru.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-021",
-      "headline": "Ashoka Buildcon loses ₹846 crore Saudi Arabia contract after client cancels project",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/ashoka-buildcon-share-price-loses-rs-846-crore-saudi-arabia-contract-after-client-cancels-project-20037830.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:52:37Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Ashoka Buildcon loses ₹846 crore Saudi Arabia project contract after client cancellation, reducing revenue and cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Ashoka Buildcon loses ₹846 crore Saudi Arabia project contract after client cancellation, reducing revenue and cash flow.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ashoka Buildcon",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-048",
-      "headline": "IndiGo’s Big Southeast Asia Push: Kuala Lumpur, Singapore And Bangkok Get More Flights",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/indigo-s-big-southeast-asia-push-kuala-lumpur-singapore-and-bangkok-get-more-flights-12349710#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:24:18Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "IndiGo is expanding its international flight capacity to Southeast Asia, which is a material operational growth move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "IndiGo is expanding its international flight capacity to Southeast Asia, which is a material operational growth move.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndiGo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-041",
-      "headline": "Dilip Buildcon bags ₹419 crore Gurugram Metro contract for depot, workshop",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/dilip-buildcon-bags-rs-419-crore-gurugram-metro-contract-for-depot-workshop-20037914.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:32:17Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Dilip Buildcon awarded a ₹419 crore Gurugram Metro contract for depot/workshop, adding to revenue backlog and near-term cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Dilip Buildcon awarded a ₹419 crore Gurugram Metro contract for depot/workshop, adding to revenue backlog and near-term cash flow.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dilip Buildcon",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-049",
-      "headline": "OpenAI Says Its AI Improved AMD’s Best Chip Design by Up to 14%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/19/openai-says-its-ai-improved-amds-best-chip-design-by-up-to-14/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:22:24Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "OpenAI's AI technology improved AMD's chip design efficiency by 14%, a material technical validation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "OpenAI's AI technology improved AMD's chip design efficiency by 14%, a material technical validation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287340,9 +287343,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 21143,
-    "news_picked_today": 109,
-    "news_dropped_today": 275
+    "news_seen_today": 41270,
+    "news_picked_today": 130,
+    "news_dropped_today": 326
   },
   "book_momentum": {
     "live_count": 8,
