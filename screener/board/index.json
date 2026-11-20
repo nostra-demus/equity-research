@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T02:39:22Z",
+  "generated_at": "2026-11-20T02:43:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-298",
@@ -1084,6 +1084,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-347",
+      "headline": "Anthropic IPO set to raise $90.4 billion, could become biggest stock market debut ever",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/anthropic-ipo-set-to-raise-90-4-billion-could-become-biggest-stock-market-debut-ever-11795025331762.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T18:40:11Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic is planning an IPO expected to raise $90.4 billion, which would be a record-breaking market debut.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Anthropic is planning an IPO expected to raise $90.4 billion, which would be a record-breaking market debut.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-001",
       "headline": "Anthropic to begin public trading at $1.5tn valuation after largest ever IPO",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-066",
-      "headline": "FEC Resources Inc. Reports Debt Settlement of $1,157,760.78 and Updates on Philippine Oil and Gas Interests",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/fec-resources-inc-reports-debt-settlement-115776078-and-updates-philippine-oil-and-gas",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:09:13Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Company reports a debt settlement of $1.16 million, improving its balance sheet position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Company reports a debt settlement of $1.16 million, improving its balance sheet position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FEC Resources Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287337,9 +287337,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 161353,
-    "news_picked_today": 513,
-    "news_dropped_today": 1791
+    "news_seen_today": 168048,
+    "news_picked_today": 526,
+    "news_dropped_today": 1826
   },
   "book_momentum": {
     "live_count": 8,
