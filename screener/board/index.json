@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T21:01:02Z",
+  "generated_at": "2026-11-20T21:12:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1143",
@@ -159,6 +159,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1168",
+      "headline": "PREM14C - Bumble Inc. (0001830043) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1830043/000119312526470223/0001193125-26-470223-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-20T21:04:35Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Bumble Inc filed PREM14C indicating an announced or imminent merger, acquisition, or reorganization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bumble Inc filed PREM14C indicating an announced or imminent merger, acquisition, or reorganization.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bumble Inc.",
+          "ticker": "BMBL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1938,49 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-942",
-      "headline": "National airline warns that it could liquidate as early as December",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/national-airline-warns-that-it-could-liquidate-as-early-as-december",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T14:17:46Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "National airline warns of potential liquidation by December.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "National airline warns of potential liquidation by December.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288549,9 +288555,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 646502,
-    "news_picked_today": 2508,
-    "news_dropped_today": 22627
+    "news_seen_today": 646811,
+    "news_picked_today": 2520,
+    "news_dropped_today": 22831
   },
   "book_momentum": {
     "live_count": 8,
