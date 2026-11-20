@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.5",
+  "ticker": "TTWO",
+  "as_of": "2026-11-20",
+  "currency": "USD",
+  "business_type": "Operating",
+  "basis": "ev",
+  "shares": 188.0,
+  "net_debt": 1370.4,
+  "net_debt_basis": "strict",
+  "current_price": 216.61,
+  "price_as_of": "2026-11-19",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": true,
+  "scenarios": [
+    {
+      "label": "bull",
+      "set_membership": "weighted",
+      "forward_metric": 2839.1,
+      "metric_basis": "NTM management-basis (non-GAAP) EBITDA",
+      "metric_period": "NTM",
+      "metric_measure": "EBITDA",
+      "multiple": 26.806,
+      "multiple_basis": "EV/NTM EBITDA (management basis) — 02's own 5-year NTM MEDIAN, set against a band of min 14.298x / max 51.732x",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 §7 canonical: borrowings-only debt 2,519.8 less cash & equivalents 1,149.4)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "source": "01_price-and-capital-structure.md §7 Anchor Summary (Q2 FY27 10-Q, Note 10 (Debt) and Balance Sheets), adopted from balance-sheet-survival/01 §7"
+      },
+      "level": 397.52,
+      "drivers": "12-month horizon. GTA VI sells through +10% above the guided launch-quarter midpoint, sustained across the NTM window, converting at the company's own guided incremental rate of $0.4946 of EBIT per $1 of revenue; the +130bps gross-margin reversion lands; recurrent consumer spending beats guided-flat by +4pp; and the market pays TTWO its own 5-year average forward multiple again. NOTE: 397.52 sits above the highest of 29 analyst price targets (330.00; mean 283.93).",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 76104.3,
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 canonical)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "source": "07_scenario-and-fair-value.md §3 executed snippet (python3 s07.py, executed 2026-11-20)"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table; multiple from 02_multiples-own-history.md §2A (NTM band, n=20, 2021-12-31 to 2026-09-30)"
+    },
+    {
+      "label": "base",
+      "set_membership": "weighted",
+      "forward_metric": 2349.09,
+      "metric_basis": "NTM management-basis (non-GAAP) EBITDA — consensus",
+      "metric_period": "NTM",
+      "metric_measure": "EBITDA",
+      "multiple": 16.2831,
+      "multiple_basis": "EV/NTM EBITDA (management basis) — the implied multiple of the §1 weighted method blend (02 30% / 03 45% / 04 25%), published as 16.28x; +7.5% vs 03's quality-matched five-peer median 15.14x and −39.3% vs 02's own-history median 26.806x",
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "secondary_multiples": [
+        {
+          "value": 20.5,
+          "basis": "NTM P/E (on NTM diluted EPS 9.569)",
+          "note": "cross-check only; 07 §2C"
+        }
+      ],
+      "bridge": {
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 §7 canonical: borrowings-only debt 2,519.8 less cash & equivalents 1,149.4)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "source": "01_price-and-capital-structure.md §7 Anchor Summary (Q2 FY27 10-Q, Note 10 (Debt) and Balance Sheets), adopted from balance-sheet-survival/01 §7"
+      },
+      "level": 196.17,
+      "drivers": "12-month horizon. Consensus NTM EBITDA of 2,349.1 is delivered — which already requires the launch quarter to carry 120.9% of the whole year's guided Net Bookings growth while the other three quarters are guided to shrink by 288.9 in aggregate — and the market pays a forward multiple a touch above a quality-matched peer median rather than reverting to TTWO's own pre-launch average. DENOMINATOR CAVEAT that travels with this level: 2,349.1 is 3.24x LTM EBITDA (724.9) and 2.23x the company's own guided FY2027 non-GAAP EBITDA midpoint (1,053); at this same 16.28x, consensus FY2027 EBITDA gives 139.33/sh and company-guided FY2027 gives 83.92/sh.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 38251.3,
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 canonical)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "source": "07_scenario-and-fair-value.md §3 executed snippet (python3 s07.py, executed 2026-11-20)"
+      },
+      "source": "07_scenario-and-fair-value.md §1 weighted blend and §2C; NTM EBITDA from Capital IQ Estimates → Multiples (NTM), As-Of 2026-11-19"
+    },
+    {
+      "label": "bear_cyclical",
+      "set_membership": "weighted",
+      "forward_metric": 985.8,
+      "metric_basis": "NTM management-basis (non-GAAP) EBITDA — the FY2025 prior-downturn margin, bridged from its reported 6.71% to a management basis of 12.44% by adding back FY2025 SBC of 324.0, then applied to this case's FORWARD revenue of 7,925.1 (NTM revenue 9,906.3 less 20%). This is a FORWARD (NTM) case: a prior-trough MARGIN re-based onto a forward denominator, not a trough-period metric.",
+      "metric_period": "NTM",
+      "metric_measure": "EBITDA",
+      "multiple": 14.298,
+      "multiple_basis": "EV/NTM EBITDA (management basis) — 02's own 5-year NTM MINIMUM, set 2022-06-30",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 §7 canonical: borrowings-only debt 2,519.8 less cash & equivalents 1,149.4)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "source": "01_price-and-capital-structure.md §7 Anchor Summary (Q2 FY27 10-Q, Note 10 (Debt) and Balance Sheets), adopted from balance-sheet-survival/01 §7"
+      },
+      "level": 67.68,
+      "drivers": "12-month horizon; the HEADLINE bear. The launch undersells: revenue −20% against the guided midpoint (earnings/07's own bear move on its top variable), and the four mechanical links fire together because they are one event — the straight-line amortisation floor keeps charging when revenue does not arrive; the recoverability test trips against the 2,577.3 carried capitalised balance (2,149.7 of it on unreleased titles at 2026-03-31 = 61.2% of equity); the GTA VI Ultimate Edition add-on content driving the guided recurrent-spending rise does not convert; and ~$96m of SBC still lands in Q3 cost of revenue regardless, with Q3 operating expenses guided +21% YoY on launch marketing already committed. Sanity: 985.8 is 1.40x the prior trough's own management-basis absolute EBITDA of 704.0 — severe but not deeper than the cited history.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 14094.5,
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 canonical)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "source": "07_scenario-and-fair-value.md §3 executed snippet (python3 s07.py, executed 2026-11-20)"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table and the prior-downturn re-basing table; multiple from 02_multiples-own-history.md §2A (NTM band minimum)"
+    },
+    {
+      "label": "bear_structural",
+      "set_membership": "weighted",
+      "forward_metric": null,
+      "metric_basis": "Reset base — 04's impaired declining-perpetuity FCFF path: terminal EBIT margin faded to 8.0% with g = 0.0% nominal (zero-to-negative real) on a non-recovering revenue base. A permanently lower normalized margin, NOT a forward EBITDA multiple. 24–36 month horizon.",
+      "metric_period": "mid_cycle",
+      "metric_measure": "FCF",
+      "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "secondary_multiples": [
+        {
+          "value": 4.78749,
+          "basis": "EV/NTM EBITDA (management basis) — translation of the impaired EV onto the weighted set's own axis (11,246.3 ÷ 2,349.1)",
+          "note": "A TRANSLATION DEVICE, not a claim the market would pay it: the reset's whole point is that the 2,349.1 level does not persist. Below 02's 5-yr NTM minimum of 14.298x and inside the distressed end of the live peer cross-section (Ubisoft 2.20x, Playtika 3.67x, tinyBuild 7.37x). 07 §3."
+        },
+        {
+          "value": 4.65,
+          "basis": "implied exit TEV/FY2037 EBITDA (on FY2037 EBITDA of 1,657.6)",
+          "note": "04 §5 runoff terminal, cross-check only"
+        }
+      ],
+      "bridge": {
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 §7 canonical: borrowings-only debt 2,519.8 less cash & equivalents 1,149.4)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "source": "01_price-and-capital-structure.md §7 Anchor Summary (Q2 FY27 10-Q, Note 10 (Debt) and Balance Sheets), adopted from balance-sheet-survival/01 §7"
+      },
+      "level": 52.53,
+      "drivers": "24–36 MONTH horizon — a permanent-impairment path, not the 12-month bear; 07 carries it as the labelled avoid-ruin floor for §24 / Kill Criteria while the HEADLINE bear stays bear_cyclical at 67.68. Marked weighted here so that, if the master prices the floor (as committed runs normally do at 10–20%), it is not a weighted bear hidden from the basis gate; it carries no probability from this module. What must be true: the 'eroding (NOT confirmed)' moat read CONFIRMS — share loss to a new equilibrium in free-to-play mobile (50.1% of FY26 revenue, barriers the filing itself calls 'relatively low'), terminal-value fade, and continuing permanent capital destruction ($5,887.3m accumulated goodwill impairment of $6,949.2m gross, taken for 'industry conditions and changes in our strategies'; two disclosed unit lifetimes both shortened in the latest filing). Harsher 04 variant (margin fade from FY2035 rather than the terminal only): 50.58/sh. The floor sits BELOW the cyclical trough, so if the trajectory confirms the headline down-leg moves down to the reset.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 11246.3,
+        "net_debt": 1370.4,
+        "net_debt_basis": "strict §15 (01 canonical)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 188.0,
+        "stated_drivers": [
+          {
+            "label": "terminal EBIT margin (runoff)",
+            "value": 0.08,
+            "note": "impaired-FCFF DCF input — 04 §5; its per-year mapping to this EV is recorded only as the single runoff EV, so it is display-only provenance, not a lever"
+          },
+          {
+            "label": "terminal growth g, nominal",
+            "value": 0.0,
+            "note": "zero-to-negative real (below ~2.5% US expected inflation); at g = −1.0% nominal 04 reports the terminal falling to 6,917 and the per-share value to 48.1 — display-only"
+          },
+          {
+            "label": "WACC",
+            "value": 0.088521,
+            "note": "04 §3 — also sits inside the PV factors, whose sensitivity 04 did not record per scenario; display-only"
+          },
+          {
+            "label": "terminal value as % of EV",
+            "value": 0.306,
+            "note": "04 §5 runoff variant — display-only"
+          }
+        ],
+        "source": "07_scenario-and-fair-value.md §3 'bear_structural' bridge and executed snippet (python3 s07.py, 2026-11-20); impaired EV from 04_intrinsic-dcf.md §5–§6 runoff terminal"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table and 'bear_structural' bridge; 04_intrinsic-dcf.md §5 runoff terminal and §6 variant table"
+    }
+  ],
+  "cross_metric_reconciliation": "bear_structural is the only weighted case built on a different MEASURE and PERIOD from the other three (04's impaired mid-cycle FCFF path over 24–36 months, versus NTM management-basis EBITDA over 12 months), so 07 publishes the bridge rather than leaving it implied: the impaired enterprise value of 11,246.3 expressed on the weighted set's own axis is 11,246.3 ÷ NTM EBITDA 2,349.1 = 4.79x EV/NTM EBITDA — below 02's 5-year NTM minimum of 14.298x and inside the distressed end of the live peer cross-section. Read it as a translation device only: the reset's premise is that the 2,349.1 level does not persist. One further definition difference travels with it — 04 CHARGES stock-based compensation inside EBIT while the management-basis NTM measure ADDS IT BACK (462 guided for FY2027), which is why the two axes are not interchangeable without this bridge. [07_scenario-and-fair-value.md §3 'bear_structural — the explicit structural-reset bridge'; 04_intrinsic-dcf.md §1 and §5]",
+  "methods": {
+    "own_history": 328.44,
+    "peers": 181.89,
+    "dcf": 63.17,
+    "sotp": 156.27
+  },
+  "method_weights": {
+    "own_history": 0.30,
+    "peers": 0.45,
+    "dcf": 0.25,
+    "sotp": 0.0
+  },
+  "method_basis": {
+    "own_history": "NTM",
+    "peers": "NTM",
+    "dcf": "FY+1",
+    "sotp": "NTM"
+  },
+  "method_weight_exception": null,
+  "discount_rate": {
+    "rf": 0.0507,
+    "erp": 0.0441,
+    "beta": 0.92,
+    "cost_of_equity": 0.091272,
+    "wacc": 0.088521,
+    "after_tax_kd": 0.04424
+  },
+  "peers_internals": {
+    "metric_name": "NTM EV/EBITDA (management-basis NTM EBITDA 2,349.09), bridged at strict net debt 1,370.4 over 188.0m diluted shares",
+    "median_multiple": 15.14,
+    "applied_multiple": 15.14,
+    "discount_pct": 0,
+    "anchors": [
+      {
+        "multiple": 9.96,
+        "value": 117.16,
+        "label": "full ten-peer NTM EV/EBITDA median"
+      },
+      {
+        "multiple": 12.44,
+        "value": 148.15,
+        "label": "full ten-peer mean"
+      },
+      {
+        "multiple": 15.14,
+        "value": 181.89,
+        "label": "quality-matched five-peer median — BASE CASE (= methods.peers)"
+      },
+      {
+        "multiple": 17.25,
+        "value": 208.25,
+        "label": "quality-matched five-peer mean"
+      }
+    ],
+    "source": "03_relative-valuation-peers.md §5 implied-value table (Capital IQ Comps → Trading Multiples and → Financial Data, As-Of 2026-11-19; equity bridge at 01 §7's canonical strict net debt 1,370.4 and 188.0m diluted shares). discount_pct is 0 because NO quality haircut was applied to any earnings-based multiple: the own-margin ÷ peer-margin formula was tested and rejected as a double count (03 §5 ledger), and the move from 9.96x to 15.14x is a change of COMPARABLE SET on ex-ante criteria, not an adjustment to a multiple. Electronic Arts, the closest comparable, is private (take-private closed 2026-08-04) and contributes no multiple to either median."
+  },
+  "notes": "OMITTED BY REPRODUCE-OR-OMIT, with reasons. (1) dcf_grid: 04 §7 publishes TWO grids and neither is emittable faithfully. Grid A's base cell DOES equal methods.dcf (63.17) but its second axis is the terminal operating MARGIN, not terminal growth — the base terminal is TV = NOPAT/WACC with terminal ROIC = WACC, which is mathematically g-invariant, so growth is inert by construction. Grid B is a true WACC x terminal-growth grid but is run on the PERSISTENCE terminal, whose base cell is 77.56, not methods.dcf. Emitting Grid A with margins labelled as growth would misrepresent the axis; emitting Grid B would fail the reproduce anchor. Omitted rather than bent. (2) sotp_segments / sotp_bridge: omitted — TTWO is a SINGLE-SEGMENT company (FY26 10-K, Note 21) and 06 returned 'single-segment — SOTP collapses to the consolidated read' with zero weight on its own instruction; methods.sotp of 156.27 is recorded in the football field for transparency only (13.09x NEXON/Konami midpoint x NTM EBITDA 2,349.09, bridged at strict net debt 1,370.4 over 188.0m shares) and carries 0.0 weight because it duplicates methods.peers. SOURCE-CHECK STATUS: this frozen generation carries NO numeric_reading_check at any source or sheet level and corpus.txt carries no labelled extractor reading-warning annotation, so every Capital IQ workbook cell behind every lever above is mechanically UNCHECKED — never verified clean. No literal warning token, source/extract reference or LF-line/column span exists to quarantine, and no amount is marked not-proven on that basis. NO SCENARIO PROBABILITIES are written here: the master synthesizer owns probabilities, probability-weighted returns, risk/reward, the rating and position sizing (MODULE_RULES Scope). Horizons differ across cases — bull/base/bear_cyclical are 12-month; bear_structural is 24–36 month — so any probability-weighted figure mixing them is not a same-date comparison and must say so."
+}
