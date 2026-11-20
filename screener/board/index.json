@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T00:13:16Z",
+  "generated_at": "2026-11-20T00:17:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-001",
@@ -100,6 +100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-066",
+      "headline": "FEC Resources Inc. Reports Debt Settlement of $1,157,760.78 and Updates on Philippine Oil and Gas Interests",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/fec-resources-inc-reports-debt-settlement-115776078-and-updates-philippine-oil-and-gas",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:09:13Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Company reports a debt settlement of $1.16 million, improving its balance sheet position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Company reports a debt settlement of $1.16 million, improving its balance sheet position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FEC Resources Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-030",
       "headline": "Ashton Kutcher struck AI gold? Actor founded Sound Ventures’ Anthropic bet now worth $7B as AI firm goes public today",
       "headline_en": null,
@@ -136,6 +185,55 @@
         "mna"
       ],
       "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-068",
+      "headline": "Anthropic IPO Banks Land $550 Million Fee Windfall on Record IPO",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-banks-land-550-million-fee-windfall-on-record-ipo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:06:32Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Investment banks earn $550 million in fees from a record IPO, indicating strong capital markets activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Investment banks earn $550 million in fees from a record IPO, indicating strong capital markets activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "secondary",
       "companies": [
         {
           "name": "Anthropic",
@@ -394,6 +492,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-069",
+      "headline": "NLC India Renewables files DRHP for IPO with ₹3,300 crore fresh issue",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/stock-markets/nlc-india-renewables-files-drhp-for-ipo-with-3300-crore-fresh-issue/article71719539.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:06:09Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "NLC India Renewables files for an IPO with a fresh issue of ₹3,300 crore, a significant capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "NLC India Renewables files for an IPO with a fresh issue of ₹3,300 crore, a significant capital raise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NLC India Renewables",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-010",
       "headline": "Lenovo India Q2 revenue up 16%; AI PCs, enterprise demand drive growth",
       "headline_en": null,
@@ -640,6 +787,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-067",
+      "headline": "Nomura Holdings, Inc. Reports ¥249.3 Billion Net Income for Six Months Ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nomura-holdings-inc-reports-y2493-billion-net-income-six-months-ended-september-30-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:09:04Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Nomura reports ¥249.3 billion in net income for the six-month period, a significant quantified earnings result.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Nomura reports ¥249.3 billion in net income for the six-month period, a significant quantified earnings result.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nomura Holdings",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-031",
       "headline": "Hong Kong adds Hyperliquid to list of ‘suspicious’ crypto platforms",
       "headline_en": null,
@@ -684,6 +880,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-061",
+      "headline": "AIM movers: CT Automotive problems and Tavistock Investments close to selling private clients business",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/aim-movers-ct-automotive-problems-and-tavistock-investments-close-to-selling-private-clients-business/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:16:07Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "CT Automotive reports operational problems while Tavistock Investments is pursuing a divestment of its private client business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "CT Automotive reports operational problems while Tavistock Investments is pursuing a divestment of its private client business.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CT Automotive",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Tavistock Investments",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -928,6 +1179,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-065",
+      "headline": "Rajasthan: Anti-Corruption Bureau Registers FIR Against IAS Shikhar Agarwal Over 64 Villa Purchases, Alleged Favours To Resort",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/rajasthan-anti-corruption-bureau-registers-fir-against-ias-shikhar-agarwal-over-64-villa-purchases-alleged-favours-to-resort",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:09:44Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anti-Corruption Bureau registers FIR against a senior IAS official involving significant asset acquisition and alleged corruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Anti-Corruption Bureau registers FIR against a senior IAS official involving significant asset acquisition and alleged corruption.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1358,6 +1652,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-057",
+      "headline": "Xi, Trump, Putin put nuclear arms, Ukraine war on table at historic summit",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/politics/international-relations/apec/xi-trump-putin-put-nuclear-arms-ukraine-war-on-table-at-historic-summit",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:20:22Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Summit discussion of nuclear arms and Ukraine war signals material geopolitical risk shift affecting defense, energy, and emerging-market sectors globally, but headline does not specify outcome, agreements, or escalation direction, leaving impact on tradable securities unclear.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Summit discussion of nuclear arms and Ukraine war signals material geopolitical risk shift affecting defense, energy, and emerging-market sectors globally, but headline does not specify outcome, agreements, or escalation direction, leaving impact on tradable securities unclear.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-032",
       "headline": "China’s Biotech Black Eye From US Rejection May Quickly Turn for Summit, Akeso",
       "headline_en": null,
@@ -1456,6 +1793,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-059",
+      "headline": "COP31 negotiators publish revised deal text with no mention of fossil fuels",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/environment/2026/11/19/climate-change/cop-fossil-fuel-language/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T12:14:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "COP31 omits fossil-fuel language from deal text, signaling potential regulatory risk shift for energy sector but no confirmed commitment or company-specific impact yet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "COP31 omits fossil-fuel language from deal text, signaling potential regulatory risk shift for energy sector but no confirmed commitment or company-specific impact yet.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 61,
+      "rank_factors": {
+        "materiality": 61,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-043",
       "headline": "Paytm, Pine Labs, MobiKwik shares tumble up to 9% on MDR delay concerns: Should investors stay away from fintech stocks?",
       "headline_en": null,
@@ -1516,437 +1897,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261120-005",
-      "headline": "Loblaw’s grocery sales growth flattens as shoppers respond to cost pressures",
+      "inbox_id": "INB-20261120-058",
+      "headline": "UPI fee shock eased? B2B transactions may now attract just ₹5 charge under revised MDR plan",
       "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-loblaw-results-grocery-retail-consumer-spending/",
-      "source_name": "The Globe and Mail",
+      "url": "https://www.livemint.com/money/upi-fee-shock-eased-b2b-transactions-may-now-attract-just-5-charge-under-revised-mdr-plan-11795088050504.html",
+      "source_name": "Mint",
       "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:58:40Z",
+      "found_at": "2026-11-19T12:16:55Z",
       "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Loblaw's grocery sales growth flattened as cost-pressured shoppers pulled back, pointing to softer same-store momentum.",
+      "prelim_note": "India's revised MDR plan reducing B2B UPI transaction fees to ₹5 is a regulatory policy shift affecting all domestic payment processors and fintech companies; eases prior shock but reduces merchant-fee revenue.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Loblaw's grocery sales growth flattened as cost-pressured shoppers pulled back, pointing to softer same-store momentum.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Loblaw Companies",
-          "ticker": "L",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-020",
-      "headline": "Coal India declared L2 bidder for government's rare earth magnet manufacturing scheme",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/coal-india-share-price-declared-l2-bidder-for-governments-rare-earth-magnet-manufacturing-scheme-20037849.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:53:40Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Coal India is the L2 bidder for a government manufacturing scheme, indicating potential future contract wins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Coal India is the L2 bidder for a government manufacturing scheme, indicating potential future contract wins.",
+      "triage_score": 66,
+      "triage_reason": "India's revised MDR plan reducing B2B UPI transaction fees to ₹5 is a regulatory policy shift affecting all domestic payment processors and fintech companies; eases prior shock but reduces merchant-fee revenue.",
       "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coal India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-026",
-      "headline": "Novartis Sees Sales Growth Through Next Round of Patent Expirations",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/novartis-sees-sales-growth-through-2031-60d33957?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Novartis management signals sales growth through next patent-expiration cycle; forward commentary without quantified formal guidance revision or revenue target.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Novartis management signals sales growth through next patent-expiration cycle; forward commentary without quantified formal guidance revision or revenue target.",
-      "region": "GLOBAL",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
+      "materiality_pre_score": 58,
       "rank_factors": {
-        "materiality": 48,
+        "materiality": 58,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis AG",
-          "ticker": "NVS",
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-036",
-      "headline": "Indian lender Yes Bank's AT-1 bond investors urge RBI to focus on investor protection",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/indian-lender-yes-banks-at-1-bond-investors-urge-rbi-to-focus-on-investor-protection-20037897.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:38:47Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Yes Bank bondholders are pressuring the RBI for protection, highlighting ongoing credit risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Yes Bank bondholders are pressuring the RBI for protection, highlighting ongoing credit risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-055",
-      "headline": "Activist investors ramp up pressure on self-storage firm Big Yellow",
-      "headline_en": null,
-      "url": "https://www.cityam.com/activist-investors-ramp-up-pressure-on-self-storage-firm-big-yellow/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:21:31Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Activist investor pressure on Big Yellow indicates potential upcoming changes to corporate strategy or governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Activist investor pressure on Big Yellow indicates potential upcoming changes to corporate strategy or governance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Big Yellow",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-052",
-      "headline": "Dreiergipfel: Xi, Trump und Putin wollen UN reformieren und mehr Öl handeln – die wichtigsten Erkenntnisse",
-      "headline_en": "Tripartite summit: Xi, Trump and Putin want to reform the UN and trade more oil – the most important findings",
-      "url": "https://www.handelsblatt.com/politik/international/dreiergipfel-xi-trump-und-putin-wollen-un-reformieren-und-mehr-oel-handeln/100268369.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:20:55Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "A high-level summit between Xi, Trump, and Putin regarding UN reform and oil trade is a major geopolitical event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A high-level summit between Xi, Trump, and Putin regarding UN reform and oil trade is a major geopolitical event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
+        "scope": 2,
+        "event": 4,
         "size": 0,
         "recency": 2,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "commodity",
+        "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": null,
+        "event_id": "regulatory",
         "size_bucket": "unknown"
       },
       "event_types": [
+        "regulatory",
         "macro_sector"
       ],
-      "issuer_linkage": "macro",
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-046",
-      "headline": "Golf simulators and VIP suites coming as Emirates begins Dh400m lounge revamp",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/travel/2026/11/19/emirates-first-class-business-class-lounge-dxb-dubai/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:31:51Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Emirates is spending Dh400 million on a lounge renovation, representing a significant capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Emirates is spending Dh400 million on a lounge renovation, representing a significant capital expenditure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emirates",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-050",
-      "headline": "IndusInd Nippon Life Insurance posts 18% premium growth, eyes top-tier ranking in first year under new identity",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/indusind-nippon-life-insurance-posts-18-premium-growth-eyes-top-tier-ranking-in-first-year-under-new-identity/article71720075.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:21:29Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "IndusInd Nippon Life Insurance reported 18% premium growth, a material performance metric.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "IndusInd Nippon Life Insurance reported 18% premium growth, a material performance metric.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Nippon Life Insurance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-017",
-      "headline": "Leapmotor rolls off 2 millionth vehicle as flagship D19 SUV production tops 50,000",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/11/19/leapmotor-rolls-off-2-millionth-vehicle/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:56:33Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Leapmotor reached a production milestone of 2 million vehicles.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Leapmotor reached a production milestone of 2 million vehicles.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Leapmotor",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287313,9 +287302,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5516,
-    "news_picked_today": 56,
-    "news_dropped_today": 136
+    "news_seen_today": 10838,
+    "news_picked_today": 69,
+    "news_dropped_today": 171
   },
   "book_momentum": {
     "live_count": 8,
