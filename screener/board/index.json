@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T20:17:39Z",
+  "generated_at": "2026-11-20T20:37:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1143",
@@ -1096,6 +1096,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1157",
+      "headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/20/nvidia-stock-plunges-12-after-reuters-reports-an-sec-probe-of-its-accounting-its-nvidias-worst-day-since-deepseek-and-it-has-lost-2-7-trillion-since-october/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T20:17:02Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Nvidia is facing an SEC accounting probe, resulting in a 12% stock price decline and significant market value loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is facing an SEC accounting probe, resulting in a 12% stock price decline and significant market value loss.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1148",
       "headline": "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
       "headline_en": null,
@@ -1907,49 +1957,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "National airline warns of potential liquidation by December.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-943",
-      "headline": "Hospitality group behind more than 30 hotels files for Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/magnolia-hospitality-group-behind-more-than-30-hotels-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T14:17:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Hospitality group with 30+ hotels files for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hospitality group with 30+ hotels files for Chapter 11 bankruptcy.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -288120,9 +288127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 644404,
-    "news_picked_today": 2459,
-    "news_dropped_today": 21600
+    "news_seen_today": 645410,
+    "news_picked_today": 2464,
+    "news_dropped_today": 21979
   },
   "book_momentum": {
     "live_count": 8,
