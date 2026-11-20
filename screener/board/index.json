@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T11:40:30Z",
+  "generated_at": "2026-11-20T11:43:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-791",
+      "headline": "HARBIN BANK (06138): (1) VERY SUBSTANTIAL DISPOSAL IN RELATION TO DISPOSAL OF ASSETS OF THE COMPANY AND (2) NOTICE OF 2026 THIRD EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001387.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T11:20:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Harbin Bank announced a very substantial disposal of assets, which is a major corporate restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Harbin Bank announced a very substantial disposal of assets, which is a major corporate restructuring event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harbin Bank",
+          "ticker": "06138",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-790",
       "headline": "ELIFE HLDGS (00223): PROFIT WARNING",
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-603",
-      "headline": "Textron Selling Industrial Segment to Kingswood Capital for $1.2 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/textron-selling-industrial-segment-to-kingswood-capital-for-1-2-billion-5caba969?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T13:11:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Textron is selling its industrial segment to Kingswood Capital for $1.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Textron is selling its industrial segment to Kingswood Capital for $1.2 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Textron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287489,9 +287489,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 495968,
-    "news_picked_today": 1510,
-    "news_dropped_today": 12578
+    "news_seen_today": 497912,
+    "news_picked_today": 1511,
+    "news_dropped_today": 12625
   },
   "book_momentum": {
     "live_count": 8,
