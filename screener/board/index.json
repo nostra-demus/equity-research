@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T01:52:51Z",
+  "generated_at": "2026-11-20T02:00:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-298",
@@ -778,6 +778,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-320",
+      "headline": "US approved sale of Nvidia and AMD chips to Chinese companies",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/76342072-2781-4b16-ba3b-816a25214483?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T00:42:44Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "US government approval for Nvidia and AMD chip sales to Chinese companies removes export controls, potentially enabling significant new revenue from previously restricted markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "US government approval for Nvidia and AMD chip sales to Chinese companies removes export controls, potentially enabling significant new revenue from previously restricted markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,55 +1969,6 @@
           "name": "Visionflex",
           "ticker": "VFX",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-293",
-      "headline": "John Marshall Bancorp, Inc. Announces Shareholder Approval of Merger Proposals on November 19, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/john-marshall-bancorp-inc-announces-shareholder-approval-merger-proposals-november-19-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T01:20:39Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "John Marshall Bancorp shareholders approved a merger proposal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "John Marshall Bancorp shareholders approved a merger proposal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "John Marshall Bancorp, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -287330,9 +287336,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 127101,
-    "news_picked_today": 402,
-    "news_dropped_today": 1302
+    "news_seen_today": 131188,
+    "news_picked_today": 410,
+    "news_dropped_today": 1342
   },
   "book_momentum": {
     "live_count": 8,
