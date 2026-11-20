@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T07:59:06Z",
+  "generated_at": "2026-11-20T08:09:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-655",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-657",
+      "headline": "Bank Of Baroda Manager Arrested For Seeking Rs 9 Lakh To Sanction Rs 1.8 Crore Loan",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/india/bank-of-baroda-manager-arrested-for-seeking-rs-9-lakh-to-sanction-rs-1-8-crore-loan-12353279#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T07:22:26Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "A Bank of Baroda manager was arrested for seeking a bribe to sanction a loan, indicating potential internal corruption and regulatory scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Bank of Baroda manager was arrested for seeking a bribe to sanction a loan, indicating potential internal corruption and regulatory scrutiny.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,60 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-596",
-      "headline": "Anthropic Will Pay SpaceX Up to $120.5 Billion for Compute Through 2029. That's More Than SpaceX Raised in the Biggest IPO in History.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/anthropic-will-pay-spacex-1205-billion-compute-through-2029-thats-more-spacex-raised",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T14:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic is committing up to $120.5 billion for compute services from SpaceX through 2029, a massive commercial contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Anthropic is committing up to $120.5 billion for compute services from SpaceX through 2029, a massive commercial contract.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287345,9 +287340,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 392959,
-    "news_picked_today": 1254,
-    "news_dropped_today": 7194
+    "news_seen_today": 397271,
+    "news_picked_today": 1256,
+    "news_dropped_today": 8272
   },
   "book_momentum": {
     "live_count": 8,
