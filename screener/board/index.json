@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T18:16:44Z",
+  "generated_at": "2026-11-20T18:23:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1068",
@@ -1141,6 +1141,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1142",
+      "headline": "Procter & Gamble Wants $10 Billion in Savings and Fewer Factory Workers",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/20/procter-gamble-wants-10-billion-in-savings-and-fewer-factory-workers/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T16:07:36Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Procter & Gamble is targeting $10 billion in cost savings and workforce reductions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Procter & Gamble is targeting $10 billion in cost savings and workforce reductions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1120",
       "headline": "KKR Is Said to Seal Pact to Purchase Portugal’s Logoplaste",
       "headline_en": null,
@@ -1913,55 +1962,6 @@
           "name": "Vaquero Midstream",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-923",
-      "headline": "Southern Company’s $100 Billion Spending Plan Puts Its Dividend Growth to the Test",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/20/southern-companys-100-billion-spending-plan-puts-its-dividend-growth-to-the-test/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T13:17:12Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Southern Company announced a $100 billion capital spending plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Southern Company announced a $100 billion capital spending plan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Southern Company",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -287967,9 +287967,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 633771,
-    "news_picked_today": 2214,
-    "news_dropped_today": 19458
+    "news_seen_today": 635739,
+    "news_picked_today": 2243,
+    "news_dropped_today": 19573
   },
   "book_momentum": {
     "live_count": 8,
