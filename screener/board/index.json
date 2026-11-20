@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T09:29:49Z",
+  "generated_at": "2026-11-20T09:34:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-663",
@@ -1791,6 +1791,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-678",
+      "headline": "RELIANCE GLO HL (00723): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000400.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T08:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "RELIANCE GLO HL issued a positive profit alert indicating material upside earnings surprise vs. prior market consensus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "RELIANCE GLO HL issued a positive profit alert indicating material upside earnings surprise vs. prior market consensus.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RELIANCE GLO HL",
+          "ticker": "00723",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-457",
       "headline": "Anthropic’s historic stock market debut: key takeaways, and what comes next for the AI industry",
       "headline_en": null,
@@ -1927,61 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-411",
-      "headline": "Nvidia and AMD cleared for massive AI chip exports to China, disclosure reveals",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/nvidia-and-amd-cleared-for-massive-ai-chip-exports-to-china-disclosure-reveals-101795140785637.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:22:35Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Clearance for massive AI chip exports to China removes a major regulatory hurdle for Nvidia and AMD revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Clearance for massive AI chip exports to China removes a major regulatory hurdle for Nvidia and AMD revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia Corporation",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Advanced Micro Devices, Inc.",
-          "ticker": "AMD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287344,9 +287338,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 435317,
-    "news_picked_today": 1298,
-    "news_dropped_today": 10318
+    "news_seen_today": 438175,
+    "news_picked_today": 1304,
+    "news_dropped_today": 10408
   },
   "book_momentum": {
     "live_count": 8,
