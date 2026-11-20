@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T10:07:59Z",
+  "generated_at": "2026-11-20T10:12:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-732",
+      "headline": "FIRST CAP GP (01269): INSIDE INFORMATION - UPDATE ON PROPOSED DEBT RESTRUCTURING - SCHEME CONVENING HEARING AND SANCTION HEARING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000802.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T09:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Company announced formal debt restructuring scheme with convening and sanction hearings, a material capital-structure change affecting shareholder and creditor positions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced formal debt restructuring scheme with convening and sanction hearings, a material capital-structure change affecting shareholder and creditor positions.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Capital Group",
+          "ticker": "01269",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-663",
       "headline": "ASSET CHAIN (00616): PROFIT WARNING",
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-678",
-      "headline": "RELIANCE GLO HL (00723): POSITIVE PROFIT ALERT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000400.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-20T08:49:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "RELIANCE GLO HL issued a positive profit alert indicating material upside earnings surprise vs. prior market consensus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "RELIANCE GLO HL issued a positive profit alert indicating material upside earnings surprise vs. prior market consensus.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RELIANCE GLO HL",
-          "ticker": "00723",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249612,78 +249612,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-23755eca98f6",
-      "idea_version": "IDEAV-73267e7bcb085a11",
-      "idea_version_started_at": "2026-11-19T19:29:33Z",
-      "ticker": "CGF",
-      "company": "Challenger Ltd",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Challenger rejected a $4.4 billion takeover bid from Daiichi Life, removing the immediate M&A premium that was supporting the stock price.",
-      "why_now": "The rejection was reported on 2026-11-18.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4bc5a1356a48"
-      ],
-      "primary_source_event_id": "EVT-4bc5a1356a48",
-      "source_headlines": [
-        "Challenger Rejects New $4.4 Billion Daiichi Life Takeover Bid"
-      ],
-      "source_headline": "Challenger Rejects New $4.4 Billion Daiichi Life Takeover Bid",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/challenger-rejects-new-4-4-billion-daiichi-life-takeover-bid",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-18T22:08:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T19:29:33Z",
-      "updated_at": "2026-11-19T19:29:33Z",
-      "decay_at": "2026-11-20T10:08:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a289625cef3a",
       "idea_version": "IDEAV-d9079b2475a76c56",
       "idea_version_started_at": "2026-11-19T19:29:33Z",
@@ -249892,6 +249820,78 @@
       "surfaced_at": "2026-11-19T19:29:33Z",
       "updated_at": "2026-11-19T19:29:33Z",
       "decay_at": "2026-11-20T01:29:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-23755eca98f6",
+      "idea_version": "IDEAV-73267e7bcb085a11",
+      "idea_version_started_at": "2026-11-19T19:29:33Z",
+      "ticker": "CGF",
+      "company": "Challenger Ltd",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Challenger rejected a $4.4 billion takeover bid from Daiichi Life, removing the immediate M&A premium that was supporting the stock price.",
+      "why_now": "The rejection was reported on 2026-11-18.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4bc5a1356a48"
+      ],
+      "primary_source_event_id": "EVT-4bc5a1356a48",
+      "source_headlines": [
+        "Challenger Rejects New $4.4 Billion Daiichi Life Takeover Bid"
+      ],
+      "source_headline": "Challenger Rejects New $4.4 Billion Daiichi Life Takeover Bid",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/challenger-rejects-new-4-4-billion-daiichi-life-takeover-bid",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-18T22:08:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-19T19:29:33Z",
+      "updated_at": "2026-11-19T19:29:33Z",
+      "decay_at": "2026-11-20T10:08:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -250192,9 +250192,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 504,
+    "total_count": 505,
     "shown_count": 499,
-    "hidden_count": 5,
+    "hidden_count": 6,
     "side_counts": {
       "long": {
         "total_count": 255,
@@ -250202,9 +250202,9 @@
         "hidden_count": 5
       },
       "short": {
-        "total_count": 250,
+        "total_count": 251,
         "shown_count": 250,
-        "hidden_count": 0
+        "hidden_count": 1
       }
     },
     "retention": {
@@ -250223,6 +250223,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-23755eca98f6",
+        "idea_version": "IDEAV-73267e7bcb085a11",
+        "idea_version_started_at": "2026-11-19T19:29:33Z",
+        "ticker": "CGF",
+        "company": "Challenger Ltd",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Challenger rejected a $4.4 billion takeover bid from Daiichi Life, removing the immediate M&A premium that was supporting the stock price.",
+        "why_now": "The rejection was reported on 2026-11-18.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4bc5a1356a48"
+        ],
+        "primary_source_event_id": "EVT-4bc5a1356a48",
+        "source_headlines": [
+          "Challenger Rejects New $4.4 Billion Daiichi Life Takeover Bid"
+        ],
+        "source_headline": "Challenger Rejects New $4.4 Billion Daiichi Life Takeover Bid",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/challenger-rejects-new-4-4-billion-daiichi-life-takeover-bid",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-18T22:08:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-19T19:29:33Z",
+        "updated_at": "2026-11-19T19:29:33Z",
+        "decay_at": "2026-11-20T10:08:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-20T10:08:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fea5fd602449",
         "idea_version": "IDEAV-f4d15657ef03562a",
@@ -287252,87 +287327,12 @@
         "archived_at": "2026-10-27T16:00:13Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d61317a6133a",
-        "idea_version": "IDEAV-3ef99735865d1304",
-        "idea_version_started_at": "2026-10-26T00:05:04Z",
-        "ticker": "CASTROLIND",
-        "company": "Castrol India",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 71% surge in raw material costs has compressed margins, leading to a 22.6% decline in Q3 profit.",
-        "why_now": "The earnings report was released on October 24, 2026, highlighting immediate margin pressure.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ce0967c0201e"
-        ],
-        "primary_source_event_id": "EVT-ce0967c0201e",
-        "source_headlines": [
-          "Castrol India Q3 profit falls 22.6% as raw-material costs surge 71%"
-        ],
-        "source_headline": "Castrol India Q3 profit falls 22.6% as raw-material costs surge 71%",
-        "source_url": "https://www.thehindubusinessline.com/companies/castrol-india-q3-profit-falls-226-as-raw-material-costs-surge-71/article71619880.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T13:24:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T12:08:57Z",
-        "updated_at": "2026-10-26T00:05:04Z",
-        "decay_at": "2026-10-26T01:24:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T14:32:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2517,
-    "live_count": 4,
+    "live_count": 3,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -287351,9 +287351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 445112,
-    "news_picked_today": 1392,
-    "news_dropped_today": 11112
+    "news_seen_today": 446494,
+    "news_picked_today": 1398,
+    "news_dropped_today": 11130
   },
   "book_momentum": {
     "live_count": 8,
