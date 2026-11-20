@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T00:50:30Z",
+  "generated_at": "2026-11-20T01:01:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-089",
@@ -559,6 +559,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-210",
+      "headline": "Uber to invest $50 million in autonomous vehicles across Dubai",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/transport/uber-to-invest-50-million-in-autonomous-vehicles-across-dubai",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:13:44Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Uber is committing $50 million to autonomous vehicle expansion in Dubai, signaling a strategic growth investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Uber is committing $50 million to autonomous vehicle expansion in Dubai, signaling a strategic growth investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-002",
       "headline": "Anthropic IPO: Shares signal up to 26% listing-day gain after record $107 billion offering",
       "headline_en": null,
@@ -771,6 +820,104 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "Alibaba reported a 10% revenue jump driven by cloud services, indicating successful AI-related growth.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-200",
+      "headline": "PDG secures additional $210m for its TY1 Tokyo Campus",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/pdg-secures-additional-210m-for-its-ty1-tokyo-campus/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:23:22Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Data-center operator PDG secures $210 million for TY1 Tokyo Campus capex; funds material infrastructure expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Data-center operator PDG secures $210 million for TY1 Tokyo Campus capex; funds material infrastructure expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PDG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-211",
+      "headline": "Alibaba’s Revenue Beats Estimates During China’s AI Boom",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-19/alibaba-s-revenue-beats-estimates-during-china-s-ai-boom",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:13:14Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Alibaba reported revenue beating estimates, driven by AI demand, which impacts market expectations for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Alibaba reported revenue beating estimates, driven by AI demand, which impacts market expectations for the company.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1838,156 +1985,6 @@
           "name": "Bajaj Group",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-118",
-      "headline": "Upland Software, Inc. Outlines Strategic Plan, New Leadership, and FY'28 Financial Targets",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/upland-software-inc-outlines-strategic-plan-new-leadership-and-fy28-financial-targets",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:30:51Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Upland Software announced new leadership, a strategic plan, and FY'28 financial targets; multiple company-moving announcements reshaping forward expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Upland Software announced new leadership, a strategic plan, and FY'28 financial targets; multiple company-moving announcements reshaping forward expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "management",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Upland Software, Inc.",
-          "ticker": "UPLD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-132",
-      "headline": "Arvind Fashions expects US Polo Assn to clock ₹4,000 crore consumer sales in FY27",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/arvind-fashions-us-polo-assn-india-consumer-sales-target-fy27-20037832.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:22:08Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Arvind Fashions projects consumer sales of ₹4,000 crore for US Polo Assn by FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Arvind Fashions projects consumer sales of ₹4,000 crore for US Polo Assn by FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arvind Fashions",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-185",
-      "headline": "Uber commits Dh184m to expand driverless rides in Dubai",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/uber-commits-dh184m-to-expand-driverless-rides-in-dubai-1.500753454",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T10:36:25Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Uber commits Dh184 million ($50 million) to expand driverless ride operations in Dubai.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Uber commits Dh184 million ($50 million) to expand driverless ride operations in Dubai.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber Technologies Inc",
-          "ticker": "UBER",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -287357,9 +287354,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 60640,
-    "news_picked_today": 211,
-    "news_dropped_today": 533
+    "news_seen_today": 78972,
+    "news_picked_today": 240,
+    "news_dropped_today": 624
   },
   "book_momentum": {
     "live_count": 8,
