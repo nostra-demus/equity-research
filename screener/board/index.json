@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T11:10:40Z",
+  "generated_at": "2026-11-20T11:14:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-789",
+      "headline": "MAN SANG INT'L (00938): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001247.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T10:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "The company issued a profit warning, indicating a material decline in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning, indicating a material decline in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MAN SANG INT'L",
+          "ticker": "00938",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-782",
       "headline": "ROAD KING INFRA (01098): POSSIBLE TRANSACTIONS IN CONNECTION WITH THE PROPOSED RESTRUCTURING INVOLVING: (1) PROPOSED ISSUANCE OF NEW SHARES UNDER SPECIFIC MANDATE, CASH SWEEP REAL ESTATE BONDS AND RELATED CONNECTED TRANSACTIONS; AND (2) VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE PROPOSED DISPOSAL OF 70% EQUITY INTEREST IN A SUBSIDIARY",
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-618",
-      "headline": "TJX Companies Boosts FY26 Outlook; Shares Surge 7.8% - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/tjx-companies-boosts-fy26-outlook-shares-surge-78-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T12:58:27Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "TJX Companies raised its FY26 outlook, leading to a 7.8% share price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TJX Companies raised its FY26 outlook, leading to a 7.8% share price increase.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TJX Companies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287489,9 +287489,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 473531,
-    "news_picked_today": 1489,
-    "news_dropped_today": 12239
+    "news_seen_today": 474636,
+    "news_picked_today": 1495,
+    "news_dropped_today": 12257
   },
   "book_momentum": {
     "live_count": 8,
