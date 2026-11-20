@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-3eb5e87acb4c",
+  "idea_version": "IDEAV-412c4ab7bf77d5a1",
+  "idea_version_started_at": "2026-11-20T14:40:23Z",
+  "ticker": "GPS",
+  "company": "Gap Inc.",
+  "exchange": "NYSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company lowered its full-year guidance due to weak sales performance caused by unseasonably warm weather.",
+  "why_now": "The guidance cut was announced on 2026-11-19.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-13640aa44e2e",
+    "EVT-4eb5f72f871c"
+  ],
+  "primary_source_event_id": "EVT-13640aa44e2e",
+  "source_headlines": [
+    "Gap Cuts Outlook After Warm Fall Weather Weighs on Sales",
+    "Gap names new Athleta CEO, lowers full-year guidance"
+  ],
+  "source_headline": "Gap Cuts Outlook After Warm Fall Weather Weighs on Sales",
+  "source_url": "https://www.wsj.com/business/earnings/gap-cuts-outlook-after-warm-fall-weather-weighs-on-sales-ca3ee7c3?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-19T22:01:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-20T14:40:23Z",
+  "updated_at": "2026-11-20T14:40:23Z",
+  "decay_at": "2026-11-21T10:01:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
