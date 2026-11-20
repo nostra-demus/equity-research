@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-20T22:50:11Z",
+  "generated_at": "2026-11-20T23:02:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-1212",
+      "headline": "ECA2026-859 - (UPDATED: Merger Closed) Information Regarding the Business Combination of Barinthus Biotherapeutics plc and Clywedog Therapeutics, Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-859",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-21T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Barinthus Biotherapeutics and Clywedog Therapeutics have completed their business combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Barinthus Biotherapeutics and Clywedog Therapeutics have completed their business combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barinthus Biotherapeutics plc",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Clywedog Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-1143",
       "headline": "ECA2026-858 - Information Regarding the Business Combination of Melar Acquisition Corp. I (MACI/W/U) & Everli Global Holdings Inc.",
@@ -1943,55 +1997,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1120",
-      "headline": "KKR Is Said to Seal Pact to Purchase Portugal’s Logoplaste",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-20/kkr-is-said-to-seal-pact-to-purchase-portugal-s-logoplaste",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T16:06:39Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "KKR is reportedly finalizing a deal to acquire the Portuguese packaging firm Logoplaste.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR is reportedly finalizing a deal to acquire the Portuguese packaging firm Logoplaste.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288629,9 +288634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 656826,
-    "news_picked_today": 2680,
-    "news_dropped_today": 25165
+    "news_seen_today": 657167,
+    "news_picked_today": 2686,
+    "news_dropped_today": 25399
   },
   "book_momentum": {
     "live_count": 8,
