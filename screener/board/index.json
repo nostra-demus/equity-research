@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T04:56:28Z",
+  "generated_at": "2026-11-20T05:03:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-484",
@@ -1798,6 +1798,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-551",
+      "headline": "BRN: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BRN?key=2924-03164491-2A1711901",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T04:37:02Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Change in substantial holding (>5% threshold) disclosed to ASX; direction and actor not signaled in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Change in substantial holding (>5% threshold) disclosed to ASX; direction and actor not signaled in headline.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-488",
       "headline": "VITASOY INT'L (00345): ANNOUNCEMENT OF RESULTS FOR THE SIX MONTHS ENDED 30TH SEPTEMBER 2026",
       "headline_en": null,
@@ -1940,55 +1983,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-152",
-      "headline": "AI lab Anthropic sets stock market record with $81 billion IPO",
-      "headline_en": null,
-      "url": "https://www.france24.com/en/tv-shows/business/20261119-ai-lab-anthropic-sets-stock-market-record-with-81-billion-ipo",
-      "source_name": "France 24",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:02:54Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic announced an $81 billion IPO, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Anthropic announced an $81 billion IPO, a major capital market event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287353,9 +287347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264747,
-    "news_picked_today": 882,
-    "news_dropped_today": 3222
+    "news_seen_today": 269623,
+    "news_picked_today": 892,
+    "news_dropped_today": 3284
   },
   "book_momentum": {
     "live_count": 8,
