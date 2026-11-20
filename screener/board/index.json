@@ -1,6 +1,50 @@
 {
-  "generated_at": "2026-11-20T01:44:40Z",
+  "generated_at": "2026-11-20T01:49:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-298",
+      "headline": "Major fried chicken chain operator closing 73 units in bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/tasty-chickn-closes-kfc-and-taco-bell-locations",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T01:26:27Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "A major fried chicken chain operator is closing 73 units due to bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major fried chicken chain operator is closing 73 units due to bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-286",
       "headline": "$2 trillion Anthropic soars 34% on Wall Street debut",
@@ -1339,6 +1383,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-305",
+      "headline": "Alibaba sued for allegedly hiding ties to suspected spy Alice Huang from Megaspeed",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/alibaba-sued-allegedly-hiding-ties-suspected-spy-alice-huang-megaspeed",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T00:49:41Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Alibaba is being sued for allegedly hiding ties to a suspected spy, creating legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Alibaba is being sued for allegedly hiding ties to a suspected spy, creating legal and reputational risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-066",
       "headline": "FEC Resources Inc. Reports Debt Settlement of $1,157,760.78 and Updates on Philippine Oil and Gas Interests",
       "headline_en": null,
@@ -1633,6 +1726,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-293",
+      "headline": "John Marshall Bancorp, Inc. Announces Shareholder Approval of Merger Proposals on November 19, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/john-marshall-bancorp-inc-announces-shareholder-approval-merger-proposals-november-19-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T01:20:39Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "John Marshall Bancorp shareholders approved a merger proposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "John Marshall Bancorp shareholders approved a merger proposal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "John Marshall Bancorp, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-294",
+      "headline": "Eagle Financial Services, Inc. Shareholders Approve Merger on November 19, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eagle-financial-services-inc-shareholders-approve-merger-november-19-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T01:10:55Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Eagle Financial Services shareholders approved a merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Eagle Financial Services shareholders approved a merger.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eagle Financial Services, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-279",
       "headline": "California Attorney General Issues Investigative Subpoena to Nvidia",
       "headline_en": null,
@@ -1775,202 +1966,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-291",
-      "headline": "Liontrust profit slides as cost pressures take toll",
-      "headline_en": null,
-      "url": "https://www.cityam.com/liontrust-profit-slides-as-cost-pressures-take-toll/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:00:40Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Profit decline due to cost pressures directly impacts financial performance and analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Profit decline due to cost pressures directly impacts financial performance and analyst expectations.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Liontrust Asset Management",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-068",
-      "headline": "Anthropic IPO Banks Land $550 Million Fee Windfall on Record IPO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-banks-land-550-million-fee-windfall-on-record-ipo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:06:32Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Investment banks earn $550 million in fees from a record IPO, indicating strong capital markets activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Investment banks earn $550 million in fees from a record IPO, indicating strong capital markets activity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-107",
-      "headline": "Gates Industrial Corporation plc to Unwind Asia Joint Venture with Nitta Corporation for $112.0 million Net Payment",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/gates-industrial-corporation-plc-unwind-asia-joint-venture-nitta-corporation-1120-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:41:20Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Gates Industrial is unwinding an Asia JV for a $112 million net payment, impacting cash flow and structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Gates Industrial is unwinding an Asia JV for a $112 million net payment, impacting cash flow and structure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gates Industrial Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-128",
-      "headline": "Dienstleistung: Bertelsmann übernimmt türkischen Logistiker Ekol",
-      "headline_en": "Services: Bertelsmann acquires Turkish logistics company Ekol",
-      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/dienstleistung-bertelsmann-uebernimmt-tuerkischen-logistiker-ekol/100270965.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:23:16Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Bertelsmann is acquiring Turkish logistics firm Ekol.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Bertelsmann is acquiring Turkish logistics firm Ekol.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bertelsmann",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287335,9 +287330,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 114559,
-    "news_picked_today": 374,
-    "news_dropped_today": 1210
+    "news_seen_today": 118806,
+    "news_picked_today": 390,
+    "news_dropped_today": 1266
   },
   "book_momentum": {
     "live_count": 8,
