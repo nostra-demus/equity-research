@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T11:56:07Z",
+  "generated_at": "2026-11-20T11:56:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-791",
@@ -249535,6 +249535,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-2326f7dbcde3",
+      "idea_version": "IDEAV-43598f023ca713ab",
+      "idea_version_started_at": "2026-11-20T11:56:26Z",
+      "ticker": "UBSFY",
+      "company": "Ubisoft",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 26% drop in holiday quarter bookings, signaling weak demand for its core gaming portfolio.",
+      "why_now": "The earnings update was released on 2026-11-19.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7efef3becb89"
+      ],
+      "primary_source_event_id": "EVT-7efef3becb89",
+      "source_headlines": [
+        "Assassin’s Creed Owner Sees 26% Drop in Holiday Quarter Bookings"
+      ],
+      "source_headline": "Assassin’s Creed Owner Sees 26% Drop in Holiday Quarter Bookings",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/assassin-s-creed-owner-sees-26-drop-in-holiday-quarter-bookings",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-19T18:33:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T11:56:26Z",
+      "updated_at": "2026-11-20T11:56:26Z",
+      "decay_at": "2026-11-21T06:33:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0991422acdb8",
       "idea_version": "IDEAV-e7411fe2b66f63e0",
       "idea_version_started_at": "2026-11-19T19:29:33Z",
@@ -287468,8 +287538,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2519,
-    "live_count": 5,
+    "surfaced_total": 2520,
+    "live_count": 6,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
