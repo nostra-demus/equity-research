@@ -1,6 +1,106 @@
 {
-  "generated_at": "2026-11-20T03:03:54Z",
+  "generated_at": "2026-11-20T03:08:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-389",
+      "headline": "Atul shares in focus as US Customs investigates unit over alleged duty evasion",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/atul-share-price-us-customs-investigation-unit-alleged-duty-evasion-company-response-impact-20038237.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:43:32Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Atul is under investigation by US Customs for alleged duty evasion, posing a significant regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Atul is under investigation by US Customs for alleged duty evasion, posing a significant regulatory and operational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Atul",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-383",
+      "headline": "Disney Just Raised Its Dividend 33% and Guided to Double-Digit EPS Growth. Here’s What Its Results Mean for Investors.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/disney-just-raised-its-dividend-33-and-guided-double-digit-eps-growth-heres-what-its",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:05:18Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Disney announced a 33% dividend increase and provided guidance for double-digit EPS growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Disney announced a 33% dividend increase and provided guidance for double-digit EPS growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Disney",
+          "ticker": "DIS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-298",
       "headline": "Major fried chicken chain operator closing 73 units in bankruptcy",
@@ -938,6 +1038,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-384",
+      "headline": "SEALSQ Corp Signs Letter of Intent for Proposed Acquisition of 100% of QuintessenceLabs",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sealsq-corp-signs-letter-intent-proposed-acquisition-100-quintessencelabs",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:18:42Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "SEALSQ Corp signed a letter of intent to acquire 100% of QuintessenceLabs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "SEALSQ Corp signed a letter of intent to acquire 100% of QuintessenceLabs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEALSQ Corp",
+          "ticker": "LAES",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-152",
       "headline": "AI lab Anthropic sets stock market record with $81 billion IPO",
       "headline_en": null,
@@ -1820,160 +1969,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-191",
-      "headline": "SpiceJet cancelling over half its scheduled flights daily; races to raise Rs 5,500 crore",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/spicejet-is-cancelling-over-half-its-scheduled-flights-daily-leaving-passengers-stranded-as-dgca-stops-short-of-restricting-bookings-cash-strapped-airline-races-to-raise-rs-5500-crore/articleshow/135983543.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T10:32:42Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "SpiceJet is cancelling over half its daily scheduled flights while attempting to raise Rs 5,500 crore to address cash constraints.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SpiceJet is cancelling over half its daily scheduled flights while attempting to raise Rs 5,500 crore to address cash constraints.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations",
-        "default_distress",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpiceJet Limited",
-          "ticker": "SPICEJET",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-248",
-      "headline": "Anthropic eyes $1.5trillion valuation ahead of record-breaking stock market debut today",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/share-investing/article-16303641/Anthropic-eyes-1-5trillion-valuation-ahead-record-breaking-stock-market-debut-today.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:32:52Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic is reportedly targeting a $1.5 trillion valuation for its IPO, a significant market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Anthropic is reportedly targeting a $1.5 trillion valuation for its IPO, a significant market event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-253",
-      "headline": "Deutsche Telekom’s Tech Fund Invests $110 Million in Mistral AI",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deutsche-telekoms-tech-fund-invests-110-million-in-mistral-ai-13597573?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T09:21:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Deutsche Telekom is investing $110 million into Mistral AI, a significant capital allocation into the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Deutsche Telekom is investing $110 million into Mistral AI, a significant capital allocation into the AI sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deutsche Telekom",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Mistral AI",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287338,9 +287333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 188916,
-    "news_picked_today": 577,
-    "news_dropped_today": 1919
+    "news_seen_today": 192434,
+    "news_picked_today": 590,
+    "news_dropped_today": 1978
   },
   "book_momentum": {
     "live_count": 8,
