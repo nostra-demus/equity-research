@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T20:07:55Z",
+  "generated_at": "2026-11-20T20:12:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1143",
@@ -1145,6 +1145,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1152",
+      "headline": "Take-Two Interactive Software, Inc. Subsidiary Rockstar Games Announces Grand Theft Auto VI Day One Retail Sales of $3.79 Billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/take-two-interactive-software-inc-subsidiary-rockstar-games-announces-grand-theft-auto-vi",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T19:29:11Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Take-Two Interactive reported $3.79 billion in day-one retail sales for Grand Theft Auto VI, a significant revenue event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Take-Two Interactive reported $3.79 billion in day-one retail sales for Grand Theft Auto VI, a significant revenue event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1102",
       "headline": "KKR in Talks to Buy EdgeCore at Valuation of at Least $8 Billion",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-982",
-      "headline": "Textron finds private equity buyer for industrial business at $1.2B",
-      "headline_en": null,
-      "url": "https://www.manufacturingdive.com/news/textron-selling-specialized-vehicles-kautex-kingswood-capital-management/875269/",
-      "source_name": "Manufacturing Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T14:14:26Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Textron is selling its industrial business for $1.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Textron is selling its industrial business for $1.2 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Textron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288120,9 +288120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 644167,
-    "news_picked_today": 2429,
-    "news_dropped_today": 21503
+    "news_seen_today": 644349,
+    "news_picked_today": 2453,
+    "news_dropped_today": 21551
   },
   "book_momentum": {
     "live_count": 8,
