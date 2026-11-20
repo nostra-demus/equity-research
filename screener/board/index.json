@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T01:28:02Z",
+  "generated_at": "2026-11-20T01:35:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-089",
@@ -897,6 +897,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-284",
+      "headline": "UNI-BIO GROUP (00690): EXCHANGE NOTICE - TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000051.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T00:41:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Uni-Bio Science Group has halted trading pending an announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Uni-Bio Science Group has halted trading pending an announcement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uni-Bio Science Group",
+          "ticker": "00690",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-276",
       "headline": "ASX tracks seventh consecutive loss; Monash IVF dives on profit warning",
       "headline_en": null,
@@ -1443,6 +1492,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-285",
+      "headline": "VFX: Visionflex Secures University Virtual Care Contract [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VFX?key=2924-03164352-2A1711849",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T00:49:07Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Visionflex has secured a new university virtual care contract, which the company explicitly flagged as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Visionflex has secured a new university virtual care contract, which the company explicitly flagged as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Visionflex",
+          "ticker": "VFX",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-279",
       "headline": "California Attorney General Issues Investigative Subpoena to Nvidia",
       "headline_en": null,
@@ -1884,104 +1982,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-013",
-      "headline": "Manappuram Finance targets 25-30% AUM growth in FY27, plans to add 500 branches by March",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/manappuram-finance-share-price-targets-25-30-aum-growth-in-fy27-plans-to-add-500-branches-by-march-20037925.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:55:46Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Manappuram Finance targets 25-30% AUM growth and 500 new branches by March.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Manappuram Finance targets 25-30% AUM growth and 500 new branches by March.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Manappuram Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-029",
-      "headline": "Anthropic’s $81 billion IPO creates a massive payday, but employees face an unusual hurdle before cashing in",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/anthropics-81-billion-ipo-creates-a-massive-payday-but-employees-face-an-unusual-hurdle-before-cashing-in-11795079903295.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:46:11Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic announces $81 billion IPO with reported employee equity-vesting restrictions; major capital event affecting AI-sector valuations and competitive positioning despite employee compensation trade-off.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Anthropic announces $81 billion IPO with reported employee equity-vesting restrictions; major capital event affecting AI-sector valuations and competitive positioning despite employee compensation trade-off.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249534,76 +249534,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-e3d96e3a636a",
-      "idea_version": "IDEAV-b3eb3b51c464a4a3",
-      "idea_version_started_at": "2026-11-19T19:29:33Z",
-      "ticker": "TGT",
-      "company": "Target",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Target reported its strongest sales growth in five years and raised its forward guidance, signaling improved consumer demand and operational efficiency.",
-      "why_now": "The guidance hike was announced on 2026-11-18.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2f8e89418618"
-      ],
-      "primary_source_event_id": "EVT-2f8e89418618",
-      "source_headlines": [
-        "Target posts best sales growth in five years, raises guidance"
-      ],
-      "source_headline": "Target posts best sales growth in five years, raises guidance",
-      "source_url": "https://www.cnbc.com/2026/11/18/target-tgt-q3-2026-earnings.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-18T13:29:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T19:29:33Z",
-      "updated_at": "2026-11-19T19:29:33Z",
-      "decay_at": "2026-11-20T01:29:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0991422acdb8",
       "idea_version": "IDEAV-e7411fe2b66f63e0",
       "idea_version_started_at": "2026-11-19T19:29:33Z",
@@ -249962,6 +249892,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e3d96e3a636a",
+      "idea_version": "IDEAV-b3eb3b51c464a4a3",
+      "idea_version_started_at": "2026-11-19T19:29:33Z",
+      "ticker": "TGT",
+      "company": "Target",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Target reported its strongest sales growth in five years and raised its forward guidance, signaling improved consumer demand and operational efficiency.",
+      "why_now": "The guidance hike was announced on 2026-11-18.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f8e89418618"
+      ],
+      "primary_source_event_id": "EVT-2f8e89418618",
+      "source_headlines": [
+        "Target posts best sales growth in five years, raises guidance"
+      ],
+      "source_headline": "Target posts best sales growth in five years, raises guidance",
+      "source_url": "https://www.cnbc.com/2026/11/18/target-tgt-q3-2026-earnings.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-18T13:29:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-19T19:29:33Z",
+      "updated_at": "2026-11-19T19:29:33Z",
+      "decay_at": "2026-11-20T01:29:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1f6d8cf01450",
       "idea_version": "IDEAV-4bab69436492781d",
       "idea_version_started_at": "2026-11-19T16:54:13Z",
@@ -250185,14 +250185,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 502,
+    "total_count": 503,
     "shown_count": 499,
-    "hidden_count": 3,
+    "hidden_count": 4,
     "side_counts": {
       "long": {
-        "total_count": 253,
+        "total_count": 254,
         "shown_count": 250,
-        "hidden_count": 3
+        "hidden_count": 4
       },
       "short": {
         "total_count": 250,
@@ -250216,6 +250216,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e3d96e3a636a",
+        "idea_version": "IDEAV-b3eb3b51c464a4a3",
+        "idea_version_started_at": "2026-11-19T19:29:33Z",
+        "ticker": "TGT",
+        "company": "Target",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Target reported its strongest sales growth in five years and raised its forward guidance, signaling improved consumer demand and operational efficiency.",
+        "why_now": "The guidance hike was announced on 2026-11-18.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2f8e89418618"
+        ],
+        "primary_source_event_id": "EVT-2f8e89418618",
+        "source_headlines": [
+          "Target posts best sales growth in five years, raises guidance"
+        ],
+        "source_headline": "Target posts best sales growth in five years, raises guidance",
+        "source_url": "https://www.cnbc.com/2026/11/18/target-tgt-q3-2026-earnings.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-18T13:29:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-19T19:29:33Z",
+        "updated_at": "2026-11-19T19:29:33Z",
+        "decay_at": "2026-11-20T01:29:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-20T01:29:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1f6d8cf01450",
         "idea_version": "IDEAV-4bab69436492781d",
@@ -280398,81 +280471,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e77156094293",
-        "idea_version": "IDEAV-a4b2aa4a2ecb08fe",
-        "idea_version_started_at": "2026-11-02T04:47:12Z",
-        "ticker": "JIOFIN",
-        "company": "Jio Platforms",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Jio Platforms' Q2 PAT rose 14% year-over-year to Rs 8,389 crore, suggesting continued growth in its profitability.",
-        "why_now": "The Q2 earnings report was released today, showing a 14% increase in profit.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-95209812b855"
-        ],
-        "primary_source_event_id": "EVT-95209812b855",
-        "source_headlines": [
-          "Jio Platforms shares climb over 3% after Q2 PAT rises 14% YoY to Rs 8,389 crore. Buy, sell or hold?"
-        ],
-        "source_headline": "Jio Platforms shares climb over 3% after Q2 PAT rises 14% YoY to Rs 8,389 crore. Buy, sell or hold?",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/jio-platforms-shares-climb-over-3-after-q2-pat-rises-14-yoy-to-rs-8389-crore-buy-sell-or-hold/articleshow/135444563.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T04:01:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T04:47:12Z",
-        "updated_at": "2026-11-02T04:47:12Z",
-        "decay_at": "2026-11-03T16:01:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bdc0aa865c9e",
         "idea_version": "IDEAV-b02192a673bf6b05",
         "idea_version_started_at": "2026-11-02T04:24:27Z",
@@ -287329,7 +287327,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2517,
-    "live_count": 6,
+    "live_count": 5,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -287348,9 +287346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 101208,
-    "news_picked_today": 329,
-    "news_dropped_today": 871
+    "news_seen_today": 110114,
+    "news_picked_today": 342,
+    "news_dropped_today": 1074
   },
   "book_momentum": {
     "live_count": 8,
