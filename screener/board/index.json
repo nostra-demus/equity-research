@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T02:48:53Z",
+  "generated_at": "2026-11-20T02:56:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-298",
@@ -685,6 +685,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-378",
+      "headline": "Jensen Huang Ousted: Timeline Of The Nvidia Scandal—As Board Chair Dismisses Reinstatement Push",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/alisondurkee/2026/11/18/jensen-huang-ousted-timeline-of-the-nvidia-scandal-as-board-chair-dismisses-reinstatement-push/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T17:49:10Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "The ousting of Nvidia's CEO Jensen Huang is a major corporate governance event that significantly impacts management credibility and company outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The ousting of Nvidia's CEO Jensen Huang is a major corporate governance event that significantly impacts management credibility and company outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,55 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-308",
-      "headline": "Nabors Industries Ltd. Subsidiaries Amend Receivables Purchase Agreement, Decreasing Facility Limit to $200,000,000",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nabors-industries-ltd-subsidiaries-amend-receivables-purchase-agreement-decreasing",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T01:20:40Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Nabors Industries reduced its receivables purchase facility limit to $200 million, indicating a tightening of liquidity or credit terms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Nabors Industries reduced its receivables purchase facility limit to $200 million, indicating a tightening of liquidity or credit terms.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nabors Industries Ltd.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287337,9 +287338,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 174576,
-    "news_picked_today": 545,
-    "news_dropped_today": 1855
+    "news_seen_today": 178238,
+    "news_picked_today": 566,
+    "news_dropped_today": 1906
   },
   "book_momentum": {
     "live_count": 8,
