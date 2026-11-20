@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T05:07:56Z",
+  "generated_at": "2026-11-20T05:11:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-553",
+      "headline": "Anthropic Jumps 17% in Nasdaq Debut, Raising Record $107.3 Billion",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281810",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T07:36:21Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic IPO raised a record $107.3 billion, a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic IPO raised a record $107.3 billion, a major capital market event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-484",
       "headline": "Cyberattack: Russian hackers allegedly steal customer data from JPMorgan Chase, Visa and Mastercard; social media reacts",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-384",
-      "headline": "SEALSQ Corp Signs Letter of Intent for Proposed Acquisition of 100% of QuintessenceLabs",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sealsq-corp-signs-letter-intent-proposed-acquisition-100-quintessencelabs",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:18:42Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "SEALSQ Corp signed a letter of intent to acquire 100% of QuintessenceLabs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "SEALSQ Corp signed a letter of intent to acquire 100% of QuintessenceLabs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SEALSQ Corp",
-          "ticker": "LAES",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287347,9 +287347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 271987,
-    "news_picked_today": 904,
-    "news_dropped_today": 3320
+    "news_seen_today": 274259,
+    "news_picked_today": 924,
+    "news_dropped_today": 3372
   },
   "book_momentum": {
     "live_count": 8,
