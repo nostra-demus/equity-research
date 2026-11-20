@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T00:39:31Z",
+  "generated_at": "2026-11-20T00:40:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-089",
@@ -493,6 +493,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-149",
+      "headline": "Microsoft May Cut Up To 50% Of Jobs In Windows Unit In January, India Teams Also At Risk: Blind Post",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/microsoft-may-cut-up-to-50-of-jobs-in-windows-unit-in-january-india-teams-also-at-risk-blind-post",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T11:02:27Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Potential 50% workforce reduction in the Windows unit would be a significant operational restructuring for Microsoft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Potential 50% workforce reduction in the Windows unit would be a significant operational restructuring for Microsoft.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,55 +1981,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-088",
-      "headline": "Viagogo may have broken hidden fees rules, CMA provisionally finds",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/viagogo-tickets-hidden-fees-cma-b3087866.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:55:06Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "CMA provisional finding of hidden fee rule violations creates regulatory and potential fine risk for Viagogo.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "CMA provisional finding of hidden fee rule violations creates regulatory and potential fine risk for Viagogo.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viagogo",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287347,9 +287347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46244,
-    "news_picked_today": 152,
-    "news_dropped_today": 400
+    "news_seen_today": 51075,
+    "news_picked_today": 158,
+    "news_dropped_today": 418
   },
   "book_momentum": {
     "live_count": 8,
