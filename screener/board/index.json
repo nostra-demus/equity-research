@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T15:35:40Z",
+  "generated_at": "2026-11-20T15:43:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-962",
@@ -1222,6 +1222,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1015",
+      "headline": "SpiceJet's ₹5,500 crore rescue bid runs into DGCA heat as fleet lies grounded",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/spicejets-5-500-crore-rescue-bid-runs-into-dgca-heat-as-fleet-lies-grounded-11795169886540.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T13:08:29Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "SpiceJet's ₹5,500 crore rescue plan faces DGCA regulatory obstacles with fleet grounded; going-concern solvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpiceJet's ₹5,500 crore rescue plan faces DGCA regulatory obstacles with fleet grounded; going-concern solvency event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet",
+          "ticker": "SJET",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-891",
       "headline": "MasTec To Acquire Murphy Corp In $1.25 Bln Deal",
       "headline_en": null,
@@ -1905,55 +1955,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-745",
-      "headline": "Billionaire Raises $720 Million Private Credit for Megha Buyout",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-20/billionaire-raises-720-million-private-credit-for-megha-buyout",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T08:57:50Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "A billionaire raised $720 million in private credit to fund a buyout of Megha, representing a significant capital-raising event for an M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A billionaire raised $720 million in private credit to fund a buyout of Megha, representing a significant capital-raising event for an M&A transaction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Megha",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287674,9 +287675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 604342,
-    "news_picked_today": 1883,
-    "news_dropped_today": 17629
+    "news_seen_today": 606218,
+    "news_picked_today": 1917,
+    "news_dropped_today": 17715
   },
   "book_momentum": {
     "live_count": 8,
