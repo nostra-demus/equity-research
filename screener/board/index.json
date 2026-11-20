@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T02:56:24Z",
+  "generated_at": "2026-11-20T03:03:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-298",
@@ -1128,6 +1128,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-381",
+      "headline": "Fairfax raises stake in IIFL Capital to 44.06%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/fairfax-raises-stake-in-iifl-capital-to-44-06/articleshow/136010311.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:20:30Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Fairfax raised stake in IIFL Capital to 44.06%; material ownership change signals influence short of control; impact on IIFL Capital's independence and minority-shareholder rights unspecified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Fairfax raised stake in IIFL Capital to 44.06%; material ownership change signals influence short of control; impact on IIFL Capital's independence and minority-shareholder rights unspecified.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IIFL Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-320",
       "headline": "US approved sale of Nvidia and AMD chips to Chinese companies",
       "headline_en": null,
@@ -1624,55 +1673,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-315",
-      "headline": "Fairfax arm gets controlling 44% stake in IIFL Capital",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/fairfax-arm-gets-controlling-44-stake-in-iifl-capital/article71721982.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T01:23:04Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Fairfax arm acquires a controlling 44% stake in IIFL Capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Fairfax arm acquires a controlling 44% stake in IIFL Capital.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Capital",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287338,9 +287338,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 178238,
-    "news_picked_today": 566,
-    "news_dropped_today": 1906
+    "news_seen_today": 188916,
+    "news_picked_today": 577,
+    "news_dropped_today": 1919
   },
   "book_momentum": {
     "live_count": 8,
