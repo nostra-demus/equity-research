@@ -1,6 +1,114 @@
 {
-  "generated_at": "2026-11-20T19:09:16Z",
+  "generated_at": "2026-11-20T19:20:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-1143",
+      "headline": "ECA2026-858 - Information Regarding the Business Combination of Melar Acquisition Corp. I (MACI/W/U) & Everli Global Holdings Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-858",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T23:01:15Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Announced business combination of SPAC Melar Acquisition Corp. I with Everli Global Holdings Inc. — a transformative equity and capital-structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Announced business combination of SPAC Melar Acquisition Corp. I with Everli Global Holdings Inc. — a transformative equity and capital-structure event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Melar Acquisition Corp. I",
+          "ticker": "MACI",
+          "listing_country": "US"
+        },
+        {
+          "name": "Everli Global Holdings Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1144",
+      "headline": "ECA2026-851 - Information Regarding the Business Combination of Inflection Point Acquisition Corp. VI (IPFX/W/U) and Quantum Space, LLC",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-851",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T23:00:10Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Announced business combination of SPAC Inflection Point Acquisition Corp. VI with Quantum Space, LLC — a transformative equity and capital-structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Announced business combination of SPAC Inflection Point Acquisition Corp. VI with Quantum Space, LLC — a transformative equity and capital-structure event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Inflection Point Acquisition Corp. VI",
+          "ticker": "IPFX",
+          "listing_country": "US"
+        },
+        {
+          "name": "Quantum Space, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-1068",
       "headline": "CFTC Charges 11 Companies and Two Indiana Executives in $550 Million Fraud Scheme",
@@ -1862,109 +1970,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-915",
-      "headline": "Anthropic raises $93.5 billion total as underwriters scoop up ‘greenshoe’ overallotment",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/20/anthropic-ipo-greenshoe.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T13:31:39Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic raised $93.5 billion in total capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic raised $93.5 billion in total capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-954",
-      "headline": "Energy Transfer Seals Vaquero Acquisition",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/energy_transfer_seals_vaquero_acquisition-20-nov-2026-185135-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T13:21:09Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Energy Transfer has finalized the acquisition of Vaquero Midstream.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Energy Transfer has finalized the acquisition of Vaquero Midstream.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Energy Transfer",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Vaquero Midstream",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288111,9 +288116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 640608,
-    "news_picked_today": 2334,
-    "news_dropped_today": 20106
+    "news_seen_today": 641836,
+    "news_picked_today": 2343,
+    "news_dropped_today": 20457
   },
   "book_momentum": {
     "live_count": 8,
