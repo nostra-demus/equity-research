@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T09:16:17Z",
+  "generated_at": "2026-11-20T09:29:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-663",
@@ -1496,6 +1496,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-672",
+      "headline": "FRONTAGE (01521): Disclosure of Dealings under Rule 22 of the Takeovers Code",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112000574.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T09:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "FRONTAGE discloses dealings under Hong Kong Takeover Code Rule 22, signalling potential M&A, stake accumulation by acquirer or activist; materiality is high but direction and buyer identity not stated in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "FRONTAGE discloses dealings under Hong Kong Takeover Code Rule 22, signalling potential M&A, stake accumulation by acquirer or activist; materiality is high but direction and buyer identity not stated in headline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FRONTAGE",
+          "ticker": "01521",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-665",
       "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): OTP Bank Nyrt. has reached an agreement on acquiring 17.5% of the shares in Ipoteka Bank from the Ministry of Economy and Finance of the Republic of Uzbekistan",
       "headline_en": null,
@@ -1932,49 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-425",
-      "headline": "Iran war live: Trump delays decision on fresh strikes until after January 1",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/iran-us-israel-war-live-latest-updates",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T01:36:02Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Geopolitical escalation involving potential military strikes in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Geopolitical escalation involving potential military strikes in the Middle East.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249814,77 +249821,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fea5fd602449",
-      "idea_version": "IDEAV-f4d15657ef03562a",
-      "idea_version_started_at": "2026-11-19T15:44:22Z",
-      "ticker": "CGF",
-      "company": "Challenger Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The receipt of a revised non-binding takeover offer suggests a potential premium acquisition, providing a floor and upside potential based on the offer price.",
-      "why_now": "The revised offer was disclosed in an official ASX filing on 2026-11-18.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a631aa0f9dd1"
-      ],
-      "primary_source_event_id": "EVT-a631aa0f9dd1",
-      "source_headlines": [
-        "CGF: Revised non-binding offer received [price-sensitive]"
-      ],
-      "source_headline": "CGF: Revised non-binding offer received [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CGF?key=2924-03163486-2A1711410",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-18T21:20:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T15:44:22Z",
-      "updated_at": "2026-11-19T15:44:22Z",
-      "decay_at": "2026-11-20T09:20:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e3d96e3a636a",
       "idea_version": "IDEAV-b3eb3b51c464a4a3",
       "idea_version_started_at": "2026-11-19T19:29:33Z",
@@ -250166,6 +250102,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-fea5fd602449",
+      "idea_version": "IDEAV-f4d15657ef03562a",
+      "idea_version_started_at": "2026-11-19T15:44:22Z",
+      "ticker": "CGF",
+      "company": "Challenger Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The receipt of a revised non-binding takeover offer suggests a potential premium acquisition, providing a floor and upside potential based on the offer price.",
+      "why_now": "The revised offer was disclosed in an official ASX filing on 2026-11-18.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a631aa0f9dd1"
+      ],
+      "primary_source_event_id": "EVT-a631aa0f9dd1",
+      "source_headlines": [
+        "CGF: Revised non-binding offer received [price-sensitive]"
+      ],
+      "source_headline": "CGF: Revised non-binding offer received [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CGF?key=2924-03163486-2A1711410",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-18T21:20:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-19T15:44:22Z",
+      "updated_at": "2026-11-19T15:44:22Z",
+      "decay_at": "2026-11-20T09:20:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -250178,14 +250185,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 503,
+    "total_count": 504,
     "shown_count": 499,
-    "hidden_count": 4,
+    "hidden_count": 5,
     "side_counts": {
       "long": {
-        "total_count": 254,
+        "total_count": 255,
         "shown_count": 250,
-        "hidden_count": 4
+        "hidden_count": 5
       },
       "short": {
         "total_count": 250,
@@ -250209,6 +250216,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fea5fd602449",
+        "idea_version": "IDEAV-f4d15657ef03562a",
+        "idea_version_started_at": "2026-11-19T15:44:22Z",
+        "ticker": "CGF",
+        "company": "Challenger Limited",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The receipt of a revised non-binding takeover offer suggests a potential premium acquisition, providing a floor and upside potential based on the offer price.",
+        "why_now": "The revised offer was disclosed in an official ASX filing on 2026-11-18.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a631aa0f9dd1"
+        ],
+        "primary_source_event_id": "EVT-a631aa0f9dd1",
+        "source_headlines": [
+          "CGF: Revised non-binding offer received [price-sensitive]"
+        ],
+        "source_headline": "CGF: Revised non-binding offer received [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CGF?key=2924-03163486-2A1711410",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-18T21:20:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-19T15:44:22Z",
+        "updated_at": "2026-11-19T15:44:22Z",
+        "decay_at": "2026-11-20T09:20:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-20T09:20:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e3d96e3a636a",
         "idea_version": "IDEAV-b3eb3b51c464a4a3",
@@ -280388,82 +280469,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3d269b7eb9c2",
-        "idea_version": "IDEAV-8c5b20919f745398",
-        "idea_version_started_at": "2026-11-02T04:24:27Z",
-        "ticker": "JIOPL",
-        "company": "Jio Platforms",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Jio Platforms reported a 14% year-over-year rise in Q2 profit after tax, causing its shares to climb.",
-        "why_now": "The Q2 earnings results were announced today, driving immediate positive price action.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-95209812b855"
-        ],
-        "primary_source_event_id": "EVT-95209812b855",
-        "source_headlines": [
-          "Jio Platforms shares climb over 3% after Q2 PAT rises 14% YoY to Rs 8,389 crore. Buy, sell or hold?"
-        ],
-        "source_headline": "Jio Platforms shares climb over 3% after Q2 PAT rises 14% YoY to Rs 8,389 crore. Buy, sell or hold?",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/jio-platforms-shares-climb-over-3-after-q2-pat-rises-14-yoy-to-rs-8389-crore-buy-sell-or-hold/articleshow/135444563.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T04:01:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T04:24:27Z",
-        "updated_at": "2026-11-02T04:24:27Z",
-        "decay_at": "2026-11-03T16:01:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bdc0aa865c9e",
         "idea_version": "IDEAV-b02192a673bf6b05",
         "idea_version_started_at": "2026-11-02T04:24:27Z",
@@ -287320,7 +287325,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2517,
-    "live_count": 5,
+    "live_count": 4,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -287339,9 +287344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 431922,
-    "news_picked_today": 1289,
-    "news_dropped_today": 10135
+    "news_seen_today": 435317,
+    "news_picked_today": 1298,
+    "news_dropped_today": 10318
   },
   "book_momentum": {
     "live_count": 8,
