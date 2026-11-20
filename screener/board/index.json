@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T02:43:55Z",
+  "generated_at": "2026-11-20T02:48:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-298",
@@ -834,6 +834,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-357",
+      "headline": "BAE Systems plans to cut up to 1,070 jobs in air division and head office",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/bae-systems-sharon-graham-government-unite-prime-minister-b3087438.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T18:16:44Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "BAE Systems announced a significant workforce reduction of 1,070 jobs in its air division and head office.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "BAE Systems announced a significant workforce reduction of 1,070 jobs in its air division and head office.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAE Systems",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-305",
-      "headline": "Alibaba sued for allegedly hiding ties to suspected spy Alice Huang from Megaspeed",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/alibaba-sued-allegedly-hiding-ties-suspected-spy-alice-huang-megaspeed",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T00:49:41Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Alibaba is being sued for allegedly hiding ties to a suspected spy, creating legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Alibaba is being sued for allegedly hiding ties to a suspected spy, creating legal and reputational risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287337,9 +287337,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 168048,
-    "news_picked_today": 526,
-    "news_dropped_today": 1826
+    "news_seen_today": 174576,
+    "news_picked_today": 545,
+    "news_dropped_today": 1855
   },
   "book_momentum": {
     "live_count": 8,
