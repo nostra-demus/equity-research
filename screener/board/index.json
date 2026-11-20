@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T15:51:50Z",
+  "generated_at": "2026-11-20T16:00:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-1016",
+      "headline": "MTT GROUP (02350): ANNOUNCEMENT - PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001805.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T14:51:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Profit warning by HK-listed MTT Group signals material downward earnings guidance revision from official exchange filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning by HK-listed MTT Group signals material downward earnings guidance revision from official exchange filing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 9,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTT Group",
+          "ticker": "02350",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-962",
       "headline": "MAOYE INT'L (00848): JOINT ANNOUNCEMENT MONTHLY UPDATE RELATING TO THE PROPOSAL FOR THE PRIVATISATION OF MAOYE INTERNATIONAL HOLDINGS LIMITED BY W.F GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS",
@@ -831,6 +880,105 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1025",
+      "headline": "P&G Has Raised Its Dividend 70 Years In A Row. Now It Plans To Cut Up To 30% Of Its Manufacturing And Logistics Workforce By 2030 As It Targets Up To $10 Billion In Savings",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/20/pg-has-raised-its-dividend-70-years-in-a-row-now-it-plans-to-cut-up-to-30-of-its-manufacturing-and-logistics-workforce-by-2030-as-it-targets-up-to-10-billion-in-savings/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T15:39:26Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "P&G announced a plan to cut 30% of its manufacturing and logistics workforce to achieve $10 billion in savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "P&G announced a plan to cut 30% of its manufacturing and logistics workforce to achieve $10 billion in savings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1030",
+      "headline": "Jensen Huang Ousted: Timeline Of The Nvidia Scandal—As California Launches Investigation",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/alisondurkee/2026/11/20/jensen-huang-ousted-timeline-of-the-nvidia-scandal-as-california-launches-investigation/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T14:30:20Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Headline claims Nvidia CEO Jensen Huang ousted with California regulatory investigation — if accurate, materially affects management credibility and governance risk for a mega-cap semiconductor company; unverified and requires independent confirmation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Headline claims Nvidia CEO Jensen Huang ousted with California regulatory investigation — if accurate, materially affects management credibility and governance risk for a mega-cap semiconductor company; unverified and requires independent confirmation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 92,
+      "rank_factors": {
+        "materiality": 92,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1806,155 +1954,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-781",
-      "headline": "Air India faces ₹22,000 crore loss: Tata Sons Board reviews airline's performance ahead of crucial meeting",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/air-india-faces-22-000-crore-loss-tata-sons-board-reviews-airlines-performance-ahead-of-crucial-meeting-11795166061145.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T09:28:50Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Air India faces a quantified loss of ₹22,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Air India faces a quantified loss of ₹22,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-744",
-      "headline": "Vallourec Q3 Earnings Drop, Guides On EBITDA For Q4 & FY26; Stock Down",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vallourec-q3-earnings-drop-guides-ebitda-q4-fy26-stock-down",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T09:05:03Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Vallourec reported a Q3 earnings drop and provided specific EBITDA guidance for Q4 and FY26, causing a stock price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vallourec reported a Q3 earnings drop and provided specific EBITDA guidance for Q4 and FY26, causing a stock price decline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vallourec",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-680",
-      "headline": "Taiwan's TSMC Suspends China's Access to Advanced Chipmaking Without US Licenses",
-      "headline_en": null,
-      "url": "https://www.arabtimesonline.com/news/taiwans-tsmc-suspends-chinas-access-to-advanced-chipmaking-without-us-licenses/",
-      "source_name": "Arab Times Kuwait — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "TSMC has suspended shipments of advanced AI chips to Chinese customers to comply with US export controls, impacting supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TSMC has suspended shipments of advanced AI chips to Chinese customers to comply with US export controls, impacting supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TSMC",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287675,9 +287674,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 608592,
-    "news_picked_today": 1922,
-    "news_dropped_today": 17734
+    "news_seen_today": 610124,
+    "news_picked_today": 1940,
+    "news_dropped_today": 17812
   },
   "book_momentum": {
     "live_count": 8,
