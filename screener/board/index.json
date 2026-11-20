@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T23:38:41Z",
+  "generated_at": "2026-11-20T23:48:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1212",
@@ -1297,6 +1297,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1218",
+      "headline": "Utz Brands, Inc. Announces Completion of Transaction to Take Utz Private",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/utz-brands-inc-announces-completion-transaction-take-utz-private",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T23:29:10Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Utz Brands completed its transaction to go private.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Utz Brands completed its transaction to go private.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Utz Brands, Inc.",
+          "ticker": "UTZ",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1215",
       "headline": "NXT Energy Solutions Inc. Reports Q3-26 Net Income of $8,084,120",
       "headline_en": null,
@@ -1944,56 +1993,6 @@
           "name": "Mailchimp",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1083",
-      "headline": "EasyJet expected to unveil profit fall ahead of £5.7 billion takeover",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/apollo-easyjet-wagamama-london-middle-east-b3088837.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T16:11:00Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "EasyJet is expected to report a profit decline ahead of a major £5.7 billion takeover.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EasyJet is expected to report a profit decline ahead of a major £5.7 billion takeover.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EasyJet",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -288779,9 +288778,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 657468,
-    "news_picked_today": 2717,
-    "news_dropped_today": 25652
+    "news_seen_today": 657499,
+    "news_picked_today": 2725,
+    "news_dropped_today": 25675
   },
   "book_momentum": {
     "live_count": 8,
