@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-e93c21eb489fefd8",
-  "idea_version_started_at": "2026-11-20T20:38:19Z",
+  "idea_version": "IDEAV-3be703a8805a4cd8",
+  "idea_version_started_at": "2026-11-20T23:03:16Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The ousting of the CEO combined with a California state investigation creates significant management uncertainty and potential legal overhang for the company.",
-  "why_now": "The scandal timeline and investigation were reported on 2026-11-20.",
-  "conviction": 65,
+  "reason": "An SEC probe into accounting practices introduces significant regulatory and financial uncertainty, threatening the company's valuation multiple and investor sentiment.",
+  "why_now": "The news of the SEC probe broke on 2026-11-20, triggering an immediate and sharp market reaction.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 69,
+  "trade_score": 76,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,14 +23,13 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 0,
+    "corroboration": 7,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-14d765cb3fc4"
+    "EVT-9788c23033a4",
+    "EVT-8e97a7eee396"
   ],
-  "primary_source_event_id": "EVT-14d765cb3fc4",
+  "primary_source_event_id": "EVT-9788c23033a4",
   "source_headlines": [
-    "Jensen Huang Ousted: Timeline Of The Nvidia Scandal—As California Launches Investigation"
+    "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
+    "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting"
   ],
-  "source_headline": "Jensen Huang Ousted: Timeline Of The Nvidia Scandal—As California Launches Investigation",
-  "source_url": "https://www.forbes.com/sites/alisondurkee/2026/11/20/jensen-huang-ousted-timeline-of-the-nvidia-scandal-as-california-launches-investigation/",
-  "source_name": "Forbes",
+  "source_headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
+  "source_url": "https://247wallst.com/investing/2026/11/20/nvidia-stock-plunges-12-after-reuters-reports-an-sec-probe-of-its-accounting-its-nvidias-worst-day-since-deepseek-and-it-has-lost-2-7-trillion-since-october/",
+  "source_name": "24/7 Wall St.",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-20T14:30:20Z",
+  "newest_source_at": "2026-11-20T21:27:22Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-20T20:38:19Z",
-  "updated_at": "2026-11-20T20:38:19Z",
-  "decay_at": "2026-11-22T02:30:20Z",
+  "updated_at": "2026-11-20T23:03:16Z",
+  "decay_at": "2026-11-22T09:27:22Z",
   "status": "live",
   "promoted_signal_id": null
 }
