@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T16:40:43Z",
+  "generated_at": "2026-11-20T16:49:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1016",
@@ -984,6 +984,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1067",
+      "headline": "Air India losses top Rs 22,000 crore in FY26 as fuel costs, Pakistan airspace curbs hit turnaround",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/air-india-losses-top-rs-22000-crore-in-fy26-as-fuel-costs-pakistan-airspace-curbs-hit-turnaround-568849-2026-11-20?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T14:33:21Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Air India reports Rs 22,000 crore net loss in FY26 driven by fuel costs and Pakistan airspace curbs, undermining turnaround thesis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Air India reports Rs 22,000 crore net loss in FY26 driven by fuel costs and Pakistan airspace curbs, undermining turnaround thesis.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": "AIRINDIA",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1030",
       "headline": "Jensen Huang Ousted: Timeline Of The Nvidia Scandal—As California Launches Investigation",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-868",
-      "headline": "Polarium Energy Collapses in Setback for Sweden’s Harald Mix",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-20/sweden-s-mix-backed-battery-firm-polarium-files-for-bankruptcy",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T09:46:32Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Polarium Energy has collapsed, representing a significant corporate failure and financial loss for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Polarium Energy has collapsed, representing a significant corporate failure and financial loss for investors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Polarium Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287675,9 +287675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 617084,
-    "news_picked_today": 1993,
-    "news_dropped_today": 18287
+    "news_seen_today": 617992,
+    "news_picked_today": 2010,
+    "news_dropped_today": 18414
   },
   "book_momentum": {
     "live_count": 8,
