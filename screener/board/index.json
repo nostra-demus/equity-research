@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T09:52:23Z",
+  "generated_at": "2026-11-20T10:02:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-663",
@@ -150,6 +150,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-726",
+      "headline": "Lufthansa to Eliminate 1,000 Jobs At Struggling Flagship Airline",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-20/lufthansa-to-eliminate-1-000-jobs-at-struggling-flagship-airline",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T08:09:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Lufthansa is cutting 1,000 jobs at its flagship airline due to operational struggles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lufthansa is cutting 1,000 jobs at its flagship airline due to operational struggles.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lufthansa",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-669",
       "headline": "Disney’s sports profit jumped 53% as it bets on live games. It also wants $3 billion in cost cuts",
       "headline_en": null,
@@ -195,6 +244,61 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-713",
+      "headline": "SpaceX seeks at least $32 billion in debt sale to finance Nvidia’s latest AI chips",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/spacex-seeks-at-least-32-billion-in-debt-sale-to-finance-nvidia-s-latest-ai-chips-101795161263333.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T08:01:04Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "SpaceX is seeking a $32 billion debt sale to fund significant capital expenditure on AI hardware.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX is seeking a $32 billion debt sale to fund significant capital expenditure on AI hardware.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,98 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-457",
-      "headline": "Anthropic’s historic stock market debut: key takeaways, and what comes next for the AI industry",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/technology/2026/nov/20/anthropic-ipo-historic-stock-market-debut-key-takeaways-what-next-for-ai",
-      "source_name": "The Guardian — Economics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T03:33:45Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic's historic stock market debut is a major event for the AI industry and capital markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Anthropic's historic stock market debut is a major event for the AI industry and capital markets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-472",
-      "headline": "US-Israel war on Iran: Saudi faces Houthi missiles; Trump delays Iran decision",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/us-israel-war-on-iran-saudi-faces-houthi-missiles-trump-delays-iran-decision-1.500754425",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:50:07Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "The ongoing conflict involving US, Israel, and Iran, combined with Houthi missile attacks, represents a major geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The ongoing conflict involving US, Israel, and Iran, combined with Houthi missile attacks, represents a major geopolitical escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287339,9 +287351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 442884,
-    "news_picked_today": 1328,
-    "news_dropped_today": 10912
+    "news_seen_today": 443653,
+    "news_picked_today": 1379,
+    "news_dropped_today": 11053
   },
   "book_momentum": {
     "live_count": 8,
