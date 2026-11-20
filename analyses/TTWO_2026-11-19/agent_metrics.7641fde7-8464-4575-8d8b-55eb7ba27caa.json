@@ -1,0 +1,219 @@
+{
+  "agents": [
+    {
+      "agent": "incentives-and-compensation",
+      "model": "claude-opus-5",
+      "calls": 50,
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 141660,
+        "cache_read_input_tokens": 8029088,
+        "cache_creation_input_tokens": 507723,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 507723,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 10.72981275,
+      "runtime_ms": 1603291,
+      "module": "management-governance"
+    },
+    {
+      "agent": "board-and-shareholder-rights",
+      "model": "claude-opus-5",
+      "calls": 44,
+      "usage": {
+        "input_tokens": 88,
+        "output_tokens": 82306,
+        "cache_read_input_tokens": 7496436,
+        "cache_creation_input_tokens": 464723,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 464723,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 8.71082675,
+      "runtime_ms": 1794320,
+      "module": "management-governance"
+    },
+    {
+      "agent": "ownership-and-insider-behavior",
+      "model": "claude-opus-5",
+      "calls": 30,
+      "usage": {
+        "input_tokens": 60,
+        "output_tokens": 77309,
+        "cache_read_input_tokens": 4136929,
+        "cache_creation_input_tokens": 430671,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 430671,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 6.69318325,
+      "runtime_ms": 934844,
+      "module": "management-governance"
+    },
+    {
+      "agent": "candor-and-disclosure-quality",
+      "model": "claude-opus-5",
+      "calls": 43,
+      "usage": {
+        "input_tokens": 86,
+        "output_tokens": 81441,
+        "cache_read_input_tokens": 5174553,
+        "cache_creation_input_tokens": 402643,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 402643,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 7.14025025,
+      "runtime_ms": 994392,
+      "module": "management-governance"
+    },
+    {
+      "agent": "governance-data-triage",
+      "model": "claude-opus-5",
+      "calls": 41,
+      "usage": {
+        "input_tokens": 82,
+        "output_tokens": 53717,
+        "cache_read_input_tokens": 3875925,
+        "cache_creation_input_tokens": 323799,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 323799,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.30504125,
+      "runtime_ms": 686110,
+      "module": "management-governance"
+    },
+    {
+      "agent": "capital-allocation-scorecard",
+      "model": "claude-opus-5",
+      "calls": 38,
+      "usage": {
+        "input_tokens": 76,
+        "output_tokens": 91096,
+        "cache_read_input_tokens": 4562031,
+        "cache_creation_input_tokens": 402926,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 402926,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 7.077083,
+      "runtime_ms": 1078300,
+      "module": "management-governance"
+    },
+    {
+      "agent": "people-integrity-dossiers",
+      "model": "claude-opus-5",
+      "calls": 45,
+      "usage": {
+        "input_tokens": 90,
+        "output_tokens": 154606,
+        "cache_read_input_tokens": 8326447,
+        "cache_creation_input_tokens": 326271,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 326271,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 10.06801725,
+      "runtime_ms": 1909025,
+      "module": "management-governance"
+    },
+    {
+      "agent": "regulatory-legal-and-compliance",
+      "model": "claude-opus-5",
+      "calls": 45,
+      "usage": {
+        "input_tokens": 90,
+        "output_tokens": 90235,
+        "cache_read_input_tokens": 9214187,
+        "cache_creation_input_tokens": 635577,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 635577,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 10.83577475,
+      "runtime_ms": 1266569,
+      "module": "management-governance"
+    },
+    {
+      "agent": "management-governance-synthesis",
+      "model": "claude-opus-5",
+      "calls": 36,
+      "usage": {
+        "input_tokens": 72,
+        "output_tokens": 147314,
+        "cache_read_input_tokens": 6636642,
+        "cache_creation_input_tokens": 859532,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 859532,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 12.373606,
+      "runtime_ms": 1627213,
+      "module": "management-governance"
+    },
+    {
+      "agent": "management-and-track-record",
+      "model": "claude-opus-5",
+      "calls": 37,
+      "usage": {
+        "input_tokens": 74,
+        "output_tokens": 86192,
+        "cache_read_input_tokens": 6418532,
+        "cache_creation_input_tokens": 562783,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 562783,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 8.88182975,
+      "runtime_ms": 1030816,
+      "module": "management-governance"
+    },
+    {
+      "agent": "related-party-and-group-forensics",
+      "model": "claude-opus-5",
+      "calls": 59,
+      "usage": {
+        "input_tokens": 118,
+        "output_tokens": 123559,
+        "cache_read_input_tokens": 10879570,
+        "cache_creation_input_tokens": 888692,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 888692,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 14.083675,
+      "runtime_ms": 2333701,
+      "module": "management-governance"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-opus-5",
+    "calls": 36,
+    "usage": {
+      "input_tokens": 72,
+      "output_tokens": 53120,
+      "cache_read_input_tokens": 4120701,
+      "cache_creation_input_tokens": 164526,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 164526
+      }
+    },
+    "cost": 5.0339705,
+    "runtime_ms": 0
+  }
+}

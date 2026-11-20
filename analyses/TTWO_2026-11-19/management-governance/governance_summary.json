@@ -1,0 +1,99 @@
+{
+  "ticker": "TTWO",
+  "date": "2026-11-19",
+  "module": "management-governance",
+  "mode": "PARTIAL run — nine-component formula retained; 08, 10 and 11 absent (run budget exhausted)",
+  "stewardship_verdict": "Misaligned or weak stewardship",
+  "non_negotiable_gate": "PASS",
+  "gate_basis": "coverage-limited PASS: no hard disqualifier (business-model/01 verbatim 'No disqualifier triggered'; 'Any disqualifier triggered: N'; 'No lock applies'); 0 Critical red flags; 0 current controller/CEO/CFO/chair graded Disqualifying (Zelnick = Minor concerns); no confirmed material undisclosed legal matter (RF-CMP-001 tested and deliberately NOT fired — plaintiff-firm notices are not court records and no primary docket was reachable)",
+  "gate_tripping_fact": null,
+  "gate_conditional_trigger": "Confirm a filed federal securities class action on a court docket and find it still absent from the next periodic filing -> A9-10 becomes Red, RF-CMP-001 fires, Disclosure candor caps at 50, Governance risk floors at 60, and the gate must be RECOMPUTED",
+  "hard_disqualifier_flagged": "N",
+  "scores": {
+    "management_quality": 55,
+    "capital_allocation": 31,
+    "incentive_alignment": 53,
+    "shareholder_friendliness": 70,
+    "disclosure_candor": 60,
+    "disclosure_candor_precap": 63,
+    "people_and_network_integrity": 60,
+    "people_and_network_integrity_uncapped": 65,
+    "audit_and_assurance_quality": 50,
+    "rpt_and_leakage_risk_inverted": 44,
+    "contingent_liability_risk_inverted": 40,
+    "accounting_forensics_risk_inverted": 40,
+    "legal_and_regulatory_risk_inverted": 40,
+    "legal_and_regulatory_risk_evidence_rows": 25,
+    "governance_risk_inverted": 62,
+    "data_quality": 55,
+    "overall_usefulness": 70
+  },
+  "substituted_components": [
+    {"component": "audit_and_assurance_quality", "value": 50, "reason": "08 never ran (run budget exhausted) — missing positive component enters at the 50 mid-band; NOT a reading of the auditor"},
+    {"component": "contingent_liability_risk", "value": 40, "reason": "10 never ran (run budget exhausted) — missing inverted risk enters the Checklist Risk max at 40; unknown is not safe"},
+    {"component": "accounting_forensics_risk", "value": 40, "reason": "11 never ran (run budget exhausted) — missing inverted risk enters the Checklist Risk max at 40; Beneish M / Dechow F battery NEVER COMPUTED, so RF-ACC-001 is UNTESTED, NOT CLEARED"}
+  ],
+  "checklist_risk": 44,
+  "checklist_risk_arithmetic": "max(44 RPT&leakage, 40 contingent SUBSTITUTED, 40 forensics SUBSTITUTED, 40 legal) = 44; the binding term is RPT & leakage risk, which already exceeds both substituted 40s and the legal floor of 40, so the substitutions do not move the composite",
+  "governance_score": 52,
+  "governance_score_exact": 51.92,
+  "governance_score_arithmetic": "0.14*31 + 0.11*53 + 0.11*70 + 0.10*60 + 0.11*55 + 0.09*50 + 0.11*60 + 0.11*(100-62) + 0.12*(100-44) = 4.34 + 5.83 + 7.70 + 6.00 + 6.05 + 4.50 + 6.60 + 4.18 + 6.72 = 51.92",
+  "confidence_score": 65,
+  "confidence_ceiling_binding": 75,
+  "confidence_ceiling_source": "12 coverage-limited primary-docket axis (looser ceilings of 80 from the PARTIAL-run rule, 07 breadth overflow, no-auditor-fee row and no-contingent-liability-note row were all superseded)",
+  "confidence_adjusted_governance_score": 34,
+  "confidence_adjusted_exact": 33.75,
+  "governance_rating": "Weak",
+  "conviction_cap": "No rating above Watchlist until RF-MGT-005 is cleared by primary evidence — satisfied, the rating is Weak",
+  "red_flag_count": 12,
+  "critical_red_flag_count": 0,
+  "checklist_coverage": {
+    "answered": 114,
+    "total": 179,
+    "percent": 63.7,
+    "green": 64,
+    "amber": 43,
+    "red": 7,
+    "not_available": 65,
+    "not_available_from_absent_specialists": 53,
+    "under_50_percent_cap_binds": false
+  },
+  "section_24_filters": {
+    "filter_1_integrity": "TRIPPED — RF-MGT-005 High; Disclosure candor capped 63->60; Management quality ceiling 60; conviction cap",
+    "filter_2_turnaround": "NOT tripped — no new management, no new plan; classified product-cycle inflection under incumbent management",
+    "filter_3_debt_survival": "Owned by balance-sheet-survival; this module notes TBVPS -$6.55 vs peer median +$3.20 and 8 of 10 peers in net cash",
+    "filter_4_serial_acquirer": "TRIPPED — RF-CAP-004 confirmed on rebuilt evidence; CapAlloc ceiling 50 (31 below, does not bind); GovRisk floor 60 BINDS",
+    "filter_5_fast_changing_industry": "Owned by the business-model module",
+    "filter_6_unaligned_owner": "NOT tripped — no controlling owner (largest holder 8.68%, 99.6% float, one share one vote)"
+  },
+  "caps_released_on_false_premises": [
+    "No proxy / compensation disclosure -> Incentive max 50: RELEASED, reset to 70 sized to the residual gap; evidence = audited FY26 10-K Note 3 + Note 16, Ex. 10.8/10.9 Annex A vesting grids in the pool, real DEF 14A read on EDGAR 2026-07-27",
+    "No related-party note -> RPTRisk floor 40 + Confidence max 80: RELEASED; evidence = FY26 10-K Note 3 quantifies three years; 09's refusal to apply it was correct",
+    "No board disclosure -> board read not assessable: RELEASED; evidence = 05 answered 25 of 25 owned items from DEF 14As 2026-07-27 / 2025-07-28 and three Item 5.07 8-Ks",
+    "Blanket legal-sweep 'did not run' caps and the A17-01 'loop did not run' cap of 60: NOT inherited as written — 07 and 12 both had network access and the discovery loop DID run"
+  ],
+  "caps_retained": [
+    "RF-MGT-005 (Filter 1): Disclosure candor capped 63 -> 60; the only cap that moves a number",
+    "RF-CAP-004 (Filter 4): Governance risk floor 60 BINDS",
+    "Declared breadth overflow incl. Tier-A-controlled entities: People & network integrity capped 65 -> 60",
+    "Legal-database coverage-limited: Legal & regulatory risk floored at 40 over evidence rows building to 25 — the gap is our access, not a finding against the company",
+    "pending-12-reconciliation (partial form): all three lineage grades stay PROVISIONAL; no row closes resolved-clean because no row reads Coverage full",
+    "PARTIAL run: Confidence capped at 80 (superseded by the binding 75)"
+  ],
+  "absent_specialists": [
+    {"agent": "08_audit-and-assurance-quality", "reason": "not dispatched — run budget exhausted after the other nine specialists; an EXECUTION gap, not a verdict and not a finding about the company", "unanswered_items": ["A4-01","A4-02","A4-03","A4-04","A4-05","A4-06","A4-07","A4-08","A4-09","A4-10","A4-11","A4-12","A4-13","A4-14","A4-15","A7-02"]},
+    {"agent": "10_contingent-liabilities-and-commitments", "reason": "not dispatched — run budget exhausted; execution gap", "unanswered_items": ["A7a-01","A7a-02","A7a-03","A7a-04","A7a-05","A7a-06","A7a-07","A7a-08","A7a-09","A7a-10","A7a-11","A7a-12","A7a-13","A7a-14","A7a-15"], "cross_module_substitute": "balance-sheet-survival/05_off-balance-sheet-and-contingencies.md — recognized CL $714.8m, maximum basis $1,567.8m = 44.7% of $3,510.9m equity, commitments $740.1m ($323.7m within 12 months), gross UTB $274.5m across eight open years FY2018-FY2025, LCs $2.1m, nil pension deficit, nil receivables sold, no VIEs, RF-OBS-001 fired there. LABELLED A SUBSTITUTE FROM ANOTHER MODULE — not this module's A7a read; A7a bands deliberately not applied; A7a-13 and A7a-14 have no substitute at all"},
+    {"agent": "11_accounting-forensics", "reason": "not dispatched — run budget exhausted; execution gap", "unanswered_items": ["A8-01","A8-02","A8-03","A8-04","A8-05","A8-06","A8-07","A8-08","A8-09","A8-10","A8-11","A8-12","A8-13","A8-14","A8-15","A8-16","A8-17","A8-18","A8-19","A8-20","A14-01","A14-02"], "note": "Beneish M-score and Dechow F-score battery NEVER COMPUTED — RF-ACC-001 is UNTESTED, NOT CLEARED"}
+  ],
+  "insider_ownership": "0.95% aggregate (1,771,777 sh, ~$384m); CEO + ZMC 0.717% (~$291m), all granted, none bought; -11.7% in nine months; 13 open-market sales / 376,847 sh / $85,188,034 against ZERO purchases; 0% pledged",
+  "biggest_governance_signal": "ZMC management agreement: $79.5m FY2026 total cost = $16.6m cash consulting expense ($3.3m base fee at $275,000/month + bonus at/near its $13.2m cap) + $62.9m non-cash stock compensation on RSUs granted to ZMC = 20.6% of the company's entire $305.3m stock-comp expense and 1.19% of revenue, $205.2m over three years, 100% controller-linked, while the Summary Compensation Table reports the CEO at $403,019",
+  "supersedes": "business-model/11_capital-allocation-governance — treat THIS module's governance verdict and scores as the primary governance read",
+  "pool_integrity": {
+    "def_14a_export": "EMPTY vendor file — the real DEF 14A was sourced from EDGAR by 03, 05 and 09 (primary-but-out-of-pool)",
+    "key_developments_export": "belongs to Alphabet Inc. (GOOGL) — there is NO TTWO material-event / 8-K history in the pool at all",
+    "transcripts_in_pool": 2,
+    "transcripts_note": "both inside FY2027; zero shareholder letters",
+    "numeric_reading_check": "ABSENT on every source and sheet in this extract generation; no reading annotations in corpus.txt — every reading is UNCHECKED, never verified clean; no single amount is currently not-proven on that ground, and the unresolved uncertainty travels forward"
+  },
+  "highest_value_next_data_request": "One paid primary-docket pull: the complaint, first amended complaint and full docket in Marks Capital, Inc. & Steven Marks v. Harry Strauss Zelnick (LA Superior Court 24STCV20137), plus the pro se complaint in Marks v. Zelnick (Delaware Chancery 2025-0816) — the same pull answers the securities-class-action question that is the only live path to a gate recomputation"
+}

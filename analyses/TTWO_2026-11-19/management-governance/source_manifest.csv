@@ -1,0 +1,27 @@
+table,governance_need_or_source,best_available_source,period,confidence_1_to_5,missing,replacement_source,as_of_date,age,stale,impact
+source_coverage_matrix,Board composition,"CIQ Board Members export (tab: Board Members, 28×25), cross-checked against the FY26 10-K signature page","Current as at ~Nov-2026; signature page May 21, 2026",4,No (roster) / Yes (committees),None in pool for committee composition — only the proxy carries it. 07's registry and the company's governance webpage would both close it if reachable,,,,
+source_coverage_matrix,Compensation,"None. Blank-form RSU agreement template only (no person, no amount, no metric)",—,1,Yes,The DEF 14A of Jul-27-2026 — the single highest-value missing document,,,,
+source_coverage_matrix,Ownership,"CIQ Public Ownership History (1,835 rows, quarterly)",Dec-31-2025 → Sep-30-2026 shown; longer series in file,4,No,Proxy beneficial-ownership table would add insider holdings and the 5% holder reconciliation,,,,
+source_coverage_matrix,Insider trades,"CIQ Public Ownership Insider Trading (5,058 rows, Form 4 sourced)",2004-10-12 → filed 2026-10-05,5,No,—,,,,
+source_coverage_matrix,Related-party transactions,"Names only, no amounts. relationships.json edges for ZelnickMedia Corporation and ZMC Advisors. L.P.; FY26 10-K exhibit index Ex. 10.20–10.26",FY2025 and FY2026 10-K disclosures (via the vendor graph),2,Yes (quantification),"DEF 14A Item 13 section, and the Management Agreement of May 3, 2022 itself (Ex. 10.26, filed with the 8-K of 5/5/2022)",,,,
+source_coverage_matrix,Auditor report,"FY26 10-K audit report (E&Y, unqualified) + Item 9A ICFR effective + Section 404(b) attestation; CIQ Auditors FY1996–FY2026 with opinion type per year",FY2026 (and FY1996–FY2026 history),5,No,—,,,,
+source_coverage_matrix,Secretarial / compliance report,Not Applicable — no US equivalent of India's MR-3,—,n/a,n/a (regime),—,,,,
+source_coverage_matrix,AGM voting,None,—,1,Yes,"Item 5.07 8-K following the 2026 annual meeting, or the proxy",,,,
+source_coverage_matrix,Capital-allocation history,"CIQ Financials_Annual (13 tabs: Cash Flow, Historical Capitalization, Ratios, Capital Structure) + FY25 and FY26 10-Ks",Mar-31-2017 → Mar-31-2026 (10 years),5,No,—,,,,
+source_coverage_matrix,Legal / regulatory cases,"FY26 10-K Note 14 ""Legal and Other Proceedings"" — described as routine, not material, with amounts accrued but no case named and no amount given. Plus the FY26 10-K Item 3 / Item 1A risk narrative",FY2026,2,Partly,External court/regulator databases (unreachable this run); and the missing TTWO Key Developments export — the pool has Alphabet's instead,,,,
+data_freshness,Q2 FY27 earnings call transcript,,Q2 FY2027,,,,2026-11-09,0.3 mo,No,Freshest management voice in the pool; anchors 06's candor read
+data_freshness,Short-interest series,,Daily,,,,2026-11-18,0.0 mo,No,A15-01/02 current
+data_freshness,CIQ Board Members / Professionals,,"""Current""",,,,~2026-11-19 (export),~0 mo,No,Board and officer roster current
+data_freshness,CIQ Public Ownership History,,Quarterly,,,,Sep-30-2026,1.6 mo,No,A3 ownership-trend read current
+data_freshness,10-Q Q2 FY27,,Quarter ended Sep-30-2026,,,,2026-09-30,1.6 mo,No,Latest audited-adjacent balance sheet
+data_freshness,CIQ Insider Trading,,All history,,,,Filed 2026-10-05,1.5 mo,No,A3/A15 insider read current
+data_freshness,Q1 FY27 transcript / release / deck,,Q1 FY2027,,,,2026-08-06/07,3.4 mo,No,Second of only two transcripts
+data_freshness,10-Q Q1 FY27,,Quarter ended Jun-30-2026,,,,2026-06-30,4.6 mo,No,—
+data_freshness,DEF 14A export (hollow),,Asserted Jul-27-2026,,,,—,n/a,n/a — no content at any age,"Blocks A6 (all), A12-02/03, A2 (all composition items), A5 quantification, A4-06/07, A10-03"
+data_freshness,FY26 10-K + E&Y audit report + Note 14 + Ex. 21.1,,FY ended Mar-31-2026,,,,2026-03-31 (signed 2026-05-21),7.6 mo,No,"Primary annual evidence; one reporting cycle old, which is normal mid-year"
+data_freshness,CIQ Auditors,,FY1996–FY2026,,,,FY2026,7.6 mo,No,30-year auditor continuity record
+data_freshness,CIQ Financials_Annual,,FY2017–FY2026,,,,Mar-31-2026,7.6 mo,No,10-year capital-allocation base
+data_freshness,FY25 10-K,,FY ended Mar-31-2025,,,,2025-03-31,19.6 mo,"No (it is the prior-year comparative, correctly so)",Second consecutive year for the forensic battery
+data_freshness,CIQ Strategic Alliances,,"""within the last two years""",,,,latest source 2025-04-15,19.2 mo,Borderline,Alliance view is a two-year window only — do not read it as a complete alliance list (honour scope_notes)
+data_freshness,S&P issuer credit rating BBB / Stable,,Point-in-time,,,,2022-04-05,55.5 mo,YES — stale,12's rating-conduct read rests on a 4.6-year-old one-line stamp with no rationale document. State the staleness; do not present BBB/Stable as a current agency view
+data_freshness,CIQ Key Developments,,—,,,,—,—,Wrong company (Alphabet/GOOGL),No TTWO material-event history at all
