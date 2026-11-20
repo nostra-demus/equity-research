@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T13:12:04Z",
+  "generated_at": "2026-11-20T13:16:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-883",
+      "headline": "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001653.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T13:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "The company issued a profit warning, indicating a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning, indicating a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NEW HIGHER EDU",
+          "ticker": "02001",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-870",
       "headline": "KS SMART MGMT (08181): DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF 30% OF THE TOTAL NUMBER OF ISSUED SHARES OF THE TARGET COMPANY INVOLVING ISSUE OF A PROMISSORY NOTE",
@@ -1929,55 +1978,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-311",
-      "headline": "Anthropic shares jump 21% after $107.3 billion IPO breaks record",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/anthropic-shares-jump-21-after-107-3-billion-ipo-breaks-record-11795137716176.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T01:23:24Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Anthropic IPO raised $107.3 billion, a record-breaking event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic IPO raised $107.3 billion, a record-breaking event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287553,9 +287553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 532476,
-    "news_picked_today": 1674,
-    "news_dropped_today": 14934
+    "news_seen_today": 534159,
+    "news_picked_today": 1688,
+    "news_dropped_today": 14944
   },
   "book_momentum": {
     "live_count": 8,
