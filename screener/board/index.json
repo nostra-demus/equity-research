@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T07:18:01Z",
+  "generated_at": "2026-11-20T07:37:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-553",
@@ -1201,6 +1201,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-654",
+      "headline": "Target boosts full-year sales outlook",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=12b3fbf2-873a-4793-9ae7-161d09284a7c&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-18T11:46:21Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Target has officially boosted its full-year sales outlook, signaling stronger-than-expected consumer demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Target has officially boosted its full-year sales outlook, signaling stronger-than-expected consumer demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Target",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-513",
       "headline": "Japan Tobacco hit by $8.9 billion charge on Russia seizure",
       "headline_en": null,
@@ -1932,60 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-637",
-      "headline": "TSMC invests $500 million in Anthropic, acquires 0.03% stake at IPO price",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/tsmc-invests-500-million-in-anthropic-acquires-003-stake-at-ipo-price/article71723133.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T06:18:04Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "TSMC invested $500 million in Anthropic for a 0.03% stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "TSMC invested $500 million in Anthropic for a 0.03% stake.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TSMC",
-          "ticker": null,
-          "listing_country": "TW"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287350,9 +287345,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 334700,
-    "news_picked_today": 1205,
-    "news_dropped_today": 6091
+    "news_seen_today": 344173,
+    "news_picked_today": 1236,
+    "news_dropped_today": 6852
   },
   "book_momentum": {
     "live_count": 8,
