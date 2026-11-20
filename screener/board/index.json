@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-20T07:37:46Z",
+  "generated_at": "2026-11-20T07:44:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261120-655",
+      "headline": "[TSE]Decision on Delisting, etc.: DIGITAL HEARTS HOLDINGS Co.,Ltd.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20261120-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T07:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "JPX announced delisting decision for Digital Hearts Holdings—a survival event affecting trading status and market access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JPX announced delisting decision for Digital Hearts Holdings—a survival event affecting trading status and market access.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Digital Hearts Holdings Co., Ltd.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261120-553",
       "headline": "Anthropic Jumps 17% in Nasdaq Debut, Raising Record $107.3 Billion",
@@ -1932,55 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-630",
-      "headline": "United Express, Inc. Announces Non-Reliance on Audited Financial Statements for Fiscal Years Ended June 30, 2024, June 30, 2025 and June 30, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/united-express-inc-announces-non-reliance-audited-financial-statements-fiscal-years-ended",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T12:22:21Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Company announces non-reliance on audited financial statements for three fiscal years, a critical red flag signaling audit failure and materially impairing investor confidence in reported numbers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company announces non-reliance on audited financial statements for three fiscal years, a critical red flag signaling audit failure and materially impairing investor confidence in reported numbers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United Express, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287345,9 +287345,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 344173,
-    "news_picked_today": 1236,
-    "news_dropped_today": 6852
+    "news_seen_today": 357652,
+    "news_picked_today": 1247,
+    "news_dropped_today": 6985
   },
   "book_momentum": {
     "live_count": 8,
