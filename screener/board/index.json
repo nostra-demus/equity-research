@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T22:12:00Z",
+  "generated_at": "2026-11-20T22:22:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1143",
@@ -1145,6 +1145,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1208",
+      "headline": "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nvidia-stock-plunge-wipes-out-nearly-500-billion-one-day-sec-reportedly-probes-its",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T21:27:22Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Nvidia faces a reported SEC probe into its accounting, causing a significant market value decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia faces a reported SEC probe into its accounting, causing a significant market value decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1190",
       "headline": "Zscaler stock jumps 20% on report that CrowdStrike in talks to buy security vendor",
       "headline_en": null,
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1115",
-      "headline": "CtrlS to set up ₹10,000-cr 150-MW AI-ready data centre in Bihar",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/ctrls-to-set-up-10000-cr-150-mw-ai-ready-data-centrein-bihar/article71725577.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T15:48:59Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "CtrlS announced a 10,000 crore rupee investment to build a 150-MW data center in Bihar.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CtrlS announced a 10,000 crore rupee investment to build a 150-MW data center in Bihar.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CtrlS",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288629,9 +288629,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 654714,
-    "news_picked_today": 2582,
-    "news_dropped_today": 24447
+    "news_seen_today": 655530,
+    "news_picked_today": 2604,
+    "news_dropped_today": 24689
   },
   "book_momentum": {
     "live_count": 8,
