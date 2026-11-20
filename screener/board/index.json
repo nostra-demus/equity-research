@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T17:40:08Z",
+  "generated_at": "2026-11-20T17:48:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1068",
@@ -929,6 +929,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-1102",
+      "headline": "KKR in Talks to Buy EdgeCore at Valuation of at Least $8 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-20/kkr-in-talks-to-buy-edgecore-at-valuation-of-at-least-8-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T17:19:31Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "KKR is in talks to acquire EdgeCore at a valuation of at least $8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR is in talks to acquire EdgeCore at a valuation of at least $8 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "EdgeCore",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,56 +1968,6 @@
           "name": "Westlake Corporation",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-799",
-      "headline": "Hongkong Land raises full-year earnings guidance as Q3 underlying profit rises 38%",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/reits-property/hongkong-land-raises-full-year-earnings-guidance-q3-underlying-profit-rises-38",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T11:51:37Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Hongkong Land raised its full-year earnings guidance following a 38% rise in Q3 underlying profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hongkong Land raised its full-year earnings guidance following a 38% rise in Q3 underlying profit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hongkong Land",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -287969,9 +287973,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 627473,
-    "news_picked_today": 2120,
-    "news_dropped_today": 19048
+    "news_seen_today": 630317,
+    "news_picked_today": 2157,
+    "news_dropped_today": 19203
   },
   "book_momentum": {
     "live_count": 8,
