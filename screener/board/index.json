@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T03:24:27Z",
+  "generated_at": "2026-11-20T03:35:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-389",
@@ -1185,6 +1185,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-437",
+      "headline": "WISeKey International Holding AG Subsidiary SEALSQ Signs LOI to Acquire 100% of QuintessenceLabs",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/wisekey-international-holding-ag-subsidiary-sealsq-signs-loi-acquire-100-quintessencelabs",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T02:48:41Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "SEALSQ (WISeKey subsidiary) signs LOI to acquire 100% of QuintessenceLabs, a quantum-safe cryptography company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "SEALSQ (WISeKey subsidiary) signs LOI to acquire 100% of QuintessenceLabs, a quantum-safe cryptography company.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WISeKey International Holding AG",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "SEALSQ",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "QuintessenceLabs",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-413",
       "headline": "US cleared nearly 900,000 advanced AI chips for Chinese firms, including Alibaba, Tencent, in six months",
       "headline_en": null,
@@ -1926,55 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-131",
-      "headline": "LATAM Airlines Group S.A. Amends Revolving Credit Facilities to Extend Maturity to November 2031 and Increase Capacity to US$1,810 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/latam-airlines-group-sa-amends-revolving-credit-facilities-extend-maturity-november-2031",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:20:30Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "LATAM Airlines amended credit facilities to increase capacity to US$1,810 million and extend maturity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "LATAM Airlines amended credit facilities to increase capacity to US$1,810 million and extend maturity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LATAM Airlines Group",
-          "ticker": null,
-          "listing_country": "CL"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287339,9 +287349,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 202384,
-    "news_picked_today": 654,
-    "news_dropped_today": 2226
+    "news_seen_today": 218351,
+    "news_picked_today": 667,
+    "news_dropped_today": 2285
   },
   "book_momentum": {
     "live_count": 8,
