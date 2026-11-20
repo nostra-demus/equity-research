@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T13:21:29Z",
+  "generated_at": "2026-11-20T13:44:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-883",
@@ -684,6 +684,104 @@
         },
         {
           "name": "Murphy Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-905",
+      "headline": "Poundland dealmakers brace for crunch weekend to avert collapse",
+      "headline_en": null,
+      "url": "https://www.cityam.com/poundlands-dealmakers-brace-for-crunch-weekend-to-avert-collapse/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T12:27:40Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Poundland is facing a critical financial situation with a weekend deadline to avoid potential collapse.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland is facing a critical financial situation with a weekend deadline to avoid potential collapse.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-906",
+      "headline": "Westlake Corporation Agrees to Pay $119.5 million and $79.5 million to Settle PVC Pipe Antitrust Litigation",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/westlake-corporation-agrees-pay-1195-million-and-795-million-settle-pvc-pipe-antitrust",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T12:18:40Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Westlake Corporation agreed to pay a total of $199 million to settle antitrust litigation regarding PVC pipes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Westlake Corporation agreed to pay a total of $199 million to settle antitrust litigation regarding PVC pipes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Westlake Corporation",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1888,105 +1986,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-451",
-      "headline": "Geospace Technologies Corporation Reports Fiscal Year 2026 Net Loss of $44.3 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/geospace-technologies-corporation-reports-fiscal-year-2026-net-loss-443-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T03:08:43Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Geospace Technologies reported a significant net loss of $44.3 million for fiscal year 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Geospace Technologies reported a significant net loss of $44.3 million for fiscal year 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Geospace Technologies Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-389",
-      "headline": "Atul shares in focus as US Customs investigates unit over alleged duty evasion",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/atul-share-price-us-customs-investigation-unit-alleged-duty-evasion-company-response-impact-20038237.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T02:43:32Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Atul is under investigation by US Customs for alleged duty evasion, posing a significant regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Atul is under investigation by US Customs for alleged duty evasion, posing a significant regulatory and operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Atul",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287562,9 +287561,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 535818,
-    "news_picked_today": 1711,
-    "news_dropped_today": 15065
+    "news_seen_today": 559228,
+    "news_picked_today": 1722,
+    "news_dropped_today": 15198
   },
   "book_momentum": {
     "live_count": 8,
