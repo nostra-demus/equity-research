@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T00:45:30Z",
+  "generated_at": "2026-11-20T00:50:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-089",
@@ -101,6 +101,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-186",
+      "headline": "Anthropic’s Amended S-1 Shows $895 Billion in Spending Commitments. Here’s How Much Flows Straight to SpaceX -- and When.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anthropics-amended-s-1-shows-895-billion-spending-commitments-heres-how-much-flows",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:35:02Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic's S-1 reveals $895 billion in spending commitments, with significant flow-through to SpaceX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Anthropic's S-1 reveals $895 billion in spending commitments, with significant flow-through to SpaceX.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-152",
       "headline": "AI lab Anthropic sets stock market record with $81 billion IPO",
       "headline_en": null,
@@ -115,6 +170,104 @@
       "launched_signal_id": null,
       "triage_score": 94,
       "triage_reason": "Anthropic announced an $81 billion IPO, a major capital market event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-155",
+      "headline": "Anthropic to list on Wall Street in biggest IPO ever",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/7a6b211d-c73b-4953-97ee-ed92dab8ee07?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:58:44Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic is planning a record-breaking IPO, which will significantly impact market liquidity and sector valuations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Anthropic is planning a record-breaking IPO, which will significantly impact market liquidity and sector valuations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-156",
+      "headline": "Anthropic to make Wall Street debut after record $81bn IPO",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/7a6b211d-c73b-4953-97ee-ed92dab8ee07?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:58:44Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Anthropic is set to debut with a record $81 billion IPO, a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Anthropic is set to debut with a record $81 billion IPO, a major capital market event.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -243,6 +396,61 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-193",
+      "headline": "Banken: Bund und Unicredit einigen sich bei Commerzbank-Übernahme",
+      "headline_en": "Banks: Federal Government and UniCredit reach agreement on Commerzbank takeover",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken/banken-bund-und-unicredit-einigen-sich-bei-commerzbank-uebernahme/100271077.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:32:07Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "The German federal government and UniCredit reached an agreement regarding the proposed acquisition of Commerzbank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The German federal government and UniCredit reached an agreement regarding the proposed acquisition of Commerzbank.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commerzbank AG",
+          "ticker": "CBK",
+          "listing_country": "DE"
+        },
+        {
+          "name": "UniCredit S.p.A.",
+          "ticker": "UCG",
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -444,6 +652,57 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-191",
+      "headline": "SpiceJet cancelling over half its scheduled flights daily; races to raise Rs 5,500 crore",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/spicejet-is-cancelling-over-half-its-scheduled-flights-daily-leaving-passengers-stranded-as-dgca-stops-short-of-restricting-bookings-cash-strapped-airline-races-to-raise-rs-5500-crore/articleshow/135983543.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-19T10:32:42Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "SpiceJet is cancelling over half its daily scheduled flights while attempting to raise Rs 5,500 crore to address cash constraints.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "SpiceJet is cancelling over half its daily scheduled flights while attempting to raise Rs 5,500 crore to address cash constraints.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations",
+        "default_distress",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet Limited",
+          "ticker": "SPICEJET",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1687,297 +1946,48 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261120-009",
-      "headline": "Binance Wins $6.5B Freezing Order Over Hack That Can Be Served via the Blockchain",
+      "inbox_id": "INB-20261120-185",
+      "headline": "Uber commits Dh184m to expand driverless rides in Dubai",
       "headline_en": null,
-      "url": "https://decrypt.co/383608/binance-wins-6-5b-freezing-order-over-hack-that-can-be-served-via-the-blockchain",
-      "source_name": "Decrypt — Crypto News",
+      "url": "https://gulfnews.com/business/uber-commits-dh184m-to-expand-driverless-rides-in-dubai-1.500753454",
+      "source_name": "Gulf News",
       "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:59:14Z",
+      "found_at": "2026-11-19T10:36:25Z",
       "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Binance secured a $6.5B freezing order, a significant legal development in asset recovery.",
+      "prelim_note": "Uber commits Dh184 million ($50 million) to expand driverless ride operations in Dubai.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Binance secured a $6.5B freezing order, a significant legal development in asset recovery.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-067",
-      "headline": "Nomura Holdings, Inc. Reports ¥249.3 Billion Net Income for Six Months Ended September 30, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nomura-holdings-inc-reports-y2493-billion-net-income-six-months-ended-september-30-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T12:09:04Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Nomura reports ¥249.3 billion in net income for the six-month period, a significant quantified earnings result.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Nomura reports ¥249.3 billion in net income for the six-month period, a significant quantified earnings result.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nomura Holdings",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-093",
-      "headline": "+++ Geschäftszahlen +++: Lenovo rutscht in die Verlustzone – Aktie bricht ein",
-      "headline_en": "Lenovo slides into loss zone — stock crashes",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-lenovo-rutscht-in-die-verlustzone-aktie-bricht-ein/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:48:02Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Lenovo reported a move into the loss zone with the stock crashing, signaling material profitability deterioration, though no numeric loss or prior guidance is stated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Lenovo reported a move into the loss zone with the stock crashing, signaling material profitability deterioration, though no numeric loss or prior guidance is stated.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lenovo",
-          "ticker": "LNVGY",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-094",
-      "headline": "Maximus Inc Announces Increase In Q4 Bottom Line",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/maximus-inc-announces-increase-q4-bottom-line",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:46:05Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Maximus Inc announced a Q4 bottom-line increase, signaling an earnings beat or guidance raise on its core profitability metric from an official source.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Maximus Inc announced a Q4 bottom-line increase, signaling an earnings beat or guidance raise on its core profitability metric from an official source.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maximus Inc",
-          "ticker": "MXIM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-126",
-      "headline": "SK Telecom Scores Huge Windfall from Anthropic IPO",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281720",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:22:59Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "SK Telecom realized a significant financial gain from the Anthropic IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "SK Telecom realized a significant financial gain from the Anthropic IPO.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Telecom",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-145",
-      "headline": "Mitsubishi Heavy Industries and Sakura Internet sign MoU to establish sovereign AI infrastructure in Japan",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/mitsubishi-heavy-industries-and-sakura-internet-sign-mou-to-establish-sovereign-ai-infrastructure-in-japan/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-19T11:03:55Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "The MoU to establish sovereign AI infrastructure in Japan represents a significant capex-related strategic partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The MoU to establish sovereign AI infrastructure in Japan represents a significant capex-related strategic partnership.",
-      "region": "JP",
+      "triage_score": 85,
+      "triage_reason": "Uber commits Dh184 million ($50 million) to expand driverless ride operations in Dubai.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 65,
       "rank_factors": {
         "materiality": 65,
         "source_tier": 0,
-        "scope": 5,
+        "scope": 6,
         "event": 6,
         "size": 2,
         "recency": 1,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
         "size_bucket": "large"
       },
       "event_types": [
-        "capex"
+        "capex",
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Mitsubishi Heavy Industries",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Sakura Internet",
-          "ticker": null,
-          "listing_country": "JP"
+          "name": "Uber Technologies Inc",
+          "ticker": "UBER",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -287347,9 +287357,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 55873,
-    "news_picked_today": 164,
-    "news_dropped_today": 436
+    "news_seen_today": 60640,
+    "news_picked_today": 211,
+    "news_dropped_today": 533
   },
   "book_momentum": {
     "live_count": 8,
