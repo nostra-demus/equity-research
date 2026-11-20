@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T23:14:27Z",
+  "generated_at": "2026-11-20T23:29:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1212",
@@ -1297,6 +1297,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261120-1215",
+      "headline": "NXT Energy Solutions Inc. Reports Q3-26 Net Income of $8,084,120",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nxt-energy-solutions-inc-reports-q3-26-net-income-8084120",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T22:49:17Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "NXT Energy Solutions reported a Q3-26 net income of $8,084,120, a significant quantified financial result.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NXT Energy Solutions reported a Q3-26 net income of $8,084,120, a significant quantified financial result.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NXT Energy Solutions Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261120-1208",
       "headline": "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting",
       "headline_en": null,
@@ -1948,55 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-1142",
-      "headline": "Procter & Gamble Wants $10 Billion in Savings and Fewer Factory Workers",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/20/procter-gamble-wants-10-billion-in-savings-and-fewer-factory-workers/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-20T16:07:36Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Procter & Gamble is targeting $10 billion in cost savings and workforce reductions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Procter & Gamble is targeting $10 billion in cost savings and workforce reductions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Procter & Gamble",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -288778,9 +288778,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 657353,
-    "news_picked_today": 2709,
-    "news_dropped_today": 25562
+    "news_seen_today": 657418,
+    "news_picked_today": 2712,
+    "news_dropped_today": 25607
   },
   "book_momentum": {
     "live_count": 8,
