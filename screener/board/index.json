@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T23:30:37Z",
+  "generated_at": "2026-11-20T23:36:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-1212",
@@ -251040,78 +251040,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6bbcaece381e",
-      "idea_version": "IDEAV-5718ddf365739bf3",
-      "idea_version_started_at": "2026-11-19T15:44:22Z",
-      "ticker": "01621",
-      "company": "Vico International Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
-      "why_now": "The profit warning was filed on 2026-11-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bcfca21db910"
-      ],
-      "primary_source_event_id": "EVT-bcfca21db910",
-      "source_headlines": [
-        "VICO INTL HLDGS (01621): PROFIT WARNING"
-      ],
-      "source_headline": "VICO INTL HLDGS (01621): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901129.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T11:33:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T15:44:22Z",
-      "updated_at": "2026-11-19T15:44:22Z",
-      "decay_at": "2026-11-20T23:33:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e3d96e3a636a",
       "idea_version": "IDEAV-b3eb3b51c464a4a3",
       "idea_version_started_at": "2026-11-19T19:29:33Z",
@@ -251539,6 +251467,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6bbcaece381e",
+      "idea_version": "IDEAV-5718ddf365739bf3",
+      "idea_version_started_at": "2026-11-19T15:44:22Z",
+      "ticker": "01621",
+      "company": "Vico International Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
+      "why_now": "The profit warning was filed on 2026-11-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bcfca21db910"
+      ],
+      "primary_source_event_id": "EVT-bcfca21db910",
+      "source_headlines": [
+        "VICO INTL HLDGS (01621): PROFIT WARNING"
+      ],
+      "source_headline": "VICO INTL HLDGS (01621): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901129.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-19T11:33:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-19T15:44:22Z",
+      "updated_at": "2026-11-19T15:44:22Z",
+      "decay_at": "2026-11-20T23:33:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fea5fd602449",
       "idea_version": "IDEAV-f4d15657ef03562a",
       "idea_version_started_at": "2026-11-19T15:44:22Z",
@@ -251620,9 +251620,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 506,
+    "total_count": 507,
     "shown_count": 499,
-    "hidden_count": 7,
+    "hidden_count": 8,
     "side_counts": {
       "long": {
         "total_count": 256,
@@ -251630,9 +251630,9 @@
         "hidden_count": 6
       },
       "short": {
-        "total_count": 251,
+        "total_count": 252,
         "shown_count": 250,
-        "hidden_count": 1
+        "hidden_count": 2
       }
     },
     "retention": {
@@ -251651,6 +251651,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6bbcaece381e",
+        "idea_version": "IDEAV-5718ddf365739bf3",
+        "idea_version_started_at": "2026-11-19T15:44:22Z",
+        "ticker": "01621",
+        "company": "Vico International Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
+        "why_now": "The profit warning was filed on 2026-11-19.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bcfca21db910"
+        ],
+        "primary_source_event_id": "EVT-bcfca21db910",
+        "source_headlines": [
+          "VICO INTL HLDGS (01621): PROFIT WARNING"
+        ],
+        "source_headline": "VICO INTL HLDGS (01621): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901129.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-19T11:33:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-19T15:44:22Z",
+        "updated_at": "2026-11-19T15:44:22Z",
+        "decay_at": "2026-11-20T23:33:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-20T23:33:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a289625cef3a",
         "idea_version": "IDEAV-d9079b2475a76c56",
@@ -288680,86 +288755,12 @@
         "archived_at": "2026-10-27T16:00:13Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f476d8205eab",
-        "idea_version": "IDEAV-740571600c791e1f",
-        "idea_version_started_at": "2026-10-24T18:03:05Z",
-        "ticker": "GSK",
-        "company": "GSK plc",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "GSK faces significant legal charges of $2.2 billion and R&D setbacks, which are likely to negatively impact its earnings and profitability.",
-        "why_now": "The potential impact of legal charges and R&D setbacks is being assessed ahead of an October 28 event.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-02a04c82926f"
-        ],
-        "primary_source_event_id": "EVT-02a04c82926f",
-        "source_headlines": [
-          "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?"
-        ],
-        "source_headline": "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?",
-        "source_url": "https://247wallst.com/investing/2026/10/24/can-specialty-meds-offset-gsks-2-2b-legal-charges-and-sizzling-rd-setbacks-on-oct-28/",
-        "source_name": "24/7 Wall St.",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T15:08:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T16:48:28Z",
-        "updated_at": "2026-10-24T18:03:05Z",
-        "decay_at": "2026-10-26T03:08:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T16:00:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2537,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -288778,9 +288779,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 657418,
-    "news_picked_today": 2712,
-    "news_dropped_today": 25607
+    "news_seen_today": 657435,
+    "news_picked_today": 2714,
+    "news_dropped_today": 25622
   },
   "book_momentum": {
     "live_count": 8,
