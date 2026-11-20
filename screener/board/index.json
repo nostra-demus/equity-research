@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T11:43:33Z",
+  "generated_at": "2026-11-20T11:47:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261120-791",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261120-792",
+      "headline": "FE CONSORT INTL FEC FIN PERP (00035 05781): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001381.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-20T11:19:00Z",
+      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
+      "prelim_note": "Far East Consortium International issued a positive profit alert indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Far East Consortium International issued a positive profit alert indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Far East Consortium International",
+          "ticker": "00035",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,56 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261120-577",
-      "headline": "Tencent's $9.8bn capex pushes tech giant into net debt",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/china-tech/tencent-s-9.8bn-capex-pushes-tech-giant-into-net-debt",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-18T14:36:41Z",
-      "sweep_file": "screener/inbox/2026-11-20_sweep.json",
-      "prelim_note": "Tencent's $9.8 billion capex has pushed the company into a net debt position, impacting its balance sheet.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tencent's $9.8 billion capex has pushed the company into a net debt position, impacting its balance sheet.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287489,9 +287488,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 497912,
-    "news_picked_today": 1511,
-    "news_dropped_today": 12625
+    "news_seen_today": 499760,
+    "news_picked_today": 1518,
+    "news_dropped_today": 12666
   },
   "book_momentum": {
     "live_count": 8,
