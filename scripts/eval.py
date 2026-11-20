@@ -4815,8 +4815,11 @@ for drp in runs:
     #   Required" when Timing visibility is in the §12 weak band or there is no proven calendar.
     #   Reads the file directly (not _read_synth_text, which is defined further down this loop body).
     _bl_files=glob.glob(os.path.join(run,"catalyst","99_*-synthesis.md"))
-    try: bl_txt=open(_bl_files[0],encoding="utf-8").read() if _bl_files else None
-    except Exception: bl_txt=None
+    bl_txt=None
+    if _bl_files:
+        try:
+            with open(_bl_files[0],encoding="utf-8") as _blf: bl_txt=_blf.read()
+        except Exception: bl_txt=None
     blresult=eval_bl_catalyst_timing_gate(dec,ddte,bl_txt,d.get("confidence_inputs"))
     if blresult is None:
         add("BL_catalyst_timing_gate",True,f"run predates the gate ({ddte}), or no readable catalyst synthesis — N/A",na=True)
