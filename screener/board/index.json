@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T11:29:18Z",
+  "generated_at": "2026-11-21T11:44:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-216",
@@ -1440,6 +1440,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-222",
+      "headline": "EU targets Big Tech with new tax to fund budget",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/economy/eu-targets-big-tech-with-new-tax-to-fund-budget-1.500755907",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T11:13:40Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The EU is targeting Big Tech with a new tax to fund its budget, which is a significant regulatory action that will directly impact the revenue and profitability of major technology companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The EU is targeting Big Tech with a new tax to fund its budget, which is a significant regulatory action that will directly impact the revenue and profitability of major technology companies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-214",
       "headline": "Taiwan Bans Short Sales Of Stocks In New Move To Calm Markets",
       "headline_en": null,
@@ -1921,55 +1965,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-122",
-      "headline": "‘A new record for entertainment’: Grand Theft Auto VI sales hit $3.8bn on first day of release, developer says",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/games/2026/nov/21/a-new-record-for-entertainment-grand-theft-auto-vi-sales-hit-38bn-on-first-day-of-release-developer-says",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T03:51:03Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Take-Two Interactive reported $3.8 billion in first-day sales for GTA VI, a significant revenue milestone for the gaming sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Take-Two Interactive reported $3.8 billion in first-day sales for GTA VI, a significant revenue milestone for the gaming sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Take-Two Interactive",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292095,9 +292090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2198,
-    "news_picked_today": 357,
-    "news_dropped_today": 1618
+    "news_seen_today": 2245,
+    "news_picked_today": 365,
+    "news_dropped_today": 1657
   },
   "book_momentum": {
     "live_count": 8,
