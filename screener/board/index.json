@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T04:30:41Z",
+  "generated_at": "2026-11-21T04:34:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-125",
@@ -1335,6 +1335,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-133",
+      "headline": "Harmony Capital Takes Control Of Truvolt Engineering With 50.64% Stake, ₹82.88 Crore Share Swap Deal Marks Major Expansion",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/harmony-capital-takes-control-of-truvolt-engineering-with-5064-stake-8288-crore-share-swap-deal-marks-major-expansion",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T04:17:02Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Harmony Capital acquired a controlling 50.64% stake in Truvolt Engineering via a ₹82.88 crore share swap deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Harmony Capital acquired a controlling 50.64% stake in Truvolt Engineering via a ₹82.88 crore share swap deal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Truvolt Engineering",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-112",
       "headline": "Fairfax Financial Holdings Limited Announces Early Redemption of C$650 million 4.25% Senior Notes Due December 6, 2027",
       "headline_en": null,
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-068",
-      "headline": "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/tsakos-energy-navigation-limited-reports-record-profits-nine-months-and-third-quarter-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:38:31Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Tsakos Energy Navigation reported record profits for the third quarter and nine months of 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Tsakos Energy Navigation reported record profits for the third quarter and nine months of 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tsakos Energy Navigation Limited",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291742,9 +291742,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 733,
-    "news_picked_today": 158,
-    "news_dropped_today": 529
+    "news_seen_today": 749,
+    "news_picked_today": 161,
+    "news_dropped_today": 542
   },
   "book_momentum": {
     "live_count": 8,
