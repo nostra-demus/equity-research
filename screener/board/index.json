@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T02:18:53Z",
+  "generated_at": "2026-11-21T02:24:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-073",
@@ -1422,6 +1422,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-079",
+      "headline": "DGCA Issues Show Cause Notice To SpiceJet On Flight Cancellations, Various Violations",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/india/dgca-issues-show-cause-notice-to-spicejet-on-flight-cancellations-various-violations-12356981#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T01:35:49Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "SpiceJet received a show cause notice from the DGCA regarding operational violations and flight cancellations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "SpiceJet received a show cause notice from the DGCA regarding operational violations and flight cancellations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-076",
       "headline": "Cyclone Akvan: Over 70 trains cancelled, 29 rescheduled; air travel hit, Air India, IndiGo issue advisories",
       "headline_en": null,
@@ -1911,55 +1961,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-038",
-      "headline": "Baker Hughes Company Files Unaudited Financial Information for Chart Industries, Inc.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/baker-hughes-company-files-unaudited-financial-information-chart-industries-inc",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T00:39:08Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Baker Hughes filed financial information for Chart Industries, which may impact market expectations for the latter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Baker Hughes filed financial information for Chart Industries, which may impact market expectations for the latter.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Chart Industries",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291445,9 +291446,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 441,
-    "news_picked_today": 82,
-    "news_dropped_today": 335
+    "news_seen_today": 455,
+    "news_picked_today": 85,
+    "news_dropped_today": 346
   },
   "book_momentum": {
     "live_count": 8,
