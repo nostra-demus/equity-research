@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T16:42:57Z",
+  "generated_at": "2026-11-21T16:54:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-248",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-260",
+      "headline": "Grand Theft Auto VI takes record $3.8bn on first day",
+      "headline_en": null,
+      "url": "https://kuwaittimes.com/article/54069/business/grand-theft-auto-vi-takes-record-38bn-on-first-day/",
+      "source_name": "Kuwait Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T15:07:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Take-Two Interactive's Grand Theft Auto VI generated $3.8 billion in revenue on its first day of release.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Take-Two Interactive's Grand Theft Auto VI generated $3.8 billion in revenue on its first day of release.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1900,50 +1949,6 @@
       "triage_score": 96,
       "triage_reason": "The EU is targeting Big Tech with a new tax to fund its budget, which is a significant regulatory action that will directly impact the revenue and profitability of major technology companies.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-214",
-      "headline": "Taiwan Bans Short Sales Of Stocks In New Move To Calm Markets",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/taiwan-bans-short-sales-of-stocks-in-new-move-to-calm-markets-12358122#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T08:55:44Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Taiwan bans short sales of stocks to calm markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Taiwan bans short sales of stocks to calm markets.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
@@ -292305,9 +292310,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3514,
-    "news_picked_today": 513,
-    "news_dropped_today": 2597
+    "news_seen_today": 3545,
+    "news_picked_today": 525,
+    "news_dropped_today": 2616
   },
   "book_momentum": {
     "live_count": 8,
