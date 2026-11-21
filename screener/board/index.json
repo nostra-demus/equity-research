@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-11-21T16:11:38Z",
+  "generated_at": "2026-11-21T16:14:29Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261121-247",
+      "inbox_id": "INB-20261121-248",
       "headline": "Energy Transfer Raised Capital Spending Plans to $7 Billion Next Year. Will That Put Its 7%-Yielding Payout at Risk?",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/21/energy-transfer-raised-capital-spending-plans-to-7/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/energy-transfer-raised-capital-spending-plans-7-billion-next-year-will-put-its-7-yielding",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-21T15:15:00Z",
+      "found_at": "2026-11-21T15:35:00Z",
       "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Energy Transfer announced a significant capital expenditure plan of $7 billion for next year.",
+      "prelim_note": "Energy Transfer raised capex to $7 billion next year, with explicit question about dividend sustainability — a material capital-allocation and cash-flow event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Energy Transfer announced a significant capital expenditure plan of $7 billion for next year.",
+      "triage_reason": "Energy Transfer raised capex to $7 billion next year, with explicit question about dividend sustainability — a material capital-allocation and cash-flow event.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "capex"
@@ -41,11 +41,11 @@
       "companies": [
         {
           "name": "Energy Transfer",
-          "ticker": null,
+          "ticker": "ET",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292305,9 +292305,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3384,
-    "news_picked_today": 496,
-    "news_dropped_today": 2484
+    "news_seen_today": 3408,
+    "news_picked_today": 497,
+    "news_dropped_today": 2507
   },
   "book_momentum": {
     "live_count": 8,
