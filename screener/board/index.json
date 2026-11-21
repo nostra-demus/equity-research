@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T07:58:17Z",
+  "generated_at": "2026-11-21T08:03:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-195",
@@ -42,6 +42,56 @@
       "companies": [
         {
           "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-199",
+      "headline": "Adani Energy Solutions Bags Major Renewable Power Deal In West Bengal, 2,500 MW Supply Capacity On The Horizon",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/adani-energy-solutions-bags-major-renewable-power-deal-in-west-bengal-2500-mw-supply-capacity-on-the-horizon",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T07:30:36Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Adani Energy Solutions secured a major 2,500 MW renewable power deal, representing a significant capacity expansion and revenue opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Energy Solutions secured a major 2,500 MW renewable power deal, representing a significant capacity expansion and revenue opportunity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Energy Solutions",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1680,6 +1730,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-197",
+      "headline": "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-21/paschi-deems-intesa-s-offer-fair-yet-value-not-fully-reflected",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T07:42:12Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Banca Monte dei Paschi di Siena has evaluated Intesa Sanpaolo's offer as fair, signaling potential progress in M&A discussions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Banca Monte dei Paschi di Siena has evaluated Intesa Sanpaolo's offer as fair, signaling potential progress in M&A discussions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banca Monte dei Paschi di Siena",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Intesa Sanpaolo",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-194",
       "headline": "Old Monk's ₹500-crore shock: Why India's favourite rum faces a major crisis as FSSAI tightens the noose",
       "headline_en": null,
@@ -1872,99 +1976,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-112",
-      "headline": "Fairfax Financial Holdings Limited Announces Early Redemption of C$650 million 4.25% Senior Notes Due December 6, 2027",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/fairfax-financial-holdings-limited-announces-early-redemption-c-650-million-425-senior",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T03:28:27Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Fairfax Financial is redeeming C$650 million in senior notes early.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Fairfax Financial is redeeming C$650 million in senior notes early.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fairfax Financial Holdings Limited",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-048",
-      "headline": "Hot chicken chain closes locations after Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/party-fowl-hot-chicken-closes-locations-after-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:25:00Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "A hot chicken chain filed Chapter 11 bankruptcy and closed stores — a survival event, but company name not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A hot chicken chain filed Chapter 11 bankruptcy and closed stores — a survival event, but company name not disclosed in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291877,9 +291888,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1360,
-    "news_picked_today": 270,
-    "news_dropped_today": 1044
+    "news_seen_today": 1385,
+    "news_picked_today": 276,
+    "news_dropped_today": 1063
   },
   "book_momentum": {
     "live_count": 8,
