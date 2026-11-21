@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T01:12:53Z",
+  "generated_at": "2026-11-21T01:29:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-037",
@@ -685,6 +685,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-047",
+      "headline": "Capricor's Duchenne therapy is rejected again, as FDA cites significant issues with trial",
+      "headline_en": null,
+      "url": "https://endpoints.news/capricors-duchenne-therapy-is-rejected-again-as-fda-cites-significant-issues-with-trial/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T01:11:10Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "FDA rejects Capricor's Duchenne therapy program due to significant trial issues, eliminating a pipeline asset and cash-flow expectation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "FDA rejects Capricor's Duchenne therapy program due to significant trial issues, eliminating a pipeline asset and cash-flow expectation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capricor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1857,49 +1907,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-045",
-      "headline": "Trump says 'confronting dangers on Korean Peninsula' discussed at 3-way summit with Xi, Putin",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261121000700315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:06:16Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Geopolitical tensions involving major powers regarding the Korean Peninsula represent a significant escalation in regional risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical tensions involving major powers regarding the Korean Peninsula represent a significant escalation in regional risk.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291171,9 +291178,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 226,
-    "news_picked_today": 46,
-    "news_dropped_today": 180
+    "news_seen_today": 261,
+    "news_picked_today": 47,
+    "news_dropped_today": 190
   },
   "book_momentum": {
     "live_count": 8,
