@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T08:13:25Z",
+  "generated_at": "2026-11-21T08:14:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-195",
@@ -252784,6 +252784,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-cefdda49dac6",
+      "idea_version": "IDEAV-e4db196394723b3a",
+      "idea_version_started_at": "2026-11-21T08:14:10Z",
+      "ticker": "BMPS.MI",
+      "company": "Banca Monte dei Paschi di Siena",
+      "exchange": "Milan",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Banca Monte dei Paschi di Siena deems Intesa Sanpaolo's offer fair, suggesting a potential acquisition where Monte dei Paschi shareholders could benefit from the offer price.",
+      "why_now": "The statement from Monte dei Paschi today indicates active M&A discussions and valuation assessment.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4e8f5525b59b"
+      ],
+      "primary_source_event_id": "EVT-4e8f5525b59b",
+      "source_headlines": [
+        "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected"
+      ],
+      "source_headline": "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/paschi-deems-intesa-s-offer-fair-yet-value-not-fully-reflected",
+      "source_name": "Bloomberg",
+      "materiality_max": 91,
+      "newest_source_at": "2026-11-21T07:42:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T08:14:10Z",
+      "updated_at": "2026-11-21T08:14:10Z",
+      "decay_at": "2026-11-22T19:42:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-5390bdd23e41aed6",
       "idea_version_started_at": "2026-11-21T00:45:32Z",
@@ -253202,6 +253272,78 @@
       "surfaced_at": "2026-11-21T03:54:43Z",
       "updated_at": "2026-11-21T03:54:43Z",
       "decay_at": "2026-11-22T13:38:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-752298f81b73",
+      "idea_version": "IDEAV-a6a65f408c814866",
+      "idea_version_started_at": "2026-11-21T08:14:10Z",
+      "ticker": "ADANIENT.NS",
+      "company": "Adani Energy Solutions",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a significant renewable power deal to supply 2,500 MW, which is expected to boost its revenue and capacity.",
+      "why_now": "The deal was announced today, providing an immediate catalyst for the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-54da6f7ffb9d"
+      ],
+      "primary_source_event_id": "EVT-54da6f7ffb9d",
+      "source_headlines": [
+        "Adani Energy Solutions Bags Major Renewable Power Deal In West Bengal, 2,500 MW Supply Capacity On The Horizon"
+      ],
+      "source_headline": "Adani Energy Solutions Bags Major Renewable Power Deal In West Bengal, 2,500 MW Supply Capacity On The Horizon",
+      "source_url": "https://www.freepressjournal.in/business/adani-energy-solutions-bags-major-renewable-power-deal-in-west-bengal-2500-mw-supply-capacity-on-the-horizon",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-21T07:30:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T08:14:10Z",
+      "updated_at": "2026-11-21T08:14:10Z",
+      "decay_at": "2026-11-22T19:30:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -291862,8 +292004,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2554,
-    "live_count": 34,
+    "surfaced_total": 2556,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
