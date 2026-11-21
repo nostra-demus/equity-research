@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T08:24:24Z",
+  "generated_at": "2026-11-21T08:35:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-195",
@@ -949,6 +949,50 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-201",
+      "headline": "Indonesia regulator fines and sanctions firms for stock manipulation, disclosure failures",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/indonesia-regulator-fines-and-sanctions-firms-stock-manipulation-disclosure-failures",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T08:22:42Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Indonesian regulator has imposed fines and sanctions for market manipulation and disclosure failures, indicating a significant enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Indonesian regulator has imposed fines and sanctions for market manipulation and disclosure failures, indicating a significant enforcement action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,55 +1962,6 @@
           "name": "Korea Investment Holdings",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-123",
-      "headline": "Anthropic pulls off mega IPO amid AI slump, gold tumbles: Markets this week",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/anthropic-pulls-off-mega-ipo-amid-ai-slump-gold-tumbles-markets-this-week",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Anthropic's IPO performance and broader AI sector volatility are material to market sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Anthropic's IPO performance and broader AI sector volatility are material to market sentiment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
