@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-21T17:29:17Z",
+  "generated_at": "2026-11-21T17:37:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-262",
+      "headline": "Amazon closes in on $7.5bn deal to buy AI start-up Decart",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/dc7749dc-0f40-44a6-80bc-7f747d383616?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T17:21:36Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Amazon is reportedly in advanced talks to acquire AI startup Decart for $7.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amazon is reportedly in advanced talks to acquire AI startup Decart for $7.5 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-261",
       "headline": "California Nvidia Probe Covers Potential Criminal Law Violations",
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-226",
-      "headline": "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/rockwell-automation-to-acquire-agilox-to-boost-autonomous-mobile-robots-business/article71728359.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T13:20:54Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Rockwell Automation is acquiring AGILOX to expand its autonomous mobile robots capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Rockwell Automation is acquiring AGILOX to expand its autonomous mobile robots capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rockwell Automation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292388,9 +292388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3619,
-    "news_picked_today": 540,
-    "news_dropped_today": 2675
+    "news_seen_today": 3648,
+    "news_picked_today": 545,
+    "news_dropped_today": 2699
   },
   "book_momentum": {
     "live_count": 8,
