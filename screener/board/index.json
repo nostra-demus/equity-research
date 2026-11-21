@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-21T14:28:06Z",
+  "generated_at": "2026-11-21T14:37:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-238",
+      "headline": "IndusInd Bank sacks former CEO Sumant Kathpalia, invokes clawback clause over ₹1,960 crore accounting lapses",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/indusind-bank-sacks-former-ceo-sumant-kathpalia-invokes-clawback-clause-over-rs1960-crore-accounting-lapses-568906-2026-11-21?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T14:16:52Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "IndusInd Bank fired its former CEO and invoked a clawback for ₹1,960 crore due to accounting lapses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndusInd Bank fired its former CEO and invoked a clawback for ₹1,960 crore due to accounting lapses.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-234",
       "headline": "Anthropic shares plunge after record-breaking Wall Street debut",
@@ -1911,55 +1961,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-043",
-      "headline": "SCHEDULE 13D/A - Dine Brands Global, Inc. (0000049754) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/49754/000110465926130728/0001104659-26-130728-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-21T01:06:36Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a change in ownership or activist interest in Dine Brands Global.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A Schedule 13D/A filing indicates a change in ownership or activist interest in Dine Brands Global.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dine Brands Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292226,9 +292227,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3058,
-    "news_picked_today": 449,
-    "news_dropped_today": 2229
+    "news_seen_today": 3096,
+    "news_picked_today": 455,
+    "news_dropped_today": 2261
   },
   "book_momentum": {
     "live_count": 8,
