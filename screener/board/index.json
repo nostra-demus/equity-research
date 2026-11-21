@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-21T15:14:30Z",
+  "generated_at": "2026-11-21T15:28:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-247",
+      "headline": "Energy Transfer Raised Capital Spending Plans to $7 Billion Next Year. Will That Put Its 7%-Yielding Payout at Risk?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/21/energy-transfer-raised-capital-spending-plans-to-7/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T15:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Energy Transfer announced a significant capital expenditure plan of $7 billion for next year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Energy Transfer announced a significant capital expenditure plan of $7 billion for next year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Energy Transfer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-244",
       "headline": "MPCB Orders Halt To Adani Group’s 1,500 MW Tarali Pumped Storage Project Work Over Alleged Environmental Violations",
@@ -1917,49 +1966,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-072",
-      "headline": "Saudi Arabia to introduce 15% minimum tax on multinational companies from 2027",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/tax-news/saudi-arabia-to-introduce-15-minimum-tax-on-multinational-companies-from-2027-1.500755589",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Saudi Arabia will implement a 15% minimum tax on multinational companies starting in 2027, impacting the tax structure for foreign entities operating in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Saudi Arabia will implement a 15% minimum tax on multinational companies starting in 2027, impacting the tax structure for foreign entities operating in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -292227,9 +292233,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3205,
-    "news_picked_today": 473,
-    "news_dropped_today": 2352
+    "news_seen_today": 3250,
+    "news_picked_today": 480,
+    "news_dropped_today": 2390
   },
   "book_momentum": {
     "live_count": 8,
