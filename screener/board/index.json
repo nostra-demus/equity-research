@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T00:04:31Z",
+  "generated_at": "2026-11-21T00:05:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-002",
@@ -250175,6 +250175,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-62b270b217f0",
+      "idea_version": "IDEAV-9202c926eb7db594",
+      "idea_version_started_at": "2026-11-21T00:05:01Z",
+      "ticker": "DIN",
+      "company": "Dine Brands Global, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Arkhouse Management filed an amended Schedule 13D/A, signaling ongoing active ownership involvement and potential catalysts for corporate action or strategic changes.",
+      "why_now": "Amended Schedule 13D/A filing posted on November 21, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0c2356cf1ea0",
+        "EVT-5bd249f2c3de"
+      ],
+      "primary_source_event_id": "EVT-0c2356cf1ea0",
+      "source_headlines": [
+        "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
+        "SCHEDULE 13D/A - Dine Brands Global, Inc. (0000049754) (Subject)"
+      ],
+      "source_headline": "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2021808/000121390026122826/0001213900-26-122826-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-21T00:00:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T00:05:01Z",
+      "updated_at": "2026-11-21T00:05:01Z",
+      "decay_at": "2026-11-22T12:00:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d0204447ec5b",
       "idea_version": "IDEAV-43169d7d19bb6d95",
       "idea_version_started_at": "2026-11-20T23:03:16Z",
@@ -250801,6 +250872,78 @@
       "surfaced_at": "2026-11-19T19:29:33Z",
       "updated_at": "2026-11-19T19:29:33Z",
       "decay_at": "2026-11-21T00:27:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7cd46fe7ab77",
+      "idea_version": "IDEAV-6d31b3e8b1b6674e",
+      "idea_version_started_at": "2026-11-21T00:05:01Z",
+      "ticker": "BAYN",
+      "company": "Bayer AG",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A judge approved a massive $7.25bn litigation payout to settle claims that Roundup causes cancer, driving substantial cash outflows and balance sheet stress.",
+      "why_now": "Court approval of the settlement was reported on November 20, 2026, marking a major immediate financial liability.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3ec0090681bb"
+      ],
+      "primary_source_event_id": "EVT-3ec0090681bb",
+      "source_headlines": [
+        "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer"
+      ],
+      "source_headline": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
+      "source_url": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T23:42:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T00:05:01Z",
+      "updated_at": "2026-11-21T00:05:01Z",
+      "decay_at": "2026-11-22T11:42:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -289029,8 +289172,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2537,
-    "live_count": 21,
+    "surfaced_total": 2539,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
