@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T02:08:06Z",
+  "generated_at": "2026-11-21T02:18:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-073",
@@ -1422,6 +1422,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-076",
+      "headline": "Cyclone Akvan: Over 70 trains cancelled, 29 rescheduled; air travel hit, Air India, IndiGo issue advisories",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/cyclone-akvan-over-70-trains-cancelled-29-rescheduled-air-travel-hit-air-india-indigo-issue-advisories-11795226051144.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T02:12:45Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Cyclone Akvan has caused significant disruption to rail and air travel in India, impacting operations for major carriers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Cyclone Akvan has caused significant disruption to rail and air travel in India, impacting operations for major carriers.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "IndiGo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-065",
       "headline": "Presidio Property Trust, Inc. Received Notice of Deficiencies From Nasdaq",
       "headline_en": null,
@@ -1903,61 +1957,6 @@
           "name": "Chart Industries",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-054",
-      "headline": "Quebecor, Telesat exploring partnerships tied to Lightspeed satellite constellation",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-quebecor-telesat-partnership-lightspeed-satellite-constellation/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:28:08Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Quebecor and Telesat exploring satellite-constellation partnership; no capex commitment, deal value, terms, or timing disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Quebecor and Telesat exploring satellite-constellation partnership; no capex commitment, deal value, terms, or timing disclosed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Quebecor",
-          "ticker": "QBR.A",
-          "listing_country": "CA"
-        },
-        {
-          "name": "Telesat",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -291446,9 +291445,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 426,
-    "news_picked_today": 78,
-    "news_dropped_today": 324
+    "news_seen_today": 441,
+    "news_picked_today": 82,
+    "news_dropped_today": 335
   },
   "book_momentum": {
     "live_count": 8,
