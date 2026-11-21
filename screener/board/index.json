@@ -1,6 +1,110 @@
 {
-  "generated_at": "2026-11-21T08:58:18Z",
+  "generated_at": "2026-11-21T09:10:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-212",
+      "headline": "Anthropic's $2 trillion debut hides a 13% warning",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/anthropic-ipo-stock-price-investor-risks",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T09:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Anthropic's $2 trillion debut hides a 13% warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic's $2 trillion debut hides a 13% warning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-211",
+      "headline": "WazirX-Binance Crypto Fraud Row Deepens, Thousands Of Investors Seek ED And CBI Probe Over Alleged Financial Losses",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/wazirx-binance-crypto-fraud-row-deepens-thousands-of-investors-seek-ed-and-cbi-probe-over-alleged-financial-losses",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T08:26:12Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "WazirX-Binance crypto fraud row deepens, thousands of investors seek probe over alleged financial losses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "WazirX-Binance crypto fraud row deepens, thousands of investors seek probe over alleged financial losses.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WazirX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-207",
       "headline": "GTA VI Turns Into A $3.79 Billion Blockbuster Overnight, 32.5 Million Copies Sold As Rockstar Games Rewrites Gaming History",
@@ -1237,31 +1341,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261121-200",
-      "headline": "Taiwan Bans Short Sales of Stocks in New Move to Calm Markets",
+      "inbox_id": "INB-20261121-214",
+      "headline": "Taiwan Bans Short Sales Of Stocks In New Move To Calm Markets",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-21/taiwan-bans-short-sales-of-stocks-in-new-move-to-calm-markets",
-      "source_name": "Bloomberg",
+      "url": "https://www.ndtvprofit.com/markets/taiwan-bans-short-sales-of-stocks-in-new-move-to-calm-markets-12358122#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-11-21T07:53:21Z",
+      "found_at": "2026-11-21T08:55:44Z",
       "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "The Taiwan government has implemented a ban on short selling to stabilize the equity market, which significantly impacts market liquidity and trading operations.",
+      "prelim_note": "Taiwan bans short sales of stocks to calm markets.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 96,
-      "triage_reason": "The Taiwan government has implemented a ban on short selling to stabilize the equity market, which significantly impacts market liquidity and trading operations.",
+      "triage_reason": "Taiwan bans short sales of stocks to calm markets.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 2,
         "event": 4,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -1270,9 +1374,10 @@
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "regulatory",
+        "macro_sector"
       ],
-      "issuer_linkage": "macro",
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1465,6 +1570,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-210",
+      "headline": "Italy’s Webuild Completes Takeover of Construction Group Trevi",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-21/italy-s-webuild-completes-takeover-of-construction-group-trevi",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T08:42:34Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Webuild completes takeover of construction group Trevi.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Webuild completes takeover of construction group Trevi.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Webuild",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Trevi",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1812,159 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-033",
-      "headline": "IndusInd Bank ends ex-CEO Kathpalia's employment, seeks to recover pay",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/indusind-bank-ends-ex-ceo-kathpalias-employment-seeks-to-recover-pay/articleshow/136042443.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T00:54:52Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "IndusInd Bank terminated its ex-CEO and is seeking to recover pay, indicating significant internal governance issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "IndusInd Bank terminated its ex-CEO and is seeking to recover pay, indicating significant internal governance issues.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-197",
-      "headline": "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-21/paschi-deems-intesa-s-offer-fair-yet-value-not-fully-reflected",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T07:42:12Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Banca Monte dei Paschi di Siena has evaluated Intesa Sanpaolo's offer as fair, signaling potential progress in M&A discussions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Banca Monte dei Paschi di Siena has evaluated Intesa Sanpaolo's offer as fair, signaling potential progress in M&A discussions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Banca Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Intesa Sanpaolo",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-194",
-      "headline": "Old Monk's ₹500-crore shock: Why India's favourite rum faces a major crisis as FSSAI tightens the noose",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/old-monks-500-crore-shock-why-indias-favourite-rum-faces-a-major-crisis-as-fssai-tightens-the-noose-11795245774297.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T07:28:08Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Mohan Meakin faces a potential ₹500-crore crisis due to regulatory enforcement actions by FSSAI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Mohan Meakin faces a potential ₹500-crore crisis due to regulatory enforcement actions by FSSAI.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mohan Meakin",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -251654,77 +251660,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-05fbb0b04f21",
-      "idea_version": "IDEAV-7222c7cfd38dd39f",
-      "idea_version_started_at": "2026-11-20T14:40:23Z",
-      "ticker": "OPEN",
-      "company": "Opendoor Technologies Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a delisting notification from the Nasdaq, signaling severe financial distress and potential loss of liquidity.",
-      "why_now": "The 25-NSE filing was issued on 2026-11-19.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3831cd64a604",
-        "EVT-99160a3ec4b6"
-      ],
-      "primary_source_event_id": "EVT-3831cd64a604",
-      "source_headlines": [
-        "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
-        "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
-      ],
-      "source_headline": "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1801169/000135445726001093/0001354457-26-001093-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T21:09:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T14:40:23Z",
-      "updated_at": "2026-11-20T14:40:23Z",
-      "decay_at": "2026-11-21T09:09:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-3be703a8805a4cd8",
       "idea_version_started_at": "2026-11-20T23:03:16Z",
@@ -254211,6 +254146,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-05fbb0b04f21",
+      "idea_version": "IDEAV-7222c7cfd38dd39f",
+      "idea_version_started_at": "2026-11-20T14:40:23Z",
+      "ticker": "OPEN",
+      "company": "Opendoor Technologies Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification from the Nasdaq, signaling severe financial distress and potential loss of liquidity.",
+      "why_now": "The 25-NSE filing was issued on 2026-11-19.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3831cd64a604",
+        "EVT-99160a3ec4b6"
+      ],
+      "primary_source_event_id": "EVT-3831cd64a604",
+      "source_headlines": [
+        "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
+        "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
+      ],
+      "source_headline": "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1801169/000135445726001093/0001354457-26-001093-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-19T21:09:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T14:40:23Z",
+      "updated_at": "2026-11-20T14:40:23Z",
+      "decay_at": "2026-11-21T09:09:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2326f7dbcde3",
       "idea_version": "IDEAV-43598f023ca713ab",
       "idea_version_started_at": "2026-11-20T11:56:26Z",
@@ -255004,9 +255010,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 510,
+    "total_count": 511,
     "shown_count": 499,
-    "hidden_count": 11,
+    "hidden_count": 12,
     "side_counts": {
       "long": {
         "total_count": 256,
@@ -255014,9 +255020,9 @@
         "hidden_count": 6
       },
       "short": {
-        "total_count": 255,
+        "total_count": 256,
         "shown_count": 250,
-        "hidden_count": 5
+        "hidden_count": 6
       }
     },
     "retention": {
@@ -255035,6 +255041,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-05fbb0b04f21",
+        "idea_version": "IDEAV-7222c7cfd38dd39f",
+        "idea_version_started_at": "2026-11-20T14:40:23Z",
+        "ticker": "OPEN",
+        "company": "Opendoor Technologies Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has received a delisting notification from the Nasdaq, signaling severe financial distress and potential loss of liquidity.",
+        "why_now": "The 25-NSE filing was issued on 2026-11-19.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 77,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3831cd64a604",
+          "EVT-99160a3ec4b6"
+        ],
+        "primary_source_event_id": "EVT-3831cd64a604",
+        "source_headlines": [
+          "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
+          "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
+        ],
+        "source_headline": "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1801169/000135445726001093/0001354457-26-001093-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-19T21:09:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-20T14:40:23Z",
+        "updated_at": "2026-11-20T14:40:23Z",
+        "decay_at": "2026-11-21T09:09:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-21T09:09:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2326f7dbcde3",
         "idea_version": "IDEAV-43598f023ca713ab",
@@ -292066,85 +292146,12 @@
         "archived_at": "2026-10-28T02:32:27Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ef22250a1f99",
-        "idea_version": "IDEAV-275ba366872be793",
-        "idea_version_started_at": "2026-10-25T02:38:24Z",
-        "ticker": "RKLB",
-        "company": "Rocket Lab",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Repeated delays to the Neutron launch schedule negatively impact the company's ability to capture market share in the medium-lift launch segment and defer expected revenue growth.",
-        "why_now": "The latest postponement was reported on 2026-10-25, signaling ongoing operational execution challenges.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2c7d9763cf90"
-        ],
-        "primary_source_event_id": "EVT-2c7d9763cf90",
-        "source_headlines": [
-          "Rocket Lab Just Postponed Its Neutron Launch. Again."
-        ],
-        "source_headline": "Rocket Lab Just Postponed Its Neutron Launch. Again.",
-        "source_url": "https://www.nasdaq.com/articles/rocket-lab-just-postponed-its-neutron-launch-again",
-        "source_name": "Nasdaq",
-        "materiality_max": 85,
-        "newest_source_at": "2026-10-25T01:50:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T02:38:24Z",
-        "updated_at": "2026-10-25T02:38:24Z",
-        "decay_at": "2026-10-26T13:50:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T02:32:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2558,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -292163,9 +292170,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1512,
-    "news_picked_today": 296,
-    "news_dropped_today": 1170
+    "news_seen_today": 1569,
+    "news_picked_today": 308,
+    "news_dropped_today": 1206
   },
   "book_momentum": {
     "live_count": 8,
