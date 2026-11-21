@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-21T14:54:39Z",
+  "generated_at": "2026-11-21T15:04:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-244",
+      "headline": "MPCB Orders Halt To Adani Group’s 1,500 MW Tarali Pumped Storage Project Work Over Alleged Environmental Violations",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/mpcb-orders-halt-to-adani-groups-1500-mw-tarali-pumped-storage-project-work-over-alleged-environmental-violations",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T14:43:47Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The MPCB has ordered a halt to Adani Group's 1,500 MW pumped storage project due to environmental violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The MPCB has ordered a halt to Adani Group's 1,500 MW pumped storage project due to environmental violations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-238",
       "headline": "IndusInd Bank sacks former CEO Sumant Kathpalia, invokes clawback clause over ₹1,960 crore accounting lapses",
@@ -1911,55 +1961,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-034",
-      "headline": "SCHEDULE 13D/A - ChronoScale Holdings Corp (0001549084) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1549084/000149315226053589/0001493152-26-053589-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-21T01:00:03Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a significant change in ownership or intent for ChronoScale Holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A Schedule 13D/A filing indicates a significant change in ownership or intent for ChronoScale Holdings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ChronoScale Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -292226,9 +292227,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3136,
-    "news_picked_today": 460,
-    "news_dropped_today": 2296
+    "news_seen_today": 3177,
+    "news_picked_today": 471,
+    "news_dropped_today": 2326
   },
   "book_momentum": {
     "live_count": 8,
