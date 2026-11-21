@@ -1,6 +1,61 @@
 {
-  "generated_at": "2026-11-21T04:14:54Z",
+  "generated_at": "2026-11-21T04:24:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-125",
+      "headline": "Liquidity Services, Inc. Reports Fiscal Year 2026 GMV of $1.645 billion and $80 million Acquisition of Invaluable",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/liquidity-services-inc-reports-fiscal-year-2026-gmv-1645-billion-and-80-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T03:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Liquidity Services reported $1.645 billion in GMV and announced an $80 million acquisition of Invaluable.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Liquidity Services reported $1.645 billion in GMV and announced an $80 million acquisition of Invaluable.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liquidity Services, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Invaluable",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-121",
       "headline": "Oracle says OpenAI contract fully funded, targets over $30 billion free cash flow in FY29",
@@ -1675,6 +1730,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-131",
+      "headline": "Noel Tata writes to Tata Sons again, seeks recording of Chandrasekaran reappointment meeting",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/noel-tata-writes-to-tata-sons-again-seeks-recording-of-chandrasekaran-reappointment-meeting-20038968.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T04:14:11Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Internal governance dispute at Tata Sons regarding board meeting records.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Internal governance dispute at Tata Sons regarding board meeting records.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-109",
       "headline": "Dutch court bars Chinese SUV in Europe over resemblance to Land Rover Defender",
       "headline_en": null,
@@ -1866,104 +1970,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-040",
-      "headline": "Nvidia faces further blow after shock US export permit data release: analysts",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3375287/nvidia-faces-further-blow-after-shock-us-export-permit-data-release-analysts",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:00:13Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Nvidia faces potential headwinds due to new US export permit data, impacting its operational risk in China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Nvidia faces potential headwinds due to new US export permit data, impacting its operational risk in China.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-021",
-      "headline": "Treasury secretary says no further restrictions are needed for Nvidia chip exports to China",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/world/treasury-secretary-says-no-further-restrictions-are-needed-for-nvidia-chip-exports-to-china",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T00:36:40Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Treasury confirmation of no further export restrictions on chips provides regulatory clarity for Nvidia's China revenue stream.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Treasury confirmation of no further export restrictions on chips provides regulatory clarity for Nvidia's China revenue stream.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
