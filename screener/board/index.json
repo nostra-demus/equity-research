@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T07:20:08Z",
+  "generated_at": "2026-11-21T07:34:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-186",
@@ -1680,6 +1680,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-194",
+      "headline": "Old Monk's ₹500-crore shock: Why India's favourite rum faces a major crisis as FSSAI tightens the noose",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/old-monks-500-crore-shock-why-indias-favourite-rum-faces-a-major-crisis-as-fssai-tightens-the-noose-11795245774297.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T07:28:08Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Mohan Meakin faces a potential ₹500-crore crisis due to regulatory enforcement actions by FSSAI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Mohan Meakin faces a potential ₹500-crore crisis due to regulatory enforcement actions by FSSAI.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mohan Meakin",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-192",
       "headline": "Korea Investment Holdings turns to Cardif Life after KDB deal falls through",
       "headline_en": null,
@@ -1915,55 +1965,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-053",
-      "headline": "Phio Pharmaceuticals Corp. Receives Nasdaq Minimum Bid Price Deficiency Notice",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/phio-pharmaceuticals-corp-receives-nasdaq-minimum-bid-price-deficiency-notice",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:00:30Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Phio Pharmaceuticals stock fell below Nasdaq's $1 minimum bid price, triggering a deficiency notice and 180-day cure period or delisting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Phio Pharmaceuticals stock fell below Nasdaq's $1 minimum bid price, triggering a deficiency notice and 180-day cure period or delisting.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Phio Pharmaceuticals Corp.",
-          "ticker": "PHIO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291876,9 +291877,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1237,
-    "news_picked_today": 255,
-    "news_dropped_today": 936
+    "news_seen_today": 1301,
+    "news_picked_today": 262,
+    "news_dropped_today": 993
   },
   "book_momentum": {
     "live_count": 8,
