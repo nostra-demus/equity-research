@@ -730,6 +730,8 @@ from scenario_integrity_checks import (
     eval_bc_probability_basis_stated,
     eval_ba_kill_criteria_trigger_test,
     BA_DATE,
+    eval_bk_forecast_trigger_test,
+    BK_DATE,
     eval_am_bear_case_sanity,
     eval_ar_short_bull_case_sanity,
     AM_DATE,
@@ -3280,6 +3282,117 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"BA({_dd!r},kc={_kc!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BK: HARD GATE 11 trigger test carried onto numeric forecast_ledger rows -------------
+    _bk_ok    = {"forecast_id":"F1","threshold":"GAAP gross margin below 59.3%","comparable_basis":"Q3 FY26 vs Q3 FY25 GAAP gross margin (59.9%)","fired_last_two_periods":False}
+    _bk_true  = {"forecast_id":"F2","threshold":"Revenue above $1,123.7m","comparable_basis":"Q3 FY26 vs Q3 FY25 ($1,050m)","fired_last_two_periods":True}
+    _bk_nocb  = {"forecast_id":"F3","confirmation_trigger":"The Q3 FY2026 Form 10-Q reports GAAP gross margin below 59.3%.","fired_last_two_periods":False}  # AKAM_2026-09-14 shape
+    _bk_blank = {"forecast_id":"F4","threshold":"EPS at or above $1.70","comparable_basis":"  ","fired_last_two_periods":False}
+    _bk_nofl  = {"forecast_id":"F5","threshold":"At least 12% year over year","comparable_basis":"Q4 vs Q4 a year earlier"}
+    _bk_strfl = {"forecast_id":"F6","threshold":"At least 12%","comparable_basis":"H1 vs H1","fired_last_two_periods":"no"}
+    _bk_event = {"forecast_id":"F7","threshold":"Filed","confirmation_trigger":"The FY2026 10-K is filed by 2027-03-01 with a clean opinion.","falsification_trigger":"No such filing by 2027-03-01."}
+    _bk_label = {"forecast_id":"F8","threshold":"Q1 FY27 results","confirmation_trigger":"Q1 FY27 results disclose the plant start-up."}
+    # Regression fixtures for the #826 numeric-detection fixes. Expected values pinned to CLAUDE.md §17 /
+    # HARD GATE 11 and the BK contract above: a QUARTER+CALENDAR-YEAR label ('Q3 2027') and any S-/F-
+    # registration FORM name are period/document labels, not thresholds → N/A; a literal numeric 0 threshold
+    # (§15 FCF-above-0 shape) IS a numeric bar and must demand the two fields, not be dropped by `v or ""`.
+    _bk_qyear = {"forecast_id":"F9","confirmation_trigger":"The Q3 2027 filing reports the plant start-up."}      # F4
+    _bk_sform = {"forecast_id":"F10","confirmation_trigger":"The merger closes per the S-4 registration statement."}  # F1
+    _bk_zero  = {"forecast_id":"F11","threshold":0,"confirmation_trigger":"FCF turns positive","falsification_trigger":"FCF remains negative"}  # F6
+    # #826 follow-up (Codex on 80e3559): a natural-language calendar DATE is not a numeric bar (DECISION_LEDGER.md:
+    # "a calendar date ... is not a number") -> N/A. And numeric detection is contract-scoped to threshold /
+    # confirmation / falsification, NOT `prediction`: a number living only in the narrative `prediction` with
+    # QUALITATIVE triggers settles qualitatively, so N/A is correct (adding `prediction` would over-trigger).
+    _bk_nldate  = {"forecast_id":"F12","confirmation_trigger":"The regulator filing grants the permit by March 1, 2027."}       # NEW-1 FIX
+    _bk_nldate2 = {"forecast_id":"F13","confirmation_trigger":"The scheme is sanctioned by 1 March 2027 per the order."}        # NEW-1 FIX (D Month YYYY)
+    _bk_dated_t = {"forecast_id":"F14","threshold":"EBIT margin above 12% by March 1, 2027","fired_last_two_periods":False}     # guard: real threshold near a date stays numeric
+    _bk_predonly= {"forecast_id":"F15","prediction":"Revenue will exceed $1 billion","confirmation_trigger":"The FY27 filing reports growth.","falsification_trigger":"The FY27 filing reports no growth."}  # NEW-2 WON'T-FIX lock
+    # #826 2nd follow-up (Codex on c18e54e): a numbered LOCAL filing (SEBI LODR Reg 30, the §27 default case)
+    # and a slash/dash numeric DATE are document/date labels, not thresholds -> N/A.
+    _bk_sebireg = {"forecast_id":"F16","confirmation_trigger":"The SEBI LODR Reg 30 filing announces the transaction."}  # NEW-3 FIX
+    _bk_slashdt = {"forecast_id":"F17","confirmation_trigger":"The regulator filing grants the permit by 1/3/2027."}     # NEW-4 FIX
+    _bk_ratio_g = {"forecast_id":"F18","threshold":"Net debt / EBITDA above 3","fired_last_two_periods":False}           # guard: single-slash ratio stays numeric
+    _bk_dotdate = {"forecast_id":"F19","confirmation_trigger":"The regulator filing grants the permit by 01.03.2027."}   # NEW-5 FIX (dotted date)
+    _bk_decimal = {"forecast_id":"F20","threshold":"EBIT margin above 12.5% by 01.03.2027","fired_last_two_periods":False}  # guard: decimal 12.5% survives the dotted-date strip
+    # #826 root-cause fix: after the label strips the test is POSITIVE — a number is a threshold only when a
+    # unit, currency, comparator, decimal/thousands shape, or a bare `threshold` value marks it as a measured
+    # quantity (CLAUDE.md §17 applies to numeric TRIGGERS; §27 makes local statute/filing labels routine).
+    _bk_legal   = {"forecast_id":"F21","confirmation_trigger":"The NCLT order sanctions the merger under Companies Act Sections 230-232."}  # statute sections are labels
+    _bk_shortyr = {"forecast_id":"F22","confirmation_trigger":"The Q3'27 filing reports the plant start-up.","falsification_trigger":"The 3Q27 filing reports a delay; H1'27 guidance is withdrawn."}  # compact period labels
+    _bk_item    = {"forecast_id":"F23","confirmation_trigger":"An 8-K Item 5.02 discloses the CFO's departure; Rule 10b-5 claims are dismissed.","falsification_trigger":"No such disclosure in the 2026 proxy within 12 months."}  # item/rule numbers, proxy year, time window
+    _bk_legal_t = {"forecast_id":"F24","confirmation_trigger":"The Regulation 33 results filed under Section 133 report gross margin above 12.","fired_last_two_periods":False}  # guard: comparator + bare integer beside labels
+    _bk_bare    = {"forecast_id":"F25","threshold":"42","confirmation_trigger":"EPS beats the bar","comparable_basis":"FY26 EPS (38)"}  # guard: bare-number threshold field
+    _bk_units   = {"forecast_id":"F26","confirmation_trigger":"Store count reaches 500 and volumes rise to 3 mtpa.","fired_last_two_periods":False}  # guard: verb comparator / unit
+    _bk_ccy     = {"forecast_id":"F27","falsification_trigger":"FY27 EPS prints Rs 42 or lower.","fired_last_two_periods":False}  # guard: currency + bare integer
+    _bk_thunit  = {"forecast_id":"F28","threshold":"DSO 30 days","confirmation_trigger":"The filing reports DSO at or under the bar.","fired_last_two_periods":False}  # guard: the threshold field keeps the strict any-digit test — no unit list is complete
+    _bk_cents   = {"forecast_id":"F29","confirmation_trigger":"The filing reports earnings of 42 cents per share.","fired_last_two_periods":False}  # guard: money sub-unit in trigger prose
+    _bk_postfix = {"forecast_id":"F30","confirmation_trigger":"The filing reports DSO at 30 days or lower.","fired_last_two_periods":False}  # guard: comparator AFTER the number
+    _bk_thlabel = {"forecast_id":"F31","threshold":"Q3'27 filing","confirmation_trigger":"The 3Q27 results and H1'27 guidance confirm the start-up."}  # compact period labels in the strict `threshold` field
+    _bk_verb    = {"forecast_id":"F32","confirmation_trigger":"Recurring revenue forms 30% of total revenue.","fired_last_two_periods":False}  # guard: 'forms' as a verb keeps its number
+    _bk_window  = {"forecast_id":"F33","confirmation_trigger":"The 10-K is filed within 90 days of year end under Form 10 rules."}  # a filing deadline and a form number are not bars
+    _bk_verbunit= {"forecast_id":"F34","confirmation_trigger":"The filing notes 500 stores opened.","fired_last_two_periods":False}  # guard: 'notes' as a verb + any unit keeps its number
+    _bk_copula  = {"forecast_id":"F35","confirmation_trigger":"Employee count is 500.","falsification_trigger":"Employee count is not 500.","fired_last_two_periods":False}  # guard: a plain statement of level
+    _bk_tiebrk  = {"forecast_id":"F36","confirmation_trigger":"The 10-K is filed in 90 days or less after year end.","fired_last_two_periods":False}  # tie-break: a window worded like a bar stays numeric (the cheap error)
+    _bk_oflevel = {"forecast_id":"F37","confirmation_trigger":"The filing reports DSO of 30 days.","fired_last_two_periods":False}  # guard: a level stated with 'of'
+    _bk_ofyear  = {"forecast_id":"F38","confirmation_trigger":"The plant is commissioned by the end of 2027 under the Act of 2013."}  # 'of <year>' is not a level
+    _bk_won     = {"forecast_id":"F39","confirmation_trigger":"EPS prints ₩500.","fired_last_two_periods":False}  # guard: home-currency symbols beyond $ ₹ € £ ¥ (§27)
+    bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
+        (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
+        (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
+        (BK_DATE,[_bk_zero],["forecast_ledger[0] (F11) pins a numeric threshold but has no comparable_basis",
+                             "forecast_ledger[0] (F11) missing fired_last_two_periods"]),  # #826 F6: literal 0 is numeric
+        (BK_DATE,[_bk_nldate],None),                                    # #826 NEW-1: 'March 1, 2027' is a date, not a bar
+        (BK_DATE,[_bk_nldate2],None),                                   # #826 NEW-1: '1 March 2027' is a date, not a bar
+        (BK_DATE,[_bk_dated_t],["forecast_ledger[0] (F14) pins a numeric threshold but has no comparable_basis"]),  # guard: 12% survives the date strip
+        (BK_DATE,[_bk_predonly],None),                                  # #826 NEW-2: number only in `prediction`, qualitative triggers -> contract-scoped N/A
+        (BK_DATE,[_bk_sebireg],None),                                   # #826 NEW-3: 'SEBI LODR Reg 30' is a local filing label, not a bar
+        (BK_DATE,[_bk_slashdt],None),                                   # #826 NEW-4: '1/3/2027' is a date, not a bar
+        (BK_DATE,[_bk_ratio_g],["forecast_ledger[0] (F18) pins a numeric threshold but has no comparable_basis"]),  # guard: single-slash ratio '3' survives
+        (BK_DATE,[_bk_dotdate],None),                                   # #826 NEW-5: '01.03.2027' dotted date is not a bar
+        (BK_DATE,[_bk_decimal],["forecast_ledger[0] (F20) pins a numeric threshold but has no comparable_basis"]),  # guard: 12.5% survives the dotted-date strip -> numeric
+        (BK_DATE,[_bk_legal],None),                                     # #826: 'Sections 230-232' is a statute reference, not a bar
+        (BK_DATE,[_bk_shortyr],None),                                   # #826: "Q3'27" / '3Q27' / "H1'27" are period labels
+        (BK_DATE,[_bk_item],None),                                      # 'Item 5.02', 'Rule 10b-5', '2026 proxy', '12 months' are not bars
+        (BK_DATE,[_bk_legal_t],["forecast_ledger[0] (F24) pins a numeric threshold but has no comparable_basis"]),  # guard: 'above 12' stays numeric
+        (BK_DATE,[_bk_bare],["forecast_ledger[0] (F25) missing fired_last_two_periods"]),                             # guard: threshold '42' is numeric
+        (BK_DATE,[_bk_units],["forecast_ledger[0] (F26) pins a numeric threshold but has no comparable_basis"]),      # guard: 'reaches 500' / '3 mtpa'
+        (BK_DATE,[_bk_ccy],["forecast_ledger[0] (F27) pins a numeric threshold but has no comparable_basis"]),        # guard: 'Rs 42'
+        (BK_DATE,[_bk_thunit],["forecast_ledger[0] (F28) pins a numeric threshold but has no comparable_basis"]),     # guard: 'DSO 30 days' in `threshold`
+        (BK_DATE,[_bk_cents],["forecast_ledger[0] (F29) pins a numeric threshold but has no comparable_basis"]),      # guard: '42 cents per share'
+        (BK_DATE,[_bk_postfix],["forecast_ledger[0] (F30) pins a numeric threshold but has no comparable_basis"]),    # guard: '30 days or lower'
+        (BK_DATE,[_bk_thlabel],None),                                   # "Q3'27 filing" in `threshold` is a label, not a bar
+        (BK_DATE,[_bk_verb],["forecast_ledger[0] (F32) pins a numeric threshold but has no comparable_basis"]),       # guard: 'forms 30%'
+        (BK_DATE,[_bk_window],None),                                    # 'within 90 days' / 'Form 10' are not bars
+        (BK_DATE,[_bk_verbunit],["forecast_ledger[0] (F34) pins a numeric threshold but has no comparable_basis"]),   # guard: 'notes 500 stores'
+        (BK_DATE,[_bk_copula],["forecast_ledger[0] (F35) pins a numeric threshold but has no comparable_basis"]),     # guard: 'is 500' / 'is not 500'
+        (BK_DATE,[_bk_tiebrk],["forecast_ledger[0] (F36) pins a numeric threshold but has no comparable_basis"]),     # tie-break locked: ambiguous shape reads numeric
+        (BK_DATE,[_bk_oflevel],["forecast_ledger[0] (F37) pins a numeric threshold but has no comparable_basis"]),    # guard: 'DSO of 30 days'
+        (BK_DATE,[_bk_ofyear],None),                                    # 'end of 2027' / 'Act of 2013' are not bars
+        (BK_DATE,[_bk_won],["forecast_ledger[0] (F39) pins a numeric threshold but has no comparable_basis"]),        # guard: '₩500'
+        (BK_DATE,[_bk_ok],[]),
+        (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
+        (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),
+        (BK_DATE,[_bk_blank],["forecast_ledger[0] (F4) pins a numeric threshold but has no comparable_basis"]),
+        (BK_DATE,[_bk_nofl],["forecast_ledger[0] (F5) missing fired_last_two_periods"]),
+        (BK_DATE,[_bk_strfl],["forecast_ledger[0] (F6) missing fired_last_two_periods"]),  # a string 'no' is not a bool
+        (BK_DATE,[_bk_ok,_bk_event,_bk_nofl],["forecast_ledger[2] (F5) missing fired_last_two_periods"]),  # index tracks the row; event row skipped
+        (BK_DATE,[_bk_event],None),                                     # 10-K / ISO date are not thresholds → no numeric row → N/A
+        (BK_DATE,[_bk_label],None),                                     # a fiscal-period label alone is not a threshold
+        (BK_DATE,[_bk_event,"plain string row"],None),                  # non-object rows are T's job
+        ("2026-11-30",[_bk_nocb],None),                                 # predates BK_DATE → N/A
+        (BK_DATE,[],None),
+        (BK_DATE,None,None),
+        (BK_DATE,5,None),
+        ("not-a-date",[_bk_nocb],None),
+    ]
+    for _dd,_fl,_want in bkcases:
+        got=eval_bk_forecast_trigger_test(_dd,_fl)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BK({_dd!r},fl={_fl!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     # ---- check BB: §16 Sector Cycle Reality Test compounding cap -----------------------------------
     _bb_elev02 = "## 5. Sector Cycle Reality Test\nSector re-rated ~32%.\nRF-VAL-001: own-history band cycle-elevated — sector index re-rated 32% over the window, cited 2026-08-01\n"
     _bb_elev03 = "## 6. Sector Cycle Reality Test\nPeer group re-rated too.\nRF-VAL-001: peer-median anchor cycle-elevated — peer aggregate re-rated 28% over the window, cited 2026-08-01\n"
@@ -4388,6 +4501,18 @@ for drp in runs:
         add("BA_kill_criteria_trigger_test", False, "; ".join(_bar))
     else:
         add("BA_kill_criteria_trigger_test", True, f"every kill_criteria row carries comparable_basis and fired_last_two_periods ({len(d.get('kill_criteria') or [])} row(s))")
+    # BK — the same HARD GATE 11 trigger test on every NUMERIC forecast_ledger row (forward-looking;
+    # landing BK_DATE). See the BK_DATE block in scripts/scenario_integrity_checks.py. No retrospective
+    # advisory: committed runs predate the field, so all 21 numeric-forecast runs would flag for a field
+    # that did not exist yet — noise, not a still-live defect (contrast BH/BI/BJ).
+    _bkr = eval_bk_forecast_trigger_test(ddte, d.get("forecast_ledger"))
+    if _bkr is None:
+        add("BK_forecast_trigger_test", True,
+            f"N/A (decision_date {ddte!r} predates BK_DATE {BK_DATE!r}, or no numeric forecast_ledger row)", na=True)
+    elif _bkr:
+        add("BK_forecast_trigger_test", False, "; ".join(_bkr))
+    else:
+        add("BK_forecast_trigger_test", True, "every numeric forecast_ledger row carries comparable_basis and fired_last_two_periods")
     # The valuation specialist/synthesis text readers are defined ONCE here, unconditionally, at loop-body
     # scope, so every date-gated cap that consumes them (BB below, then AD/AE/AF/AQ) can call them no
     # matter which gate fires first. They were previously defined inside the AD/AE blocks, which sit
@@ -5145,7 +5270,15 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     # AZ was the only check in this file not registered here, so the whole thing could be deleted and the
     # suite would still report PASS — the exact hole this self-anchor exists to close.
     "check_az_governance_flag_cap_correspondence", "_az_slice", "_az_table_keys", "_az_row_first_cell", "azfails",
+    # BK — HARD GATE 11 on numeric forecast_ledger rows; detector + live wiring + authoring contract.
+    "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
 ]
+FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
+    "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "_BK_REFERENCE", "_BK_COMPACT_PERIOD", "_BK_THRESHOLD_NUMBER", "_bk_pins_a_threshold", "eval_ba_kill_criteria_trigger_test",
+]
+FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bk_forecast_trigger_test"]
+FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["fired_last_two_periods", "check BK"]
+FRAMEWORK_CONTRACTS["frameworks/DECISION_LEDGER.md"] += ["check BK"]
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
     try: jtxt=open(jf).read()
