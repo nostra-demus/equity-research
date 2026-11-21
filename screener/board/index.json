@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-21T17:24:16Z",
+  "generated_at": "2026-11-21T17:28:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-261",
+      "headline": "California Nvidia Probe Covers Potential Criminal Law Violations",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-21/california-nvidia-probe-covers-potential-criminal-law-violations",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T17:11:23Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The US Department of Justice is investigating Nvidia for potential criminal antitrust violations, which poses a significant regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US Department of Justice is investigating Nvidia for potential criminal antitrust violations, which poses a significant regulatory and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-248",
       "headline": "Energy Transfer Raised Capital Spending Plans to $7 Billion Next Year. Will That Put Its 7%-Yielding Payout at Risk?",
@@ -1929,50 +1979,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-222",
-      "headline": "EU targets Big Tech with new tax to fund budget",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/economy/eu-targets-big-tech-with-new-tax-to-fund-budget-1.500755907",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T11:13:40Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "The EU is targeting Big Tech with a new tax to fund its budget, which is a significant regulatory action that will directly impact the revenue and profitability of major technology companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The EU is targeting Big Tech with a new tax to fund its budget, which is a significant regulatory action that will directly impact the revenue and profitability of major technology companies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292382,9 +292388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3612,
-    "news_picked_today": 538,
-    "news_dropped_today": 2670
+    "news_seen_today": 3619,
+    "news_picked_today": 540,
+    "news_dropped_today": 2675
   },
   "book_momentum": {
     "live_count": 8,
