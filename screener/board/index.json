@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T01:37:54Z",
+  "generated_at": "2026-11-21T01:43:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-037",
@@ -877,6 +877,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-058",
+      "headline": "Dubai court orders doctor and hospital to pay Dh1.5 million to a patient left with permanent disability after spinal surgery",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/uae/dubai-court-orders-doctor-and-hospital-to-pay-dh15-million-to-a-patient-left-with-permanent-disability-after-spinal-surgery/8017",
+      "source_name": "Emirates 24|7 — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T01:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "A court has ordered a hospital to pay Dh1.5 million in damages for medical malpractice, creating a direct financial and reputational impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A court has ordered a hospital to pay Dh1.5 million in damages for medical malpractice, creating a direct financial and reputational impact.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unnamed Hospital",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,49 +1937,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-014",
-      "headline": "ANC fights to keep control of South Africa's key cities after election setback",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cqpv94d10rwpo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T00:34:51Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Political instability in South Africa's key cities poses risks to the local business and investment climate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Political instability in South Africa's key cities poses risks to the local business and investment climate.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291202,9 +291208,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 328,
-    "news_picked_today": 58,
-    "news_dropped_today": 246
+    "news_seen_today": 335,
+    "news_picked_today": 59,
+    "news_dropped_today": 252
   },
   "book_momentum": {
     "live_count": 8,
