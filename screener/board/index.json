@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-21T21:54:19Z",
+  "generated_at": "2026-11-21T22:04:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-269",
+      "headline": "QIA, Brookfield explore EUR15 bn investment opportunities in Germany’s critical industries",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/265672/business/qia-brookfield-explore-eur15-bn-investment-opportunities-in-germanys-critical-industries",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T21:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "QIA and Brookfield are exploring a EUR 15 billion investment in German critical industries.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "QIA and Brookfield are exploring a EUR 15 billion investment in German critical industries.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qatar Investment Authority",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-262",
       "headline": "Amazon closes in on $7.5bn deal to buy AI start-up Decart",
@@ -1694,6 +1748,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-267",
+      "headline": "Bahrain says Iranian attack causes fire at industrial facility",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/21/bahrain-says-iranian-attack-causes-fire-at-industrial-facility?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-21T21:31:03Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "An attack on an industrial facility in Bahrain represents a geopolitical escalation and a potential supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "An attack on an industrial facility in Bahrain represents a geopolitical escalation and a potential supply shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-264",
       "headline": "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders.",
       "headline_en": null,
@@ -1881,98 +1978,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-183",
-      "headline": "US Indicts Mexican Cartel Leaders Johnny And Jose Alfredo Hurtado, 19 Others Over Drug Trafficking And Firearms Smuggling | Video",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/us-indicts-mexican-cartel-leaders-johnny-and-jose-alfredo-hurtado-19-others-over-drug-trafficking-and-firearms-smuggling-video",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T05:47:17Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "US indictment of cartel leaders and associates over drug trafficking and firearms smuggling represents a significant enforcement action with macro implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "US indictment of cartel leaders and associates over drug trafficking and firearms smuggling represents a significant enforcement action with macro implications.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-009",
-      "headline": "SCHEDULE 13G - BIOMARIN PHARMACEUTICAL INC (0001048477) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1048477/000090514826005116/0000905148-26-005116-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-21T00:07:45Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "BioMarin Pharmaceutical is the subject of a 13G filing, indicating a significant institutional stake change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "BioMarin Pharmaceutical is the subject of a 13G filing, indicating a significant institutional stake change.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BioMarin Pharmaceutical Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292806,9 +292811,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4033,
-    "news_picked_today": 599,
-    "news_dropped_today": 3030
+    "news_seen_today": 4048,
+    "news_picked_today": 602,
+    "news_dropped_today": 3042
   },
   "book_momentum": {
     "live_count": 8,
