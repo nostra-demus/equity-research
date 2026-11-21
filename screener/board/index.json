@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T05:33:09Z",
+  "generated_at": "2026-11-21T05:33:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-152",
@@ -252289,6 +252289,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8785cce22dea",
+      "idea_version": "IDEAV-96b106eb9d10b875",
+      "idea_version_started_at": "2026-11-21T05:33:27Z",
+      "ticker": "ORCL",
+      "company": "Oracle",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Oracle's confirmation of a fully funded OpenAI contract and a clear path to over $30 billion in free cash flow by FY29 provides strong visibility into long-term revenue growth and margin expansion.",
+      "why_now": "The announcement on 2026-11-21 provides a concrete financial target that shifts the market's focus toward the company's long-term cash generation capabilities.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-76546fec8736"
+      ],
+      "primary_source_event_id": "EVT-76546fec8736",
+      "source_headlines": [
+        "Oracle says OpenAI contract fully funded, targets over $30 billion free cash flow in FY29"
+      ],
+      "source_headline": "Oracle says OpenAI contract fully funded, targets over $30 billion free cash flow in FY29",
+      "source_url": "https://www.thehindubusinessline.com/info-tech/oracle-says-openai-contract-fully-funded-targets-over-30-billion-free-cash-flow-in-fy29/article71727202.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-21T03:45:29Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/ORCL_2026-08-14",
+        "latest_decision": "Watchlist",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-21T05:33:27Z",
+      "updated_at": "2026-11-21T05:33:27Z",
+      "decay_at": "2026-11-22T15:45:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0d33d5cbe937",
       "idea_version": "IDEAV-3096bed61d08d90a",
       "idea_version_started_at": "2026-11-20T23:03:16Z",
@@ -291717,8 +291787,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2552,
-    "live_count": 34,
+    "surfaced_total": 2553,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
