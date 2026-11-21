@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-21T08:35:18Z",
+  "generated_at": "2026-11-21T08:43:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-207",
+      "headline": "GTA VI Turns Into A $3.79 Billion Blockbuster Overnight, 32.5 Million Copies Sold As Rockstar Games Rewrites Gaming History",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/gta-vi-turns-into-a-379-billion-blockbuster-overnight-325-million-copies-sold-as-rockstar-games-rewrites-gaming-history",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T08:06:51Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Take-Two Interactive's Rockstar Games generated $3.79 billion in revenue from 32.5 million copies of GTA VI sold.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Take-Two Interactive's Rockstar Games generated $3.79 billion in revenue from 32.5 million copies of GTA VI sold.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive",
+          "ticker": "TTWO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-195",
       "headline": "IndusInd Bank terminates former CEO Sumant Kathpalia’s employment, seeks recovery of pay since 2020",
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-192",
-      "headline": "Korea Investment Holdings turns to Cardif Life after KDB deal falls through",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10942860",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T07:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Korea Investment Holdings is pursuing a new acquisition target after the collapse of the KDB deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Korea Investment Holdings is pursuing a new acquisition target after the collapse of the KDB deal.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Investment Holdings",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292019,9 +292019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1449,
-    "news_picked_today": 286,
-    "news_dropped_today": 1117
+    "news_seen_today": 1484,
+    "news_picked_today": 293,
+    "news_dropped_today": 1145
   },
   "book_momentum": {
     "live_count": 8,
