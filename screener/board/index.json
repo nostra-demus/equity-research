@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T20:09:20Z",
+  "generated_at": "2026-11-21T20:09:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-262",
@@ -252091,76 +252091,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ec19b2ff9b03",
-      "idea_version": "IDEAV-74e2a64fe295e8a9",
-      "idea_version_started_at": "2026-11-21T00:45:32Z",
-      "ticker": "CAPR",
-      "company": "Capricor Therapeutics",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A second FDA rejection for its lead muscular dystrophy drug significantly impairs the company's primary revenue-generating pipeline and raises concerns about the viability of its current regulatory strategy.",
-      "why_now": "The rejection was reported on 2026-11-20, creating an immediate negative catalyst for the stock price.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-975331f97f27"
-      ],
-      "primary_source_event_id": "EVT-975331f97f27",
-      "source_headlines": [
-        "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug"
-      ],
-      "source_headline": "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/capricor-gets-second-fda-rejection-for-muscular-dystrophy-drug",
-      "source_name": "Bloomberg",
-      "materiality_max": 99,
-      "newest_source_at": "2026-11-20T23:49:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:45:32Z",
-      "updated_at": "2026-11-21T00:45:32Z",
-      "decay_at": "2026-11-22T11:49:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-29b3246b56c4",
       "idea_version": "IDEAV-7dce6ff99986dc94",
       "idea_version_started_at": "2026-11-21T18:39:36Z",
@@ -253208,6 +253138,77 @@
       "surfaced_at": "2026-11-21T00:24:13Z",
       "updated_at": "2026-11-21T00:24:13Z",
       "decay_at": "2026-11-22T11:49:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ec19b2ff9b03",
+      "idea_version": "IDEAV-849bee7d895c9fa0",
+      "idea_version_started_at": "2026-11-21T20:09:39Z",
+      "ticker": "CAPR",
+      "company": "Capricor Therapeutics",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A second FDA rejection for its lead muscular dystrophy drug candidate severely impairs the company's primary revenue pipeline and long-term viability.",
+      "why_now": "The FDA rejection was announced on November 20, 2026, creating an immediate negative catalyst for the stock.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-975331f97f27"
+      ],
+      "primary_source_event_id": "EVT-975331f97f27",
+      "source_headlines": [
+        "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug"
+      ],
+      "source_headline": "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/capricor-gets-second-fda-rejection-for-muscular-dystrophy-drug",
+      "source_name": "Bloomberg",
+      "materiality_max": 99,
+      "newest_source_at": "2026-11-20T23:49:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T00:45:32Z",
+      "updated_at": "2026-11-21T20:09:39Z",
+      "decay_at": "2026-11-22T11:49:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
