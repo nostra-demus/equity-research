@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T00:45:55Z",
+  "generated_at": "2026-11-21T00:49:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-015",
@@ -135,6 +135,55 @@
       "event_types": [
         "regulatory",
         "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capricor Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-026",
+      "headline": "Capricor Drops After FDA Again Rejects Muscular Dystrophy Drug",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-20/capricor-gets-second-fda-rejection-for-muscular-dystrophy-drug",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T23:49:13Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The FDA rejected Capricor's muscular dystrophy drug, which is a significant negative regulatory event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The FDA rejected Capricor's muscular dystrophy drug, which is a significant negative regulatory event for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -679,6 +728,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-025",
+      "headline": "Bristol Myers Squibb's Growth Portfolio Just Hit $7.7 Billion. Is This Cheap Pharma Stock a No-Brainer Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bristol-myers-squibbs-growth-portfolio-just-hit-77-billion-cheap-pharma-stock-no-brainer",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:35:02Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The headline discusses existing growth portfolio figures but is framed as an investment opinion piece.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "The headline discusses existing growth portfolio figures but is framed as an investment opinion piece.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bristol Myers Squibb",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-014",
       "headline": "ANC fights to keep control of South Africa's key cities after election setback",
       "headline_en": null,
@@ -1102,6 +1200,49 @@
         "event": 0,
         "size": 0,
         "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-027",
+      "headline": "Araqchi says Iran wants diplomacy to end war, Trump says terms unacceptable",
+      "headline_en": null,
+      "url": "https://www.al-monitor.com/originals/2026/11/araqchi-says-iran-wants-diplomacy-end-war-trump-says-terms-unacceptable",
+      "source_name": "Al-Monitor",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T23:46:29Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Geopolitical tensions regarding the Iran conflict and US diplomatic stance represent a significant escalation in global risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Geopolitical tensions regarding the Iran conflict and US diplomatic stance represent a significant escalation in global risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
@@ -290377,7 +290518,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5111,
+    "inbox_unconsumed": 5114,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -290386,9 +290527,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 144,
-    "news_picked_today": 24,
-    "news_dropped_today": 120
+    "news_seen_today": 155,
+    "news_picked_today": 27,
+    "news_dropped_today": 128
   },
   "book_momentum": {
     "live_count": 8,
