@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-11-21T04:55:41Z",
+  "generated_at": "2026-11-21T04:58:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-134",
+      "headline": "IndusInd Bank Sacks Former CEO Sumant Kathpalia After Internal Probe, Moves To Claw Back Bonuses Amid ₹1,960 Crore Accounting Row",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/indusind-bank-sacks-former-ceo-sumant-kathpalia-after-internal-probe-moves-to-claw-back-bonuses-amid-1960-crore-accounting-row",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T04:46:13Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "IndusInd Bank fired its former CEO and is clawing back bonuses following a ₹1,960 crore accounting investigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndusInd Bank fired its former CEO and is clawing back bonuses following a ₹1,960 crore accounting investigation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-135",
+      "headline": "Valecha Engineering Swings From ₹37.29 Crore Loss To ₹271.98 Crore Profit, Exceptional Gains Steal The Show In Q2 FY27",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/valecha-engineering-swings-from-3729-crore-loss-to-27198-crore-profit-exceptional-gains-steal-the-show-in-q2-fy27",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T04:30:26Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Valecha Engineering reported a significant swing to a ₹271.98 crore profit in Q2 FY27, compared to a ₹37.29 crore loss previously.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Valecha Engineering reported a significant swing to a ₹271.98 crore profit in Q2 FY27, compared to a ₹37.29 crore loss previously.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Valecha Engineering",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-125",
       "headline": "Liquidity Services, Inc. Reports Fiscal Year 2026 GMV of $1.645 billion and $80 million Acquisition of Invaluable",
@@ -1872,104 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-058",
-      "headline": "Dubai court orders doctor and hospital to pay Dh1.5 million to a patient left with permanent disability after spinal surgery",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/uae/dubai-court-orders-doctor-and-hospital-to-pay-dh15-million-to-a-patient-left-with-permanent-disability-after-spinal-surgery/8017",
-      "source_name": "Emirates 24|7 — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:39:00Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "A court has ordered a hospital to pay Dh1.5 million in damages for medical malpractice, creating a direct financial and reputational impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A court has ordered a hospital to pay Dh1.5 million in damages for medical malpractice, creating a direct financial and reputational impact.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unnamed Hospital",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-066",
-      "headline": "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/co-diagnostics-inc-borrows-additional-loan-and-issues-senior-secured-convertible",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:38:32Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Co-Diagnostics issued a senior secured convertible promissory note to borrow additional funds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Co-Diagnostics issued a senior secured convertible promissory note to borrow additional funds.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Co-Diagnostics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291742,9 +291743,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 774,
-    "news_picked_today": 166,
-    "news_dropped_today": 562
+    "news_seen_today": 795,
+    "news_picked_today": 170,
+    "news_dropped_today": 579
   },
   "book_momentum": {
     "live_count": 8,
