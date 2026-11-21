@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-21T12:45:22Z",
+  "generated_at": "2026-11-21T12:49:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-225",
+      "headline": "Grand Theft Auto VI smashes records with $3.79 billion in day-one retail sales",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/variety/grand-theft-auto-vi-smashes-records-with-379-billion-in-day-one-retail-sales/article71728239.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T12:40:49Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Grand Theft Auto VI achieved record-breaking day-one retail sales of $3.79 billion, a massive revenue event for the publisher.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grand Theft Auto VI achieved record-breaking day-one retail sales of $3.79 billion, a massive revenue event for the publisher.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive Software",
+          "ticker": "TTWO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-223",
       "headline": "YouTube faces $3 billion payout to US schools over claims of harming students' mental health",
@@ -1916,55 +1966,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-101",
-      "headline": "China’s BYD banned from selling ‘copycat Land Rover’ in Europe",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/europe/chinas-byd-banned-from-selling-copycat-land-rover-in-europe-20261121-p61g5o?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T02:48:11Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "China's BYD has been banned from selling a 'copycat Land Rover' in Europe, indicating a legal or regulatory setback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "China's BYD has been banned from selling a 'copycat Land Rover' in Europe, indicating a legal or regulatory setback.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292089,9 +292090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2631,
-    "news_picked_today": 391,
-    "news_dropped_today": 1899
+    "news_seen_today": 2669,
+    "news_picked_today": 392,
+    "news_dropped_today": 1936
   },
   "book_momentum": {
     "live_count": 8,
