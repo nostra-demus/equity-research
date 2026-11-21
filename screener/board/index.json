@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T03:29:48Z",
+  "generated_at": "2026-11-21T03:39:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-105",
@@ -1332,6 +1332,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-109",
+      "headline": "Dutch court bars Chinese SUV in Europe over resemblance to Land Rover Defender",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/dutch-court-bars-chinese-suv-in-europe-over-resemblance-to-land-rover-defender/article71727166.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T03:26:21Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "A Dutch court has banned a Chinese SUV from the European market due to intellectual property infringement, creating a significant operational and legal barrier for the manufacturer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A Dutch court has banned a Chinese SUV from the European market due to intellectual property infringement, creating a significant operational and legal barrier for the manufacturer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Land Rover",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-058",
       "headline": "Dubai court orders doctor and hospital to pay Dh1.5 million to a patient left with permanent disability after spinal surgery",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
       "companies": [
         {
           "name": "Presidio Property Trust, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-069",
-      "headline": "iBio, Inc. Receives Nasdaq Notice Regarding Minimum Bid Price Deficiency",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ibio-inc-receives-nasdaq-notice-regarding-minimum-bid-price-deficiency",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:28:38Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "iBio received a Nasdaq notice regarding minimum bid price deficiency, signaling potential delisting risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "iBio received a Nasdaq notice regarding minimum bid price deficiency, signaling potential delisting risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "iBio, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -291455,9 +291455,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 613,
-    "news_picked_today": 122,
-    "news_dropped_today": 445
+    "news_seen_today": 633,
+    "news_picked_today": 128,
+    "news_dropped_today": 459
   },
   "book_momentum": {
     "live_count": 8,
