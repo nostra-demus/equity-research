@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-21T00:24:42Z",
+  "generated_at": "2026-11-21T00:44:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-015",
+      "headline": "Court formally approves $7.25B class settlement for cancer claims from Roundup weed killer",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/energy-environment/6234796-judge-approves-roundup-settlement/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:12:25Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Court approval of a $7.25 billion settlement for Roundup cancer claims represents a major financial liability for Bayer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Court approval of a $7.25 billion settlement for Roundup cancer claims represents a major financial liability for Bayer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-007",
       "headline": "SHF Holdings, Inc. Announces Nasdaq Delisting, OTC Quotation, and Conversion of Series B Convertible Preferred Stock",
@@ -41,6 +90,56 @@
       "companies": [
         {
           "name": "SHF Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-019",
+      "headline": "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-20/capricor-gets-second-fda-rejection-for-muscular-dystrophy-drug",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-20T23:49:13Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "FDA rejection of a key drug candidate significantly impairs the company's revenue outlook and pipeline value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "FDA rejection of a key drug candidate significantly impairs the company's revenue outlook and pipeline value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capricor Therapeutics",
           "ticker": null,
           "listing_country": "US"
         }
@@ -242,6 +341,517 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-012",
+      "headline": "Greenwich Rx Issues Voluntary Nationwide Recall of Compounded Sterile Products Due to Lack of Sterility Assurance",
+      "headline_en": null,
+      "url": "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/greenwich-rx-issues-voluntary-nationwide-recall-compounded-sterile-products-due-lack-sterility",
+      "source_name": "U.S. Food & Drug Administration (Recalls)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-20T23:21:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Greenwich Rx issued a voluntary nationwide recall of compounded sterile products due to sterility concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Greenwich Rx issued a voluntary nationwide recall of compounded sterile products due to sterility concerns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Greenwich Rx",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-021",
+      "headline": "Treasury secretary says no further restrictions are needed for Nvidia chip exports to China",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/treasury-secretary-says-no-further-restrictions-are-needed-for-nvidia-chip-exports-to-china",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:36:40Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Treasury confirmation of no further export restrictions on chips provides regulatory clarity for Nvidia's China revenue stream.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Treasury confirmation of no further export restrictions on chips provides regulatory clarity for Nvidia's China revenue stream.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-024",
+      "headline": "Freight train derails near Sejong, leaving Saemaeul, Mugunghwa services suspended",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261121000400315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:32:53Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "A freight train derailment has caused the suspension of passenger rail services on the Saemaeul and Mugunghwa lines in South Korea.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A freight train derailment has caused the suspension of passenger rail services on the Saemaeul and Mugunghwa lines in South Korea.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Railroad Corporation",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-022",
+      "headline": "Trump Vows To Tax US Companies Building Data Centers Abroad",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-21/balance-of-power-late-edition-11-20-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:10:11Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Proposed tax policy on data centers built abroad creates significant regulatory and operational risk for tech companies with global infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Proposed tax policy on data centers built abroad creates significant regulatory and operational risk for tech companies with global infrastructure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-018",
+      "headline": "Oil gains on Iran war worries and short-covering ahead of Thanksgiving holiday",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-gains-iran-war-worries-and-short-covering-ahead-thanksgiving-holiday",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:26:31Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Geopolitical tensions in Iran are driving oil price volatility, impacting global energy costs and inflation expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Geopolitical tensions in Iran are driving oil price volatility, impacting global energy costs and inflation expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-016",
+      "headline": "How Mercedes-Benz Nearly Became Collateral Damage in a Chinese Car Ban",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/how-mercedes-benz-nearly-became-collateral-damage-in-a-chinese-car-ban-4101cd7f?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:38:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Mercedes-Benz faced significant operational risk due to potential Chinese car bans, highlighting geopolitical exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Mercedes-Benz faced significant operational risk due to potential Chinese car bans, highlighting geopolitical exposure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-020",
+      "headline": "Anthropic Researcher Claims to Solve Riemann Problem With Claude",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-21/anthropic-researcher-claims-to-solve-riemann-problem-with-claude",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:17:14Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Potential breakthrough in mathematical research using AI models could enhance the perceived value and capabilities of Anthropic's technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Potential breakthrough in mathematical research using AI models could enhance the perceived value and capabilities of Anthropic's technology.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-014",
+      "headline": "ANC fights to keep control of South Africa's key cities after election setback",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cqpv94d10rwpo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:34:51Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Political instability in South Africa's key cities poses risks to the local business and investment climate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Political instability in South Africa's key cities poses risks to the local business and investment climate.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-017",
+      "headline": "Rock-bottom bids for govt tenders to attract scrutiny",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/low-bids-scrutiny-govt-procurement-tenders-quality-11795160707050.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:30:46Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Increased scrutiny on government tender bidding processes may impact contract margins and operational timelines for infrastructure firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Increased scrutiny on government tender bidding processes may impact contract margins and operational timelines for infrastructure firms.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-023",
+      "headline": "Gold Adulteration Fears: GJC Urges Jewellers To Tighten Quality Checks, Consumers To Verify Hallmarks",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/gold-adulteration-fears-gjc-urges-jewellers-to-tighten-quality-checks-consumers-to-verify-hallmarks",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:13:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Gold adulteration concerns and calls for tighter quality checks may increase compliance costs and impact consumer demand for jewelry retailers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Gold adulteration concerns and calls for tighter quality checks may increase compliance costs and impact consumer demand for jewelry retailers.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-013",
+      "headline": "Court Grants Final Approval to Roundup™ Class Settlement",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261120664765/en/Court-Grants-Final-Approval-to-Roundup%E2%84%A2-Class-Settlement/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Lawsuit News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-21T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Final court approval of the Roundup class settlement confirms significant legal liability for Bayer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Final court approval of the Roundup class settlement confirms significant legal liability for Bayer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -251182,77 +251792,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0991422acdb8",
-      "idea_version": "IDEAV-e7411fe2b66f63e0",
-      "idea_version_started_at": "2026-11-19T19:29:33Z",
-      "ticker": "WMT",
-      "company": "Walmart",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Walmart exceeded profit estimates and raised its full-year outlook for the third time this year, reflecting sustained market share gains.",
-      "why_now": "The outlook increase was reported on 2026-11-19.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-52aff7667b2f"
-      ],
-      "primary_source_event_id": "EVT-52aff7667b2f",
-      "source_headlines": [
-        "Walmart tops profit estimates, raises outlook for third time this year"
-      ],
-      "source_headline": "Walmart tops profit estimates, raises outlook for third time this year",
-      "source_url": "https://www.theglobeandmail.com/business/article-walmart-results-sales-and-profit-outlook/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T12:27:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T19:29:33Z",
-      "updated_at": "2026-11-19T19:29:33Z",
-      "decay_at": "2026-11-21T00:27:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7cd46fe7ab77",
       "idea_version": "IDEAV-6d31b3e8b1b6674e",
       "idea_version_started_at": "2026-11-21T00:05:01Z",
@@ -251898,6 +252437,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0991422acdb8",
+      "idea_version": "IDEAV-e7411fe2b66f63e0",
+      "idea_version_started_at": "2026-11-19T19:29:33Z",
+      "ticker": "WMT",
+      "company": "Walmart",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Walmart exceeded profit estimates and raised its full-year outlook for the third time this year, reflecting sustained market share gains.",
+      "why_now": "The outlook increase was reported on 2026-11-19.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-52aff7667b2f"
+      ],
+      "primary_source_event_id": "EVT-52aff7667b2f",
+      "source_headlines": [
+        "Walmart tops profit estimates, raises outlook for third time this year"
+      ],
+      "source_headline": "Walmart tops profit estimates, raises outlook for third time this year",
+      "source_url": "https://www.theglobeandmail.com/business/article-walmart-results-sales-and-profit-outlook/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-19T12:27:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-19T19:29:33Z",
+      "updated_at": "2026-11-19T19:29:33Z",
+      "decay_at": "2026-11-21T00:27:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-23755eca98f6",
       "idea_version": "IDEAV-73267e7bcb085a11",
       "idea_version_started_at": "2026-11-19T19:29:33Z",
@@ -252408,14 +253018,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 507,
+    "total_count": 508,
     "shown_count": 499,
-    "hidden_count": 8,
+    "hidden_count": 9,
     "side_counts": {
       "long": {
-        "total_count": 256,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 6
+        "hidden_count": 7
       },
       "short": {
         "total_count": 252,
@@ -252439,6 +253049,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0991422acdb8",
+        "idea_version": "IDEAV-e7411fe2b66f63e0",
+        "idea_version_started_at": "2026-11-19T19:29:33Z",
+        "ticker": "WMT",
+        "company": "Walmart",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Walmart exceeded profit estimates and raised its full-year outlook for the third time this year, reflecting sustained market share gains.",
+        "why_now": "The outlook increase was reported on 2026-11-19.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-52aff7667b2f"
+        ],
+        "primary_source_event_id": "EVT-52aff7667b2f",
+        "source_headlines": [
+          "Walmart tops profit estimates, raises outlook for third time this year"
+        ],
+        "source_headline": "Walmart tops profit estimates, raises outlook for third time this year",
+        "source_url": "https://www.theglobeandmail.com/business/article-walmart-results-sales-and-profit-outlook/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-19T12:27:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-19T19:29:33Z",
+        "updated_at": "2026-11-19T19:29:33Z",
+        "decay_at": "2026-11-21T00:27:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-21T00:27:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6bbcaece381e",
         "idea_version": "IDEAV-5718ddf365739bf3",
@@ -282766,81 +283450,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0cd482e22c18",
-        "idea_version": "IDEAV-2ab7daac8ea6fcff",
-        "idea_version_started_at": "2026-11-02T04:47:12Z",
-        "ticker": "AARTIIND",
-        "company": "Aarti Industries",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Aarti Industries' Q2 profit jumped 60% and revenue surged 75%, indicating significant operational improvement.",
-        "why_now": "The company's Q2 earnings report, released today, shows a substantial increase in both profit and revenue.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-07723b8f20bb"
-        ],
-        "primary_source_event_id": "EVT-07723b8f20bb",
-        "source_headlines": [
-          "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%"
-        ],
-        "source_headline": "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%",
-        "source_url": "https://www.cnbctv18.com/market/aarti-industries-share-price-rise-strong-q2-results-profit-revenue-surge-20024596.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T04:32:27Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T13:05:01Z",
-        "updated_at": "2026-11-02T04:47:12Z",
-        "decay_at": "2026-11-03T16:32:27Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bdc0aa865c9e",
         "idea_version": "IDEAV-b02192a673bf6b05",
         "idea_version_started_at": "2026-11-02T04:24:27Z",
@@ -289548,7 +290157,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2541,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -289558,7 +290167,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5098,
+    "inbox_unconsumed": 5111,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -289567,9 +290176,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 89,
-    "news_picked_today": 11,
-    "news_dropped_today": 78
+    "news_seen_today": 144,
+    "news_picked_today": 24,
+    "news_dropped_today": 120
   },
   "book_momentum": {
     "live_count": 8,
