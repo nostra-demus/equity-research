@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T14:01:22Z",
+  "generated_at": "2026-11-21T14:04:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-234",
@@ -1354,6 +1354,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-237",
+      "headline": "Is the AI Bubble Finally Popping? Nvidia Crashes 48% as Wall Street Experts Sound the Alarm",
+      "headline_en": null,
+      "url": "https://decrypt.co/383754/ai-bubble-finally-popping-nvidia-crashes-48-wall-street-alarm",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T14:01:06Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Nvidia is reported to have crashed 48%, a massive move for a mega-cap stock that signals a potential AI sector bubble burst.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Nvidia is reported to have crashed 48%, a massive move for a mega-cap stock that signals a potential AI sector bubble burst.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-224",
       "headline": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
       "headline_en": null,
@@ -1892,55 +1941,6 @@
         "size": -1,
         "recency": 5,
         "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dine Brands Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-002",
-      "headline": "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2021808/000121390026122826/0001213900-26-122826-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-21T00:00:24Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Arkhouse Management filed an amended 13D regarding their position in Dine Brands Global.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Arkhouse Management filed an amended 13D regarding their position in Dine Brands Global.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -292226,9 +292226,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2959,
-    "news_picked_today": 432,
-    "news_dropped_today": 2147
+    "news_seen_today": 2980,
+    "news_picked_today": 436,
+    "news_dropped_today": 2164
   },
   "book_momentum": {
     "live_count": 8,
