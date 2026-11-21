@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-21T03:55:06Z",
+  "generated_at": "2026-11-21T04:04:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-121",
+      "headline": "Oracle says OpenAI contract fully funded, targets over $30 billion free cash flow in FY29",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/oracle-says-openai-contract-fully-funded-targets-over-30-billion-free-cash-flow-in-fy29/article71727202.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T03:45:29Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Oracle provided a long-term financial target of over $30 billion in free cash flow by FY29.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle provided a long-term financial target of over $30 billion in free cash flow by FY29.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-111",
       "headline": "How much is Jensen Huang's value in the market? $1 trillion, it seems: Nvidia loses 25% capitalisation after CEO's exit",
@@ -1915,56 +1964,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-079",
-      "headline": "DGCA Issues Show Cause Notice To SpiceJet On Flight Cancellations, Various Violations",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/dgca-issues-show-cause-notice-to-spicejet-on-flight-cancellations-various-violations-12356981#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:35:49Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "SpiceJet received a show cause notice from the DGCA regarding operational violations and flight cancellations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "SpiceJet received a show cause notice from the DGCA regarding operational violations and flight cancellations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpiceJet",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
