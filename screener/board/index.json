@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T19:38:01Z",
+  "generated_at": "2026-11-21T19:49:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-262",
@@ -253284,6 +253284,432 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-055791d9bcb5",
+      "idea_version": "IDEAV-e089d147406a2506",
+      "idea_version_started_at": "2026-11-21T19:49:13Z",
+      "ticker": "08619",
+      "company": "NIU HOLDINGS",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, suggesting operational challenges impacting profitability.",
+      "why_now": "The profit warning was filed on 2026-11-20.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-43932d1a44a0"
+      ],
+      "primary_source_event_id": "EVT-43932d1a44a0",
+      "source_headlines": [
+        "NIU HOLDINGS (08619): PROFIT WARNING"
+      ],
+      "source_headline": "NIU HOLDINGS (08619): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1120/2026112001036.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T10:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T19:49:13Z",
+      "updated_at": "2026-11-21T19:49:13Z",
+      "decay_at": "2026-11-21T22:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3569a6de6321",
+      "idea_version": "IDEAV-4b845f02a38e0ba3",
+      "idea_version_started_at": "2026-11-21T19:49:13Z",
+      "ticker": "00223",
+      "company": "ELIFE HLDGS",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating negative earnings momentum.",
+      "why_now": "The profit warning was filed on 2026-11-20.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2dd17d8b0604"
+      ],
+      "primary_source_event_id": "EVT-2dd17d8b0604",
+      "source_headlines": [
+        "ELIFE HLDGS (00223): PROFIT WARNING"
+      ],
+      "source_headline": "ELIFE HLDGS (00223): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001367.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T11:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T19:49:13Z",
+      "updated_at": "2026-11-21T19:49:13Z",
+      "decay_at": "2026-11-21T23:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4d852b614db5",
+      "idea_version": "IDEAV-37eb9819ae1f35cf",
+      "idea_version_started_at": "2026-11-21T19:49:13Z",
+      "ticker": "00618",
+      "company": "PKU RESOURCES",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling financial weakness.",
+      "why_now": "The profit warning was filed on 2026-11-20.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e377369cf439"
+      ],
+      "primary_source_event_id": "EVT-e377369cf439",
+      "source_headlines": [
+        "PKU RESOURCES (00618): PROFIT WARNING"
+      ],
+      "source_headline": "PKU RESOURCES (00618): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001505.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T11:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T19:49:13Z",
+      "updated_at": "2026-11-21T19:49:13Z",
+      "decay_at": "2026-11-21T23:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5e766eecdf93",
+      "idea_version": "IDEAV-d3281228c5b4ef23",
+      "idea_version_started_at": "2026-11-21T19:49:13Z",
+      "ticker": "01662",
+      "company": "Yee Hop Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a decline in financial performance.",
+      "why_now": "The profit warning was filed on 2026-11-20.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-97155789020e"
+      ],
+      "primary_source_event_id": "EVT-97155789020e",
+      "source_headlines": [
+        "YEE HOP HLDGS (01662): PROFIT WARNING AND BUSINESS UPDATE"
+      ],
+      "source_headline": "YEE HOP HLDGS (01662): PROFIT WARNING AND BUSINESS UPDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001511.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T12:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T19:49:13Z",
+      "updated_at": "2026-11-21T19:49:13Z",
+      "decay_at": "2026-11-22T00:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-6f653cc37bba",
+      "idea_version": "IDEAV-83135d3292465c48",
+      "idea_version_started_at": "2026-11-21T19:49:13Z",
+      "ticker": "00035",
+      "company": "Far East Consortium International",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating stronger than expected earnings growth.",
+      "why_now": "The positive profit alert was filed on 2026-11-20.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c7b560676bb"
+      ],
+      "primary_source_event_id": "EVT-4c7b560676bb",
+      "source_headlines": [
+        "FE CONSORT INTL FEC FIN PERP (00035 05781): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "FE CONSORT INTL FEC FIN PERP (00035 05781): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001381.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T11:19:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T19:03:27Z",
+      "updated_at": "2026-11-21T19:49:13Z",
+      "decay_at": "2026-11-21T23:19:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ddbd31e38712",
+      "idea_version": "IDEAV-f3776e25bba2627a",
+      "idea_version_started_at": "2026-11-21T19:49:13Z",
+      "ticker": "02001",
+      "company": "NEW HIGHER EDU",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling significant deterioration in earnings performance.",
+      "why_now": "The profit warning was filed on 2026-11-20.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2a43fd59d93a"
+      ],
+      "primary_source_event_id": "EVT-2a43fd59d93a",
+      "source_headlines": [
+        "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001653.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T13:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T19:03:27Z",
+      "updated_at": "2026-11-21T19:49:13Z",
+      "decay_at": "2026-11-22T01:05:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8c8824be4bf4",
       "idea_version": "IDEAV-f5d21979e9ce9e67",
       "idea_version_started_at": "2026-11-21T15:29:06Z",
@@ -253780,150 +254206,6 @@
       "surfaced_at": "2026-11-20T20:38:19Z",
       "updated_at": "2026-11-20T20:38:19Z",
       "decay_at": "2026-11-22T00:56:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6f653cc37bba",
-      "idea_version": "IDEAV-62614232d7d48710",
-      "idea_version_started_at": "2026-11-20T19:03:27Z",
-      "ticker": "00035",
-      "company": "Far East Consortium International",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert indicating improved earnings performance.",
-      "why_now": "The filing was released today, November 20, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c7b560676bb"
-      ],
-      "primary_source_event_id": "EVT-4c7b560676bb",
-      "source_headlines": [
-        "FE CONSORT INTL FEC FIN PERP (00035 05781): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "FE CONSORT INTL FEC FIN PERP (00035 05781): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001381.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T11:19:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T19:03:27Z",
-      "updated_at": "2026-11-20T19:03:27Z",
-      "decay_at": "2026-11-21T23:19:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ddbd31e38712",
-      "idea_version": "IDEAV-487dfc7361c04117",
-      "idea_version_started_at": "2026-11-20T19:03:27Z",
-      "ticker": "02001",
-      "company": "New Higher Education Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning alongside a very substantial disposal, suggesting underlying operational weakness that asset sales are attempting to address.",
-      "why_now": "The filings were released today, November 20, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2a43fd59d93a",
-        "EVT-3490cce5be3b"
-      ],
-      "primary_source_event_id": "EVT-2a43fd59d93a",
-      "source_headlines": [
-        "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING",
-        "NEW HIGHER EDU (02001): VERY SUBSTANTIAL DISPOSAL DISPOSAL OF THE ENTIRE EQUITY INTEREST IN TARGET COMPANY"
-      ],
-      "source_headline": "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001653.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T13:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T19:03:27Z",
-      "updated_at": "2026-11-20T19:03:27Z",
-      "decay_at": "2026-11-22T01:05:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -292508,8 +292790,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2566,
-    "live_count": 40,
+    "surfaced_total": 2570,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -292528,9 +292810,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3839,
+    "news_seen_today": 3854,
     "news_picked_today": 573,
-    "news_dropped_today": 2862
+    "news_dropped_today": 2877
   },
   "book_momentum": {
     "live_count": 8,
