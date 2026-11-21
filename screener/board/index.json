@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-21T10:54:28Z",
+  "generated_at": "2026-11-21T11:13:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-215",
+      "headline": "Indian billionaire PV Krishna Reddy raises $720 million in private credit for Megha buyout",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/indian-billionaire-pv-krishna-reddy-raises-720-million-in-private-credit-for-megha-buyout/article71727941.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T10:59:35Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "$720M private-credit raise for Megha Engineering to fund a named M&A transaction, affecting capital structure and leverage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "$720M private-credit raise for Megha Engineering to fund a named M&A transaction, affecting capital structure and leverage.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Megha Engineering & Infrastructure",
+          "ticker": "MEGHA",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-212",
       "headline": "Anthropic's $2 trillion debut hides a 13% warning",
@@ -1921,56 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-012",
-      "headline": "Greenwich Rx Issues Voluntary Nationwide Recall of Compounded Sterile Products Due to Lack of Sterility Assurance",
-      "headline_en": null,
-      "url": "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/greenwich-rx-issues-voluntary-nationwide-recall-compounded-sterile-products-due-lack-sterility",
-      "source_name": "U.S. Food & Drug Administration (Recalls)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-20T23:21:00Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Greenwich Rx issued a voluntary nationwide recall of compounded sterile products due to sterility concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Greenwich Rx issued a voluntary nationwide recall of compounded sterile products due to sterility concerns.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Greenwich Rx",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292097,9 +292097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2019,
-    "news_picked_today": 339,
-    "news_dropped_today": 1501
+    "news_seen_today": 2121,
+    "news_picked_today": 341,
+    "news_dropped_today": 1562
   },
   "book_momentum": {
     "live_count": 8,
