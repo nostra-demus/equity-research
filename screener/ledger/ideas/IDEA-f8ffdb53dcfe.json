@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-f8ffdb53dcfe",
+  "idea_version": "IDEAV-62b218b3b30d38c7",
+  "idea_version_started_at": "2026-11-21T01:54:31Z",
+  "ticker": "TPST",
+  "company": "Tempest Therapeutics",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company received a formal delisting notification from Nasdaq, which typically precedes significant liquidity issues and potential equity impairment.",
+  "why_now": "The notification was dated 2026-11-17 and reported on 2026-11-21.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-fc457c9fc447"
+  ],
+  "primary_source_event_id": "EVT-fc457c9fc447",
+  "source_headlines": [
+    "Tempest Therapeutics, Inc. Receives Nasdaq Delisting Notification on November 17, 2026"
+  ],
+  "source_headline": "Tempest Therapeutics, Inc. Receives Nasdaq Delisting Notification on November 17, 2026",
+  "source_url": "https://www.nasdaq.com/articles/tempest-therapeutics-inc-receives-nasdaq-delisting-notification-november-17-2026",
+  "source_name": "Nasdaq",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-21T00:39:09Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-21T01:54:31Z",
+  "updated_at": "2026-11-21T01:54:31Z",
+  "decay_at": "2026-11-22T12:39:09Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
