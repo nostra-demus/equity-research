@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-21T00:58:11Z",
+  "generated_at": "2026-11-21T01:08:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-037",
+      "headline": "Frontline plc Reports Profit of $641.4 million for the Third Quarter of 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/frontline-plc-reports-profit-6414-million-third-quarter-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:39:09Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Frontline plc reported a profit of $641.4 million for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Frontline plc reported a profit of $641.4 million for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Frontline plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-032",
+      "headline": "Tempest Therapeutics, Inc. Receives Nasdaq Delisting Notification on November 17, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/tempest-therapeutics-inc-receives-nasdaq-delisting-notification-november-17-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:39:09Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Tempest Therapeutics received a Nasdaq delisting notification, signaling a severe threat to its listing status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tempest Therapeutics received a Nasdaq delisting notification, signaling a severe threat to its listing status.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tempest Therapeutics",
+          "ticker": "TPST",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-015",
       "headline": "Court formally approves $7.25B class settlement for cancer claims from Roundup weed killer",
@@ -297,6 +395,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-035",
+      "headline": "SCHEDULE 13D/A - Applied Digital Corp. (0001144879) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1144879/000149315226053589/0001493152-26-053589-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-21T01:00:03Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a significant change in ownership or intent for Applied Digital Corp.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A Schedule 13D/A filing indicates a significant change in ownership or intent for Applied Digital Corp.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Applied Digital Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-034",
+      "headline": "SCHEDULE 13D/A - ChronoScale Holdings Corp (0001549084) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1549084/000149315226053589/0001493152-26-053589-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-21T01:00:03Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a significant change in ownership or intent for ChronoScale Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A Schedule 13D/A filing indicates a significant change in ownership or intent for ChronoScale Holdings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ChronoScale Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-002",
       "headline": "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
       "headline_en": null,
@@ -440,6 +636,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-033",
+      "headline": "IndusInd Bank ends ex-CEO Kathpalia's employment, seeks to recover pay",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/indusind-bank-ends-ex-ceo-kathpalias-employment-seeks-to-recover-pay/articleshow/136042443.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:54:52Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "IndusInd Bank terminated its ex-CEO and is seeking to recover pay, indicating significant internal governance issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "IndusInd Bank terminated its ex-CEO and is seeking to recover pay, indicating significant internal governance issues.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-040",
+      "headline": "Nvidia faces further blow after shock US export permit data release: analysts",
+      "headline_en": null,
+      "url": "https://www.scmp.com/tech/big-tech/article/3375287/nvidia-faces-further-blow-after-shock-us-export-permit-data-release-analysts",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T01:00:13Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Nvidia faces potential headwinds due to new US export permit data, impacting its operational risk in China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Nvidia faces potential headwinds due to new US export permit data, impacting its operational risk in China.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -678,6 +972,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-038",
+      "headline": "Baker Hughes Company Files Unaudited Financial Information for Chart Industries, Inc.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/baker-hughes-company-files-unaudited-financial-information-chart-industries-inc",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:39:08Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Baker Hughes filed financial information for Chart Industries, which may impact market expectations for the latter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Baker Hughes filed financial information for Chart Industries, which may impact market expectations for the latter.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Chart Industries",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-018",
       "headline": "Oil gains on Iran war worries and short-covering ahead of Thanksgiving holiday",
       "headline_en": null,
@@ -716,6 +1059,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-031",
+      "headline": "HSBC Upgrades Tesla to Hold from Reduce",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hsbc-upgrades-tesla-hold-reduce",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:42:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "HSBC upgraded Tesla from Reduce to Hold, indicating a shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "HSBC upgraded Tesla from Reduce to Hold, indicating a shift in analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -766,6 +1158,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-039",
+      "headline": "Nikhil Gupta sentenced to over 19 years in US prison for plot to kill Khalistani separatist Pannun",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/nikhil-gupta-sentenced-to-over-19-years-in-us-prison-for-plot-to-kill-khalistani-separatist-pannun-11795222312694.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:59:53Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The sentencing of Nikhil Gupta for a high-profile plot has geopolitical implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "The sentencing of Nikhil Gupta for a high-profile plot has geopolitical implications.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1226,6 +1661,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-036",
+      "headline": "Capricor Therapeutics Provides Regulatory Update on Deramiocel BLA for Duchenne Muscular Dystrophy",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/21/3407877/0/en/capricor-therapeutics-provides-regulatory-update-on-deramiocel-bla-for-duchenne-muscular-dystrophy.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-21T00:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Capricor Therapeutics provided a regulatory update on its BLA for Deramiocel, a key pipeline asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Capricor Therapeutics provided a regulatory update on its BLA for Deramiocel, a key pipeline asset.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capricor Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -290660,7 +291144,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5117,
+    "inbox_unconsumed": 5127,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -290669,9 +291153,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 178,
-    "news_picked_today": 30,
-    "news_dropped_today": 148
+    "news_seen_today": 206,
+    "news_picked_today": 40,
+    "news_dropped_today": 166
   },
   "book_momentum": {
     "live_count": 8,
