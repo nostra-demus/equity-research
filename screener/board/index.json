@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T18:24:13Z",
+  "generated_at": "2026-11-21T18:24:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-262",
@@ -252161,6 +252161,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-29b3246b56c4",
+      "idea_version": "IDEAV-2ff90efbf0410345",
+      "idea_version_started_at": "2026-11-21T18:24:30Z",
+      "ticker": "ABNB",
+      "company": "Airbnb",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a significant $12 billion share repurchase program supported by a 35% free cash flow margin, which will materially reduce the share count and improve earnings per share.",
+      "why_now": "The buyback was announced on 2026-11-21 and represents a major capital allocation shift that is currently being digested by the market.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c96e84b13565"
+      ],
+      "primary_source_event_id": "EVT-c96e84b13565",
+      "source_headlines": [
+        "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders."
+      ],
+      "source_headline": "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders.",
+      "source_url": "https://www.fool.com/investing/2026/11/21/airbnb-new-usd12-billion-buyback-is-backed-by-a-35-free-cash-flow-margin-what-it-means-for-shareholders/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 98,
+      "newest_source_at": "2026-11-21T17:55:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T18:24:30Z",
+      "updated_at": "2026-11-21T18:24:30Z",
+      "decay_at": "2026-11-23T05:55:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-92d1a3f96d27",
       "idea_version": "IDEAV-31abe718feda8c59",
       "idea_version_started_at": "2026-11-21T06:14:51Z",
@@ -292438,8 +292508,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2565,
-    "live_count": 39,
+    "surfaced_total": 2566,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
