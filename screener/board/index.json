@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-21T11:19:47Z",
+  "generated_at": "2026-11-21T11:29:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-216",
+      "headline": "New Orleans Catholic clergy abuse survivors begin receiving payments from $305m bankruptcy settlement",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/nov/21/new-orleans-catholic-clergy-abuse-settlement",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T11:00:57Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The Catholic Church in New Orleans is paying out a $305 million bankruptcy settlement to abuse survivors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Catholic Church in New Orleans is paying out a $305 million bankruptcy settlement to abuse survivors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Catholic Church New Orleans",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-215",
       "headline": "Indian billionaire PV Krishna Reddy raises $720 million in private credit for Megha buyout",
@@ -1918,56 +1967,6 @@
           "name": "Take-Two Interactive",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-107",
-      "headline": "IndusInd Bank fires former MD Kathpalia post internal probe, invokes clawback arrangement",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/banking/indusind-bank-fires-former-md-kathpalia-post-internal-probe-invokes-clawback-arrangement-11795214018177.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T03:23:24Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "IndusInd Bank terminated its former MD following an internal probe and initiated a clawback of compensation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "IndusInd Bank terminated its former MD following an internal probe and initiated a clawback of compensation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Bank",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -292096,9 +292095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2145,
-    "news_picked_today": 344,
-    "news_dropped_today": 1583
+    "news_seen_today": 2198,
+    "news_picked_today": 357,
+    "news_dropped_today": 1618
   },
   "book_momentum": {
     "live_count": 8,
