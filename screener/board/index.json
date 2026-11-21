@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T09:14:18Z",
+  "generated_at": "2026-11-21T09:43:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-212",
@@ -252574,76 +252574,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9cc12e17f41c",
-      "idea_version": "IDEAV-20fa7469878a06c5",
-      "idea_version_started_at": "2026-11-20T17:10:35Z",
-      "ticker": "ROST",
-      "company": "Ross Stores",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a revenue miss in its Q3 results, indicating potential weakness in consumer discretionary spending or inventory management issues.",
-      "why_now": "The earnings miss was reported on November 19, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9196e6797c1b"
-      ],
-      "primary_source_event_id": "EVT-9196e6797c1b",
-      "source_headlines": [
-        "Ross Shares Sink After Q3 Revenue Miss: Details"
-      ],
-      "source_headline": "Ross Shares Sink After Q3 Revenue Miss: Details",
-      "source_url": "https://www.benzinga.com/markets/earnings/26/11/63461051/ross-shares-sink-after-q3-revenue-miss-details",
-      "source_name": "Benzinga",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T21:38:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T17:10:35Z",
-      "updated_at": "2026-11-20T17:10:35Z",
-      "decay_at": "2026-11-21T09:38:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c1a1a479f11f",
       "idea_version": "IDEAV-448a2231571be149",
       "idea_version_started_at": "2026-11-21T03:54:43Z",
@@ -254217,6 +254147,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9cc12e17f41c",
+      "idea_version": "IDEAV-20fa7469878a06c5",
+      "idea_version_started_at": "2026-11-20T17:10:35Z",
+      "ticker": "ROST",
+      "company": "Ross Stores",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a revenue miss in its Q3 results, indicating potential weakness in consumer discretionary spending or inventory management issues.",
+      "why_now": "The earnings miss was reported on November 19, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9196e6797c1b"
+      ],
+      "primary_source_event_id": "EVT-9196e6797c1b",
+      "source_headlines": [
+        "Ross Shares Sink After Q3 Revenue Miss: Details"
+      ],
+      "source_headline": "Ross Shares Sink After Q3 Revenue Miss: Details",
+      "source_url": "https://www.benzinga.com/markets/earnings/26/11/63461051/ross-shares-sink-after-q3-revenue-miss-details",
+      "source_name": "Benzinga",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-19T21:38:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T17:10:35Z",
+      "updated_at": "2026-11-20T17:10:35Z",
+      "decay_at": "2026-11-21T09:38:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2326f7dbcde3",
       "idea_version": "IDEAV-43598f023ca713ab",
       "idea_version_started_at": "2026-11-20T11:56:26Z",
@@ -255010,9 +255010,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 511,
+    "total_count": 512,
     "shown_count": 499,
-    "hidden_count": 12,
+    "hidden_count": 13,
     "side_counts": {
       "long": {
         "total_count": 256,
@@ -255020,9 +255020,9 @@
         "hidden_count": 6
       },
       "short": {
-        "total_count": 256,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 6
+        "hidden_count": 7
       }
     },
     "retention": {
@@ -255041,6 +255041,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9cc12e17f41c",
+        "idea_version": "IDEAV-20fa7469878a06c5",
+        "idea_version_started_at": "2026-11-20T17:10:35Z",
+        "ticker": "ROST",
+        "company": "Ross Stores",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a revenue miss in its Q3 results, indicating potential weakness in consumer discretionary spending or inventory management issues.",
+        "why_now": "The earnings miss was reported on November 19, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9196e6797c1b"
+        ],
+        "primary_source_event_id": "EVT-9196e6797c1b",
+        "source_headlines": [
+          "Ross Shares Sink After Q3 Revenue Miss: Details"
+        ],
+        "source_headline": "Ross Shares Sink After Q3 Revenue Miss: Details",
+        "source_url": "https://www.benzinga.com/markets/earnings/26/11/63461051/ross-shares-sink-after-q3-revenue-miss-details",
+        "source_name": "Benzinga",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-19T21:38:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-20T17:10:35Z",
+        "updated_at": "2026-11-20T17:10:35Z",
+        "decay_at": "2026-11-21T09:38:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-21T09:38:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-05fbb0b04f21",
         "idea_version": "IDEAV-7222c7cfd38dd39f",
@@ -292071,87 +292144,12 @@
         "archived_at": "2026-10-28T02:32:27Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bbe6cce25e6c",
-        "idea_version": "IDEAV-65a2553ea34724e1",
-        "idea_version_started_at": "2026-10-25T02:18:41Z",
-        "ticker": "005380",
-        "company": "Hyundai Motor",
-        "exchange": "KRX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Combined China sales for Hyundai and Kia fell below the 10,000-unit threshold in September, signaling a near-total collapse of their market share in the world's largest auto market.",
-        "why_now": "September sales data confirming the sub-10k unit volume was just released on October 25, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d2b11f635530"
-        ],
-        "primary_source_event_id": "EVT-d2b11f635530",
-        "source_headlines": [
-          "Hyundai Motor, Kia's combined China sales fall below 10,000 units in Sept."
-        ],
-        "source_headline": "Hyundai Motor, Kia's combined China sales fall below 10,000 units in Sept.",
-        "source_url": "https://en.yna.co.kr/view/AEN20261025001900320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 87,
-        "newest_source_at": "2026-10-25T02:02:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T02:18:41Z",
-        "updated_at": "2026-10-25T02:18:41Z",
-        "decay_at": "2026-10-26T14:02:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T02:32:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2558,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -292170,9 +292168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1578,
-    "news_picked_today": 310,
-    "news_dropped_today": 1213
+    "news_seen_today": 1658,
+    "news_picked_today": 312,
+    "news_dropped_today": 1267
   },
   "book_momentum": {
     "live_count": 8,
