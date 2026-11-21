@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T11:55:17Z",
+  "generated_at": "2026-11-21T12:06:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-223",
@@ -252357,6 +252357,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3bb4c249dc6a",
+      "idea_version": "IDEAV-80cfd2a9f479994d",
+      "idea_version_started_at": "2026-11-21T12:06:31Z",
+      "ticker": "GOOGL",
+      "company": "Alphabet Inc",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A potential $3 billion payout to US schools for mental health litigation creates a direct, unprovisioned hit to cash reserves and earnings.",
+      "why_now": "The news of the $3 billion claim surfaced on 2026-11-21, creating immediate legal overhang.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2b3802f95364"
+      ],
+      "primary_source_event_id": "EVT-2b3802f95364",
+      "source_headlines": [
+        "YouTube faces $3 billion payout to US schools over claims of harming students' mental health"
+      ],
+      "source_headline": "YouTube faces $3 billion payout to US schools over claims of harming students' mental health",
+      "source_url": "https://www.livemint.com/companies/news/youtube-faces-3-billion-payout-to-us-schools-over-claims-of-harming-students-mental-health-11795258515140.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-21T11:38:42Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/GOOGL_2026-11-03",
+        "latest_decision": "Watchlist",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-21T12:06:31Z",
+      "updated_at": "2026-11-21T12:06:31Z",
+      "decay_at": "2026-11-22T23:38:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ee3dc3f385e7",
       "idea_version": "IDEAV-327dc089054a0f5c",
       "idea_version_started_at": "2026-11-21T00:45:32Z",
@@ -254709,77 +254779,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1f6d8cf01450",
-      "idea_version": "IDEAV-4bab69436492781d",
-      "idea_version_started_at": "2026-11-19T16:54:13Z",
-      "ticker": "00595",
-      "company": "AV Concept Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A positive profit alert signals better-than-expected earnings performance, likely leading to an upward revision in analyst estimates.",
-      "why_now": "The profit alert was filed on 2026-11-18, and the market typically reacts to such guidance updates in the following trading sessions.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b740cd2b8ac7"
-      ],
-      "primary_source_event_id": "EVT-b740cd2b8ac7",
-      "source_headlines": [
-        "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "AV CONCEPT HOLD (00595): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1118/2026111801347.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-18T11:51:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T16:54:13Z",
-      "updated_at": "2026-11-19T16:54:13Z",
-      "decay_at": "2026-11-19T23:51:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6bbcaece381e",
       "idea_version": "IDEAV-5718ddf365739bf3",
       "idea_version_started_at": "2026-11-19T15:44:22Z",
@@ -254933,14 +254932,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 515,
+    "total_count": 514,
     "shown_count": 499,
-    "hidden_count": 16,
+    "hidden_count": 15,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 7
       },
       "short": {
         "total_count": 258,
@@ -254950,12 +254949,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2010,
+      "evicted_count": 2011,
       "oldest_retained_at": "2026-10-26T01:24:25Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1304,
-          "oldest_retained_at": "2026-11-03T16:00:00Z"
+          "evicted_count": 1305,
+          "oldest_retained_at": "2026-11-03T16:01:25Z"
         },
         "short": {
           "evicted_count": 707,
@@ -256147,8 +256146,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-19T23:51:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-21T12:06:36Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -292070,8 +292069,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2558,
-    "live_count": 32,
+    "surfaced_total": 2559,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -292090,9 +292089,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2272,
+    "news_seen_today": 2381,
     "news_picked_today": 370,
-    "news_dropped_today": 1679
+    "news_dropped_today": 1727
   },
   "book_momentum": {
     "live_count": 8,
