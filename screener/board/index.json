@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-21T03:04:30Z",
+  "generated_at": "2026-11-21T03:20:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-105",
+      "headline": "IndusInd Bank terminates former CEO Sumant Kathpalia, seeks recovery of pay since 2020",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/indusind-bank-terminates-former-ceo-sumant-kathpalia-seeks-recovery-of-pay-since-2020/article71727165.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T03:11:06Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "IndusInd Bank has terminated its former CEO and is seeking a clawback of compensation, indicating significant internal governance or legal issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndusInd Bank has terminated its former CEO and is seeking a clawback of compensation, indicating significant internal governance or legal issues.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-102",
       "headline": "Crowd Pleaser….Crowdstrike Wants to Buy Zscaler",
@@ -1177,6 +1227,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-106",
+      "headline": "SoftBank’s Son explored US$1 trillion buyout of SK Hynix: report",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/softbanks-son-explored-us1-trillion-buyout-sk-hynix-report",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T03:14:12Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Reports indicate SoftBank explored a massive $1 trillion buyout of SK Hynix, which would be a transformative event for the semiconductor sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Reports indicate SoftBank explored a massive $1 trillion buyout of SK Hynix, which would be a transformative event for the semiconductor sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-058",
       "headline": "Dubai court orders doctor and hospital to pay Dh1.5 million to a patient left with permanent disability after spinal surgery",
       "headline_en": null,
@@ -1864,114 +1969,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-056",
-      "headline": "CMS issues Medicare Advantage proposals aimed at boosting competition",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/regulatory/cms-issues-medicare-advantage-proposals-aimed-boosting-competition",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:36:41Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "CMS proposals for Medicare Advantage impact the revenue and margin outlook for major health insurers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "CMS proposals for Medicare Advantage impact the revenue and margin outlook for major health insurers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "UnitedHealth Group",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Humana",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "CVS Health",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-044",
-      "headline": "Mumbai: BEST To End Wet-Lease Bus Model, 1,500 Electric Buses To Be Its Last Contract Under System",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/mumbai-best-to-end-wet-lease-bus-model-1500-electric-buses-to-be-its-last-contract-under-system",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T00:46:53Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "BEST is ending its wet-lease bus model, which will impact the operational structure and future procurement strategy for 1,500 electric buses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "BEST is ending its wet-lease bus model, which will impact the operational structure and future procurement strategy for 1,500 electric buses.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BEST",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291457,9 +291454,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 534,
-    "news_picked_today": 113,
-    "news_dropped_today": 397
+    "news_seen_today": 592,
+    "news_picked_today": 119,
+    "news_dropped_today": 427
   },
   "book_momentum": {
     "live_count": 8,
