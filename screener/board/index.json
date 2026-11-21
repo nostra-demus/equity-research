@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-21T07:45:08Z",
+  "generated_at": "2026-11-21T07:53:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-195",
+      "headline": "IndusInd Bank terminates former CEO Sumant Kathpalia’s employment, seeks recovery of pay since 2020",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/indusind-bank-terminates-former-ceo-sumant-kathpalia-seeks-recovery-of-pay-since-2020/article71727165.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T07:45:11Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "IndusInd Bank terminated its former CEO and is seeking recovery of pay, indicating significant governance or legal issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndusInd Bank terminated its former CEO and is seeking recovery of pay, indicating significant governance or legal issues.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-186",
       "headline": "Who is Sumant Kathpalia, why has IndusInd Bank terminated him, and what is behind its clawback move? Explained",
@@ -402,56 +452,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-105",
-      "headline": "IndusInd Bank terminates former CEO Sumant Kathpalia, seeks recovery of pay since 2020",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/indusind-bank-terminates-former-ceo-sumant-kathpalia-seeks-recovery-of-pay-since-2020/article71727165.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T03:11:06Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "IndusInd Bank has terminated its former CEO and is seeking a clawback of compensation, indicating significant internal governance or legal issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IndusInd Bank has terminated its former CEO and is seeking a clawback of compensation, indicating significant internal governance or legal issues.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291877,9 +291877,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1326,
-    "news_picked_today": 264,
-    "news_dropped_today": 1016
+    "news_seen_today": 1354,
+    "news_picked_today": 270,
+    "news_dropped_today": 1038
   },
   "book_momentum": {
     "live_count": 8,
