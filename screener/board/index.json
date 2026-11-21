@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-21T06:15:07Z",
+  "generated_at": "2026-11-21T06:19:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261121-184",
+      "headline": "CrowdStrike in talks to acquire Zscaler, sources say",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/crowdstrike-in-talks-to-acquire-zscaler-sources-say/article71727400.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T06:11:02Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "CrowdStrike is reportedly in talks to acquire Zscaler, representing a major potential M&A event in the cybersecurity sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CrowdStrike is reportedly in talks to acquire Zscaler, representing a major potential M&A event in the cybersecurity sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CrowdStrike",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Zscaler",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261121-152",
       "headline": "IndusInd Bank Terminates Former CEO Sumant Kathpalia's Employment, Invokes Clawback Provisions Over Accounting Lapses",
@@ -1853,99 +1907,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261121-182",
-      "headline": "Bloom Bags $75 Million Funding From Kedaara Capital, Sets Sights On 12,000 Hotel Rooms With AI-Powered Expansion",
+      "inbox_id": "INB-20261121-185",
+      "headline": "After Its Worst Week in 18 Years, Nvidia Now Faces an SEC Investigation. What It Means for Investors",
       "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/bloom-bags-75-million-funding-from-kedaara-capital-sets-sights-on-12000-hotel-rooms-with-ai-powered-expansion",
-      "source_name": "Free Press Journal",
+      "url": "https://www.fool.com/investing/2026/11/21/after-its-worst-week-in-18-years-nvidia-now-faces-an-sec-investigation-what-it-means-for-investors/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "input_nature": "news_headline",
-      "found_at": "2026-11-21T05:47:36Z",
+      "found_at": "2026-11-21T06:10:05Z",
       "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Bloom secured $75 million in funding for AI-powered expansion, indicating significant growth investment.",
+      "prelim_note": "Nvidia is facing an SEC investigation, which introduces regulatory and legal risk for the company.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "Bloom secured $75 million in funding for AI-powered expansion, indicating significant growth investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bloom",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-117",
-      "headline": "MasTec, Inc. Enters into 364-Day Term Loan Agreement and Borrows $1,250 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/mastec-inc-enters-364-day-term-loan-agreement-and-borrows-1250-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T03:08:43Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "MasTec entered a loan agreement and borrowed $1,250 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "MasTec entered a loan agreement and borrowed $1,250 million.",
+      "triage_reason": "Nvidia is facing an SEC investigation, which introduces regulatory and legal risk for the company.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 0,
         "scope": 6,
-        "event": 7,
-        "size": 1,
+        "event": 6,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "debt_credit"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "MasTec, Inc.",
+          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291858,9 +291863,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1048,
-    "news_picked_today": 234,
-    "news_dropped_today": 768
+    "news_seen_today": 1059,
+    "news_picked_today": 236,
+    "news_dropped_today": 777
   },
   "book_momentum": {
     "live_count": 8,
