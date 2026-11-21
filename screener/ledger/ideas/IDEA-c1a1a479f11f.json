@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-c1a1a479f11f",
+  "idea_version": "IDEAV-448a2231571be149",
+  "idea_version_started_at": "2026-11-21T03:54:43Z",
+  "ticker": "HMC",
+  "company": "Honda Motor Co., Ltd.",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The recall of 810,000 vehicles creates significant warranty and remediation costs that will weigh on near-term operating margins.",
+  "why_now": "The recall was announced on 2026-11-21, and the financial impact of such a large-scale safety action is typically immediate.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 65,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-9ef795229e97"
+  ],
+  "primary_source_event_id": "EVT-9ef795229e97",
+  "source_headlines": [
+    "Honda to recall 810,000 US vehicles over Takata air bag rupture risk"
+  ],
+  "source_headline": "Honda to recall 810,000 US vehicles over Takata air bag rupture risk",
+  "source_url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/honda-recall-810000-us-vehicles-over-takata-air-bag-rupture-risk",
+  "source_name": "The Business Times (Singapore)",
+  "materiality_max": 94,
+  "newest_source_at": "2026-11-21T01:46:45Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-21T03:54:43Z",
+  "updated_at": "2026-11-21T03:54:43Z",
+  "decay_at": "2026-11-22T13:46:45Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
