@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T04:04:48Z",
+  "generated_at": "2026-11-21T04:14:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-121",
@@ -1033,6 +1033,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-122",
+      "headline": "‘A new record for entertainment’: Grand Theft Auto VI sales hit $3.8bn on first day of release, developer says",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/games/2026/nov/21/a-new-record-for-entertainment-grand-theft-auto-vi-sales-hit-38bn-on-first-day-of-release-developer-says",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T03:51:03Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Take-Two Interactive reported $3.8 billion in first-day sales for GTA VI, a significant revenue milestone for the gaming sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Take-Two Interactive reported $3.8 billion in first-day sales for GTA VI, a significant revenue milestone for the gaming sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-107",
       "headline": "IndusInd Bank fires former MD Kathpalia post internal probe, invokes clawback arrangement",
       "headline_en": null,
@@ -1174,6 +1223,55 @@
           "name": "IndusInd Bank",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-123",
+      "headline": "Anthropic pulls off mega IPO amid AI slump, gold tumbles: Markets this week",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/anthropic-pulls-off-mega-ipo-amid-ai-slump-gold-tumbles-markets-this-week",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Anthropic's IPO performance and broader AI sector volatility are material to market sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Anthropic's IPO performance and broader AI sector volatility are material to market sentiment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1866,104 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-042",
-      "headline": "Sinhgad Education Society Case: Bombay HC Suspects State Officials' Role In Fund Diversion, Orders Probe Into 44 Institutions",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/sinhgad-education-society-case-bombay-hc-suspects-state-officials-role-in-fund-diversion-orders-probe-into-44-institutions",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T00:21:38Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "The Bombay High Court has ordered a probe into 44 institutions managed by the Sinhgad Education Society regarding alleged fund diversion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The Bombay High Court has ordered a probe into 44 institutions managed by the Sinhgad Education Society regarding alleged fund diversion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sinhgad Education Society",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-062",
-      "headline": "Michael Burry Says He Tried to Warn You About Nebius. The Stock Just Crashed 16% and Is 72% Below Its Record",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/20/michael-burry-says-he-tried-to-warn-you-about-nebius-the-stock-just-crashed-16-and-is-72-below-its-record/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:44:08Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Nebius stock experienced a 16% decline following negative commentary from a prominent investor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Nebius stock experienced a 16% decline following negative commentary from a prominent investor.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nebius Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291661,9 +291661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 674,
-    "news_picked_today": 144,
-    "news_dropped_today": 484
+    "news_seen_today": 702,
+    "news_picked_today": 147,
+    "news_dropped_today": 509
   },
   "book_momentum": {
     "live_count": 8,
