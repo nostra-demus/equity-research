@@ -42,8 +42,14 @@ _MONTHS = {m: i + 1 for i, m in enumerate(
 def due_date_from_text(text):
     """The date a window CLOSES, read out of free text (the ledger's own convention, e.g. 'Q2 2026
     earnings July 31, 2026' / 'FY2026 results release (~March 2027)'). ISO date, 'Month DD, YYYY',
-    or bare 'Month YYYY' (closes on the 28th, the only day every month has). None if undateable."""
+    bare 'Month YYYY' (closes on the 28th, the only day every month has), or an approximate
+    'early/mid/late YYYY' (read at its latest plausible close). None if undateable."""
     tw = str(text or "")
+    # A RANGE ('2026-11-01 to 2026-11-30') closes on its SECOND date. Reading the first one calls the
+    # forecast due on the day its window opens — a false "overdue" for the whole length of the window.
+    m = re.search(r"\d{4}-\d{2}-\d{2}\s*(?:to|through|thru|until|till|[-–—/])\s*(\d{4}-\d{2}-\d{2})", tw, re.I)
+    if m and isdate(m.group(1)):
+        return m.group(1)
     m = re.search(r"(\d{4})-(\d{2})-(\d{2})", tw)
     if m and isdate(m.group(0)):
         return m.group(0)
@@ -57,15 +63,27 @@ def due_date_from_text(text):
     m = re.search(r"([A-Za-z]{3,9})\s+(\d{4})", tw)
     if m and m.group(1)[:3].lower() in _MONTHS:
         return f"{m.group(2)}-{_MONTHS[m.group(1)[:3].lower()]:02d}-28"
+    # The ledger's approximate form ('~mid-2026', 'By mid-2028', 'late 2027'). An approximate window is
+    # read at its LATEST plausible close — early = end of April, mid = end of August, late/end = year end —
+    # so a forecast is never called overdue while the phrase could still be running, but is no longer
+    # dropped as undated once the whole span has passed.
+    m = re.search(r"\b(early|mid|late|end)(?:[-\s]+of)?[-\s]+(\d{4})\b", tw, re.I)
+    if m:
+        return f"{m.group(2)}-{ {'early': '04-30', 'mid': '08-31', 'late': '12-31', 'end': '12-31'}[m.group(1).lower()]}"
     return None
 
 def _as_due_date(entry):
-    """forecast_ledger's own due date: prefers an explicit resolve/due field, else free-text
-    time_window."""
+    """forecast_ledger's own due date: prefers an explicit resolve/due field, then the explicit
+    `window_end`, else free-text time_window."""
     for k in ("resolves_on", "due_date", "resolve_by"):
         v = entry.get(k)
         if isdate(v):
             return v
+    # `window_end` is the ledger's own machine-readable close ('2026-11-30' or '2026-11-30T23:59:59Z').
+    # It outranks the free text: the window is open until it ends, whatever date the text mentions first.
+    we = entry.get("window_end")
+    if isinstance(we, str) and isdate(we[:10]):
+        return we[:10]
     return due_date_from_text(entry.get("time_window"))
 
 AS_RESOLVED = ("confirmed", "falsified", "expired", "resolved", "closed", "superseded", "void", "withdrawn")
