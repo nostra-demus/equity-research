@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-1b7dc9255e43",
+  "idea_version": "IDEAV-60f00ed73b861ceb",
+  "idea_version_started_at": "2026-11-21T00:24:13Z",
+  "ticker": "SHFS",
+  "company": "SHF Holdings, Inc.",
+  "exchange": "OID",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company is facing immediate delisting from the Nasdaq and a transition to OTC markets, which typically triggers forced institutional selling and a significant loss of liquidity.",
+  "why_now": "The delisting announcement and conversion of Series B Preferred Stock are active catalysts as of November 20, 2024.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-8aa9dada2ed1"
+  ],
+  "primary_source_event_id": "EVT-8aa9dada2ed1",
+  "source_headlines": [
+    "SHF Holdings, Inc. Announces Nasdaq Delisting, OTC Quotation, and Conversion of Series B Convertible Preferred Stock"
+  ],
+  "source_headline": "SHF Holdings, Inc. Announces Nasdaq Delisting, OTC Quotation, and Conversion of Series B Convertible Preferred Stock",
+  "source_url": "https://www.nasdaq.com/articles/shf-holdings-inc-announces-nasdaq-delisting-otc-quotation-and-conversion-series-b",
+  "source_name": "Nasdaq",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-20T23:49:04Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-21T00:24:13Z",
+  "updated_at": "2026-11-21T00:24:13Z",
+  "decay_at": "2026-11-22T11:49:04Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
