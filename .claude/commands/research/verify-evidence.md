@@ -195,6 +195,7 @@ For each finding: `verdict_word`, `claim` (as published, with location), `metric
   - **Minor issues** — only low/medium flags; the decision is unaffected.
   - **Material issues** — a high flag, or an anchor/math break that could move the decision; treat the run's rating as provisional until resolved.
   - **Failed** — any fabricated/unsupported number that drives the rating, OR a broken core scenario-math. A Failed dossier cannot be trusted as-is.
+- **The verdict is floored by your own findings — mechanically (check BM, `scripts/verify_evidence_checks.py`).** Any `claim_checks` / `fidelity_checks` / `contradiction_checks` row at severity `high` or `critical` forbids `Clean` and `Minor issues`; any `medium` row, any `math_checks` row with `ties: false`, or any `anchor_checks` row with `consistent: false` forbids `Clean`. The `/research:full` finish-gate and `/research:eval` both recompute this floor from the arrays and treat a softer verdict as a failed audit (thesis stamped PROVISIONAL). If you believe a finding does not merit its severity, change the severity and say why in `detail` — never keep the severity and soften the verdict.
 - `blocking_findings`: the specific findings that force Material/Failed. Do not soften a fabrication or a broken scenario-math.
 
 ## 6. Write the report (append-only)

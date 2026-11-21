@@ -1328,7 +1328,7 @@ PY
 
 Record BOTH the `RATING-CAP:` and `HAIRCUT:` lines for step 11 ("Integrity gate"). If the pre-mortem applied a haircut and/or a rating cap, the RUN_METADATA integrity-gate entry should read e.g. `pre-mortem: Survives with haircut (confidence 70 → 64); RATING-CAP: non-terminal` or `pre-mortem: Thesis broken (confidence 65 → 20); RATING-CAP: terminal → post_mortem_decision=Watchlist`.
 
-**Stamp the thesis PROVISIONAL on a missing or non-clean truth-integrity audit (finish-gate F30).** A `Failed` / `Material issues` verdict — OR a verify-evidence that did not run at all — must mark the published thesis UNVERIFIED, not merely be noted in step 13. This is the exact hole the TMCV 2026-06-14 run fell through: no `verification_report.json` was produced and the thesis shipped clean, so all of its citation/anchor/math defects went unflagged. This block also mechanizes check AZ (CLAUDE.md §3 named-metric contradiction sweep, via `scripts/verify_evidence_checks.py`, the same shared detection module `scripts/eval.py` uses for retrospective grading): a `verification_report.json` that reads verdict `Clean`/`Minor issues` but never carries Section C3's `contradiction_checks[]` at all — an omitted §3 sweep, not a failed one — must ALSO mark the thesis PROVISIONAL, not ship silently on the strength of an unrelated-to-contradictions verdict alone. Run this deterministic stamp AFTER verify-evidence + pre-mortem complete; it composes with the 10B.1 banner (merges reasons) and is idempotent across re-runs:
+**Stamp the thesis PROVISIONAL on a missing or non-clean truth-integrity audit (finish-gate F30).** A `Failed` / `Material issues` verdict — OR a verify-evidence that did not run at all — must mark the published thesis UNVERIFIED, not merely be noted in step 13. This is the exact hole the TMCV 2026-06-14 run fell through: no `verification_report.json` was produced and the thesis shipped clean, so all of its citation/anchor/math defects went unflagged. This block also mechanizes check AZ (CLAUDE.md §3 named-metric contradiction sweep, via `scripts/verify_evidence_checks.py`, the same shared detection module `scripts/eval.py` uses for retrospective grading): a `verification_report.json` that reads verdict `Clean`/`Minor issues` but never carries Section C3's `contradiction_checks[]` at all — an omitted §3 sweep, not a failed one — must ALSO mark the thesis PROVISIONAL, not ship silently on the strength of an unrelated-to-contradictions verdict alone. It also mechanizes check BM (the verify-evidence verdict floor, same module): the verdict string is written by the same pass that wrote the findings, so a report whose own arrays carry a `high`/`critical` finding but which closes `Minor issues` or `Clean` — or that carries a `medium` finding or a math/anchor break and closes `Clean` — is a softened verdict per `verify-evidence.md` §5 and is stamped PROVISIONAL exactly like a `Material issues` verdict. Run this deterministic stamp AFTER verify-evidence + pre-mortem complete; it composes with the 10B.1 banner (merges reasons) and is idempotent across re-runs:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -1346,6 +1346,7 @@ vrs = sorted([p for p in glob.glob(os.path.join(run, "verification_report*.json"
               if re.fullmatch(r"verification_report(_v\d+)?", os.path.basename(p)[:-5])], key=_vn)
 verify_reason = None
 az_reason = None
+bm_reason = None
 # check AZ (§3 named-metric contradiction sweep — CLAUDE.md §3, via scripts/verify_evidence_checks.py,
 # mirrors eval.py check AZ). F30 above only ever inspected the top-level `verdict` string — a report
 # that parses fine and reads "Clean" but never carries Section C3's `contradiction_checks[]` at all
@@ -1368,6 +1369,13 @@ else:
         if vec.eval_az_contradiction_sweep(_live_date, v) == "fail":
             az_reason = (f"{os.path.basename(vrs[-1])} has no 'contradiction_checks' array — Section C3 "
                          "(the §3 named-metric contradiction sweep) was not run or was omitted")
+        # check BM (verify-evidence verdict floor — verify-evidence.md §5, via scripts/verify_evidence_checks.py,
+        # mirrors eval.py check BM). The test above trusts the verdict STRING; this one checks it against the
+        # report's own findings, so a report that lists a high/critical finding but closes "Minor issues"
+        # (or lists a math/anchor break but closes "Clean") cannot print GATE-VERIFY: PASS. `_live_date`, as AZ.
+        _bm, _bm_r = vec.eval_bm_verdict_floor(_live_date, v)
+        if _bm == "fail":
+            bm_reason = f"verify-evidence verdict softer than its own findings ({os.path.basename(vrs[-1])}): " + "; ".join(_bm_r)
     except Exception as e:
         verify_reason = f"verification_report.json unreadable ({e}) — truth-integrity not confirmed"
 # Strip any existing finish-gate banner (from 10B.1), recover its reasons, merge, re-stamp (idempotent).
@@ -1385,6 +1393,7 @@ if i < len(lines) and lines[i].startswith(">") and MARK in "\n".join(lines[i:i+6
                    if r.strip() and not any(t in r for t in ("verify-evidence", "truth-integrity audit", "verification_report", "contradiction_checks", "Section C3"))]
 if verify_reason and verify_reason not in reasons: reasons.append(verify_reason)
 if az_reason and az_reason not in reasons: reasons.append(az_reason)
+if bm_reason and bm_reason not in reasons: reasons.append(bm_reason)
 if reasons:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(reasons) + "\n>\n> Resolve the flagged items — re-run the synthesizer §14 math and/or the truth-integrity audit (`/research:verify-evidence`) — and re-publish before relying on these numbers. (CLAUDE.md §3/§5/§10/§15; finish-gate F01/F17/F30.)\n\n")
