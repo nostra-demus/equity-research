@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T08:03:21Z",
+  "generated_at": "2026-11-21T08:10:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-195",
@@ -1144,6 +1144,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-200",
+      "headline": "Taiwan Bans Short Sales of Stocks in New Move to Calm Markets",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-21/taiwan-bans-short-sales-of-stocks-in-new-move-to-calm-markets",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T07:53:21Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "The Taiwan government has implemented a ban on short selling to stabilize the equity market, which significantly impacts market liquidity and trading operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The Taiwan government has implemented a ban on short selling to stabilize the equity market, which significantly impacts market liquidity and trading operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-072",
       "headline": "Saudi Arabia to introduce 15% minimum tax on multinational companies from 2027",
       "headline_en": null,
@@ -1927,55 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-133",
-      "headline": "Harmony Capital Takes Control Of Truvolt Engineering With 50.64% Stake, ₹82.88 Crore Share Swap Deal Marks Major Expansion",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/harmony-capital-takes-control-of-truvolt-engineering-with-5064-stake-8288-crore-share-swap-deal-marks-major-expansion",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T04:17:02Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Harmony Capital acquired a controlling 50.64% stake in Truvolt Engineering via a ₹82.88 crore share swap deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Harmony Capital acquired a controlling 50.64% stake in Truvolt Engineering via a ₹82.88 crore share swap deal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Truvolt Engineering",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -291888,9 +291882,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1385,
-    "news_picked_today": 276,
-    "news_dropped_today": 1063
+    "news_seen_today": 1393,
+    "news_picked_today": 277,
+    "news_dropped_today": 1070
   },
   "book_momentum": {
     "live_count": 8,
