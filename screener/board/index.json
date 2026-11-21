@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T00:49:28Z",
+  "generated_at": "2026-11-21T00:58:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-015",
@@ -494,6 +494,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-028",
+      "headline": "Honda to recall 810,000 U.S. vehicles over Takata air bag rupture risk",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/21/honda-us-airbag-recall/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Honda is recalling 810,000 vehicles in the U.S. due to safety risks associated with Takata air bags.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Honda is recalling 810,000 vehicles in the U.S. due to safety risks associated with Takata air bags.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-024",
       "headline": "Freight train derails near Sejong, leaving Saemaeul, Mugunghwa services suspended",
       "headline_en": null,
@@ -537,6 +586,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-030",
+      "headline": "Trump threatens ‘tremendous tax’ on US firms building AI data centres overseas",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/united-states-canada/article/3375303/trump-threatens-tremendous-tax-us-firms-building-ai-data-centres-overseas",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T00:48:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "President-elect Trump threatened significant taxes on U.S. firms building AI data centers overseas, impacting global supply chain strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "President-elect Trump threatened significant taxes on U.S. firms building AI data centers overseas, impacting global supply chain strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1039,6 +1131,55 @@
           "name": "Copper One",
           "ticker": null,
           "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-029",
+      "headline": "Infinity Bancorp Announces Closing of $7.8 Million Subordinated Note Offering | INFT Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/INFT/infinity-bancorp-announces-closing-of-7-8-million-subordinated-note-hm64189fjns3.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-21T00:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Infinity Bancorp closed a $7.8 million subordinated note offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Infinity Bancorp closed a $7.8 million subordinated note offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infinity Bancorp",
+          "ticker": "INFT",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -252647,77 +252788,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e4878a658d1f",
-      "idea_version": "IDEAV-40e8228637fcae8d",
-      "idea_version_started_at": "2026-11-20T10:55:45Z",
-      "ticker": "00377",
-      "company": "China Huajun Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing bankruptcy liquidation proceedings against a subsidiary, signaling severe financial distress and potential impairment of group assets.",
-      "why_now": "The filing was released on 2026-11-19.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4fcb62c06b95"
-      ],
-      "primary_source_event_id": "EVT-4fcb62c06b95",
-      "source_headlines": [
-        "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY"
-      ],
-      "source_headline": "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901261.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T12:51:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T10:55:45Z",
-      "updated_at": "2026-11-20T10:55:45Z",
-      "decay_at": "2026-11-21T00:51:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e3d96e3a636a",
       "idea_version": "IDEAV-b3eb3b51c464a4a3",
       "idea_version_started_at": "2026-11-19T19:29:33Z",
@@ -252853,6 +252923,77 @@
       "surfaced_at": "2026-11-19T19:29:33Z",
       "updated_at": "2026-11-19T19:29:33Z",
       "decay_at": "2026-11-21T00:27:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e4878a658d1f",
+      "idea_version": "IDEAV-40e8228637fcae8d",
+      "idea_version_started_at": "2026-11-20T10:55:45Z",
+      "ticker": "00377",
+      "company": "China Huajun Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing bankruptcy liquidation proceedings against a subsidiary, signaling severe financial distress and potential impairment of group assets.",
+      "why_now": "The filing was released on 2026-11-19.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4fcb62c06b95"
+      ],
+      "primary_source_event_id": "EVT-4fcb62c06b95",
+      "source_headlines": [
+        "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY"
+      ],
+      "source_headline": "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901261.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-19T12:51:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T10:55:45Z",
+      "updated_at": "2026-11-20T10:55:45Z",
+      "decay_at": "2026-11-21T00:51:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -253369,9 +253510,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 508,
+    "total_count": 509,
     "shown_count": 499,
-    "hidden_count": 9,
+    "hidden_count": 10,
     "side_counts": {
       "long": {
         "total_count": 257,
@@ -253379,9 +253520,9 @@
         "hidden_count": 7
       },
       "short": {
-        "total_count": 252,
+        "total_count": 253,
         "shown_count": 250,
-        "hidden_count": 2
+        "hidden_count": 3
       }
     },
     "retention": {
@@ -253400,6 +253541,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e4878a658d1f",
+        "idea_version": "IDEAV-40e8228637fcae8d",
+        "idea_version_started_at": "2026-11-20T10:55:45Z",
+        "ticker": "00377",
+        "company": "China Huajun Group",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing bankruptcy liquidation proceedings against a subsidiary, signaling severe financial distress and potential impairment of group assets.",
+        "why_now": "The filing was released on 2026-11-19.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4fcb62c06b95"
+        ],
+        "primary_source_event_id": "EVT-4fcb62c06b95",
+        "source_headlines": [
+          "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY"
+        ],
+        "source_headline": "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901261.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-19T12:51:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-20T10:55:45Z",
+        "updated_at": "2026-11-20T10:55:45Z",
+        "decay_at": "2026-11-21T00:51:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-21T00:51:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0991422acdb8",
         "idea_version": "IDEAV-e7411fe2b66f63e0",
@@ -290430,85 +290645,12 @@
         "archived_at": "2026-10-28T02:32:27Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0157f621dab9",
-        "idea_version": "IDEAV-8b3d415a029aec76",
-        "idea_version_started_at": "2026-10-24T23:13:43Z",
-        "ticker": "VLVLY",
-        "company": "Volvo",
-        "exchange": "OTC Markets",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The announcement of an additional 2,500 job cuts following previous layoffs signals persistent structural cost issues and weak demand.",
-        "why_now": "The restructuring news was reported on 2026-10-24.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b0b68f30e984"
-        ],
-        "primary_source_event_id": "EVT-b0b68f30e984",
-        "source_headlines": [
-          "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings"
-        ],
-        "source_headline": "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings",
-        "source_url": "https://www.ndtvprofit.com/business/volvo-plans-2-500-more-job-cuts-after-3-000-layoffs-targets-500-million-savings-12230852#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T15:46:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T23:13:43Z",
-        "updated_at": "2026-10-24T23:13:43Z",
-        "decay_at": "2026-10-26T03:46:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T16:00:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2544,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -290518,7 +290660,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5114,
+    "inbox_unconsumed": 5117,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -290527,9 +290669,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 155,
-    "news_picked_today": 27,
-    "news_dropped_today": 128
+    "news_seen_today": 178,
+    "news_picked_today": 30,
+    "news_dropped_today": 148
   },
   "book_momentum": {
     "live_count": 8,
