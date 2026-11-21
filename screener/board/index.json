@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T02:24:14Z",
+  "generated_at": "2026-11-21T02:29:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-073",
@@ -1867,6 +1867,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-080",
+      "headline": "Theriva Biologics, Inc. Announces 1-for-30 Reverse Stock Split",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/theriva-biologics-inc-announces-1-30-reverse-stock-split",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T01:58:38Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "Theriva Biologics is executing a 1-for-30 reverse stock split to maintain Nasdaq listing compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Theriva Biologics is executing a 1-for-30 reverse stock split to maintain Nasdaq listing compliance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Theriva Biologics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-067",
       "headline": "BrenX Ltd. Received Additional Subsequent Funding Notice of $1,000,000",
       "headline_en": null,
@@ -1908,56 +1957,6 @@
           "name": "BrenX Ltd.",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-052",
-      "headline": "NextCure, Inc. Announces Record Date and Distribution Date for Pre-Closing Distribution of Contingent Value Rights",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nextcure-inc-announces-record-date-and-distribution-date-pre-closing-distribution",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:00:31Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "NextCure announced pre-closing distribution of Contingent Value Rights tied to an undisclosed merger or acquisition, restructuring shareholder equity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "NextCure announced pre-closing distribution of Contingent Value Rights tied to an undisclosed merger or acquisition, restructuring shareholder equity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 61,
-      "rank_factors": {
-        "materiality": 61,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextCure, Inc.",
-          "ticker": "NXTR",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -291446,9 +291445,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 455,
-    "news_picked_today": 85,
-    "news_dropped_today": 346
+    "news_seen_today": 460,
+    "news_picked_today": 86,
+    "news_dropped_today": 350
   },
   "book_momentum": {
     "live_count": 8,
