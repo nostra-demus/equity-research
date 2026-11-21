@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T12:29:24Z",
+  "generated_at": "2026-11-21T12:38:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-223",
@@ -1255,6 +1255,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261121-224",
+      "headline": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/markets/2026/11/21/ether-treasury-firm-btcs-warns-sec-its-usd54-million-aave-loan-could-be-liquidated",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T12:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "BTCS warns SEC of $54 million Aave loan liquidation risk, flagging potential solvency distress and collateral loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "BTCS warns SEC of $54 million Aave loan liquidation risk, flagging potential solvency distress and collateral loss.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BTCS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261121-201",
       "headline": "Indonesia regulator fines and sanctions firms for stock manipulation, disclosure failures",
       "headline_en": null,
@@ -1915,56 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-059",
-      "headline": "Honda to recall 810,000 US vehicles over Takata air bag rupture risk",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/honda-recall-810000-us-vehicles-over-takata-air-bag-rupture-risk",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T01:46:45Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Honda is recalling 810,000 vehicles due to safety risks associated with Takata air bags.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Honda is recalling 810,000 vehicles due to safety risks associated with Takata air bags.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda Motor Co., Ltd.",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -292089,9 +292089,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2556,
-    "news_picked_today": 386,
-    "news_dropped_today": 1873
+    "news_seen_today": 2596,
+    "news_picked_today": 388,
+    "news_dropped_today": 1891
   },
   "book_momentum": {
     "live_count": 8,
