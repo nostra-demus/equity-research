@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T02:44:55Z",
+  "generated_at": "2026-11-21T02:55:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261121-090",
@@ -781,6 +781,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261121-101",
+      "headline": "China’s BYD banned from selling ‘copycat Land Rover’ in Europe",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/europe/chinas-byd-banned-from-selling-copycat-land-rover-in-europe-20261121-p61g5o?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-21T02:48:11Z",
+      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
+      "prelim_note": "China's BYD has been banned from selling a 'copycat Land Rover' in Europe, indicating a legal or regulatory setback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "China's BYD has been banned from selling a 'copycat Land Rover' in Europe, indicating a legal or regulatory setback.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,49 +1953,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261121-022",
-      "headline": "Trump Vows To Tax US Companies Building Data Centers Abroad",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-21/balance-of-power-late-edition-11-20-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-21T00:10:11Z",
-      "sweep_file": "screener/inbox/2026-11-21_sweep.json",
-      "prelim_note": "Proposed tax policy on data centers built abroad creates significant regulatory and operational risk for tech companies with global infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Proposed tax policy on data centers built abroad creates significant regulatory and operational risk for tech companies with global infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -291445,9 +291451,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 492,
-    "news_picked_today": 97,
-    "news_dropped_today": 371
+    "news_seen_today": 517,
+    "news_picked_today": 109,
+    "news_dropped_today": 384
   },
   "book_momentum": {
     "live_count": 8,
