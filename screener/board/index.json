@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T16:24:58Z",
+  "generated_at": "2026-11-22T16:36:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-222",
@@ -254034,6 +254034,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-887dbee70f05",
+      "idea_version": "IDEAV-6bcd5298396f8974",
+      "idea_version_started_at": "2026-11-22T16:36:20Z",
+      "ticker": "INTC",
+      "company": "Intel",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of 7,300 additional layoffs signals deeper-than-expected operational distress and a failure to stabilize the core business, likely leading to further downward revisions in earnings expectations.",
+      "why_now": "The restructuring news was released on 2026-11-22, confirming ongoing structural challenges.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-593da566f10f"
+      ],
+      "primary_source_event_id": "EVT-593da566f10f",
+      "source_headlines": [
+        "Intel announces more layoffs as workforce shrinks by 7,300"
+      ],
+      "source_headline": "Intel announces more layoffs as workforce shrinks by 7,300",
+      "source_url": "https://www.thestreet.com/technology/intel-announces-more-layoffs-as-workforce-shrinks-by-7300",
+      "source_name": "TheStreet",
+      "materiality_max": 92,
+      "newest_source_at": "2026-11-22T16:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T16:36:20Z",
+      "updated_at": "2026-11-22T16:36:20Z",
+      "decay_at": "2026-11-24T04:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-89d7962b5610",
       "idea_version": "IDEAV-51d450ec99fc6852",
       "idea_version_started_at": "2026-11-21T12:49:26Z",
@@ -254658,6 +254728,78 @@
       "surfaced_at": "2026-11-22T02:35:18Z",
       "updated_at": "2026-11-22T02:35:18Z",
       "decay_at": "2026-11-23T14:12:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f33196d04c4f",
+      "idea_version": "IDEAV-c25648f6b131ea6d",
+      "idea_version_started_at": "2026-11-22T16:36:20Z",
+      "ticker": "JLR",
+      "company": "Jaguar Land Rover",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The EU court injunction against BYD's SUV model removes a direct, lower-priced competitor to Jaguar Land Rover's Defender, protecting their market share and pricing power in the European luxury SUV segment.",
+      "why_now": "The court ruling was issued on 2026-11-22, creating an immediate barrier to entry for the competing product.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-095d469798b5"
+      ],
+      "primary_source_event_id": "EVT-095d469798b5",
+      "source_headlines": [
+        "Court bans China’s BYD from selling ‘Defender clone’ SUV in EU"
+      ],
+      "source_headline": "Court bans China’s BYD from selling ‘Defender clone’ SUV in EU",
+      "source_url": "https://www.theguardian.com/business/2026/nov/22/court-bans-china-byd-selling-defender-clone-suv-in-eu",
+      "source_name": "The Guardian — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T15:43:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T16:36:20Z",
+      "updated_at": "2026-11-22T16:36:20Z",
+      "decay_at": "2026-11-24T03:43:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -297298,8 +297440,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2612,
-    "live_count": 55,
+    "surfaced_total": 2614,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -297318,7 +297460,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2387,
+    "news_seen_today": 2403,
     "news_picked_today": 464,
     "news_dropped_today": 1872
   },
