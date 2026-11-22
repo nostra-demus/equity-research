@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T11:54:24Z",
+  "generated_at": "2026-11-22T12:05:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-186",
@@ -1599,6 +1599,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-194",
+      "headline": "Elon Musk’s SpaceX is betting $74 billion on AI data centers. Texas and Arizona want to know who pays for the power",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/22/spacex-74-billion-ai-data-centers-texas-arizona-who-pays/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T11:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "SpaceX is planning a $74 billion investment in AI data centers, raising significant regulatory and infrastructure cost concerns for local power grids.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "SpaceX is planning a $74 billion investment in AI data centers, raising significant regulatory and infrastructure cost concerns for local power grids.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-104",
       "headline": "What tools does New World have to slash debts after its HK$24.9 billion rights issue?",
       "headline_en": null,
@@ -1797,6 +1847,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-196",
+      "headline": "Who is Li Ming? How did Alice Huang's associate funnel Nvidia AI chips to China? Read about the accusation",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/who-is-li-ming-how-did-alice-huangs-associate-funnel-nvidia-ai-chips-to-china-read-about-the-accusation-11795345041140.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T11:57:02Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Allegations of illegal diversion of Nvidia AI chips to China pose significant regulatory and export control risks for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Allegations of illegal diversion of Nvidia AI chips to China pose significant regulatory and export control risks for the company.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-185",
       "headline": "Anthropic pirated my book to train its Claude AI, says HAMISH MCRAE: My payout will be nothing compared to the riches flowing to its founders",
       "headline_en": null,
@@ -1838,105 +1938,6 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-182",
-      "headline": "SpiceJet Continues Selling Tickets On Routes It Cannot Operate Amid Cash Crunch, Passengers Stranded",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/spicejet-continues-selling-tickets-on-routes-it-cannot-operate-amid-cash-crunch-passengers-stranded",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T10:27:55Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "SpiceJet is facing operational failures and potential insolvency risks due to a severe cash crunch.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SpiceJet is facing operational failures and potential insolvency risks due to a severe cash crunch.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpiceJet",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-135",
-      "headline": "Shree Cement targets 100 MT capacity in 3-4 years on India growth bet",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/cement/shree-cement-targets-100-mt-capacity-in-3-4-years-on-india-growth-bet/articleshow/136069892.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T07:53:41Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Shree Cement announced a major capacity expansion target of 100 MT within 3-4 years, signaling significant capital investment and growth intent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Shree Cement announced a major capacity expansion target of 100 MT within 3-4 years, signaling significant capital investment and growth intent.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shree Cement",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -253538,77 +253539,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-62b270b217f0",
-      "idea_version": "IDEAV-9202c926eb7db594",
-      "idea_version_started_at": "2026-11-21T00:05:01Z",
-      "ticker": "DIN",
-      "company": "Dine Brands Global, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Arkhouse Management filed an amended Schedule 13D/A, signaling ongoing active ownership involvement and potential catalysts for corporate action or strategic changes.",
-      "why_now": "Amended Schedule 13D/A filing posted on November 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0c2356cf1ea0",
-        "EVT-5bd249f2c3de"
-      ],
-      "primary_source_event_id": "EVT-0c2356cf1ea0",
-      "source_headlines": [
-        "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
-        "SCHEDULE 13D/A - Dine Brands Global, Inc. (0000049754) (Subject)"
-      ],
-      "source_headline": "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2021808/000121390026122826/0001213900-26-122826-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-21T00:00:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:05:01Z",
-      "updated_at": "2026-11-21T00:05:01Z",
-      "decay_at": "2026-11-22T12:00:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-521e020bb493",
       "idea_version": "IDEAV-d36fdb9e638c6218",
       "idea_version_started_at": "2026-11-21T17:48:12Z",
@@ -255215,6 +255145,78 @@
       "surfaced_at": "2026-11-22T02:35:18Z",
       "updated_at": "2026-11-22T02:35:18Z",
       "decay_at": "2026-11-23T14:12:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-cc309aac4183",
+      "idea_version": "IDEAV-e36d3458e2a4de81",
+      "idea_version_started_at": "2026-11-22T12:05:21Z",
+      "ticker": "STARHEALTH",
+      "company": "Star Health and Allied Insurance Company",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Star Health faces a regulatory penalty of ₹2 crore from IRDAI for unfair claim practices, which could damage its reputation and lead to increased scrutiny or further penalties.",
+      "why_now": "The IRDAI fined Star Health ₹2 crore, as reported on November 22, 2026, indicating an immediate regulatory action.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0d44dd5fe91d"
+      ],
+      "primary_source_event_id": "EVT-0d44dd5fe91d",
+      "source_headlines": [
+        "IRDAI fined Star Health Rs 2 crore penalty for unfair claim deductions & rejections; what policyholders should know?"
+      ],
+      "source_headline": "IRDAI fined Star Health Rs 2 crore penalty for unfair claim deductions & rejections; what policyholders should know?",
+      "source_url": "https://www.deccanherald.com/health/healthcare/irdai-fined-star-health-rs-2-crore-penalty-for-unfair-claim-deductions-rejections-what-policyholders-should-know-4227409",
+      "source_name": "Deccan Herald",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T11:20:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T12:05:21Z",
+      "updated_at": "2026-11-22T12:05:21Z",
+      "decay_at": "2026-11-23T23:20:35Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -258031,6 +258033,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-62b270b217f0",
+      "idea_version": "IDEAV-9202c926eb7db594",
+      "idea_version_started_at": "2026-11-21T00:05:01Z",
+      "ticker": "DIN",
+      "company": "Dine Brands Global, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Arkhouse Management filed an amended Schedule 13D/A, signaling ongoing active ownership involvement and potential catalysts for corporate action or strategic changes.",
+      "why_now": "Amended Schedule 13D/A filing posted on November 21, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0c2356cf1ea0",
+        "EVT-5bd249f2c3de"
+      ],
+      "primary_source_event_id": "EVT-0c2356cf1ea0",
+      "source_headlines": [
+        "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
+        "SCHEDULE 13D/A - Dine Brands Global, Inc. (0000049754) (Subject)"
+      ],
+      "source_headline": "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2021808/000121390026122826/0001213900-26-122826-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-21T00:00:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T00:05:01Z",
+      "updated_at": "2026-11-21T00:05:01Z",
+      "decay_at": "2026-11-22T12:00:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d0204447ec5b",
       "idea_version": "IDEAV-43169d7d19bb6d95",
       "idea_version_started_at": "2026-11-20T23:03:16Z",
@@ -259805,78 +259878,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6bbcaece381e",
-      "idea_version": "IDEAV-5718ddf365739bf3",
-      "idea_version_started_at": "2026-11-19T15:44:22Z",
-      "ticker": "01621",
-      "company": "Vico International Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
-      "why_now": "The profit warning was filed on 2026-11-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bcfca21db910"
-      ],
-      "primary_source_event_id": "EVT-bcfca21db910",
-      "source_headlines": [
-        "VICO INTL HLDGS (01621): PROFIT WARNING"
-      ],
-      "source_headline": "VICO INTL HLDGS (01621): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901129.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T11:33:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T15:44:22Z",
-      "updated_at": "2026-11-19T15:44:22Z",
-      "decay_at": "2026-11-20T23:33:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7475670173bc",
       "idea_version": "IDEAV-1e372d5d4c3a04eb",
       "idea_version_started_at": "2026-11-21T16:54:46Z",
@@ -259964,32 +259965,106 @@
     "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       },
       "short": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2015,
-      "oldest_retained_at": "2026-10-26T03:08:12Z",
+      "evicted_count": 2016,
+      "oldest_retained_at": "2026-10-26T03:46:49Z",
       "side_counts": {
         "long": {
           "evicted_count": 1308,
           "oldest_retained_at": "2026-11-03T16:32:27Z"
         },
         "short": {
-          "evicted_count": 708,
-          "oldest_retained_at": "2026-10-26T03:08:12Z"
+          "evicted_count": 709,
+          "oldest_retained_at": "2026-10-26T03:46:49Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-62b270b217f0",
+        "idea_version": "IDEAV-9202c926eb7db594",
+        "idea_version_started_at": "2026-11-21T00:05:01Z",
+        "ticker": "DIN",
+        "company": "Dine Brands Global, Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Arkhouse Management filed an amended Schedule 13D/A, signaling ongoing active ownership involvement and potential catalysts for corporate action or strategic changes.",
+        "why_now": "Amended Schedule 13D/A filing posted on November 21, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 72,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0c2356cf1ea0",
+          "EVT-5bd249f2c3de"
+        ],
+        "primary_source_event_id": "EVT-0c2356cf1ea0",
+        "source_headlines": [
+          "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
+          "SCHEDULE 13D/A - Dine Brands Global, Inc. (0000049754) (Subject)"
+        ],
+        "source_headline": "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/2021808/000121390026122826/0001213900-26-122826-index.htm",
+        "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-11-21T00:00:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-21T00:05:01Z",
+        "updated_at": "2026-11-21T00:05:01Z",
+        "decay_at": "2026-11-22T12:00:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T12:00:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ec19b2ff9b03",
         "idea_version": "IDEAV-849bee7d895c9fa0",
@@ -262282,8 +262357,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-20T23:33:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-22T12:05:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -291414,80 +291489,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5c5cdc69b5ae",
-        "idea_version": "IDEAV-02f5fe73cbf493ab",
-        "idea_version_started_at": "2026-11-02T16:25:43Z",
-        "ticker": "SUPREMEINF",
-        "company": "Supreme Infrastructure India Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The completion of a Rs. 2,200 crore debt settlement significantly reduces balance sheet risk and improves the company's solvency profile.",
-        "why_now": "The debt settlement completion was announced on November 2, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-444a640deed2"
-        ],
-        "primary_source_event_id": "EVT-444a640deed2",
-        "source_headlines": [
-          "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\"."
-        ],
-        "source_headline": "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SUPREMEINF_02112026155037_pressreleasedebtsettlement.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T10:20:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T16:25:43Z",
-        "updated_at": "2026-11-02T16:25:43Z",
-        "decay_at": "2026-11-03T22:20:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T11:07:45Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-547b18f6abc8",
         "idea_version": "IDEAV-c3237f3325e6b40f",
         "idea_version_started_at": "2026-11-02T12:13:29Z",
@@ -297088,7 +297089,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2606,
+    "surfaced_total": 2607,
     "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -297108,9 +297109,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1357,
-    "news_picked_today": 308,
-    "news_dropped_today": 1049
+    "news_seen_today": 1380,
+    "news_picked_today": 313,
+    "news_dropped_today": 1067
   },
   "book_momentum": {
     "live_count": 8,
