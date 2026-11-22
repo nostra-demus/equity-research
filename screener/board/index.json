@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T02:09:59Z",
+  "generated_at": "2026-11-22T02:24:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-026",
@@ -412,31 +412,80 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261122-029",
-      "headline": "Intel Says It Just Signed Its First Customer for Its Most Advanced Chipmaking Process. The Stock Is Still More Than 60% Below Its June Record.",
+      "inbox_id": "INB-20261122-037",
+      "headline": "Nio Firefly debuts Haven special edition in Oslo, plans spring 2027 launch in Europe",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/21/intel-says-it-just-signed-its-first-customer-for-its-most-advanced-chipmaking-process-the-stock-is-still-more-than-60-below-its-june-record/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://cnevpost.com/2026/11/22/nio-firefly-debuts-haven-edition-oslo-spring-2027-launch-europe/",
+      "source_name": "CnEVPost",
       "input_nature": "news_headline",
-      "found_at": "2026-11-22T01:47:02Z",
+      "found_at": "2026-11-22T02:12:05Z",
       "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Intel has secured its first customer for its advanced 18A chipmaking process, a key milestone for its foundry strategy.",
+      "prelim_note": "Nio is expanding its brand presence in Europe with a new model launch, signaling continued international growth efforts.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 83,
-      "triage_reason": "Intel has secured its first customer for its advanced 18A chipmaking process, a key milestone for its foundry strategy.",
-      "region": "US",
+      "triage_reason": "Nio is expanding its brand presence in Europe with a new model launch, signaling continued international growth efforts.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 50,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nio",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-035",
+      "headline": "Intel Says It Just Signed Its First Customer for Its Most Advanced Chipmaking Process. The Stock Is Still More Than 60% Below Its June Record.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/intel-says-it-just-signed-its-first-customer-its-most-advanced-chipmaking-process-stock",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:07:02Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Intel secured its first customer for its most advanced 18A chipmaking process, a key milestone for its foundry turnaround strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Intel secured its first customer for its most advanced 18A chipmaking process, a key milestone for its foundry turnaround strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -451,7 +500,7 @@
       "companies": [
         {
           "name": "Intel",
-          "ticker": null,
+          "ticker": "INTC",
           "listing_country": "US"
         }
       ],
@@ -591,6 +640,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-039",
+      "headline": "COP31 climate talks close to final deal, summit president says",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/environment/2026/11/22/climate-change/cop31-climate-talks/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T00:51:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The finalization of a major climate deal at COP31 will likely impact global regulatory frameworks and energy transition policies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "The finalization of a major climate deal at COP31 will likely impact global regulatory frameworks and energy transition policies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-019",
       "headline": "Samsung Electronics, SK hynix dividend payout ratios surge through Q3 amid AI boom",
       "headline_en": null,
@@ -683,6 +775,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-036",
+      "headline": "Hello Kitty owner Sanrio bets on games to expand global reach",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/media-entertainment/hello-kitty-owner-sanrio-bets-on-games-to-expand-global-reach",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:21:47Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Sanrio is pivoting its business model to include gaming to drive global expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Sanrio is pivoting its business model to include gaming to drive global expansion.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanrio",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1257,6 +1398,49 @@
       },
       "event_types": [
         "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-038",
+      "headline": "Pezeshkian says Iran engaged in 'silent economic war' as blockade completes 130 days",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/pezeshkian-says-iran-engaged-silent-economic-war-blockade-completes-130",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:09:24Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The Iranian leadership's acknowledgment of a 'silent economic war' and ongoing blockade indicates significant geopolitical and economic instability in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The Iranian leadership's acknowledgment of a 'silent economic war' and ongoing blockade indicates significant geopolitical and economic instability in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -294747,7 +294931,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5160,
+    "inbox_unconsumed": 5164,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -294756,9 +294940,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 199,
-    "news_picked_today": 35,
-    "news_dropped_today": 164
+    "news_seen_today": 219,
+    "news_picked_today": 40,
+    "news_dropped_today": 179
   },
   "book_momentum": {
     "live_count": 8,
