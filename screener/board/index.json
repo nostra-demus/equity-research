@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T09:55:06Z",
+  "generated_at": "2026-11-22T10:05:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-160",
@@ -913,6 +913,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-163",
+      "headline": "Drone-hit Russian cargo ship still on fire in Finnish waters, crew evacuated",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/drone-hit-russian-cargo-ship-still-on-fire-in-finnish-waters-crew-evacuated-4227364",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T09:56:46Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "A cargo ship was hit by a drone and is on fire, representing a significant maritime security and supply chain disruption event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A cargo ship was hit by a drone and is on fire, representing a significant maritime security and supply chain disruption event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1905,55 +1948,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-157",
-      "headline": "South Korea education minister resigns over exam cheating scandal",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cw3dgk29d37no?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T09:20:45Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "The resignation of a cabinet-level minister due to a scandal creates political instability and potential policy uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The resignation of a cabinet-level minister due to a scandal creates political instability and potential policy uncertainty.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "South Korean Government",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296981,9 +296975,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1075,
-    "news_picked_today": 235,
-    "news_dropped_today": 840
+    "news_seen_today": 1092,
+    "news_picked_today": 241,
+    "news_dropped_today": 851
   },
   "book_momentum": {
     "live_count": 8,
