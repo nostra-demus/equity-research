@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T09:26:36Z",
+  "generated_at": "2026-11-22T09:28:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-150",
@@ -1861,6 +1861,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-157",
+      "headline": "South Korea education minister resigns over exam cheating scandal",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cw3dgk29d37no?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T09:20:45Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The resignation of a cabinet-level minister due to a scandal creates political instability and potential policy uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The resignation of a cabinet-level minister due to a scandal creates political instability and potential policy uncertainty.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "South Korean Government",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-148",
       "headline": "Paolo Bulgari, chairman of Italian luxury jeweller Bvlgari, dies aged 89",
       "headline_en": null,
@@ -1905,55 +1954,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-137",
-      "headline": "Viviz wins contract termination lawsuit against Big Planet Made",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10945193",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T08:21:50Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Big Planet Made lost a contract termination lawsuit, creating potential financial and operational liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Big Planet Made lost a contract termination lawsuit, creating potential financial and operational liability.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Big Planet Made",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253481,77 +253481,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-3be703a8805a4cd8",
-      "idea_version_started_at": "2026-11-20T23:03:16Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An SEC probe into accounting practices introduces significant regulatory and financial uncertainty, threatening the company's valuation multiple and investor sentiment.",
-      "why_now": "The news of the SEC probe broke on 2026-11-20, triggering an immediate and sharp market reaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9788c23033a4",
-        "EVT-8e97a7eee396"
-      ],
-      "primary_source_event_id": "EVT-9788c23033a4",
-      "source_headlines": [
-        "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
-        "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting"
-      ],
-      "source_headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
-      "source_url": "https://247wallst.com/investing/2026/11/20/nvidia-stock-plunges-12-after-reuters-reports-an-sec-probe-of-its-accounting-its-nvidias-worst-day-since-deepseek-and-it-has-lost-2-7-trillion-since-october/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T21:27:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T23:03:16Z",
-      "decay_at": "2026-11-22T09:27:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-494bd6333cab",
       "idea_version": "IDEAV-e01b6b0c70e0b834",
       "idea_version_started_at": "2026-11-21T00:24:13Z",
@@ -257974,6 +257903,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-3be703a8805a4cd8",
+      "idea_version_started_at": "2026-11-20T23:03:16Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An SEC probe into accounting practices introduces significant regulatory and financial uncertainty, threatening the company's valuation multiple and investor sentiment.",
+      "why_now": "The news of the SEC probe broke on 2026-11-20, triggering an immediate and sharp market reaction.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9788c23033a4",
+        "EVT-8e97a7eee396"
+      ],
+      "primary_source_event_id": "EVT-9788c23033a4",
+      "source_headlines": [
+        "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
+        "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting"
+      ],
+      "source_headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
+      "source_url": "https://247wallst.com/investing/2026/11/20/nvidia-stock-plunges-12-after-reuters-reports-an-sec-probe-of-its-accounting-its-nvidias-worst-day-since-deepseek-and-it-has-lost-2-7-trillion-since-october/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T21:27:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T20:38:19Z",
+      "updated_at": "2026-11-20T23:03:16Z",
+      "decay_at": "2026-11-22T09:27:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ee0cbc4e5540",
       "idea_version": "IDEAV-c89b58c175aa2a4f",
       "idea_version_started_at": "2026-11-20T17:10:35Z",
@@ -259759,9 +259759,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 528,
     "shown_count": 499,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
         "total_count": 262,
@@ -259769,9 +259769,9 @@
         "hidden_count": 12
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -259790,6 +259790,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-50f379c78b21",
+        "idea_version": "IDEAV-3be703a8805a4cd8",
+        "idea_version_started_at": "2026-11-20T23:03:16Z",
+        "ticker": "NVDA",
+        "company": "Nvidia",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "An SEC probe into accounting practices introduces significant regulatory and financial uncertainty, threatening the company's valuation multiple and investor sentiment.",
+        "why_now": "The news of the SEC probe broke on 2026-11-20, triggering an immediate and sharp market reaction.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9788c23033a4",
+          "EVT-8e97a7eee396"
+        ],
+        "primary_source_event_id": "EVT-9788c23033a4",
+        "source_headlines": [
+          "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
+          "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting"
+        ],
+        "source_headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
+        "source_url": "https://247wallst.com/investing/2026/11/20/nvidia-stock-plunges-12-after-reuters-reports-an-sec-probe-of-its-accounting-its-nvidias-worst-day-since-deepseek-and-it-has-lost-2-7-trillion-since-october/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-20T21:27:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-20T20:38:19Z",
+        "updated_at": "2026-11-20T23:03:16Z",
+        "decay_at": "2026-11-22T09:27:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T09:27:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0d33d5cbe937",
         "idea_version": "IDEAV-3096bed61d08d90a",
@@ -296811,86 +296885,12 @@
         "archived_at": "2026-10-28T18:19:18Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4a437db750bd",
-        "idea_version": "IDEAV-1606cc91e1dc29b8",
-        "idea_version_started_at": "2026-10-25T11:09:28Z",
-        "ticker": "6808",
-        "company": "Sun Art Retail Group Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Sun Art Retail issued an official profit warning filing on the HKEX indicating severe earnings deterioration and margin compression for its retail operations.",
-        "why_now": "The negative regulatory profit warning disclosure was filed on October 25, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6530a5ebb0ae"
-        ],
-        "primary_source_event_id": "EVT-6530a5ebb0ae",
-        "source_headlines": [
-          "SUNART RETAIL (06808): PROFIT WARNING"
-        ],
-        "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T10:20:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T11:09:28Z",
-        "updated_at": "2026-10-25T11:09:28Z",
-        "decay_at": "2026-10-26T22:20:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T10:33:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2602,
-    "live_count": 60,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -296909,9 +296909,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1022,
-    "news_picked_today": 224,
-    "news_dropped_today": 798
+    "news_seen_today": 1031,
+    "news_picked_today": 226,
+    "news_dropped_today": 805
   },
   "book_momentum": {
     "live_count": 8,
