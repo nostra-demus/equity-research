@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T02:03:01Z",
+  "generated_at": "2026-11-22T02:09:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-026",
@@ -155,6 +155,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-031",
+      "headline": "The Alice Huang Associate Accused of Funneling Nvidia Chips to China",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/li-ming-megaspeed-nvidia-chips-china-6260d836?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Allegations of illegal export of Nvidia chips to China pose significant regulatory and compliance risks for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Allegations of illegal export of Nvidia chips to China pose significant regulatory and compliance risks for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -406,6 +456,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-034",
+      "headline": "Metall-Tarifkonflikt: IG Metall Küste – 24-Stunden-Streiks werden ausgeweitet",
+      "headline_en": "Metal tariff conflict: IG Metall Coast – 24-hour strikes are being expanded",
+      "url": "https://www.handelsblatt.com/politik/deutschland/metall-tarifkonflikt-ig-metall-kueste-24-stunden-streiks-werden-ausgeweitet/100271781.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:54:07Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Expansion of 24-hour strikes in the German metal industry threatens production and operational continuity for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Expansion of 24-hour strikes in the German metal industry threatens production and operational continuity for the sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1163,6 +1257,49 @@
       },
       "event_types": [
         "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-033",
+      "headline": "+++ Ukraine-Krieg +++: Ukrainische Drohnen werden in Großbritannien gebaut",
+      "headline_en": "+++ Ukraine War +++: Ukrainian drones are being built in Great Britain",
+      "url": "https://www.handelsblatt.com/politik/international/ukraine-ukrainische-drohnen-werden-in-grossbritannien-gebaut/27982126.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Reports of drone manufacturing for the Ukraine war in the UK indicate an escalation in the conflict's supply chain involvement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Reports of drone manufacturing for the Ukraine war in the UK indicate an escalation in the conflict's supply chain involvement.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -294470,7 +294607,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5157,
+    "inbox_unconsumed": 5160,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -294479,9 +294616,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 185,
-    "news_picked_today": 31,
-    "news_dropped_today": 154
+    "news_seen_today": 199,
+    "news_picked_today": 35,
+    "news_dropped_today": 164
   },
   "book_momentum": {
     "live_count": 8,
