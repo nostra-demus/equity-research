@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T01:27:56Z",
+  "generated_at": "2026-11-22T01:33:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-018",
@@ -253747,6 +253747,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-aad7fd245829",
+      "idea_version": "IDEAV-401e8b47fd702c1c",
+      "idea_version_started_at": "2026-11-22T01:32:50Z",
+      "ticker": "BYDDY",
+      "company": "BYD Company",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A Dutch court ruling banning the sale of the Ti7 model due to design infringement on the Land Rover Defender directly restricts BYD's revenue growth in the European market.",
+      "why_now": "The court ruling was reported on 2026-11-22, creating an immediate barrier to sales.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-685f9f8a6ba8"
+      ],
+      "primary_source_event_id": "EVT-685f9f8a6ba8",
+      "source_headlines": [
+        "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights"
+      ],
+      "source_headline": "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights",
+      "source_url": "https://cnevpost.com/2026/11/22/dutch-court-bars-eu-sales-byd-ti7-land-rover-defender-design/",
+      "source_name": "CnEVPost",
+      "materiality_max": 85,
+      "newest_source_at": "2026-11-22T01:07:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T01:32:50Z",
+      "updated_at": "2026-11-22T01:32:50Z",
+      "decay_at": "2026-11-23T13:07:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-51b66c6006ed",
       "idea_version": "IDEAV-a50855a7d1c1d834",
       "idea_version_started_at": "2026-11-22T01:14:26Z",
@@ -254668,6 +254738,78 @@
       "surfaced_at": "2026-11-21T16:54:46Z",
       "updated_at": "2026-11-21T16:54:46Z",
       "decay_at": "2026-11-22T11:49:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-79276c19db88",
+      "idea_version": "IDEAV-046c1595cb176511",
+      "idea_version_started_at": "2026-11-22T01:32:50Z",
+      "ticker": "LLC",
+      "company": "Lendlease",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is forced into significant layoffs and restructuring to manage a high debt burden, signaling severe liquidity and operational stress.",
+      "why_now": "The news of the restructuring and debt pressure was released on 2026-11-22.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-24c0f2adda6c"
+      ],
+      "primary_source_event_id": "EVT-24c0f2adda6c",
+      "source_headlines": [
+        "Lendlease is cutting jobs as it tackles a mountain of debt"
+      ],
+      "source_headline": "Lendlease is cutting jobs as it tackles a mountain of debt",
+      "source_url": "https://www.afr.com/property/commercial/lendlease-is-cutting-jobs-as-it-tackles-a-mountain-of-debt-20261122-p61fi4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 95,
+      "newest_source_at": "2026-11-22T01:22:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T01:32:50Z",
+      "updated_at": "2026-11-22T01:32:50Z",
+      "decay_at": "2026-11-23T13:22:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -293748,8 +293890,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2574,
-    "live_count": 39,
+    "surfaced_total": 2576,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -293768,9 +293910,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 126,
+    "news_seen_today": 136,
     "news_picked_today": 19,
-    "news_dropped_today": 107
+    "news_dropped_today": 117
   },
   "book_momentum": {
     "live_count": 8,

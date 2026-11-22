@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-79276c19db88",
+  "idea_version": "IDEAV-046c1595cb176511",
+  "idea_version_started_at": "2026-11-22T01:32:50Z",
+  "ticker": "LLC",
+  "company": "Lendlease",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company is forced into significant layoffs and restructuring to manage a high debt burden, signaling severe liquidity and operational stress.",
+  "why_now": "The news of the restructuring and debt pressure was released on 2026-11-22.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-24c0f2adda6c"
+  ],
+  "primary_source_event_id": "EVT-24c0f2adda6c",
+  "source_headlines": [
+    "Lendlease is cutting jobs as it tackles a mountain of debt"
+  ],
+  "source_headline": "Lendlease is cutting jobs as it tackles a mountain of debt",
+  "source_url": "https://www.afr.com/property/commercial/lendlease-is-cutting-jobs-as-it-tackles-a-mountain-of-debt-20261122-p61fi4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+  "source_name": "Australian Financial Review",
+  "materiality_max": 95,
+  "newest_source_at": "2026-11-22T01:22:20Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-22T01:32:50Z",
+  "updated_at": "2026-11-22T01:32:50Z",
+  "decay_at": "2026-11-23T13:22:20Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
