@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T01:39:37Z",
+  "generated_at": "2026-11-22T01:42:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-018",
@@ -249,6 +249,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-022",
+      "headline": "India’s $126bn insurance sector slams proposed commission cap",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/2e67313b-d6c5-4e62-bd50-14639fe5ef95?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:30:02Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The insurance industry in India is opposing a proposed commission cap, which could impact revenue models for the $126bn sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The insurance industry in India is opposing a proposed commission cap, which could impact revenue models for the $126bn sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -560,6 +603,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-021",
+      "headline": "Who was Paolo Bulgari? Third-generation businessman who spearheaded the Italian jewellery business, passed away at 89",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/who-was-paolo-bulgari-third-generation-businessman-who-spearheaded-the-italian-jewellery-business-passed-away-at-89-11795310103594.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:37:17Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The death of a former chairman of Bulgari is a notable biographical event but does not impact the current operations of the LVMH-owned brand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The death of a former chairman of Bulgari is a notable biographical event but does not impact the current operations of the LVMH-owned brand.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bulgari",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -293998,7 +294090,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5147,
+    "inbox_unconsumed": 5149,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -294007,9 +294099,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 144,
-    "news_picked_today": 21,
-    "news_dropped_today": 123
+    "news_seen_today": 156,
+    "news_picked_today": 23,
+    "news_dropped_today": 133
   },
   "book_momentum": {
     "live_count": 8,
