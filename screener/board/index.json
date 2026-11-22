@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-22T01:23:08Z",
+  "generated_at": "2026-11-22T01:27:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-018",
+      "headline": "Lendlease is cutting jobs as it tackles a mountain of debt",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/lendlease-is-cutting-jobs-as-it-tackles-a-mountain-of-debt-20261122-p61fi4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:22:20Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Lendlease is implementing job cuts to address a significant debt burden.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Lendlease is implementing job cuts to address a significant debt burden.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lendlease",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-006",
       "headline": "AIM weekly movers: Fadel Partners recommends bid",
@@ -293709,7 +293759,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5144,
+    "inbox_unconsumed": 5145,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -293718,9 +293768,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 118,
-    "news_picked_today": 18,
-    "news_dropped_today": 100
+    "news_seen_today": 126,
+    "news_picked_today": 19,
+    "news_dropped_today": 107
   },
   "book_momentum": {
     "live_count": 8,
