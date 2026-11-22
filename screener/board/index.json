@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T07:33:31Z",
+  "generated_at": "2026-11-22T07:37:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-125",
@@ -1180,6 +1180,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-126",
+      "headline": "PNB needs Rs 5,000 crore extra provisions under ECL, CEO sees limited impact",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/pnb-needs-rs-5000-crore-extra-provisions-under-ecl-ceo-sees-limited-impact/articleshow/136069636.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T07:32:50Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Punjab National Bank faces an additional Rs 5,000 crore in provisioning requirements due to ECL accounting changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Punjab National Bank faces an additional Rs 5,000 crore in provisioning requirements due to ECL accounting changes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Punjab National Bank",
+          "ticker": "PNB",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-073",
       "headline": "China Investigates CNPC Deputy General Manager for Corruption",
       "headline_en": null,
@@ -1900,55 +1949,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-089",
-      "headline": "Ashok Leyland expands EV push with order of 200 trucks for cement transport, eyes wider LCV market",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/ashok-leyland-expands-ev-push-with-order-of-200-trucks-for-cement-transport-eyes-wider-lcv-market/article71729219.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T05:32:13Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Ashok Leyland secured a commercial order for 200 electric trucks, signaling progress in its EV strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Ashok Leyland secured a commercial order for 200 electric trucks, signaling progress in its EV strategy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ashok Leyland",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -295971,9 +295971,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 803,
-    "news_picked_today": 173,
-    "news_dropped_today": 630
+    "news_seen_today": 812,
+    "news_picked_today": 175,
+    "news_dropped_today": 637
   },
   "book_momentum": {
     "live_count": 8,
