@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T13:50:17Z",
+  "generated_at": "2026-11-22T13:51:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-211",
@@ -253751,6 +253751,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b19df79a9ea4",
+      "idea_version": "IDEAV-013c9b2c446a500e",
+      "idea_version_started_at": "2026-11-22T13:51:05Z",
+      "ticker": "TSM",
+      "company": "Taiwan Semiconductor Manufacturing Co",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "TSMC suspended semiconductor shipments to Chinese chip designers following strict US export control enforcement on legacy 16nm and 14nm nodes, curtailing regional revenue streams.",
+      "why_now": "Shipment pause reported on November 22, 2026, following recent US regulatory actions.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0b0290b63984"
+      ],
+      "primary_source_event_id": "EVT-0b0290b63984",
+      "source_headlines": [
+        "TSMC reportedly pauses shipments to Chinese designers after U.S. export rules flag decade-old 16nm and 14nm nodes"
+      ],
+      "source_headline": "TSMC reportedly pauses shipments to Chinese designers after U.S. export rules flag decade-old 16nm and 14nm nodes",
+      "source_url": "https://www.tomshardware.com/tech-industry/policy/tsmc-reportedly-pauses-shipments-to-chinese-designers-after-u-s-export-rules-flag-decade-old-16nm-and-14nm-nodes-new-bis-controls-threaten-smartphone-tv-and-automotive-chips",
+      "source_name": "Tom's Hardware",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T13:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T13:51:05Z",
+      "updated_at": "2026-11-22T13:51:05Z",
+      "decay_at": "2026-11-24T01:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-1fa6a7595fa9ed4e",
       "idea_version_started_at": "2026-11-22T10:19:34Z",
@@ -254655,6 +254725,78 @@
       "surfaced_at": "2026-11-22T02:35:18Z",
       "updated_at": "2026-11-22T02:35:18Z",
       "decay_at": "2026-11-23T14:12:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b57ef0f5db4a",
+      "idea_version": "IDEAV-27a2d19085be27e4",
+      "idea_version_started_at": "2026-11-22T13:51:05Z",
+      "ticker": "RVNL",
+      "company": "Rail Vikas Nigam Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "RVNL secured a L1 lowest bidder status for a major ₹348 crore infrastructure project, providing fresh order-book momentum despite severe year-to-date share price weakness.",
+      "why_now": "L1 bidder announcement reported on November 22, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8bf868c9b74c"
+      ],
+      "primary_source_event_id": "EVT-8bf868c9b74c",
+      "source_headlines": [
+        "RVNL Emerges As Lowest Bidder For ₹348 Crore Railway Project, Shares Down Nearly 50% In 2026"
+      ],
+      "source_headline": "RVNL Emerges As Lowest Bidder For ₹348 Crore Railway Project, Shares Down Nearly 50% In 2026",
+      "source_url": "https://www.freepressjournal.in/business/rvnl-emerges-as-lowest-bidder-for-348-crore-railway-project-shares-down-nearly-50-in-2026",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T10:20:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T13:51:05Z",
+      "updated_at": "2026-11-22T13:51:05Z",
+      "decay_at": "2026-11-23T22:20:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -258524,77 +258666,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0991422acdb8",
-      "idea_version": "IDEAV-e7411fe2b66f63e0",
-      "idea_version_started_at": "2026-11-19T19:29:33Z",
-      "ticker": "WMT",
-      "company": "Walmart",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Walmart exceeded profit estimates and raised its full-year outlook for the third time this year, reflecting sustained market share gains.",
-      "why_now": "The outlook increase was reported on 2026-11-19.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-52aff7667b2f"
-      ],
-      "primary_source_event_id": "EVT-52aff7667b2f",
-      "source_headlines": [
-        "Walmart tops profit estimates, raises outlook for third time this year"
-      ],
-      "source_headline": "Walmart tops profit estimates, raises outlook for third time this year",
-      "source_url": "https://www.theglobeandmail.com/business/article-walmart-results-sales-and-profit-outlook/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T12:27:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-19T19:29:33Z",
-      "updated_at": "2026-11-19T19:29:33Z",
-      "decay_at": "2026-11-21T00:27:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ec19b2ff9b03",
       "idea_version": "IDEAV-849bee7d895c9fa0",
       "idea_version_started_at": "2026-11-21T20:09:39Z",
@@ -259665,77 +259736,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e4878a658d1f",
-      "idea_version": "IDEAV-40e8228637fcae8d",
-      "idea_version_started_at": "2026-11-20T10:55:45Z",
-      "ticker": "00377",
-      "company": "China Huajun Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing bankruptcy liquidation proceedings against a subsidiary, signaling severe financial distress and potential impairment of group assets.",
-      "why_now": "The filing was released on 2026-11-19.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4fcb62c06b95"
-      ],
-      "primary_source_event_id": "EVT-4fcb62c06b95",
-      "source_headlines": [
-        "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY"
-      ],
-      "source_headline": "CHINA HUAJUN GP (00377): INSIDE INFORMATION APPLICATION FOR BANKRUPTCY LIQUIDATION AGAINST A SUBSIDIARY OF THE COMPANY",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1119/2026111901261.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T12:51:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T10:55:45Z",
-      "updated_at": "2026-11-20T10:55:45Z",
-      "decay_at": "2026-11-21T00:51:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7475670173bc",
       "idea_version": "IDEAV-1e372d5d4c3a04eb",
       "idea_version_started_at": "2026-11-21T16:54:46Z",
@@ -259963,33 +259963,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       },
       "short": {
-        "total_count": 274,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 23
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2016,
-      "oldest_retained_at": "2026-10-26T03:46:49Z",
+      "evicted_count": 2018,
+      "oldest_retained_at": "2026-10-26T08:21:48Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1308,
-          "oldest_retained_at": "2026-11-03T16:32:27Z"
+          "evicted_count": 1309,
+          "oldest_retained_at": "2026-11-03T16:33:04Z"
         },
         "short": {
-          "evicted_count": 709,
-          "oldest_retained_at": "2026-10-26T03:46:49Z"
+          "evicted_count": 710,
+          "oldest_retained_at": "2026-10-26T08:21:48Z"
         }
       }
     },
@@ -262876,8 +262876,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T00:51:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-22T13:51:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -262950,8 +262950,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T00:27:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-22T13:51:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -297083,8 +297083,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2607,
-    "live_count": 51,
+    "surfaced_total": 2609,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

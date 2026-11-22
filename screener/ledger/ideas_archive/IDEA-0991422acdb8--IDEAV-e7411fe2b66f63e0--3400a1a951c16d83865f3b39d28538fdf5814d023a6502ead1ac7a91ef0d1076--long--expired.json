@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-27T16:00:13Z",
+  "archived_at": "2026-11-22T13:51:14Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-0157f621dab9",
-    "idea_version": "IDEAV-8b3d415a029aec76",
-    "idea_version_started_at": "2026-10-24T23:13:43Z",
-    "ticker": "VLVLY",
-    "company": "Volvo",
-    "exchange": "OTC Markets",
+    "idea_id": "IDEA-0991422acdb8",
+    "idea_version": "IDEAV-e7411fe2b66f63e0",
+    "idea_version_started_at": "2026-11-19T19:29:33Z",
+    "ticker": "WMT",
+    "company": "Walmart",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The announcement of an additional 2,500 job cuts following previous layoffs signals persistent structural cost issues and weak demand.",
-    "why_now": "The restructuring news was reported on 2026-10-24.",
-    "conviction": 55,
+    "reason": "Walmart exceeded profit estimates and raised its full-year outlook for the third time this year, reflecting sustained market share gains.",
+    "why_now": "The outlook increase was reported on 2026-11-19.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 65,
+    "trade_score": 60,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 21,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -46,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-b0b68f30e984"
+      "EVT-52aff7667b2f"
     ],
-    "primary_source_event_id": "EVT-b0b68f30e984",
+    "primary_source_event_id": "EVT-52aff7667b2f",
     "source_headlines": [
-      "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings"
+      "Walmart tops profit estimates, raises outlook for third time this year"
     ],
-    "source_headline": "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings",
-    "source_url": "https://www.ndtvprofit.com/business/volvo-plans-2-500-more-job-cuts-after-3-000-layoffs-targets-500-million-savings-12230852#publisher=newsstand",
-    "source_name": "NDTV Profit",
+    "source_headline": "Walmart tops profit estimates, raises outlook for third time this year",
+    "source_url": "https://www.theglobeandmail.com/business/article-walmart-results-sales-and-profit-outlook/",
+    "source_name": "The Globe and Mail",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-24T15:46:49Z",
+    "newest_source_at": "2026-11-19T12:27:22Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-24T23:13:43Z",
-    "updated_at": "2026-10-24T23:13:43Z",
-    "decay_at": "2026-10-26T03:46:49Z",
+    "surfaced_at": "2026-11-19T19:29:33Z",
+    "updated_at": "2026-11-19T19:29:33Z",
+    "decay_at": "2026-11-21T00:27:22Z",
     "status": "live",
     "promoted_signal_id": null
   }
