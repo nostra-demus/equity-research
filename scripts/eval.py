@@ -2970,6 +2970,24 @@ if scope=="selftest":
          "a bare 'proxy' with no reason does not pass"),
         ("2026-11-22",_bn_hd2+"| FCF CAGR 16% | Revenue CAGR 15% | matched | x | Stretch |\n",["§9 base-rate unit mismatch"],
          "declaring 'matched' does not override the content"),
+        # §9: a profit-family word used as a document/event/source reference in a revenue-only history cell
+        # must NOT inject the profit family and mask the mismatch (keyword-collocation leak, lenient dir.).
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = −13% | Revenue CAGR +15% a year (from the FY24 earnings release) | x | No |\n",
+         ["§9 base-rate unit mismatch","profit/cash-flow"],"'earnings release' is a document, not the earnings metric"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = −13% | Revenue CAGR +15% a year, per the earnings module | x | No |\n",
+         ["§9 base-rate unit mismatch"],"'the earnings module' is an engine reference, not the earnings metric"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = −13% | Revenue grew 15% a year (earnings call commentary) | x | No |\n",
+         ["§9 base-rate unit mismatch"],"'earnings call commentary' is a document, not the earnings metric"),
+        # §9: a LEVEL (margin) row carrying only a bare time-adverb is a level, not a growth claim — skip it
+        # (do not fire a spurious 'growth claim' finding — the strict direction this guards).
+        ("2026-11-22",_bn_hd+"| Implied steady-state EBIT margin = 11.4% annually | Revenue grew 9% a year | x | Yes |\n",[],
+         "a margin level with 'annually' is still a level, not a growth claim"),
+        ("2026-11-22",_bn_hd+"| Implied EBIT margin of 12% held for a year | Revenue grew 9% a year | x | Yes |\n",[],
+         "a margin level with 'a year' is still a level, not a growth claim"),
+        # control: a genuine profit-growth claim stated with only the ambiguous time-adverb (no CAGR/grow)
+        # and no level noun MUST still be caught — the level-exclusion must not over-exclude.
+        ("2026-11-22",_bn_hd+"| Implied EPS 20% a year | Revenue CAGR 8% | x | No |\n",["§9 base-rate unit mismatch","profit/cash-flow"],
+         "'EPS 20% a year' (no CAGR, not a level noun) is still a profit growth claim"),
     ]
     bnbad=0
     for dt_,md_,exp,why in bncases:

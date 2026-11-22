@@ -308,9 +308,15 @@ def eval_bj_quality_double_count(decision_date, peers_md, peers_internals=None):
 # names ONLY the other family. A history cell naming no metric (the unit is implicit), or naming the
 # matched family anywhere (including beside a revenue CAGR given as context), passes. A row whose
 # "Base-rate basis" cell declares `proxy: … — <reason>` passes: a declared substitute with its reason is
-# honest, a silent one is not. Citations ([...], `...`, "(….md …)") and bare repo-relative ".md" paths
-# are stripped first so a path such as earnings/01_historical-financials.md — bracketed, backticked, OR
-# bare — cannot count as the word "earnings".
+# honest, a silent one is not. Citations ([...], `...`, "(….md …)"), bare repo-relative ".md" paths, and
+# document/event collocations of a metric word ("earnings release/call/report/module/…") are stripped
+# first, so a path such as earnings/01_historical-financials.md — bracketed, backticked, OR bare — and a
+# source phrase such as "the FY24 earnings release" cannot count as the earnings METRIC. Keyword
+# family-matching stays inherently leaky (an un-listed collocation can still slip), so the gate errs
+# lenient — it never blocks a correct row. An implied cell that names a LEVEL metric (margin, ROE/ROIC,
+# yield, ratio, …) and carries ONLY a bare time-adverb ("annually", "a year") is a level, not a growth
+# claim, and is skipped: the growth test requires an explicit growth token (CAGR / growth / grew / YoY /
+# %/yr / per year).
 BN_DATE = "2026-11-22"  # forward-looking; committed runs predate it → N/A (retrospective advisory in eval.py)
 _BN_IMPLIED_HEAD = re.compile(r"\bimplied\s+requirement\b", re.I)
 _BN_HIST_HEAD = re.compile(r"\bhistory\b", re.I)
@@ -318,15 +324,30 @@ _BN_BASIS_HEAD = re.compile(r"\bbase[\s-]*rate\s+basis\b", re.I)
 _BN_DELIM = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
 _BN_GROWTH = re.compile(r"\bCAGR\b|\bgrowth\b|\bgrow(?:s|n|ing)?\b|%\s*/\s*yr\b|\bper\s+(?:year|annum)\b|"
                         r"\bYoY\b|\bannual(?:ly)?\b|\ba\s+year\b", re.I)
+# Unambiguous growth tokens. "annually" / "a year" are in _BN_GROWTH but NOT here, because they also
+# modify a recurring LEVEL ("an 11.4% margin annually"); on a level row they do not make a growth claim.
+_BN_STRONG_GROWTH = re.compile(r"\bCAGR\b|\bgrowth\b|\bgrow(?:s|n|ing)?\b|%\s*/\s*yr\b|"
+                               r"\bper\s+(?:year|annum)\b|\bYoY\b", re.I)
+# Level / ratio metrics whose base rate is a level, not a growth rate (used to keep a bare time-adverb
+# from reclassifying a margin/return/yield row as growth).
+_BN_LEVEL = re.compile(r"\bmargins?\b|\bROE\b|\bROCE\b|\bROIC\b|\bROA\b|\breturns?\s+on\b|\byields?\b|"
+                       r"\bratios?\b|\bmultiples?\b|\bturns?\b|\bDSO\b|\bDPO\b|\bDIO\b", re.I)
 _BN_REVENUE = re.compile(r"\b(?:revenues?|sales|top[\s-]?line|turnover)\b", re.I)
 _BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]cash[\s-]flows?|cash[\s-]flows?|NOPAT|EBITDA|EBIT|EPS|"
                         r"net[\s-]income|earnings|profits?|operating[\s-]income|PAT)\b", re.I)
 _BN_CITE = re.compile(r"\[[^\]]*\]|`[^`]*`|\([^()]*\.md[^()]*\)|\b[\w/-]+\.md\b")
+# A metric word used as a document/event/source reference, not as the metric itself ("the FY24 earnings
+# release", "per the earnings module", "earnings call commentary"). Stripped before family detection so
+# such prose cannot inject the profit/cash-flow family into a revenue-only history cell (and mask the
+# §9 mismatch the check exists to catch). Deliberately narrow — unlisted collocations stay lenient.
+_BN_NONMETRIC = re.compile(r"\bearnings\s+(?:release|releases|call|calls|module|modules|report|reports|"
+                           r"presentations?|season|day|days|update|updates|transcripts?|commentary|"
+                           r"decks?|slides?|note|notes)\b", re.I)
 _BN_PROXY = re.compile(r"\bproxy\b\s*[:\-—–]?\s*(.*)", re.I)
 
 
 def _bn_families(text):
-    t = _BN_CITE.sub(" ", text or "")
+    t = _BN_NONMETRIC.sub(" ", _BN_CITE.sub(" ", text or ""))
     fam = set()
     if _BN_REVENUE.search(t):
         fam.add("revenue")
@@ -375,8 +396,12 @@ def eval_bn_reverse_dcf_base_rate_unit(decision_date, reverse_dcf_md):
         return None
     hits = []
     for implied, history, basis in rows:
-        if not _BN_GROWTH.search(_BN_CITE.sub(" ", implied)):
-            continue  # a level / margin / ROE / duration row: its base rate is not a growth rate
+        _imp = _BN_CITE.sub(" ", implied)
+        _is_growth = bool(_BN_STRONG_GROWTH.search(_imp)) or (
+            bool(_BN_GROWTH.search(_imp)) and not _BN_LEVEL.search(_imp))
+        if not _is_growth:
+            continue  # a level / margin / ROE / duration row (incl. one carrying only a bare
+            # time-adverb like "annually"): its base rate is not a growth rate
         f_imp, f_hist = _bn_families(implied), _bn_families(history)
         if not f_imp or not f_hist or (f_imp & f_hist):
             continue
