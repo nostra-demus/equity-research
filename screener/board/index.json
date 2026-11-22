@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T11:19:19Z",
+  "generated_at": "2026-11-22T11:24:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-171",
@@ -1650,6 +1650,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-185",
+      "headline": "Anthropic pirated my book to train its Claude AI, says HAMISH MCRAE: My payout will be nothing compared to the riches flowing to its founders",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16313055/Anthropic-pirated-book-train-Claude-AI-says-HAMISH-MCRAE-payout-compared-riches-flowing-founders.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T11:19:49Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Copyright infringement allegations against Anthropic pose potential legal and regulatory risks for AI model training practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Copyright infringement allegations against Anthropic pose potential legal and regulatory risks for AI model training practices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-182",
       "headline": "SpiceJet Continues Selling Tickets On Routes It Cannot Operate Amid Cash Crunch, Passengers Stranded",
       "headline_en": null,
@@ -1892,55 +1941,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-126",
-      "headline": "PNB needs Rs 5,000 crore extra provisions under ECL, CEO sees limited impact",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/pnb-needs-rs-5000-crore-extra-provisions-under-ecl-ceo-sees-limited-impact/articleshow/136069636.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T07:32:50Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Punjab National Bank faces an additional Rs 5,000 crore in provisioning requirements due to ECL accounting changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Punjab National Bank faces an additional Rs 5,000 crore in provisioning requirements due to ECL accounting changes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Punjab National Bank",
-          "ticker": "PNB",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297110,9 +297110,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1282,
-    "news_picked_today": 285,
-    "news_dropped_today": 997
+    "news_seen_today": 1299,
+    "news_picked_today": 289,
+    "news_dropped_today": 1010
   },
   "book_momentum": {
     "live_count": 8,
