@@ -1,55 +1,6 @@
 {
-  "generated_at": "2026-11-22T15:55:46Z",
+  "generated_at": "2026-11-22T15:58:54Z",
   "inbox": [
-    {
-      "inbox_id": "INB-20261122-226",
-      "headline": "Tata Steel's ₹28,000 deal: All you need to know",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/tata-steel-to-sell-tubes-colour-coated-steel-businesses-to-apl-apollo-in-deals-worth-up-to-rs-28000-crore-20039425.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T15:51:20Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Tata Steel's ₹28,000 crore deal is a significant transaction that could impact its capital structure and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Steel's ₹28,000 crore deal is a significant transaction that could impact its capital structure and operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
     {
       "inbox_id": "INB-20261122-222",
       "headline": "Court bans China’s BYD from selling ‘Defender clone’ SUV in EU",
@@ -1947,6 +1898,53 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-228",
+      "headline": "Tata Steel Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/xbrl/REG30_Restructuring_234_WebXMLFile_20261122_212452747.xml",
+      "source_name": "NSE India — Corporate Announcements (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-22T15:54:54Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "This is a generic corporate announcement from Tata Steel Limited with no specific event mentioned in the headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "This is a generic corporate announcement from Tata Steel Limited with no specific event mentioned in the headline.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297246,9 +297244,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2310,
-    "news_picked_today": 451,
-    "news_dropped_today": 1815
+    "news_seen_today": 2326,
+    "news_picked_today": 455,
+    "news_dropped_today": 1827
   },
   "book_momentum": {
     "live_count": 8,
