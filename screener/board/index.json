@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T09:28:04Z",
+  "generated_at": "2026-11-22T09:32:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-150",
@@ -1910,50 +1910,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261122-148",
-      "headline": "Paolo Bulgari, chairman of Italian luxury jeweller Bvlgari, dies aged 89",
+      "inbox_id": "INB-20261122-158",
+      "headline": "Pune: FDA Suspends Amazon, BigBasket Dark Store Licences, 12 Drug Establishments Face Action",
       "headline_en": null,
-      "url": "https://www.thenationalnews.com/lifestyle/fashion-beauty/2026/11/22/paolo-bulgari-chairman-of-italian-luxury-jeweller-bvlgari-dies-aged-89/",
-      "source_name": "The National — All News",
+      "url": "https://www.freepressjournal.in/pune/pune-fda-suspends-amazon-bigbasket-dark-store-licences-12-drug-establishments-face-action",
+      "source_name": "Free Press Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-22T08:40:21Z",
+      "found_at": "2026-11-22T09:14:42Z",
       "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Paolo Bulgari, chairman of Italian luxury jeweller Bvlgari, has died.",
+      "prelim_note": "The FDA suspended the dark store licenses of Amazon and BigBasket in Pune, creating operational risk for their local delivery services.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 86,
-      "triage_reason": "Paolo Bulgari, chairman of Italian luxury jeweller Bvlgari, has died.",
-      "region": "OTHER",
+      "triage_reason": "The FDA suspended the dark store licenses of Amazon and BigBasket in Pune, creating operational risk for their local delivery services.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
+        "event_id": "regulatory",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "executive_exit"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bvlgari",
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "BigBasket",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296909,9 +296914,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1031,
-    "news_picked_today": 226,
-    "news_dropped_today": 805
+    "news_seen_today": 1047,
+    "news_picked_today": 229,
+    "news_dropped_today": 818
   },
   "book_momentum": {
     "live_count": 8,
