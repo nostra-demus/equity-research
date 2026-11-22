@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T21:58:37Z",
+  "generated_at": "2026-11-22T21:59:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-253",
@@ -254816,6 +254816,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-380e22d36d53",
+      "idea_version": "IDEAV-8df049924daf4765",
+      "idea_version_started_at": "2026-11-22T21:58:56Z",
+      "ticker": "IFN",
+      "company": "Infomedia Ltd",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a negative earnings guidance update, signaling a material deterioration in revenue or margin expectations compared to prior market consensus.",
+      "why_now": "The trading update was filed on 2026-11-22, making the impact immediate for the next trading session.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9e4da7a8ed0a"
+      ],
+      "primary_source_event_id": "EVT-9e4da7a8ed0a",
+      "source_headlines": [
+        "IFN: Trading Update and Earnings Guidance [price-sensitive]"
+      ],
+      "source_headline": "IFN: Trading Update and Earnings Guidance [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IFN?key=2924-03164878-2A1712061",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T21:48:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T21:58:56Z",
+      "updated_at": "2026-11-22T21:58:56Z",
+      "decay_at": "2026-11-24T09:48:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4f2372189498",
       "idea_version": "IDEAV-dd7652ed1642024d",
       "idea_version_started_at": "2026-11-22T21:34:07Z",
@@ -258399,76 +258470,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9cc12e17f41c",
-      "idea_version": "IDEAV-20fa7469878a06c5",
-      "idea_version_started_at": "2026-11-20T17:10:35Z",
-      "ticker": "ROST",
-      "company": "Ross Stores",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a revenue miss in its Q3 results, indicating potential weakness in consumer discretionary spending or inventory management issues.",
-      "why_now": "The earnings miss was reported on November 19, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9196e6797c1b"
-      ],
-      "primary_source_event_id": "EVT-9196e6797c1b",
-      "source_headlines": [
-        "Ross Shares Sink After Q3 Revenue Miss: Details"
-      ],
-      "source_headline": "Ross Shares Sink After Q3 Revenue Miss: Details",
-      "source_url": "https://www.benzinga.com/markets/earnings/26/11/63461051/ross-shares-sink-after-q3-revenue-miss-details",
-      "source_name": "Benzinga",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T21:38:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T17:10:35Z",
-      "updated_at": "2026-11-20T17:10:35Z",
-      "decay_at": "2026-11-21T09:38:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-c1a1a479f11f",
       "idea_version": "IDEAV-448a2231571be149",
       "idea_version_started_at": "2026-11-21T03:54:43Z",
@@ -260404,9 +260405,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -260414,23 +260415,23 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 269,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 18
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2021,
-      "oldest_retained_at": "2026-10-26T14:02:45Z",
+      "evicted_count": 2022,
+      "oldest_retained_at": "2026-10-26T14:09:38Z",
       "side_counts": {
         "long": {
           "evicted_count": 1309,
           "oldest_retained_at": "2026-11-03T16:33:04Z"
         },
         "short": {
-          "evicted_count": 713,
-          "oldest_retained_at": "2026-10-26T14:02:45Z"
+          "evicted_count": 714,
+          "oldest_retained_at": "2026-10-26T14:09:38Z"
         }
       }
     },
@@ -263465,8 +263466,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T09:38:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-22T21:59:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -297525,8 +297526,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2618,
-    "live_count": 56,
+    "surfaced_total": 2619,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
