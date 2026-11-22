@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T18:58:34Z",
+  "generated_at": "2026-11-22T18:59:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-248",
@@ -253690,6 +253690,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-ff709b93024f",
+      "idea_version": "IDEAV-631ed364033f9de2",
+      "idea_version_started_at": "2026-11-22T18:58:51Z",
+      "ticker": "ASH",
+      "company": "Ashland Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ashland is the target of a potential acquisition by Clariant and CD&R, which typically drives the stock price toward the expected offer premium.",
+      "why_now": "The report of active acquisition talks was released on 2026-11-22.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-61441d828f21"
+      ],
+      "primary_source_event_id": "EVT-61441d828f21",
+      "source_headlines": [
+        "Clariant and CD&R Are in Talks to Buy Chemicals Firm Ashland"
+      ],
+      "source_headline": "Clariant and CD&R Are in Talks to Buy Chemicals Firm Ashland",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/clariant-and-cd-r-are-in-talks-to-buy-chemicals-firm-ashland",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T18:42:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T18:58:51Z",
+      "updated_at": "2026-11-22T18:58:51Z",
+      "decay_at": "2026-11-24T06:42:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cde852397b1c",
       "idea_version": "IDEAV-9e43a468b29a2343",
       "idea_version_started_at": "2026-11-22T18:10:17Z",
@@ -258821,76 +258891,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-2326f7dbcde3",
-      "idea_version": "IDEAV-43598f023ca713ab",
-      "idea_version_started_at": "2026-11-20T11:56:26Z",
-      "ticker": "UBSFY",
-      "company": "Ubisoft",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 26% drop in holiday quarter bookings, signaling weak demand for its core gaming portfolio.",
-      "why_now": "The earnings update was released on 2026-11-19.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7efef3becb89"
-      ],
-      "primary_source_event_id": "EVT-7efef3becb89",
-      "source_headlines": [
-        "Assassin’s Creed Owner Sees 26% Drop in Holiday Quarter Bookings"
-      ],
-      "source_headline": "Assassin’s Creed Owner Sees 26% Drop in Holiday Quarter Bookings",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/assassin-s-creed-owner-sees-26-drop-in-holiday-quarter-bookings",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T18:33:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T11:56:26Z",
-      "updated_at": "2026-11-20T11:56:26Z",
-      "decay_at": "2026-11-21T06:33:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-5390bdd23e41aed6",
       "idea_version_started_at": "2026-11-21T00:45:32Z",
@@ -260243,78 +260243,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0dbc9847aa0d",
-      "idea_version": "IDEAV-2da277d31b7d0b6c",
-      "idea_version_started_at": "2026-11-20T10:55:45Z",
-      "ticker": "UBI",
-      "company": "Ubisoft",
-      "exchange": "EPA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 26% drop in holiday quarter bookings indicates weakening demand for the company's core gaming titles, directly impacting revenue and cash flow projections.",
-      "why_now": "The news of the booking decline was reported on 2026-11-19.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7efef3becb89"
-      ],
-      "primary_source_event_id": "EVT-7efef3becb89",
-      "source_headlines": [
-        "Assassin’s Creed Owner Sees 26% Drop in Holiday Quarter Bookings"
-      ],
-      "source_headline": "Assassin’s Creed Owner Sees 26% Drop in Holiday Quarter Bookings",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/assassin-s-creed-owner-sees-26-drop-in-holiday-quarter-bookings",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T18:33:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T10:55:45Z",
-      "updated_at": "2026-11-20T10:55:45Z",
-      "decay_at": "2026-11-21T06:33:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7475670173bc",
       "idea_version": "IDEAV-1e372d5d4c3a04eb",
       "idea_version_started_at": "2026-11-21T16:54:46Z",
@@ -260470,9 +260398,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 267,
@@ -260480,23 +260408,23 @@
         "hidden_count": 17
       },
       "short": {
-        "total_count": 272,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 20
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2018,
-      "oldest_retained_at": "2026-10-26T08:21:48Z",
+      "evicted_count": 2020,
+      "oldest_retained_at": "2026-10-26T13:50:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 1309,
           "oldest_retained_at": "2026-11-03T16:33:04Z"
         },
         "short": {
-          "evicted_count": 710,
-          "oldest_retained_at": "2026-10-26T08:21:48Z"
+          "evicted_count": 712,
+          "oldest_retained_at": "2026-10-26T13:50:00Z"
         }
       }
     },
@@ -263305,8 +263233,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T06:33:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-22T18:58:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -263380,8 +263308,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T06:33:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-22T18:58:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -297588,8 +297516,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2616,
-    "live_count": 59,
+    "surfaced_total": 2617,
+    "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
