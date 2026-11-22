@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-22T02:24:13Z",
+  "generated_at": "2026-11-22T02:35:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-041",
+      "headline": "Failed chain David Jones owes creditors at least A$459m",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/failed-chain-david-jones-owes-creditors-at-least-a459m/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:00:26Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "David Jones faces insolvency with at least A$459m owed to creditors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "David Jones faces insolvency with at least A$459m owed to creditors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "David Jones",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-026",
       "headline": "Amazon eyes $7.5 billion Decart deal to boost AI chip efficiency, challenge Nvidia | 5 things to know",
@@ -510,6 +559,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-040",
+      "headline": "Grand Theft Auto VI launches worldwide after generating $1.4bn in pre-orders",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/international/gta-vi-launches-worldwide-after-generating-1-4bn-in-pre-orders/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:00:38Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Take-Two Interactive's GTA VI launch follows $1.4bn in pre-orders, a significant revenue event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Take-Two Interactive's GTA VI launch follows $1.4bn in pre-orders, a significant revenue event for the company.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-034",
       "headline": "Metall-Tarifkonflikt: IG Metall Küste – 24-Stunden-Streiks werden ausgeweitet",
       "headline_en": "Metal tariff conflict: IG Metall Coast – 24-hour strikes are being expanded",
@@ -865,6 +963,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-042",
+      "headline": "MP's Historic Bajranggarh Fort Under Threat From Alleged Illegal Mining And Blasting In Guna; NGT Issues Notices To Five Authorities",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/mps-historic-bajranggarh-fort-under-threat-from-alleged-illegal-mining-and-blasting-in-guna-ngt-issues-notices-to-five-authorities",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Legal action against illegal mining in a historic site highlights regulatory enforcement risks in the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Legal action against illegal mining in a historic site highlights regulatory enforcement risks in the sector.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1321,49 +1462,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261122-016",
-      "headline": "Iran war live: Iran targets US bases in Bahrain; Houthi strikes continue",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/11/21/iran-war-live-iran-targets-us-military-in-bahrain-houthi-strikes-continue?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-21T23:59:03Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Direct military escalation involving Iran and US bases represents a major geopolitical shock with significant implications for global energy markets and risk sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Direct military escalation involving Iran and US bases represents a major geopolitical shock with significant implications for global energy markets and risk sentiment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261122-024",
       "headline": "Bahrain says Iranian attack hits industrial facility, causes fire",
       "headline_en": null,
@@ -1398,6 +1496,49 @@
       },
       "event_types": [
         "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-043",
+      "headline": "+++ Iran-Krieg +++: Bahrain gerät erneut unter iranischen Beschuss",
+      "headline_en": "+++ Iran War +++: Bahrain comes under Iranian fire again",
+      "url": "https://www.handelsblatt.com/politik/international/iran-krieg-bahrain-geraet-erneut-unter-iranischen-beschuss/100136895.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T02:26:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Escalation of conflict involving Bahrain and Iran represents a significant geopolitical risk to global markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation of conflict involving Bahrain and Iran represents a significant geopolitical risk to global markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -294931,7 +295072,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5164,
+    "inbox_unconsumed": 5167,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -294940,9 +295081,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 219,
-    "news_picked_today": 40,
-    "news_dropped_today": 179
+    "news_seen_today": 241,
+    "news_picked_today": 44,
+    "news_dropped_today": 197
   },
   "book_momentum": {
     "live_count": 8,
