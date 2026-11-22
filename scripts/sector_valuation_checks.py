@@ -42,6 +42,10 @@ Both callers treat a non-empty list as a violation and `None`/`[]` as no violati
 
 Check BJ (§16 "no double-charging a quality gap", `eval_bj_quality_double_count`) lives here too — same
 §16 valuation-method doctrine, same two callers, same return convention. See its section below.
+
+Check BN (§9 "the base rate must match the CLAIM's unit", `eval_bn_reverse_dcf_base_rate_unit`) also lives
+here. It judges the valuation module's reverse-DCF orb, with the same two callers and the same return
+convention. See its section at the end of this file.
 """
 import re
 
@@ -286,3 +290,101 @@ def eval_bj_quality_double_count(decision_date, peers_md, peers_internals=None):
                    "DOUBLE-COUNT TEST cannot be checked; add the ledger naming what the haircut pays for "
                    "beyond the margin already in the denominator (CLAUDE.md §16)")
     return det
+
+
+# ── Check BN — §9 "the base rate must match the CLAIM's unit", reverse-DCF Implied vs Achievable ──────
+# CLAUDE.md §9: a base rate drawn from a different unit from the claim "is not evidence, it is a category
+# error dressed as discipline" — the METRIC must match (profit growth is tested against profit growth, not
+# revenue growth). Its worked miss is a reverse-DCF: AMZN's implied ~16.4% profit growth judged
+# "aggressive versus the 11.1% historical revenue CAGR". `valuation/05_reverse-dcf.md` §3's table is where
+# that comparison is written, yet its template said only "Historical CAGR = ..." and nothing checked the
+# unit. On the committed corpus the defect shipped twice: EMAAR_2026-07-10 tested an implied FCFF CAGR of
+# −13.4%/yr against "Revenue CAGR +15.4%/yr" alone, and DHER_2026-08-12 tested an implied FCF CAGR of 5.49%
+# against "11.3% revenue growth alone".
+#
+# Rule (deliberately narrow; metric only — LEVEL and PERIOD are prompt-enforced, see 05 §3): in a table
+# whose header has an "Implied Requirement" column and a "History" column, a row FAILS when the implied
+# cell is a GROWTH claim naming one metric family (revenue, or profit/cash flow) and the history cell
+# names ONLY the other family. A history cell naming no metric (the unit is implicit), or naming the
+# matched family anywhere (including beside a revenue CAGR given as context), passes. A row whose
+# "Base-rate basis" cell declares `proxy: … — <reason>` passes: a declared substitute with its reason is
+# honest, a silent one is not. Citations ([...], `...`, "(….md …)") are stripped first so a path such as
+# `earnings/01_historical-financials.md` cannot count as the word "earnings".
+BN_DATE = "2026-11-22"  # forward-looking; committed runs predate it → N/A (retrospective advisory in eval.py)
+_BN_IMPLIED_HEAD = re.compile(r"\bimplied\s+requirement\b", re.I)
+_BN_HIST_HEAD = re.compile(r"\bhistory\b", re.I)
+_BN_BASIS_HEAD = re.compile(r"\bbase[\s-]*rate\s+basis\b", re.I)
+_BN_DELIM = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
+_BN_GROWTH = re.compile(r"\bCAGR\b|\bgrowth\b|\bgrow(?:s|n|ing)?\b|%\s*/\s*yr\b|\bper\s+(?:year|annum)\b|"
+                        r"\bYoY\b|\bannual(?:ly)?\b|\ba\s+year\b", re.I)
+_BN_REVENUE = re.compile(r"\b(?:revenues?|sales|top[\s-]?line|turnover)\b", re.I)
+_BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]cash[\s-]flows?|cash[\s-]flows?|NOPAT|EBITDA|EBIT|EPS|"
+                        r"net[\s-]income|earnings|profits?|operating[\s-]income|PAT)\b", re.I)
+_BN_CITE = re.compile(r"\[[^\]]*\]|`[^`]*`|\([^()]*\.md[^()]*\)")
+_BN_PROXY = re.compile(r"\bproxy\b\s*[:\-—–]?\s*(.*)", re.I)
+
+
+def _bn_families(text):
+    t = _BN_CITE.sub(" ", text or "")
+    fam = set()
+    if _BN_REVENUE.search(t):
+        fam.add("revenue")
+    if _BN_PROFIT.search(t):
+        fam.add("profit/cash-flow")
+    return fam
+
+
+def _bn_rows(md):
+    """Yield (implied_cell, history_cell, basis_cell_or_None) for every data row of every table whose
+    header carries an 'Implied Requirement' column and a separate 'History' column."""
+    lines = (md or "").splitlines()
+    i = 0
+    while i < len(lines):
+        ln = lines[i]
+        if not (ln.lstrip().startswith("|") and _BN_IMPLIED_HEAD.search(ln)):
+            i += 1
+            continue
+        head = _bj_cells(ln)
+        ii = next((k for k, c in enumerate(head) if _BN_IMPLIED_HEAD.search(c)), None)
+        hi = next((k for k, c in enumerate(head) if k != ii and _BN_HIST_HEAD.search(c)), None)
+        bi = next((k for k, c in enumerate(head) if _BN_BASIS_HEAD.search(c)), None)
+        i += 1
+        if hi is None:
+            continue
+        if i < len(lines) and _BN_DELIM.match(lines[i]):
+            i += 1
+        while i < len(lines) and lines[i].lstrip().startswith("|"):
+            cells = _bj_cells(lines[i])
+            i += 1
+            if len(cells) <= max(ii, hi):
+                continue
+            yield cells[ii], cells[hi], (cells[bi] if bi is not None and bi < len(cells) else None)
+
+
+def eval_bn_reverse_dcf_base_rate_unit(decision_date, reverse_dcf_md):
+    """Core of check BN. `reverse_dcf_md` = text of valuation/05_reverse-dcf.md (or None).
+    Returns None (not applicable: predates BN_DATE, no orb, or no Implied-vs-Achievable table),
+    [] (clean), or [finding, ...] (a violation)."""
+    if not (isinstance(decision_date, str) and decision_date >= BN_DATE):
+        return None
+    if not reverse_dcf_md:
+        return None
+    rows = list(_bn_rows(reverse_dcf_md))
+    if not rows:
+        return None
+    hits = []
+    for implied, history, basis in rows:
+        if not _BN_GROWTH.search(_BN_CITE.sub(" ", implied)):
+            continue  # a level / margin / ROE / duration row: its base rate is not a growth rate
+        f_imp, f_hist = _bn_families(implied), _bn_families(history)
+        if not f_imp or not f_hist or (f_imp & f_hist):
+            continue
+        m = _BN_PROXY.search(basis or "")
+        if m and len(re.findall(r"[A-Za-z]{3,}", m.group(1))) >= 3:
+            continue  # declared substitute, with a reason
+        hits.append(
+            f"§9 base-rate unit mismatch: reverse-DCF implied requirement {implied[:90]!r} is a "
+            f"{'/'.join(sorted(f_imp))} growth claim but its history cell names only "
+            f"{'/'.join(sorted(f_hist))} ({history[:110]!r}) — test it against the same metric, level "
+            f"and period, or declare 'proxy: <metric> — <why>' in the Base-rate basis column")
+    return hits
