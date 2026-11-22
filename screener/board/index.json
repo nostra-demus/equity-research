@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-22T09:43:19Z",
+  "generated_at": "2026-11-22T09:54:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-160",
+      "headline": "VinFast eyes 1.5 lakh vehicle capacity at Thoothukudi plant; puts electric bus plans on hold",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/vinfast-eyes-15-lakh-vehicle-capacity-at-thoothukudi-plant-puts-electric-bus-plans-on-hold/article71731067.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T09:48:28Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "VinFast is planning a significant capacity expansion of 150,000 vehicles at its new Thoothukudi plant in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "VinFast is planning a significant capacity expansion of 150,000 vehicles at its new Thoothukudi plant in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VinFast",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-150",
       "headline": "Aditya Birla Real Estate aims Rs 15,000 crore annual pre-sales in three years",
@@ -1905,60 +1954,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-158",
-      "headline": "Pune: FDA Suspends Amazon, BigBasket Dark Store Licences, 12 Drug Establishments Face Action",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/pune/pune-fda-suspends-amazon-bigbasket-dark-store-licences-12-drug-establishments-face-action",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T09:14:42Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "The FDA suspended the dark store licenses of Amazon and BigBasket in Pune, creating operational risk for their local delivery services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The FDA suspended the dark store licenses of Amazon and BigBasket in Pune, creating operational risk for their local delivery services.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "BigBasket",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296986,9 +296981,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1059,
-    "news_picked_today": 232,
-    "news_dropped_today": 827
+    "news_seen_today": 1075,
+    "news_picked_today": 235,
+    "news_dropped_today": 840
   },
   "book_momentum": {
     "live_count": 8,
