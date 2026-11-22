@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T07:54:35Z",
+  "generated_at": "2026-11-22T08:08:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-125",
@@ -1279,6 +1279,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-131",
+      "headline": "‎GAS signs unit-rate contract with Saudi Aramco",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1955578",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T10:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "GAS has signed a unit-rate contract with Saudi Aramco, representing a significant commercial agreement for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "GAS has signed a unit-rate contract with Saudi Aramco, representing a significant commercial agreement for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Gas and Industrialization Co.",
+          "ticker": null,
+          "listing_country": "SA"
+        },
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-080",
       "headline": "FWO seeks fine against CFMEU administration over Meriton tower entries",
       "headline_en": null,
@@ -1862,80 +1916,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261122-120",
-      "headline": "Maruti Suzuki hikes select model prices amid cost pressures",
+      "inbox_id": "INB-20261122-128",
+      "headline": "Indonesia factory fire kills three, 36 missing",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/maruti-suzuki-hikes-select-model-prices-amid-cost-pressures/article71730823.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T07:05:25Z",
+      "url": "https://www.aljazeera.com/news/2026/11/22/indonesia-factory-fire-kills-three-36-missing?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-22T07:46:35Z",
       "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Maruti Suzuki is increasing prices on select models to offset rising input costs, which may help protect margins.",
+      "prelim_note": "Industrial accident with fatalities and missing persons poses operational and liability risks.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 83,
-      "triage_reason": "Maruti Suzuki is increasing prices on select models to offset rising input costs, which may help protect margins.",
-      "region": "IN",
+      "triage_reason": "Industrial accident with fatalities and missing persons poses operational and liability risks.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-108",
-      "headline": "Dozens missing after fire at Indonesian factory",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cw8dvg5pgm0eo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T06:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "A major factory fire with missing persons indicates a severe operational and safety crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A major factory fire with missing persons indicates a severe operational and safety crisis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
         "event": 2,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -296043,9 +296048,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 833,
-    "news_picked_today": 180,
-    "news_dropped_today": 653
+    "news_seen_today": 858,
+    "news_picked_today": 185,
+    "news_dropped_today": 673
   },
   "book_momentum": {
     "live_count": 8,
