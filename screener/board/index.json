@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T15:28:57Z",
+  "generated_at": "2026-11-22T15:29:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-214",
@@ -253475,6 +253475,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-d5fc92047527",
+      "idea_version": "IDEAV-a8cf64629cc99704",
+      "idea_version_started_at": "2026-11-22T15:29:26Z",
+      "ticker": "IQV",
+      "company": "IQVIA Holdings",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Acquiring a distressed or smaller drug services group for $1.1 billion increases leverage and execution risk, which typically results in a short-term negative reaction for the acquirer's stock.",
+      "why_now": "The acquisition news was reported on 2026-11-22.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6413c71524d5"
+      ],
+      "primary_source_event_id": "EVT-6413c71524d5",
+      "source_headlines": [
+        "IQVIA Closes In on $1.1 Billion Takeover of UK Drug Services Group Quotient"
+      ],
+      "source_headline": "IQVIA Closes In on $1.1 Billion Takeover of UK Drug Services Group Quotient",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/iqvia-closes-in-on-1-1-billion-takeover-of-uk-drug-services-group-quotient",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T14:33:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T15:29:26Z",
+      "updated_at": "2026-11-22T15:29:26Z",
+      "decay_at": "2026-11-24T02:33:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-521e020bb493",
       "idea_version": "IDEAV-d36fdb9e638c6218",
       "idea_version_started_at": "2026-11-21T17:48:12Z",
@@ -254729,6 +254799,78 @@
       "surfaced_at": "2026-11-22T02:35:18Z",
       "updated_at": "2026-11-22T02:35:18Z",
       "decay_at": "2026-11-23T14:12:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-86f44e0accf0",
+      "idea_version": "IDEAV-da92ecc9f0ef56e7",
+      "idea_version_started_at": "2026-11-22T15:29:26Z",
+      "ticker": "IIB",
+      "company": "IndusInd Bank",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of the CEO following an accounting discrepancy signals significant governance risk and potential regulatory scrutiny that will likely pressure the bank's valuation multiples.",
+      "why_now": "The news of the CEO's termination and the underlying accounting issues broke on 2026-11-22.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b9294cde0591"
+      ],
+      "primary_source_event_id": "EVT-b9294cde0591",
+      "source_headlines": [
+        "IndusInd Bank's accounting discrepancy: Inside the saga that led to former CEO Sumant Kathpalia's termination"
+      ],
+      "source_headline": "IndusInd Bank's accounting discrepancy: Inside the saga that led to former CEO Sumant Kathpalia's termination",
+      "source_url": "https://www.livemint.com/industry/banking/indusind-banks-accounting-discrepancy-inside-the-saga-that-led-to-former-ceo-sumant-kathpalias-termination-11795355619561.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T14:17:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T01:54:31Z",
+      "updated_at": "2026-11-22T15:29:26Z",
+      "decay_at": "2026-11-24T02:17:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -259884,78 +260026,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-86f44e0accf0",
-      "idea_version": "IDEAV-7d19cc683702fb1d",
-      "idea_version_started_at": "2026-11-21T01:54:31Z",
-      "ticker": "IIB",
-      "company": "IndusInd Bank",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden termination of the ex-CEO and the initiation of pay recovery efforts indicate severe internal governance and management instability.",
-      "why_now": "The announcement occurred on 2026-11-21.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2ede0cee8957"
-      ],
-      "primary_source_event_id": "EVT-2ede0cee8957",
-      "source_headlines": [
-        "IndusInd Bank ends ex-CEO Kathpalia's employment, seeks to recover pay"
-      ],
-      "source_headline": "IndusInd Bank ends ex-CEO Kathpalia's employment, seeks to recover pay",
-      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/indusind-bank-ends-ex-ceo-kathpalias-employment-seeks-to-recover-pay/articleshow/136042443.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 92,
-      "newest_source_at": "2026-11-21T00:54:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T01:54:31Z",
-      "updated_at": "2026-11-21T01:54:31Z",
-      "decay_at": "2026-11-22T12:54:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-2fcff775e893",
       "idea_version": "IDEAV-2df638fcf4bf3eaa",
       "idea_version_started_at": "2026-11-21T04:14:39Z",
@@ -260039,9 +260109,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 265,
@@ -260049,9 +260119,9 @@
         "hidden_count": 15
       },
       "short": {
-        "total_count": 273,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -260289,81 +260359,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-22T13:38:31Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-86f44e0accf0",
-        "idea_version": "IDEAV-7d19cc683702fb1d",
-        "idea_version_started_at": "2026-11-21T01:54:31Z",
-        "ticker": "IIB",
-        "company": "IndusInd Bank",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The sudden termination of the ex-CEO and the initiation of pay recovery efforts indicate severe internal governance and management instability.",
-        "why_now": "The announcement occurred on 2026-11-21.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2ede0cee8957"
-        ],
-        "primary_source_event_id": "EVT-2ede0cee8957",
-        "source_headlines": [
-          "IndusInd Bank ends ex-CEO Kathpalia's employment, seeks to recover pay"
-        ],
-        "source_headline": "IndusInd Bank ends ex-CEO Kathpalia's employment, seeks to recover pay",
-        "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/indusind-bank-ends-ex-ceo-kathpalias-employment-seeks-to-recover-pay/articleshow/136042443.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 92,
-        "newest_source_at": "2026-11-21T00:54:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-21T01:54:31Z",
-        "updated_at": "2026-11-21T01:54:31Z",
-        "decay_at": "2026-11-22T12:54:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-22T12:54:52Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -297155,12 +297150,87 @@
         "archived_at": "2026-10-29T11:34:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-772799d9898e",
+        "idea_version": "IDEAV-45e7022537d0d47b",
+        "idea_version_started_at": "2026-10-26T06:48:34Z",
+        "ticker": "RAILTEL",
+        "company": "RailTel Corporation of India",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 10% drop in quarterly profit despite revenue growth indicates significant margin compression and rising operational costs.",
+        "why_now": "The earnings report was released on October 26, 2026, highlighting the profit decline.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-81f3edbab820"
+        ],
+        "primary_source_event_id": "EVT-81f3edbab820",
+        "source_headlines": [
+          "RailTel Reports 10% Profit Drop In Q2 FY27, Declares ₹1 Interim Dividend As Revenue Climbs 20%"
+        ],
+        "source_headline": "RailTel Reports 10% Profit Drop In Q2 FY27, Declares ₹1 Interim Dividend As Revenue Climbs 20%",
+        "source_url": "https://www.freepressjournal.in/business/railtel-reports-10-profit-drop-in-q2-fy27-declares-1-interim-dividend-as-revenue-climbs-20",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T05:43:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T06:48:34Z",
+        "updated_at": "2026-10-26T06:48:34Z",
+        "decay_at": "2026-10-27T17:43:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2610,
-    "live_count": 54,
+    "surfaced_total": 2611,
+    "live_count": 56,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
