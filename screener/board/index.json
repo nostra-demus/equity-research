@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T10:19:18Z",
+  "generated_at": "2026-11-22T10:19:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-160",
@@ -253896,6 +253896,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-1fa6a7595fa9ed4e",
+      "idea_version_started_at": "2026-11-22T10:19:34Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A criminal probe and subpoena from California authorities regarding potential law violations creates significant legal overhang and headline risk for the company's core business operations.",
+      "why_now": "The news of the subpoena and criminal investigation broke on 2026-11-22, creating immediate regulatory uncertainty.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-700eedbddb86"
+      ],
+      "primary_source_event_id": "EVT-700eedbddb86",
+      "source_headlines": [
+        "More trouble for Nvidia? California issues subpoena, probe to look at potential criminal law violations: What we know"
+      ],
+      "source_headline": "More trouble for Nvidia? California issues subpoena, probe to look at potential criminal law violations: What we know",
+      "source_url": "https://www.livemint.com/companies/news/more-trouble-for-nvidia-california-issues-subpoena-probe-to-look-at-potential-criminal-law-violations-what-we-know-11795314313192.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T02:39:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T20:38:19Z",
+      "updated_at": "2026-11-22T10:19:34Z",
+      "decay_at": "2026-11-23T14:39:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3bb4c249dc6a",
       "idea_version": "IDEAV-80cfd2a9f479994d",
       "idea_version_started_at": "2026-11-21T12:06:31Z",
@@ -258040,77 +258110,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-3be703a8805a4cd8",
-      "idea_version_started_at": "2026-11-20T23:03:16Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An SEC probe into accounting practices introduces significant regulatory and financial uncertainty, threatening the company's valuation multiple and investor sentiment.",
-      "why_now": "The news of the SEC probe broke on 2026-11-20, triggering an immediate and sharp market reaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9788c23033a4",
-        "EVT-8e97a7eee396"
-      ],
-      "primary_source_event_id": "EVT-9788c23033a4",
-      "source_headlines": [
-        "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
-        "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting"
-      ],
-      "source_headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
-      "source_url": "https://247wallst.com/investing/2026/11/20/nvidia-stock-plunges-12-after-reuters-reports-an-sec-probe-of-its-accounting-its-nvidias-worst-day-since-deepseek-and-it-has-lost-2-7-trillion-since-october/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T21:27:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T23:03:16Z",
-      "decay_at": "2026-11-22T09:27:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ee0cbc4e5540",
       "idea_version": "IDEAV-c89b58c175aa2a4f",
       "idea_version_started_at": "2026-11-20T17:10:35Z",
@@ -259824,9 +259823,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 526,
     "shown_count": 499,
-    "hidden_count": 28,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
         "total_count": 261,
@@ -259834,9 +259833,9 @@
         "hidden_count": 11
       },
       "short": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -259855,80 +259854,6 @@
       }
     },
     "rows": [
-      {
-        "idea_id": "IDEA-50f379c78b21",
-        "idea_version": "IDEAV-3be703a8805a4cd8",
-        "idea_version_started_at": "2026-11-20T23:03:16Z",
-        "ticker": "NVDA",
-        "company": "Nvidia",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "An SEC probe into accounting practices introduces significant regulatory and financial uncertainty, threatening the company's valuation multiple and investor sentiment.",
-        "why_now": "The news of the SEC probe broke on 2026-11-20, triggering an immediate and sharp market reaction.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 76,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 23,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9788c23033a4",
-          "EVT-8e97a7eee396"
-        ],
-        "primary_source_event_id": "EVT-9788c23033a4",
-        "source_headlines": [
-          "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
-          "Nvidia Stock Plunge Wipes Out Nearly $500 Billion in One Day as SEC Reportedly Probes Its Accounting"
-        ],
-        "source_headline": "Nvidia Stock Plunges 12% After Reuters Reports an SEC Probe of Its Accounting. It’s Nvidia’s Worst Day Since DeepSeek and It Has Lost $2.7 Trillion Since October",
-        "source_url": "https://247wallst.com/investing/2026/11/20/nvidia-stock-plunges-12-after-reuters-reports-an-sec-probe-of-its-accounting-its-nvidias-worst-day-since-deepseek-and-it-has-lost-2-7-trillion-since-october/",
-        "source_name": "24/7 Wall St.",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-20T21:27:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-20T20:38:19Z",
-        "updated_at": "2026-11-20T23:03:16Z",
-        "decay_at": "2026-11-22T09:27:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-22T09:27:22Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
       {
         "idea_id": "IDEA-0d33d5cbe937",
         "idea_version": "IDEAV-3096bed61d08d90a",
@@ -296950,12 +296875,86 @@
         "archived_at": "2026-10-28T18:19:18Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4a437db750bd",
+        "idea_version": "IDEAV-1606cc91e1dc29b8",
+        "idea_version_started_at": "2026-10-25T11:09:28Z",
+        "ticker": "6808",
+        "company": "Sun Art Retail Group Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Sun Art Retail issued an official profit warning filing on the HKEX indicating severe earnings deterioration and margin compression for its retail operations.",
+        "why_now": "The negative regulatory profit warning disclosure was filed on October 25, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6530a5ebb0ae"
+        ],
+        "primary_source_event_id": "EVT-6530a5ebb0ae",
+        "source_headlines": [
+          "SUNART RETAIL (06808): PROFIT WARNING"
+        ],
+        "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T10:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T11:09:28Z",
+        "updated_at": "2026-10-25T11:09:28Z",
+        "decay_at": "2026-10-26T22:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T10:33:46Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2604,
-    "live_count": 61,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
