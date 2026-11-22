@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T11:03:43Z",
+  "generated_at": "2026-11-22T11:12:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-171",
@@ -1650,6 +1650,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-182",
+      "headline": "SpiceJet Continues Selling Tickets On Routes It Cannot Operate Amid Cash Crunch, Passengers Stranded",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/spicejet-continues-selling-tickets-on-routes-it-cannot-operate-amid-cash-crunch-passengers-stranded",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T10:27:55Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "SpiceJet is facing operational failures and potential insolvency risks due to a severe cash crunch.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "SpiceJet is facing operational failures and potential insolvency risks due to a severe cash crunch.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpiceJet",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-135",
       "headline": "Shree Cement targets 100 MT capacity in 3-4 years on India growth bet",
       "headline_en": null,
@@ -1891,56 +1941,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-073",
-      "headline": "China Investigates CNPC Deputy General Manager for Corruption",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-22/china-investigates-cnpc-deputy-general-manager-for-corruption",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T03:36:34Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Corruption investigation into a deputy general manager of a major state-owned energy firm indicates potential governance and operational risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Corruption investigation into a deputy general manager of a major state-owned energy firm indicates potential governance and operational risks.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China National Petroleum Corporation",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297110,9 +297110,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1243,
-    "news_picked_today": 276,
-    "news_dropped_today": 967
+    "news_seen_today": 1268,
+    "news_picked_today": 282,
+    "news_dropped_today": 986
   },
   "book_momentum": {
     "live_count": 8,
