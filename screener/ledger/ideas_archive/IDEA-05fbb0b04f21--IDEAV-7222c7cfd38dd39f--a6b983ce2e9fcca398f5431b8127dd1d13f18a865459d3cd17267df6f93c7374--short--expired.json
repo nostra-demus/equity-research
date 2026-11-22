@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-22T21:34:12Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-05fbb0b04f21",
+    "idea_version": "IDEAV-7222c7cfd38dd39f",
+    "idea_version_started_at": "2026-11-20T14:40:23Z",
+    "ticker": "OPEN",
+    "company": "Opendoor Technologies Inc.",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company has received a delisting notification from the Nasdaq, signaling severe financial distress and potential loss of liquidity.",
+    "why_now": "The 25-NSE filing was issued on 2026-11-19.",
+    "conviction": 85,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 77,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-3831cd64a604",
+      "EVT-99160a3ec4b6"
+    ],
+    "primary_source_event_id": "EVT-3831cd64a604",
+    "source_headlines": [
+      "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
+      "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
+    ],
+    "source_headline": "25-NSE - Opendoor Technologies Inc. (0001801169) (Subject)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1801169/000135445726001093/0001354457-26-001093-index.htm",
+    "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-19T21:09:40Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-20T14:40:23Z",
+    "updated_at": "2026-11-20T14:40:23Z",
+    "decay_at": "2026-11-21T09:09:40Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
