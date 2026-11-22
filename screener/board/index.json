@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T12:19:19Z",
+  "generated_at": "2026-11-22T12:28:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-197",
@@ -1316,6 +1316,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-202",
+      "headline": "Nakheel’s Palm Springs villas, townhouses sold out for Dh5.5 billion",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/nakheels-palm-springs-villas-townhouses-sold-out-for-dh55-billion",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T12:21:05Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Nakheel sold out its Palm Springs project for Dh5.5 billion, indicating strong demand and significant revenue realization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Nakheel sold out its Palm Springs project for Dh5.5 billion, indicating strong demand and significant revenue realization.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nakheel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-187",
       "headline": "Adani Energy Solutions Acquires 100% Stake In Vikramshila Power, Bihar’s 2,400 MW Power Project In Focus",
       "headline_en": null,
@@ -1896,56 +1945,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-196",
-      "headline": "Who is Li Ming? How did Alice Huang's associate funnel Nvidia AI chips to China? Read about the accusation",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/who-is-li-ming-how-did-alice-huangs-associate-funnel-nvidia-ai-chips-to-china-read-about-the-accusation-11795345041140.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T11:57:02Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Allegations of illegal diversion of Nvidia AI chips to China pose significant regulatory and export control risks for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Allegations of illegal diversion of Nvidia AI chips to China pose significant regulatory and export control risks for the company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297113,9 +297112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1415,
-    "news_picked_today": 322,
-    "news_dropped_today": 1093
+    "news_seen_today": 1450,
+    "news_picked_today": 329,
+    "news_dropped_today": 1121
   },
   "book_momentum": {
     "live_count": 8,
