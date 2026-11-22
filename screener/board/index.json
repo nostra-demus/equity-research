@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-22T14:20:01Z",
+  "generated_at": "2026-11-22T14:30:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-212",
+      "headline": "IndusInd Bank's accounting discrepancy: Inside the saga that led to former CEO Sumant Kathpalia's termination",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/indusind-banks-accounting-discrepancy-inside-the-saga-that-led-to-former-ceo-sumant-kathpalias-termination-11795355619561.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T14:17:25Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "IndusInd Bank CEO terminated following an accounting discrepancy saga.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndusInd Bank CEO terminated following an accounting discrepancy saga.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-211",
       "headline": "Deep Read: Zehn Wochen vom vertraulichen Brief bis zum Aus: So scheiterte der Milliarden-Plan von BASF",
@@ -1895,55 +1945,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-006",
-      "headline": "AIM weekly movers: Fadel Partners recommends bid",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/aim-weekly-movers-fadel-partners-recommends-bid/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T00:06:27Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Fadel Partners has received a takeover bid, which is a material event for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Fadel Partners has received a takeover bid, which is a material event for shareholders.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fadel Partners",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297103,9 +297104,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2073,
-    "news_picked_today": 400,
-    "news_dropped_today": 1643
+    "news_seen_today": 2105,
+    "news_picked_today": 402,
+    "news_dropped_today": 1673
   },
   "book_momentum": {
     "live_count": 8,
