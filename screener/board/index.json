@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T16:10:53Z",
+  "generated_at": "2026-11-22T16:13:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-222",
@@ -1903,44 +1903,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261122-230",
-      "headline": "NSE tightens retail algo trading compliance, restricts static IP access to self-coding investors",
+      "inbox_id": "INB-20261122-231",
+      "headline": "NextEra Energy Is Slowing Dividend Growth From 10% to 6%. Here’s Why",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nse-tightens-retail-algo-trading-compliance-restricts-static-ip-access-to-self-coding-investors-20039395.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://247wallst.com/investing/2026/11/22/nextera-energy-is-slowing-dividend-growth-from-10-to-6-heres-why/",
+      "source_name": "24/7 Wall St.",
       "input_nature": "news_headline",
-      "found_at": "2026-11-22T15:57:56Z",
+      "found_at": "2026-11-22T16:07:06Z",
       "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "New regulatory restrictions on retail algo trading impact market structure and trading volume for Indian exchanges.",
+      "prelim_note": "NextEra Energy disclosed dividend growth rate deceleration from 10% to 6% annually, signaling capital reallocation, margin pressure, or balance-sheet repriotization; material to income-focused thesis and cost-of-capital assumptions.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New regulatory restrictions on retail algo trading impact market structure and trading volume for Indian exchanges.",
-      "region": "IN",
+      "triage_score": 83,
+      "triage_reason": "NextEra Energy disclosed dividend growth rate deceleration from 10% to 6% annually, signaling capital reallocation, margin pressure, or balance-sheet repriotization; material to income-focused thesis and cost-of-capital assumptions.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": null,
+        "size_bucket": "mega"
       },
       "event_types": [
-        "regulatory"
+        "capital_actions"
       ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextEra Energy",
+          "ticker": "NEE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297312,9 +297318,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2357,
-    "news_picked_today": 457,
-    "news_dropped_today": 1849
+    "news_seen_today": 2370,
+    "news_picked_today": 458,
+    "news_dropped_today": 1861
   },
   "book_momentum": {
     "live_count": 8,
