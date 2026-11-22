@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T07:14:23Z",
+  "generated_at": "2026-11-22T07:24:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-119",
@@ -736,6 +736,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-123",
+      "headline": "Beach, Santos put finishing touches to stealth Taroom Trough deal",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/beach-santos-put-finishing-touches-to-stealth-taroom-trough-deal-20261122-p61g96?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T07:13:46Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Beach Energy and Santos are finalizing a deal for the Taroom Trough assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Beach Energy and Santos are finalizing a deal for the Taroom Trough assets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beach Energy",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Santos",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-076",
       "headline": "India weighs curbs on non-Basmati rice exports to cool domestic prices",
       "headline_en": null,
@@ -923,6 +977,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-122",
+      "headline": "Mahindra Last Mile Mobility Eyes IPO In 18 Months; Plans Expansion Into New Products: Chairman",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/mahindra-last-mile-mobility-eyes-ipo-in-18-months-plans-expansion-into-new-products-chairman-12361346#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T07:07:49Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Mahindra Last Mile Mobility plans an IPO within 18 months and is expanding into new products.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Mahindra Last Mile Mobility plans an IPO within 18 months and is expanding into new products.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra Last Mile Mobility",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1171,55 +1275,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-117",
-      "headline": "Mahindra Last Mile Mobility eyes IPO in 18 months; plans expansion into new products: Chairman",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/mahindra-last-mile-mobility-eyes-ipo-in-18-months-plans-expansion-into-new-products-chairman/article71730782.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T06:43:59Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Mahindra Last Mile Mobility is targeting an IPO within 18 months and planning product expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Mahindra Last Mile Mobility is targeting an IPO within 18 months and planning product expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra Last Mile Mobility",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,49 +1949,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-085",
-      "headline": "Three dead, 36 missing after Indonesia factory fire",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/asia/three-dead-36-missing-after-indonesia-factory-fire-1.500756681",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T05:00:31Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "A major factory fire in Indonesia resulting in casualties and missing persons indicates significant operational disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A major factory fire in Indonesia resulting in casualties and missing persons indicates significant operational disruption.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -295815,9 +295827,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 744,
-    "news_picked_today": 165,
-    "news_dropped_today": 579
+    "news_seen_today": 774,
+    "news_picked_today": 168,
+    "news_dropped_today": 606
   },
   "book_momentum": {
     "live_count": 8,
