@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-22T21:28:23Z",
+  "generated_at": "2026-11-22T21:33:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-251",
+      "headline": "LM1: Transformational Acquisition of WA Gold Limited [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM1?key=2924-03164816-6A1356303",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-22T21:26:45Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Leeuwin Metals announced a transformational acquisition of WA Gold Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Leeuwin Metals announced a transformational acquisition of WA Gold Limited.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leeuwin Metals",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-248",
       "headline": "Clariant and CD&R Are in Talks to Buy Chemicals Firm Ashland",
@@ -1910,55 +1959,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-187",
-      "headline": "Adani Energy Solutions Acquires 100% Stake In Vikramshila Power, Bihar’s 2,400 MW Power Project In Focus",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/adani-energy-solutions-acquires-100-stake-in-vikramshila-power-bihars-2400-mw-power-project-in-focus",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T11:12:03Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Adani Energy Solutions acquired a 100% stake in Vikramshila Power, which holds a 2,400 MW power project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Adani Energy Solutions acquired a 100% stake in Vikramshila Power, which holds a 2,400 MW power project.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Energy Solutions",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297545,9 +297545,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3127,
-    "news_picked_today": 602,
-    "news_dropped_today": 2430
+    "news_seen_today": 3156,
+    "news_picked_today": 612,
+    "news_dropped_today": 2449
   },
   "book_momentum": {
     "live_count": 8,
