@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T08:42:56Z",
+  "generated_at": "2026-11-22T08:49:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-143",
@@ -1017,6 +1017,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-145",
+      "headline": "Indian Bank to raise ₹3000 crore through AT1/Tier 2 bonds",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/indian-bank-to-raise-3000-crore-through-at1tier-2-bonds/article71725307.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T08:39:53Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Indian Bank plans to raise ₹3000 crore through AT1/Tier 2 bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Indian Bank plans to raise ₹3000 crore through AT1/Tier 2 bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-018",
       "headline": "Lendlease is cutting jobs as it tackles a mountain of debt",
       "headline_en": null,
@@ -1714,6 +1763,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-148",
+      "headline": "Paolo Bulgari, chairman of Italian luxury jeweller Bvlgari, dies aged 89",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/lifestyle/fashion-beauty/2026/11/22/paolo-bulgari-chairman-of-italian-luxury-jeweller-bvlgari-dies-aged-89/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T08:40:21Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Paolo Bulgari, chairman of Italian luxury jeweller Bvlgari, has died.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Paolo Bulgari, chairman of Italian luxury jeweller Bvlgari, has died.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bvlgari",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-137",
       "headline": "Viviz wins contract termination lawsuit against Big Planet Made",
       "headline_en": null,
@@ -1845,104 +1943,6 @@
       "companies": [
         {
           "name": "South Korean Government",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-088",
-      "headline": "Ramayana Box Office Collection Day 17: Ranbir Kapoor And Yash's Film Sees Massive Saturday Jump, Crosses ₹900 Crore Mark In India",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/entertainment/ramayana-box-office-collection-day-17-ranbir-kapoor-and-yashs-film-sees-massive-saturday-jump-crosses-900-crore-mark-in-india",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T04:55:41Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "The film Ramayana has crossed the ₹900 crore mark in India, indicating strong box office performance for the production.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The film Ramayana has crossed the ₹900 crore mark in India, indicating strong box office performance for the production.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ramayana",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-066",
-      "headline": "Myer, Blundy among David Jones tyrekickers as shortlist takes shape",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/myer-blundy-among-david-jones-tyrekickers-as-shortlist-takes-shape-20261122-p61g9a?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T03:59:24Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "David Jones is undergoing a strategic review with potential buyers identified, signaling a possible M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "David Jones is undergoing a strategic review with potential buyers identified, signaling a possible M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
           "ticker": null,
           "listing_country": null
         }
@@ -253901,76 +253901,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d0204447ec5b",
-      "idea_version": "IDEAV-43169d7d19bb6d95",
-      "idea_version_started_at": "2026-11-20T23:03:16Z",
-      "ticker": "BAYRY",
-      "company": "Bayer AG",
-      "exchange": "OQX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The court approval of the $7.25 billion Roundup settlement removes a major overhang of litigation uncertainty that has depressed the company's valuation for years.",
-      "why_now": "The judge's approval was announced on 2026-11-20, providing immediate clarity on the company's legal liabilities.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-38c8bdf31893"
-      ],
-      "primary_source_event_id": "EVT-38c8bdf31893",
-      "source_headlines": [
-        "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge"
-      ],
-      "source_headline": "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/bayer-s-7-25-billion-roundup-settlement-approved-by-us-judge",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T20:48:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T23:03:16Z",
-      "updated_at": "2026-11-20T23:03:16Z",
-      "decay_at": "2026-11-22T08:48:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-29b3246b56c4",
       "idea_version": "IDEAV-7dce6ff99986dc94",
       "idea_version_started_at": "2026-11-21T18:39:36Z",
@@ -257605,6 +257535,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d0204447ec5b",
+      "idea_version": "IDEAV-43169d7d19bb6d95",
+      "idea_version_started_at": "2026-11-20T23:03:16Z",
+      "ticker": "BAYRY",
+      "company": "Bayer AG",
+      "exchange": "OQX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The court approval of the $7.25 billion Roundup settlement removes a major overhang of litigation uncertainty that has depressed the company's valuation for years.",
+      "why_now": "The judge's approval was announced on 2026-11-20, providing immediate clarity on the company's legal liabilities.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-38c8bdf31893"
+      ],
+      "primary_source_event_id": "EVT-38c8bdf31893",
+      "source_headlines": [
+        "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge"
+      ],
+      "source_headline": "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/bayer-s-7-25-billion-roundup-settlement-approved-by-us-judge",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T20:48:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T23:03:16Z",
+      "updated_at": "2026-11-20T23:03:16Z",
+      "decay_at": "2026-11-22T08:48:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c26051237597",
       "idea_version": "IDEAV-2b7687a5efbdc98d",
       "idea_version_started_at": "2026-11-20T20:38:19Z",
@@ -259179,14 +259179,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 524,
     "shown_count": 499,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       },
       "short": {
         "total_count": 266,
@@ -259210,6 +259210,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d0204447ec5b",
+        "idea_version": "IDEAV-43169d7d19bb6d95",
+        "idea_version_started_at": "2026-11-20T23:03:16Z",
+        "ticker": "BAYRY",
+        "company": "Bayer AG",
+        "exchange": "OQX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The court approval of the $7.25 billion Roundup settlement removes a major overhang of litigation uncertainty that has depressed the company's valuation for years.",
+        "why_now": "The judge's approval was announced on 2026-11-20, providing immediate clarity on the company's legal liabilities.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-38c8bdf31893"
+        ],
+        "primary_source_event_id": "EVT-38c8bdf31893",
+        "source_headlines": [
+          "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge"
+        ],
+        "source_headline": "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/bayer-s-7-25-billion-roundup-settlement-approved-by-us-judge",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-20T20:48:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-20T23:03:16Z",
+        "updated_at": "2026-11-20T23:03:16Z",
+        "decay_at": "2026-11-22T08:48:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T08:48:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c26051237597",
         "idea_version": "IDEAV-2b7687a5efbdc98d",
@@ -290567,80 +290640,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5df03eedd1b2",
-        "idea_version": "IDEAV-d3841ab8d7e112f9",
-        "idea_version_started_at": "2026-11-02T06:53:24Z",
-        "ticker": "JUPITERW",
-        "company": "Jupiter Wagons Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured new orders worth INR 324 crore, which provides immediate revenue visibility and confirms strong demand for its rail equipment.",
-        "why_now": "The order win was announced via official exchange filing on November 02, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9946af5c1844"
-        ],
-        "primary_source_event_id": "EVT-9946af5c1844",
-        "source_headlines": [
-          "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Jupiter Wagons secures orders worth over INR 324 crore from GATX India and Chetak International\"."
-        ],
-        "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Jupiter Wagons secures orders worth over INR 324 crore from GATX India and Chetak International\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_02112026104526_SEPRESSRELEASE021126.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 95,
-        "newest_source_at": "2026-11-02T05:15:36Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T06:53:24Z",
-        "updated_at": "2026-11-02T06:53:24Z",
-        "decay_at": "2026-11-03T17:15:36Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b0b475f9cb2a",
         "idea_version": "IDEAV-0bdf6deeeba4d15b",
         "idea_version_started_at": "2026-11-02T06:53:24Z",
@@ -296313,7 +296312,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2594,
-    "live_count": 56,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -296332,9 +296331,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 922,
-    "news_picked_today": 203,
-    "news_dropped_today": 719
+    "news_seen_today": 932,
+    "news_picked_today": 208,
+    "news_dropped_today": 724
   },
   "book_momentum": {
     "live_count": 8,
