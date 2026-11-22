@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T10:39:21Z",
+  "generated_at": "2026-11-22T10:47:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-171",
@@ -1749,6 +1749,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-178",
+      "headline": "Tata Sons board meeting this week to revisit listing issue amid row",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-board-meeting-listing-issue-11795342582808.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T10:35:50Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Tata Sons board is revisiting the potential listing of the holding company, a significant corporate governance and capital structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Tata Sons board is revisiting the potential listing of the holding company, a significant corporate governance and capital structure event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-167",
       "headline": "CCPA Slaps Rs 10-Lakh Fine On Firm For Listing 'Anti-Drone Gun' On IndiaMART",
       "headline_en": null,
@@ -1892,60 +1941,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-131",
-      "headline": "‎GAS signs unit-rate contract with Saudi Aramco",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1955578",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T10:56:00Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "GAS has signed a unit-rate contract with Saudi Aramco, representing a significant commercial agreement for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "GAS has signed a unit-rate contract with Saudi Aramco, representing a significant commercial agreement for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Gas and Industrialization Co.",
-          "ticker": null,
-          "listing_country": "SA"
-        },
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297115,9 +297110,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1192,
-    "news_picked_today": 263,
-    "news_dropped_today": 929
+    "news_seen_today": 1221,
+    "news_picked_today": 273,
+    "news_dropped_today": 948
   },
   "book_momentum": {
     "live_count": 8,
