@@ -61,11 +61,16 @@ _TODAY = datetime.date.today()
 _NEAR_TERM_DATE = (_TODAY + datetime.timedelta(days=30)).isoformat()
 _FAR_DATE = (_TODAY + datetime.timedelta(days=200)).isoformat()
 
-# A near-term, mechanically resolvable forecast — the positive control.
+# A near-term, mechanically resolvable forecast — the positive control. It pins a number (12.3%), so once
+# check BK lands (BK_DATE 2026-12-01) the live gate requires `comparable_basis` + `fired_last_two_periods`
+# on it exactly as on kill_criteria[]; without them this control would flip PASS -> PROVISIONAL the day
+# BK activates and silently break this test. They carry the same meaning as on kill_criteria[].
 FC_GOOD = {
     "confirmation_trigger": f"Q1 EBITDA margin prints at or above 12.3% by {_NEAR_TERM_DATE}",
     "falsification_trigger": f"Q1 EBITDA margin prints below 12.3% by {_NEAR_TERM_DATE}",
     "time_window": f"results due by {_NEAR_TERM_DATE}",
+    "comparable_basis": "Q1 this year vs Q1 a year earlier EBITDA margin (prior-year Q1: 11.8%).",
+    "fired_last_two_periods": False,
 }
 # A bare 'beats consensus' with no pinned number anywhere — check AO's core defect.
 FC_BARE_CONSENSUS = {
@@ -79,11 +84,15 @@ FC_IDENTICAL = {
     "falsification_trigger": "revenue grows",
     "time_window": f"results due by {_NEAR_TERM_DATE}",
 }
-# A single forecast, resolving well beyond 90 days — fails the near-term-proof-point quota.
+# A single forecast, resolving well beyond 90 days — fails the near-term-proof-point quota. It also pins a
+# number ($10bn), so it carries the BK fields too: this keeps its post-BK_DATE PROVISIONAL attributable to
+# the near-term-quota defect under test ("insufficient near-term"), not muddied by an unrelated BK violation.
 FC_FAR = {
     "confirmation_trigger": f"FY28 revenue above $10bn by {_FAR_DATE}",
     "falsification_trigger": f"FY28 revenue at or below $10bn by {_FAR_DATE}",
     "time_window": f"by {_FAR_DATE}",
+    "comparable_basis": "FY28 vs FY27 revenue on the same consolidated basis (FY27: $8.6bn).",
+    "fired_last_two_periods": False,
 }
 
 
