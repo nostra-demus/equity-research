@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T18:10:11Z",
+  "generated_at": "2026-11-22T18:10:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-247",
@@ -253690,6 +253690,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-cde852397b1c",
+      "idea_version": "IDEAV-9e43a468b29a2343",
+      "idea_version_started_at": "2026-11-22T18:10:17Z",
+      "ticker": "DAL",
+      "company": "Delta Air Lines",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A major technical outage at the Atlanta hub disrupts operations, leading to flight delays and cancellations that will negatively impact short-term revenue and increase operational costs.",
+      "why_now": "The outage was reported as active on 2026-11-22, creating an immediate operational bottleneck.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aa0e26af30f9"
+      ],
+      "primary_source_event_id": "EVT-aa0e26af30f9",
+      "source_headlines": [
+        "Delta Tech Outage Triggers Delays and Halts at Atlanta Hub"
+      ],
+      "source_headline": "Delta Tech Outage Triggers Delays and Halts at Atlanta Hub",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/delta-tech-outage-triggers-delays-and-halts-at-atlanta-hub",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T17:50:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T18:10:17Z",
+      "updated_at": "2026-11-22T18:10:17Z",
+      "decay_at": "2026-11-24T05:50:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b19df79a9ea4",
       "idea_version": "IDEAV-013c9b2c446a500e",
       "idea_version_started_at": "2026-11-22T13:51:05Z",
@@ -297518,8 +297588,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2615,
-    "live_count": 58,
+    "surfaced_total": 2616,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
