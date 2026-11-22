@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T04:45:20Z",
+  "generated_at": "2026-11-22T04:46:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-070",
@@ -256333,6 +256333,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d1268b378638",
+      "idea_version": "IDEAV-b175c02542a8968f",
+      "idea_version_started_at": "2026-11-22T04:45:48Z",
+      "ticker": "DMP",
+      "company": "Domino's Pizza Enterprises",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Backtracking on franchisee support packages risks escalating operator discontent, increasing store network instability and potential closures that impair system-wide royalty fees.",
+      "why_now": "Reported on November 22, 2026, as franchisee anger over financial terms reaches a head.",
+      "conviction": 62,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-069466c6d6d6"
+      ],
+      "primary_source_event_id": "EVT-069466c6d6d6",
+      "source_headlines": [
+        "Domino’s Pizza may backtrack on support package amid franchisee anger"
+      ],
+      "source_headline": "Domino’s Pizza may backtrack on support package amid franchisee anger",
+      "source_url": "https://www.afr.com/companies/retail/domino-s-pizza-may-backtrack-on-aid-package-amid-franchisee-anger-20261122-p61fod?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-22T04:33:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T04:45:48Z",
+      "updated_at": "2026-11-22T04:45:48Z",
+      "decay_at": "2026-11-23T16:33:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2fcff775e893",
       "idea_version": "IDEAV-2df638fcf4bf3eaa",
       "idea_version_started_at": "2026-11-21T04:14:39Z",
@@ -295399,8 +295471,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2582,
-    "live_count": 44,
+    "surfaced_total": 2583,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
