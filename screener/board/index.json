@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T22:19:44Z",
+  "generated_at": "2026-11-22T22:20:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-260",
@@ -254817,6 +254817,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-ac44c5313525",
+      "idea_version": "IDEAV-3465627801772bbe",
+      "idea_version_started_at": "2026-11-22T22:20:01Z",
+      "ticker": "DOW",
+      "company": "Downer EDI",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a $1.1 billion power project in New South Wales, which provides significant revenue visibility and bolsters its order book.",
+      "why_now": "The contract award was officially announced via ASX filing on 2026-11-22.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c153294b5c4f"
+      ],
+      "primary_source_event_id": "EVT-c153294b5c4f",
+      "source_headlines": [
+        "DOW: Downer awarded $1.1bn power project in NSW [price-sensitive]"
+      ],
+      "source_headline": "DOW: Downer awarded $1.1bn power project in NSW [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DOW?key=2924-03164895-2A1712073",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-22T22:01:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T22:20:01Z",
+      "updated_at": "2026-11-22T22:20:01Z",
+      "decay_at": "2026-11-24T10:01:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-380e22d36d53",
       "idea_version": "IDEAV-8df049924daf4765",
       "idea_version_started_at": "2026-11-22T21:58:56Z",
@@ -260033,80 +260104,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3eb5e87acb4c",
-      "idea_version": "IDEAV-412c4ab7bf77d5a1",
-      "idea_version_started_at": "2026-11-20T14:40:23Z",
-      "ticker": "GPS",
-      "company": "Gap Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company lowered its full-year guidance due to weak sales performance caused by unseasonably warm weather.",
-      "why_now": "The guidance cut was announced on 2026-11-19.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-13640aa44e2e",
-        "EVT-4eb5f72f871c"
-      ],
-      "primary_source_event_id": "EVT-13640aa44e2e",
-      "source_headlines": [
-        "Gap Cuts Outlook After Warm Fall Weather Weighs on Sales",
-        "Gap names new Athleta CEO, lowers full-year guidance"
-      ],
-      "source_headline": "Gap Cuts Outlook After Warm Fall Weather Weighs on Sales",
-      "source_url": "https://www.wsj.com/business/earnings/gap-cuts-outlook-after-warm-fall-weather-weighs-on-sales-ca3ee7c3?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-19T22:01:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T14:40:23Z",
-      "updated_at": "2026-11-20T14:40:23Z",
-      "decay_at": "2026-11-21T10:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7475670173bc",
       "idea_version": "IDEAV-1e372d5d4c3a04eb",
       "idea_version_started_at": "2026-11-21T16:54:46Z",
@@ -260406,9 +260403,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -260416,23 +260413,23 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 268,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 17
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2022,
-      "oldest_retained_at": "2026-10-26T14:09:38Z",
+      "evicted_count": 2023,
+      "oldest_retained_at": "2026-10-26T14:50:52Z",
       "side_counts": {
         "long": {
           "evicted_count": 1309,
           "oldest_retained_at": "2026-11-03T16:33:04Z"
         },
         "short": {
-          "evicted_count": 714,
-          "oldest_retained_at": "2026-10-26T14:09:38Z"
+          "evicted_count": 715,
+          "oldest_retained_at": "2026-10-26T14:50:52Z"
         }
       }
     },
@@ -263394,8 +263391,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T10:01:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-22T22:20:06Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -297527,8 +297524,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2619,
-    "live_count": 57,
+    "surfaced_total": 2620,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
