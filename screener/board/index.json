@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-22T14:40:19Z",
+  "generated_at": "2026-11-22T14:49:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-213",
+      "headline": "IQVIA Closes In on $1.1 Billion Takeover of UK Drug Services Group Quotient",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-22/iqvia-closes-in-on-1-1-billion-takeover-of-uk-drug-services-group-quotient",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T14:33:23Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "IQVIA is acquiring Quotient for $1.1 billion, a significant M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IQVIA is acquiring Quotient for $1.1 billion, a significant M&A transaction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IQVIA",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Quotient",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-212",
       "headline": "IndusInd Bank's accounting discrepancy: Inside the saga that led to former CEO Sumant Kathpalia's termination",
@@ -1895,56 +1949,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-104",
-      "headline": "What tools does New World have to slash debts after its HK$24.9 billion rights issue?",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/banking-finance/article/3375322/what-tools-does-new-world-have-slash-debts-after-its-hk249-billion-rights-issue",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T06:00:12Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "New World is leaning on a HK$24.9 billion rights issue to cut debt, a dilutive but deleveraging capital-structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "New World is leaning on a HK$24.9 billion rights issue to cut debt, a dilutive but deleveraging capital-structure event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": "0017.HK",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297104,9 +297108,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2137,
-    "news_picked_today": 406,
-    "news_dropped_today": 1693
+    "news_seen_today": 2158,
+    "news_picked_today": 408,
+    "news_dropped_today": 1712
   },
   "book_momentum": {
     "live_count": 8,
