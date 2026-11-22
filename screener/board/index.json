@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-22T11:29:15Z",
+  "generated_at": "2026-11-22T11:39:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-186",
+      "headline": "IRDAI fined Star Health Rs 2 crore penalty for unfair claim deductions & rejections; what policyholders should know?",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/health/healthcare/irdai-fined-star-health-rs-2-crore-penalty-for-unfair-claim-deductions-rejections-what-policyholders-should-know-4227409",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T11:20:35Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Star Health was fined Rs 2 crore by the regulator for unfair claim practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Star Health was fined Rs 2 crore by the regulator for unfair claim practices.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Health and Allied Insurance Company",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-171",
       "headline": "RVNL Emerges As Lowest Bidder For ₹348 Crore Railway Project, Shares Down Nearly 50% In 2026",
@@ -1892,55 +1941,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-167",
-      "headline": "CCPA Slaps Rs 10-Lakh Fine On Firm For Listing 'Anti-Drone Gun' On IndiaMART",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/ccpa-slaps-rs-10-lakh-fine-on-firm-for-listing-anti-drone-gun-on-indiamart-12361811#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T10:01:02Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "The CCPA imposed a fine of Rs 10-lakh on IndiaMART for listing an illegal product.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The CCPA imposed a fine of Rs 10-lakh on IndiaMART for listing an illegal product.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndiaMART",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297110,9 +297110,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1299,
-    "news_picked_today": 289,
-    "news_dropped_today": 1010
+    "news_seen_today": 1323,
+    "news_picked_today": 296,
+    "news_dropped_today": 1027
   },
   "book_momentum": {
     "live_count": 8,
