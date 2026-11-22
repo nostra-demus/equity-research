@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T06:13:38Z",
+  "generated_at": "2026-11-22T06:18:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-090",
@@ -1800,6 +1800,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-112",
+      "headline": "‎MEDGULF secures government health insurance contract",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1955551",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T09:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Securing a government health insurance contract provides a clear, recurring revenue stream for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Securing a government health insurance contract provides a clear, recurring revenue stream for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MEDGULF",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-083",
       "headline": "Hero FinCorp aims to double loan disbursements over next two quarters",
       "headline_en": null,
@@ -1885,49 +1934,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-079",
-      "headline": "Pro-Israel Jeffries says he will push legislation targeting settler violence",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/pro-israel-jeffries-says-he-will-push-legislation-targeting-settler",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T04:51:33Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Legislative action targeting settler violence in the Middle East represents a potential shift in geopolitical and regulatory risk for the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Legislative action targeting settler violence in the Middle East represents a potential shift in geopolitical and regulatory risk for the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -295735,9 +295741,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 621,
-    "news_picked_today": 131,
-    "news_dropped_today": 490
+    "news_seen_today": 630,
+    "news_picked_today": 135,
+    "news_dropped_today": 495
   },
   "book_momentum": {
     "live_count": 8,
