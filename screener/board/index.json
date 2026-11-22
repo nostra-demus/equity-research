@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-22T07:00:01Z",
+  "generated_at": "2026-11-22T07:09:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-119",
+      "headline": "Pacific Equity Partners signs to acquire Allegro’s $800m radiology biz",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/pacific-equity-partners-signs-to-acquire-allegro-s-800m-radiology-biz-20261122-p61gac?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T06:57:55Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Pacific Equity Partners is acquiring Allegro's radiology business for $800 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pacific Equity Partners is acquiring Allegro's radiology business for $800 million.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacific Equity Partners",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Allegro",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-118",
       "headline": "Welspun Living plans ₹3,200 crore investment in capacity expansion by December 2028",
@@ -1885,55 +1939,6 @@
           "name": "LG Electronics",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-055",
-      "headline": "Wall Street sell-off: Is the worst over? Goldman Sachs warns of fresh selling wave, flags 3 recovery triggers",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/wall-street-sell-off-is-the-worst-over-goldman-sachs-warns-of-fresh-selling-wave-flags-3-recovery-triggers-11795316021375.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T03:33:53Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Goldman Sachs warns of a potential fresh selling wave in equity markets, citing specific recovery triggers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Goldman Sachs warns of a potential fresh selling wave in equity markets, citing specific recovery triggers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Goldman Sachs",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -295815,9 +295820,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 712,
-    "news_picked_today": 156,
-    "news_dropped_today": 556
+    "news_seen_today": 733,
+    "news_picked_today": 162,
+    "news_dropped_today": 571
   },
   "book_momentum": {
     "live_count": 8,
