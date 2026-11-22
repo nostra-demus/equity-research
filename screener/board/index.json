@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T01:47:52Z",
+  "generated_at": "2026-11-22T01:52:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-018",
@@ -793,6 +793,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-025",
+      "headline": "US weighs Sara Brenner, Jeff Vacirca for FDA leadership positions: Report",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/us-weighs-sara-brenner-jeff-vacirca-for-fda-leadership-positions-report-4227122",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:35:44Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Speculation regarding potential FDA leadership appointments is routine political reporting and does not yet constitute a confirmed policy shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Speculation regarding potential FDA leadership appointments is routine political reporting and does not yet constitute a confirmed policy shift.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-016",
       "headline": "Iran war live: Iran targets US bases in Bahrain; Houthi strikes continue",
       "headline_en": null,
@@ -826,6 +870,50 @@
         "size_bucket": "unknown"
       },
       "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-024",
+      "headline": "Bahrain says Iranian attack hits industrial facility, causes fire",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/middle-east/bahrain-says-iranian-attack-hits-industrial-facility-causes-fire-4227126",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:44:16Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "An attack on an industrial facility in Bahrain by Iran represents a geopolitical escalation that could impact regional energy supply and market stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "An attack on an industrial facility in Bahrain by Iran represents a geopolitical escalation that could impact regional energy supply and market stability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -294133,7 +294221,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5150,
+    "inbox_unconsumed": 5152,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -294142,8 +294230,8 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 161,
-    "news_picked_today": 24,
+    "news_seen_today": 163,
+    "news_picked_today": 26,
     "news_dropped_today": 137
   },
   "book_momentum": {
