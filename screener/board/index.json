@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T10:09:17Z",
+  "generated_at": "2026-11-22T10:19:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-160",
@@ -1554,6 +1554,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-167",
+      "headline": "CCPA Slaps Rs 10-Lakh Fine On Firm For Listing 'Anti-Drone Gun' On IndiaMART",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/ccpa-slaps-rs-10-lakh-fine-on-firm-for-listing-anti-drone-gun-on-indiamart-12361811#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T10:01:02Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The CCPA imposed a fine of Rs 10-lakh on IndiaMART for listing an illegal product.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The CCPA imposed a fine of Rs 10-lakh on IndiaMART for listing an illegal product.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndiaMART",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-126",
       "headline": "PNB needs Rs 5,000 crore extra provisions under ECL, CEO sees limited impact",
       "headline_en": null,
@@ -1898,56 +1947,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-074",
-      "headline": "Domino’s Pizza may backtrack on support package amid franchisee anger",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/domino-s-pizza-may-backtrack-on-aid-package-amid-franchisee-anger-20261122-p61fod?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T04:33:33Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Potential withdrawal of franchisee support packages suggests internal operational friction and potential impact on store network stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Potential withdrawal of franchisee support packages suggests internal operational friction and potential impact on store network stability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Domino's Pizza",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296975,9 +296974,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1121,
-    "news_picked_today": 247,
-    "news_dropped_today": 874
+    "news_seen_today": 1152,
+    "news_picked_today": 253,
+    "news_dropped_today": 899
   },
   "book_momentum": {
     "live_count": 8,
