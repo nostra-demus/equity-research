@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-22T17:58:46Z",
+  "generated_at": "2026-11-22T18:10:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-247",
+      "headline": "Delta Tech Outage Triggers Delays and Halts at Atlanta Hub",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-22/delta-tech-outage-triggers-delays-and-halts-at-atlanta-hub",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T17:50:07Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "A major technical outage at Delta Air Lines is causing significant operational disruption and flight delays.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major technical outage at Delta Air Lines is causing significant operational disruption and flight delays.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": "DAL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-222",
       "headline": "Court bans China’s BYD from selling ‘Defender clone’ SUV in EU",
@@ -1904,49 +1953,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-076",
-      "headline": "India weighs curbs on non-Basmati rice exports to cool domestic prices",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/commodities/india-weighs-curbs-on-non-basmati-rice-exports-to-cool-domestic-prices/article71728177.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T04:51:06Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Potential export curbs on rice from India, a major global exporter, represent a significant supply shock risk for agricultural commodities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Potential export curbs on rice from India, a major global exporter, represent a significant supply shock risk for agricultural commodities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297532,9 +297538,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2615,
-    "news_picked_today": 503,
-    "news_dropped_today": 2023
+    "news_seen_today": 2658,
+    "news_picked_today": 512,
+    "news_dropped_today": 2057
   },
   "book_momentum": {
     "live_count": 8,
