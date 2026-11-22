@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T01:14:51Z",
+  "generated_at": "2026-11-22T01:23:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-006",
@@ -621,6 +621,49 @@
         "event": 0,
         "size": 0,
         "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-017",
+      "headline": "Hormuz showdown? Cash-strapped Iran readies 14 tankers to break US blockade. What happens if they try?",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/iran-readies-14-tankers-to-break-us-blockade-what-happens-if-they-try-1.500756460",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Iran's plan to use 14 tankers to break a US blockade in the Strait of Hormuz creates a critical geopolitical risk of supply disruptions and global oil price volatility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Iran's plan to use 14 tankers to break a US blockade in the Strait of Hormuz creates a critical geopolitical risk of supply disruptions and global oil price volatility.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
@@ -293666,7 +293709,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5143,
+    "inbox_unconsumed": 5144,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -293675,9 +293718,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 91,
-    "news_picked_today": 17,
-    "news_dropped_today": 74
+    "news_seen_today": 118,
+    "news_picked_today": 18,
+    "news_dropped_today": 100
   },
   "book_momentum": {
     "live_count": 8,
