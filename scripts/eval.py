@@ -2962,6 +2962,8 @@ if scope=="selftest":
          "margin row is not a growth claim"),
         ("2026-11-22",_bn_hd+"| FCF CAGR 16% | Revenue CAGR 15% [`earnings/01_historical-financials.md` §1] | x | Yes |\n",
          ["§9 base-rate unit mismatch"],"a citation path naming 'earnings' is not the matched metric"),
+        ("2026-11-22",_bn_hd+"| FCF CAGR 16% | Revenue CAGR 15%, see earnings/01_historical-financials.md | x | Yes |\n",
+         ["§9 base-rate unit mismatch"],"a BARE (unbracketed) citation path naming 'earnings' is not the matched metric"),
         ("2026-11-22",_bn_hd2+"| FCF CAGR 16% | Revenue CAGR 15% | proxy: revenue — FCF base negative in two of four years | x | Stretch |\n",[],
          "declared proxy with a reason passes"),
         ("2026-11-22",_bn_hd2+"| FCF CAGR 16% | Revenue CAGR 15% | proxy | x | Stretch |\n",["§9 base-rate unit mismatch"],

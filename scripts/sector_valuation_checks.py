@@ -308,8 +308,9 @@ def eval_bj_quality_double_count(decision_date, peers_md, peers_internals=None):
 # names ONLY the other family. A history cell naming no metric (the unit is implicit), or naming the
 # matched family anywhere (including beside a revenue CAGR given as context), passes. A row whose
 # "Base-rate basis" cell declares `proxy: … — <reason>` passes: a declared substitute with its reason is
-# honest, a silent one is not. Citations ([...], `...`, "(….md …)") are stripped first so a path such as
-# `earnings/01_historical-financials.md` cannot count as the word "earnings".
+# honest, a silent one is not. Citations ([...], `...`, "(….md …)") and bare repo-relative ".md" paths
+# are stripped first so a path such as earnings/01_historical-financials.md — bracketed, backticked, OR
+# bare — cannot count as the word "earnings".
 BN_DATE = "2026-11-22"  # forward-looking; committed runs predate it → N/A (retrospective advisory in eval.py)
 _BN_IMPLIED_HEAD = re.compile(r"\bimplied\s+requirement\b", re.I)
 _BN_HIST_HEAD = re.compile(r"\bhistory\b", re.I)
@@ -320,7 +321,7 @@ _BN_GROWTH = re.compile(r"\bCAGR\b|\bgrowth\b|\bgrow(?:s|n|ing)?\b|%\s*/\s*yr\b|
 _BN_REVENUE = re.compile(r"\b(?:revenues?|sales|top[\s-]?line|turnover)\b", re.I)
 _BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]cash[\s-]flows?|cash[\s-]flows?|NOPAT|EBITDA|EBIT|EPS|"
                         r"net[\s-]income|earnings|profits?|operating[\s-]income|PAT)\b", re.I)
-_BN_CITE = re.compile(r"\[[^\]]*\]|`[^`]*`|\([^()]*\.md[^()]*\)")
+_BN_CITE = re.compile(r"\[[^\]]*\]|`[^`]*`|\([^()]*\.md[^()]*\)|\b[\w/-]+\.md\b")
 _BN_PROXY = re.compile(r"\bproxy\b\s*[:\-—–]?\s*(.*)", re.I)
 
 
