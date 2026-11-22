@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-22T08:58:16Z",
+  "generated_at": "2026-11-22T09:13:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-150",
+      "headline": "Aditya Birla Real Estate aims Rs 15,000 crore annual pre-sales in three years",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/aditya-birla-real-estate-aims-rs-15000-crore-annual-pre-sales-in-three-years/articleshow/136070818.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T09:02:48Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Aditya Birla Real Estate has announced a significant growth target of Rs 15,000 crore in annual pre-sales within three years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aditya Birla Real Estate has announced a significant growth target of Rs 15,000 crore in annual pre-sales within three years.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aditya Birla Real Estate",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-143",
       "headline": "Dubai Metro Blue Line train design unveiled with Dh20.5bn project nearly 30 per cent complete",
@@ -1566,6 +1615,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-156",
+      "headline": "Binance lost $6.3bn to hackers. So how secure is blockchain?",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/future/technology/2026/11/22/binance-lost-63bn-to-hackers-so-how-secure-is-blockchain/",
+      "source_name": "The National — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T09:06:20Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Binance suffered a massive $6.3 billion loss due to hacking, highlighting severe cybersecurity and platform risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Binance suffered a massive $6.3 billion loss due to hacking, highlighting severe cybersecurity and platform risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-136",
       "headline": "Continental to close 80-year-old Nelson Mandela Bay tyre plant",
       "headline_en": null,
@@ -1856,98 +1954,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-113",
-      "headline": "Govt revises policy for extending pre-NELP oil, gas contracts; raises government profit share",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/policy/govt-revises-policy-for-extending-pre-nelp-oil-gas-contracts-raises-government-profit-share/article71730759.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T06:16:04Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "The Indian government increased its profit share in pre-NELP oil and gas contracts, which will negatively impact the margins of participating energy companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The Indian government increased its profit share in pre-NELP oil and gas contracts, which will negatively impact the margins of participating energy companies.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-105",
-      "headline": "(LEAD) Education minister resigns over college exam chaos amid AI cheating fears",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261122001051315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T06:05:31Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "The resignation of a cabinet-level minister due to operational failure in a national exam process indicates significant management and administrative instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The resignation of a cabinet-level minister due to operational failure in a national exam process indicates significant management and administrative instability.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "South Korean Government",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253475,149 +253481,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-a2128c69f54a",
-      "idea_version": "IDEAV-70f61b8927238602",
-      "idea_version_started_at": "2026-11-20T23:03:16Z",
-      "ticker": "TTWO",
-      "company": "Take-Two Interactive",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The record-breaking $3.79 billion first-day sales for Grand Theft Auto VI significantly exceeds market expectations, providing a massive boost to near-term revenue and cash flow.",
-      "why_now": "The sales figures were officially reported on 2026-11-20, making this a live catalyst for the stock.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dfa5d3740a7b",
-        "EVT-0b9ad2987cd4",
-        "EVT-6ae880a77e3d"
-      ],
-      "primary_source_event_id": "EVT-dfa5d3740a7b",
-      "source_headlines": [
-        "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
-        "Take-Two Interactive Software, Inc. Subsidiary Rockstar Games Announces Grand Theft Auto VI Day One Retail Sales of $3.79 Billion",
-        "‘Grand Theft Auto VI’ sets record with $3.79 bil in first-day retail sales, Rockstar Games reports"
-      ],
-      "source_headline": "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
-      "source_url": "https://www.fool.com/investing/2026/11/20/gta-vi-boasts-a-record-breaking-launch-with-usd3-79-billion-in-day-one-sales-is-it-time-to-buy-take-two-stock/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T21:01:52Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TTWO_2026-11-19",
-        "latest_decision": "Avoid",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T23:03:16Z",
-      "decay_at": "2026-11-22T09:01:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ab675b24d137",
-      "idea_version": "IDEAV-a80dea5093c442a0",
-      "idea_version_started_at": "2026-11-20T21:13:37Z",
-      "ticker": "BMBL",
-      "company": "Bumble Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bumble Inc. filed a PREM14C, indicating a potential M&A event or significant corporate action that could unlock shareholder value.",
-      "why_now": "The primary filing was made today, signaling an active corporate event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-533c7f29440d"
-      ],
-      "primary_source_event_id": "EVT-533c7f29440d",
-      "source_headlines": [
-        "PREM14C - Bumble Inc. (0001830043) (Filer)"
-      ],
-      "source_headline": "PREM14C - Bumble Inc. (0001830043) (Filer)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1830043/000119312526470223/0001193125-26-470223-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T21:04:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T21:13:37Z",
-      "updated_at": "2026-11-20T21:13:37Z",
-      "decay_at": "2026-11-22T09:04:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-3be703a8805a4cd8",
       "idea_version_started_at": "2026-11-20T23:03:16Z",
@@ -257750,6 +257613,149 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a2128c69f54a",
+      "idea_version": "IDEAV-70f61b8927238602",
+      "idea_version_started_at": "2026-11-20T23:03:16Z",
+      "ticker": "TTWO",
+      "company": "Take-Two Interactive",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The record-breaking $3.79 billion first-day sales for Grand Theft Auto VI significantly exceeds market expectations, providing a massive boost to near-term revenue and cash flow.",
+      "why_now": "The sales figures were officially reported on 2026-11-20, making this a live catalyst for the stock.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dfa5d3740a7b",
+        "EVT-0b9ad2987cd4",
+        "EVT-6ae880a77e3d"
+      ],
+      "primary_source_event_id": "EVT-dfa5d3740a7b",
+      "source_headlines": [
+        "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
+        "Take-Two Interactive Software, Inc. Subsidiary Rockstar Games Announces Grand Theft Auto VI Day One Retail Sales of $3.79 Billion",
+        "‘Grand Theft Auto VI’ sets record with $3.79 bil in first-day retail sales, Rockstar Games reports"
+      ],
+      "source_headline": "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
+      "source_url": "https://www.fool.com/investing/2026/11/20/gta-vi-boasts-a-record-breaking-launch-with-usd3-79-billion-in-day-one-sales-is-it-time-to-buy-take-two-stock/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T21:01:52Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TTWO_2026-11-19",
+        "latest_decision": "Avoid",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-20T20:38:19Z",
+      "updated_at": "2026-11-20T23:03:16Z",
+      "decay_at": "2026-11-22T09:01:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ab675b24d137",
+      "idea_version": "IDEAV-a80dea5093c442a0",
+      "idea_version_started_at": "2026-11-20T21:13:37Z",
+      "ticker": "BMBL",
+      "company": "Bumble Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bumble Inc. filed a PREM14C, indicating a potential M&A event or significant corporate action that could unlock shareholder value.",
+      "why_now": "The primary filing was made today, signaling an active corporate event.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-533c7f29440d"
+      ],
+      "primary_source_event_id": "EVT-533c7f29440d",
+      "source_headlines": [
+        "PREM14C - Bumble Inc. (0001830043) (Filer)"
+      ],
+      "source_headline": "PREM14C - Bumble Inc. (0001830043) (Filer)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1830043/000119312526470223/0001193125-26-470223-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-20T21:04:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-20T21:13:37Z",
+      "updated_at": "2026-11-20T21:13:37Z",
+      "decay_at": "2026-11-22T09:04:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-05fbb0b04f21",
       "idea_version": "IDEAV-7222c7cfd38dd39f",
       "idea_version_started_at": "2026-11-20T14:40:23Z",
@@ -259536,14 +259542,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 526,
     "shown_count": 499,
-    "hidden_count": 25,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 259,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 11
       },
       "short": {
         "total_count": 266,
@@ -259567,6 +259573,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ab675b24d137",
+        "idea_version": "IDEAV-a80dea5093c442a0",
+        "idea_version_started_at": "2026-11-20T21:13:37Z",
+        "ticker": "BMBL",
+        "company": "Bumble Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bumble Inc. filed a PREM14C, indicating a potential M&A event or significant corporate action that could unlock shareholder value.",
+        "why_now": "The primary filing was made today, signaling an active corporate event.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 77,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-533c7f29440d"
+        ],
+        "primary_source_event_id": "EVT-533c7f29440d",
+        "source_headlines": [
+          "PREM14C - Bumble Inc. (0001830043) (Filer)"
+        ],
+        "source_headline": "PREM14C - Bumble Inc. (0001830043) (Filer)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1830043/000119312526470223/0001193125-26-470223-index.htm",
+        "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-20T21:04:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-20T21:13:37Z",
+        "updated_at": "2026-11-20T21:13:37Z",
+        "decay_at": "2026-11-22T09:04:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T09:04:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a2128c69f54a",
+        "idea_version": "IDEAV-70f61b8927238602",
+        "idea_version_started_at": "2026-11-20T23:03:16Z",
+        "ticker": "TTWO",
+        "company": "Take-Two Interactive",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The record-breaking $3.79 billion first-day sales for Grand Theft Auto VI significantly exceeds market expectations, providing a massive boost to near-term revenue and cash flow.",
+        "why_now": "The sales figures were officially reported on 2026-11-20, making this a live catalyst for the stock.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 77,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dfa5d3740a7b",
+          "EVT-0b9ad2987cd4",
+          "EVT-6ae880a77e3d"
+        ],
+        "primary_source_event_id": "EVT-dfa5d3740a7b",
+        "source_headlines": [
+          "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
+          "Take-Two Interactive Software, Inc. Subsidiary Rockstar Games Announces Grand Theft Auto VI Day One Retail Sales of $3.79 Billion",
+          "‘Grand Theft Auto VI’ sets record with $3.79 bil in first-day retail sales, Rockstar Games reports"
+        ],
+        "source_headline": "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
+        "source_url": "https://www.fool.com/investing/2026/11/20/gta-vi-boasts-a-record-breaking-launch-with-usd3-79-billion-in-day-one-sales-is-it-time-to-buy-take-two-stock/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-20T21:01:52Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/TTWO_2026-11-19",
+          "latest_decision": "Avoid",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-11-20T20:38:19Z",
+        "updated_at": "2026-11-20T23:03:16Z",
+        "decay_at": "2026-11-22T09:01:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T09:01:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d0204447ec5b",
         "idea_version": "IDEAV-43169d7d19bb6d95",
@@ -290847,156 +291002,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bd6d23f312b2",
-        "idea_version": "IDEAV-059b99faef025701",
-        "idea_version_started_at": "2026-11-02T05:53:56Z",
-        "ticker": "NTPC",
-        "company": "NTPC",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "NTPC reported a 14% rise in Q2 profit and an 11% increase in power generation.",
-        "why_now": "The stock rose 4% on November 2, 2026, following the release of its Q2 earnings.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d77f4ebda2c7"
-        ],
-        "primary_source_event_id": "EVT-d77f4ebda2c7",
-        "source_headlines": [
-          "NTPC shares jump 4% after Q2 profit rises 14%, power generation grows 11%"
-        ],
-        "source_headline": "NTPC shares jump 4% after Q2 profit rises 14%, power generation grows 11%",
-        "source_url": "https://www.cnbctv18.com/market/ntpc-share-price-q2-results-profit-rises-power-generation-grows-dividend-declared-capex-20024640.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T05:30:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T15:27:23Z",
-        "updated_at": "2026-11-02T05:53:56Z",
-        "decay_at": "2026-11-03T17:30:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d09e5c2a96bf",
-        "idea_version": "IDEAV-bae8f9981d1bbf11",
-        "idea_version_started_at": "2026-11-02T05:53:56Z",
-        "ticker": "MUTHOOTFIN",
-        "company": "Muthoot Finance",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Muthoot Finance is targeting 25% AUM growth in FY27 and plans to expand its branch network.",
-        "why_now": "The company announced its growth targets and expansion plans on November 2, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5b6d98f53e96"
-        ],
-        "primary_source_event_id": "EVT-5b6d98f53e96",
-        "source_headlines": [
-          "Muthoot Finance targets 25% AUM growth in FY27, plans to expand branch network"
-        ],
-        "source_headline": "Muthoot Finance targets 25% AUM growth in FY27, plans to expand branch network",
-        "source_url": "https://www.cnbctv18.com/market/earnings/muthoot-finance-q2-results-raises-full-year-aum-growth-guidance-to-25-pc-alpha-article-20024638.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 95,
-        "newest_source_at": "2026-11-02T05:26:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T15:27:23Z",
-        "updated_at": "2026-11-02T05:53:56Z",
-        "decay_at": "2026-11-03T17:26:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b0b475f9cb2a",
         "idea_version": "IDEAV-0bdf6deeeba4d15b",
         "idea_version_started_at": "2026-11-02T06:53:24Z",
@@ -296669,7 +296674,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2599,
-    "live_count": 60,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -296688,9 +296693,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 947,
-    "news_picked_today": 212,
-    "news_dropped_today": 735
+    "news_seen_today": 996,
+    "news_picked_today": 220,
+    "news_dropped_today": 776
   },
   "book_momentum": {
     "live_count": 8,
