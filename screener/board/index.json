@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T01:42:55Z",
+  "generated_at": "2026-11-22T01:47:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-018",
@@ -818,6 +818,49 @@
         "size": 0,
         "recency": 4,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-023",
+      "headline": "Who is ‘El Chapo Isidro’? FBI's most-wanted drug lord captured in Mexico; sparks deadly Sinaloa violence",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/who-is-el-chapo-isidro-fbis-most-wanted-drug-lord-captured-in-mexico-sparks-deadly-sinaloa-violence-11795309770768.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T01:44:11Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The arrest of a major cartel leader has triggered violent conflict in Mexico, creating significant regional geopolitical and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The arrest of a major cartel leader has triggered violent conflict in Mexico, creating significant regional geopolitical and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -294090,7 +294133,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5149,
+    "inbox_unconsumed": 5150,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -294099,9 +294142,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 156,
-    "news_picked_today": 23,
-    "news_dropped_today": 133
+    "news_seen_today": 161,
+    "news_picked_today": 24,
+    "news_dropped_today": 137
   },
   "book_momentum": {
     "live_count": 8,
