@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T15:29:55Z",
+  "generated_at": "2026-11-22T15:43:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-214",
@@ -1426,6 +1426,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-220",
+      "headline": "Anthropic’s Record-Breaking IPO Comes With a $1 Trillion Financial Burden Wall Street Can’t Ignore",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/22/anthropics-record-breaking-ipo-comes-with-a-1-trillion-financial-burden-wall-street-cant-ignore/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T15:36:13Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "A massive $1 trillion financial burden associated with an IPO is a material event for the company's capital structure and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A massive $1 trillion financial burden associated with an IPO is a material event for the company's capital structure and valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-163",
       "headline": "Drone-hit Russian cargo ship still on fire in Finnish waters, crew evacuated",
       "headline_en": null,
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-169",
-      "headline": "XINDE SEMI (07672): ANNOUNCEMENT ON LITIGATION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1122/2026112200031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-22T10:22:00Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "The company announced new litigation, which introduces legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company announced new litigation, which introduces legal and operational risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Xinde Semi",
-          "ticker": "07672",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297249,9 +297249,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2268,
-    "news_picked_today": 437,
-    "news_dropped_today": 1787
+    "news_seen_today": 2288,
+    "news_picked_today": 444,
+    "news_dropped_today": 1800
   },
   "book_momentum": {
     "live_count": 8,
