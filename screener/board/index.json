@@ -1,6 +1,109 @@
 {
-  "generated_at": "2026-11-22T10:28:13Z",
+  "generated_at": "2026-11-22T10:38:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-171",
+      "headline": "RVNL Emerges As Lowest Bidder For ₹348 Crore Railway Project, Shares Down Nearly 50% In 2026",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/rvnl-emerges-as-lowest-bidder-for-348-crore-railway-project-shares-down-nearly-50-in-2026",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T10:20:21Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "RVNL won a 3.48 billion INR project, yet shares are down nearly 50%, indicating a significant market reaction or underlying issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RVNL won a 3.48 billion INR project, yet shares are down nearly 50%, indicating a significant market reaction or underlying issue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rail Vikas Nigam Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-170",
+      "headline": "Elon Musk's Tesla and SpaceX Each Formed a Special Committee to Explore a Merger as His AI Spending Accelerates. Here's Why Combining Them Could Reshape How Investors Value Tesla's Robotaxi Business.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/elon-musks-tesla-and-spacex-each-formed-special-committee-explore-merger-his-ai-spending",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T10:20:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Tesla and SpaceX are exploring a potential merger, which would be a massive corporate restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla and SpaceX are exploring a potential merger, which would be a massive corporate restructuring event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-160",
       "headline": "VinFast eyes 1.5 lakh vehicle capacity at Thoothukudi plant; puts electric bus plans on hold",
@@ -1061,6 +1164,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261122-175",
+      "headline": "Iran's 'missile cities': Did western tunnelling equipment help dig them?",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/gulf/2026/11/22/irans-missile-cities-did-western-tunnelling-equipment-help-dig-them/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T10:30:54Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "Reports of potential western technology involvement in Iranian military infrastructure could trigger significant geopolitical risk and export control investigations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Reports of potential western technology involvement in Iranian military infrastructure could trigger significant geopolitical risk and export control investigations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261122-123",
       "headline": "Beach, Santos put finishing touches to stealth Taroom Trough deal",
       "headline_en": null,
@@ -1800,153 +1946,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-166",
-      "headline": "UBS Capital Fight Enters Final Round as Lawmakers Resume Debate",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-22/ubs-capital-fight-enters-final-round-as-lawmakers-resume-debate",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T10:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Swiss lawmakers are debating capital requirements for UBS, which could impact the bank's capital structure and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Swiss lawmakers are debating capital requirements for UBS, which could impact the bank's capital structure and regulatory risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UBS",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-156",
-      "headline": "Binance lost $6.3bn to hackers. So how secure is blockchain?",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/future/technology/2026/11/22/binance-lost-63bn-to-hackers-so-how-secure-is-blockchain/",
-      "source_name": "The National — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T09:06:20Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Binance suffered a massive $6.3 billion loss due to hacking, highlighting severe cybersecurity and platform risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Binance suffered a massive $6.3 billion loss due to hacking, highlighting severe cybersecurity and platform risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-136",
-      "headline": "Continental to close 80-year-old Nelson Mandela Bay tyre plant",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/industry/continental-to-close-80-year-old-nelson-mandela-bay-tyre-plant/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T08:05:42Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Continental is closing an 80-year-old tyre plant in Nelson Mandela Bay, indicating a significant operational restructuring and loss of local production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Continental is closing an 80-year-old tyre plant in Nelson Mandela Bay, indicating a significant operational restructuring and loss of local production capacity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Continental",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296973,9 +296972,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1161,
-    "news_picked_today": 257,
-    "news_dropped_today": 904
+    "news_seen_today": 1192,
+    "news_picked_today": 263,
+    "news_dropped_today": 929
   },
   "book_momentum": {
     "live_count": 8,
