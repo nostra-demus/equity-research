@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-22T13:34:43Z",
+  "generated_at": "2026-11-22T13:50:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261122-211",
+      "headline": "Deep Read: Zehn Wochen vom vertraulichen Brief bis zum Aus: So scheiterte der Milliarden-Plan von BASF",
+      "headline_en": null,
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/basf-und-evonik-der-zerplatzte-traum-vom-deutschen-chemie-champion/100271483.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T13:35:34Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The failure of a billion-dollar plan for BASF, detailed from a confidential letter to its collapse, suggests a significant strategic setback or failed M&A/project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The failure of a billion-dollar plan for BASF, detailed from a confidential letter to its collapse, suggests a significant strategic setback or failed M&A/project.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-207",
+      "headline": "TSMC reportedly pauses shipments to Chinese designers after U.S. export rules flag decade-old 16nm and 14nm nodes",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/policy/tsmc-reportedly-pauses-shipments-to-chinese-designers-after-u-s-export-rules-flag-decade-old-16nm-and-14nm-nodes-new-bis-controls-threaten-smartphone-tv-and-automotive-chips",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "TSMC pausing shipments due to US export rules is a significant operational and supply chain event that could impact revenue and customer relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TSMC pausing shipments due to US export rules is a significant operational and supply chain event that could impact revenue and customer relations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TSMC",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261122-197",
       "headline": "Lenders back SpaceX's $43 billion Nvidia GPU deal but worry the collateral could end up in orbit, making them impossible to reclaim if Musk defaults",
@@ -1846,105 +1944,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-124",
-      "headline": "‎Moody’s downgrades Al Etihad Insurance’s ISFR to ‘B1’, keeps it under review",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1955571",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T10:23:00Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Moody's downgraded Al Etihad Insurance's insurance financial strength rating to B1, citing ongoing review.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Moody's downgraded Al Etihad Insurance's insurance financial strength rating to B1, citing ongoing review.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Al Etihad Insurance",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-122",
-      "headline": "Mahindra Last Mile Mobility Eyes IPO In 18 Months; Plans Expansion Into New Products: Chairman",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/mahindra-last-mile-mobility-eyes-ipo-in-18-months-plans-expansion-into-new-products-chairman-12361346#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T07:07:49Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Mahindra Last Mile Mobility plans an IPO within 18 months and is expanding into new products.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Mahindra Last Mile Mobility plans an IPO within 18 months and is expanding into new products.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra Last Mile Mobility",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254032,76 +254031,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c1a1a479f11f",
-      "idea_version": "IDEAV-448a2231571be149",
-      "idea_version_started_at": "2026-11-21T03:54:43Z",
-      "ticker": "HMC",
-      "company": "Honda Motor Co., Ltd.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The recall of 810,000 vehicles creates significant warranty and remediation costs that will weigh on near-term operating margins.",
-      "why_now": "The recall was announced on 2026-11-21, and the financial impact of such a large-scale safety action is typically immediate.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ef795229e97"
-      ],
-      "primary_source_event_id": "EVT-9ef795229e97",
-      "source_headlines": [
-        "Honda to recall 810,000 US vehicles over Takata air bag rupture risk"
-      ],
-      "source_headline": "Honda to recall 810,000 US vehicles over Takata air bag rupture risk",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/honda-recall-810000-us-vehicles-over-takata-air-bag-rupture-risk",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-21T01:46:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T03:54:43Z",
-      "updated_at": "2026-11-21T03:54:43Z",
-      "decay_at": "2026-11-22T13:46:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-89d7962b5610",
       "idea_version": "IDEAV-51d450ec99fc6852",
       "idea_version_started_at": "2026-11-21T12:49:26Z",
@@ -254656,76 +254585,6 @@
       "surfaced_at": "2026-11-22T02:09:33Z",
       "updated_at": "2026-11-22T02:09:33Z",
       "decay_at": "2026-11-23T14:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-28c79f2efd74",
-      "idea_version": "IDEAV-2fe8474bec5f36f9",
-      "idea_version_started_at": "2026-11-21T03:54:43Z",
-      "ticker": "CODX",
-      "company": "Co-Diagnostics, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The issuance of a senior secured convertible promissory note indicates liquidity pressure and potential future equity dilution for existing shareholders.",
-      "why_now": "The debt issuance was disclosed on 2026-11-21, signaling a need for capital that may not be fully reflected in the current valuation.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-748f43652a3f"
-      ],
-      "primary_source_event_id": "EVT-748f43652a3f",
-      "source_headlines": [
-        "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note"
-      ],
-      "source_headline": "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note",
-      "source_url": "https://www.nasdaq.com/articles/co-diagnostics-inc-borrows-additional-loan-and-issues-senior-secured-convertible",
-      "source_name": "Nasdaq",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-21T01:38:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T03:54:43Z",
-      "updated_at": "2026-11-21T03:54:43Z",
-      "decay_at": "2026-11-22T13:38:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -256749,79 +256608,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2fcff775e893",
-      "idea_version": "IDEAV-2df638fcf4bf3eaa",
-      "idea_version_started_at": "2026-11-21T04:14:39Z",
-      "ticker": "TNP",
-      "company": "Tsakos Energy Navigation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported record profits for Q3 2026, indicating strong operational leverage in the current tanker rate environment.",
-      "why_now": "The earnings release occurred on 2026-11-21; the stock often reacts to the confirmation of record cash flow generation.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f764fa461e06"
-      ],
-      "primary_source_event_id": "EVT-f764fa461e06",
-      "source_headlines": [
-        "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026"
-      ],
-      "source_headline": "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026",
-      "source_url": "https://www.nasdaq.com/articles/tsakos-energy-navigation-limited-reports-record-profits-nine-months-and-third-quarter-2026",
-      "source_name": "Nasdaq",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-21T01:38:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T04:14:39Z",
-      "updated_at": "2026-11-21T04:14:39Z",
-      "decay_at": "2026-11-22T13:38:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0a07bc01952d",
       "idea_version": "IDEAV-cb84f68ad012059b",
       "idea_version_started_at": "2026-11-22T01:14:26Z",
@@ -258244,6 +258030,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c1a1a479f11f",
+      "idea_version": "IDEAV-448a2231571be149",
+      "idea_version_started_at": "2026-11-21T03:54:43Z",
+      "ticker": "HMC",
+      "company": "Honda Motor Co., Ltd.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The recall of 810,000 vehicles creates significant warranty and remediation costs that will weigh on near-term operating margins.",
+      "why_now": "The recall was announced on 2026-11-21, and the financial impact of such a large-scale safety action is typically immediate.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9ef795229e97"
+      ],
+      "primary_source_event_id": "EVT-9ef795229e97",
+      "source_headlines": [
+        "Honda to recall 810,000 US vehicles over Takata air bag rupture risk"
+      ],
+      "source_headline": "Honda to recall 810,000 US vehicles over Takata air bag rupture risk",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/honda-recall-810000-us-vehicles-over-takata-air-bag-rupture-risk",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-21T01:46:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T03:54:43Z",
+      "updated_at": "2026-11-21T03:54:43Z",
+      "decay_at": "2026-11-22T13:46:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2326f7dbcde3",
       "idea_version": "IDEAV-43598f023ca713ab",
       "idea_version_started_at": "2026-11-20T11:56:26Z",
@@ -258804,6 +258660,76 @@
       "surfaced_at": "2026-11-21T00:45:32Z",
       "updated_at": "2026-11-21T20:09:39Z",
       "decay_at": "2026-11-22T11:49:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-28c79f2efd74",
+      "idea_version": "IDEAV-2fe8474bec5f36f9",
+      "idea_version_started_at": "2026-11-21T03:54:43Z",
+      "ticker": "CODX",
+      "company": "Co-Diagnostics, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The issuance of a senior secured convertible promissory note indicates liquidity pressure and potential future equity dilution for existing shareholders.",
+      "why_now": "The debt issuance was disclosed on 2026-11-21, signaling a need for capital that may not be fully reflected in the current valuation.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-748f43652a3f"
+      ],
+      "primary_source_event_id": "EVT-748f43652a3f",
+      "source_headlines": [
+        "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note"
+      ],
+      "source_headline": "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note",
+      "source_url": "https://www.nasdaq.com/articles/co-diagnostics-inc-borrows-additional-loan-and-issues-senior-secured-convertible",
+      "source_name": "Nasdaq",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-21T01:38:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T03:54:43Z",
+      "updated_at": "2026-11-21T03:54:43Z",
+      "decay_at": "2026-11-22T13:38:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -259952,6 +259878,79 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-2fcff775e893",
+      "idea_version": "IDEAV-2df638fcf4bf3eaa",
+      "idea_version_started_at": "2026-11-21T04:14:39Z",
+      "ticker": "TNP",
+      "company": "Tsakos Energy Navigation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported record profits for Q3 2026, indicating strong operational leverage in the current tanker rate environment.",
+      "why_now": "The earnings release occurred on 2026-11-21; the stock often reacts to the confirmation of record cash flow generation.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f764fa461e06"
+      ],
+      "primary_source_event_id": "EVT-f764fa461e06",
+      "source_headlines": [
+        "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026"
+      ],
+      "source_headline": "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026",
+      "source_url": "https://www.nasdaq.com/articles/tsakos-energy-navigation-limited-reports-record-profits-nine-months-and-third-quarter-2026",
+      "source_name": "Nasdaq",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-21T01:38:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T04:14:39Z",
+      "updated_at": "2026-11-21T04:14:39Z",
+      "decay_at": "2026-11-22T13:38:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -259964,19 +259963,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       },
       "short": {
-        "total_count": 272,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -259995,6 +259994,228 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c1a1a479f11f",
+        "idea_version": "IDEAV-448a2231571be149",
+        "idea_version_started_at": "2026-11-21T03:54:43Z",
+        "ticker": "HMC",
+        "company": "Honda Motor Co., Ltd.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The recall of 810,000 vehicles creates significant warranty and remediation costs that will weigh on near-term operating margins.",
+        "why_now": "The recall was announced on 2026-11-21, and the financial impact of such a large-scale safety action is typically immediate.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9ef795229e97"
+        ],
+        "primary_source_event_id": "EVT-9ef795229e97",
+        "source_headlines": [
+          "Honda to recall 810,000 US vehicles over Takata air bag rupture risk"
+        ],
+        "source_headline": "Honda to recall 810,000 US vehicles over Takata air bag rupture risk",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/honda-recall-810000-us-vehicles-over-takata-air-bag-rupture-risk",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-11-21T01:46:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-21T03:54:43Z",
+        "updated_at": "2026-11-21T03:54:43Z",
+        "decay_at": "2026-11-22T13:46:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T13:46:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-28c79f2efd74",
+        "idea_version": "IDEAV-2fe8474bec5f36f9",
+        "idea_version_started_at": "2026-11-21T03:54:43Z",
+        "ticker": "CODX",
+        "company": "Co-Diagnostics, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The issuance of a senior secured convertible promissory note indicates liquidity pressure and potential future equity dilution for existing shareholders.",
+        "why_now": "The debt issuance was disclosed on 2026-11-21, signaling a need for capital that may not be fully reflected in the current valuation.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 59,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 13,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-748f43652a3f"
+        ],
+        "primary_source_event_id": "EVT-748f43652a3f",
+        "source_headlines": [
+          "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note"
+        ],
+        "source_headline": "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note",
+        "source_url": "https://www.nasdaq.com/articles/co-diagnostics-inc-borrows-additional-loan-and-issues-senior-secured-convertible",
+        "source_name": "Nasdaq",
+        "materiality_max": 87,
+        "newest_source_at": "2026-11-21T01:38:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-21T03:54:43Z",
+        "updated_at": "2026-11-21T03:54:43Z",
+        "decay_at": "2026-11-22T13:38:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T13:38:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2fcff775e893",
+        "idea_version": "IDEAV-2df638fcf4bf3eaa",
+        "idea_version_started_at": "2026-11-21T04:14:39Z",
+        "ticker": "TNP",
+        "company": "Tsakos Energy Navigation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported record profits for Q3 2026, indicating strong operational leverage in the current tanker rate environment.",
+        "why_now": "The earnings release occurred on 2026-11-21; the stock often reacts to the confirmation of record cash flow generation.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f764fa461e06"
+        ],
+        "primary_source_event_id": "EVT-f764fa461e06",
+        "source_headlines": [
+          "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026"
+        ],
+        "source_headline": "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026",
+        "source_url": "https://www.nasdaq.com/articles/tsakos-energy-navigation-limited-reports-record-profits-nine-months-and-third-quarter-2026",
+        "source_name": "Nasdaq",
+        "materiality_max": 87,
+        "newest_source_at": "2026-11-21T01:38:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-21T04:14:39Z",
+        "updated_at": "2026-11-21T04:14:39Z",
+        "decay_at": "2026-11-22T13:38:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-22T13:38:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-86f44e0accf0",
         "idea_version": "IDEAV-7d19cc683702fb1d",
@@ -291487,81 +291708,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0ac45b9845e1",
-        "idea_version": "IDEAV-1f48c63285d1ff1e",
-        "idea_version_started_at": "2026-11-02T23:10:25Z",
-        "ticker": "ON",
-        "company": "Onsemi",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Onsemi is acquiring Ferric to integrate power-delivery technology, which directly supports their stated goal of increasing AI-related revenue.",
-        "why_now": "The acquisition and updated AI revenue guidance were announced on November 2, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5cfa42b99d76"
-        ],
-        "primary_source_event_id": "EVT-5cfa42b99d76",
-        "source_headlines": [
-          "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target"
-        ],
-        "source_headline": "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target",
-        "source_url": "https://www.nasdaq.com/articles/onsemi-acquire-ferric-775-mln-boosts-ai-revenue-target",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T21:38:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T23:10:25Z",
-        "updated_at": "2026-11-02T23:10:25Z",
-        "decay_at": "2026-11-04T09:38:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T22:25:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7698ab4f50a3",
         "idea_version": "IDEAV-8ad4e90bb9d67f38",
         "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -296933,162 +297079,12 @@
         "archived_at": "2026-10-29T11:34:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-772799d9898e",
-        "idea_version": "IDEAV-45e7022537d0d47b",
-        "idea_version_started_at": "2026-10-26T06:48:34Z",
-        "ticker": "RAILTEL",
-        "company": "RailTel Corporation of India",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 10% drop in quarterly profit despite revenue growth indicates significant margin compression and rising operational costs.",
-        "why_now": "The earnings report was released on October 26, 2026, highlighting the profit decline.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-81f3edbab820"
-        ],
-        "primary_source_event_id": "EVT-81f3edbab820",
-        "source_headlines": [
-          "RailTel Reports 10% Profit Drop In Q2 FY27, Declares ₹1 Interim Dividend As Revenue Climbs 20%"
-        ],
-        "source_headline": "RailTel Reports 10% Profit Drop In Q2 FY27, Declares ₹1 Interim Dividend As Revenue Climbs 20%",
-        "source_url": "https://www.freepressjournal.in/business/railtel-reports-10-profit-drop-in-q2-fy27-declares-1-interim-dividend-as-revenue-climbs-20",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T05:43:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T06:48:34Z",
-        "updated_at": "2026-10-26T06:48:34Z",
-        "decay_at": "2026-10-27T17:43:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T06:54:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-755bbcc3edd1",
-        "idea_version": "IDEAV-6d6529cc3c71d5be",
-        "idea_version_started_at": "2026-10-26T05:56:09Z",
-        "ticker": "AUBANK",
-        "company": "AU Small Finance Bank",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The bank reported Q2 results that highlighted significant margin pressure, indicating a deterioration in net interest margins.",
-        "why_now": "The market is reacting to the Q2 earnings release and margin warning issued on 2026-10-26.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6805e82b98d4"
-        ],
-        "primary_source_event_id": "EVT-6805e82b98d4",
-        "source_headlines": [
-          "AU Small Finance Bank shares fall 8% after flagging margin pressure post Q2 results"
-        ],
-        "source_headline": "AU Small Finance Bank shares fall 8% after flagging margin pressure post Q2 results",
-        "source_url": "https://www.cnbctv18.com/market/au-small-finance-bank-share-price-falls-after-flagging-margin-pressure-post-q2-results-20019190.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T05:30:55Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T05:56:09Z",
-        "updated_at": "2026-10-26T05:56:09Z",
-        "decay_at": "2026-10-27T17:30:55Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T06:54:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2607,
-    "live_count": 54,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -297107,9 +297103,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1659,
-    "news_picked_today": 365,
-    "news_dropped_today": 1294
+    "news_seen_today": 1783,
+    "news_picked_today": 375,
+    "news_dropped_today": 1408
   },
   "book_momentum": {
     "live_count": 8,
