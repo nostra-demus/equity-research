@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T06:18:12Z",
+  "generated_at": "2026-11-22T06:39:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261122-090",
@@ -920,6 +920,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261122-113",
+      "headline": "Govt revises policy for extending pre-NELP oil, gas contracts; raises government profit share",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/policy/govt-revises-policy-for-extending-pre-nelp-oil-gas-contracts-raises-government-profit-share/article71730759.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-22T06:16:04Z",
+      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
+      "prelim_note": "The Indian government increased its profit share in pre-NELP oil and gas contracts, which will negatively impact the margins of participating energy companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The Indian government increased its profit share in pre-NELP oil and gas contracts, which will negatively impact the margins of participating energy companies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,49 +1936,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261122-092",
-      "headline": "Vietnam amends law to speed land clearance, developer projects",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/vietnam-amends-law-speed-land-clearance-developer-projects",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T05:45:27Z",
-      "sweep_file": "screener/inbox/2026-11-22_sweep.json",
-      "prelim_note": "Vietnam's legislative amendment to expedite land clearance is expected to accelerate project timelines for real estate developers operating in the country.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Vietnam's legislative amendment to expedite land clearance is expected to accelerate project timelines for real estate developers operating in the country.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -295741,9 +295741,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 630,
-    "news_picked_today": 135,
-    "news_dropped_today": 495
+    "news_seen_today": 670,
+    "news_picked_today": 144,
+    "news_dropped_today": 526
   },
   "book_momentum": {
     "live_count": 8,
