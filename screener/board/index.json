@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T00:55:08Z",
+  "generated_at": "2026-11-23T01:15:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-002",
@@ -97,56 +97,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-004",
-      "headline": "ROAD KING INFRA (01098): POSSIBLE TRANSACTIONS IN CONNECTION WITH THE PROPOSED RESTRUCTURING INVOLVING: (1) PROPOSED ISSUANCE OF NEW SHARES UNDER SPECIFIC MANDATE, CASH SWEEP REAL ESTATE BONDS AND RELATED CONNECTED TRANSACTIONS; AND (2) VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE PROPOSED DISPOSAL OF 70% EQUITY INTEREST IN A SUBSIDIARY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300066.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-22T23:46:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Detailed disclosure of proposed restructuring involving a 70% subsidiary disposal and new share issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Detailed disclosure of proposed restructuring involving a 70% subsidiary disposal and new share issuance.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Road King Infrastructure",
-          "ticker": "01098",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -746,6 +696,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-051",
+      "headline": "‘Raising capital’: embattled New World accelerates urban redevelopment to boost cash flow",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/banking-finance/article/3375329/raising-capital-embattled-new-world-accelerates-urban-redevelopment-boost-cash-flow",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:00:11Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "New World Development is accelerating urban redevelopment to improve cash flow, a critical strategic move for an embattled firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "New World Development is accelerating urban redevelopment to improve cash flow, a critical strategic move for an embattled firm.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-027",
       "headline": "Rough Road: China’s WeRide Shares Dive Nearly 8.6% To All-Time Low",
       "headline_en": null,
@@ -887,6 +886,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-052",
+      "headline": "Lendlease rules out emergency capital raising but debt woes linger",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/lendlease-rules-out-emergency-capital-raising-but-debt-woes-linger-20261123-p61ges?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Lendlease explicitly ruled out an emergency equity raise, reducing immediate dilution risk for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Lendlease explicitly ruled out an emergency equity raise, reducing immediate dilution risk for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lendlease",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-032",
       "headline": "차바이오텍, 'CHAB-201' 국가신약개발 과제 선정",
       "headline_en": "Cha BioTech's 'CHAB-201' selected for national new drug development project",
@@ -985,6 +1033,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-050",
+      "headline": "South Korea, China, Taiwan regulators step in to rescue stock markets - Here are the steps they are taking",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/south-korea-china-taiwan-regulators-step-in-to-curb-market-sell-off-announce-measures-20039468.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:01:01Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Coordinated regulatory intervention in Asian markets to stabilize stock prices is a significant macro event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Coordinated regulatory intervention in Asian markets to stabilize stock prices is a significant macro event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-042",
       "headline": "Beijing to bar young ‘red-chip’ firms from listing outside mainland China: sources",
       "headline_en": null,
@@ -1072,6 +1163,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-049",
+      "headline": "GOLDSTONE CAP (01160): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300151.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-23T00:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Goldstone Capital (01160) trading resumes after suspension, restoring liquidity for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Goldstone Capital (01160) trading resumes after suspension, restoring liquidity for shareholders.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goldstone Capital",
+          "ticker": "01160",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-046",
+      "headline": "TTT: Results of Scheme Meeting",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TTT?key=2924-03165070-3A707165",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-23T01:00:41Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Scheme meeting results may approve a merger or restructuring but headline lacks detail on outcome or value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Scheme meeting results may approve a merger or restructuring but headline lacks detail on outcome or value.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TTT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1420,55 +1609,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261123-023",
-      "headline": "GOLDSTONE CAP (01160): RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300125.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-23T00:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Goldstone Capital is resuming trading on the HKEX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Goldstone Capital is resuming trading on the HKEX.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Goldstone Capital",
-          "ticker": "01160",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261123-001",
       "headline": "JENSCARE-B (09877): VOLUNTARY ANNOUNCEMENT PRESENTATION OF THE 12-MONTH FOLLOW-UP RESULTS OF EU TRINITY OF THE LUX-VALVE PLUS CLINICAL STUDY AT PCR LONDON VALVES 2026",
       "headline_en": null,
@@ -1513,6 +1653,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-055",
+      "headline": "SK바이오팜, 미국서 세노바메이트 신규 연구 10건 공개",
+      "headline_en": "SK Biopharmaceuticals unveils 10 new studies on Cenobamate in the US",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281885",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:00:41Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "SK Biopharmaceuticals is presenting 10 new studies on Cenobamate in the US, supporting product efficacy and market positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "SK Biopharmaceuticals is presenting 10 new studies on Cenobamate in the US, supporting product efficacy and market positioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Biopharmaceuticals",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-056",
+      "headline": "HMM, 美 넥스트파워와 온실가스 감축량 거래계약 체결",
+      "headline_en": "HMM signs greenhouse gas emission reduction trading contract with US-based NextPower",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281883",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:49:16Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "HMM signed a greenhouse gas emission reduction trading contract with NextPower, impacting operational sustainability metrics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "HMM signed a greenhouse gas emission reduction trading contract with NextPower, impacting operational sustainability metrics.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HMM",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1616,6 +1854,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-054",
+      "headline": "컴포트미, 호주산 양가죽 부츠 한국 시장 공식 진출",
+      "headline_en": "Comfort Me officially enters the South Korean market with Australian sheepskin boots",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281886",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:03:51Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Comfort Me is officially entering the South Korean market, representing a new commercial expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Comfort Me is officially entering the South Korean market, representing a new commercial expansion.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Comfort Me",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-028",
       "headline": "Bengaluru-based Bright Money builds AI-led fintech platform for US consumers",
       "headline_en": null,
@@ -1657,283 +1944,6 @@
           "name": "Bright Money",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-021",
-      "headline": "Iran war live: Tankers set ablaze in Hormuz as IRGC warns of unrest threat",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/11/22/iran-war-live-tankers-set-ablaze-in-hormuz-as-irgc-warns-of-unrest-threat?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-22T23:59:22Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "A military escalation in the Strait of Hormuz involving oil tankers poses a significant risk to global energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "A military escalation in the Strait of Hormuz involving oil tankers poses a significant risk to global energy supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-030",
-      "headline": "Faraday Future CEO YT Jia Shares Weekly Update: FFAI’s Remediation of Nine Previously Identified Material Weaknesses in Internal Control Over Financial Reporting; FFR’s Multiple Strategic Education Partnerships and Robots Sales with Public Schools | FFAI Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/FFAI/faraday-future-ceo-yt-jia-shares-weekly-update-ffai-s-remediation-of-kki1bh0u0u0n.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-23T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Faraday Future reports the remediation of nine previously identified material weaknesses in internal control over financial reporting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Faraday Future reports the remediation of nine previously identified material weaknesses in internal control over financial reporting.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Faraday Future",
-          "ticker": "FFIE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-022",
-      "headline": "Union warns strike action could hit nuclear and defence response capabilities",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/union-scotland-argyll-lockheed-martin-ministry-of-defence-b3089547.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T00:01:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Union warnings of potential strike action in the defense and nuclear sectors indicate operational risk for key contractors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Union warnings of potential strike action in the defense and nuclear sectors indicate operational risk for key contractors.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-017",
-      "headline": "HUTCHMED Initiates RANOVA Phase III Trial of Ranosidenib (HMPL-306) in Patients with IDH-Mutated Glioma in China",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/23/3407984/0/en/hutchmed-initiates-ranova-phase-iii-trial-of-ranosidenib-hmpl-306-in-patients-with-idh-mutated-glioma-in-china.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-23T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "HUTCHMED initiated a Phase III clinical trial for Ranosidenib, a significant milestone in drug development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "HUTCHMED initiated a Phase III clinical trial for Ranosidenib, a significant milestone in drug development.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUTCHMED",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-029",
-      "headline": "Two Russian Ships Attacked Far From Ukraine",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/europe/russian-ships-struck-in-attacks-far-from-ukraine-as-wars-fallout-spreads-a51964cb?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T23:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "The attack on Russian ships outside of the immediate conflict zone represents a significant escalation in geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "The attack on Russian ships outside of the immediate conflict zone represents a significant escalation in geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-025",
-      "headline": "MetaOptics Ltd Secures up to S$32 Million Share Subscription Facility from GEM Opportunities Fund ISA Ltd.",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/metaoptics-ltd-secures-up-to-s32-million-share-subscription-facility-from-gem-opportunities-fund-isa-ltd-302947711.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-23T00:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "MetaOptics secured a S$32 million share subscription facility, providing necessary capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "MetaOptics secured a S$32 million share subscription facility, providing necessary capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MetaOptics Ltd",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -299704,9 +299714,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 211,
-    "news_picked_today": 45,
-    "news_dropped_today": 166
+    "news_seen_today": 285,
+    "news_picked_today": 56,
+    "news_dropped_today": 229
   },
   "book_momentum": {
     "live_count": 8,
