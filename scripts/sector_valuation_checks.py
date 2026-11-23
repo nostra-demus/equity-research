@@ -333,8 +333,9 @@ _BN_STRONG_GROWTH = re.compile(r"\bCAGR\b|\bgrowth\b|\bgrow(?:s|n|ing)?\b|%\s*/\
 _BN_LEVEL = re.compile(r"\bmargins?\b|\bROE\b|\bROCE\b|\bROIC\b|\bROA\b|\breturns?\s+on\b|\byields?\b|"
                        r"\bratios?\b|\bmultiples?\b|\bturns?\b|\bDSO\b|\bDPO\b|\bDIO\b", re.I)
 _BN_REVENUE = re.compile(r"\b(?:revenues?|sales|top[\s-]?line|turnover)\b", re.I)
-_BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]cash[\s-]flows?|cash[\s-]flows?|NOPAT|EBITDA|EBIT|EPS|"
-                        r"net[\s-]income|earnings|profits?|operating[\s-]income|PBIT|PBT|EBT|PAT)\b", re.I)
+_BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]cash[\s-]flows?|cash[\s-]flows?|OCF|CFO|NOPAT|EBITDA|"
+                        r"PBDIT|PBIDT|EBIT|EPS|net[\s-]income|earnings|profits?|operating[\s-]income|"
+                        r"PBIT|PBT|EBT|PAT)\b", re.I)
 _BN_CITE = re.compile(r"\[[^\]]*\]|`[^`]*`|\([^()]*\.md[^()]*\)|\b[\w/-]+\.md\b")
 # A metric word used as a document/event/source reference, not as the metric itself ("the FY24 earnings
 # release", "per the earnings module", "earnings call commentary"). Stripped before family detection so

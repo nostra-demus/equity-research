@@ -2961,6 +2961,18 @@ if scope=="selftest":
         # profit family false-flagged a §9-compliant row (red on the pre-fix regex, which carried PAT but not PBT).
         ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; PBT CAGR 14% FY22–26 | x | Yes |\n",[],
          "PBT names the matched profit/cash-flow family (§27 Indian-filing term) — no §9 mismatch"),
+        # §9/§27: the SAME leak, same fix, for the other common profit/cash-flow abbreviations. PBDIT/PBIDT ARE
+        # EBITDA (the standard Indian P&L line) and OCF/CFO ARE operating cash flow / cash flow from operations;
+        # their spelled-out forms (EBITDA, "operating cash flow", "cash flow from operations") already matched,
+        # so only the abbreviations leaked and false-flagged a §9-compliant row. Red on the pre-fix regex (which
+        # carried EBITDA and the spelled-out cash-flow forms but not PBDIT/PBIDT/OCF/CFO); the check's own
+        # contract is that it "never blocks a correct row".
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; PBDIT CAGR 14% FY22–26 | x | Yes |\n",[],
+         "PBDIT (=EBITDA, §27 Indian P&L line) names the matched profit/cash-flow family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; OCF CAGR 14% FY22–26 | x | Yes |\n",[],
+         "OCF (operating cash flow) names the matched profit/cash-flow family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; CFO CAGR 14% FY22–26 | x | Yes |\n",[],
+         "CFO (cash flow from operations) names the matched profit/cash-flow family — no §9 mismatch"),
         ("2026-11-22",_bn_hd+"| Implied revenue CAGR = 6.0% | FY22→FY26 revenue CAGR = 20.13% | x | Yes |\n",[],"revenue vs revenue"),
         ("2026-11-22",_bn_hd+"| Implied revenue CAGR = 6.0% | EBIT CAGR FY22–26 = 9.0% | x | Yes |\n",["revenue growth claim"],
          "symmetric: revenue claim vs profit history only"),
