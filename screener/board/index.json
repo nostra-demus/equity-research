@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T00:29:26Z",
+  "generated_at": "2026-11-23T00:34:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-002",
@@ -47,6 +47,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-034",
+      "headline": "Yemen's Houthis attack Saudi Arabia's Rabigh oil refinery",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/yemens-houthis-attack-saudi-arabias-rabigh-oil-refinery",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:21:32Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "A military attack on a major oil refinery in Saudi Arabia represents a significant geopolitical escalation and potential supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A military attack on a major oil refinery in Saudi Arabia represents a significant geopolitical escalation and potential supply shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -447,6 +497,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-031",
+      "headline": "ASX trims losses; Maas in trading halt; Lendlease rules out equity raising",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-wall-street-tech-rout-deepens-20261123-p61gd2?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:31:47Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Maas Group entered a trading halt, and Lendlease explicitly ruled out an equity raising, impacting investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Maas Group entered a trading halt, and Lendlease explicitly ruled out an equity raising, impacting investor expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maas Group",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Lendlease",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-027",
       "headline": "Rough Road: China’s WeRide Shares Dive Nearly 8.6% To All-Time Low",
       "headline_en": null,
@@ -491,6 +595,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-032",
+      "headline": "차바이오텍, 'CHAB-201' 국가신약개발 과제 선정",
+      "headline_en": "Cha BioTech's 'CHAB-201' selected for national new drug development project",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281878",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:23:13Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Cha BioTech's 'CHAB-201' was selected for a national new drug development project, providing potential funding or validation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Cha BioTech's 'CHAB-201' was selected for a national new drug development project, providing potential funding or validation.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cha BioTech",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -790,6 +943,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-033",
+      "headline": "금호타이어, 스텔란티스 피아트에 '엑스타 HS52' 공급…유럽 OE 시장 공략 박차",
+      "headline_en": "Kumho Tire to supply 'Ecsta HS52' to Stellantis Fiat... accelerating penetration into the European OE market",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281876",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:20:09Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Kumho Tire has secured an OE supply contract for the Fiat brand, expanding its presence in the European market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Kumho Tire has secured an OE supply contract for the Fiat brand, expanding its presence in the European market.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kumho Tire",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-023",
       "headline": "GOLDSTONE CAP (01160): RESUMPTION OF TRADING",
       "headline_en": null,
@@ -1073,6 +1275,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-030",
+      "headline": "Faraday Future CEO YT Jia Shares Weekly Update: FFAI’s Remediation of Nine Previously Identified Material Weaknesses in Internal Control Over Financial Reporting; FFR’s Multiple Strategic Education Partnerships and Robots Sales with Public Schools | FFAI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/FFAI/faraday-future-ceo-yt-jia-shares-weekly-update-ffai-s-remediation-of-kki1bh0u0u0n.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-23T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Faraday Future reports the remediation of nine previously identified material weaknesses in internal control over financial reporting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Faraday Future reports the remediation of nine previously identified material weaknesses in internal control over financial reporting.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Faraday Future",
+          "ticker": "FFIE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -255556,76 +255808,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-89d7962b5610",
-      "idea_version": "IDEAV-51d450ec99fc6852",
-      "idea_version_started_at": "2026-11-21T12:49:26Z",
-      "ticker": "BTCS",
-      "company": "BTCS Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BTCS has warned the SEC that its $54 million Aave loan could be liquidated, posing a significant risk of default and distress for the company.",
-      "why_now": "The warning about potential liquidation was issued on November 21, 2026, highlighting an immediate financial vulnerability.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b04f80f4bae7"
-      ],
-      "primary_source_event_id": "EVT-b04f80f4bae7",
-      "source_headlines": [
-        "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated"
-      ],
-      "source_headline": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
-      "source_url": "https://www.coindesk.com/markets/2026/11/21/ether-treasury-firm-btcs-warns-sec-its-usd54-million-aave-loan-could-be-liquidated",
-      "source_name": "CoinDesk",
-      "materiality_max": 98,
-      "newest_source_at": "2026-11-21T12:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T12:49:26Z",
-      "updated_at": "2026-11-21T12:49:26Z",
-      "decay_at": "2026-11-23T00:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c2562525612b",
       "idea_version": "IDEAV-292fe913a0530642",
       "idea_version_started_at": "2026-11-22T08:50:30Z",
@@ -260053,6 +260235,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-89d7962b5610",
+      "idea_version": "IDEAV-51d450ec99fc6852",
+      "idea_version_started_at": "2026-11-21T12:49:26Z",
+      "ticker": "BTCS",
+      "company": "BTCS Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "BTCS has warned the SEC that its $54 million Aave loan could be liquidated, posing a significant risk of default and distress for the company.",
+      "why_now": "The warning about potential liquidation was issued on November 21, 2026, highlighting an immediate financial vulnerability.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b04f80f4bae7"
+      ],
+      "primary_source_event_id": "EVT-b04f80f4bae7",
+      "source_headlines": [
+        "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated"
+      ],
+      "source_headline": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
+      "source_url": "https://www.coindesk.com/markets/2026/11/21/ether-treasury-firm-btcs-warns-sec-its-usd54-million-aave-loan-could-be-liquidated",
+      "source_name": "CoinDesk",
+      "materiality_max": 98,
+      "newest_source_at": "2026-11-21T12:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T12:49:26Z",
+      "updated_at": "2026-11-21T12:49:26Z",
+      "decay_at": "2026-11-23T00:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cefdda49dac6",
       "idea_version": "IDEAV-e4db196394723b3a",
       "idea_version_started_at": "2026-11-21T08:14:10Z",
@@ -261773,9 +262025,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -261783,9 +262035,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -261804,6 +262056,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-89d7962b5610",
+        "idea_version": "IDEAV-51d450ec99fc6852",
+        "idea_version_started_at": "2026-11-21T12:49:26Z",
+        "ticker": "BTCS",
+        "company": "BTCS Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "BTCS has warned the SEC that its $54 million Aave loan could be liquidated, posing a significant risk of default and distress for the company.",
+        "why_now": "The warning about potential liquidation was issued on November 21, 2026, highlighting an immediate financial vulnerability.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b04f80f4bae7"
+        ],
+        "primary_source_event_id": "EVT-b04f80f4bae7",
+        "source_headlines": [
+          "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated"
+        ],
+        "source_headline": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
+        "source_url": "https://www.coindesk.com/markets/2026/11/21/ether-treasury-firm-btcs-warns-sec-its-usd54-million-aave-loan-could-be-liquidated",
+        "source_name": "CoinDesk",
+        "materiality_max": 98,
+        "newest_source_at": "2026-11-21T12:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-21T12:49:26Z",
+        "updated_at": "2026-11-21T12:49:26Z",
+        "decay_at": "2026-11-23T00:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-23T00:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3bb4c249dc6a",
         "idea_version": "IDEAV-80cfd2a9f479994d",
@@ -298812,88 +299137,12 @@
         "archived_at": "2026-10-29T11:34:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-23755eca98f6",
-        "idea_version": "IDEAV-1d537c8918a09ef0",
-        "idea_version_started_at": "2026-10-26T11:54:04Z",
-        "ticker": "CGF",
-        "company": "Challenger",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The rejection of a $4.4 billion takeover bid removes the immediate acquisition premium from the stock price.",
-        "why_now": "The rejection was reported on 2026-10-26.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f7c802d23be5"
-        ],
-        "primary_source_event_id": "EVT-f7c802d23be5",
-        "source_headlines": [
-          "Challenger rejects Daiichi Life’s $4.4 billion takeover offer"
-        ],
-        "source_headline": "Challenger rejects Daiichi Life’s $4.4 billion takeover offer",
-        "source_url": "https://www.japantimes.co.jp/business/2026/10/26/companies/challenger-rejects-daiichi-life-takeover-offer/",
-        "source_name": "The Japan Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T07:26:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T11:54:04Z",
-        "updated_at": "2026-10-26T11:54:04Z",
-        "decay_at": "2026-10-27T19:26:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T11:34:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2623,
-    "live_count": 60,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -298903,7 +299152,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5195,
+    "inbox_unconsumed": 5200,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -298912,9 +299161,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 119,
-    "news_picked_today": 29,
-    "news_dropped_today": 90
+    "news_seen_today": 152,
+    "news_picked_today": 34,
+    "news_dropped_today": 118
   },
   "book_momentum": {
     "live_count": 8,
