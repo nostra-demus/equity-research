@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T01:15:54Z",
+  "generated_at": "2026-11-23T01:16:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-002",
@@ -258651,6 +258651,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-52c1133413b1",
+      "idea_version": "IDEAV-3bfb2c9af42fec34",
+      "idea_version_started_at": "2026-11-23T01:16:13Z",
+      "ticker": "00013",
+      "company": "HUTCHMED",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HUTCHMED has initiated a Phase III trial for Ranosidenib (HMPL-306) in China, which could significantly increase its addressable market and potential revenue if successful.",
+      "why_now": "The Phase III trial initiation was announced on November 23, 2026, marking a key development milestone.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1919dc7cdb3a"
+      ],
+      "primary_source_event_id": "EVT-1919dc7cdb3a",
+      "source_headlines": [
+        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Initiates RANOVA Phase III Trial of Ranosidenib (HMPL-306) in Patients with IDH-Mutated Glioma in China"
+      ],
+      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Initiates RANOVA Phase III Trial of Ranosidenib (HMPL-306) in Patients with IDH-Mutated Glioma in China",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300113.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 91,
+      "newest_source_at": "2026-11-23T00:01:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-23T01:16:13Z",
+      "updated_at": "2026-11-23T01:16:13Z",
+      "decay_at": "2026-11-24T12:01:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ab870f38757a",
       "idea_version": "IDEAV-309c6808bbb71e62",
       "idea_version_started_at": "2026-11-23T00:28:58Z",
@@ -299694,8 +299765,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2626,
-    "live_count": 62,
+    "surfaced_total": 2627,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
