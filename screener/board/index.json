@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T04:51:31Z",
+  "generated_at": "2026-11-23T05:14:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -1533,6 +1533,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-176",
+      "headline": "98% up in 5 years! APL Apollo shares crash 15% today; here's why | Check stock returns, target price",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/107-up-in-5-years-apl-apollo-shares-crash-10-today-heres-why-check-stock-returns-target-price-11795406789837.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T04:36:05Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "APL Apollo shares fell 15% following market concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "APL Apollo shares fell 15% following market concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "APL Apollo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-147",
       "headline": "Nvidia Chip Scandal: Alice Huang Had Links To Chinese Intelligence Unit MSS, New Report Says",
       "headline_en": null,
@@ -1914,60 +1963,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-031",
-      "headline": "ASX trims losses; Maas in trading halt; Lendlease rules out equity raising",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-wall-street-tech-rout-deepens-20261123-p61gd2?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T00:31:47Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Maas Group entered a trading halt, and Lendlease explicitly ruled out an equity raising, impacting investor expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Maas Group entered a trading halt, and Lendlease explicitly ruled out an equity raising, impacting investor expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maas Group",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Lendlease",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300672,9 +300667,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1863,
-    "news_picked_today": 233,
-    "news_dropped_today": 1606
+    "news_seen_today": 2781,
+    "news_picked_today": 248,
+    "news_dropped_today": 1927
   },
   "book_momentum": {
     "live_count": 8,
