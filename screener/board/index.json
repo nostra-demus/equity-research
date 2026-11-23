@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T03:26:14Z",
+  "generated_at": "2026-11-23T03:35:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -539,6 +539,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-122",
+      "headline": "BYD hit after court bars SUV from EU over Land Rover design copy",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/aeb7d4c9-393f-4ea3-9465-0bbeb754c614?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T02:48:12Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "BYD faces a court-ordered ban on an SUV model in the EU due to intellectual property infringement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "BYD faces a court-ordered ban on an SUV model in the EU due to intellectual property infringement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1578,31 +1628,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261123-110",
-      "headline": "Tata Steel share price in focus on announcement to acquire 26.38% stake in APL Apollo Tubes for ₹15,511 crore",
+      "inbox_id": "INB-20261123-118",
+      "headline": "Tata Steel signs $1.7 billion share purchase agreement to acquire 26.4% stake in APL Apollo Tubes — All we know",
       "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/tata-steel-share-price-in-focus-on-announcement-to-acquire-26-38-stake-in-apl-apollo-tubes-for-rs-15-511-crore-11795400975932.html",
+      "url": "https://www.livemint.com/companies/news/tata-steel-signs-1-7-billion-share-purchase-agreement-acquire-26-4-pc-stake-apl-apollo-tubes-business-market-all-we-know-11795403549614.html",
       "source_name": "Mint",
       "input_nature": "news_headline",
-      "found_at": "2026-11-23T03:07:21Z",
+      "found_at": "2026-11-23T03:23:28Z",
       "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Tata Steel announced it will acquire a 26.38% stake in APL Apollo Tubes for ₹15,511 crore.",
+      "prelim_note": "Tata Steel is acquiring a 26.4% stake in APL Apollo Tubes for $1.7 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 85,
-      "triage_reason": "Tata Steel announced it will acquire a 26.38% stake in APL Apollo Tubes for ₹15,511 crore.",
+      "triage_reason": "Tata Steel is acquiring a 26.4% stake in APL Apollo Tubes for $1.7 billion.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": -22,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "commodity",
@@ -1911,55 +1961,6 @@
           "name": "Ola Electric",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-093",
-      "headline": "셀트리온제약, ADC 제조효율 90% 달성",
-      "headline_en": "Celltrion Pharm achieves 90% ADC manufacturing efficiency",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281909",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T02:12:01Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Celltrion Pharm achieved a 90% manufacturing efficiency for ADC, which is a positive technical milestone for its drug development pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Celltrion Pharm achieved a 90% manufacturing efficiency for ADC, which is a positive technical milestone for its drug development pipeline.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Celltrion Pharm",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mid",
@@ -300452,9 +300453,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1186,
-    "news_picked_today": 145,
-    "news_dropped_today": 1041
+    "news_seen_today": 1224,
+    "news_picked_today": 155,
+    "news_dropped_today": 1069
   },
   "book_momentum": {
     "live_count": 8,
