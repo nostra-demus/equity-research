@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T04:02:39Z",
+  "generated_at": "2026-11-23T04:03:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -490,6 +490,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-135",
+      "headline": "Adani Energy Solutions stock to be in focus after signing deal to acquire Vikramshila Power",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/adani-energy-solutions-stock-to-be-in-focus-after-signing-deal-to-acquire-vikramshila-power/articleshow/136088334.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T03:39:01Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Adani Energy Solutions is acquiring Vikramshila Power, a significant inorganic growth event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Adani Energy Solutions is acquiring Vikramshila Power, a significant inorganic growth event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Energy Solutions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1337,6 +1386,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-147",
+      "headline": "Nvidia Chip Scandal: Alice Huang Had Links To Chinese Intelligence Unit MSS, New Report Says",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/nvidia-chip-scandal-alice-huang-had-links-to-chinese-intelligence-unit-mss-new-report-says",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T03:41:34Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Allegations linking an individual associated with Nvidia to a foreign intelligence unit pose significant reputational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Allegations linking an individual associated with Nvidia to a foreign intelligence unit pose significant reputational and regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-106",
       "headline": "ASX trims losses on mining rebound; ALS dives 12pc",
       "headline_en": null,
@@ -1679,20 +1777,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261123-118",
-      "headline": "Tata Steel signs $1.7 billion share purchase agreement to acquire 26.4% stake in APL Apollo Tubes — All we know",
+      "inbox_id": "INB-20261123-136",
+      "headline": "APL Apollo Tubes shares crash 10% after Tata Steel set to acquire controlling stake for Rs 15,511 crore",
       "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-steel-signs-1-7-billion-share-purchase-agreement-acquire-26-4-pc-stake-apl-apollo-tubes-business-market-all-we-know-11795403549614.html",
-      "source_name": "Mint",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-steel-shares-in-focus-as-firm-set-to-purchase-26-4-stake-in-apl-apollo-tubes-for-rs-15511-crore-what-shareholders-must-know/articleshow/136088071.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-11-23T03:23:28Z",
+      "found_at": "2026-11-23T03:24:14Z",
       "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Tata Steel is acquiring a 26.4% stake in APL Apollo Tubes for $1.7 billion.",
+      "prelim_note": "APL Apollo Tubes is being acquired by Tata Steel for Rs 15,511 crore, triggering a significant market reaction.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 85,
-      "triage_reason": "Tata Steel is acquiring a 26.4% stake in APL Apollo Tubes for $1.7 billion.",
+      "triage_reason": "APL Apollo Tubes is being acquired by Tata Steel for Rs 15,511 crore, triggering a significant market reaction.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1717,12 +1815,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tata Steel",
+          "name": "APL Apollo Tubes",
           "ticker": null,
           "listing_country": "IN"
         },
         {
-          "name": "APL Apollo Tubes",
+          "name": "Tata Steel",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1879,103 +1977,6 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-125",
-      "headline": "Samsung, SK hynix Raise Dividend Payout Ratios in Q3",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281917",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T06:29:34Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Major semiconductor leaders Samsung and SK Hynix are increasing dividend payout ratios, signaling strong cash flow and shareholder returns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Major semiconductor leaders Samsung and SK Hynix are increasing dividend payout ratios, signaling strong cash flow and shareholder returns.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK Hynix",
-          "ticker": "000660",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-096",
-      "headline": "South Korea says deployment to Middle East not indirect military participation in war on Iran",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/south-korea-says-deployment-middle-easy-not-indirect-military",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T02:24:14Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "South Korea clarifying its military stance regarding the Middle East conflict highlights geopolitical risk exposure for the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "South Korea clarifying its military stance regarding the Middle East conflict highlights geopolitical risk exposure for the region.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -300611,9 +300612,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1588,
-    "news_picked_today": 175,
-    "news_dropped_today": 1389
+    "news_seen_today": 1643,
+    "news_picked_today": 189,
+    "news_dropped_today": 1430
   },
   "book_momentum": {
     "live_count": 8,
