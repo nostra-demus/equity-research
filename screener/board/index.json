@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T03:56:57Z",
+  "generated_at": "2026-11-23T04:02:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -1138,6 +1138,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-133",
+      "headline": "APL Apollo Tubes shares fall 9% after equity worth ₹5,825 crore changes hands as part of Tata Steel deal",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/apl-apollo-tubes-share-price-tata-steel-strategic-acquisition-colors-tubes-biz-28000-crore-cash-financials-timeline-funding-20039457.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T03:45:53Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "APL Apollo Tubes shares fell 9% following a large block deal worth ₹5,825 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "APL Apollo Tubes shares fell 9% following a large block deal worth ₹5,825 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "APL Apollo Tubes",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-129",
       "headline": "U.S. tracked Alice Huang’s contacts with China spy agency during Nvidia affair",
       "headline_en": null,
@@ -1928,49 +1977,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-045",
-      "headline": "Popular fried chicken chain closes all restaurants after 14 years",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/sweet-chick-restaurant-closures",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T00:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Closure of all restaurants for a chain is a material operational failure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Closure of all restaurants for a chain is a material operational failure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300605,9 +300611,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1564,
-    "news_picked_today": 170,
-    "news_dropped_today": 1370
+    "news_seen_today": 1588,
+    "news_picked_today": 175,
+    "news_dropped_today": 1389
   },
   "book_momentum": {
     "live_count": 8,
