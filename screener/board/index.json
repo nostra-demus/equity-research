@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T05:25:02Z",
+  "generated_at": "2026-11-23T05:29:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -142,6 +142,55 @@
           "name": "Road King Infrastructure",
           "ticker": "01098",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-182",
+      "headline": "Ashoka Buildcon shares jump 7% after securing projects worth over Rs 4,200 crore from NHAI and Rajasthan Metro",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/ashoka-buildcon-shares-jump-7-after-securing-projects-worth-over-rs-4200-crore-from-nhai-and-rajasthan-metro/articleshow/136089837.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T04:55:52Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Ashoka Buildcon secured new projects worth over Rs 4,200 crore, representing a significant order book expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ashoka Buildcon secured new projects worth over Rs 4,200 crore, representing a significant order book expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ashoka Buildcon",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -889,6 +938,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-177",
+      "headline": "U.S. probes Megaspeed, Alice Huang as new figure emerges in Nvidia chip case",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/23/nvidia-megaspeed-chipmaker-us.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T05:08:03Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Nvidia is subject to a U.S. government probe regarding its chip business, creating potential regulatory and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Nvidia is subject to a U.S. government probe regarding its chip business, creating potential regulatory and legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-114",
       "headline": "Rio Tinto accused of sacking female staff over ‘skills and lifestyle’",
       "headline_en": null,
@@ -1533,6 +1632,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-183",
+      "headline": "Tata Sons postpones November 26 board meeting as question of going public continues to remain unsolved",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-postpones-november-26-board-meeting-as-question-of-going-public-continues-to-remain-unsolved-11795409768053.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T05:06:05Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Tata Sons postponed a board meeting regarding a potential IPO, delaying a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Tata Sons postponed a board meeting regarding a potential IPO, delaying a major capital market event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-176",
       "headline": "98% up in 5 years! APL Apollo shares crash 15% today; here's why | Check stock returns, target price",
       "headline_en": null,
@@ -1572,6 +1720,55 @@
       "companies": [
         {
           "name": "APL Apollo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-187",
+      "headline": "Bisleri Faces Action: What Did FSSAI Find In Its Packaged Drinking Water Sample?",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/india/bisleri-faces-action-what-did-fssai-find-in-its-packaged-drinking-water-sample-12363983#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T04:26:22Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Bisleri is facing regulatory action from FSSAI regarding water quality, which poses a risk to brand reputation and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Bisleri is facing regulatory action from FSSAI regarding water quality, which poses a risk to brand reputation and operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1773,196 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-078",
-      "headline": "Page Industries nears 52-week low as weak sales growth spooks investors",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/page-industries-nears-52-week-low-as-weak-sales-growth-spooks-investors/articleshow/136086702.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T01:52:22Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Page Industries is facing investor concern due to weak sales growth, impacting market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Page Industries is facing investor concern due to weak sales growth, impacting market valuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Page Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-152",
-      "headline": "WANT WANT CHINA (00151): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 SEPTEMBER 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300249.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-23T04:06:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Want Want China reported interim results for the six months ended 30 September 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Want Want China reported interim results for the six months ended 30 September 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Want Want China",
-          "ticker": "00151",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-099",
-      "headline": "Tarik Skubal agrees to record 9-year deal with Mets worth $450 million",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/sports/2026/11/23/baseball/mlb/tarik-skubal-mets-dead/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T02:39:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Major sports contract signing involving a $450 million commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Major sports contract signing involving a $450 million commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New York Mets",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-060",
-      "headline": "Beijing to bar young ‘red-chip’ firms from listing outside mainland China, sources say",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/beijing-to-bar-young-red-chip-firms-from-listing-outside-mainland-china-sources-say",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T01:25:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "New regulatory restrictions on overseas listings for Chinese firms could impact capital access and valuation for the tech sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "New regulatory restrictions on overseas listings for Chinese firms could impact capital access and valuation for the tech sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300810,9 +300817,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3570,
-    "news_picked_today": 250,
-    "news_dropped_today": 2405
+    "news_seen_today": 3879,
+    "news_picked_today": 261,
+    "news_dropped_today": 2703
   },
   "book_momentum": {
     "live_count": 8,
