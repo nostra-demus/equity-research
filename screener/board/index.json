@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T01:50:25Z",
+  "generated_at": "2026-11-23T01:58:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-058",
@@ -195,6 +195,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-064",
+      "headline": "Welspun Living shares, up 100% in 2026, are in focus after ₹3,200 crore capex plan",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/welspun-living-share-price-3200-crore-capex-plan-terry-towel-capacity-20039501.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:52:04Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Welspun Living announced a significant ₹3,200 crore capital expenditure plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Welspun Living announced a significant ₹3,200 crore capital expenditure plan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Living",
+          "ticker": "WELSPUNLIV",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -686,6 +735,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-068",
+      "headline": "KEPCO Data Breach Exposes Personal Information of 1.52 Million",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281900",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T05:13:38Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "A massive data breach affecting 1.52 million individuals at a state-run utility poses significant legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A massive data breach affecting 1.52 million individuals at a state-run utility poses significant legal and reputational risk.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Electric Power Corporation",
+          "ticker": "015760",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1266,6 +1365,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-066",
+      "headline": "Personal information of more than 8,000 clients at Samsung Securities breached",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261123002900320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:49:43Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "A data breach involving personal information of over 8,000 clients creates regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "A data breach involving personal information of over 8,000 clients creates regulatory and reputational risk.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Securities",
+          "ticker": "016360",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-049",
       "headline": "GOLDSTONE CAP (01160): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
@@ -1358,6 +1507,50 @@
           "listing_country": "AU"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-065",
+      "headline": "COP31 climate talks collapse as European Union and others reject deal",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/cop31-climate-talks-collapse-as-european-union-and-others-reject-deal-20039508.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:47:13Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Collapse of COP31 climate talks impacts global environmental policy and sector-wide transition expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "Collapse of COP31 climate talks impacts global environmental policy and sector-wide transition expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1757,202 +1950,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-037",
-      "headline": "Perfetti Van Melle to close 2026 at ₹4,000 crore revenue; tough year ahead, says MD",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/perfetti-van-melle-to-close-2026-with-4-000-crore-revenue-tough-year-ahead-md-fmcg-chocolate-cocoa-confectionery-11795337168596.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T00:30:39Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "The company projects ₹4,000 crore revenue for 2026 and warns of a tough year ahead.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The company projects ₹4,000 crore revenue for 2026 and warns of a tough year ahead.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Perfetti Van Melle",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-033",
-      "headline": "금호타이어, 스텔란티스 피아트에 '엑스타 HS52' 공급…유럽 OE 시장 공략 박차",
-      "headline_en": "Kumho Tire to supply 'Ecsta HS52' to Stellantis Fiat... accelerating penetration into the European OE market",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281876",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T00:20:09Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Kumho Tire has secured an OE supply contract for the Fiat brand, expanding its presence in the European market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Kumho Tire has secured an OE supply contract for the Fiat brand, expanding its presence in the European market.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kumho Tire",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-001",
-      "headline": "JENSCARE-B (09877): VOLUNTARY ANNOUNCEMENT PRESENTATION OF THE 12-MONTH FOLLOW-UP RESULTS OF EU TRINITY OF THE LUX-VALVE PLUS CLINICAL STUDY AT PCR LONDON VALVES 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300107.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-23T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Company presented 12-month clinical trial results for its Lux-Valve Plus device.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Company presented 12-month clinical trial results for its Lux-Valve Plus device.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jenscare Scientific",
-          "ticker": "09877",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-055",
-      "headline": "SK바이오팜, 미국서 세노바메이트 신규 연구 10건 공개",
-      "headline_en": "SK Biopharmaceuticals unveils 10 new studies on Cenobamate in the US",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281885",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T01:00:41Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "SK Biopharmaceuticals is presenting 10 new studies on Cenobamate in the US, supporting product efficacy and market positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "SK Biopharmaceuticals is presenting 10 new studies on Cenobamate in the US, supporting product efficacy and market positioning.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Biopharmaceuticals",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300003,9 +300000,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 379,
-    "news_picked_today": 65,
-    "news_dropped_today": 314
+    "news_seen_today": 410,
+    "news_picked_today": 72,
+    "news_dropped_today": 338
   },
   "book_momentum": {
     "live_count": 8,
