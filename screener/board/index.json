@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T02:43:49Z",
+  "generated_at": "2026-11-23T02:59:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-058",
@@ -1280,6 +1280,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-102",
+      "headline": "Tata Steel To Acquire 26.38% Stake In APL Apollo Tubes For Rs 15,510 Crore Via Three-Stage Deal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/apl-apollo-pipes-may-launch-up-to-rs-32-000-crore-preferential-issue-tata-steel-eyes-28-promoter-stake-sources-12363852#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T02:34:03Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Tata Steel is acquiring a 26.38% stake in APL Apollo Tubes for Rs 15,510 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Tata Steel is acquiring a 26.38% stake in APL Apollo Tubes for Rs 15,510 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "APL Apollo Tubes",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-085",
       "headline": "Tata Steel to acquire majority control of APL Apollo Tubes in mega ₹32,266 crore deal",
       "headline_en": null,
@@ -1904,55 +1958,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-024",
-      "headline": "HESAI-W (02525): VOLUNTARY ANNOUNCEMENT INCLUSION OF THE COMPANY AS A CONSTITUENT STOCK OF THE HANG SENG TECH INDEX",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300117.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-23T00:06:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Hesai-W has been included as a constituent stock of the Hang Seng Tech Index, which typically triggers passive fund inflows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Hesai-W has been included as a constituent stock of the Hang Seng Tech Index, which typically triggers passive fund inflows.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "index_rebalance",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hesai-W",
-          "ticker": "02525",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300149,9 +300154,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 871,
-    "news_picked_today": 118,
-    "news_dropped_today": 753
+    "news_seen_today": 999,
+    "news_picked_today": 125,
+    "news_dropped_today": 874
   },
   "book_momentum": {
     "live_count": 8,
