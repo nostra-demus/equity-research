@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T01:24:08Z",
+  "generated_at": "2026-11-23T01:28:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-058",
@@ -691,6 +691,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-060",
+      "headline": "Beijing to bar young ‘red-chip’ firms from listing outside mainland China, sources say",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/beijing-to-bar-young-red-chip-firms-from-listing-outside-mainland-china-sources-say",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "New regulatory restrictions on overseas listings for Chinese firms could impact capital access and valuation for the tech sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "New regulatory restrictions on overseas listings for Chinese firms could impact capital access and valuation for the tech sector.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-031",
       "headline": "ASX trims losses; Maas in trading halt; Lendlease rules out equity raising",
       "headline_en": null,
@@ -1118,49 +1161,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-042",
-      "headline": "Beijing to bar young ‘red-chip’ firms from listing outside mainland China: sources",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/beijing-bar-young-red-chip-firms-listing-outside-mainland-china-sources",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T00:44:41Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "New regulatory restrictions on offshore listings for Chinese firms will impact capital access and valuation for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New regulatory restrictions on offshore listings for Chinese firms will impact capital access and valuation for the sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -299783,9 +299783,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 308,
-    "news_picked_today": 59,
-    "news_dropped_today": 249
+    "news_seen_today": 325,
+    "news_picked_today": 60,
+    "news_dropped_today": 265
   },
   "book_momentum": {
     "live_count": 8,
