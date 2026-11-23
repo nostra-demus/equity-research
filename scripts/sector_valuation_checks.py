@@ -334,7 +334,7 @@ _BN_LEVEL = re.compile(r"\bmargins?\b|\bROE\b|\bROCE\b|\bROIC\b|\bROA\b|\breturn
                        r"\bratios?\b|\bmultiples?\b|\bturns?\b|\bDSO\b|\bDPO\b|\bDIO\b", re.I)
 _BN_REVENUE = re.compile(r"\b(?:revenues?|sales|top[\s-]?line|turnover)\b", re.I)
 _BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]cash[\s-]flows?|cash[\s-]flows?|NOPAT|EBITDA|EBIT|EPS|"
-                        r"net[\s-]income|earnings|profits?|operating[\s-]income|PAT)\b", re.I)
+                        r"net[\s-]income|earnings|profits?|operating[\s-]income|PBIT|PBT|EBT|PAT)\b", re.I)
 _BN_CITE = re.compile(r"\[[^\]]*\]|`[^`]*`|\([^()]*\.md[^()]*\)|\b[\w/-]+\.md\b")
 # A metric word used as a document/event/source reference, not as the metric itself ("the FY24 earnings
 # release", "per the earnings module", "earnings call commentary"). Stripped before family detection so

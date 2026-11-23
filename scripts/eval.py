@@ -2955,6 +2955,12 @@ if scope=="selftest":
         ("2026-11-22",_bn_hd+"| NOPAT CAGR 16.4%/yr | Revenue CAGR 11.1%. NOPAT (normalized) CAGR ~36% | x | Stretch |\n",[],
          "AMZN shape: revenue as context beside the matched NOPAT series"),
         ("2026-11-22",_bn_hd+"| FCF CAGR 21.8% | 4yr CAGR 33.6% (FY22→FY25) | x | Yes |\n",[],"history names no metric: implicit unit"),
+        # §9/§27: PBT (profit-before-tax) is the SAME profit/cash-flow family as an implied FCF claim, so a
+        # history cell naming revenue AND PBT supplies the matched base rate — no §9 unit mismatch. PBT is
+        # standard statutory terminology in the default-likely Indian jurisdiction (§27); omitting it from the
+        # profit family false-flagged a §9-compliant row (red on the pre-fix regex, which carried PAT but not PBT).
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; PBT CAGR 14% FY22–26 | x | Yes |\n",[],
+         "PBT names the matched profit/cash-flow family (§27 Indian-filing term) — no §9 mismatch"),
         ("2026-11-22",_bn_hd+"| Implied revenue CAGR = 6.0% | FY22→FY26 revenue CAGR = 20.13% | x | Yes |\n",[],"revenue vs revenue"),
         ("2026-11-22",_bn_hd+"| Implied revenue CAGR = 6.0% | EBIT CAGR FY22–26 = 9.0% | x | Yes |\n",["revenue growth claim"],
          "symmetric: revenue claim vs profit history only"),
