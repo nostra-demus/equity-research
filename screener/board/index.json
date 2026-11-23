@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T06:10:51Z",
+  "generated_at": "2026-11-23T06:20:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -691,6 +691,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-192",
+      "headline": "CCM: Response to ASX Aware Letter [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CCM?key=2924-03165211-6A1356440",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-23T05:35:27Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "ASX-flagged price-sensitive response to regulator inquiry indicates material undisclosed information; specific nature and market impact indeterminate from headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "ASX-flagged price-sensitive response to regulator inquiry indicates material undisclosed information; specific nature and market impact indeterminate from headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-106",
-      "headline": "ASX trims losses on mining rebound; ALS dives 12pc",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-wall-street-tech-rout-deepens-20261123-p61gd2?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T03:07:02Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "ALS Limited shares fell 12% following market updates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "ALS Limited shares fell 12% following market updates.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ALS Limited",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -255546,76 +255546,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-29b3246b56c4",
-      "idea_version": "IDEAV-7dce6ff99986dc94",
-      "idea_version_started_at": "2026-11-21T18:39:36Z",
-      "ticker": "ABNB",
-      "company": "Airbnb",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced a $12 billion share buyback program supported by a 35% free cash flow margin, which significantly increases earnings per share and signals management's confidence in capital allocation.",
-      "why_now": "The buyback authorization was announced on 2026-11-21 and is effective immediately.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5252841cf9f6"
-      ],
-      "primary_source_event_id": "EVT-5252841cf9f6",
-      "source_headlines": [
-        "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders."
-      ],
-      "source_headline": "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders.",
-      "source_url": "https://www.nasdaq.com/articles/airbnbs-new-12-billion-buyback-backed-35-free-cash-flow-margin-heres-what-it-means",
-      "source_name": "Nasdaq",
-      "materiality_max": 98,
-      "newest_source_at": "2026-11-21T18:15:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T18:24:30Z",
-      "updated_at": "2026-11-21T18:39:36Z",
-      "decay_at": "2026-11-23T06:15:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-a2200e0fa3ee4378",
       "idea_version_started_at": "2026-11-22T20:03:56Z",
@@ -261339,6 +261269,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-29b3246b56c4",
+      "idea_version": "IDEAV-7dce6ff99986dc94",
+      "idea_version_started_at": "2026-11-21T18:39:36Z",
+      "ticker": "ABNB",
+      "company": "Airbnb",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a $12 billion share buyback program supported by a 35% free cash flow margin, which significantly increases earnings per share and signals management's confidence in capital allocation.",
+      "why_now": "The buyback authorization was announced on 2026-11-21 and is effective immediately.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5252841cf9f6"
+      ],
+      "primary_source_event_id": "EVT-5252841cf9f6",
+      "source_headlines": [
+        "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders."
+      ],
+      "source_headline": "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders.",
+      "source_url": "https://www.nasdaq.com/articles/airbnbs-new-12-billion-buyback-backed-35-free-cash-flow-margin-heres-what-it-means",
+      "source_name": "Nasdaq",
+      "materiality_max": 98,
+      "newest_source_at": "2026-11-21T18:15:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T18:24:30Z",
+      "updated_at": "2026-11-21T18:39:36Z",
+      "decay_at": "2026-11-23T06:15:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-92d1a3f96d27",
       "idea_version": "IDEAV-31abe718feda8c59",
       "idea_version_started_at": "2026-11-21T06:14:51Z",
@@ -263761,14 +263761,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       },
       "short": {
         "total_count": 271,
@@ -263792,6 +263792,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-29b3246b56c4",
+        "idea_version": "IDEAV-7dce6ff99986dc94",
+        "idea_version_started_at": "2026-11-21T18:39:36Z",
+        "ticker": "ABNB",
+        "company": "Airbnb",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company announced a $12 billion share buyback program supported by a 35% free cash flow margin, which significantly increases earnings per share and signals management's confidence in capital allocation.",
+        "why_now": "The buyback authorization was announced on 2026-11-21 and is effective immediately.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5252841cf9f6"
+        ],
+        "primary_source_event_id": "EVT-5252841cf9f6",
+        "source_headlines": [
+          "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders."
+        ],
+        "source_headline": "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders.",
+        "source_url": "https://www.nasdaq.com/articles/airbnbs-new-12-billion-buyback-backed-35-free-cash-flow-margin-heres-what-it-means",
+        "source_name": "Nasdaq",
+        "materiality_max": 98,
+        "newest_source_at": "2026-11-21T18:15:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-21T18:24:30Z",
+        "updated_at": "2026-11-21T18:39:36Z",
+        "decay_at": "2026-11-23T06:15:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-23T06:15:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-521e020bb493",
         "idea_version": "IDEAV-d36fdb9e638c6218",
@@ -295427,81 +295500,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3da588978c6b",
-        "idea_version": "IDEAV-a103544f6efd07d3",
-        "idea_version_started_at": "2026-11-03T12:13:33Z",
-        "ticker": "TNPETRO",
-        "company": "Tamilnadu Petroproducts",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 95% surge in net profit to ₹62.54 crore on the back of revenue that doubled year-on-year.",
-        "why_now": "The Q2 FY27 earnings results were released on November 03, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-28db2cf79445"
-        ],
-        "primary_source_event_id": "EVT-28db2cf79445",
-        "source_headlines": [
-          "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year"
-        ],
-        "source_headline": "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year",
-        "source_url": "https://www.freepressjournal.in/business/tamilnadu-petroproducts-q2-fy27-earnings-outshines-net-profit-zooms-95-to-6254-crore-as-revenue-hits-94163-crore-after-doubling-year-on-year",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-03T06:11:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-03T12:13:33Z",
-        "updated_at": "2026-11-03T12:13:33Z",
-        "decay_at": "2026-11-04T18:11:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-06T06:28:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0448efa62005",
         "idea_version": "IDEAV-ddebb2b478cc901d",
         "idea_version_started_at": "2026-11-03T05:04:36Z",
@@ -300875,7 +300873,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2642,
-    "live_count": 75,
+    "live_count": 74,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -300894,9 +300892,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16908,
-    "news_picked_today": 266,
-    "news_dropped_today": 3754
+    "news_seen_today": 24390,
+    "news_picked_today": 270,
+    "news_dropped_today": 4110
   },
   "book_momentum": {
     "live_count": 8,
