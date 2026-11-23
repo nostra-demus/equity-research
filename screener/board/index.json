@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T00:34:28Z",
+  "generated_at": "2026-11-23T00:38:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-002",
@@ -448,6 +448,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-039",
+      "headline": "BHP unveils plans to double copper output in South Australia by 2040",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/bhp-unveils-plans-to-double-copper-output-in-south-australia-by-2040-11795393729229.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:28:48Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "BHP announced a major long-term capacity expansion plan to double copper output in South Australia by 2040.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "BHP announced a major long-term capacity expansion plan to double copper output in South Australia by 2040.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BHP",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-013",
       "headline": "MICROINTELLIGEN (03275): GLOBAL OFFERING",
       "headline_en": null,
@@ -595,6 +644,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-038",
+      "headline": "Bhavish Aggarwal's battery-cell bet runs into trouble as Ola Electric struggles with yields, sales",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/ola-electric-ola-cell-technologies-gigafactory-bhavish-aggarwal-11795333930351.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:30:19Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Operational struggles with battery-cell yields and sales impact the core growth strategy of Ola Electric.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Operational struggles with battery-cell yields and sales impact the core growth strategy of Ola Electric.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola Electric",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -845,6 +943,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-036",
+      "headline": "Tata Sons lists EGM on board agenda amid vexed quorum issue",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-board-meeting-agenda-listing-egm-11795355045284.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:31:45Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Governance issues at Tata Sons, the holding company for the Tata Group, are significant for the conglomerate's structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Governance issues at Tata Sons, the holding company for the Tata Group, are significant for the conglomerate's structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-020",
       "headline": "KKC: Dividend/Distribution - KKC [price-sensitive]",
       "headline_en": null,
@@ -935,6 +1082,55 @@
           "name": "LDR",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-037",
+      "headline": "Perfetti Van Melle to close 2026 at ₹4,000 crore revenue; tough year ahead, says MD",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/perfetti-van-melle-to-close-2026-with-4-000-crore-revenue-tough-year-ahead-md-fmcg-chocolate-cocoa-confectionery-11795337168596.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:30:39Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "The company projects ₹4,000 crore revenue for 2026 and warns of a tough year ahead.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "The company projects ₹4,000 crore revenue for 2026 and warns of a tough year ahead.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Perfetti Van Melle",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1368,6 +1564,56 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-035",
+      "headline": "Faraday Future CEO YT Jia Shares Weekly Update: FFAI’s Remediation of Nine Previously Identified Material Weaknesses in Internal Control Over Financial Reporting; FFR’s Multiple Strategic Education Partnerships and Robots Sales with Public Schools",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261122557721/en/Faraday-Future-CEO-YT-Jia-Shares-Weekly-Update-FFAI%E2%80%99s-Remediation-of-Nine-Previously-Identified-Material-Weaknesses-in-Internal-Control-Over-Financial-Reporting-FFR%E2%80%99s-Multiple-Strategic-Education-Partnerships-and-Robots-Sales-with-Public-Schools/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-23T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Faraday Future announced the remediation of nine material weaknesses in its financial reporting, which is a significant improvement in internal controls.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Faraday Future announced the remediation of nine material weaknesses in its financial reporting, which is a significant improvement in internal controls.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Faraday Future",
+          "ticker": "FFIE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -299152,7 +299398,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5200,
+    "inbox_unconsumed": 5205,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -299161,9 +299407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 152,
-    "news_picked_today": 34,
-    "news_dropped_today": 118
+    "news_seen_today": 171,
+    "news_picked_today": 39,
+    "news_dropped_today": 132
   },
   "book_momentum": {
     "live_count": 8,
