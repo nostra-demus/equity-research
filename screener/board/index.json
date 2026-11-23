@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T02:59:07Z",
+  "generated_at": "2026-11-23T02:59:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-058",
@@ -258805,6 +258805,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-81e5f73ffc97",
+      "idea_version": "IDEAV-5e2a77c820fc4b00",
+      "idea_version_started_at": "2026-11-23T02:59:23Z",
+      "ticker": "016360",
+      "company": "Samsung Securities",
+      "exchange": "KRX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A cybersecurity breach involving the personal information of 8,000 clients creates immediate reputational risk, potential regulatory fines, and increased compliance costs.",
+      "why_now": "The breach was reported on 2026-11-23, and the market has not yet fully digested the potential impact on client trust and operational expenses.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8a43ce05954c"
+      ],
+      "primary_source_event_id": "EVT-8a43ce05954c",
+      "source_headlines": [
+        "(LEAD) Personal information of more than 8,000 clients at Samsung Securities breached"
+      ],
+      "source_headline": "(LEAD) Personal information of more than 8,000 clients at Samsung Securities breached",
+      "source_url": "https://en.yna.co.kr/view/AEN20261123002951320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-23T02:12:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-23T01:59:11Z",
+      "updated_at": "2026-11-23T02:59:23Z",
+      "decay_at": "2026-11-24T14:12:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-592b06bbc851",
       "idea_version": "IDEAV-2b8c460d291af6be",
       "idea_version_started_at": "2026-11-23T02:39:11Z",
@@ -259520,78 +259592,6 @@
       "surfaced_at": "2026-11-22T01:32:50Z",
       "updated_at": "2026-11-23T02:15:07Z",
       "decay_at": "2026-11-24T13:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-81e5f73ffc97",
-      "idea_version": "IDEAV-bb32c12832f9f9e0",
-      "idea_version_started_at": "2026-11-23T01:59:11Z",
-      "ticker": "016360",
-      "company": "Samsung Securities",
-      "exchange": "KRX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A data breach affecting over 8,000 clients exposes the firm to regulatory fines, potential litigation costs, and significant reputational damage that will weigh on near-term earnings.",
-      "why_now": "The breach was reported on 2026-11-23, and the immediate fallout in trust and compliance costs is just beginning.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c874b4110d97"
-      ],
-      "primary_source_event_id": "EVT-c874b4110d97",
-      "source_headlines": [
-        "Personal information of more than 8,000 clients at Samsung Securities breached"
-      ],
-      "source_headline": "Personal information of more than 8,000 clients at Samsung Securities breached",
-      "source_url": "https://en.yna.co.kr/view/AEN20261123002900320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 79,
-      "newest_source_at": "2026-11-23T01:49:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T01:59:11Z",
-      "updated_at": "2026-11-23T01:59:11Z",
-      "decay_at": "2026-11-24T13:49:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
