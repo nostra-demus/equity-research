@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T04:04:21Z",
+  "generated_at": "2026-11-23T04:09:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -1777,6 +1777,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-151",
+      "headline": "'Water safety is priority': Bisleri after food regulator declared samples 'unsafe'",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/water-safety-is-priority-bisleri-after-food-regulator-declared-samples-unsafe/articleshow/136088500.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T03:53:07Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Bisleri is facing regulatory scrutiny after food safety authorities declared samples unsafe, posing a risk to brand reputation and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Bisleri is facing regulatory scrutiny after food safety authorities declared samples unsafe, posing a risk to brand reputation and operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-136",
       "headline": "APL Apollo Tubes shares crash 10% after Tata Steel set to acquire controlling stake for Rs 15,511 crore",
       "headline_en": null,
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-027",
-      "headline": "Rough Road: China’s WeRide Shares Dive Nearly 8.6% To All-Time Low",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/forbeschina/2026/11/22/rough-road-chinas-weride-shares-dive-nearly-86-to-all-time-low/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T23:43:30Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "WeRide shares fell 8.6% to an all-time low, reflecting significant negative market sentiment and potential operational or regulatory concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "WeRide shares fell 8.6% to an all-time low, reflecting significant negative market sentiment and potential operational or regulatory concerns.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WeRide",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300682,9 +300682,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1643,
-    "news_picked_today": 189,
-    "news_dropped_today": 1430
+    "news_seen_today": 1670,
+    "news_picked_today": 195,
+    "news_dropped_today": 1451
   },
   "book_momentum": {
     "live_count": 8,
