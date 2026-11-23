@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T01:59:36Z",
+  "generated_at": "2026-11-23T02:08:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-058",
@@ -642,6 +642,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-069",
+      "headline": "VEN: Share Purchase Plan Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VEN?key=2924-03165095-2A1712178",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-23T02:00:51Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Venture Minerals announced a Share Purchase Plan, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Venture Minerals announced a Share Purchase Plan, which is dilutive to existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Venture Minerals",
+          "ticker": "VEN",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-040",
       "headline": "HMX: Implementation of the Demerger [price-sensitive]",
       "headline_en": null,
@@ -1072,6 +1121,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-076",
+      "headline": "ICICI Prudential Seeks $800 Million as Alternatives Push Grows",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-23/icici-prudential-seeks-800-million-as-alternatives-push-grows",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "ICICI Prudential is seeking to raise $800 million for alternative investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "ICICI Prudential is seeking to raise $800 million for alternative investments.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Prudential",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1852,104 +1950,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-012",
-      "headline": "LDR: Amendment to Agreement with Rapid Critical Minerals",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LDR?key=2924-03165044-2A1712148",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-22T23:53:31Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "LDR amended an agreement with Rapid Critical Minerals, indicating progress on a commercial partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "LDR amended an agreement with Rapid Critical Minerals, indicating progress on a commercial partnership.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LDR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-063",
-      "headline": "Tower Records becomes latest Japan retailer hit by data breach",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/23/tower-records-data-breach/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T01:40:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Tower Records Japan hit by a data breach, increasing operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Tower Records Japan hit by a data breach, increasing operational and reputational risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tower Records Japan",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300072,9 +300072,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 410,
-    "news_picked_today": 72,
-    "news_dropped_today": 338
+    "news_seen_today": 530,
+    "news_picked_today": 88,
+    "news_dropped_today": 442
   },
   "book_momentum": {
     "live_count": 8,
