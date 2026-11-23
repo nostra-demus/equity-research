@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-23T01:16:37Z",
+  "generated_at": "2026-11-23T01:23:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261123-058",
+      "headline": "PA1: Removal from Official List",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PA1?key=2924-03165075-2A1712168",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-23T01:10:11Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Company is being removed from the official exchange list, indicating a potential delisting or insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is being removed from the official exchange list, indicating a potential delisting or insolvency event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PA1",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261123-002",
       "headline": "ROAD KING INFRA (01098): Notice of Availability to Non-registered Holders and Request Form - Notice of availability of (i) Circular in relation to the Possible Transactions in connection with the Proposed Restructuring involving: (1) Proposed Issuance of New Shares under Specific Mandate, Cash Sweep Real Estate Bonds and related Connected Transactions; & (2) Very Substantial Disposal in relation to the Proposed Disposal of 70% Equity Interest in a Subsidiary; (ii) Notice of Special",
@@ -1119,6 +1168,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-059",
+      "headline": "Foodlink F&B Holdings announces IPO price band, aims to raise ₹361 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/foodlink-fb-holdings-announces-ipo-price-band-aims-to-raise-361-crore-subscription-dates-20039491.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T01:13:59Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Company announces IPO price band to raise 361 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Company announces IPO price band to raise 361 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foodlink F&B Holdings",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-024",
       "headline": "HESAI-W (02525): VOLUNTARY ANNOUNCEMENT INCLUSION OF THE COMPANY AS A CONSTITUENT STOCK OF THE HANG SENG TECH INDEX",
       "headline_en": null,
@@ -1849,104 +1947,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-054",
-      "headline": "컴포트미, 호주산 양가죽 부츠 한국 시장 공식 진출",
-      "headline_en": "Comfort Me officially enters the South Korean market with Australian sheepskin boots",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281886",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T01:03:51Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Comfort Me is officially entering the South Korean market, representing a new commercial expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Comfort Me is officially entering the South Korean market, representing a new commercial expansion.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Comfort Me",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-028",
-      "headline": "Bengaluru-based Bright Money builds AI-led fintech platform for US consumers",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/startups/bengaluru-based-bright-money-builds-ai-led-fintech-platform-for-us-consumers-4227707",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-22T23:56:48Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Bright Money is expanding its AI-led fintech platform into the US market, representing a strategic growth initiative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Bright Money is expanding its AI-led fintech platform into the US market, representing a strategic growth initiative.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bright Money",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -255938,76 +255938,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-758b4b62af9a",
-      "idea_version": "IDEAV-64bc1d5f93411643",
-      "idea_version_started_at": "2026-11-21T13:34:44Z",
-      "ticker": "ROK",
-      "company": "Rockwell Automation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of AGILOX accelerates Rockwell's autonomous mobile robot capabilities, providing a clear path to expanding their industrial automation market share.",
-      "why_now": "The acquisition was announced on 2026-11-21, and the market has yet to fully digest the long-term margin accretion from this vertical integration.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ebd8b7988278"
-      ],
-      "primary_source_event_id": "EVT-ebd8b7988278",
-      "source_headlines": [
-        "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business"
-      ],
-      "source_headline": "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business",
-      "source_url": "https://www.thehindubusinessline.com/companies/rockwell-automation-to-acquire-agilox-to-boost-autonomous-mobile-robots-business/article71728359.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-11-21T13:20:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T13:34:44Z",
-      "updated_at": "2026-11-21T13:34:44Z",
-      "decay_at": "2026-11-23T01:20:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7f4bcc9dfe0d",
       "idea_version": "IDEAV-729c6c62632a2423",
       "idea_version_started_at": "2026-11-22T08:50:30Z",
@@ -260789,6 +260719,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-758b4b62af9a",
+      "idea_version": "IDEAV-64bc1d5f93411643",
+      "idea_version_started_at": "2026-11-21T13:34:44Z",
+      "ticker": "ROK",
+      "company": "Rockwell Automation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of AGILOX accelerates Rockwell's autonomous mobile robot capabilities, providing a clear path to expanding their industrial automation market share.",
+      "why_now": "The acquisition was announced on 2026-11-21, and the market has yet to fully digest the long-term margin accretion from this vertical integration.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ebd8b7988278"
+      ],
+      "primary_source_event_id": "EVT-ebd8b7988278",
+      "source_headlines": [
+        "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business"
+      ],
+      "source_headline": "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business",
+      "source_url": "https://www.thehindubusinessline.com/companies/rockwell-automation-to-acquire-agilox-to-boost-autonomous-mobile-robots-business/article71728359.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 96,
+      "newest_source_at": "2026-11-21T13:20:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-21T13:34:44Z",
+      "updated_at": "2026-11-21T13:34:44Z",
+      "decay_at": "2026-11-23T01:20:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c1a1a479f11f",
       "idea_version": "IDEAV-448a2231571be149",
       "idea_version_started_at": "2026-11-21T03:54:43Z",
@@ -262649,14 +262649,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
         "total_count": 269,
@@ -262680,6 +262680,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-758b4b62af9a",
+        "idea_version": "IDEAV-64bc1d5f93411643",
+        "idea_version_started_at": "2026-11-21T13:34:44Z",
+        "ticker": "ROK",
+        "company": "Rockwell Automation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of AGILOX accelerates Rockwell's autonomous mobile robot capabilities, providing a clear path to expanding their industrial automation market share.",
+        "why_now": "The acquisition was announced on 2026-11-21, and the market has yet to fully digest the long-term margin accretion from this vertical integration.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ebd8b7988278"
+        ],
+        "primary_source_event_id": "EVT-ebd8b7988278",
+        "source_headlines": [
+          "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business"
+        ],
+        "source_headline": "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business",
+        "source_url": "https://www.thehindubusinessline.com/companies/rockwell-automation-to-acquire-agilox-to-boost-autonomous-mobile-robots-business/article71728359.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 96,
+        "newest_source_at": "2026-11-21T13:20:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-21T13:34:44Z",
+        "updated_at": "2026-11-21T13:34:44Z",
+        "decay_at": "2026-11-23T01:20:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-23T01:20:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-89d7962b5610",
         "idea_version": "IDEAV-51d450ec99fc6852",
@@ -294169,81 +294242,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ec4e73f028be",
-        "idea_version": "IDEAV-942a7422017179ca",
-        "idea_version_started_at": "2026-11-03T12:53:36Z",
-        "ticker": "TRIDENT",
-        "company": "Trident",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company delivered a 93% jump in profit and announced a substantial ₹4,650 crore capital expenditure plan, indicating strong growth momentum.",
-        "why_now": "The market is reacting to the Q2 results and expansion announcement released today, November 3, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-715ab101bb1d"
-        ],
-        "primary_source_event_id": "EVT-715ab101bb1d",
-        "source_headlines": [
-          "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead"
-        ],
-        "source_headline": "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead",
-        "source_url": "https://www.livemint.com/market/stock-market-news/trident-shares-jump-13-after-q2-results-profit-jumps-93-board-clears-rs-4-650-crore-expansion-plan-what-lies-ahead-11793682049671.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-03T05:25:41Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-03T12:53:36Z",
-        "updated_at": "2026-11-03T12:53:36Z",
-        "decay_at": "2026-11-04T17:25:41Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-06T06:28:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0448efa62005",
         "idea_version": "IDEAV-ddebb2b478cc901d",
         "idea_version_started_at": "2026-11-03T05:04:36Z",
@@ -299766,7 +299764,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2627,
-    "live_count": 63,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -299785,9 +299783,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 285,
-    "news_picked_today": 56,
-    "news_dropped_today": 229
+    "news_seen_today": 308,
+    "news_picked_today": 59,
+    "news_dropped_today": 249
   },
   "book_momentum": {
     "live_count": 8,
