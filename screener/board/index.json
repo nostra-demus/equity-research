@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T02:19:40Z",
+  "generated_at": "2026-11-23T02:24:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-058",
@@ -789,6 +789,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-082",
+      "headline": "ICICI Prudential seeks $800 million as alternatives push grows",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/icici-prudential-seeks-800-million-as-alternatives-push-grows/articleshow/136086973.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T02:13:28Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "ICICI Prudential is seeking to raise $800 million to expand its alternatives business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "ICICI Prudential is seeking to raise $800 million to expand its alternatives business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Prudential",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-068",
       "headline": "KEPCO Data Breach Exposes Personal Information of 1.52 Million",
       "headline_en": null,
@@ -830,6 +879,55 @@
         {
           "name": "Korea Electric Power Corporation",
           "ticker": "015760",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-083",
+      "headline": "(LEAD) Personal information of more than 8,000 clients at Samsung Securities breached",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261123002951320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T02:12:44Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Samsung Securities suffered a data breach affecting more than 8,000 clients.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Samsung Securities suffered a data breach affecting more than 8,000 clients.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Securities",
+          "ticker": null,
           "listing_country": "KR"
         }
       ],
@@ -1175,55 +1273,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261123-076",
-      "headline": "ICICI Prudential Seeks $800 Million as Alternatives Push Grows",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-23/icici-prudential-seeks-800-million-as-alternatives-push-grows",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "ICICI Prudential is seeking to raise $800 million for alternative investments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "ICICI Prudential is seeking to raise $800 million for alternative investments.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Prudential",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261123-052",
       "headline": "Lendlease rules out emergency capital raising but debt woes linger",
       "headline_en": null,
@@ -1507,56 +1556,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-066",
-      "headline": "Personal information of more than 8,000 clients at Samsung Securities breached",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261123002900320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T01:49:43Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "A data breach involving personal information of over 8,000 clients creates regulatory and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "A data breach involving personal information of over 8,000 clients creates regulatory and reputational risk.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Securities",
-          "ticker": "016360",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300072,9 +300071,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 609,
-    "news_picked_today": 94,
-    "news_dropped_today": 515
+    "news_seen_today": 701,
+    "news_picked_today": 100,
+    "news_dropped_today": 601
   },
   "book_momentum": {
     "live_count": 8,
