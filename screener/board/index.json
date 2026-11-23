@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T04:29:42Z",
+  "generated_at": "2026-11-23T04:33:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -1826,6 +1826,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-158",
+      "headline": "Tata Steel to acquire 26.6% stake in APL Apollo for ₹15,510 crore, makes open offer",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-steel-acquire-stake-apl-apollo-rs-15510-crore-open-offer-11795404824089.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T04:31:17Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Tata Steel announced the acquisition of a 26.6% stake in APL Apollo for ₹15,510 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Tata Steel announced the acquisition of a 26.6% stake in APL Apollo for ₹15,510 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "APL Apollo Tubes",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-153",
       "headline": "Tata Steel to buy $1.67 billion stake in India’s largest steel pipe maker; shares plunge nearly 5%",
       "headline_en": null,
@@ -1929,55 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-151",
-      "headline": "'Water safety is priority': Bisleri after food regulator declared samples 'unsafe'",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/water-safety-is-priority-bisleri-after-food-regulator-declared-samples-unsafe/articleshow/136088500.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T03:53:07Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Bisleri is facing regulatory scrutiny after food safety authorities declared samples unsafe, posing a risk to brand reputation and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Bisleri is facing regulatory scrutiny after food safety authorities declared samples unsafe, posing a risk to brand reputation and operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bisleri",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300682,9 +300687,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1747,
-    "news_picked_today": 206,
-    "news_dropped_today": 1517
+    "news_seen_today": 1778,
+    "news_picked_today": 212,
+    "news_dropped_today": 1542
   },
   "book_momentum": {
     "live_count": 8,
