@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T04:28:48Z",
+  "generated_at": "2026-11-23T04:29:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -256039,6 +256039,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-aad7fd245829",
+      "idea_version": "IDEAV-095bc5eaa3747455",
+      "idea_version_started_at": "2026-11-23T04:28:54Z",
+      "ticker": "BYDDY",
+      "company": "BYD",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A court-ordered ban on selling a key SUV model in the EU market directly threatens the company's revenue growth and margin profile in a critical expansion region.",
+      "why_now": "The regulatory ruling was reported on 2026-11-23, creating an immediate barrier to sales.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9b18b714fed7"
+      ],
+      "primary_source_event_id": "EVT-9b18b714fed7",
+      "source_headlines": [
+        "BYD hit after court bars SUV from EU over Land Rover design copy"
+      ],
+      "source_headline": "BYD hit after court bars SUV from EU over Land Rover design copy",
+      "source_url": "https://www.ft.com/content/aeb7d4c9-393f-4ea3-9465-0bbeb754c614?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-23T02:48:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-22T01:32:50Z",
+      "updated_at": "2026-11-23T04:28:54Z",
+      "decay_at": "2026-11-24T14:48:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ff1f7dd9e225",
       "idea_version": "IDEAV-3ffbc52208ec87e8",
       "idea_version_started_at": "2026-11-23T04:03:56Z",
@@ -256313,76 +256383,6 @@
       "surfaced_at": "2026-11-22T08:50:30Z",
       "updated_at": "2026-11-22T08:50:30Z",
       "decay_at": "2026-11-23T20:05:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-aad7fd245829",
-      "idea_version": "IDEAV-401e8b47fd702c1c",
-      "idea_version_started_at": "2026-11-22T01:32:50Z",
-      "ticker": "BYDDY",
-      "company": "BYD Company",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Dutch court ruling banning the sale of the Ti7 model due to design infringement on the Land Rover Defender directly restricts BYD's revenue growth in the European market.",
-      "why_now": "The court ruling was reported on 2026-11-22, creating an immediate barrier to sales.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-685f9f8a6ba8"
-      ],
-      "primary_source_event_id": "EVT-685f9f8a6ba8",
-      "source_headlines": [
-        "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights"
-      ],
-      "source_headline": "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights",
-      "source_url": "https://cnevpost.com/2026/11/22/dutch-court-bars-eu-sales-byd-ti7-land-rover-defender-design/",
-      "source_name": "CnEVPost",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-22T01:07:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T01:32:50Z",
-      "updated_at": "2026-11-22T01:32:50Z",
-      "decay_at": "2026-11-23T13:07:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
