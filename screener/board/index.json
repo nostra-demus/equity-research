@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T06:20:05Z",
+  "generated_at": "2026-11-23T06:34:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-109",
@@ -1041,6 +1041,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-194",
+      "headline": "NMDC Energy to acquire Wasco businesses for Dh771 million to expand offshore and data centre capabilities",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/nmdc-energy-to-acquire-wasco-businesses-for-dh771-million-to-expand-offshore-and-data-centre-capabilities",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T06:08:49Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "NMDC Energy announces named acquisition of Wasco businesses for Dh771 million to expand offshore and data-centre operations; confirmed deal with stated strategic expansion rationale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "NMDC Energy announces named acquisition of Wasco businesses for Dh771 million to expand offshore and data-centre operations; confirmed deal with stated strategic expansion rationale.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMDC Energy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Wasco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-190",
       "headline": "Here's why Goldman Sachs downgraded Westlife Foodworld to 'Sell'; check target",
       "headline_en": null,
@@ -1926,55 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-147",
-      "headline": "Nvidia Chip Scandal: Alice Huang Had Links To Chinese Intelligence Unit MSS, New Report Says",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/nvidia-chip-scandal-alice-huang-had-links-to-chinese-intelligence-unit-mss-new-report-says",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T03:41:34Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Allegations linking an individual associated with Nvidia to a foreign intelligence unit pose significant reputational and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Allegations linking an individual associated with Nvidia to a foreign intelligence unit pose significant reputational and regulatory risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300892,9 +300897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 24390,
-    "news_picked_today": 270,
-    "news_dropped_today": 4110
+    "news_seen_today": 35031,
+    "news_picked_today": 272,
+    "news_dropped_today": 4492
   },
   "book_momentum": {
     "live_count": 8,
