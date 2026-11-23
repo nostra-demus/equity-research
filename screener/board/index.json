@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T00:49:33Z",
+  "generated_at": "2026-11-23T00:54:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261123-002",
@@ -116,56 +116,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Detailed disclosure of proposed restructuring involving a 70% subsidiary disposal and new share issuance.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Road King Infrastructure",
-          "ticker": "01098",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-005",
-      "headline": "ROAD KING INFRA (01098): POSSIBLE TRANSACTIONS IN CONNECTION WITH THE PROPOSED RESTRUCTURING INVOLVING: (1) PROPOSED ISSUANCE OF NEW SHARES UNDER SPECIFIC MANDATE, CASH SWEEP REAL ESTATE BONDS AND RELATED CONNECTED TRANSACTIONS; (2) VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE PROPOSED DISPOSAL OF 70% EQUITY INTEREST IN A SUBSIDIARY; AND NOTICE OF SPECIAL GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112300059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-22T23:42:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Formal notice of SGM to approve restructuring and 70% subsidiary disposal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Formal notice of SGM to approve restructuring and 70% subsidiary disposal.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -349,6 +299,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261123-044",
+      "headline": "L1M: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.L1M?key=2924-03165066-6A1356387",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-23T00:45:16Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L1M",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261123-009",
       "headline": "BAO PHARMA-B (02659): VOLUNTARY ANNOUNCEMENT - KJ103 FOR INJECTION GRANTED ORPHAN DRUG DESIGNATION BY THE U.S. FDA FOR THE TREATMENT OF GUILLAIN-BARRE SYNDROME",
       "headline_en": null,
@@ -489,6 +488,55 @@
           "name": "CHINA XLX FERT",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-043",
+      "headline": "Stoneweg Europe Stapled Trust acquires Italian logistics facility for US$66.9 million",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/stoneweg-europe-stapled-trust-acquires-italian-logistics-facility-us66-9-million",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:47:11Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Stoneweg Europe Stapled Trust acquired an Italian logistics facility for US$66.9 million, representing a specific capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Stoneweg Europe Stapled Trust acquired an Italian logistics facility for US$66.9 million, representing a specific capital deployment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stoneweg Europe Stapled Trust",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -742,6 +790,49 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261123-045",
+      "headline": "Popular fried chicken chain closes all restaurants after 14 years",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/sweet-chick-restaurant-closures",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-23T00:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
+      "prelim_note": "Closure of all restaurants for a chain is a material operational failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Closure of all restaurants for a chain is a material operational failure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1710,56 +1801,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261123-035",
-      "headline": "Faraday Future CEO YT Jia Shares Weekly Update: FFAI’s Remediation of Nine Previously Identified Material Weaknesses in Internal Control Over Financial Reporting; FFR’s Multiple Strategic Education Partnerships and Robots Sales with Public Schools",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261122557721/en/Faraday-Future-CEO-YT-Jia-Shares-Weekly-Update-FFAI%E2%80%99s-Remediation-of-Nine-Previously-Identified-Material-Weaknesses-in-Internal-Control-Over-Financial-Reporting-FFR%E2%80%99s-Multiple-Strategic-Education-Partnerships-and-Robots-Sales-with-Public-Schools/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-23T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "Faraday Future announced the remediation of nine material weaknesses in its financial reporting, which is a significant improvement in internal controls.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Faraday Future announced the remediation of nine material weaknesses in its financial reporting, which is a significant improvement in internal controls.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Faraday Future",
-          "ticker": "FFIE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261123-017",
       "headline": "HUTCHMED Initiates RANOVA Phase III Trial of Ranosidenib (HMPL-306) in Patients with IDH-Mutated Glioma in China",
       "headline_en": null,
@@ -1892,55 +1933,6 @@
         {
           "name": "MetaOptics Ltd",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261123-026",
-      "headline": "MetaOptics Ltd Secures up to S$32 Million Share Subscription Facility from GEM Opportunities Fund ISA Ltd. | MOTLY Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/MOTLY/meta-optics-ltd-secures-up-to-s-32-million-share-subscription-blfmvkrztcx3.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-23T00:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-23_sweep.json",
-      "prelim_note": "MetaOptics secured a S$32 million share subscription facility, providing necessary capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "MetaOptics secured a S$32 million share subscription facility, providing necessary capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MetaOptics Ltd",
-          "ticker": "MOTLY",
           "listing_country": "US"
         }
       ],
@@ -299712,9 +299704,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 194,
-    "news_picked_today": 42,
-    "news_dropped_today": 152
+    "news_seen_today": 211,
+    "news_picked_today": 45,
+    "news_dropped_today": 166
   },
   "book_momentum": {
     "live_count": 8,
