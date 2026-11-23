@@ -183,6 +183,13 @@ def main():
 
     # Static guard: the as-of calibration summary must also be resolved against
     # _live_date (what a fresh Pre-Write Gate run would just have read), not ddte.
+    if not re.search(r"eval_bo_same_company_memory\(\s*_live_date\s*,", block) or \
+            not re.search(r"find_prior_memory\([^\n]*_live_date\s*\)", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BO call does NOT gate (and cut reviews off) on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.1 BO call gates and cuts reviews off on `_live_date`")
+
     if not re.search(r"_calib_summary_asof\(\s*_live_date\s*\)", block):
         bad += 1
         print("  [XX] full.md Step 10B.1 does NOT resolve the as-of calibration summary against `_live_date`")
@@ -277,6 +284,50 @@ def main():
                 bad += 1
                 print(f"  [XX] pre-cutoff folder, {name}: expected {verdict} "
                       f"with {diagnostics!r}. Got:\n{output}")
+        # check BO — synthesizer.md 4D same-company decision memory, run through the unmodified
+        # Step 10B.1 block. A prior run of the same issuer (folder TEST_2026-05-01, same company name
+        # and currency) carries a review with a lesson; the gate derives that from the sandbox's
+        # analyses/ tree, so the case fails if the live call is removed or stops reading the filesystem.
+        prior_line = "Memory check: prior call Watchlist 2026-05-01; prior error timing error; "
+        bo_cases = [
+            ("prior lesson, no Memory check line", "USD", "", "PROVISIONAL", ["same-company memory check missing"]),
+            ("prior lesson answered with a current-run orb", "USD",
+             prior_line + "this run rechecked the catalyst date in catalyst/01_catalyst-calendar.md.\n", "PASS", []),
+            ("prior lesson admitted undefended, Watchlist at conviction 50", "USD",
+             prior_line + "no defense evidence found.\n", "PASS", []),
+            ("prior lesson 'rechecked' only in the prior run's own folder", "USD",
+             prior_line + "rechecked in analyses/TEST_2026-05-01/catalyst/01_catalyst-calendar.md.\n",
+             "PROVISIONAL", ["cites no current-run artifact"]),
+            ("prior run quoted in another currency is a different line — no obligation", "HKD", "", "PASS", []),
+        ]
+        for index, (name, prior_currency, memory_line, verdict, diagnostics) in enumerate(bo_cases):
+            sandbox = os.path.join(tmp, f"bo_case{index}")
+            run_root = os.path.join(sandbox, "analyses", f"TEST_{PRE_CUTOFF_DATE}")
+            write_fixture(run_root, {"status": "not_available"}, None)
+            with open(os.path.join(run_root, "decision_record.json"), encoding="utf-8") as f:
+                rec = json.load(f)
+            rec.update({"company_name": "Test Holdings, Inc.", "currency": "USD"})
+            with open(os.path.join(run_root, "decision_record.json"), "w", encoding="utf-8") as f:
+                json.dump(rec, f)
+            with open(os.path.join(run_root, "final_thesis.md"), "a", encoding="utf-8") as f:
+                f.write("\n" + memory_line)
+            prior_root = os.path.join(sandbox, "analyses", "TEST_2026-05-01")
+            os.makedirs(os.path.join(prior_root, "reviews"), exist_ok=True)
+            with open(os.path.join(prior_root, "decision_record.json"), "w", encoding="utf-8") as f:
+                json.dump({"company_name": "Test Holdings Inc", "currency": prior_currency,
+                           "decision": "Watchlist"}, f)
+            with open(os.path.join(prior_root, "reviews", "2026-05-20_ad-hoc_decision_review.json"), "w",
+                      encoding="utf-8") as f:
+                json.dump({"decision_quality": "genuine miss", "error_taxonomy": ["timing error"],
+                           "learning": {"future_research_check": "Recheck the catalyst date."}}, f)
+            output = run_block(block_path, sandbox, run_root)
+            gates = [line for line in output.splitlines() if line.startswith("GATE:")]
+            if (len(gates) == 1 and gates[0].startswith(f"GATE: {verdict} — ")
+                    and all(message in gates[0] for message in diagnostics)):
+                print(f"  [ok] BO live gate, {name} -> {verdict}")
+            else:
+                bad += 1
+                print(f"  [XX] BO live gate, {name}: expected {verdict} with {diagnostics!r}. Got:\n{output}")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 

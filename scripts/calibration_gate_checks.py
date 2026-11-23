@@ -348,3 +348,155 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
         violations.append(f"status={status!r} applies no §18 haircut but confidence_inputs.calibration_haircut="
                           f"{ch!r} != 0 — the scorer cut conviction for a haircut the gate did not record")
     return violations  # empty list = pass
+
+
+# ---------------------------------------------------------------------------------------------------
+# check BO — same-company decision-memory check (synthesizer.md Pre-Write Gate step 4D + INPUT 9).
+#
+# AG above makes the engine read back its AGGREGATE track record. 4D is the per-issuer half of the
+# same loop: when an earlier run on the SAME issuer and listing has a review on file that recorded a
+# genuine miss, an error-taxonomy tag, or a `learning.future_research_check`, the new thesis must write
+# one `Memory check:` line naming the prior call and the current-run evidence that rechecked the
+# learned factor — or admit `no defense evidence found`, which caps conviction at 60 and the headline
+# at Watchlist. Until this check existed 4D lived only in the prompt: a rerun of a reviewed name could
+# skip the lesson entirely (e.g. issue a new TSLA short without the "dated catalyst" recheck its own
+# 30-day review demanded) and still print GATE: PASS.
+#
+# What this checks (narrow and conservative toward false positives):
+#   1. Applicability is DERIVED from the filesystem, never self-reported: an identity-matched earlier
+#      run (same ticker folder prefix, same currency, same company name once punctuation and legal
+#      suffixes are removed) whose newest review dated on/before the judged date carries a lesson.
+#      Exchange strings are free text with vendor aliasing ("NasdaqGS" vs "Nasdaq Global Select
+#      Market"), so they are not compared; name + currency already separate two issuers sharing a
+#      ticker string, and separate share lines quoted in different currencies. If either identity field
+#      is missing the memory is "not proven" (4D) and the check is N/A.
+#   2. The thesis carries a `Memory check:` line that names the prior call (its date or its rating).
+#   3. A line that claims a defense points at evidence outside the prior run's folder: a module
+#      artifact path (`<module>/NN_...`), a `data/` pool path, or this run's own `analyses/<run>/`.
+#      Citing only the old run is not a recheck.
+#   4. A line that admits `no defense evidence found` caps the decision at Watchlist / Avoid /
+#      Refuse-To-Rate and conviction at 60. Unlike the §18 "Watchlist or lower" locks this cap also
+#      binds a short: an untested learned failure is a reason not to take a position in EITHER
+#      direction, and the lesson that motivated the loop (TSLA_2026-07-25) was itself a short.
+# It does NOT judge whether the recheck was adequate — verify-evidence and the reviewer own that.
+# ---------------------------------------------------------------------------------------------------
+BO_DATE = "2026-11-23"
+BO_CONVICTION_CAP = 60
+BO_ALLOWED_WHEN_UNDEFENDED = {"Watchlist", "Avoid", "Insufficient Data — Refuse To Rate"}
+_BO_NAME_SUFFIX = re.compile(r"\b(inc|incorporated|corp|corporation|co|company|ltd|limited|plc|sa|se|ag|nv|"
+                             r"pjsc|asa|holdings?|group|the)\b")
+_BO_RUN_DIR = re.compile(r"^(?P<ticker>.+)_(?P<date>\d{4}-\d{2}-\d{2})$")
+_BO_REVIEW_DATE = re.compile(r"^(\d{4}-\d{2}-\d{2})_.*decision_review.*\.json$")
+_BO_LINE = re.compile(r"memory check[*_`\s]{0,4}:", re.I)
+_BO_NO_DEFENSE = "no defense evidence found"
+# A current-run artifact: a module orb path (`earnings/04_guidance-consensus.md`), a pool path, or a run path.
+_BO_ARTIFACT = re.compile(r"(?:\b[a-z][a-z0-9-]*/\d{2}_[a-z0-9_-]+|\bdata/[^\s`\]\)|;,]+|\banalyses/[^\s`\]\)|;,]+)")
+
+
+def _bo_name_key(name):
+    if not isinstance(name, str):
+        return ""
+    s = re.sub(r"[^a-z0-9 ]+", " ", name.lower())
+    s = _BO_NAME_SUFFIX.sub(" ", s)
+    return re.sub(r"\s+", "", s)
+
+
+def _bo_currency_key(cur):
+    return cur.strip().upper() if isinstance(cur, str) else ""
+
+
+def find_prior_memory(analyses_root, run_name, record, cutoff_date):
+    """Return the newest identity-matched prior-run review that carries a lesson, or None.
+
+    `run_name` is this run's folder name (`TICKER_YYYY-MM-DD`); only folders with the same ticker and an
+    EARLIER folder date are candidates. Reviews must be dated on/before `cutoff_date` (the date being
+    judged), so a later review is never charged to a call that could not have read it."""
+    m = _BO_RUN_DIR.match(run_name or "")
+    if not m or not isdate(cutoff_date) or not isinstance(record, dict):
+        return None
+    ticker, run_date = m.group("ticker"), m.group("date")
+    name_key, cur_key = _bo_name_key(record.get("company_name")), _bo_currency_key(record.get("currency"))
+    if not name_key or not cur_key:
+        return None  # 4D: identity not proven -> memory is not imported and no cap applies
+    best = None
+    for cand in glob.glob(os.path.join(glob.escape(analyses_root), glob.escape(ticker) + "_*")):
+        cm = _BO_RUN_DIR.match(os.path.basename(cand))
+        if not cm or cm.group("ticker") != ticker or cm.group("date") >= run_date:
+            continue
+        try:
+            with open(os.path.join(cand, "decision_record.json"), encoding="utf-8") as f:
+                prior = json.load(f)
+        except Exception:
+            continue
+        if not isinstance(prior, dict):
+            continue
+        if _bo_name_key(prior.get("company_name")) != name_key or _bo_currency_key(prior.get("currency")) != cur_key:
+            continue
+        for rp in glob.glob(os.path.join(glob.escape(cand), "reviews", "*decision_review*.json")):
+            rm = _BO_REVIEW_DATE.match(os.path.basename(rp))
+            if not rm or rm.group(1) > cutoff_date:
+                continue
+            key = (rm.group(1), os.path.basename(rp))
+            if best is None or key > best["_key"]:
+                try:
+                    with open(rp, encoding="utf-8") as f:
+                        rev = json.load(f)
+                except Exception:
+                    continue
+                if isinstance(rev, dict):
+                    best = {"_key": key, "review": rev, "review_file": rp, "review_date": rm.group(1),
+                            "prior_run": os.path.basename(cand), "prior_date": cm.group("date"),
+                            "prior_decision": prior.get("decision") if isinstance(prior.get("decision"), str) else ""}
+    if best is None:
+        return None
+    rev = best["review"]
+    learning = rev.get("learning") if isinstance(rev.get("learning"), dict) else {}
+    check = learning.get("future_research_check")
+    tags = [t for t in (rev.get("error_taxonomy") or []) if isinstance(t, str) and t.strip()] \
+        if isinstance(rev.get("error_taxonomy"), list) else []
+    quality = rev.get("decision_quality") if isinstance(rev.get("decision_quality"), str) else ""
+    has_lesson = quality == "genuine miss" or bool(tags) or (isinstance(check, str) and bool(check.strip()))
+    if not has_lesson:
+        return None  # 4D binds only when the NEWEST prior review carries a lesson
+    return {"prior_run": best["prior_run"], "prior_date": best["prior_date"], "prior_decision": best["prior_decision"],
+            "review_file": best["review_file"], "review_date": best["review_date"], "decision_quality": quality,
+            "error_taxonomy": tags, "future_research_check": check.strip() if isinstance(check, str) else ""}
+
+
+def eval_bo_same_company_memory(judged_date, prior_memory, thesis_text, decision, conviction):
+    """Core of check BO. None = N/A (pre-gate, or no identity-matched prior lesson); [] = pass; [...] = violations."""
+    if not isdate(judged_date) or judged_date < BO_DATE or not prior_memory:
+        return None
+    pm = prior_memory
+    lesson = (f"prior call {pm['prior_decision'] or '?'} ({pm['prior_run']}); review {os.path.basename(pm['review_file'])}: "
+              f"quality={pm['decision_quality'] or '?'}, error_taxonomy={pm['error_taxonomy']}, "
+              f"future_research_check={pm['future_research_check'][:160]!r}")
+    lines = [ln for ln in (thesis_text or "").splitlines() if _BO_LINE.search(ln)]
+    if not lines:
+        return [f"same-company memory check missing — {lesson}; final_thesis.md has no 'Memory check' line "
+                f"(synthesizer.md Pre-Write Gate 4D: name the prior call and the CURRENT-run evidence that rechecked "
+                f"the learned factor, or write 'no defense evidence found' and apply the Watchlist / conviction-60 cap)"]
+    v = []
+    named = [ln for ln in lines if pm["prior_date"] in ln
+             or (pm["prior_decision"] and pm["prior_decision"].lower() in ln.lower())]
+    if not named:
+        v.append(f"'Memory check' line does not name the prior call (neither {pm['prior_date']} nor "
+                 f"{pm['prior_decision']!r}) — {lesson}")
+    undefended = [ln for ln in lines if _BO_NO_DEFENSE in ln.lower()]
+    if undefended:
+        dec = decision if isinstance(decision, str) else ""
+        if dec not in BO_ALLOWED_WHEN_UNDEFENDED:
+            v.append(f"'Memory check' admits 'no defense evidence found' but decision={dec!r} — 4D caps the headline at "
+                     f"Watchlist (allowed: {sorted(BO_ALLOWED_WHEN_UNDEFENDED)}) until the learned factor is tested; {lesson}")
+        if isnum(conviction) and conviction > BO_CONVICTION_CAP:
+            v.append(f"'Memory check' admits 'no defense evidence found' but conviction={conviction} > "
+                     f"{BO_CONVICTION_CAP} — 4D caps conviction at {BO_CONVICTION_CAP}")
+    else:
+        def _current(ln):
+            arts = _BO_ARTIFACT.findall(ln)
+            return [a for a in arts if pm["prior_run"] not in a]
+        if not any(_current(ln) for ln in lines):
+            v.append(f"'Memory check' claims a recheck but cites no current-run artifact (a module orb path such as "
+                     f"'earnings/04_…', a 'data/' pool path, or this run's 'analyses/…' path; the prior run's own folder "
+                     f"does not count) — 4D: the defense must point to CURRENT-run evidence; {lesson}")
+    return v
