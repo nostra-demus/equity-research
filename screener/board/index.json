@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-24T21:23:39Z",
+  "generated_at": "2026-11-24T21:28:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261124-719",
+      "headline": "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WTC?key=2924-03166090-2A1712732",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T21:22:00Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "WiseTech Global CEO Richard White confirms the conclusion of an AFP investigation, removing a significant overhang on management credibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "WiseTech Global CEO Richard White confirms the conclusion of an AFP investigation, removing a significant overhang on management credibility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WiseTech Global",
+          "ticker": "WTC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261124-414",
       "headline": "MILAN STATION (01150): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED SHARE CONSOLIDATION AND CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; (4) PLACING AGREEMENT UNDER THE COMPENSATORY ARRANGEMENTS; AND (5) NOTICE OF EXTRAORDINARY GENERAL MEETING",
@@ -1438,6 +1487,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-733",
+      "headline": "Dell Delivers Q3 Double Beat, Raises FY27 Outlook: 'We Are Now a Different Company'",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/markets/earnings/26/11/63609544/dell-delivers-q3-double-beat-raises-fy27-outlook-we-are-now-a-different-company",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:20:49Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Dell reported a double beat on Q3 earnings and raised its FY27 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell reported a double beat on Q3 earnings and raised its FY27 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-631",
       "headline": "China Southern Airlines unit to buy 50 Boeing 737-8 planes",
       "headline_en": null,
@@ -1878,106 +1977,6 @@
         },
         {
           "name": "Insmed",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-537",
-      "headline": "DICK'S Sporting Goods, Inc. Reports Third Quarter 2026 Results and Declares Dividend",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dicks-sporting-goods-inc-reports-third-quarter-2026-results-and-declares-dividend",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T14:08:53Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "DICK'S Sporting Goods reported Q3 2026 results and declared a dividend, providing concrete financial performance data.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DICK'S Sporting Goods reported Q3 2026 results and declared a dividend, providing concrete financial performance data.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DICK'S Sporting Goods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-557",
-      "headline": "Best Buy Co., Inc. Reports Q3 FY27 Comparable Sales Increase of 6.1% and Raises FY27 Adjusted Diluted EPS Guidance to $6.90 to $7.05",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/best-buy-co-inc-reports-q3-fy27-comparable-sales-increase-61-and-raises-fy27-adjusted",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T13:28:41Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Best Buy reported 6.1% comparable sales growth and raised FY27 adjusted EPS guidance to $6.90-$7.05.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Best Buy reported 6.1% comparable sales growth and raised FY27 adjusted EPS guidance to $6.90-$7.05.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Best Buy Co., Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -300611,9 +300610,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5406001,
-    "news_picked_today": 1264,
-    "news_dropped_today": 13472
+    "news_seen_today": 5443147,
+    "news_picked_today": 1282,
+    "news_dropped_today": 13550
   },
   "book_momentum": {
     "live_count": 8,
