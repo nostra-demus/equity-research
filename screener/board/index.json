@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T21:38:39Z",
+  "generated_at": "2026-11-24T21:47:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-719",
@@ -1487,6 +1487,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-752",
+      "headline": "Dell earnings beat on AI strength, company authorizes $25 billion buyback",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/24/dell-earnings-report-q3-2027.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:29:03Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Dell beat earnings expectations and authorized a $25 billion share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell beat earnings expectations and authorized a $25 billion share buyback.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": "DELL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-740",
       "headline": "Dell Raises AI Server Outlook as Backlog Hits Record $132 Billion | Closing Bell",
       "headline_en": null,
@@ -1928,60 +1978,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-527",
-      "headline": "Polyrizon To Acquire 51% Stake In Arrow Aviation For Approx. $17.2 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/polyrizon-acquire-51-stake-arrow-aviation-approx-172-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T14:22:47Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Polyrizon announced an agreement to acquire a 51% stake in Arrow Aviation for approximately $17.2 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Polyrizon announced an agreement to acquire a 51% stake in Arrow Aviation for approximately $17.2 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Polyrizon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Arrow Aviation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300610,9 +300606,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5493291,
-    "news_picked_today": 1293,
-    "news_dropped_today": 13587
+    "news_seen_today": 5557173,
+    "news_picked_today": 1307,
+    "news_dropped_today": 13669
   },
   "book_momentum": {
     "live_count": 8,
