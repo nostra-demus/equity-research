@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T17:38:12Z",
+  "generated_at": "2026-11-24T18:50:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-414",
@@ -995,6 +995,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-456",
+      "headline": "Abercrombie Defies Freight Headwinds, Delivers Record Sales, Raises Outlook (UPDATED)",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/markets/earnings/26/11/63596740/abercrombie-defies-freight-headwinds-delivers-record-sales-raises-outlook",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T18:22:07Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Abercrombie reported record sales and raised its outlook despite freight headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abercrombie reported record sales and raised its outlook despite freight headwinds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abercrombie & Fitch",
+          "ticker": "ANF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-434",
       "headline": "Struggling cruise line files for Chapter 11 bankruptcy protection",
       "headline_en": null,
@@ -1951,55 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-212",
-      "headline": "Nvidia reinstates Jensen Huang as CEO after Trump intervention",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/technology/article-nvidia-reinstates-jensen-huang-as-ceo-after-trump-intervention/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T00:45:21Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Nvidia reinstated Jensen Huang as CEO following intervention by the US President.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reinstated Jensen Huang as CEO following intervention by the US President.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303037,9 +303038,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4089190,
-    "news_picked_today": 854,
-    "news_dropped_today": 9538
+    "news_seen_today": 4626935,
+    "news_picked_today": 878,
+    "news_dropped_today": 9562
   },
   "book_momentum": {
     "live_count": 8,
