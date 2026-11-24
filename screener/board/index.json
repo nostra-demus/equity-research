@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T23:12:36Z",
+  "generated_at": "2026-11-24T23:17:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-783",
@@ -1634,6 +1634,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-797",
+      "headline": "Dick’s Sporting Goods Raised Its Full-Year Earnings Forecast as Foot Locker Returned to Positive Comparable Sales. Here's What Investors Need to Know.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dicks-sporting-goods-raised-its-full-year-earnings-forecast-foot-locker-returned-positive",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T22:51:01Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Dick's Sporting Goods raised its full-year earnings forecast.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dick's Sporting Goods raised its full-year earnings forecast.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dick's Sporting Goods",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Foot Locker",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261124-799",
+      "headline": "Dell Technologies Q3 Profit Soars; Raises FY27 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dell-technologies-q3-profit-soars-raises-fy27-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T22:31:50Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Dell Technologies reported Q3 profit growth and raised its FY27 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell Technologies reported Q3 profit growth and raised its FY27 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-789",
       "headline": "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
       "headline_en": null,
@@ -1875,105 +1979,6 @@
         },
         {
           "name": "CIRCOR Aerospace",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-752",
-      "headline": "Dell earnings beat on AI strength, company authorizes $25 billion buyback",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/24/dell-earnings-report-q3-2027.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:29:03Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Dell beat earnings expectations and authorized a $25 billion share buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell beat earnings expectations and authorized a $25 billion share buyback.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies",
-          "ticker": "DELL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-740",
-      "headline": "Dell Raises AI Server Outlook as Backlog Hits Record $132 Billion | Closing Bell",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-24/dell-raises-ai-server-outlook-closing-bell-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:21:25Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Dell raised its AI server outlook as the backlog reached a record $132 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell raised its AI server outlook as the backlog reached a record $132 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -300610,9 +300615,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6086502,
-    "news_picked_today": 1391,
-    "news_dropped_today": 14329
+    "news_seen_today": 6113410,
+    "news_picked_today": 1399,
+    "news_dropped_today": 14369
   },
   "book_momentum": {
     "live_count": 8,
