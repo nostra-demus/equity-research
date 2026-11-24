@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T19:35:28Z",
+  "generated_at": "2026-11-24T19:36:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-414",
@@ -257502,31 +257502,104 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-a2128c69f54a",
-      "idea_version": "IDEAV-70f61b8927238602",
-      "idea_version_started_at": "2026-11-20T23:03:16Z",
-      "ticker": "TTWO",
-      "company": "Take-Two Interactive",
-      "exchange": "NASDAQ",
-      "direction": "long",
+      "idea_id": "IDEA-560bd5a2a98b",
+      "idea_version": "IDEAV-d396d800222845b9",
+      "idea_version_started_at": "2026-11-24T19:36:03Z",
+      "ticker": "00518",
+      "company": "Tungtex (Holdings) Co Ltd",
+      "exchange": "HKEX",
+      "direction": "short",
       "pair_with": null,
-      "reason": "The record-breaking $3.79 billion first-day sales for Grand Theft Auto VI significantly exceeds market expectations, providing a massive boost to near-term revenue and cash flow.",
-      "why_now": "The sales figures were officially reported on 2026-11-20, making this a live catalyst for the stock.",
-      "conviction": 85,
+      "reason": "The company issued a profit warning, signaling significant operational headwinds and earnings weakness.",
+      "why_now": "The filing was released on 2026-11-23, making the negative outlook a live catalyst for the stock price.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
-        "evidence": 14,
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d2ec34dfaeb"
+      ],
+      "primary_source_event_id": "EVT-3d2ec34dfaeb",
+      "source_headlines": [
+        "TUNGTEX (HOLD) (00518): PROFIT WARNING"
+      ],
+      "source_headline": "TUNGTEX (HOLD) (00518): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301154.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T10:33:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-24T19:36:03Z",
+      "updated_at": "2026-11-24T19:36:03Z",
+      "decay_at": "2026-11-24T22:33:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-724d6a35e979",
+      "idea_version": "IDEAV-12c8e0d1152b5f47",
+      "idea_version_started_at": "2026-11-24T19:36:03Z",
+      "ticker": "01756",
+      "company": "China Science & Education Industry",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
+      "why_now": "The filing was released on 2026-11-24, signaling immediate downward pressure on earnings expectations.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
         "impact": 21,
-        "specificity": 15,
+        "specificity": 7,
         "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
+        "expression": 0,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "live price, liquidity, and consensus"
@@ -257545,64 +257618,61 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-dfa5d3740a7b",
-        "EVT-0b9ad2987cd4",
-        "EVT-6ae880a77e3d"
+        "EVT-08b6be7f8c78"
       ],
-      "primary_source_event_id": "EVT-dfa5d3740a7b",
+      "primary_source_event_id": "EVT-08b6be7f8c78",
       "source_headlines": [
-        "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
-        "Take-Two Interactive Software, Inc. Subsidiary Rockstar Games Announces Grand Theft Auto VI Day One Retail Sales of $3.79 Billion",
-        "‘Grand Theft Auto VI’ sets record with $3.79 bil in first-day retail sales, Rockstar Games reports"
+        "CHI SCI&EDU IND (01756): PROFIT WARNING"
       ],
-      "source_headline": "GTA VI Boasts a Record-Breaking Launch With $3.79 Billion In Day One Sales. Is It Time to Buy Take-Two Stock?",
-      "source_url": "https://www.fool.com/investing/2026/11/20/gta-vi-boasts-a-record-breaking-launch-with-usd3-79-billion-in-day-one-sales-is-it-time-to-buy-take-two-stock/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "source_headline": "CHI SCI&EDU IND (01756): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112400805.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-20T21:01:52Z",
+      "newest_source_at": "2026-11-24T10:15:00Z",
       "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TTWO_2026-11-19",
-        "latest_decision": "Avoid",
-        "data_pool_present": true
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
       },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T23:03:16Z",
-      "decay_at": "2026-11-22T09:01:52Z",
+      "surfaced_at": "2026-11-24T19:36:03Z",
+      "updated_at": "2026-11-24T19:36:03Z",
+      "decay_at": "2026-11-25T22:15:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
-      "stale": true
+      "stale": false
     },
     {
-      "idea_id": "IDEA-ab675b24d137",
-      "idea_version": "IDEAV-a80dea5093c442a0",
-      "idea_version_started_at": "2026-11-20T21:13:37Z",
-      "ticker": "BMBL",
-      "company": "Bumble Inc.",
-      "exchange": "NASDAQ",
+      "idea_id": "IDEA-b64f6a34ac9e",
+      "idea_version": "IDEAV-5981a4506e8613aa",
+      "idea_version_started_at": "2026-11-24T19:36:03Z",
+      "ticker": "01943",
+      "company": "KING'S STONE",
+      "exchange": "HKEX",
       "direction": "long",
       "pair_with": null,
-      "reason": "Bumble Inc. filed a PREM14C, indicating a potential M&A event or significant corporate action that could unlock shareholder value.",
-      "why_now": "The primary filing was made today, signaling an active corporate event.",
-      "conviction": 60,
+      "reason": "The company issued a positive profit alert, indicating improved profitability and operational efficiency.",
+      "why_now": "The filing was released on 2026-11-23, providing a clear signal for positive momentum.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
-        "price and market expectations",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -257614,62 +257684,64 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "unknown",
+      "priced_in": "room",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-533c7f29440d"
+        "EVT-47b8145c8033"
       ],
-      "primary_source_event_id": "EVT-533c7f29440d",
+      "primary_source_event_id": "EVT-47b8145c8033",
       "source_headlines": [
-        "PREM14C - Bumble Inc. (0001830043) (Filer)"
+        "KING'S STONE (01943): POSITIVE PROFIT ALERT"
       ],
-      "source_headline": "PREM14C - Bumble Inc. (0001830043) (Filer)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1830043/000119312526470223/0001193125-26-470223-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "source_headline": "KING'S STONE (01943): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301040.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-20T21:04:35Z",
+      "newest_source_at": "2026-11-23T10:13:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-11-20T21:13:37Z",
-      "updated_at": "2026-11-20T21:13:37Z",
-      "decay_at": "2026-11-22T09:04:35Z",
+      "surfaced_at": "2026-11-24T19:36:03Z",
+      "updated_at": "2026-11-24T19:36:03Z",
+      "decay_at": "2026-11-24T22:13:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
-      "stale": true
+      "stale": false
     },
     {
-      "idea_id": "IDEA-494bd6333cab",
-      "idea_version": "IDEAV-e01b6b0c70e0b834",
-      "idea_version_started_at": "2026-11-21T00:24:13Z",
-      "ticker": "BMRN",
-      "company": "BioMarin Pharmaceutical Inc",
-      "exchange": "NASDAQ",
+      "idea_id": "IDEA-f42ddc210bf5",
+      "idea_version": "IDEAV-5be1caa82e5e8513",
+      "idea_version_started_at": "2026-11-24T19:36:03Z",
+      "ticker": "01468",
+      "company": "JAKOTA CAPITAL",
+      "exchange": "HKEX",
       "direction": "long",
       "pair_with": null,
-      "reason": "Viking Global Investors LP has disclosed a significant ownership stake via a Schedule 13G filing, signaling institutional accumulation in the biotechnology firm.",
-      "why_now": "The filing was processed on November 21, 2024, providing a fresh signal of high-conviction institutional backing.",
-      "conviction": 65,
+      "reason": "The company issued a positive profit alert, suggesting stronger-than-expected earnings growth.",
+      "why_now": "The filing was released on 2026-11-23, providing a fresh catalyst for a re-rating of the stock.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 25,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "live price, liquidity, and consensus"
@@ -257684,107 +257756,34 @@
         "evidenceIds": []
       },
       "priced_in": "room",
-      "thesis_type": "liquidity_positioning",
+      "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-0e351ab6a2c4",
-        "EVT-87d8bcb9a991"
+        "EVT-3c982544ccb5"
       ],
-      "primary_source_event_id": "EVT-0e351ab6a2c4",
+      "primary_source_event_id": "EVT-3c982544ccb5",
       "source_headlines": [
-        "SCHEDULE 13G - BIOMARIN PHARMACEUTICAL INC (0001048477) (Subject)",
-        "SCHEDULE 13G - VIKING GLOBAL INVESTORS LP (0001103804) (Filed by)"
+        "JAKOTA CAPITAL (01468): INSIDE INFORMATION POSITIVE PROFIT ALERT"
       ],
-      "source_headline": "SCHEDULE 13G - BIOMARIN PHARMACEUTICAL INC (0001048477) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1048477/000090514826005116/0000905148-26-005116-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-11-21T00:07:45Z",
+      "source_headline": "JAKOTA CAPITAL (01468): INSIDE INFORMATION POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301605.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T13:58:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-11-21T00:24:13Z",
-      "updated_at": "2026-11-21T00:24:13Z",
-      "decay_at": "2026-11-22T12:07:45Z",
+      "surfaced_at": "2026-11-24T19:36:03Z",
+      "updated_at": "2026-11-24T19:36:03Z",
+      "decay_at": "2026-11-25T01:58:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-62b270b217f0",
-      "idea_version": "IDEAV-9202c926eb7db594",
-      "idea_version_started_at": "2026-11-21T00:05:01Z",
-      "ticker": "DIN",
-      "company": "Dine Brands Global, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Arkhouse Management filed an amended Schedule 13D/A, signaling ongoing active ownership involvement and potential catalysts for corporate action or strategic changes.",
-      "why_now": "Amended Schedule 13D/A filing posted on November 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0c2356cf1ea0",
-        "EVT-5bd249f2c3de"
-      ],
-      "primary_source_event_id": "EVT-0c2356cf1ea0",
-      "source_headlines": [
-        "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
-        "SCHEDULE 13D/A - Dine Brands Global, Inc. (0000049754) (Subject)"
-      ],
-      "source_headline": "SCHEDULE 13D/A - Arkhouse Management Co. LP (0002021808) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2021808/000121390026122826/0001213900-26-122826-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-21T00:00:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:05:01Z",
-      "updated_at": "2026-11-21T00:05:01Z",
-      "decay_at": "2026-11-22T12:00:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
+      "stale": false
     },
     {
       "idea_id": "IDEA-d5fc92047527",
@@ -257851,566 +257850,6 @@
       "surfaced_at": "2026-11-22T15:29:26Z",
       "updated_at": "2026-11-22T15:29:26Z",
       "decay_at": "2026-11-24T02:33:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-521e020bb493",
-      "idea_version": "IDEAV-d36fdb9e638c6218",
-      "idea_version_started_at": "2026-11-21T17:48:12Z",
-      "ticker": "AMZN",
-      "company": "Amazon",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of AI start-up Decart for $7.5bn signals an aggressive expansion of Amazon's proprietary AI capabilities, which should improve long-term AWS margins and competitive positioning.",
-      "why_now": "The deal is reportedly closing as of 2026-11-21, providing a fresh catalyst for growth expectations.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8adf2aea78aa"
-      ],
-      "primary_source_event_id": "EVT-8adf2aea78aa",
-      "source_headlines": [
-        "Amazon closes in on $7.5bn deal to buy AI start-up Decart"
-      ],
-      "source_headline": "Amazon closes in on $7.5bn deal to buy AI start-up Decart",
-      "source_url": "https://www.ft.com/content/dc7749dc-0f40-44a6-80bc-7f747d383616?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T17:21:36Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-21T17:48:12Z",
-      "updated_at": "2026-11-21T17:48:12Z",
-      "decay_at": "2026-11-23T05:21:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d0204447ec5b",
-      "idea_version": "IDEAV-43169d7d19bb6d95",
-      "idea_version_started_at": "2026-11-20T23:03:16Z",
-      "ticker": "BAYRY",
-      "company": "Bayer AG",
-      "exchange": "OQX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The court approval of the $7.25 billion Roundup settlement removes a major overhang of litigation uncertainty that has depressed the company's valuation for years.",
-      "why_now": "The judge's approval was announced on 2026-11-20, providing immediate clarity on the company's legal liabilities.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-38c8bdf31893"
-      ],
-      "primary_source_event_id": "EVT-38c8bdf31893",
-      "source_headlines": [
-        "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge"
-      ],
-      "source_headline": "Bayer’s $7.25 Billion Roundup Settlement Approved by Judge",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/bayer-s-7-25-billion-roundup-settlement-approved-by-us-judge",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T20:48:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T23:03:16Z",
-      "updated_at": "2026-11-20T23:03:16Z",
-      "decay_at": "2026-11-22T08:48:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c26051237597",
-      "idea_version": "IDEAV-2b7687a5efbdc98d",
-      "idea_version_started_at": "2026-11-20T20:38:19Z",
-      "ticker": "TSLA",
-      "company": "Tesla",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The proposed $3.1 billion investment in a polysilicon refinery represents a vertical integration strategy to secure supply chain costs and improve long-term margins.",
-      "why_now": "The proposal was reported on 2026-11-20.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7de6fc2f0188"
-      ],
-      "primary_source_event_id": "EVT-7de6fc2f0188",
-      "source_headlines": [
-        "Tesla proposes $3.1 billion Texas polysilicon refinery"
-      ],
-      "source_headline": "Tesla proposes $3.1 billion Texas polysilicon refinery",
-      "source_url": "https://www.manufacturingdive.com/news/LiMiK-Capital-328-million-manufacturing-plant-south-carolina/875286/",
-      "source_name": "Manufacturing Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T16:05:18Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TSLA_2026-07-25",
-        "latest_decision": "Short Candidate",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T20:38:19Z",
-      "decay_at": "2026-11-22T04:05:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-29b3246b56c4",
-      "idea_version": "IDEAV-7dce6ff99986dc94",
-      "idea_version_started_at": "2026-11-21T18:39:36Z",
-      "ticker": "ABNB",
-      "company": "Airbnb",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced a $12 billion share buyback program supported by a 35% free cash flow margin, which significantly increases earnings per share and signals management's confidence in capital allocation.",
-      "why_now": "The buyback authorization was announced on 2026-11-21 and is effective immediately.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5252841cf9f6"
-      ],
-      "primary_source_event_id": "EVT-5252841cf9f6",
-      "source_headlines": [
-        "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders."
-      ],
-      "source_headline": "Airbnb’s New $12 Billion Buyback Is Backed by a 35% Free Cash Flow Margin. Here’s What It Means for Shareholders.",
-      "source_url": "https://www.nasdaq.com/articles/airbnbs-new-12-billion-buyback-backed-35-free-cash-flow-margin-heres-what-it-means",
-      "source_name": "Nasdaq",
-      "materiality_max": 98,
-      "newest_source_at": "2026-11-21T18:15:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T18:24:30Z",
-      "updated_at": "2026-11-21T18:39:36Z",
-      "decay_at": "2026-11-23T06:15:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-92d1a3f96d27",
-      "idea_version": "IDEAV-31abe718feda8c59",
-      "idea_version_started_at": "2026-11-21T06:14:51Z",
-      "ticker": "LQDT",
-      "company": "Liquidity Services, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Invaluable for $80 million expands the company's addressable market in the high-end auction space, complementing its existing $1.645 billion GMV base.",
-      "why_now": "The acquisition and fiscal year results were announced on 2026-11-21.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8d2ccb1684b1"
-      ],
-      "primary_source_event_id": "EVT-8d2ccb1684b1",
-      "source_headlines": [
-        "Liquidity Services, Inc. Reports Fiscal Year 2026 GMV of $1.645 billion and $80 million Acquisition of Invaluable"
-      ],
-      "source_headline": "Liquidity Services, Inc. Reports Fiscal Year 2026 GMV of $1.645 billion and $80 million Acquisition of Invaluable",
-      "source_url": "https://www.nasdaq.com/articles/liquidity-services-inc-reports-fiscal-year-2026-gmv-1645-billion-and-80-million",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T03:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T06:14:51Z",
-      "updated_at": "2026-11-21T06:14:51Z",
-      "decay_at": "2026-11-22T15:49:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8785cce22dea",
-      "idea_version": "IDEAV-96b106eb9d10b875",
-      "idea_version_started_at": "2026-11-21T05:33:27Z",
-      "ticker": "ORCL",
-      "company": "Oracle",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Oracle's confirmation of a fully funded OpenAI contract and a clear path to over $30 billion in free cash flow by FY29 provides strong visibility into long-term revenue growth and margin expansion.",
-      "why_now": "The announcement on 2026-11-21 provides a concrete financial target that shifts the market's focus toward the company's long-term cash generation capabilities.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-76546fec8736"
-      ],
-      "primary_source_event_id": "EVT-76546fec8736",
-      "source_headlines": [
-        "Oracle says OpenAI contract fully funded, targets over $30 billion free cash flow in FY29"
-      ],
-      "source_headline": "Oracle says OpenAI contract fully funded, targets over $30 billion free cash flow in FY29",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/oracle-says-openai-contract-fully-funded-targets-over-30-billion-free-cash-flow-in-fy29/article71727202.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T03:45:29Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/ORCL_2026-08-14",
-        "latest_decision": "Watchlist",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-21T05:33:27Z",
-      "updated_at": "2026-11-21T05:33:27Z",
-      "decay_at": "2026-11-22T15:45:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0d33d5cbe937",
-      "idea_version": "IDEAV-3096bed61d08d90a",
-      "idea_version_started_at": "2026-11-20T23:03:16Z",
-      "ticker": "ZS",
-      "company": "Zscaler",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "CrowdStrike is reportedly in talks to acquire Zscaler, which typically drives a premium for the target company's shares as the market prices in the potential acquisition multiple.",
-      "why_now": "The report of acquisition talks surfaced on 2026-11-20, creating an immediate arbitrage opportunity.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-baa57fe59d7b"
-      ],
-      "primary_source_event_id": "EVT-baa57fe59d7b",
-      "source_headlines": [
-        "Zscaler stock jumps 20% on report that CrowdStrike in talks to buy security vendor"
-      ],
-      "source_headline": "Zscaler stock jumps 20% on report that CrowdStrike in talks to buy security vendor",
-      "source_url": "https://www.cnbc.com/2026/11/20/zscaler-crowdstrike-deal.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T21:19:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T23:03:16Z",
-      "updated_at": "2026-11-20T23:03:16Z",
-      "decay_at": "2026-11-22T09:19:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1bc22db9626b",
-      "idea_version": "IDEAV-e38a50ffff3bdb89",
-      "idea_version_started_at": "2026-11-20T20:38:19Z",
-      "ticker": "PG",
-      "company": "Procter & Gamble",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A massive restructuring plan targeting $10 billion in savings through workforce reduction is a direct lever to improve operating margins and free cash flow.",
-      "why_now": "The restructuring plan was announced on 2026-11-20 with a target completion by 2030.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4f4ce38266e6"
-      ],
-      "primary_source_event_id": "EVT-4f4ce38266e6",
-      "source_headlines": [
-        "P&G Has Raised Its Dividend 70 Years In A Row. Now It Plans To Cut Up To 30% Of Its Manufacturing And Logistics Workforce By 2030 As It Targets Up To $10 Billion In Savings"
-      ],
-      "source_headline": "P&G Has Raised Its Dividend 70 Years In A Row. Now It Plans To Cut Up To 30% Of Its Manufacturing And Logistics Workforce By 2030 As It Targets Up To $10 Billion In Savings",
-      "source_url": "https://247wallst.com/investing/2026/11/20/pg-has-raised-its-dividend-70-years-in-a-row-now-it-plans-to-cut-up-to-30-of-its-manufacturing-and-logistics-workforce-by-2030-as-it-targets-up-to-10-billion-in-savings/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T15:39:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T20:38:19Z",
-      "decay_at": "2026-11-22T03:39:26Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -258697,216 +258136,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3bb4c249dc6a",
-      "idea_version": "IDEAV-80cfd2a9f479994d",
-      "idea_version_started_at": "2026-11-21T12:06:31Z",
-      "ticker": "GOOGL",
-      "company": "Alphabet Inc",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A potential $3 billion payout to US schools for mental health litigation creates a direct, unprovisioned hit to cash reserves and earnings.",
-      "why_now": "The news of the $3 billion claim surfaced on 2026-11-21, creating immediate legal overhang.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b3802f95364"
-      ],
-      "primary_source_event_id": "EVT-2b3802f95364",
-      "source_headlines": [
-        "YouTube faces $3 billion payout to US schools over claims of harming students' mental health"
-      ],
-      "source_headline": "YouTube faces $3 billion payout to US schools over claims of harming students' mental health",
-      "source_url": "https://www.livemint.com/companies/news/youtube-faces-3-billion-payout-to-us-schools-over-claims-of-harming-students-mental-health-11795258515140.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T11:38:42Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/GOOGL_2026-11-03",
-        "latest_decision": "Watchlist",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-21T12:06:31Z",
-      "updated_at": "2026-11-21T12:06:31Z",
-      "decay_at": "2026-11-22T23:38:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ee3dc3f385e7",
-      "idea_version": "IDEAV-327dc089054a0f5c",
-      "idea_version_started_at": "2026-11-21T00:45:32Z",
-      "ticker": "BAYRY",
-      "company": "Bayer AG",
-      "exchange": "OQX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The formal court approval of a $7.25 billion settlement for Roundup-related cancer claims crystallizes a massive, long-standing legal liability that will weigh on cash flow and balance sheet flexibility.",
-      "why_now": "The court approval was finalized on 2026-11-21, removing uncertainty regarding the settlement amount and triggering the payment obligations.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-28777fd8a335"
-      ],
-      "primary_source_event_id": "EVT-28777fd8a335",
-      "source_headlines": [
-        "Court formally approves $7.25B class settlement for cancer claims from Roundup weed killer"
-      ],
-      "source_headline": "Court formally approves $7.25B class settlement for cancer claims from Roundup weed killer",
-      "source_url": "https://thehill.com/policy/energy-environment/6234796-judge-approves-roundup-settlement/",
-      "source_name": "The Hill — Homenews",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T00:12:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:45:32Z",
-      "updated_at": "2026-11-21T00:45:32Z",
-      "decay_at": "2026-11-22T12:12:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-758b4b62af9a",
-      "idea_version": "IDEAV-64bc1d5f93411643",
-      "idea_version_started_at": "2026-11-21T13:34:44Z",
-      "ticker": "ROK",
-      "company": "Rockwell Automation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of AGILOX accelerates Rockwell's autonomous mobile robot capabilities, providing a clear path to expanding their industrial automation market share.",
-      "why_now": "The acquisition was announced on 2026-11-21, and the market has yet to fully digest the long-term margin accretion from this vertical integration.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ebd8b7988278"
-      ],
-      "primary_source_event_id": "EVT-ebd8b7988278",
-      "source_headlines": [
-        "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business"
-      ],
-      "source_headline": "Rockwell Automation to acquire AGILOX to boost autonomous mobile robots business",
-      "source_url": "https://www.thehindubusinessline.com/companies/rockwell-automation-to-acquire-agilox-to-boost-autonomous-mobile-robots-business/article71728359.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-11-21T13:20:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T13:34:44Z",
-      "updated_at": "2026-11-21T13:34:44Z",
-      "decay_at": "2026-11-23T01:20:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7f4bcc9dfe0d",
       "idea_version": "IDEAV-729c6c62632a2423",
       "idea_version_started_at": "2026-11-22T08:50:30Z",
@@ -259117,76 +258346,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c1a1a479f11f",
-      "idea_version": "IDEAV-448a2231571be149",
-      "idea_version_started_at": "2026-11-21T03:54:43Z",
-      "ticker": "HMC",
-      "company": "Honda Motor Co., Ltd.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The recall of 810,000 vehicles creates significant warranty and remediation costs that will weigh on near-term operating margins.",
-      "why_now": "The recall was announced on 2026-11-21, and the financial impact of such a large-scale safety action is typically immediate.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ef795229e97"
-      ],
-      "primary_source_event_id": "EVT-9ef795229e97",
-      "source_headlines": [
-        "Honda to recall 810,000 US vehicles over Takata air bag rupture risk"
-      ],
-      "source_headline": "Honda to recall 810,000 US vehicles over Takata air bag rupture risk",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/honda-recall-810000-us-vehicles-over-takata-air-bag-rupture-risk",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-21T01:46:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T03:54:43Z",
-      "updated_at": "2026-11-21T03:54:43Z",
-      "decay_at": "2026-11-22T13:46:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-887dbee70f05",
       "idea_version": "IDEAV-6bcd5298396f8974",
       "idea_version_started_at": "2026-11-22T16:36:20Z",
@@ -259251,76 +258410,6 @@
       "surfaced_at": "2026-11-22T16:36:20Z",
       "updated_at": "2026-11-22T16:36:20Z",
       "decay_at": "2026-11-24T04:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-89d7962b5610",
-      "idea_version": "IDEAV-51d450ec99fc6852",
-      "idea_version_started_at": "2026-11-21T12:49:26Z",
-      "ticker": "BTCS",
-      "company": "BTCS Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BTCS has warned the SEC that its $54 million Aave loan could be liquidated, posing a significant risk of default and distress for the company.",
-      "why_now": "The warning about potential liquidation was issued on November 21, 2026, highlighting an immediate financial vulnerability.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b04f80f4bae7"
-      ],
-      "primary_source_event_id": "EVT-b04f80f4bae7",
-      "source_headlines": [
-        "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated"
-      ],
-      "source_headline": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
-      "source_url": "https://www.coindesk.com/markets/2026/11/21/ether-treasury-firm-btcs-warns-sec-its-usd54-million-aave-loan-could-be-liquidated",
-      "source_name": "CoinDesk",
-      "materiality_max": 98,
-      "newest_source_at": "2026-11-21T12:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T12:49:26Z",
-      "updated_at": "2026-11-21T12:49:26Z",
-      "decay_at": "2026-11-23T00:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -259397,76 +258486,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-cefdda49dac6",
-      "idea_version": "IDEAV-e4db196394723b3a",
-      "idea_version_started_at": "2026-11-21T08:14:10Z",
-      "ticker": "BMPS.MI",
-      "company": "Banca Monte dei Paschi di Siena",
-      "exchange": "Milan",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Banca Monte dei Paschi di Siena deems Intesa Sanpaolo's offer fair, suggesting a potential acquisition where Monte dei Paschi shareholders could benefit from the offer price.",
-      "why_now": "The statement from Monte dei Paschi today indicates active M&A discussions and valuation assessment.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4e8f5525b59b"
-      ],
-      "primary_source_event_id": "EVT-4e8f5525b59b",
-      "source_headlines": [
-        "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected"
-      ],
-      "source_headline": "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/paschi-deems-intesa-s-offer-fair-yet-value-not-fully-reflected",
-      "source_name": "Bloomberg",
-      "materiality_max": 91,
-      "newest_source_at": "2026-11-21T07:42:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T08:14:10Z",
-      "updated_at": "2026-11-21T08:14:10Z",
-      "decay_at": "2026-11-22T19:42:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-c2562525612b",
       "idea_version": "IDEAV-292fe913a0530642",
       "idea_version_started_at": "2026-11-22T08:50:30Z",
@@ -259531,76 +258550,6 @@
       "surfaced_at": "2026-11-22T08:50:30Z",
       "updated_at": "2026-11-22T08:50:30Z",
       "decay_at": "2026-11-23T20:05:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-5390bdd23e41aed6",
-      "idea_version_started_at": "2026-11-21T00:45:32Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The US Treasury secretary's statement that no further restrictions are needed for chip exports to China removes a major overhang on Nvidia's high-margin data center revenue stream.",
-      "why_now": "The statement was made on 2026-11-21, providing immediate clarity on the regulatory environment for the company's most critical market.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-10fbf571066f"
-      ],
-      "primary_source_event_id": "EVT-10fbf571066f",
-      "source_headlines": [
-        "Treasury secretary says no further restrictions are needed for Nvidia chip exports to China"
-      ],
-      "source_headline": "Treasury secretary says no further restrictions are needed for Nvidia chip exports to China",
-      "source_url": "https://japantoday.com/category/world/treasury-secretary-says-no-further-restrictions-are-needed-for-nvidia-chip-exports-to-china",
-      "source_name": "Japan Today",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-21T00:36:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:45:32Z",
-      "updated_at": "2026-11-21T00:45:32Z",
-      "decay_at": "2026-11-22T12:36:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -259817,290 +258766,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-295b7b031132",
-      "idea_version": "IDEAV-6b6b6e97d56450ad",
-      "idea_version_started_at": "2026-11-21T01:54:31Z",
-      "ticker": "FRO",
-      "company": "Frontline plc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a strong quarterly profit of $641.4 million, signaling effective operational execution in the current tanker market environment.",
-      "why_now": "The earnings report was released on 2026-11-21.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b10698421268"
-      ],
-      "primary_source_event_id": "EVT-b10698421268",
-      "source_headlines": [
-        "Frontline plc Reports Profit of $641.4 million for the Third Quarter of 2026"
-      ],
-      "source_headline": "Frontline plc Reports Profit of $641.4 million for the Third Quarter of 2026",
-      "source_url": "https://www.nasdaq.com/articles/frontline-plc-reports-profit-6414-million-third-quarter-2026",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T00:39:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T01:54:31Z",
-      "updated_at": "2026-11-21T01:54:31Z",
-      "decay_at": "2026-11-22T12:39:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f8ffdb53dcfe",
-      "idea_version": "IDEAV-62b218b3b30d38c7",
-      "idea_version_started_at": "2026-11-21T01:54:31Z",
-      "ticker": "TPST",
-      "company": "Tempest Therapeutics",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company received a formal delisting notification from Nasdaq, which typically precedes significant liquidity issues and potential equity impairment.",
-      "why_now": "The notification was dated 2026-11-17 and reported on 2026-11-21.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fc457c9fc447"
-      ],
-      "primary_source_event_id": "EVT-fc457c9fc447",
-      "source_headlines": [
-        "Tempest Therapeutics, Inc. Receives Nasdaq Delisting Notification on November 17, 2026"
-      ],
-      "source_headline": "Tempest Therapeutics, Inc. Receives Nasdaq Delisting Notification on November 17, 2026",
-      "source_url": "https://www.nasdaq.com/articles/tempest-therapeutics-inc-receives-nasdaq-delisting-notification-november-17-2026",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T00:39:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T01:54:31Z",
-      "updated_at": "2026-11-21T01:54:31Z",
-      "decay_at": "2026-11-22T12:39:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1b7dc9255e43",
-      "idea_version": "IDEAV-60f00ed73b861ceb",
-      "idea_version_started_at": "2026-11-21T00:24:13Z",
-      "ticker": "SHFS",
-      "company": "SHF Holdings, Inc.",
-      "exchange": "OID",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing immediate delisting from the Nasdaq and a transition to OTC markets, which typically triggers forced institutional selling and a significant loss of liquidity.",
-      "why_now": "The delisting announcement and conversion of Series B Preferred Stock are active catalysts as of November 20, 2024.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8aa9dada2ed1"
-      ],
-      "primary_source_event_id": "EVT-8aa9dada2ed1",
-      "source_headlines": [
-        "SHF Holdings, Inc. Announces Nasdaq Delisting, OTC Quotation, and Conversion of Series B Convertible Preferred Stock"
-      ],
-      "source_headline": "SHF Holdings, Inc. Announces Nasdaq Delisting, OTC Quotation, and Conversion of Series B Convertible Preferred Stock",
-      "source_url": "https://www.nasdaq.com/articles/shf-holdings-inc-announces-nasdaq-delisting-otc-quotation-and-conversion-series-b",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T23:49:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:24:13Z",
-      "updated_at": "2026-11-21T00:24:13Z",
-      "decay_at": "2026-11-22T11:49:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ec19b2ff9b03",
-      "idea_version": "IDEAV-849bee7d895c9fa0",
-      "idea_version_started_at": "2026-11-21T20:09:39Z",
-      "ticker": "CAPR",
-      "company": "Capricor Therapeutics",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A second FDA rejection for its lead muscular dystrophy drug candidate severely impairs the company's primary revenue pipeline and long-term viability.",
-      "why_now": "The FDA rejection was announced on November 20, 2026, creating an immediate negative catalyst for the stock.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-975331f97f27"
-      ],
-      "primary_source_event_id": "EVT-975331f97f27",
-      "source_headlines": [
-        "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug"
-      ],
-      "source_headline": "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/capricor-gets-second-fda-rejection-for-muscular-dystrophy-drug",
-      "source_name": "Bloomberg",
-      "materiality_max": 99,
-      "newest_source_at": "2026-11-20T23:49:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:45:32Z",
-      "updated_at": "2026-11-21T20:09:39Z",
-      "decay_at": "2026-11-22T11:49:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-51f801cf0011",
       "idea_version": "IDEAV-f925fce06c3a74cf",
       "idea_version_started_at": "2026-11-22T02:09:33Z",
@@ -260165,76 +258830,6 @@
       "surfaced_at": "2026-11-22T02:09:33Z",
       "updated_at": "2026-11-22T02:09:33Z",
       "decay_at": "2026-11-23T14:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-28c79f2efd74",
-      "idea_version": "IDEAV-2fe8474bec5f36f9",
-      "idea_version_started_at": "2026-11-21T03:54:43Z",
-      "ticker": "CODX",
-      "company": "Co-Diagnostics, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The issuance of a senior secured convertible promissory note indicates liquidity pressure and potential future equity dilution for existing shareholders.",
-      "why_now": "The debt issuance was disclosed on 2026-11-21, signaling a need for capital that may not be fully reflected in the current valuation.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-748f43652a3f"
-      ],
-      "primary_source_event_id": "EVT-748f43652a3f",
-      "source_headlines": [
-        "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note"
-      ],
-      "source_headline": "Co-Diagnostics, Inc. Borrows Additional Loan and Issues Senior Secured Convertible Installment Promissory Note",
-      "source_url": "https://www.nasdaq.com/articles/co-diagnostics-inc-borrows-additional-loan-and-issues-senior-secured-convertible",
-      "source_name": "Nasdaq",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-21T01:38:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T03:54:43Z",
-      "updated_at": "2026-11-21T03:54:43Z",
-      "decay_at": "2026-11-22T13:38:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -261389,1077 +259984,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5ffbf597b4e9",
-      "idea_version": "IDEAV-a9277708ec2dcb67",
-      "idea_version_started_at": "2026-11-22T00:03:10Z",
-      "ticker": "02001.HK",
-      "company": "NEW HIGHER EDU",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating earnings performance that will likely lead to downward revisions in analyst estimates.",
-      "why_now": "The profit warning was filed on November 20, 2026, and the market has not yet fully adjusted to the negative guidance.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2a43fd59d93a"
-      ],
-      "primary_source_event_id": "EVT-2a43fd59d93a",
-      "source_headlines": [
-        "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001653.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T13:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T00:03:10Z",
-      "updated_at": "2026-11-22T00:03:10Z",
-      "decay_at": "2026-11-22T01:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4d852b614db5",
-      "idea_version": "IDEAV-26c5ef8090ec5adb",
-      "idea_version_started_at": "2026-11-21T23:09:13Z",
-      "ticker": "00618",
-      "company": "PKU Resources",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating financial underperformance.",
-      "why_now": "The filing occurred on 2026-11-20, making it a live negative catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e377369cf439"
-      ],
-      "primary_source_event_id": "EVT-e377369cf439",
-      "source_headlines": [
-        "PKU RESOURCES (00618): PROFIT WARNING"
-      ],
-      "source_headline": "PKU RESOURCES (00618): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001505.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T11:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T19:49:13Z",
-      "updated_at": "2026-11-21T23:09:13Z",
-      "decay_at": "2026-11-21T23:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5e766eecdf93",
-      "idea_version": "IDEAV-ef52402d47aa587c",
-      "idea_version_started_at": "2026-11-21T23:09:13Z",
-      "ticker": "01662",
-      "company": "Yee Hop Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling operational headwinds that will likely negatively impact margins.",
-      "why_now": "The warning was released on 2026-11-20, creating an immediate negative catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-97155789020e"
-      ],
-      "primary_source_event_id": "EVT-97155789020e",
-      "source_headlines": [
-        "YEE HOP HLDGS (01662): PROFIT WARNING AND BUSINESS UPDATE"
-      ],
-      "source_headline": "YEE HOP HLDGS (01662): PROFIT WARNING AND BUSINESS UPDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001511.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T12:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T19:49:13Z",
-      "updated_at": "2026-11-21T23:09:13Z",
-      "decay_at": "2026-11-22T00:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-6f653cc37bba",
-      "idea_version": "IDEAV-fab31b4545864ae6",
-      "idea_version_started_at": "2026-11-21T23:09:13Z",
-      "ticker": "00035",
-      "company": "Far East Consortium International",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, signaling stronger-than-expected earnings growth.",
-      "why_now": "The announcement was made on 2026-11-20, providing a fresh fundamental catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c7b560676bb"
-      ],
-      "primary_source_event_id": "EVT-4c7b560676bb",
-      "source_headlines": [
-        "FE CONSORT INTL FEC FIN PERP (00035 05781): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "FE CONSORT INTL FEC FIN PERP (00035 05781): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001381.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T11:19:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T19:03:27Z",
-      "updated_at": "2026-11-21T23:09:13Z",
-      "decay_at": "2026-11-21T23:19:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ddbd31e38712",
-      "idea_version": "IDEAV-c4cc448b4a281706",
-      "idea_version_started_at": "2026-11-21T23:09:13Z",
-      "ticker": "02001",
-      "company": "New Higher Education Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating deteriorating earnings performance that will likely pressure the stock price.",
-      "why_now": "The profit warning was filed on 2026-11-20, making it an immediate catalyst for a re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2a43fd59d93a"
-      ],
-      "primary_source_event_id": "EVT-2a43fd59d93a",
-      "source_headlines": [
-        "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "NEW HIGHER EDU (02001): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001653.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T13:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T19:03:27Z",
-      "updated_at": "2026-11-21T23:09:13Z",
-      "decay_at": "2026-11-22T01:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c7e5bcb84ea5",
-      "idea_version": "IDEAV-946facb8df56fd12",
-      "idea_version_started_at": "2026-11-21T21:39:32Z",
-      "ticker": "00938",
-      "company": "Man Sang International",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a decline in profitability.",
-      "why_now": "The filing was released on 2026-11-20.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d3f4ce15381"
-      ],
-      "primary_source_event_id": "EVT-7d3f4ce15381",
-      "source_headlines": [
-        "MAN SANG INT'L (00938): PROFIT WARNING"
-      ],
-      "source_headline": "MAN SANG INT'L (00938): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001247.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T10:55:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T21:39:32Z",
-      "updated_at": "2026-11-21T21:39:32Z",
-      "decay_at": "2026-11-21T22:55:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-055791d9bcb5",
-      "idea_version": "IDEAV-2db6e59d47ca4c80",
-      "idea_version_started_at": "2026-11-21T21:20:01Z",
-      "ticker": "08619",
-      "company": "NIU HOLDINGS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, suggesting operational headwinds.",
-      "why_now": "The profit warning was filed on 2026-11-20.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-43932d1a44a0"
-      ],
-      "primary_source_event_id": "EVT-43932d1a44a0",
-      "source_headlines": [
-        "NIU HOLDINGS (08619): PROFIT WARNING"
-      ],
-      "source_headline": "NIU HOLDINGS (08619): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1120/2026112001036.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T10:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T19:49:13Z",
-      "updated_at": "2026-11-21T21:20:01Z",
-      "decay_at": "2026-11-21T22:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3569a6de6321",
-      "idea_version": "IDEAV-bfdd49c9df03dd82",
-      "idea_version_started_at": "2026-11-21T21:20:01Z",
-      "ticker": "00223",
-      "company": "ELIFE HLDGS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating negative financial momentum.",
-      "why_now": "The profit warning was filed on 2026-11-20.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2dd17d8b0604"
-      ],
-      "primary_source_event_id": "EVT-2dd17d8b0604",
-      "source_headlines": [
-        "ELIFE HLDGS (00223): PROFIT WARNING"
-      ],
-      "source_headline": "ELIFE HLDGS (00223): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001367.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T11:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T19:49:13Z",
-      "updated_at": "2026-11-21T21:20:01Z",
-      "decay_at": "2026-11-21T23:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8c8824be4bf4",
-      "idea_version": "IDEAV-f5d21979e9ce9e67",
-      "idea_version_started_at": "2026-11-21T15:29:06Z",
-      "ticker": "ADANIGREEN",
-      "company": "Adani Green Energy",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Maharashtra Pollution Control Board's order to halt the 1,500 MW Tarali pumped storage project creates immediate operational delays and potential capital expenditure write-offs for the group's renewable energy expansion.",
-      "why_now": "The regulatory stop-work order was issued on 2026-11-21, creating immediate uncertainty regarding project timelines and compliance costs.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9de8842d91b2"
-      ],
-      "primary_source_event_id": "EVT-9de8842d91b2",
-      "source_headlines": [
-        "MPCB Orders Halt To Adani Group’s 1,500 MW Tarali Pumped Storage Project Work Over Alleged Environmental Violations"
-      ],
-      "source_headline": "MPCB Orders Halt To Adani Group’s 1,500 MW Tarali Pumped Storage Project Work Over Alleged Environmental Violations",
-      "source_url": "https://www.freepressjournal.in/mumbai/mpcb-orders-halt-to-adani-groups-1500-mw-tarali-pumped-storage-project-work-over-alleged-environmental-violations",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T14:43:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T15:29:06Z",
-      "updated_at": "2026-11-21T15:29:06Z",
-      "decay_at": "2026-11-23T02:43:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1a7b6541544d",
-      "idea_version": "IDEAV-9e431dc184c0bda6",
-      "idea_version_started_at": "2026-11-21T14:38:14Z",
-      "ticker": "INDUSINDBK",
-      "company": "IndusInd Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The firing of the CEO and the invocation of a clawback clause due to ₹1,960 crore in accounting lapses signals severe governance failures and potential future restatements.",
-      "why_now": "The executive exit and accounting disclosure occurred on 2026-11-21, creating immediate uncertainty regarding the bank's financial health.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-846370a7eac6"
-      ],
-      "primary_source_event_id": "EVT-846370a7eac6",
-      "source_headlines": [
-        "IndusInd Bank sacks former CEO Sumant Kathpalia, invokes clawback clause over ₹1,960 crore accounting lapses"
-      ],
-      "source_headline": "IndusInd Bank sacks former CEO Sumant Kathpalia, invokes clawback clause over ₹1,960 crore accounting lapses",
-      "source_url": "https://www.businesstoday.in/latest/corporate/story/indusind-bank-sacks-former-ceo-sumant-kathpalia-invokes-clawback-clause-over-rs1960-crore-accounting-lapses-568906-2026-11-21?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T14:16:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T04:30:21Z",
-      "updated_at": "2026-11-21T14:38:14Z",
-      "decay_at": "2026-11-23T02:16:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-752298f81b73",
-      "idea_version": "IDEAV-a6a65f408c814866",
-      "idea_version_started_at": "2026-11-21T08:14:10Z",
-      "ticker": "ADANIENT.NS",
-      "company": "Adani Energy Solutions",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a significant renewable power deal to supply 2,500 MW, which is expected to boost its revenue and capacity.",
-      "why_now": "The deal was announced today, providing an immediate catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-54da6f7ffb9d"
-      ],
-      "primary_source_event_id": "EVT-54da6f7ffb9d",
-      "source_headlines": [
-        "Adani Energy Solutions Bags Major Renewable Power Deal In West Bengal, 2,500 MW Supply Capacity On The Horizon"
-      ],
-      "source_headline": "Adani Energy Solutions Bags Major Renewable Power Deal In West Bengal, 2,500 MW Supply Capacity On The Horizon",
-      "source_url": "https://www.freepressjournal.in/business/adani-energy-solutions-bags-major-renewable-power-deal-in-west-bengal-2500-mw-supply-capacity-on-the-horizon",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-21T07:30:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T08:14:10Z",
-      "updated_at": "2026-11-21T08:14:10Z",
-      "decay_at": "2026-11-22T19:30:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7cd46fe7ab77",
-      "idea_version": "IDEAV-6d31b3e8b1b6674e",
-      "idea_version_started_at": "2026-11-21T00:05:01Z",
-      "ticker": "BAYN",
-      "company": "Bayer AG",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A judge approved a massive $7.25bn litigation payout to settle claims that Roundup causes cancer, driving substantial cash outflows and balance sheet stress.",
-      "why_now": "Court approval of the settlement was reported on November 20, 2026, marking a major immediate financial liability.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3ec0090681bb"
-      ],
-      "primary_source_event_id": "EVT-3ec0090681bb",
-      "source_headlines": [
-        "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer"
-      ],
-      "source_headline": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
-      "source_url": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T23:42:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T00:05:01Z",
-      "updated_at": "2026-11-21T00:05:01Z",
-      "decay_at": "2026-11-22T11:42:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-04f29dd3336c",
-      "idea_version": "IDEAV-e58246db95e8464a",
-      "idea_version_started_at": "2026-11-20T20:38:19Z",
-      "ticker": "02350",
-      "company": "MTT Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a formal profit warning, signaling deteriorating operational performance and potential margin compression.",
-      "why_now": "The profit warning was filed on 2026-11-20.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e04b38e86400"
-      ],
-      "primary_source_event_id": "EVT-e04b38e86400",
-      "source_headlines": [
-        "MTT GROUP (02350): ANNOUNCEMENT - PROFIT WARNING"
-      ],
-      "source_headline": "MTT GROUP (02350): ANNOUNCEMENT - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001805.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T14:51:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T20:38:19Z",
-      "decay_at": "2026-11-22T02:51:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ed75dcadb8f8",
-      "idea_version": "IDEAV-859e40f360f4a873",
-      "idea_version_started_at": "2026-11-20T20:38:19Z",
-      "ticker": "00037",
-      "company": "FE HOTELS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit alert indicating a significant decline in earnings, which typically leads to downward revisions in valuation multiples.",
-      "why_now": "The profit alert was filed on 2026-11-20.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-954d660bffdc"
-      ],
-      "primary_source_event_id": "EVT-954d660bffdc",
-      "source_headlines": [
-        "FE HOTELS (00037): PROFIT ALERT"
-      ],
-      "source_headline": "FE HOTELS (00037): PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1120/2026112001621.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-20T12:56:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-20T20:38:19Z",
-      "updated_at": "2026-11-20T20:38:19Z",
-      "decay_at": "2026-11-22T00:56:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7475670173bc",
-      "idea_version": "IDEAV-1e372d5d4c3a04eb",
-      "idea_version_started_at": "2026-11-21T16:54:46Z",
-      "ticker": "CPHI",
-      "company": "Capricor Therapeutics Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Capricor Therapeutics received a second FDA rejection for its muscular dystrophy drug, which will negatively impact its product pipeline and future revenue potential.",
-      "why_now": "The second FDA rejection was reported on November 20, 2026, indicating a fresh and significant setback for the company's key drug candidate.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-975331f97f27"
-      ],
-      "primary_source_event_id": "EVT-975331f97f27",
-      "source_headlines": [
-        "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug"
-      ],
-      "source_headline": "Capricor Gets Second FDA Rejection for Muscular Dystrophy Drug",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/capricor-gets-second-fda-rejection-for-muscular-dystrophy-drug",
-      "source_name": "Bloomberg",
-      "materiality_max": 99,
-      "newest_source_at": "2026-11-20T23:49:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T16:54:46Z",
-      "updated_at": "2026-11-21T16:54:46Z",
-      "decay_at": "2026-11-22T11:49:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0ca44cea0e16",
       "idea_version": "IDEAV-7f639420b2db7882",
       "idea_version_started_at": "2026-11-22T17:10:41Z",
@@ -263251,78 +260775,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-cdd269b5c982",
-      "idea_version": "IDEAV-639dc319e47b263e",
-      "idea_version_started_at": "2026-11-21T12:49:26Z",
-      "ticker": "WEB",
-      "company": "Webuild S.p.A.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Webuild has completed its takeover of construction group Trevi, which should consolidate its market position and potentially improve operational efficiencies.",
-      "why_now": "The takeover completion was announced on November 21, 2026, making this a live event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1a41fc7a2766"
-      ],
-      "primary_source_event_id": "EVT-1a41fc7a2766",
-      "source_headlines": [
-        "Italy’s Webuild Completes Takeover of Construction Group Trevi"
-      ],
-      "source_headline": "Italy’s Webuild Completes Takeover of Construction Group Trevi",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/italy-s-webuild-completes-takeover-of-construction-group-trevi",
-      "source_name": "Bloomberg",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-21T08:42:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T12:49:26Z",
-      "updated_at": "2026-11-21T12:49:26Z",
-      "decay_at": "2026-11-22T20:42:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-16a841936d98",
       "idea_version": "IDEAV-b82fb3bcef943d86",
       "idea_version_started_at": "2026-11-22T06:59:44Z",
@@ -263532,78 +260984,6 @@
       "surfaced_at": "2026-11-23T01:16:13Z",
       "updated_at": "2026-11-23T01:16:13Z",
       "decay_at": "2026-11-24T12:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-414a14e26ddd",
-      "idea_version": "IDEAV-c0f9263f1279bbdc",
-      "idea_version_started_at": "2026-11-21T08:55:04Z",
-      "ticker": "BMPS",
-      "company": "Banca Monte dei Paschi di Siena",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The board's assessment that Intesa Sanpaolo's offer is fair but does not fully reflect the bank's value suggests a potential for a sweetened bid or a competitive bidding process.",
-      "why_now": "The formal response to the offer on November 21, 2026, signals the start of price negotiations in a live M&A scenario.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4e8f5525b59b"
-      ],
-      "primary_source_event_id": "EVT-4e8f5525b59b",
-      "source_headlines": [
-        "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected"
-      ],
-      "source_headline": "Paschi Deems Intesa’s Offer Fair Yet Value Not Fully Reflected",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/paschi-deems-intesa-s-offer-fair-yet-value-not-fully-reflected",
-      "source_name": "Bloomberg",
-      "materiality_max": 91,
-      "newest_source_at": "2026-11-21T07:42:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T08:55:04Z",
-      "updated_at": "2026-11-21T08:55:04Z",
-      "decay_at": "2026-11-22T19:42:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264473,79 +261853,6 @@
       "surfaced_at": "2026-11-22T04:45:48Z",
       "updated_at": "2026-11-22T04:45:48Z",
       "decay_at": "2026-11-23T16:33:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2fcff775e893",
-      "idea_version": "IDEAV-2df638fcf4bf3eaa",
-      "idea_version_started_at": "2026-11-21T04:14:39Z",
-      "ticker": "TNP",
-      "company": "Tsakos Energy Navigation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported record profits for Q3 2026, indicating strong operational leverage in the current tanker rate environment.",
-      "why_now": "The earnings release occurred on 2026-11-21; the stock often reacts to the confirmation of record cash flow generation.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f764fa461e06"
-      ],
-      "primary_source_event_id": "EVT-f764fa461e06",
-      "source_headlines": [
-        "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026"
-      ],
-      "source_headline": "Tsakos Energy Navigation Limited Reports Record Profits for the Nine Months and Third Quarter of 2026",
-      "source_url": "https://www.nasdaq.com/articles/tsakos-energy-navigation-limited-reports-record-profits-nine-months-and-third-quarter-2026",
-      "source_name": "Nasdaq",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-21T01:38:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T04:14:39Z",
-      "updated_at": "2026-11-21T04:14:39Z",
-      "decay_at": "2026-11-22T13:38:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -265787,33 +263094,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 615,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 115,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 312,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 62
+        "hidden_count": 41
       },
       "short": {
-        "total_count": 304,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 54
+        "hidden_count": 33
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2026,
-      "oldest_retained_at": "2026-10-26T14:50:52Z",
+      "evicted_count": 2068,
+      "oldest_retained_at": "2026-10-27T23:32:34Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1312,
-          "oldest_retained_at": "2026-11-03T16:56:12Z"
+          "evicted_count": 1333,
+          "oldest_retained_at": "2026-11-04T18:57:41Z"
         },
         "short": {
-          "evicted_count": 715,
-          "oldest_retained_at": "2026-10-26T14:50:52Z"
+          "evicted_count": 736,
+          "oldest_retained_at": "2026-10-27T23:32:34Z"
         }
       }
     },
@@ -271407,8 +268714,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T06:15:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271480,8 +268787,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T05:21:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271555,8 +268862,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T02:43:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271630,8 +268937,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T02:16:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271703,8 +269010,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T01:20:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271776,8 +269083,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T00:30:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271849,8 +269156,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T23:38:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271924,8 +269231,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T20:42:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -271997,8 +269304,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T19:42:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272072,8 +269379,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T19:42:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272147,8 +269454,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T19:30:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272220,8 +269527,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T15:49:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272293,8 +269600,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T15:45:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272366,8 +269673,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T13:46:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272439,8 +269746,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T13:38:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272515,8 +269822,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T13:38:31Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272589,8 +269896,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T12:39:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272663,8 +269970,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T12:39:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272736,8 +270043,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T12:36:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272809,8 +270116,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T12:12:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272883,8 +270190,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T12:07:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272957,8 +270264,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T12:00:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273031,8 +270338,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T11:49:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273106,8 +270413,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T11:49:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273180,8 +270487,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T11:49:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273255,8 +270562,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T11:42:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273328,8 +270635,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T09:19:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273401,8 +270708,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T09:04:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273477,8 +270784,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T09:01:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273550,8 +270857,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T08:48:14Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273623,8 +270930,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T04:05:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273696,8 +271003,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T03:39:26Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273770,8 +271077,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T02:51:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273844,8 +271151,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T01:05:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273918,8 +271225,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T01:05:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -273992,8 +271299,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T00:56:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274066,8 +271373,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-22T00:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274140,8 +271447,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T23:59:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274214,8 +271521,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T23:19:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274288,8 +271595,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T23:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274363,8 +271670,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T22:55:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -274437,8 +271744,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-21T22:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-24T19:36:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -303008,8 +300315,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2642,
-    "live_count": 0,
+    "surfaced_total": 2646,
+    "live_count": 4,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

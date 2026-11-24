@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-24T19:36:18Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-0d33d5cbe937",
+    "idea_version": "IDEAV-3096bed61d08d90a",
+    "idea_version_started_at": "2026-11-20T23:03:16Z",
+    "ticker": "ZS",
+    "company": "Zscaler",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "CrowdStrike is reportedly in talks to acquire Zscaler, which typically drives a premium for the target company's shares as the market prices in the potential acquisition multiple.",
+    "why_now": "The report of acquisition talks surfaced on 2026-11-20, creating an immediate arbitrage opportunity.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 66,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "pair_trade",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-baa57fe59d7b"
+    ],
+    "primary_source_event_id": "EVT-baa57fe59d7b",
+    "source_headlines": [
+      "Zscaler stock jumps 20% on report that CrowdStrike in talks to buy security vendor"
+    ],
+    "source_headline": "Zscaler stock jumps 20% on report that CrowdStrike in talks to buy security vendor",
+    "source_url": "https://www.cnbc.com/2026/11/20/zscaler-crowdstrike-deal.html",
+    "source_name": "CNBC",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-20T21:19:18Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-20T23:03:16Z",
+    "updated_at": "2026-11-20T23:03:16Z",
+    "decay_at": "2026-11-22T09:19:18Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
