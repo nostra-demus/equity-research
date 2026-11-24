@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T19:55:29Z",
+  "generated_at": "2026-11-24T20:02:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-414",
@@ -190,6 +190,104 @@
           "name": "THAC GROUP",
           "ticker": "08232",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261124-651",
+      "headline": "SC TO-T - Merck KGaA (0001764133) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1764133/000119312526473415/0001193125-26-473415-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-24T14:25:05Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Third-party tender offer filing indicates a potential acquisition event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Third-party tender offer filing indicates a potential acquisition event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Merck KGaA",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261124-652",
+      "headline": "SC TO-T - RAPID MICRO BIOSYSTEMS, INC. (0001380106) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1380106/000119312526473415/0001193125-26-473415-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-24T14:25:05Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Subject of a third-party tender offer, indicating a potential acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Subject of a third-party tender offer, indicating a potential acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rapid Micro Biosystems, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1887,110 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-607",
-      "headline": "Best Buy Raises Guidance on Demand for Computing, AI Glasses",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-24/best-buy-raises-guidance-on-demand-for-computing-ai-glasses",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T12:00:17Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Best Buy raised its financial guidance due to increased demand for computing and AI-related products.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Best Buy raised its financial guidance due to increased demand for computing and AI-related products.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Best Buy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-609",
-      "headline": "Viomi Technology Appoints Zhigang (Sam) Yang as Chief Financial Officer and Enters into Agreement to Acquire Brondell Inc.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/viomi-technology-appoints-zhigang-sam-yang-chief-financial-officer-and-enters-agreement",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T11:50:11Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Viomi Technology appointed a new CFO and announced an agreement to acquire Brondell Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Viomi Technology appointed a new CFO and announced an agreement to acquire Brondell Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viomi Technology",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Brondell Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300477,9 +300471,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5043284,
-    "news_picked_today": 1076,
-    "news_dropped_today": 11332
+    "news_seen_today": 5080430,
+    "news_picked_today": 1125,
+    "news_dropped_today": 12027
   },
   "book_momentum": {
     "live_count": 8,
