@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T23:27:29Z",
+  "generated_at": "2026-11-24T23:28:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-801",
@@ -257490,6 +257490,79 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0d33d5cbe937",
+      "idea_version": "IDEAV-73e21b4e0e1f14e3",
+      "idea_version_started_at": "2026-11-24T23:28:04Z",
+      "ticker": "ZS",
+      "company": "Zscaler, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Zscaler is being acquired by CrowdStrike in an all-stock transaction valued at $43.9 billion, creating a convergence play in the cybersecurity sector.",
+      "why_now": "The deal was announced on 2026-11-23; the stock will trade toward the implied acquisition price.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 24,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1780a9faa44b",
+        "EVT-1d4f6d03d7b0",
+        "EVT-390938771c16"
+      ],
+      "primary_source_event_id": "EVT-1780a9faa44b",
+      "source_headlines": [
+        "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
+        "CrowdStrike to buy Zscaler in $44 billion deal as AI supercharges cyberattacks",
+        "CrowdStrike to acquire Zscaler in $43.9 billion all-stock deal, expanding network security portfolio"
+      ],
+      "source_headline": "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
+      "source_url": "https://www.nasdaq.com/articles/crowdstrike-acquire-zscaler-inc-all-stock-transaction-valued-approximately-439-billion",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T16:39:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-24T23:28:04Z",
+      "updated_at": "2026-11-24T23:28:04Z",
+      "decay_at": "2026-11-25T04:39:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3dc76c63d458",
       "idea_version": "IDEAV-88ffd855b16084a0",
       "idea_version_started_at": "2026-11-24T20:58:18Z",
@@ -300590,8 +300663,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2650,
-    "live_count": 5,
+    "surfaced_total": 2651,
+    "live_count": 6,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
