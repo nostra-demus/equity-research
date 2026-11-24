@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T19:36:52Z",
+  "generated_at": "2026-11-24T19:41:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-414",
@@ -1093,6 +1093,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-631",
+      "headline": "China Southern Airlines unit to buy 50 Boeing 737-8 planes",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/economy/2026/11/24/china-southern-airlines-unit-to-buy-50-boeing-737-8-planes?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-24T19:19:50Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "China Southern Airlines unit agreed to purchase 50 Boeing 737-8 aircraft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Southern Airlines unit agreed to purchase 50 Boeing 737-8 aircraft.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Southern Airlines",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-456",
       "headline": "Abercrombie Defies Freight Headwinds, Delivers Record Sales, Raises Outlook (UPDATED)",
       "headline_en": null,
@@ -1937,60 +1991,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-394",
-      "headline": "Insmed Incorporated Enters Merger Agreement to Be Acquired by Sanofi for $175.00 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/insmed-incorporated-enters-merger-agreement-be-acquired-sanofi-17500-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T11:10:58Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Sanofi agreed to acquire Insmed for $175.00 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi agreed to acquire Insmed for $175.00 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Insmed",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Sanofi",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300335,9 +300335,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4964816,
-    "news_picked_today": 1057,
-    "news_dropped_today": 10223
+    "news_seen_today": 4991480,
+    "news_picked_today": 1064,
+    "news_dropped_today": 10528
   },
   "book_momentum": {
     "live_count": 8,
