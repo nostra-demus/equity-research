@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T21:32:38Z",
+  "generated_at": "2026-11-24T21:38:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-719",
@@ -1487,6 +1487,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-740",
+      "headline": "Dell Raises AI Server Outlook as Backlog Hits Record $132 Billion | Closing Bell",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-24/dell-raises-ai-server-outlook-closing-bell-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:21:25Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Dell raised its AI server outlook as the backlog reached a record $132 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell raised its AI server outlook as the backlog reached a record $132 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-733",
       "headline": "Dell Delivers Q3 Double Beat, Raises FY27 Outlook: 'We Are Now a Different Company'",
       "headline_en": null,
@@ -1527,6 +1576,60 @@
       "companies": [
         {
           "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261124-737",
+      "headline": "CF Industries Holdings, Inc. Announces Agreement to Acquire Faustina Ammonia Production Facility from The Mosaic Company",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cf-industries-holdings-inc-announces-agreement-acquire-faustina-ammonia-production",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:10:17Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "CF Industries agreed to acquire an ammonia production facility from The Mosaic Company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CF Industries agreed to acquire an ammonia production facility from The Mosaic Company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CF Industries Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "The Mosaic Company",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1879,109 +1982,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-529",
-      "headline": "Domino's Pizza franchisee files for Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/dominos-pizza-franchisee-files-for-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T14:19:28Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "A Domino's Pizza franchisee has filed for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A Domino's Pizza franchisee has filed for Chapter 11 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Domino's Pizza",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-532",
-      "headline": "Sanofi to acquire Insmed in strategic step that strengthens long-term future",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sanofi-acquire-insmed-strategic-step-strengthens-long-term-future",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T14:18:38Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Sanofi announced an acquisition of Insmed to strengthen its long-term pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi announced an acquisition of Insmed to strengthen its long-term pipeline.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "Insmed",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300610,9 +300610,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5455701,
-    "news_picked_today": 1286,
-    "news_dropped_today": 13570
+    "news_seen_today": 5493291,
+    "news_picked_today": 1293,
+    "news_dropped_today": 13587
   },
   "book_momentum": {
     "live_count": 8,
