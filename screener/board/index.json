@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-11-24T13:21:52Z",
+  "generated_at": "2026-11-24T14:01:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261124-409",
+      "headline": "SHEUNG YUE GP (01633): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401383.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T13:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Official profit warning indicating expected financial performance is significantly lower than previous periods.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Official profit warning indicating expected financial performance is significantly lower than previous periods.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHEUNG YUE GP",
+          "ticker": "01633",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261124-413",
+      "headline": "TIANJINPORT DEV (03382): (1) VERY SUBSTANTIAL ACQUISITION, VERY SUBSTANTIAL DISPOSAL AND CONNECTED TRANSACTION IN RELATION TO THE ISSUANCE OF SHARES BY TIANJIN PORT HOLDINGS CO LTD FOR ASSET ACQUISITION AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401334.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T13:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Very substantial acquisition and disposal involving share issuance for asset acquisition, requiring an EGM.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Very substantial acquisition and disposal involving share issuance for asset acquisition, requiring an EGM.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TIANJINPORT DEV",
+          "ticker": "03382",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261124-405",
       "headline": "BAIJIN LIFE SCI (01466): PROFIT WARNING",
@@ -95,55 +194,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-389",
-      "headline": "TIANJINPORT DEV (03382): (1) VERY SUBSTANTIAL ACQUISITION, VERY SUBSTANTIAL DISPOSAL AND CONNECTED TRANSACTION IN RELATION TO THE ISSUANCE OF SHARES BY TIANJIN PORT HOLDINGS CO LTD FOR ASSET ACQUISITION AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T11:16:00Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Tianjin Port Development announced a very substantial acquisition and disposal involving share issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tianjin Port Development announced a very substantial acquisition and disposal involving share issuance.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tianjin Port Development",
-          "ticker": "03382",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1963,55 +2013,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-132",
-      "headline": "Qnity To Acquire Meridian Adhesives Group's Electronics Business For $840 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/qnity-acquire-meridian-adhesives-groups-electronics-business-840-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-23T12:20:32Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Qnity is acquiring Meridian Adhesives Group's electronics business for $840 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qnity is acquiring Meridian Adhesives Group's electronics business for $840 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meridian Adhesives Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -258171,79 +258172,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-592b06bbc851",
-      "idea_version": "IDEAV-2b8c460d291af6be",
-      "idea_version_started_at": "2026-11-23T02:39:11Z",
-      "ticker": "PAGEIND",
-      "company": "Page Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Persistent weakness in sales growth is compressing margins and forcing the stock toward 52-week lows, indicating a structural slowdown in consumer demand for their premium apparel segment.",
-      "why_now": "The stock is currently testing 52-week lows as of 2026-11-23, reflecting a breakdown in investor sentiment regarding the company's growth trajectory.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fcfc9e033068"
-      ],
-      "primary_source_event_id": "EVT-fcfc9e033068",
-      "source_headlines": [
-        "Page Industries nears 52-week low as weak sales growth spooks investors"
-      ],
-      "source_headline": "Page Industries nears 52-week low as weak sales growth spooks investors",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/page-industries-nears-52-week-low-as-weak-sales-growth-spooks-investors/articleshow/136086702.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-23T01:52:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T02:39:11Z",
-      "updated_at": "2026-11-23T02:39:11Z",
-      "decay_at": "2026-11-24T13:52:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8509ac2c8601",
       "idea_version": "IDEAV-c6a0a7d5492d6185",
       "idea_version_started_at": "2026-11-23T03:45:00Z",
@@ -264575,6 +264503,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-592b06bbc851",
+      "idea_version": "IDEAV-2b8c460d291af6be",
+      "idea_version_started_at": "2026-11-23T02:39:11Z",
+      "ticker": "PAGEIND",
+      "company": "Page Industries",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Persistent weakness in sales growth is compressing margins and forcing the stock toward 52-week lows, indicating a structural slowdown in consumer demand for their premium apparel segment.",
+      "why_now": "The stock is currently testing 52-week lows as of 2026-11-23, reflecting a breakdown in investor sentiment regarding the company's growth trajectory.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fcfc9e033068"
+      ],
+      "primary_source_event_id": "EVT-fcfc9e033068",
+      "source_headlines": [
+        "Page Industries nears 52-week low as weak sales growth spooks investors"
+      ],
+      "source_headline": "Page Industries nears 52-week low as weak sales growth spooks investors",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/page-industries-nears-52-week-low-as-weak-sales-growth-spooks-investors/articleshow/136086702.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-23T01:52:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-23T02:39:11Z",
+      "updated_at": "2026-11-23T02:39:11Z",
+      "decay_at": "2026-11-24T13:52:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f9e57ac4023c",
       "idea_version": "IDEAV-b3019429fa8c2ef2",
       "idea_version_started_at": "2026-11-22T09:33:32Z",
@@ -265808,9 +265809,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 601,
+    "total_count": 602,
     "shown_count": 499,
-    "hidden_count": 102,
+    "hidden_count": 103,
     "side_counts": {
       "long": {
         "total_count": 307,
@@ -265818,9 +265819,9 @@
         "hidden_count": 57
       },
       "short": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       }
     },
     "retention": {
@@ -265839,6 +265840,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-592b06bbc851",
+        "idea_version": "IDEAV-2b8c460d291af6be",
+        "idea_version_started_at": "2026-11-23T02:39:11Z",
+        "ticker": "PAGEIND",
+        "company": "Page Industries",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Persistent weakness in sales growth is compressing margins and forcing the stock toward 52-week lows, indicating a structural slowdown in consumer demand for their premium apparel segment.",
+        "why_now": "The stock is currently testing 52-week lows as of 2026-11-23, reflecting a breakdown in investor sentiment regarding the company's growth trajectory.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fcfc9e033068"
+        ],
+        "primary_source_event_id": "EVT-fcfc9e033068",
+        "source_headlines": [
+          "Page Industries nears 52-week low as weak sales growth spooks investors"
+        ],
+        "source_headline": "Page Industries nears 52-week low as weak sales growth spooks investors",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/page-industries-nears-52-week-low-as-weak-sales-growth-spooks-investors/articleshow/136086702.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 87,
+        "newest_source_at": "2026-11-23T01:52:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-23T02:39:11Z",
+        "updated_at": "2026-11-23T02:39:11Z",
+        "decay_at": "2026-11-24T13:52:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-24T13:52:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3033ff5504a5",
         "idea_version": "IDEAV-c0172cdc689fcbe8",
@@ -302858,85 +302935,12 @@
         "archived_at": "2026-10-31T22:00:32Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bb455d1c06d8",
-        "idea_version": "IDEAV-b909c1deb8fc7a29",
-        "idea_version_started_at": "2026-10-29T04:07:36Z",
-        "ticker": "SFM",
-        "company": "Sprouts Farmers Market",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is slashing its financial outlook following a Cyclospora outbreak, which directly impairs sales growth and operational margins.",
-        "why_now": "The guidance cut was announced on October 28, 2026, and the market is currently digesting the impact of the health-related sales disruption.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-136592fd2fca"
-        ],
-        "primary_source_event_id": "EVT-136592fd2fca",
-        "source_headlines": [
-          "Sprouts Slashes Outlook After Cyclospora Outbreak Hit Sales"
-        ],
-        "source_headline": "Sprouts Slashes Outlook After Cyclospora Outbreak Hit Sales",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/sprouts-slashes-outlook-after-cyclospora-outbreak-hit-sales",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-28T21:24:40Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T04:07:36Z",
-        "updated_at": "2026-10-29T04:07:36Z",
-        "decay_at": "2026-10-30T09:24:40Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-31T22:00:32Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2642,
-    "live_count": 14,
+    "live_count": 13,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302955,9 +302959,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2534134,
-    "news_picked_today": 792,
-    "news_dropped_today": 9456
+    "news_seen_today": 2736891,
+    "news_picked_today": 808,
+    "news_dropped_today": 9464
   },
   "book_momentum": {
     "live_count": 8,
