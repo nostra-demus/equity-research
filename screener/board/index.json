@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T21:47:40Z",
+  "generated_at": "2026-11-24T21:50:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-719",
@@ -1487,6 +1487,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-756",
+      "headline": "Parker Hannifin Completes $2.6 billion Acquisition Of CIRCOR Aerospace",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/parker-hannifin-completes-2-6-billion-acquisition-of-circor-aerospace/business-financial/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:34:20Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Parker Hannifin completed a $2.6 billion acquisition of CIRCOR Aerospace.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Parker Hannifin completed a $2.6 billion acquisition of CIRCOR Aerospace.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Parker Hannifin",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "CIRCOR Aerospace",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-752",
       "headline": "Dell earnings beat on AI strength, company authorizes $25 billion buyback",
       "headline_en": null,
@@ -1690,6 +1744,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-758",
+      "headline": "Dell Raises Annual Sales Forecast Again on AI Server Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-24/dell-ups-annual-sales-forecast-again-on-rising-ai-server-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:07:59Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Dell raised its annual sales forecast due to sustained AI server demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell raised its annual sales forecast due to sustained AI server demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-631",
       "headline": "China Southern Airlines unit to buy 50 Boeing 737-8 planes",
       "headline_en": null,
@@ -1873,98 +1976,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-442",
-      "headline": "Dick’s Sporting Goods Raises Profit Outlook on Core Business Strength",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/dicks-sporting-goods-raises-profit-outlook-on-core-business-strength-067edf91?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T15:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Dick's Sporting Goods raised its profit outlook citing core business strength.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dick's Sporting Goods raised its profit outlook citing core business strength.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dick's Sporting Goods",
-          "ticker": "DKS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-443",
-      "headline": "After closing 60 stores, huge car dealer files for Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/after-closing-60-stores-americas-carmart-files-for-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T15:02:58Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "A major car dealership chain filed for Chapter 11 bankruptcy protection after closing 60 stores.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major car dealership chain filed for Chapter 11 bankruptcy protection after closing 60 stores.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -300606,9 +300617,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5557173,
-    "news_picked_today": 1307,
-    "news_dropped_today": 13669
+    "news_seen_today": 5582879,
+    "news_picked_today": 1313,
+    "news_dropped_today": 13687
   },
   "book_momentum": {
     "live_count": 8,
