@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T23:35:29Z",
+  "generated_at": "2026-11-24T23:37:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-801",
@@ -42,6 +42,55 @@
       "companies": [
         {
           "name": "VR1",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261124-813",
+      "headline": "BPG: Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BPG?key=2924-03166281-2A1712810",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T22:56:41Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Suspension from quotation is a significant liquidity and operational risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suspension from quotation is a significant liquidity and operational risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BPG",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-788",
-      "headline": "SOBR Safe, Inc. Announces Nasdaq Delisting Process",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sobr-safe-inc-announces-nasdaq-delisting-process",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:50:37Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Company announced it is undergoing a Nasdaq delisting process, signaling severe distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company announced it is undergoing a Nasdaq delisting process, signaling severe distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SOBR Safe, Inc.",
-          "ticker": "SOBR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300683,9 +300683,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6261032,
-    "news_picked_today": 1426,
-    "news_dropped_today": 14462
+    "news_seen_today": 6274457,
+    "news_picked_today": 1451,
+    "news_dropped_today": 14533
   },
   "book_momentum": {
     "live_count": 8,
