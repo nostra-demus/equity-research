@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-24T22:27:53Z",
+  "generated_at": "2026-11-24T22:34:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261124-783",
+      "headline": "S-4 - FrenchFry Acquisitions LLC (0002165344) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2165344/000149315226054062/0001493152-26-054062-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-24T22:28:41Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Filing of an S-4 registration statement indicates a formal M&A or exchange offer process is underway.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Filing of an S-4 registration statement indicates a formal M&A or exchange offer process is underway.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FrenchFry Acquisitions LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261124-782",
       "headline": "S-4 - Ampera, Inc. (0002110656) (Filer)",
@@ -1634,6 +1683,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-788",
+      "headline": "SOBR Safe, Inc. Announces Nasdaq Delisting Process",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sobr-safe-inc-announces-nasdaq-delisting-process",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:50:37Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Company announced it is undergoing a Nasdaq delisting process, signaling severe distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced it is undergoing a Nasdaq delisting process, signaling severe distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SOBR Safe, Inc.",
+          "ticker": "SOBR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-772",
       "headline": "Workday Q3 Profit Edges Lower; Raises FY27 Subscription Revenue Outlook",
       "headline_en": null,
@@ -1882,109 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-737",
-      "headline": "CF Industries Holdings, Inc. Announces Agreement to Acquire Faustina Ammonia Production Facility from The Mosaic Company",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cf-industries-holdings-inc-announces-agreement-acquire-faustina-ammonia-production",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:10:17Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "CF Industries agreed to acquire an ammonia production facility from The Mosaic Company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CF Industries agreed to acquire an ammonia production facility from The Mosaic Company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CF Industries Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "The Mosaic Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-758",
-      "headline": "Dell Raises Annual Sales Forecast Again on AI Server Demand",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-24/dell-ups-annual-sales-forecast-again-on-rising-ai-server-demand",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:07:59Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Dell raised its annual sales forecast due to sustained AI server demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell raised its annual sales forecast due to sustained AI server demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -257780,77 +257775,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-560bd5a2a98b",
-      "idea_version": "IDEAV-d396d800222845b9",
-      "idea_version_started_at": "2026-11-24T19:36:03Z",
-      "ticker": "00518",
-      "company": "Tungtex (Holdings) Co Ltd",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling significant operational headwinds and earnings weakness.",
-      "why_now": "The filing was released on 2026-11-23, making the negative outlook a live catalyst for the stock price.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3d2ec34dfaeb"
-      ],
-      "primary_source_event_id": "EVT-3d2ec34dfaeb",
-      "source_headlines": [
-        "TUNGTEX (HOLD) (00518): PROFIT WARNING"
-      ],
-      "source_headline": "TUNGTEX (HOLD) (00518): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301154.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-23T10:33:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-24T19:36:03Z",
-      "updated_at": "2026-11-24T19:36:03Z",
-      "decay_at": "2026-11-24T22:33:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-724d6a35e979",
       "idea_version": "IDEAV-12c8e0d1152b5f47",
       "idea_version_started_at": "2026-11-24T19:36:03Z",
@@ -259107,6 +259031,77 @@
       "surfaced_at": "2026-11-22T02:35:18Z",
       "updated_at": "2026-11-22T02:35:18Z",
       "decay_at": "2026-11-23T14:12:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-560bd5a2a98b",
+      "idea_version": "IDEAV-d396d800222845b9",
+      "idea_version_started_at": "2026-11-24T19:36:03Z",
+      "ticker": "00518",
+      "company": "Tungtex (Holdings) Co Ltd",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling significant operational headwinds and earnings weakness.",
+      "why_now": "The filing was released on 2026-11-23, making the negative outlook a live catalyst for the stock price.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d2ec34dfaeb"
+      ],
+      "primary_source_event_id": "EVT-3d2ec34dfaeb",
+      "source_headlines": [
+        "TUNGTEX (HOLD) (00518): PROFIT WARNING"
+      ],
+      "source_headline": "TUNGTEX (HOLD) (00518): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301154.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T10:33:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-24T19:36:03Z",
+      "updated_at": "2026-11-24T19:36:03Z",
+      "decay_at": "2026-11-24T22:33:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263372,9 +263367,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 574,
+    "total_count": 575,
     "shown_count": 500,
-    "hidden_count": 74,
+    "hidden_count": 75,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -263382,9 +263377,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 283,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 34
       }
     },
     "retention": {
@@ -263403,6 +263398,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-560bd5a2a98b",
+        "idea_version": "IDEAV-d396d800222845b9",
+        "idea_version_started_at": "2026-11-24T19:36:03Z",
+        "ticker": "00518",
+        "company": "Tungtex (Holdings) Co Ltd",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling significant operational headwinds and earnings weakness.",
+        "why_now": "The filing was released on 2026-11-23, making the negative outlook a live catalyst for the stock price.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3d2ec34dfaeb"
+        ],
+        "primary_source_event_id": "EVT-3d2ec34dfaeb",
+        "source_headlines": [
+          "TUNGTEX (HOLD) (00518): PROFIT WARNING"
+        ],
+        "source_headline": "TUNGTEX (HOLD) (00518): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301154.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-23T10:33:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-24T19:36:03Z",
+        "updated_at": "2026-11-24T19:36:03Z",
+        "decay_at": "2026-11-24T22:33:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-24T22:33:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b64f6a34ac9e",
         "idea_version": "IDEAV-5981a4506e8613aa",
@@ -300517,85 +300586,12 @@
         "archived_at": "2026-11-03T12:13:50Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-425317fbfc3e",
-        "idea_version": "IDEAV-a37c460b3df9ef8f",
-        "idea_version_started_at": "2026-10-31T12:45:12Z",
-        "ticker": "ALK",
-        "company": "Alaska Air Group",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing a $700 million annual loss projection due to rising fuel costs and operational restructuring, signaling significant margin pressure.",
-        "why_now": "The guidance update and job cut announcement occurred on 2026-10-31.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6b087c7d02ef"
-        ],
-        "primary_source_event_id": "EVT-6b087c7d02ef",
-        "source_headlines": [
-          "US-Iran war: Alaska Air Group to cut around 200 jobs; CEO expects annual loss of $700 million amid rising fuel costs"
-        ],
-        "source_headline": "US-Iran war: Alaska Air Group to cut around 200 jobs; CEO expects annual loss of $700 million amid rising fuel costs",
-        "source_url": "https://www.livemint.com/companies/news/usiran-war-alaska-air-group-to-cut-around-200-jobs-ceo-expects-annual-loss-of-700-million-amid-rising-fuel-costs-11793409701124.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T01:32:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T12:45:12Z",
-        "updated_at": "2026-10-31T12:45:12Z",
-        "decay_at": "2026-11-01T13:32:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T02:32:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2650,
-    "live_count": 7,
+    "live_count": 6,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -300614,9 +300610,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5778651,
-    "news_picked_today": 1350,
-    "news_dropped_today": 13986
+    "news_seen_today": 5845360,
+    "news_picked_today": 1358,
+    "news_dropped_today": 14050
   },
   "book_momentum": {
     "live_count": 8,
