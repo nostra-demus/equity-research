@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T21:50:47Z",
+  "generated_at": "2026-11-24T22:08:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-719",
@@ -1487,6 +1487,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-765",
+      "headline": "Urban Outfitters Stock Tumbles After Q3 Earnings",
+      "headline_en": null,
+      "url": "https://www.benzinga.com/trading-ideas/movers/26/11/63611280/urban-outfitters-stock-tumbles-after-q3-earnings",
+      "source_name": "Benzinga",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:56:05Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Urban Outfitters stock fell following Q3 earnings results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Urban Outfitters stock fell following Q3 earnings results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Urban Outfitters",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-756",
       "headline": "Parker Hannifin Completes $2.6 billion Acquisition Of CIRCOR Aerospace",
       "headline_en": null,
@@ -1946,49 +1995,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-434",
-      "headline": "Struggling cruise line files for Chapter 11 bankruptcy protection",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/struggling-cruise-line-avora-lumina-files-for-chapter-11-bankruptcy-protection",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T15:27:45Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "A cruise line has filed for Chapter 11 bankruptcy protection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A cruise line has filed for Chapter 11 bankruptcy protection.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300617,9 +300623,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5582879,
-    "news_picked_today": 1313,
-    "news_dropped_today": 13687
+    "news_seen_today": 5699024,
+    "news_picked_today": 1324,
+    "news_dropped_today": 13796
   },
   "book_momentum": {
     "live_count": 8,
