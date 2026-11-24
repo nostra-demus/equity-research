@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-24T12:25:10Z",
+  "generated_at": "2026-11-24T12:51:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261124-405",
+      "headline": "BAIJIN LIFE SCI (01466): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401195.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Baijin Life Science issued a profit warning, indicating expected financial underperformance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Baijin Life Science issued a profit warning, indicating expected financial underperformance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Baijin Life Science Holdings Limited",
+          "ticker": "01466",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261124-399",
       "headline": "PREMIER INTEL (08448): PROFIT WARNING",
@@ -1963,55 +2012,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-396",
-      "headline": "GUOTAI JUNAN I (01788): ANNOUNCEMENT PURSUANT TO RULE 3.8 OF THE TAKEOVERS CODE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401145.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T11:48:00Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Guotai Junan International issued an announcement pursuant to Rule 3.8 of the Takeovers Code, indicating ongoing M&A activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Guotai Junan International issued an announcement pursuant to Rule 3.8 of the Takeovers Code, indicating ongoing M&A activity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GUOTAI JUNAN I",
-          "ticker": "01788",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -257663,76 +257663,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e402cc95df0c",
-      "idea_version": "IDEAV-a757a7419f6eeb82",
-      "idea_version_started_at": "2026-11-23T01:40:12Z",
-      "ticker": "BHP",
-      "company": "BHP Group",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BHP plans to double its copper output in South Australia, which should increase future revenue and cash flow from copper sales.",
-      "why_now": "The company unveiled its plans on November 23, 2026, indicating a long-term strategic commitment to copper expansion.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a007bdd270c0"
-      ],
-      "primary_source_event_id": "EVT-a007bdd270c0",
-      "source_headlines": [
-        "BHP unveils plans to double copper output in South Australia by 2040"
-      ],
-      "source_headline": "BHP unveils plans to double copper output in South Australia by 2040",
-      "source_url": "https://www.livemint.com/companies/bhp-unveils-plans-to-double-copper-output-in-south-australia-by-2040-11795393729229.html",
-      "source_name": "Mint",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-23T00:28:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T01:40:12Z",
-      "updated_at": "2026-11-23T01:40:12Z",
-      "decay_at": "2026-11-24T12:28:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-04234caf33c0",
       "idea_version": "IDEAV-5dc0aa7724bce31c",
       "idea_version_started_at": "2026-11-23T05:54:59Z",
@@ -260428,6 +260358,76 @@
       "surfaced_at": "2026-11-21T12:49:26Z",
       "updated_at": "2026-11-21T12:49:26Z",
       "decay_at": "2026-11-23T00:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e402cc95df0c",
+      "idea_version": "IDEAV-a757a7419f6eeb82",
+      "idea_version_started_at": "2026-11-23T01:40:12Z",
+      "ticker": "BHP",
+      "company": "BHP Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BHP plans to double its copper output in South Australia, which should increase future revenue and cash flow from copper sales.",
+      "why_now": "The company unveiled its plans on November 23, 2026, indicating a long-term strategic commitment to copper expansion.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a007bdd270c0"
+      ],
+      "primary_source_event_id": "EVT-a007bdd270c0",
+      "source_headlines": [
+        "BHP unveils plans to double copper output in South Australia by 2040"
+      ],
+      "source_headline": "BHP unveils plans to double copper output in South Australia by 2040",
+      "source_url": "https://www.livemint.com/companies/bhp-unveils-plans-to-double-copper-output-in-south-australia-by-2040-11795393729229.html",
+      "source_name": "Mint",
+      "materiality_max": 89,
+      "newest_source_at": "2026-11-23T00:28:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-23T01:40:12Z",
+      "updated_at": "2026-11-23T01:40:12Z",
+      "decay_at": "2026-11-24T12:28:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -265808,14 +265808,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 598,
+    "total_count": 599,
     "shown_count": 499,
-    "hidden_count": 99,
+    "hidden_count": 100,
     "side_counts": {
       "long": {
-        "total_count": 305,
+        "total_count": 306,
         "shown_count": 250,
-        "hidden_count": 55
+        "hidden_count": 56
       },
       "short": {
         "total_count": 294,
@@ -265839,6 +265839,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e402cc95df0c",
+        "idea_version": "IDEAV-a757a7419f6eeb82",
+        "idea_version_started_at": "2026-11-23T01:40:12Z",
+        "ticker": "BHP",
+        "company": "BHP Group",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "BHP plans to double its copper output in South Australia, which should increase future revenue and cash flow from copper sales.",
+        "why_now": "The company unveiled its plans on November 23, 2026, indicating a long-term strategic commitment to copper expansion.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a007bdd270c0"
+        ],
+        "primary_source_event_id": "EVT-a007bdd270c0",
+        "source_headlines": [
+          "BHP unveils plans to double copper output in South Australia by 2040"
+        ],
+        "source_headline": "BHP unveils plans to double copper output in South Australia by 2040",
+        "source_url": "https://www.livemint.com/companies/bhp-unveils-plans-to-double-copper-output-in-south-australia-by-2040-11795393729229.html",
+        "source_name": "Mint",
+        "materiality_max": 89,
+        "newest_source_at": "2026-11-23T00:28:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-23T01:40:12Z",
+        "updated_at": "2026-11-23T01:40:12Z",
+        "decay_at": "2026-11-24T12:28:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-24T12:28:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-00000eb03515",
         "idea_version": "IDEAV-bafbaea3b920e31c",
@@ -298009,81 +298082,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ffe38f57d5c6",
-        "idea_version": "IDEAV-1c86d051ed9df50f",
-        "idea_version_started_at": "2026-11-05T15:35:08Z",
-        "ticker": "TITAN",
-        "company": "Titan Company",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Titan reported strong Q2 results with net profit doubling and 24% growth in its core jewellery business, indicating significant market share gains and operational efficiency.",
-        "why_now": "The earnings report was released today, November 5, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0a68cd99d8b1"
-        ],
-        "primary_source_event_id": "EVT-0a68cd99d8b1",
-        "source_headlines": [
-          "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%"
-        ],
-        "source_headline": "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%",
-        "source_url": "https://www.livemint.com/market/stock-market-news/titan-shines-in-q2-results-2026-net-profit-doubles-to-rs-2-393-crore-aided-by-one-time-gain-jewellery-business-up-24-11793880484831.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-05T12:48:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-05T15:35:08Z",
-        "updated_at": "2026-11-05T15:35:08Z",
-        "decay_at": "2026-11-07T00:48:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-08T12:49:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-8acee086c6b4",
         "idea_version": "IDEAV-f220f3725e8615c1",
         "idea_version_started_at": "2026-11-05T15:35:08Z",
@@ -302935,7 +302933,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2642,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302954,9 +302952,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2274524,
-    "news_picked_today": 763,
-    "news_dropped_today": 9389
+    "news_seen_today": 2369956,
+    "news_picked_today": 789,
+    "news_dropped_today": 9435
   },
   "book_momentum": {
     "live_count": 8,
