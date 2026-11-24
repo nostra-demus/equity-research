@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T22:08:56Z",
+  "generated_at": "2026-11-24T22:14:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261124-719",
@@ -1536,6 +1536,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261124-775",
+      "headline": "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/24/dell-just-reported-earnings-and-raised-its-forecast-by-usd10-billion-is-the-stock-a-buy-after-tuesday-s-selloff/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:54:43Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Dell reported earnings and raised its forecast by $10 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell reported earnings and raised its forecast by $10 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261124-772",
+      "headline": "Workday Q3 Profit Edges Lower; Raises FY27 Subscription Revenue Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/workday-q3-profit-edges-lower-raises-fy27-subscription-revenue-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T21:41:25Z",
+      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
+      "prelim_note": "Workday reported lower Q3 profit but raised FY27 subscription revenue outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Workday reported lower Q3 profit but raised FY27 subscription revenue outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Workday",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261124-756",
       "headline": "Parker Hannifin Completes $2.6 billion Acquisition Of CIRCOR Aerospace",
       "headline_en": null,
@@ -1888,110 +1987,6 @@
           "name": "Boeing",
           "ticker": "BA",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-456",
-      "headline": "Abercrombie Defies Freight Headwinds, Delivers Record Sales, Raises Outlook (UPDATED)",
-      "headline_en": null,
-      "url": "https://www.benzinga.com/markets/earnings/26/11/63596740/abercrombie-defies-freight-headwinds-delivers-record-sales-raises-outlook",
-      "source_name": "Benzinga",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T18:22:07Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "Abercrombie reported record sales and raised its outlook despite freight headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Abercrombie reported record sales and raised its outlook despite freight headwinds.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abercrombie & Fitch",
-          "ticker": "ANF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261124-499",
-      "headline": "ABB to acquire cooling fan company Ziehl-Abegg for $2.65bn",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/ziehl-abegg-is-a-growing-technology-leader-with-a-compelling-portfolio-and-a-significant-presence-in-some-of-the-worlds-most-dynamic-markets-at-the-heart-of-our-success-are-our-employees-whose-expertise-dedication-and-innovative-spirit-have-made-us/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T16:20:34Z",
-      "sweep_file": "screener/inbox/2026-11-24_sweep.json",
-      "prelim_note": "ABB announced the acquisition of Ziehl-Abegg for $2.65 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ABB announced the acquisition of Ziehl-Abegg for $2.65 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ABB",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "Ziehl-Abegg",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "mega",
@@ -257932,77 +257927,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b64f6a34ac9e",
-      "idea_version": "IDEAV-5981a4506e8613aa",
-      "idea_version_started_at": "2026-11-24T19:36:03Z",
-      "ticker": "01943",
-      "company": "KING'S STONE",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating improved profitability and operational efficiency.",
-      "why_now": "The filing was released on 2026-11-23, providing a clear signal for positive momentum.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-47b8145c8033"
-      ],
-      "primary_source_event_id": "EVT-47b8145c8033",
-      "source_headlines": [
-        "KING'S STONE (01943): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "KING'S STONE (01943): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301040.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-23T10:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-24T19:36:03Z",
-      "updated_at": "2026-11-24T19:36:03Z",
-      "decay_at": "2026-11-24T22:13:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f42ddc210bf5",
       "idea_version": "IDEAV-5be1caa82e5e8513",
       "idea_version_started_at": "2026-11-24T19:36:03Z",
@@ -259188,6 +259112,77 @@
       "surfaced_at": "2026-11-22T02:35:18Z",
       "updated_at": "2026-11-22T02:35:18Z",
       "decay_at": "2026-11-23T14:12:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b64f6a34ac9e",
+      "idea_version": "IDEAV-5981a4506e8613aa",
+      "idea_version_started_at": "2026-11-24T19:36:03Z",
+      "ticker": "01943",
+      "company": "KING'S STONE",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating improved profitability and operational efficiency.",
+      "why_now": "The filing was released on 2026-11-23, providing a clear signal for positive momentum.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-47b8145c8033"
+      ],
+      "primary_source_event_id": "EVT-47b8145c8033",
+      "source_headlines": [
+        "KING'S STONE (01943): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "KING'S STONE (01943): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301040.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T10:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-24T19:36:03Z",
+      "updated_at": "2026-11-24T19:36:03Z",
+      "decay_at": "2026-11-24T22:13:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263382,14 +263377,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 42
       },
       "short": {
         "total_count": 283,
@@ -263413,6 +263408,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b64f6a34ac9e",
+        "idea_version": "IDEAV-5981a4506e8613aa",
+        "idea_version_started_at": "2026-11-24T19:36:03Z",
+        "ticker": "01943",
+        "company": "KING'S STONE",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating improved profitability and operational efficiency.",
+        "why_now": "The filing was released on 2026-11-23, providing a clear signal for positive momentum.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-47b8145c8033"
+        ],
+        "primary_source_event_id": "EVT-47b8145c8033",
+        "source_headlines": [
+          "KING'S STONE (01943): POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "KING'S STONE (01943): POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301040.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-23T10:13:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-24T19:36:03Z",
+        "updated_at": "2026-11-24T19:36:03Z",
+        "decay_at": "2026-11-24T22:13:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-24T22:13:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1e80c0cc8da4",
         "idea_version": "IDEAV-ac7e6ce60fc059fe",
@@ -295901,79 +295970,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b2bcf1456982",
-        "idea_version": "IDEAV-5bd813d9f9f0c260",
-        "idea_version_started_at": "2026-11-06T08:05:16Z",
-        "ticker": "ADANIPORTS.NS",
-        "company": "Adani Ports and Special Economic Zone",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Adani Ports is acquiring storage operator Evos for $2.9 billion, which should expand its logistics and infrastructure capabilities.",
-        "why_now": "The acquisition was announced today, November 6, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-487060afe5fd"
-        ],
-        "primary_source_event_id": "EVT-487060afe5fd",
-        "source_headlines": [
-          "Adani Ports to buy storage operator Evos for $2.9bn"
-        ],
-        "source_headline": "Adani Ports to buy storage operator Evos for $2.9bn",
-        "source_url": "https://timesofindia.indiatimes.com/business/india-business/adani-ports-to-buy-storage-operator-evos-for-2-9bn/articleshow/135589343.cms",
-        "source_name": "The Times of India (Business)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T00:17:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-06T08:05:16Z",
-        "updated_at": "2026-11-06T08:05:16Z",
-        "decay_at": "2026-11-07T12:17:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T00:21:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-30b3fc77b9ff",
         "idea_version": "IDEAV-2c77360196d3d2ed",
         "idea_version_started_at": "2026-11-06T01:51:41Z",
@@ -300604,7 +300600,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2650,
-    "live_count": 8,
+    "live_count": 7,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -300623,9 +300619,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5699024,
-    "news_picked_today": 1324,
-    "news_dropped_today": 13796
+    "news_seen_today": 5738613,
+    "news_picked_today": 1340,
+    "news_dropped_today": 13852
   },
   "book_momentum": {
     "live_count": 8,
