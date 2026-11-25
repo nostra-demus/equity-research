@@ -540,6 +540,7 @@ from calibration_gate_checks import (
     CALIB_SUMMARIES, _calib_summary_asof,
     AG_DATE, AG_FTYPE_DATE, AG_TTYPE_DATE, AG_ERRTAX_DATE, AG_STATUSES,
     _ag_leading_error_categories, eval_ag_calibration_feedback_gate,
+    BO_DATE, BO_CONVICTION_CAP, find_prior_memory, eval_bo_same_company_memory,
 )
 
 # ── Check AH (expectations-gap ship-time audit: existence + independent §7 edge consistency) ──
@@ -1943,6 +1944,72 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AGci({dt_!r},cf_status={(cf_ or {}).get('status')!r},ci_haircut={(ci_ or {}).get('calibration_haircut') if isinstance(ci_,dict) else ci_!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=agcibad
+    # check BO — synthesizer.md 4D same-company decision memory. No committed run post-dates BO_DATE
+    # with an earlier reviewed run of the same issuer, so build a throwaway analyses/ tree and drive the
+    # filesystem lookup (identity match, review cut-off, newest-review rule) and every verdict branch.
+    import tempfile as _bo_tmp
+    _bo_root=_bo_tmp.mkdtemp(prefix="bo_selftest_")
+    def _bo_mk(run_name,rec,reviews):
+        os.makedirs(os.path.join(_bo_root,run_name,"reviews"),exist_ok=True)
+        with open(os.path.join(_bo_root,run_name,"decision_record.json"),"w",encoding="utf-8") as _f: json.dump(rec,_f)
+        for fn,rv in reviews.items():
+            with open(os.path.join(_bo_root,run_name,"reviews",fn),"w",encoding="utf-8") as _f: json.dump(rv,_f)
+    _BO_ID={"company_name":"Tesla, Inc.","currency":"USD","decision":"Short Candidate"}
+    _BO_LESSON={"decision_quality":"good process / bad luck or too early","error_taxonomy":["timing error"],
+                "learning":{"future_research_check":"Recheck for a dated catalyst before new short exposure."}}
+    _bo_mk("TSLA_2026-07-25",_BO_ID,{"2026-08-24_30d_decision_review.json":_BO_LESSON,
+                                     "2026-12-20_90d_decision_review.json":{"decision_quality":"not assessable","error_taxonomy":[],"learning":{}}})
+    _bo_mk("TSLAX_2026-07-01",{"company_name":"Tesla, Inc.","currency":"USD"},{"2026-08-01_30d_decision_review.json":_BO_LESSON})
+    _bo_mk("AAA_2026-08-01",{"company_name":"Alpha Holdings Ltd","currency":"HKD","decision":"Avoid"},{"2026-09-01_30d_decision_review.json":_BO_LESSON})
+    _bo_mk("BBB_2026-08-01",{"company_name":"Beta plc","currency":"GBP","decision":"Avoid"},
+           {"2026-09-01_30d_decision_review.json":_BO_LESSON,"2026-11-01_90d_decision_review.json":{"decision_quality":"not assessable","error_taxonomy":[],"learning":{"future_research_check":""}}})
+    FPM=find_prior_memory
+    _pm=FPM(_bo_root,"TSLA_2026-12-01",{"company_name":"Tesla Inc","currency":"usd"},"2026-12-01")
+    _bo_find_cases=[
+        ("identity match across punctuation/suffix/case finds the 30d lesson", _pm is not None and _pm["prior_run"]=="TSLA_2026-07-25" and _pm["review_date"]=="2026-08-24"),
+        ("a ticker that merely shares a prefix (TSLAX) is never a prior run", _pm is not None and _pm["prior_run"]!="TSLAX_2026-07-01"),
+        ("a review dated AFTER the judged date is not charged (cut-off)", FPM(_bo_root,"TSLA_2026-12-01",_BO_ID,"2026-12-01")["review_date"]=="2026-08-24"),
+        ("newest review on file wins — a later lesson-free review means no memory obligation", FPM(_bo_root,"TSLA_2027-01-05",_BO_ID,"2027-01-05") is None),
+        ("different currency (a different share line) → identity not matched", FPM(_bo_root,"AAA_2026-12-01",{"company_name":"Alpha Holdings Ltd","currency":"USD"},"2026-12-01") is None),
+        ("different company name under the same ticker → not matched", FPM(_bo_root,"AAA_2026-12-01",{"company_name":"Alpha Mining Corp","currency":"HKD"},"2026-12-01") is None),
+        ("missing identity field → memory not proven (4D) → N/A", FPM(_bo_root,"AAA_2026-12-01",{"company_name":"Alpha Holdings Ltd"},"2026-12-01") is None),
+        ("newest review carries no lesson → no obligation", FPM(_bo_root,"BBB_2026-12-01",{"company_name":"Beta plc","currency":"GBP"},"2026-12-01") is None),
+        ("the run's own folder (same date) is never its own prior", FPM(_bo_root,"TSLA_2026-07-25",_BO_ID,"2026-12-01") is None),
+    ]
+    bobad=0
+    for nm_,ok in _bo_find_cases:
+        if not ok: bobad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BO-find: {nm_}")
+    BO=eval_bo_same_company_memory
+    _L_OK="Memory check: prior call Short Candidate 2026-07-25; outcome too early; prior error timing error; this run rechecked the dated catalyst in catalyst/01_catalyst-calendar.md."
+    _L_BOLD="| **Memory check**: prior call 2026-07-25 Short Candidate — rechecked in `data/TSLA/Q3-2026-10Q.pdf` p.4 |"
+    _L_ND="Memory check: prior call Short Candidate 2026-07-25; prior error timing error; no defense evidence found."
+    _L_OLD="Memory check: prior call Short Candidate 2026-07-25; rechecked in analyses/TSLA_2026-07-25/catalyst/01_catalyst-calendar.md."
+    _L_NONAME="Memory check: the lesson was rechecked in catalyst/01_catalyst-calendar.md."
+    bocases=[  # (date, prior, thesis, decision, conviction, expect None|[]|[substr...])
+        ("2026-11-22",_pm,"no line","Buy",80,None),                                   # pre-gate
+        ("2026-12-01",None,"no line","Buy",80,None),                                  # no prior lesson
+        ("2026-12-01",_pm,"# Thesis\nnothing here","Watchlist",40,["memory check missing"]),   # the defect
+        ("2026-12-01",_pm,_L_OK,"Short Candidate",55,[]),                              # defended, cites current orb
+        ("2026-12-01",_pm,_L_BOLD,"Watchlist",50,[]),                                   # bold/table form, pool path
+        ("2026-12-01",_pm,_L_ND,"Watchlist",60,[]),                                    # admitted, capped correctly
+        ("2026-12-01",_pm,_L_ND,"Short Candidate",55,["caps the headline at Watchlist"]),   # cap binds a short too
+        ("2026-12-01",_pm,_L_ND,"Avoid",61,["caps conviction at 60"]),                 # conviction cap
+        ("2026-12-01",_pm,_L_ND,"Buy",70,["caps the headline","caps conviction"]),     # both
+        ("2026-12-01",_pm,_L_OLD,"Watchlist",50,["cites no current-run artifact"]),    # only the old run cited
+        ("2026-12-01",_pm,_L_NONAME,"Watchlist",50,["does not name the prior call"]),  # generic placeholder
+        ("2026-12-01",_pm,"> PROVISIONAL banner: no 'Memory check' line found","Watchlist",50,["memory check missing"]),  # banner wording never self-satisfies
+    ]
+    for dt_,pm_,th_,dec_,cv_,exp in bocases:
+        got=BO(dt_,pm_,th_,dec_,cv_)
+        if exp is None: ok=(got is None)
+        elif not exp: ok=(isinstance(got,list) and len(got)==0)
+        else: ok=(isinstance(got,list) and len(got)>0 and all(any(x.lower() in g.lower() for g in got) for x in exp))
+        if not ok: bobad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BO({dt_!r},prior={'set' if pm_ else None},dec={dec_!r},conv={cv_}) -> {got}"
+              +("" if ok else f"  EXPECTED exp={exp}"))
+    import shutil as _bo_sh; _bo_sh.rmtree(_bo_root,ignore_errors=True)
+    bad+=bobad
     # AH — expectations-gap ship-time audit. The golden suite can't reach it (every committed fixture
     # predates AH_DATE), so drive every branch here: pre-gate, below-conviction confidence, missing
     # report, no-edge contradiction (each of variant_perception_quality/is_exploitable), and a clean pass.
@@ -5192,6 +5259,24 @@ for drp in runs:
                 f"consistent with as-of calibration_summary (verdict={(calib_asof_ag or {}).get('verdict')!r})")
     else:
         add("AG_calibration_feedback_gate",True,f"run predates Phase 6 calibration-feedback gate ({ddte}) — N/A",na=True)
+    # BO same-company decision memory (forward-looking; landing BO_DATE) — synthesizer.md Pre-Write Gate 4D.
+    #   The per-issuer half of the learning loop AG closes in aggregate: an identity-matched earlier run's
+    #   newest review (dated on/before this decision) that carries a lesson must be answered by a
+    #   'Memory check' line naming the prior call and CURRENT-run evidence, or admit 'no defense evidence
+    #   found' and take the Watchlist / conviction-60 cap. Applicability is derived from the filesystem.
+    _bo_th=""
+    if os.path.exists(ft):
+        with open(ft,encoding="utf-8") as _bo_f: _bo_th=_bo_f.read()
+    _bo_conv=d.get("conviction") if isnum(d.get("conviction")) else d.get("confidence_score")
+    _bo_pm=find_prior_memory(os.path.dirname(os.path.abspath(run)),name,d,ddte) if isdate(ddte) and ddte>=BO_DATE else None
+    boresult=eval_bo_same_company_memory(ddte,_bo_pm,_bo_th,d.get("decision"),_bo_conv)
+    if boresult is None:
+        add("BO_same_company_memory",True,
+            f"run predates the 4D memory gate or no identity-matched prior review carries a lesson ({ddte}) — N/A",na=True)
+    elif boresult:
+        add("BO_same_company_memory",False,"; ".join(boresult))
+    else:
+        add("BO_same_company_memory",True,f"prior lesson from {_bo_pm['prior_run']} answered by a Memory check line")
     # AH expectations-gap ship-time audit (forward-looking; landing AH_DATE) — CLAUDE.md §7. Independently
     #   verifies /research:full's 10B.3 actually ran the third audit-trio member (verify-evidence,
     #   pre-mortem, expectations-gap) for a conviction-confidence run and that it did not surface a
@@ -5540,12 +5625,13 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)","cash interest classification must be reconciled","cash finance costs absent from the chosen FCF","unknown is not zero"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Short-timing cap","is read off the catalyst module, not chosen","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001","data_needs_schema_version","entry_orbs","expected_impact","decision value"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001","data_needs_schema_version","entry_orbs","expected_impact","decision value","Same-company decision-memory check","check BO","Short-timing cap","is read off the catalyst module, not chosen"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","eval_bl_catalyst_timing_gate(dec, _live_date,","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","eval_bj_quality_double_count","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A","eval_bn_reverse_dcf_base_rate_unit"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","eval_bj_quality_double_count","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A","eval_bo_same_company_memory","find_prior_memory","eval_bn_reverse_dcf_base_rate_unit","eval_bl_catalyst_timing_gate(dec, _live_date,"],
+ "scripts/calibration_gate_checks.py":["AG_DATE","eval_ag_calibration_feedback_gate","BO_DATE","BO_CONVICTION_CAP","BO_ALLOWED_WHEN_UNDEFENDED","find_prior_memory","eval_bo_same_company_memory","no defense evidence found"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES","BL_DATE","TIMING_WEAK_MAX_BL","extract_catalyst_timing","eval_bl_catalyst_timing_gate"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one","BI_DATE","eval_bi_fx_conversion_consistency","_BI_PAIR"],
  "scripts/sector_valuation_checks.py":["SECTOR_DATE","eval_w_sector_valuation","BJ_DATE","eval_bj_quality_double_count","_BJ_FORMULA","_bj_ledger_rows","BN_DATE","eval_bn_reverse_dcf_base_rate_unit","_bn_rows"],

@@ -1147,6 +1147,17 @@ _calib_asof_live = cgc._calib_summary_asof(_live_date)
 # Fresh publication must prove the haircut reached the scorer even when confidence_inputs is absent,
 # null, malformed, or empty. The retrospective helper's legacy tolerance does not apply to this output.
 viol.extend(cgc.eval_ag_calibration_feedback_gate(_live_date, _calib_asof_live, d.get("calibration_feedback"), d.get("confidence_inputs"), require_confidence_inputs=True) or [])
+# check BO — synthesizer.md Pre-Write Gate 4D same-company decision memory (live pre-publish; mirrors
+# eval.py check BO via the same calibration_gate_checks.py module as AG). AG reads back the engine's
+# AGGREGATE record; 4D is the per-issuer half: when an identity-matched earlier run of this issuer has
+# a review on file carrying a lesson (genuine miss / error_taxonomy / future_research_check), the thesis
+# must carry a `Memory check:` line naming the prior call and the CURRENT-run evidence that rechecked
+# it — or admit `no defense evidence found`, which caps the headline at Watchlist and conviction at 60.
+# Applicability is derived from the filesystem (never self-reported), and reviews are cut off at
+# `_live_date` so a rerun is judged on the memory that existed when it re-ran.
+_bo_prior = cgc.find_prior_memory(os.path.dirname(os.path.abspath(run)), os.path.basename(os.path.normpath(run)), d, _live_date)
+_bo_conv = d.get("conviction") if _isnum(d.get("conviction")) else d.get("confidence_score")
+viol.extend(cgc.eval_bo_same_company_memory(_live_date, _bo_prior, body, dec, _bo_conv) or [])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§13/§14/§21; finish-gate.)\n\n")
