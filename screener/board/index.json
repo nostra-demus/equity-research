@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T02:04:58Z",
+  "generated_at": "2026-11-25T02:11:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-081",
@@ -1850,6 +1850,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-093",
+      "headline": "NXT: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXT?key=2924-03166092-2A1712701",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T21:22:15Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "A change in substantial holding indicates a shift in ownership structure for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "A change in substantial holding indicates a shift in ownership structure for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": "NXT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-083",
       "headline": "JNS: Janus Electric - Pipeline and Acceleration Presentation [price-sensitive]",
       "headline_en": null,
@@ -1894,55 +1943,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-084",
-      "headline": "VR1: Reinstatement to Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VR1?key=2924-03166373-2A1712856",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T00:57:31Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The company is being reinstated to trading on the ASX, which is a significant event for liquidity and market access.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "The company is being reinstated to trading on the ASX, which is a significant event for liquidity and market access.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VR1",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302773,9 +302773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 884661,
-    "news_picked_today": 111,
-    "news_dropped_today": 921
+    "news_seen_today": 950168,
+    "news_picked_today": 112,
+    "news_dropped_today": 968
   },
   "book_momentum": {
     "live_count": 8,
