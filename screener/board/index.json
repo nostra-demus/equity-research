@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T10:51:09Z",
+  "generated_at": "2026-11-25T11:02:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-222",
@@ -1860,6 +1860,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-270",
+      "headline": "ELEPHANT HLDGS (08635): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112500866.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T10:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Profit alert signals upside earnings surprise from official primary source; affects analyst expectations and can move stock, though no quantified guidance is disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Profit alert signals upside earnings surprise from official primary source; affects analyst expectations and can move stock, though no quantified guidance is disclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elephant Holdings",
+          "ticker": "08635",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-245",
       "headline": "ZY INTL (08516): PROFIT WARNING - ESTIMATED DECREASE IN LOSS",
       "headline_en": null,
@@ -1950,55 +1999,6 @@
           "name": "The Star Entertainment Group",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-017",
-      "headline": "SCHEDULE 13D - BNY MELLON HIGH YIELD STRATEGIES FUND (0001057861) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1057861/000106299326006271/0001062993-26-006271-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-25T00:18:43Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Saba Capital Management has filed a Schedule 13D, indicating a significant stake and potential activist involvement in the subject entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Saba Capital Management has filed a Schedule 13D, indicating a significant stake and potential activist involvement in the subject entity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BNY Mellon High Yield Strategies Fund",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -302755,9 +302755,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3994432,
-    "news_picked_today": 451,
-    "news_dropped_today": 9629
+    "news_seen_today": 4008665,
+    "news_picked_today": 457,
+    "news_dropped_today": 9863
   },
   "book_momentum": {
     "live_count": 8,
