@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-30T01:26:22Z",
+  "archived_at": "2026-11-25T07:21:09Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-87a066998bed",
-    "idea_version": "IDEAV-3867b91ae92205e1",
-    "idea_version_started_at": "2026-10-26T23:25:14Z",
-    "ticker": "TAT",
-    "company": "The Lottery Corporation",
+    "idea_id": "IDEA-61b285ce08af",
+    "idea_version": "IDEAV-6fb601e8ce8442ed",
+    "idea_version_started_at": "2026-11-22T07:48:17Z",
+    "ticker": "BPT",
+    "company": "Beach Energy",
     "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The resignation of an auditor is a significant red flag for potential accounting irregularities or internal control failures, which typically triggers a sharp sell-off due to heightened governance risk.",
-    "why_now": "The resignation was filed on 2026-10-26, making this a live, immediate governance crisis.",
-    "conviction": 75,
+    "reason": "The company is finalizing a strategic deal in the Taroom Trough, which will likely enhance its gas reserves and production profile.",
+    "why_now": "The report of the deal being in the final stages on November 22, 2026, suggests an imminent announcement.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,30 +49,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "governance_turnaround",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-3dbd4dd21c2f"
+      "EVT-fe870d71742b"
     ],
-    "primary_source_event_id": "EVT-3dbd4dd21c2f",
+    "primary_source_event_id": "EVT-fe870d71742b",
     "source_headlines": [
-      "TAT: Resignation of Auditor"
+      "Beach, Santos put finishing touches to stealth Taroom Trough deal"
     ],
-    "source_headline": "TAT: Resignation of Auditor",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TAT?key=2924-03153576-2A1706302",
-    "source_name": "ASX (Australia Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-10-26T22:50:36Z",
+    "source_headline": "Beach, Santos put finishing touches to stealth Taroom Trough deal",
+    "source_url": "https://www.afr.com/street-talk/beach-santos-put-finishing-touches-to-stealth-taroom-trough-deal-20261122-p61g96?ref=rss&utm_medium=rss&utm_source=rss_feed",
+    "source_name": "Australian Financial Review",
+    "materiality_max": 96,
+    "newest_source_at": "2026-11-22T07:13:46Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-26T23:25:14Z",
-    "updated_at": "2026-10-26T23:25:14Z",
-    "decay_at": "2026-10-28T10:50:36Z",
+    "surfaced_at": "2026-11-22T07:48:17Z",
+    "updated_at": "2026-11-22T07:48:17Z",
+    "decay_at": "2026-11-23T19:13:46Z",
     "status": "live",
     "promoted_signal_id": null
   }

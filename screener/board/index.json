@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T06:56:02Z",
+  "generated_at": "2026-11-25T07:21:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -259497,6 +259497,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-bb6c79ef8ffe",
+      "idea_version": "IDEAV-b534aa597906033b",
+      "idea_version_started_at": "2026-11-25T07:21:01Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $7.4 billion order from Xiamen Airlines provides a significant boost to the company's commercial aircraft backlog and cash flow visibility.",
+      "why_now": "The deal was announced on 2026-11-25.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7912bfdfa40b"
+      ],
+      "primary_source_event_id": "EVT-7912bfdfa40b",
+      "source_headlines": [
+        "China’s Xiamen Airlines to buy 50 Boeing jets in $7.4 billion deal"
+      ],
+      "source_headline": "China’s Xiamen Airlines to buy 50 Boeing jets in $7.4 billion deal",
+      "source_url": "https://www.cnbc.com/2026/11/25/china-xiamen-boeing-deal.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T03:58:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T07:21:01Z",
+      "updated_at": "2026-11-25T07:21:01Z",
+      "decay_at": "2026-11-26T15:58:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-e6dbcd1e11b88324",
       "idea_version_started_at": "2026-11-25T02:37:44Z",
@@ -259710,34 +259780,37 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0d33d5cbe937",
-      "idea_version": "IDEAV-9a0ad5f2c1175e4b",
-      "idea_version_started_at": "2026-11-25T01:22:54Z",
-      "ticker": "ZS",
-      "company": "Zscaler",
-      "exchange": "NASDAQ",
-      "direction": "long",
+      "idea_id": "IDEA-1c4bfe21ab2f",
+      "idea_version": "IDEAV-70f5b1c969c7be7d",
+      "idea_version_started_at": "2026-11-25T07:21:01Z",
+      "ticker": "APLAPOLLO",
+      "company": "APL Apollo Tubes",
+      "exchange": "NSE",
+      "direction": "short",
       "pair_with": null,
-      "reason": "The company is being acquired for $43.9 billion, creating a convergence between the target's market price and the acquisition offer.",
-      "why_now": "The acquisition was announced on 2026-11-23; the trade captures the remaining spread between the current market price and the deal value.",
-      "conviction": 85,
+      "reason": "The company faces significant competitive pressure and market share loss following Tata Steel's entry into the structural steel tube market, leading to widespread brokerage downgrades.",
+      "why_now": "Brokerage reports and target price cuts were published on 2026-11-25.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 10,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "priced-in risk",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -259754,30 +259827,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-93426ba99132",
-        "EVT-b3f2cfc5841a",
-        "EVT-e5e7e3cdf20c"
+        "EVT-68cd5c5005dd"
       ],
-      "primary_source_event_id": "EVT-93426ba99132",
+      "primary_source_event_id": "EVT-68cd5c5005dd",
       "source_headlines": [
-        "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
-        "CrowdStrike to acquire Zscaler for $43.9B amid turbulent threat environment",
-        "CrowdStrike to acquire Zscaler for $44 billion"
+        "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase"
       ],
-      "source_headline": "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
-      "source_url": "https://www.livemint.com/companies/people/who-is-jay-chaudhry-indian-origin-entrepreneur-behind-zscalers-43-9-bn-deal-as-crowdstrike-moves-to-acquire-firm-11795451246658.html",
-      "source_name": "Mint",
+      "source_headline": "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/apl-apollo-tubes-shares-in-focus-as-brokerages-downgrade-cut-target-price-by-44-after-tata-steels-purchase/articleshow/136146849.cms",
+      "source_name": "The Economic Times",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-23T19:10:00Z",
+      "newest_source_at": "2026-11-25T03:29:43Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-11-24T23:28:04Z",
-      "updated_at": "2026-11-25T01:22:54Z",
-      "decay_at": "2026-11-25T07:10:00Z",
+      "surfaced_at": "2026-11-23T05:15:15Z",
+      "updated_at": "2026-11-25T07:21:01Z",
+      "decay_at": "2026-11-26T15:29:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -261696,6 +261765,80 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0d33d5cbe937",
+      "idea_version": "IDEAV-9a0ad5f2c1175e4b",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "ZS",
+      "company": "Zscaler",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is being acquired for $43.9 billion, creating a convergence between the target's market price and the acquisition offer.",
+      "why_now": "The acquisition was announced on 2026-11-23; the trade captures the remaining spread between the current market price and the deal value.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-93426ba99132",
+        "EVT-b3f2cfc5841a",
+        "EVT-e5e7e3cdf20c"
+      ],
+      "primary_source_event_id": "EVT-93426ba99132",
+      "source_headlines": [
+        "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
+        "CrowdStrike to acquire Zscaler for $43.9B amid turbulent threat environment",
+        "CrowdStrike to acquire Zscaler for $44 billion"
+      ],
+      "source_headline": "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
+      "source_url": "https://www.livemint.com/companies/people/who-is-jay-chaudhry-indian-origin-entrepreneur-behind-zscalers-43-9-bn-deal-as-crowdstrike-moves-to-acquire-firm-11795451246658.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T19:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-24T23:28:04Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-25T07:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3dc76c63d458",
       "idea_version": "IDEAV-88ffd855b16084a0",
       "idea_version_started_at": "2026-11-24T20:58:18Z",
@@ -263056,150 +263199,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0d97851e31b4",
-      "idea_version": "IDEAV-1108c0045bc32d0c",
-      "idea_version_started_at": "2026-11-22T07:24:45Z",
-      "ticker": "CHALET",
-      "company": "Chalet Hotels",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A planned ₹3,500 crore capital expenditure program over three years signals aggressive growth and capacity expansion in the hospitality sector.",
-      "why_now": "The CEO announced the capex plan on November 22, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8d31f09c94c1"
-      ],
-      "primary_source_event_id": "EVT-8d31f09c94c1",
-      "source_headlines": [
-        "Chalet Hotels plans ₹3,500 cr capex in 3 years: CEO"
-      ],
-      "source_headline": "Chalet Hotels plans ₹3,500 cr capex in 3 years: CEO",
-      "source_url": "https://www.thehindubusinessline.com/companies/chalet-hotels-plans-3500-cr-capex-in-3-years-ceo/article71730780.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-22T06:49:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T07:24:45Z",
-      "updated_at": "2026-11-22T07:24:45Z",
-      "decay_at": "2026-11-23T18:49:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e144558d97d5",
-      "idea_version": "IDEAV-a3722bceaeddbed6",
-      "idea_version_started_at": "2026-11-22T07:24:45Z",
-      "ticker": "WELSPUNLIV",
-      "company": "Welspun Living",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing ₹3,200 crore to capacity expansion, which will drive long-term revenue growth through increased production volume.",
-      "why_now": "The investment plan was announced on November 22, 2026, with a completion window through December 2028.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8fe019f57c8e"
-      ],
-      "primary_source_event_id": "EVT-8fe019f57c8e",
-      "source_headlines": [
-        "Welspun Living plans ₹3,200 crore investment in capacity expansion by December 2028"
-      ],
-      "source_headline": "Welspun Living plans ₹3,200 crore investment in capacity expansion by December 2028",
-      "source_url": "https://www.cnbctv18.com/market/welspun-living-share-price-plans-rs-3200-crore-investment-capacity-expansion-december-2028-20039282.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-22T06:52:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T07:24:45Z",
-      "updated_at": "2026-11-22T07:24:45Z",
-      "decay_at": "2026-11-23T18:52:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0ca44cea0e16",
       "idea_version": "IDEAV-7f639420b2db7882",
       "idea_version_started_at": "2026-11-22T17:10:41Z",
@@ -263560,78 +263559,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-61b285ce08af",
-      "idea_version": "IDEAV-6fb601e8ce8442ed",
-      "idea_version_started_at": "2026-11-22T07:48:17Z",
-      "ticker": "BPT",
-      "company": "Beach Energy",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is finalizing a strategic deal in the Taroom Trough, which will likely enhance its gas reserves and production profile.",
-      "why_now": "The report of the deal being in the final stages on November 22, 2026, suggests an imminent announcement.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fe870d71742b"
-      ],
-      "primary_source_event_id": "EVT-fe870d71742b",
-      "source_headlines": [
-        "Beach, Santos put finishing touches to stealth Taroom Trough deal"
-      ],
-      "source_headline": "Beach, Santos put finishing touches to stealth Taroom Trough deal",
-      "source_url": "https://www.afr.com/street-talk/beach-santos-put-finishing-touches-to-stealth-taroom-trough-deal-20261122-p61g96?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 96,
-      "newest_source_at": "2026-11-22T07:13:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T07:48:17Z",
-      "updated_at": "2026-11-22T07:48:17Z",
-      "decay_at": "2026-11-23T19:13:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5a90281df277",
       "idea_version": "IDEAV-35403e81be750267",
       "idea_version_started_at": "2026-11-22T09:13:53Z",
@@ -263841,79 +263768,6 @@
       "surfaced_at": "2026-11-22T10:38:52Z",
       "updated_at": "2026-11-22T10:38:52Z",
       "decay_at": "2026-11-23T22:22:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-16a841936d98",
-      "idea_version": "IDEAV-b82fb3bcef943d86",
-      "idea_version_started_at": "2026-11-22T06:59:44Z",
-      "ticker": "0017",
-      "company": "New World Development",
-      "exchange": "SEHK",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A massive HK$24.9 billion rights issue dilutes existing equity holders significantly to service a stretched debt profile.",
-      "why_now": "Details of the HK$24.9 billion recapitalization plan surfaced on November 22, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-34c1cdad880f"
-      ],
-      "primary_source_event_id": "EVT-34c1cdad880f",
-      "source_headlines": [
-        "What tools does New World have to slash debts after its HK$24.9 billion rights issue?"
-      ],
-      "source_headline": "What tools does New World have to slash debts after its HK$24.9 billion rights issue?",
-      "source_url": "https://www.scmp.com/business/banking-finance/article/3375322/what-tools-does-new-world-have-slash-debts-after-its-hk249-billion-rights-issue",
-      "source_name": "South China Morning Post",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-22T06:00:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T06:59:44Z",
-      "updated_at": "2026-11-22T06:59:44Z",
-      "decay_at": "2026-11-23T18:00:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264419,79 +264273,6 @@
       "surfaced_at": "2026-11-22T08:08:35Z",
       "updated_at": "2026-11-22T08:08:35Z",
       "decay_at": "2026-11-23T19:32:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1c4bfe21ab2f",
-      "idea_version": "IDEAV-edb439f9947dd846",
-      "idea_version_started_at": "2026-11-23T05:15:15Z",
-      "ticker": "APLAPOLLO",
-      "company": "APL Apollo Tubes",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing a sharp 15% share price decline following poor earnings results, indicating potential margin compression or demand issues.",
-      "why_now": "The stock is currently reacting to the earnings release and market assessment of the buyout impact as of 2026-11-23.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-28f3352583df"
-      ],
-      "primary_source_event_id": "EVT-28f3352583df",
-      "source_headlines": [
-        "98% up in 5 years! APL Apollo shares crash 15% today; here's why | Check stock returns, target price"
-      ],
-      "source_headline": "98% up in 5 years! APL Apollo shares crash 15% today; here's why | Check stock returns, target price",
-      "source_url": "https://www.livemint.com/market/stock-market-news/107-up-in-5-years-apl-apollo-shares-crash-10-today-heres-why-check-stock-returns-target-price-11795406789837.html",
-      "source_name": "Mint",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-23T04:36:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T05:15:15Z",
-      "updated_at": "2026-11-23T05:15:15Z",
-      "decay_at": "2026-11-24T16:36:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -265806,37 +265587,114 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 563,
     "shown_count": 499,
-    "hidden_count": 68,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 37
       },
       "short": {
-        "total_count": 280,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 28
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2081,
-      "oldest_retained_at": "2026-10-28T10:50:36Z",
+      "evicted_count": 2085,
+      "oldest_retained_at": "2026-10-28T14:05:11Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1339,
-          "oldest_retained_at": "2026-11-05T01:23:47Z"
+          "evicted_count": 1342,
+          "oldest_retained_at": "2026-11-05T07:02:12Z"
         },
         "short": {
-          "evicted_count": 743,
-          "oldest_retained_at": "2026-10-28T10:50:36Z"
+          "evicted_count": 744,
+          "oldest_retained_at": "2026-10-28T14:05:11Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0d33d5cbe937",
+        "idea_version": "IDEAV-9a0ad5f2c1175e4b",
+        "idea_version_started_at": "2026-11-25T01:22:54Z",
+        "ticker": "ZS",
+        "company": "Zscaler",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is being acquired for $43.9 billion, creating a convergence between the target's market price and the acquisition offer.",
+        "why_now": "The acquisition was announced on 2026-11-23; the trade captures the remaining spread between the current market price and the deal value.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-93426ba99132",
+          "EVT-b3f2cfc5841a",
+          "EVT-e5e7e3cdf20c"
+        ],
+        "primary_source_event_id": "EVT-93426ba99132",
+        "source_headlines": [
+          "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
+          "CrowdStrike to acquire Zscaler for $43.9B amid turbulent threat environment",
+          "CrowdStrike to acquire Zscaler for $44 billion"
+        ],
+        "source_headline": "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
+        "source_url": "https://www.livemint.com/companies/people/who-is-jay-chaudhry-indian-origin-entrepreneur-behind-zscalers-43-9-bn-deal-as-crowdstrike-moves-to-acquire-firm-11795451246658.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-23T19:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-24T23:28:04Z",
+        "updated_at": "2026-11-25T01:22:54Z",
+        "decay_at": "2026-11-25T07:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-25T07:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6e19f64e0907",
         "idea_version": "IDEAV-eaf1ca3c90dc4244",
@@ -266502,82 +266360,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-24T16:55:52Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1c4bfe21ab2f",
-        "idea_version": "IDEAV-edb439f9947dd846",
-        "idea_version_started_at": "2026-11-23T05:15:15Z",
-        "ticker": "APLAPOLLO",
-        "company": "APL Apollo Tubes",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing a sharp 15% share price decline following poor earnings results, indicating potential margin compression or demand issues.",
-        "why_now": "The stock is currently reacting to the earnings release and market assessment of the buyout impact as of 2026-11-23.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-28f3352583df"
-        ],
-        "primary_source_event_id": "EVT-28f3352583df",
-        "source_headlines": [
-          "98% up in 5 years! APL Apollo shares crash 15% today; here's why | Check stock returns, target price"
-        ],
-        "source_headline": "98% up in 5 years! APL Apollo shares crash 15% today; here's why | Check stock returns, target price",
-        "source_url": "https://www.livemint.com/market/stock-market-news/107-up-in-5-years-apl-apollo-shares-crash-10-today-heres-why-check-stock-returns-target-price-11795406789837.html",
-        "source_name": "Mint",
-        "materiality_max": 87,
-        "newest_source_at": "2026-11-23T04:36:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-23T05:15:15Z",
-        "updated_at": "2026-11-23T05:15:15Z",
-        "decay_at": "2026-11-24T16:36:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-24T16:36:05Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -270682,8 +270464,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T19:13:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-25T07:21:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -270757,8 +270539,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T18:52:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-25T07:21:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -270832,8 +270614,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T18:49:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-25T07:21:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -270908,8 +270690,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T18:00:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-25T07:21:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -298475,79 +298257,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-404665fe9a83",
-        "idea_version": "IDEAV-10fb657424babab9",
-        "idea_version_started_at": "2026-11-06T08:05:16Z",
-        "ticker": "M&M.NS",
-        "company": "Mahindra & Mahindra",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Mahindra & Mahindra's net profit increased by 25% in the second quarter, driven by strong sales of its SUV segment.",
-        "why_now": "The Q2 earnings were reported today, November 6, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-889cca8cafe8"
-        ],
-        "primary_source_event_id": "EVT-889cca8cafe8",
-        "source_headlines": [
-          "SUVs drive up M&M Q2 net profit by 25%"
-        ],
-        "source_headline": "SUVs drive up M&M Q2 net profit by 25%",
-        "source_url": "https://timesofindia.indiatimes.com/business/india-business/suvs-drive-up-mm-q2-net-profit-by-25/articleshow/135589534.cms",
-        "source_name": "The Times of India (Business)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T00:31:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-06T08:05:16Z",
-        "updated_at": "2026-11-06T08:05:16Z",
-        "decay_at": "2026-11-07T12:31:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T00:39:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-76874be29f78",
         "idea_version": "IDEAV-fdea07b5d2495fee",
         "idea_version_started_at": "2026-11-06T07:46:04Z",
@@ -302949,12 +302658,87 @@
         "archived_at": "2026-11-03T12:13:50Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5d7e7121c615",
+        "idea_version": "IDEAV-144f2e728dcf0083",
+        "idea_version_started_at": "2026-10-31T14:59:59Z",
+        "ticker": "YESBANK",
+        "company": "Yes Bank",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Axis Trustee has issued a demand for the restoration of ₹8,415 crore in AT1 bonds with a 3-day deadline, threatening contempt proceedings and signaling potential liquidity or legal distress.",
+        "why_now": "The demand was reported today, October 31, 2026, with a 3-day window for compliance.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a729629e19ca"
+        ],
+        "primary_source_event_id": "EVT-a729629e19ca",
+        "source_headlines": [
+          "Axis Trustee Demands Restoration Of ₹8,415 Crore Yes Bank AT1 Bonds Within 3 Days, Warns Of Contempt Proceedings"
+        ],
+        "source_headline": "Axis Trustee Demands Restoration Of ₹8,415 Crore Yes Bank AT1 Bonds Within 3 Days, Warns Of Contempt Proceedings",
+        "source_url": "https://www.freepressjournal.in/business/axis-trustee-demands-restoration-of-8415-crore-yes-bank-at1-bonds-within-3-days-warns-of-contempt-proceedings",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T08:20:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T07:00:21Z",
+        "updated_at": "2026-10-31T14:59:59Z",
+        "decay_at": "2026-11-01T20:20:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T12:13:50Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2669,
-    "live_count": 20,
+    "surfaced_total": 2670,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302973,9 +302757,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2981465,
+    "news_seen_today": 3091724,
     "news_picked_today": 333,
-    "news_dropped_today": 3291
+    "news_dropped_today": 4083
   },
   "book_momentum": {
     "live_count": 8,
