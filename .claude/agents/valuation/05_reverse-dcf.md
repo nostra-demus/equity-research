@@ -33,7 +33,7 @@ This agent runs AFTER `04_intrinsic-dcf` and **inverts the SAME model**: it read
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/05_reverse-dcf.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (current price, EV, net debt, shares — required) and `04_intrinsic-dcf.md` (the forward DCF's canonical WACC, normalized FCF base, terminal growth, horizon, and discounting convention — REQUIRED: the reverse-DCF must invert the SAME model). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base and growth history), `earnings/07_earnings-sensitivity.md` (achievable ranges), `business-model/09_moat.md` (durability of any implied advantage period).
+- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (current price, EV, net debt, shares — required) and `04_intrinsic-dcf.md` (the forward DCF's canonical WACC, normalized FCF base, terminal growth, horizon, and discounting convention — REQUIRED: the reverse-DCF must invert the SAME model). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base and growth history), `earnings/07_earnings-sensitivity.md` (achievable ranges), `business-model/09_moat.md` (durability of any implied advantage period), `business-model/03_segment-map.md` (segment revenue vs profit shares, for the §3 matched-base-rate level test).
 
 # PARTIAL-DATA RULE
 
@@ -46,7 +46,7 @@ If `01`'s price-state is not `pool-verified` — i.e. `none` OR `indicative` (a 
 3. Establish the FCF (or NOPAT) base year from the filings / `earnings/01_historical-financials.md`.
 4. Take the discount rate (WACC), the normalized FCF base, terminal growth, and the discounting convention from `04_intrinsic-dcf` and use them verbatim — do NOT re-derive an independent WACC or base (that is the bug this prevents). State them and cite `04`. If `04` is unavailable, build the WACC + normalized base yourself using the same components as the DCF methodology, label them, and flag that they are unreconciled. If the business type is Financial or REIT (Business-Type Method Map), reverse the equity-direct model instead — solve for the growth / ROE / payout the price implies in a DDM or residual-income model discounted at the cost of equity, not an FCFF / EV model.
 5. Solve backwards: holding the discount rate and a stated horizon fixed, find the FCF growth rate (and/or the number of years of above-GDP growth, and/or the steady-state margin) that makes the present value of cash flows equal to today's EV. **Compute this with an executed solver — you have `Bash`.** Run a few lines of Python (e.g. `scipy.optimize.brentq`, or a bisection loop over the growth rate) and paste the command plus the root it returned. Backing implied growth out of price is a nonlinear root-find; doing it in your head yields a plausible-looking but unverified number, and this number *is* the engine's entire "what's priced in" read. *(fix F11 — see `FRAMEWORK_FIXES_2026-06-08.md`.)*
-6. Judge the implied expectations against evidence: the company's historical growth, earnings-module driver and sensitivity findings, and moat durability.
+6. Judge the implied expectations against evidence: the company's historical growth, earnings-module driver and sensitivity findings, and moat durability. **The history you test against must be the same unit as the implied requirement (`CLAUDE.md` §9) — same metric, same level, same period** (see §3's matched-base-rate rule). An implied FCF / NOPAT / earnings CAGR is tested against that cash-flow or profit series, never against a revenue CAGR alone.
 7. Show robustness — the implied growth at one higher and one lower discount rate, AND at the low / base / high end of the FCF base (naming which input the result is more sensitive to); when terminal value exceeds ~60% of EV, also vary terminal `g` by ±0.5%.
 
 # WHAT TO READ (priority for this agent)
@@ -103,11 +103,20 @@ If `04`'s WACC failed any low-side floor, or sits far below the company's own di
 
 ## 3. Implied vs Achievable
 
-| Implied Requirement | Company History | Earnings-Module Evidence | Achievable? |
-|---|---|---|---|
-| Implied FCF CAGR = X% | Historical CAGR = ... | Driver/sensitivity says ... | Yes / Stretch / No |
+| Implied Requirement | Company History (same metric · level · period) | Base-rate basis | Earnings-Module Evidence | Achievable? |
+|---|---|---|---|---|
+| Implied FCF CAGR = X% | Historical FCF CAGR = ... (and, where the mix is shifting, the profit growth of the segment(s) that drive it) | matched / proxy: {metric} — {why the matched series cannot be used} | Driver/sensitivity says ... | Yes / Stretch / No |
 
-In 2–4 sentences, judge whether the market's implied expectations are conservative, fair, or aggressive — cite the historical growth rate and the earnings-module driver evidence.
+**Matched-base-rate rule (`CLAUDE.md` §9 — the base rate must match the CLAIM's unit).** The "Company History" cell is the base rate for the implied requirement in its row, so it must be measured on the same thing:
+
+- **Metric.** An implied FCF / FCFF / NOPAT / EBIT / EBITDA / EPS / net-income growth rate is tested against that cash-flow or profit series (or the nearest one in the same family, named). An implied revenue growth rate is tested against revenue. A revenue CAGR may sit in a profit row only as labelled context *beside* the matched series. It is never the yardstick on its own. A profit or cash-flow claim judged against revenue history alone is a category error. Implied FCF falling 13% a year is not tested by revenue having grown 15% a year: margins and capital intensity sit between the two.
+- **Level.** When the business mix is shifting (a segment's share of profit is far from its share of revenue in `business-model/03_segment-map.md` or the segment disclosure), the consolidated history is arithmetically the wrong yardstick: it is dominated by the shrinking part. Decompose: state each driving segment's own growth, re-aggregate at current weights, and say that you did.
+- **Period.** Weight the most recent realised periods over a decade-old average, and say which window you used.
+- **When the matched series is not meaningful** (a negative or one-off base, or too few periods), say so in the cell, name the nearest same-family series you used instead, and mark the Base-rate basis `proxy: {metric} — {why}`. A proxy declared with its reason is honest. A silent mismatch is not.
+
+*The miss this exists for:* an AMZN read judged the market's ~16.4% implied profit growth "aggressive versus the 11.1% historical revenue CAGR", while the segment driving profit (18% of revenue, 57% of profit) was compounding at 28–37%. Realised profit growth in the next quarter was +43%. The finish-gate (check BN, `scripts/sector_valuation_checks.py`) fails a row whose implied requirement is a growth rate on one metric family while its history cell names only the other family, unless the row declares a `proxy:` basis with a reason.
+
+In 2–4 sentences, judge whether the market's implied expectations are conservative, fair, or aggressive — cite the matched historical growth rate (metric, level, and window named) and the earnings-module driver evidence.
 
 **Market-ceiling sanity check (one-directional — it can only raise the bar).** For a **financial / REIT** taken through an equity-direct reverse model (DDM / residual-income / NAV), a revenue-TAM ceiling is NOT meaningful — skip it, or substitute the appropriate scale (loan book / AUM / premium pool / asset base vs its addressable pool); never force a revenue-share test on a bank or REIT. For an operating business: translate the implied growth into the absolute **revenue** size the business must reach by the horizon — the addressable-market test is a revenue-size test, so if the reverse-DCF solved an implied FCF (or earnings) CAGR rather than a revenue CAGR, convert it to the implied revenue trajectory first (hold the normalized margin/FCF-conversion fixed and back out the revenue it implies) — and compare that revenue to a cited estimate of the addressable market (or a defensible proxy — segment TAM, category revenue, installed base) and plausible market growth. If hitting the priced-in number requires the company to capture an implausible share of its market (e.g. >~100% of plausible incremental market, or a share no peer has ever held), that is a kill signal — flag the implied expectation as *aggressive / unachievable* on market-ceiling grounds **regardless of the company's own history**. This check may only make implied growth look HARDER; it can never justify upside or lift a fair value. Market size is a low-tier input (CLAUDE.md §4) — cite the source, and if the market cannot be credibly sized, say so and omit the check rather than invent a TAM.
 
@@ -133,6 +142,7 @@ Also stress the **FCF base**, not just the discount rate — in every output tha
 - [ ] The discount rate is stated explicitly with its basis.
 - [ ] The solve clearly states what was held fixed and what was solved for.
 - [ ] Implied expectations are compared to the company's actual historical growth and to earnings-module evidence.
+- [ ] Every §3 row's history is on the same metric, level, and period as its implied requirement (`CLAUDE.md` §9). No profit or cash-flow growth is judged against a revenue CAGR alone. A shifting mix is decomposed by segment. Any substitute series is declared `proxy: {metric} — {why}` in the Base-rate basis column.
 - [ ] The achievable/stretch/no judgement is evidence-backed, not asserted.
 - [ ] Robustness is shown across BOTH the discount rate AND the FCF base (and terminal `g` ±0.5% when terminal value is >~60% of EV), with the dominant input named — not the discount rate alone.
 - [ ] The implied-growth solve **and** the two robustness re-solves were produced by an executed Bash/Python solver, with the command and the root shown — not hand-computed. *(fix F11)*
