@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-25T21:50:26Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-fae9365a14f8",
+    "idea_version": "IDEAV-302c6ed35a396b7a",
+    "idea_version_started_at": "2026-11-22T11:24:38Z",
+    "ticker": "SPICEJET",
+    "company": "SpiceJet",
+    "exchange": "BSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The airline is selling tickets for routes it cannot operate, indicating severe liquidity constraints and potential operational collapse.",
+    "why_now": "The report of stranded passengers and ongoing operational failures suggests an imminent risk of insolvency or regulatory grounding.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 16,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-bcda8ce045bd"
+    ],
+    "primary_source_event_id": "EVT-bcda8ce045bd",
+    "source_headlines": [
+      "SpiceJet Continues Selling Tickets On Routes It Cannot Operate Amid Cash Crunch, Passengers Stranded"
+    ],
+    "source_headline": "SpiceJet Continues Selling Tickets On Routes It Cannot Operate Amid Cash Crunch, Passengers Stranded",
+    "source_url": "https://www.freepressjournal.in/india/spicejet-continues-selling-tickets-on-routes-it-cannot-operate-amid-cash-crunch-passengers-stranded",
+    "source_name": "Free Press Journal",
+    "materiality_max": 89,
+    "newest_source_at": "2026-11-22T10:27:55Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-21T03:54:43Z",
+    "updated_at": "2026-11-22T11:24:38Z",
+    "decay_at": "2026-11-23T22:27:55Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-25T21:50:26Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-ff709b93024f",
+    "idea_version": "IDEAV-631ed364033f9de2",
+    "idea_version_started_at": "2026-11-22T18:58:51Z",
+    "ticker": "ASH",
+    "company": "Ashland Inc.",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Ashland is the target of a potential acquisition by Clariant and CD&R, which typically drives the stock price toward the expected offer premium.",
+    "why_now": "The report of active acquisition talks was released on 2026-11-22.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 65,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-61441d828f21"
+    ],
+    "primary_source_event_id": "EVT-61441d828f21",
+    "source_headlines": [
+      "Clariant and CD&R Are in Talks to Buy Chemicals Firm Ashland"
+    ],
+    "source_headline": "Clariant and CD&R Are in Talks to Buy Chemicals Firm Ashland",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/clariant-and-cd-r-are-in-talks-to-buy-chemicals-firm-ashland",
+    "source_name": "Bloomberg",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-22T18:42:27Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-22T18:58:51Z",
+    "updated_at": "2026-11-22T18:58:51Z",
+    "decay_at": "2026-11-24T06:42:27Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

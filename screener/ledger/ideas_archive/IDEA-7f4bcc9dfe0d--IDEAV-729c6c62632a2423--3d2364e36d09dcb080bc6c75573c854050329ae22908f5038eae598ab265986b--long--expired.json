@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-25T21:50:26Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-7f4bcc9dfe0d",
+    "idea_version": "IDEAV-729c6c62632a2423",
+    "idea_version_started_at": "2026-11-22T08:50:30Z",
+    "ticker": "INDIANB.NS",
+    "company": "Indian Bank",
+    "exchange": "NSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Indian Bank plans to raise ₹3000 crore through AT1/Tier 2 bonds, strengthening its capital base to support future lending and growth.",
+    "why_now": "The bond issuance is a planned capital action that impacts the bank's balance sheet now.",
+    "conviction": 50,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 65,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-16c7e605571c"
+    ],
+    "primary_source_event_id": "EVT-16c7e605571c",
+    "source_headlines": [
+      "Indian Bank to raise ₹3000 crore through AT1/Tier 2 bonds"
+    ],
+    "source_headline": "Indian Bank to raise ₹3000 crore through AT1/Tier 2 bonds",
+    "source_url": "https://www.thehindubusinessline.com/money-and-banking/indian-bank-to-raise-3000-crore-through-at1tier-2-bonds/article71725307.ece",
+    "source_name": "The Hindu BusinessLine",
+    "materiality_max": 95,
+    "newest_source_at": "2026-11-22T08:39:53Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-22T08:50:30Z",
+    "updated_at": "2026-11-22T08:50:30Z",
+    "decay_at": "2026-11-23T20:39:53Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
