@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T09:24:18Z",
+  "generated_at": "2026-11-25T09:28:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-222",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-241",
+      "headline": "MODERNHEALTHTEC (00919): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500207.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Company issued a positive profit alert, indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a positive profit alert, indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MODERNHEALTHTEC",
+          "ticker": "00919",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1409,6 +1458,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-244",
+      "headline": "CGN POWER (01816): COMMENCEMENT OF FULL CONSTRUCTION OF TAISHAN UNIT 3",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500262.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T08:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Commencement of full construction for a major nuclear power unit represents significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Commencement of full construction for a major nuclear power unit represents significant capital investment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CGN POWER",
+          "ticker": "01816",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-150",
       "headline": "EAX: Trading Update [price-sensitive]",
       "headline_en": null,
@@ -1897,111 +1995,6 @@
           "name": "Harvey Norman",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-177",
-      "headline": "Shadowfax Strikes ₹23.3 Crore Deal To Acquire WeFast, Accelerates Intra-City Logistics Expansion",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/shadowfax-strikes-233-crore-deal-to-acquire-wefast-accelerates-intra-city-logistics-expansion",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T04:29:26Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Shadowfax is acquiring WeFast for ₹23.3 crore to expand its logistics operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Shadowfax is acquiring WeFast for ₹23.3 crore to expand its logistics operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shadowfax",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "WeFast",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-105",
-      "headline": "GoodRx Holdings, Inc. Reports Third Quarter 2026 Results, Restates Prior Periods, and Expects to Regain Nasdaq Compliance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/goodrx-holdings-inc-reports-third-quarter-2026-results-restates-prior-periods-and-expects",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T02:08:57Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "GoodRx reported Q3 2026 results, announced a restatement of prior periods, and is working to regain Nasdaq compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "GoodRx reported Q3 2026 results, announced a restatement of prior periods, and is working to regain Nasdaq compliance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "accounting_restatement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GoodRx Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -302758,9 +302751,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3729374,
-    "news_picked_today": 358,
-    "news_dropped_today": 7178
+    "news_seen_today": 3760758,
+    "news_picked_today": 380,
+    "news_dropped_today": 7228
   },
   "book_momentum": {
     "live_count": 8,
