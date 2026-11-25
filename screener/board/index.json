@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T04:11:23Z",
+  "generated_at": "2026-11-25T04:22:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-149",
@@ -1197,6 +1197,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-164",
+      "headline": "Basis Corporation (4068)",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Basis Corporation is subject to a trading halt on the Japan Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Basis Corporation is subject to a trading halt on the Japan Exchange.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Basis Corporation",
+          "ticker": "4068",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-008",
       "headline": "CMG: Trading Halt [price-sensitive]",
       "headline_en": null,
@@ -1923,56 +1972,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-155",
-      "headline": "FDA drug recall (Class II) — SUN PHARMACEUTICAL INDUSTRIES INC: Lisdexamfetamine Dimesylate Capsules 40 mg, 100-count bottle, Rx Only, Manufactured by: Ohm Laboratories, New Brunswick, NJ 08901, Distributed by: Sun Pharmaceu — Failed Dissolution Specifications",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0174-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-18T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Sun Pharmaceutical is recalling a prescription drug due to failed dissolution specifications, posing a quality control risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Sun Pharmaceutical is recalling a prescription drug due to failed dissolution specifications, posing a quality control risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sun Pharmaceutical Industries Inc",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303096,9 +303095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1830511,
-    "news_picked_today": 243,
-    "news_dropped_today": 1917
+    "news_seen_today": 1921557,
+    "news_picked_today": 247,
+    "news_dropped_today": 2009
   },
   "book_momentum": {
     "live_count": 8,
