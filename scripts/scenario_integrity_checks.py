@@ -724,6 +724,195 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
     return issues
 
 
+# ── Check BK (HARD GATE 11 / CLAUDE.md §17 on the FORECAST LEDGER) — a numeric forecast must say what
+# its threshold is compared against, and whether the status quo already clears it. HARD GATE 11 is
+# written for "every threshold in §7 Catalyst Calendar, §9 Risk Register, §10 Kill Criteria, and the
+# Forecast Ledger", and synthesizer.md §10 repeats it: "The same three checks apply to every threshold in
+# the Forecast Ledger's confirmation and falsification triggers — a falsification trigger that cannot fire
+# is the most expensive kind of false comfort the engine can produce." Check BA mechanized it for
+# kill_criteria[] only (comparable_basis + fired_last_two_periods); forecast_ledger[] had no field to
+# carry either answer and no check, so the rule was prose-only for exactly the rows that feed the Brier
+# score and the Phase 6 calibration haircut.
+#
+# Measured on the committed corpus (2026-11-19): 103 forecast rows, 90 pin a number, and 74 of those 90
+# never state a comparable anywhere in prediction / threshold / triggers — e.g. AKAM_2026-09-14
+# "The Q3 FY2026 Form 10-Q reports GAAP gross margin below 59.3%", with no year-ago figure, so nobody can
+# tell whether 59.3% is a decline, a stall, or a bar the status quo already clears. A forecast whose
+# confirmation the status quo already meets is a rubber stamp the review loop then scores as a HIT —
+# it inflates the hit rate and flatters the Brier, which is the engine learning the wrong lesson.
+#
+# Same contract as BA, same field names (one vocabulary for one rule): every forecast_ledger row whose
+# threshold / confirmation / falsification pins a number (AO's own `_ao_pins_a_number`, so a period label
+# alone like "FY27" does not count) must carry `comparable_basis` (non-blank string — the like-for-like
+# period/basis the threshold is measured against; for a price or event level, the reference level and its
+# date) and `fired_last_two_periods` (bool — would the CONFIRMATION trigger, as written, have been met on
+# each of the last two reported periods). Presence/shape only, exactly like BA: whether the comparable is
+# genuinely like-for-like, and whether a `true` row should have been deleted, stays the author's judgment
+# (verify-evidence audits period mismatches), but the answer is now written down where a reviewer and the
+# review loop can see it. Rows with no number (pure event forecasts settled by a named document) are N/A.
+# Forward-looking: committed runs predate the field, so they are N/A rather than retro-failed.
+BK_DATE = "2026-12-01"
+# Form names carry digits that are not thresholds ("10-K", "8-K", "DEF 14A", "Form 4", and the S-/F-
+# registration series "S-1".."S-11" / "F-1".."F-10"); strip them before AO's period-token test so an event
+# forecast "settled in the 10-K" or "closes per the S-4" is not mistaken for a numeric bar. The `[sf]-\d+`
+# alternative covers the whole registration series, not only S-1/S-3 (Gemini #826: S-4 etc. leaked a digit).
+# `reg(?:ulation)?\s?\d+` covers the Indian SEBI-LODR filings ("SEBI LODR Reg 30/31/33"), the §27 default
+# case — the local equivalent of an 8-K/10-Q intimation; its regulation number is a label, not a threshold
+# (Codex #826 follow-up: "Reg 30" leaked a digit and failed a valid Indian event forecast).
+_BK_FORM_NAMES = re.compile(r"\b(?:10-?[kq]|8-?k|20-?f|6-?k|40-?f|def\s?14a|[sf]-\d+|13[dfg]|form\s+[34]|reg(?:ulation)?\s?\.?\s?\d+)\b", re.I)
+# A quarter/half immediately followed by a bare CALENDAR year ('Q3 2027', '1H 2027', 'Q3 CY2027') is a
+# US-regime period LABEL, not a numeric bar. `_AO_PERIOD_TOKENS` strips 'Q3 FY2027' and 'Mar 2027' but not
+# 'Q3 2027' (the quarter is stripped, the bare year survives), so a pure event forecast 'the Q3 2027 filing
+# reports the plant start-up' reads as numeric and fails check BK for missing comparison fields (Codex #826).
+# Stripped BK-LOCALLY (not in the shared `_AO_PERIOD_TOKENS`, which check AO's committed-corpus results also
+# depend on — widening it there flipped a committed run's AO verdict). Restricted to `20\d{2}`, NOT a bare
+# `\d{4}`, so a quarter followed by a four-digit THRESHOLD ('Q4 2500 crore') keeps its number.
+_BK_QTR_YEAR = re.compile(r"\b(?:q[1-4]|[1-4]q|h[12])\s+(?:cy\s*)?20\d{2}\b", re.I)
+# A natural-language calendar date ('March 1, 2027', '1 March 2027', 'Mar. 1st 2027') is a DATE, not a
+# numeric bar — DECISION_LEDGER.md says so outright ("a calendar date ... is not a number"). `_AO_PERIOD_TOKENS`
+# strips ISO dates ('2027-03-01') and bare 'Mar 2027' but leaves the DAY + year of a month-day-year date, so
+# an event forecast 'the permit is granted by March 1, 2027' leaks '1'/'2027' and fails check BK for missing
+# comparison fields (Codex #826 follow-up). Stripped BK-LOCALLY for the same reason as `_BK_QTR_YEAR`
+# (AO already settles these as document/event rows — widening the shared token would risk its corpus).
+_BK_MONTHS = r"jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec"
+_BK_NL_DATE = re.compile(
+    r"\b(?:" + _BK_MONTHS + r")[a-z]*\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4}\b|"   # Month D[,] YYYY
+    r"\b\d{1,2}(?:st|nd|rd|th)?\s+(?:" + _BK_MONTHS + r")[a-z]*\.?,?\s+\d{4}\b",   # D Month[,] YYYY
+    re.I)
+# A numeric calendar date written with a slash, dash or DOT separator ('1/3/2027', '01-03-27',
+# '01.03.2027' European, '2027/03/01' / '2027.03.01' year-first) is a deadline, not a numeric bar
+# (Codex #826 follow-up). ISO 'YYYY-MM-DD' is already stripped upstream by `_AO_PERIOD_TOKENS`; this covers
+# the day/month/year and year/month/day forms across all three separators — one `[/.\-]` class closes the
+# whole separator space at once. The backreference requires BOTH separators to be the SAME character AND
+# the final group to be 2-4 digits, so a decimal ('12.5%'), a version ('1.2.3') and a single-separator
+# ratio ('Net debt / EBITDA', '3/4') are all untouched and still read numeric.
+_BK_NUM_DATE = re.compile(r"\b\d{1,2}([/.\-])\d{1,2}\1\d{2,4}\b|\b\d{4}([/.\-])\d{1,2}\2\d{1,2}\b")
+
+# The strips above remove the label shapes that would otherwise sit next to a comparator or look like a
+# decimal. They can never be the whole answer: the space of numbered LABELS is open-ended (statute sections
+# 'Companies Act Sections 230-232', compact period labels "Q3'27" / '3Q27', case and rule numbers, product
+# names), so "any digit left after the strips is a threshold" keeps failing valid event forecasts one label
+# shape at a time (Codex #826, raised seven times). So the final test is POSITIVE: after the strips, a
+# number is a threshold only when something marks it as a measured quantity —
+#   (a) a unit right after it ('59.3%', '250 bps', '3x', '₹2,500 crore', '$1.2bn'),
+#   (b) a currency right before it ('$1.70', 'Rs 42', 'USD 10'),
+#   (c) a comparator right before it ('above 3', 'at least 12', '>= 42', 'between 10 and 12', 'rises to 500'),
+#   (d) its own shape — a decimal point or thousands separator ('15.5', '1,123'), which labels do not carry, or
+#   (e) sitting in the dedicated `threshold` field, where any digit left after the strips still counts.
+# A bare integer inside document prose ('Sections 230-232', "Q3'27 filing", 'Phase 3 readout') is a label.
+# TIE-BREAK, stated once so it is not re-argued case by case: where the shape of the text cannot tell a bar
+# from a label, the row is treated as NUMERIC. A forecast wrongly read as numeric costs its author two
+# fields; a numeric forecast wrongly read as an event publishes with no comparable and feeds the Brier score
+# unbenchmarked — the failure this check exists to stop (§24: prefer the error of omission). So a missed
+# bar is a defect to fix here, while a filing window worded like a bar ('filed in 90 days or less') or an
+# issuer whose name looks like a quantity ('3M') stays numeric by design.
+_BK_UNIT = (r"(?:%|[xkm]\b|\s?(?:percent(?:age\s+points?)?|per\s+cent|pp|ppts?|bps?|basis\s+points?|times|"
+            r"cents?|paise|pence|per\s+share|cr|crores?|lakhs?|lacs?|mn|mm|mln|million|bn|bln|billion|tn|trillion|"
+            r"tonnes?|tons?|mt|mtpa|gw|mw|gwh|mwh|units?|stores?|outlets?|subscribers?|users?|customers?|"
+            r"employees?|branches)\b)")
+# A number that follows a document-part noun is a reference, not a quantity: 'Sections 230-232', 'Item 5.02'
+# (an 8-K item), 'Rule 10b-5', 'Note 18', 'Phase 3', 'Clause 10.1 and 10.2'. Stripped with its continuation.
+_BK_REF = r"\d[\w.()]*(?:-\w+)*"
+_BK_REFERENCE = re.compile(
+    r"(?:§+\s*|\b(?:items?|sections?|secs?|clauses?|articles?|rules?|notes?|para(?:graph)?s?|schedules?|"
+    r"exhibits?|annex(?:ure)?s?|appendix|chapters?|phases?|tranches?|forms?)\b\.?\s*)"
+    # ... unless the number carries a unit: 'Recurring revenue forms 30% of total' and 'the filing notes 500
+    # stores opened' use these words as ordinary verbs, and stripping the number would hide a real bar
+    # (Codex #826). Any unit in `_BK_UNIT` keeps the number, not only a percentage.
+    r"(?!\d[\d,]*(?:\.\d+)?" + _BK_UNIT + r")"
+    + _BK_REF + r"(?:\s*(?:,|and|&|–|/)\s*" + _BK_REF + r")*", re.I)
+# Compact period labels the shared tokenizer leaves a year digit in: "Q3'27", "H1'27", "FY'27", '3Q27',
+# '1H27'. The apostrophe or the glued digits mark a label; 'Q4 25%' (a space, then a quantity) is untouched.
+_BK_COMPACT_PERIOD = re.compile(
+    r"\b(?:q[1-4]|[1-4]q|h[12]|[12]h|fy)['’]\d{2}\b|\b(?:q[1-4]|[1-4]q|h[12]|[12]h)\d{2}\b", re.I)
+_BK_NUM = r"\d[\d,]*(?:\.\d+)?"
+_BK_CCY = r"(?:[$₹€£¥₩₽₺₪฿₫₱₦₴₸₨₡₲₵₭₮]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|hkd|krw|sar|aed|sgd|aud|cad|chf)\s?)"
+_BK_CMP = (r"(?:>=|<=|[<>≥≤=~]|\b(?:above|below|over|under|exceed(?:s|ed|ing)?|at\s+least|at\s+most|"
+           r"(?:more|less|greater|fewer|higher|lower)\s+than|between|reach(?:es|ed|ing)?|hits?|tops?|"
+           r"cross(?:es|ed|ing)?|(?:rises?|falls?|drops?|grows?|increases?|decreases?|declines?|improves?|"
+           r"expands?|contracts?|climbs?|slips?|widens?|narrows?|returns?|recovers?)\s+(?:to|by)|"
+           r"equals?|minimum|maximum|min|max|floor|cap|ceiling|"
+           # a plain statement of level: 'employee count is 500', 'is not 500', 'DSO at 30', 'stands at 42'
+           r"(?:is|are|was|were)(?:\s+not)?|at|totals?|(?:stands?|remains?|stays?|holds?)(?:\s+at)?)\b)")
+_BK_FILLER = r"(?:\s*(?:of|approximately|approx\.?|about|around|roughly|nearly|c\.)\b)?\s*"
+_BK_THRESHOLD_NUMBER = re.compile(
+    _BK_NUM + _BK_UNIT + "|" +                                # (a) number + unit
+    _BK_CCY + r"\s?" + _BK_NUM + "|" +                        # (b) currency + number
+    _BK_CMP + _BK_FILLER + r"[-+−]?" + _BK_NUM + r"(?![\d'’]|-\d)|" +   # (c) comparator + number
+    # ... or a level stated with 'of': 'DSO of 30 days', 'EPS of 42'. A bare year is excluded, so 'by the
+    # end of 2027' and 'the Act of 2013' stay labels.
+    r"\bof\s+(?!(?:19|20)\d{2}\b)" + _BK_NUM + r"(?![\d'’]|-\d)|" +
+    # ... or a comparator AFTER it: '30 days or lower', '500 stores or more', '42 or better'
+    _BK_NUM + r"(?:\s+[a-z]+){0,2}\s+or\s+(?:lower|higher|more|less|fewer|greater|better|worse|below|above)\b|" +
+    r"(?<![\d.,/])\d+\.\d+(?!\.?\d)|"                        # (d) a decimal ...
+    r"(?<![\d.,/])\d{1,3}(?:,\d{2,3})+(?:\.\d+)?(?!\.?\d)",  #     ... or a thousands-separated number, with an optional decimal tail ('12,500.5' / '1,123.7': one thousands group + a decimal matched neither alt before — #826)
+    # The trailing lookahead disqualifies a following dot ONLY when a digit follows it (…\.?\d), so a longer
+    # version/date ('1.2.3', '01.03.2027') still doesn't read as a bare decimal, but a real decimal/thousands
+    # bar at the END of a trigger sentence ('revenue prints 12,500.', 'the P/E re-rates to 22.5.') is no longer
+    # dropped by the sentence-ending period — a numeric bar must not escape HARD GATE 11 (§17/§19).
+    re.I)
+
+def _bk_strip_labels(text):
+    """Remove form names, period labels, calendar dates and document-part references — digits that
+    are never a threshold."""
+    text = _BK_FORM_NAMES.sub(" ", text)
+    for _rx in (_BK_QTR_YEAR, _BK_COMPACT_PERIOD, _BK_NL_DATE, _BK_NUM_DATE, _BK_REFERENCE):
+        text = _rx.sub(" ", text)
+    return _AO_PERIOD_TOKENS.sub(" ", text)
+
+def _bk_pins_a_threshold(e):
+    """True if the forecast row `e` pins a numeric THRESHOLD in its threshold / confirmation /
+    falsification text — a measured quantity, not a digit inside a document, period or date label."""
+    # `str(v or "")` would drop a threshold of literal 0 (a valid numeric bar — e.g. FCF above 0 with
+    # verbal triggers "turns positive" / "remains negative"), letting a numeric forecast skip the gate.
+    # Treat only None/absent as empty, so a falsy-but-present value (0, 0.0) still counts (Codex #826).
+    th = e.get("threshold")
+    if isinstance(th, (int, float)) and not isinstance(th, bool):
+        return True
+    fields = ["" if e.get(k) is None else str(e.get(k))
+              for k in ("threshold", "confirmation_trigger", "falsification_trigger")]
+    # (e) The `threshold` field exists to hold the bar, so there the test stays the strict one: ANY digit
+    # that survives the label strips is a threshold ('DSO 30 days', '42 cents per share', '42'). No unit
+    # vocabulary can be complete, and missing a real bar is the costly direction — a numeric forecast would
+    # publish with no comparable (Codex #826). The positive test applies only to the two trigger fields,
+    # which are free prose where document, statute and period labels actually occur.
+    if re.search(r"\d", _bk_strip_labels(fields[0])):
+        return True
+    # Fields are tested one at a time, so a comparator ending one field cannot pair with a digit
+    # opening the next.
+    return any(_BK_THRESHOLD_NUMBER.search(_bk_strip_labels(f)) for f in fields[1:])
+
+def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
+    """Core of check BK. Returns None (N/A — pre-gate, malformed/empty ledger, or no numeric forecast)
+    or a list of violation strings (empty list = every numeric forecast row passes). Side-effect-free +
+    module-level so the eval selftest and the live finish gate call the same logic."""
+    if not (_isdate(decision_date) and decision_date >= BK_DATE):
+        return None
+    if not isinstance(forecast_ledger, list) or not forecast_ledger:
+        return None  # T flags a non-list ledger; an empty ledger is allowed (§19)
+    issues = []
+    numeric = 0
+    for i, e in enumerate(forecast_ledger):
+        if not isinstance(e, dict):
+            continue  # T flags non-object entries
+        if not _bk_pins_a_threshold(e):
+            continue  # an event forecast settled by a named document has no numeric threshold to benchmark
+        numeric += 1
+        fid = str(e.get("forecast_id") or f"#{i}")[:60]
+        cb = e.get("comparable_basis")
+        fl = e.get("fired_last_two_periods")
+        if not (isinstance(cb, str) and cb.strip()):
+            issues.append(f"forecast_ledger[{i}] ({fid}) pins a numeric threshold but has no comparable_basis — "
+                          f"the like-for-like period/basis it is measured against (HARD GATE 11 check 1, §17)")
+        if not isinstance(fl, bool):
+            issues.append(f"forecast_ledger[{i}] ({fid}) missing fired_last_two_periods (bool) — whether the "
+                          f"confirmation trigger, as written, would already have been met on the last two "
+                          f"reported periods (HARD GATE 11 check 3, §17)")
+    if not numeric:
+        return None
+    return issues
+
+
 def _isdate(s):
     import datetime
     try:
