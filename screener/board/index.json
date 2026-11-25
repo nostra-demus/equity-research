@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T21:23:18Z",
+  "generated_at": "2026-11-25T21:31:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-333",
@@ -833,6 +833,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-345",
+      "headline": "Poundland collapses putting 11,000 jobs at risk",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cm3vgdn037z4o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T20:43:58Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Poundland is facing collapse and putting 11,000 jobs at risk, indicating a major insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland is facing collapse and putting 11,000 jobs at risk, indicating a major insolvency event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1964,60 +2014,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-057",
-      "headline": "BYD targets acquisition of Ineos French plant as Macron confirms January details",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/11/25/byd-targets-acquisition-ineos-french-plant/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T00:41:42Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "BYD is targeting the acquisition of an Ineos plant in France, representing a major capacity expansion move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BYD is targeting the acquisition of an Ineos plant in France, representing a major capacity expansion move.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Ineos",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302771,9 +302767,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6380935,
-    "news_picked_today": 776,
-    "news_dropped_today": 19216
+    "news_seen_today": 6403914,
+    "news_picked_today": 821,
+    "news_dropped_today": 19411
   },
   "book_momentum": {
     "live_count": 8,
