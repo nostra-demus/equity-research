@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T03:02:33Z",
+  "generated_at": "2026-11-25T03:14:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-121",
@@ -337,6 +337,55 @@
           "name": "Noah Holdings",
           "ticker": "06686",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-128",
+      "headline": "American Resources Corporation Receives Nasdaq Staff Delisting Determination Letter",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/american-resources-corporation-receives-nasdaq-staff-delisting-determination-letter",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T02:28:32Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Receipt of a delisting determination letter from Nasdaq indicates a severe risk to the company's listing status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Receipt of a delisting determination letter from Nasdaq indicates a severe risk to the company's listing status.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Resources Corporation",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1682,6 +1731,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-136",
+      "headline": "HA Sustainable Infrastructure Capital, Inc. Issues $500,000,000 of 7.850% Green Junior Subordinated Notes due 2057",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ha-sustainable-infrastructure-capital-inc-issues-500000000-7850-green-junior-subordinated",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T02:38:52Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "HA Sustainable Infrastructure Capital, Inc. issued $500,000,000 of 7.850% Green Junior Subordinated Notes due 2057.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "HA Sustainable Infrastructure Capital, Inc. issued $500,000,000 of 7.850% Green Junior Subordinated Notes due 2057.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HA Sustainable Infrastructure Capital, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-012",
       "headline": "WiseTech founder Richard White’s sex-trafficking probe closed by AFP",
       "headline_en": null,
@@ -1873,99 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-065",
-      "headline": "Washington to unveil new tariffs after probe on excess factory capacity: sources",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/25/trump-tariffs-probe-factory-capacity/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T00:56:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The US is planning new tariffs on excess factory capacity, which poses a risk to global trade and manufacturing margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The US is planning new tariffs on excess factory capacity, which poses a risk to global trade and manufacturing margins.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-002",
-      "headline": "10-Q - Burlington Stores, Inc. (0001579298) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1579298/000119312526475713/0001193125-26-475713-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-24T21:14:09Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Company filed its quarterly 10-Q report.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Company filed its quarterly 10-Q report.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Burlington Stores",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303089,9 +303094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1328670,
-    "news_picked_today": 155,
-    "news_dropped_today": 1333
+    "news_seen_today": 1393564,
+    "news_picked_today": 172,
+    "news_dropped_today": 1484
   },
   "book_momentum": {
     "live_count": 8,
