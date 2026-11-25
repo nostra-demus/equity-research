@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T21:31:29Z",
+  "generated_at": "2026-11-25T21:41:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-333",
@@ -888,6 +888,164 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-418",
+      "headline": "Sanofi’s $41B Insmed Deal Shows Cost of a Patent Cliff",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-25/sanofi-s-41b-insmed-deal-shows-cost-of-a-patent-cliff-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T20:19:42Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Sanofi is reportedly pursuing a $41 billion acquisition of Insmed, a major M&A event in the pharmaceutical sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanofi is reportedly pursuing a $41 billion acquisition of Insmed, a major M&A event in the pharmaceutical sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanofi",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Insmed",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-488",
+      "headline": "Poundland falls into administration with 11,000 jobs at risk",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/poundland-andy-burnham-usdaw-jonathan-reynolds-government-b3091616.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T19:28:23Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Poundland has entered administration, putting 11,000 jobs at risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland has entered administration, putting 11,000 jobs at risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-550",
+      "headline": "Al-Sisi discusses Maersk’s full return to Suez Canal, Scatec’s $5bn investment plans",
+      "headline_en": null,
+      "url": "https://dailynewsegypt.com/2026/11/25/al-sisi-discusses-maersks-full-return-to-suez-canal-scatecs-5bn-investment-plans/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T19:18:10Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Scatec announced a $5bn investment plan in Egypt, representing a significant capital expenditure project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Scatec announced a $5bn investment plan in Egypt, representing a significant capital expenditure project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Scatec",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Maersk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-342",
       "headline": "US-led group reaches deal to acquire Lukoil's global assets",
       "headline_en": null,
@@ -937,695 +1095,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261125-335",
-      "headline": "Dubai Islamic Bank to acquire Emirates Islamic to form Dh585bn company",
+      "inbox_id": "INB-20261125-491",
+      "headline": "Dodgers Owner Todd Boehly Clinches Deal for Overseas Assets of Russia’s Lukoil",
       "headline_en": null,
-      "url": "https://www.thenationalnews.com/business/banking/2026/11/25/dubai-islamic-bank-to-acquire-emirates-islamic-to-form-dh585bn-major/",
-      "source_name": "The National — All News",
+      "url": "https://www.wsj.com/business/deals/dodgers-owner-todd-boehly-clinches-deal-for-overseas-assets-of-russias-lukoil-9679356a?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-25T15:51:23Z",
+      "found_at": "2026-11-25T18:41:00Z",
       "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Dubai Islamic Bank to acquire Emirates Islamic for Dh585 billion; large regional bank merger with named deal value.",
+      "prelim_note": "Todd Boehly's firm acquired overseas assets of Lukoil.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Dubai Islamic Bank to acquire Emirates Islamic for Dh585 billion; large regional bank merger with named deal value.",
+      "triage_reason": "Todd Boehly's firm acquired overseas assets of Lukoil.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dubai Islamic Bank",
-          "ticker": null,
-          "listing_country": "AE"
-        },
-        {
-          "name": "Emirates Islamic",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-331",
-      "headline": "Dubai Islamic Bank to acquire Emirates Islamic to form Dh585bn major",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/business/banking/2026/11/25/dubai-islamic-bank-to-acquire-emirates-islamic-to-form-dh585bn-major/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T15:51:23Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Dubai Islamic Bank to acquire 100% of Emirates Islamic, forming combined entity with ~AED 585 billion (~$159.3 billion) in assets — a large Gulf banking consolidation with scale and efficiency implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dubai Islamic Bank to acquire 100% of Emirates Islamic, forming combined entity with ~AED 585 billion (~$159.3 billion) in assets — a large Gulf banking consolidation with scale and efficiency implications.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dubai Islamic Bank",
-          "ticker": null,
-          "listing_country": "AE"
-        },
-        {
-          "name": "Emirates Islamic",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-309",
-      "headline": "Nutanix Bets On Enterprise AI, CEO To Step Down",
-      "headline_en": null,
-      "url": "https://www.benzinga.com/trading-ideas/movers/26/11/63619853/nutanix-bets-on-enterprise-ai-ceo-to-step-down",
-      "source_name": "Benzinga",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T13:40:29Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The CEO of Nutanix is stepping down, which is a significant management change for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The CEO of Nutanix is stepping down, which is a significant management change for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nutanix",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-278",
-      "headline": "Union Cabinet Approves Prudential's ₹11,500 Crore FDI Proposal To Acquire Majority Stake In Bharti Life Insurance: Report",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/union-cabinet-approves-prudentials-11500-crore-fdi-proposal-to-acquire-majority-stake-in-bharti-life-insurance-report",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:30:38Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Union Cabinet approval of Prudential's ₹11,500 crore majority acquisition of Bharti Life Insurance—a named cross-border M&A with regulatory clearance and capital-structure impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Union Cabinet approval of Prudential's ₹11,500 crore majority acquisition of Bharti Life Insurance—a named cross-border M&A with regulatory clearance and capital-structure impact.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prudential Financial Inc.",
-          "ticker": "PFI",
-          "listing_country": "US"
-        },
-        {
-          "name": "Bharti Life Insurance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-252",
-      "headline": "Couche-Tard sees finish line for $8.6-billion takeover of Polish retailer Zabka Group",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-couche-tard-sees-finish-line-for-us86-billion-takeover-of-polish/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Couche-Tard completing $8.6-billion acquisition of Polish retail chain Zabka Group; large-cap M&A deal in advanced completion stage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Couche-Tard completing $8.6-billion acquisition of Polish retail chain Zabka Group; large-cap M&A deal in advanced completion stage.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Couche-Tard",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Zabka Group",
-          "ticker": null,
-          "listing_country": "PL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-262",
-      "headline": "Carlyle Sells 7% Stake In Piramal Pharma Via ₹2,200 Crore Block Deal: Report",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/carlyle-sells-7-stake-in-piramal-pharma-via-2200-crore-block-deal-report",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T08:57:19Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Carlyle sold a 7% stake in Piramal Pharma via a ₹2,200 crore block deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Carlyle sold a 7% stake in Piramal Pharma via a ₹2,200 crore block deal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Piramal Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-261",
-      "headline": "Sejal Glass Expands Footprint With Rs 40.80 Cr Acquisition Of Magnumtuff’s Glass Business",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/sejal-glass-expands-footprint-with-rs-4080-cr-acquisition-of-magnumtuffs-glass-business",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T08:21:01Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Sejal Glass is acquiring Magnumtuff's Glass Business for Rs 40.80 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sejal Glass is acquiring Magnumtuff's Glass Business for Rs 40.80 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sejal Glass",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Magnumtuff",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-219",
-      "headline": "EasyJet Profit Hit By Middle East War as Apollo Takeover Looms",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/easyjet-profit-hit-by-middle-east-war-as-apollo-takeover-looms",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T07:16:22Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "EasyJet reported a profit hit due to the Middle East conflict, which is a material impact on earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EasyJet reported a profit hit due to the Middle East conflict, which is a material impact on earnings.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EasyJet",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-216",
-      "headline": "Indra Raises Revenue Guidance to More Than €12 Billion by 2030",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/indra-raises-revenue-guidance-to-more-than-12-billion-by-2030",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T06:51:45Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Indra raised its revenue guidance to over €12 billion by 2030.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Indra raised its revenue guidance to over €12 billion by 2030.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indra",
-          "ticker": null,
-          "listing_country": "ES"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-217",
-      "headline": "Apple’s iPhone Manufacturing Partner Faces Legal Heat, Foxconn India Hit With ₹143 Crore Insolvency Plea",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/apples-iphone-manufacturing-partner-faces-legal-heat-foxconn-india-hit-with-143-crore-insolvency-plea",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T06:09:54Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Foxconn India faces a ₹143 crore insolvency plea.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foxconn India faces a ₹143 crore insolvency plea.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foxconn",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-214",
-      "headline": "OpenTable To Buy Me&u",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/opentable-buy-meu",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T05:53:48Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "OpenTable is acquiring Me&u, indicating a strategic expansion or consolidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "OpenTable is acquiring Me&u, indicating a strategic expansion or consolidation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenTable",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Me&u",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-192",
-      "headline": "Foxconn faces insolvency lawsuit in India over $15 million in unpaid dues",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/foxconn-faces-insolvency-lawsuit-in-india-over-usd-15-million-in-unpaid-dues-569318-2026-11-25?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T05:49:53Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Foxconn is facing an insolvency lawsuit in India regarding $15 million in unpaid dues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foxconn is facing an insolvency lawsuit in India regarding $15 million in unpaid dues.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foxconn",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-203",
-      "headline": "SpaceX-Tesla: Robyn Denholm tapped to negotiate biggest merger ever",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/spacex-tesla-the-directors-negotiating-the-biggest-merger-ever-20261125-p61h5i?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Reported potential merger between SpaceX and Tesla, described as a massive deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported potential merger between SpaceX and Tesla, described as a massive deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-188",
-      "headline": "SpaceX-Tesla: the directors negotiating the biggest merger ever",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/spacex-tesla-the-directors-negotiating-the-biggest-merger-ever-20261125-p61h5i?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Report of directors negotiating a massive merger between SpaceX and Tesla.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Report of directors negotiating a massive merger between SpaceX and Tesla.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -1634,7 +1118,7 @@
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
@@ -1649,12 +1133,105 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SpaceX",
+          "name": "Lukoil",
           "ticker": null,
-          "listing_country": "US"
-        },
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-492",
+      "headline": "Dodgers Owner Todd Boehly Clinches Deal for Overseas Assets of Russia’s Lukoil",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/dodgers-owner-todd-boehly-clinches-deal-for-overseas-assets-of-russias-lukoil-9679356a?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T18:41:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Todd Boehly's firm acquired overseas assets of Lukoil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Todd Boehly's firm acquired overseas assets of Lukoil.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
         {
-          "name": "Tesla",
+          "name": "Lukoil",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-509",
+      "headline": "GM Egypt launches local production of Chevrolet Groove with $20m investment",
+      "headline_en": null,
+      "url": "https://dailynewsegypt.com/2026/11/25/gm-egypt-launches-local-production-of-chevrolet-groove-with-20m-investment/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T18:40:48Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Major $20m investment in local production capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major $20m investment in local production capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Motors",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1665,20 +1242,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261125-161",
-      "headline": "China’s Xiamen Airlines to buy 50 Boeing jets in $7.4 billion deal",
+      "inbox_id": "INB-20261125-496",
+      "headline": "Sanofi Bets $41 Billion on Insmed and Its Lung Drug Brinsupri",
       "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/25/china-xiamen-boeing-deal.html",
-      "source_name": "CNBC",
+      "url": "https://247wallst.com/investing/2026/11/25/sanofi-bets-41-billion-on-insmed-and-its-lung-drug-brinsupri/",
+      "source_name": "24/7 Wall St.",
       "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:58:32Z",
+      "found_at": "2026-11-25T18:38:01Z",
       "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Xiamen Airlines is purchasing 50 Boeing jets in a deal valued at $7.4 billion.",
+      "prelim_note": "Sanofi is acquiring Insmed for $41 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Xiamen Airlines is purchasing 50 Boeing jets in a deal valued at $7.4 billion.",
+      "triage_reason": "Sanofi is acquiring Insmed for $41 billion.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1688,9 +1265,676 @@
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 5,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanofi",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Insmed",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-603",
+      "headline": "Billionaire financier Todd Boehly strikes deal for Lukoil assets",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/643dc287-d112-4715-bdf1-aa49b98a4af7?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T18:03:33Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Acquisition of assets from a major Russian energy firm involves significant geopolitical and capital allocation implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of assets from a major Russian energy firm involves significant geopolitical and capital allocation implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lukoil",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-626",
+      "headline": "FCC Authorizes SpaceX to Build 1 Million Data Centers in Space",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/fcc-authorizes-spacex-to-build-1-million-data-centers-in-space-0eb20ee7?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "SpaceX received FCC authorization for a massive infrastructure project involving 1 million data centers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX received FCC authorization for a massive infrastructure project involving 1 million data centers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-668",
+      "headline": "Qnity to pay $840M for adhesive maker’s electronics segment",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/qnity-meridian-adhesives-group-electronics-business-semiconductor/875685/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:28:53Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Qnity is acquiring an electronics segment for $840M, a significant capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qnity is acquiring an electronics segment for $840M, a significant capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qnity",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-671",
+      "headline": "Poundland administration latest: Budget retailer collapses putting 11,000 jobs at risk",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/uk/home-news/poundland-collapse-insolvency-administration-job-losses-b3091596.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:26:16Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Poundland has entered administration, putting 11,000 jobs at risk and signaling a total business failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland has entered administration, putting 11,000 jobs at risk and signaling a total business failure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-682",
+      "headline": "Nvidia agrees to $290M settlement over crypto mining revenue disclosures",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/nvidia-agrees-290m-settlement-crypto-mining-revenue-disclosures?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:19:33Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Nvidia agrees to a $290M settlement regarding crypto mining revenue disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia agrees to a $290M settlement regarding crypto mining revenue disclosures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-687",
+      "headline": "Poundland collapses into administration",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/cfa5222e-c629-4f8c-8d32-d4723e13b7f4?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:14:25Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Poundland has entered administration, representing a total business failure and insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland has entered administration, representing a total business failure and insolvency event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-688",
+      "headline": "Poundland falls into administration with 11,000 jobs at risk",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/poundland-andy-burnham-jonathan-reynolds-government-mps-b1306402.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:13:45Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Poundland's administration puts 11,000 jobs at risk, confirming a major insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland's administration puts 11,000 jobs at risk, confirming a major insolvency event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-698",
+      "headline": "Fragrance Giants Handed $630 Million in EU, U.K. Antitrust Fines",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/eu-fines-fragrance-giants-firmenich-givaudan-iff-517-million-over-pricing-f61209c0?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:07:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
         "materiality_label_floor": 0,
         "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Givaudan",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "International Flavors & Fragrances",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Symrise",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-697",
+      "headline": "Fragrance Giants Handed $630 Million in EU, U.K. Antitrust Fines",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/eu-fines-fragrance-giants-firmenich-givaudan-iff-517-million-over-pricing-f61209c0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T17:07:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Givaudan",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "International Flavors & Fragrances",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Symrise",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-721",
+      "headline": "Poundland falls into administration with 11,000 jobs at risk",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/poundland-andy-burnham-jonathan-reynolds-government-alixpartners-b1306402.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T16:58:26Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Poundland has entered administration, putting 11,000 jobs at risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland has entered administration, putting 11,000 jobs at risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-729",
+      "headline": "Fragrance makers fined more than €500mn over Unilever price-fixing cartel",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/472d6327-a693-4023-a2ab-9672ad0e71b8?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T16:54:07Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Unilever and other fragrance makers were fined over €500 million for participating in a price-fixing cartel.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Unilever and other fragrance makers were fined over €500 million for participating in a price-fixing cartel.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unilever",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-732",
+      "headline": "NBA To Fund At Least $10 Billion To Fund European Basketball Arenas",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/markmedina/2026/11/25/nba-to-fund-at-least-10-billion-to-fund-european-basketball-arenas/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T16:53:39Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "The NBA announced a $10 billion investment plan for European basketball arenas.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The NBA announced a $10 billion investment plan for European basketball arenas.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NBA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-744",
+      "headline": "USAF Awards Boeing $2.8 Billion for 15 KC-46s in Lot 13",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/usaf-awards-boeing-2-8-billion-for-15-kc-46s-in-lot-13/air-force/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T16:45:50Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Boeing was awarded a $2.8 billion contract for 15 KC-46 aircraft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boeing was awarded a $2.8 billion contract for 15 KC-46 aircraft.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -1706,11 +1950,6 @@
           "name": "Boeing",
           "ticker": null,
           "listing_country": "US"
-        },
-        {
-          "name": "Xiamen Airlines",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mega",
@@ -1719,301 +1958,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261125-167",
-      "headline": "Mistras Group, Inc. Stockholders Approve Acquisition by H.I.G. Capital",
+      "inbox_id": "INB-20261125-748",
+      "headline": "Poundland collapses into administration, putting 12,000 jobs at risk",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/mistras-group-inc-stockholders-approve-acquisition-hig-capital",
-      "source_name": "Nasdaq",
+      "url": "https://www.theguardian.com/business/2026/nov/25/poundland-administration-jobs-at-risk-gordon-brothers",
+      "source_name": "The Guardian — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:38:58Z",
+      "found_at": "2026-11-25T16:41:08Z",
       "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Stockholders have approved the acquisition of Mistras Group by H.I.G. Capital.",
+      "prelim_note": "Poundland has entered administration, impacting 12,000 jobs and representing a major retail failure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Stockholders have approved the acquisition of Mistras Group by H.I.G. Capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mistras Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-151",
-      "headline": "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/apl-apollo-tubes-shares-in-focus-as-brokerages-downgrade-cut-target-price-by-44-after-tata-steels-purchase/articleshow/136146849.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:29:43Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Brokerages downgraded APL Apollo Tubes and cut the target price by 44% following Tata Steel's purchase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brokerages downgraded APL Apollo Tubes and cut the target price by 44% following Tata Steel's purchase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "APL Apollo Tubes",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-128",
-      "headline": "American Resources Corporation Receives Nasdaq Staff Delisting Determination Letter",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/american-resources-corporation-receives-nasdaq-staff-delisting-determination-letter",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T02:28:32Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Receipt of a delisting determination letter from Nasdaq indicates a severe risk to the company's listing status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Receipt of a delisting determination letter from Nasdaq indicates a severe risk to the company's listing status.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Resources Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-106",
-      "headline": "SpaceX-Tesla merger: Elon Musk’s companies assemble teams to discuss ‘biggest ever’ $3.2 trillion deal",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/spacextesla-merger-elon-musk-s-companies-assemble-teams-to-discuss-biggest-ever-3-2-trillion-deal-11795572495864.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T02:19:12Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Reported potential $3.2 trillion merger between SpaceX and Tesla.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported potential $3.2 trillion merger between SpaceX and Tesla.",
-      "region": "US",
+      "triage_reason": "Poundland has entered administration, impacting 12,000 jobs and representing a major retail failure.",
+      "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
         "source_tier": 0,
-        "scope": 5,
+        "scope": 6,
         "event": 9,
-        "size": 2,
-        "recency": 5,
+        "size": 1,
+        "recency": 3,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-087",
-      "headline": "Foxconn faces India insolvency lawsuit over unpaid vendor dues",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/foxconn-faces-india-insolvency-lawsuit-over-unpaid-vendor-dues",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T01:45:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Foxconn faces an insolvency lawsuit in India regarding unpaid vendor dues, representing a significant operational and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foxconn faces an insolvency lawsuit in India regarding unpaid vendor dues, representing a significant operational and legal risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "default_distress",
-        "size_bucket": "mega"
+        "size_bucket": "mid"
       },
       "event_types": [
         "default_distress",
-        "litigation_enforcement"
+        "restructuring_layoffs"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Foxconn",
+          "name": "Poundland",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-072",
-      "headline": "Foxconn faces India insolvency lawsuit over unpaid vendor dues",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/electronics/foxconn-faces-india-insolvency-lawsuit-over-unpaid-vendor-dues-apple-iphone-tata-electronics/articleshow/136145065.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T01:00:25Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Foxconn faces an insolvency lawsuit in India regarding unpaid vendor dues, posing a potential operational and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foxconn faces an insolvency lawsuit in India regarding unpaid vendor dues, posing a potential operational and legal risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foxconn",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "mega",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302767,9 +302756,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6403914,
-    "news_picked_today": 821,
-    "news_dropped_today": 19411
+    "news_seen_today": 6415229,
+    "news_picked_today": 1286,
+    "news_dropped_today": 20770
   },
   "book_momentum": {
     "live_count": 8,
