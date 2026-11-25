@@ -429,9 +429,15 @@ const MONTH_NUM: Record<string, number> = {
 
 // the date a window CLOSES, read out of free text (the ledger's own convention, e.g. 'Q2 2026 earnings
 // July 31, 2026' / 'FY2026 results release (~March 2027)') — ISO date, 'Month DD, YYYY', or bare
-// 'Month YYYY' (closes on the 28th, the only day every month has). Returns null when undateable.
+// 'Month YYYY' (closes on the 28th, the only day every month has), a date RANGE (its second date), or an
+// approximate 'early/mid/late YYYY'. Returns null when undateable.
 export function dueDateFromFreeText(text: string): string | null {
-  let m = /(\d{4})-(\d{2})-(\d{2})/.exec(text)
+  // A RANGE ('2026-11-01 to 2026-11-30') closes on its SECOND date — the same rule, in the same order,
+  // as scripts/overdue_checks.py due_date_from_text(); reading the first date calls a forecast overdue on
+  // the day its window opens.
+  let m = /\d{4}-\d{2}-\d{2}\s*(?:to|through|thru|until|till|[-–—/])\s*(\d{4}-\d{2}-\d{2})/i.exec(text)
+  if (m && isValidCalendarISODate(m[1])) return m[1]
+  m = /(\d{4})-(\d{2})-(\d{2})/.exec(text)
   if (m && isValidCalendarISODate(m[0])) return m[0]
   m = /([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})/.exec(text)
   if (m) {
@@ -446,15 +452,25 @@ export function dueDateFromFreeText(text: string): string | null {
     const mon = MONTH_NUM[m[1].slice(0, 3).toLowerCase()]
     if (mon) return `${m[2]}-${String(mon).padStart(2, '0')}-28`
   }
+  // the ledger's approximate form ('~mid-2026', 'late 2027'), read at its LATEST plausible close:
+  // early = end of April, mid = end of August, late/end = year end.
+  m = /\b(early|mid|late|end)(?:[-\s]+of)?[-\s]+(\d{4})\b/i.exec(text)
+  if (m) {
+    const close: Record<string, string> = { early: '04-30', mid: '08-31', late: '12-31', end: '12-31' }
+    return `${m[2]}-${close[m[1].toLowerCase()]}`
+  }
   return null
 }
 
-// forecast_ledger prefers a structured due field; falls back to free-text time_window (mirrors
-// _as_due_date's field-then-freetext order exactly).
+// forecast_ledger prefers a structured due field, then the explicit window_end; falls back to free-text
+// time_window (mirrors _as_due_date's field → window_end → freetext order exactly).
 function forecastDueDate(entry: any): string | null {
   for (const k of ['resolves_on', 'due_date', 'resolve_by']) {
     if (isValidCalendarISODate(entry?.[k])) return entry[k]
   }
+  // the explicit machine-readable close ('2026-11-30' or '2026-11-30T23:59:59Z') outranks the free text
+  const we = entry?.window_end
+  if (typeof we === 'string' && isValidCalendarISODate(we.slice(0, 10))) return we.slice(0, 10)
   return dueDateFromFreeText(String(entry?.time_window ?? ''))
 }
 
