@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T22:13:42Z",
+  "generated_at": "2026-11-25T22:17:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-333",
@@ -260986,77 +260986,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-724d6a35e979",
-      "idea_version": "IDEAV-12c8e0d1152b5f47",
-      "idea_version_started_at": "2026-11-24T19:36:03Z",
-      "ticker": "01756",
-      "company": "China Science & Education Industry",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
-      "why_now": "The filing was released on 2026-11-24, signaling immediate downward pressure on earnings expectations.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-08b6be7f8c78"
-      ],
-      "primary_source_event_id": "EVT-08b6be7f8c78",
-      "source_headlines": [
-        "CHI SCI&EDU IND (01756): PROFIT WARNING"
-      ],
-      "source_headline": "CHI SCI&EDU IND (01756): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112400805.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T10:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-24T19:36:03Z",
-      "updated_at": "2026-11-24T19:36:03Z",
-      "decay_at": "2026-11-25T22:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1daaee67f8a",
       "idea_version": "IDEAV-f27470cf4e2578cc",
       "idea_version_started_at": "2026-11-25T05:25:03Z",
@@ -261833,6 +261762,77 @@
       "surfaced_at": "2026-11-24T19:36:03Z",
       "updated_at": "2026-11-24T19:36:03Z",
       "decay_at": "2026-11-24T22:33:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-724d6a35e979",
+      "idea_version": "IDEAV-12c8e0d1152b5f47",
+      "idea_version_started_at": "2026-11-24T19:36:03Z",
+      "ticker": "01756",
+      "company": "China Science & Education Industry",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
+      "why_now": "The filing was released on 2026-11-24, signaling immediate downward pressure on earnings expectations.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-08b6be7f8c78"
+      ],
+      "primary_source_event_id": "EVT-08b6be7f8c78",
+      "source_headlines": [
+        "CHI SCI&EDU IND (01756): PROFIT WARNING"
+      ],
+      "source_headline": "CHI SCI&EDU IND (01756): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112400805.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T10:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-24T19:36:03Z",
+      "updated_at": "2026-11-24T19:36:03Z",
+      "decay_at": "2026-11-25T22:15:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263574,9 +263574,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -263584,9 +263584,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -263605,6 +263605,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-724d6a35e979",
+        "idea_version": "IDEAV-12c8e0d1152b5f47",
+        "idea_version_started_at": "2026-11-24T19:36:03Z",
+        "ticker": "01756",
+        "company": "China Science & Education Industry",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating deteriorating financial performance and potential margin compression.",
+        "why_now": "The filing was released on 2026-11-24, signaling immediate downward pressure on earnings expectations.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-08b6be7f8c78"
+        ],
+        "primary_source_event_id": "EVT-08b6be7f8c78",
+        "source_headlines": [
+          "CHI SCI&EDU IND (01756): PROFIT WARNING"
+        ],
+        "source_headline": "CHI SCI&EDU IND (01756): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112400805.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T10:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-24T19:36:03Z",
+        "updated_at": "2026-11-24T19:36:03Z",
+        "decay_at": "2026-11-25T22:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-25T22:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-043d03942dc6",
         "idea_version": "IDEAV-d921e34ad338ccc3",
@@ -300646,86 +300720,12 @@
         "archived_at": "2026-11-03T12:13:50Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f14c523b1f9e",
-        "idea_version": "IDEAV-65c6bdfd530b8917",
-        "idea_version_started_at": "2026-10-31T22:35:25Z",
-        "ticker": "RDDT",
-        "company": "Reddit",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 28% drop in stock price reflects the immediate threat of declining user traffic as Google's AI search features reduce reliance on external forum content.",
-        "why_now": "The market is reacting to the traffic decline reported today, October 31, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6461b6690e1b"
-        ],
-        "primary_source_event_id": "EVT-6461b6690e1b",
-        "source_headlines": [
-          "Reddit stock plunges 28% as Google AI cuts US traffic"
-        ],
-        "source_headline": "Reddit stock plunges 28% as Google AI cuts US traffic",
-        "source_url": "https://www.thestreet.com/technology/reddit-stock-plunges-28-as-google-ai-cuts-us-traffic",
-        "source_name": "TheStreet",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T11:07:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T22:35:25Z",
-        "updated_at": "2026-10-31T22:35:25Z",
-        "decay_at": "2026-11-01T23:07:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T12:13:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2673,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -300744,9 +300744,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6459386,
-    "news_picked_today": 1688,
-    "news_dropped_today": 23224
+    "news_seen_today": 6474418,
+    "news_picked_today": 1712,
+    "news_dropped_today": 23272
   },
   "book_momentum": {
     "live_count": 8,
