@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T04:36:08Z",
+  "generated_at": "2026-11-25T04:42:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -1782,6 +1782,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-173",
+      "headline": "KMD: KMD Brands Trading Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KMD?key=2924-03166032-2A1712705",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T20:30:55Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "KMD Brands issued a trading update which may contain material financial information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "KMD Brands issued a trading update which may contain material financial information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KMD Brands",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-159",
       "headline": "iPhone assembler Foxconn faces pressure to settle payments in India; BCD Emprasa seeks ₹143 cr in insolvency proceedings",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-107",
-      "headline": "Seatrium shares sink more than 7% after group announces job cuts",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/seatrium-shares-sink-more-than-7-after-group-announces-job-cuts",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T02:19:53Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Seatrium shares fell over 7% following the announcement of job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Seatrium shares fell over 7% following the announcement of job cuts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seatrium",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259466,77 +259466,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-6e19f64e0907",
-      "idea_version": "IDEAV-eaf1ca3c90dc4244",
-      "idea_version_started_at": "2026-11-25T01:02:41Z",
-      "ticker": "CRWD",
-      "company": "CrowdStrike Holdings, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "pair",
-      "pair_with": "ZS",
-      "reason": "CrowdStrike is acquiring Zscaler in an all-stock transaction, which typically involves going long the acquirer and short the target to capture the spread until the deal closes.",
-      "why_now": "The acquisition was announced on 2026-11-23; the trade is live as the market adjusts to the deal terms.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1780a9faa44b",
-        "EVT-1d4f6d03d7b0"
-      ],
-      "primary_source_event_id": "EVT-1780a9faa44b",
-      "source_headlines": [
-        "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
-        "CrowdStrike to buy Zscaler in $44 billion deal as AI supercharges cyberattacks"
-      ],
-      "source_headline": "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
-      "source_url": "https://www.nasdaq.com/articles/crowdstrike-acquire-zscaler-inc-all-stock-transaction-valued-approximately-439-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-23T16:39:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T01:02:41Z",
-      "updated_at": "2026-11-25T01:02:41Z",
-      "decay_at": "2026-11-25T04:39:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-e6dbcd1e11b88324",
       "idea_version_started_at": "2026-11-25T02:37:44Z",
@@ -260680,6 +260609,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-6e19f64e0907",
+      "idea_version": "IDEAV-eaf1ca3c90dc4244",
+      "idea_version_started_at": "2026-11-25T01:02:41Z",
+      "ticker": "CRWD",
+      "company": "CrowdStrike Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "pair",
+      "pair_with": "ZS",
+      "reason": "CrowdStrike is acquiring Zscaler in an all-stock transaction, which typically involves going long the acquirer and short the target to capture the spread until the deal closes.",
+      "why_now": "The acquisition was announced on 2026-11-23; the trade is live as the market adjusts to the deal terms.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1780a9faa44b",
+        "EVT-1d4f6d03d7b0"
+      ],
+      "primary_source_event_id": "EVT-1780a9faa44b",
+      "source_headlines": [
+        "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
+        "CrowdStrike to buy Zscaler in $44 billion deal as AI supercharges cyberattacks"
+      ],
+      "source_headline": "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
+      "source_url": "https://www.nasdaq.com/articles/crowdstrike-acquire-zscaler-inc-all-stock-transaction-valued-approximately-439-billion",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T16:39:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T01:02:41Z",
+      "updated_at": "2026-11-25T01:02:41Z",
+      "decay_at": "2026-11-25T04:39:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-d5fc92047527",
@@ -265708,19 +265708,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 569,
-    "shown_count": 500,
-    "hidden_count": 69,
+    "total_count": 570,
+    "shown_count": 499,
+    "hidden_count": 71,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 41
       },
       "short": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       }
     },
     "retention": {
@@ -265739,6 +265739,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6e19f64e0907",
+        "idea_version": "IDEAV-eaf1ca3c90dc4244",
+        "idea_version_started_at": "2026-11-25T01:02:41Z",
+        "ticker": "CRWD",
+        "company": "CrowdStrike Holdings, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "pair",
+        "pair_with": "ZS",
+        "reason": "CrowdStrike is acquiring Zscaler in an all-stock transaction, which typically involves going long the acquirer and short the target to capture the spread until the deal closes.",
+        "why_now": "The acquisition was announced on 2026-11-23; the trade is live as the market adjusts to the deal terms.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 72,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1780a9faa44b",
+          "EVT-1d4f6d03d7b0"
+        ],
+        "primary_source_event_id": "EVT-1780a9faa44b",
+        "source_headlines": [
+          "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
+          "CrowdStrike to buy Zscaler in $44 billion deal as AI supercharges cyberattacks"
+        ],
+        "source_headline": "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
+        "source_url": "https://www.nasdaq.com/articles/crowdstrike-acquire-zscaler-inc-all-stock-transaction-valued-approximately-439-billion",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-23T16:39:26Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T01:02:41Z",
+        "updated_at": "2026-11-25T01:02:41Z",
+        "decay_at": "2026-11-25T04:39:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-25T04:39:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3dc76c63d458",
         "idea_version": "IDEAV-88ffd855b16084a0",
@@ -298376,82 +298450,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1e404b952344",
-        "idea_version": "IDEAV-5b51c852f5641457",
-        "idea_version_started_at": "2026-11-06T07:46:04Z",
-        "ticker": "M&M",
-        "company": "Mahindra & Mahindra",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Strong demand for SUVs has driven a 25% increase in Q2 net profit, demonstrating effective margin expansion in their core automotive segment.",
-        "why_now": "The Q2 earnings results were reported on November 6, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-889cca8cafe8"
-        ],
-        "primary_source_event_id": "EVT-889cca8cafe8",
-        "source_headlines": [
-          "SUVs drive up M&M Q2 net profit by 25%"
-        ],
-        "source_headline": "SUVs drive up M&M Q2 net profit by 25%",
-        "source_url": "https://timesofindia.indiatimes.com/business/india-business/suvs-drive-up-mm-q2-net-profit-by-25/articleshow/135589534.cms",
-        "source_name": "The Times of India (Business)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T00:31:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-06T07:46:04Z",
-        "updated_at": "2026-11-06T07:46:04Z",
-        "decay_at": "2026-11-07T12:31:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T00:39:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-76874be29f78",
         "idea_version": "IDEAV-fdea07b5d2495fee",
         "idea_version_started_at": "2026-11-06T07:46:04Z",
@@ -302853,87 +302851,12 @@
         "archived_at": "2026-11-03T12:13:50Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5d7e7121c615",
-        "idea_version": "IDEAV-144f2e728dcf0083",
-        "idea_version_started_at": "2026-10-31T14:59:59Z",
-        "ticker": "YESBANK",
-        "company": "Yes Bank",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Axis Trustee has issued a demand for the restoration of ₹8,415 crore in AT1 bonds with a 3-day deadline, threatening contempt proceedings and signaling potential liquidity or legal distress.",
-        "why_now": "The demand was reported today, October 31, 2026, with a 3-day window for compliance.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a729629e19ca"
-        ],
-        "primary_source_event_id": "EVT-a729629e19ca",
-        "source_headlines": [
-          "Axis Trustee Demands Restoration Of ₹8,415 Crore Yes Bank AT1 Bonds Within 3 Days, Warns Of Contempt Proceedings"
-        ],
-        "source_headline": "Axis Trustee Demands Restoration Of ₹8,415 Crore Yes Bank AT1 Bonds Within 3 Days, Warns Of Contempt Proceedings",
-        "source_url": "https://www.freepressjournal.in/business/axis-trustee-demands-restoration-of-8415-crore-yes-bank-at1-bonds-within-3-days-warns-of-contempt-proceedings",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T08:20:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T07:00:21Z",
-        "updated_at": "2026-10-31T14:59:59Z",
-        "decay_at": "2026-11-01T20:20:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T12:13:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2665,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302952,9 +302875,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2025019,
-    "news_picked_today": 256,
-    "news_dropped_today": 2120
+    "news_seen_today": 2063848,
+    "news_picked_today": 262,
+    "news_dropped_today": 2186
   },
   "book_momentum": {
     "live_count": 8,
