@@ -664,6 +664,20 @@ _bm_verdict = rc.extract_synthesis_verdict(_bm_txt)
 _bm_disq = rc.extract_bm_disqualifier_triggered(_bm_txt)
 viol.extend(rc.eval_aa_module_verdict_lock(dec, _live_date, _bss_verdict, _mg_verdict, _tt24) or [])
 viol.extend(rc.eval_ab_bm_verdict_lock(dec, _live_date, _bm_verdict, _bm_disq) or [])
+# check BL — §17 catalyst-timing gate (live pre-publish; mirrors eval.py check BL via
+# scripts/rating_caps.py, same shared detection module as AA/AB above). CLAUDE.md §17: a catalyst with
+# no date "does not support conviction and must not lift the rating". The catalyst module's read used
+# to reach the decision only through `confidence_inputs.catalyst_timing_weak`, a hand-set boolean
+# worth a 70 confidence ceiling that no committed run has ever reached. TSLA_2026-07-25 is the proof:
+# "Short Candidate" shipped at 60/100 with Timing visibility 35/100 and an undated key catalyst, and
+# the engine's own 30-day review tagged the -13.50% paper-short return `timing error` + `catalyst
+# delay`. Two rules, both read from the catalyst 99 synthesis: (1) weak timing (a verdict other than
+# "Dated, evidenced near-term catalysts", or Timing visibility <= 40) requires the flag to be true;
+# (2) a "Short Candidate" with Timing visibility <= 40 or no proven calendar is capped at "Avoid" /
+# "Pair Trade / Hedge Required". Gate on `_live_date`, NOT `ddte` — the AA/AB precedent: a rerun
+# regenerates the catalyst synthesis and the rating over a folder whose decision_date stays pinned.
+_cat_txt = _read_orb("catalyst", "99_*-synthesis.md")
+viol.extend(rc.eval_bl_catalyst_timing_gate(dec, _live_date, _cat_txt, d.get("confidence_inputs")) or [])
 # check W — §16 sector ↔ valuation-method consistency (live pre-publish; mirrors eval.py check W via
 # scripts/sector_valuation_checks.py, a shared detection module following the same rating_caps.py /
 # headline_checks.py / scenario_integrity_checks.py extraction pattern). CLAUDE.md §16 requires
