@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T20:16:37Z",
+  "generated_at": "2026-11-25T20:39:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-333",
@@ -833,6 +833,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-342",
+      "headline": "US-led group reaches deal to acquire Lukoil's global assets",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/energy/2026/11/25/todd-boehly-lukoil/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T18:52:48Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "US-led group reaches confirmed deal to acquire Lukoil's global oil assets; mega-M&A affecting commodity supply and geopolitical positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US-led group reaches confirmed deal to acquire Lukoil's global oil assets; mega-M&A affecting commodity supply and geopolitical positioning.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lukoil",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1969,57 +2018,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-324",
-      "headline": "AMASSE CAPITAL (08168): (1) RESIGNATION OF EDs; (2) CHANGE OF AUTHORISED REPRESENTATIVE; (3) APPOINTMENT OF EDs & AUTHORISED REPRESENTATIVE; (4) RESIGNATION OF INEDs & CHANGE OF COMPOSITION OF COMMITTEES OF THE BOARD; (5) APPOINTMENT OF INED; (6) FAILURE TO COMPLY WITH THE GEM LISTING RULES; (7) CHANGE OF COMPOSITION OF INDEPENDENT INVESTIGATION COMMITTEE; (8) CONTINUED SUSPENSION OF TRADING; AND (9) WITHDRAWAL OF CERTAIN ORDINARY RESOLUTIONS AT TH",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112501693.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T14:49:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Mass resignation of directors, failure to comply with listing rules, and continued suspension of trading indicate severe distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Mass resignation of directors, failure to comply with listing rules, and continued suspension of trading indicate severe distress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "litigation_enforcement",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMASSE CAPITAL",
-          "ticker": "08168",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302773,9 +302771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6175036,
-    "news_picked_today": 739,
-    "news_dropped_today": 18533
+    "news_seen_today": 6260370,
+    "news_picked_today": 750,
+    "news_dropped_today": 18762
   },
   "book_momentum": {
     "live_count": 8,
