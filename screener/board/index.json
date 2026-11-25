@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T06:45:47Z",
+  "generated_at": "2026-11-25T06:50:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -440,6 +440,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-214",
+      "headline": "OpenTable To Buy Me&u",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/opentable-buy-meu",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T05:53:48Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "OpenTable is acquiring Me&u, indicating a strategic expansion or consolidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenTable is acquiring Me&u, indicating a strategic expansion or consolidation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenTable",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Me&u",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1950,50 +2004,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-153",
-      "headline": "OCC Announces Enforcement Actions for November 2026",
-      "headline_en": null,
-      "url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-104.html",
-      "source_name": "Office of the Comptroller of the Currency — News Releases",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-24T21:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The OCC announced enforcement actions for November 2026, indicating regulatory oversight and potential penalties for banking institutions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The OCC announced enforcement actions for November 2026, indicating regulatory oversight and potential penalties for banking institutions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302963,9 +302973,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2902633,
-    "news_picked_today": 322,
-    "news_dropped_today": 3182
+    "news_seen_today": 2934209,
+    "news_picked_today": 326,
+    "news_dropped_today": 3250
   },
   "book_momentum": {
     "live_count": 8,
