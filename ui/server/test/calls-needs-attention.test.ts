@@ -102,6 +102,23 @@ await check('an invalid calendar date embedded in free text (Feb 30) is never re
     assert.equal(c.needs_attention.forecasts_overdue.length, 0, 'an invalid calendar date must fall through to undateable, never overdue')
 })
 
+await check('a window is open until it ENDS: range, window_end and approximate forms match the Python reader', async () => {
+    mkCallDir('ZZATTW', {
+      ticker: 'ZZATTW', company_name: 'Attention Co W', decision_date: DATE, decision: 'Watchlist',
+      forecast_ledger: [
+        { prediction: 'open range', status: 'open', time_window: '2020-02-01 to 2099-01-01' },   // closes 2099
+        { prediction: 'open window_end', status: 'open', time_window: '2020-02-01 onward', window_end: '2099-01-01T23:59:59Z' },
+        { prediction: 'closed range', status: 'open', time_window: '2020-02-01 to 2020-02-10' }, // closed
+        { prediction: 'approx past', status: 'open', time_window: 'by FY20 annual report (~mid-2020)' },
+        { prediction: 'approx future', status: 'open', time_window: 'By mid-2099' },
+      ],
+    })
+    const { calls } = await listAllCalls(authority())
+    const c = calls.find((c: any) => c.ticker === 'ZZATTW')
+    const due = c.needs_attention.forecasts_overdue.map((f: any) => f.due_date).sort()
+    assert.deepEqual(due, ['2020-02-10', '2020-08-31'], 'only windows that have closed are overdue, at their closing date')
+})
+
 await check('the top-level needs_attention list is ranked oldest-due-date first, across tickers', async () => {
     mkCallDir('ZZATTD', {
       ticker: 'ZZATTD', company_name: 'Attention Co D', decision_date: DATE, decision: 'Watchlist',
