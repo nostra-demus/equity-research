@@ -1080,6 +1080,13 @@ if _isdate(_live_date) and _live_date >= _BA_SCEN_DATE:
                     "one falsification trigger; the live gate had no kill_criteria-presence check, so an omitted/empty "
                     "array printed GATE: PASS (mirrors eval.py schema check B + check P)")
 viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_criteria")) or [])
+# check BK — the same HARD GATE 11 trigger test on every NUMERIC forecast_ledger row (live pre-publish;
+# mirrors eval.py check BK via the same module). synthesizer.md §10 says "the same three checks apply to
+# every threshold in the Forecast Ledger", but only kill_criteria[] carried the answers, so a forecast
+# pinned to a bare level ("gross margin below 59.3%") with no year-ago comparable could ship and then be
+# scored as a hit by the calibration loop although the status quo already cleared it. Uses `_live_date`
+# for the same reason BA does.
+viol.extend(sic.eval_bk_forecast_trigger_test(_live_date, d.get("forecast_ledger")) or [])
 # checks AM/AR — §8 bear-case / bull-case sanity (live pre-publish; mirrors eval.py checks AM/AR
 # via scripts/scenario_integrity_checks.py, the same shared module as AT/AU/AV/BC/BA above).
 # CLAUDE.md §8 requires every thesis to state "the strongest bear case" (and, by the same
