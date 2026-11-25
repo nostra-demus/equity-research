@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T04:42:13Z",
+  "generated_at": "2026-11-25T04:49:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -848,6 +848,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-174",
+      "headline": "SEG: AGM Presentations and Trading Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SEG?key=2924-03166519-3A707442",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T04:11:52Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "The company issued a trading update explicitly marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company issued a trading update explicitly marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEG",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-119",
-      "headline": "U.S. jury convicts Huawei in a criminal trial over fraud and trade secrets",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/25/huawei-fraud-trade-trial.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T02:43:33Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "A U.S. jury convicted Huawei of fraud and trade secret theft, creating significant legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A U.S. jury convicted Huawei of fraud and trade secret theft, creating significant legal and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302875,9 +302875,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2063848,
-    "news_picked_today": 262,
-    "news_dropped_today": 2186
+    "news_seen_today": 2089845,
+    "news_picked_today": 264,
+    "news_dropped_today": 2232
   },
   "book_momentum": {
     "live_count": 8,
