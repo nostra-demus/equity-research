@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-25T00:03:30Z",
+  "generated_at": "2026-11-25T00:07:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261125-002",
+      "headline": "10-Q - Burlington Stores, Inc. (0001579298) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1579298/000119312526475713/0001193125-26-475713-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-24T21:14:09Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Company filed its quarterly 10-Q report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Company filed its quarterly 10-Q report.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Burlington Stores",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-001",
+      "headline": "VTX: Annual General Meeting Results and Director Resignation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VTX?key=2924-03166329-6A1356886",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T23:52:01Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "A director has resigned from the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "A director has resigned from the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vertex Minerals",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261124-801",
       "headline": "VR1: Amended USA acquisition & Capital Raising Presentation",
@@ -300674,7 +300772,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5247,
+    "inbox_unconsumed": 5249,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -300683,9 +300781,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 13361,
+    "news_picked_today": 2,
+    "news_dropped_today": 22
   },
   "book_momentum": {
     "live_count": 8,
