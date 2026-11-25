@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T22:06:48Z",
+  "generated_at": "2026-11-25T22:13:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-333",
@@ -838,6 +838,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-796",
+      "headline": "Japan's Mitsui plans $125bn business asset overhaul to boost ROE",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/companies/japan-s-mitsui-plans-125bn-business-asset-overhaul-to-boost-roe",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T21:51:46Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Mitsui announced a $125 billion asset overhaul to improve return on equity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mitsui announced a $125 billion asset overhaul to improve return on equity.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsui",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-805",
+      "headline": "4.41 million customer records leaked from Rakuten Securities",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/business/update1-4.41-million-customer-records-leaked-from-rakuten-securities",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T21:40:38Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Leak of 4.41 million customer records at Rakuten Securities poses significant operational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Leak of 4.41 million customer records at Rakuten Securities poses significant operational and regulatory risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rakuten Securities",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-789",
+      "headline": "Deere & Company Reports Net Income of $1.051 Billion for Fourth Quarter, $4.860 Billion for Fiscal Year",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/deere-company-reports-net-income-1051-billion-fourth-quarter-4860-billion-fiscal-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T21:20:02Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Deere & Company reported net income of $1.051 billion for Q4 and $4.860 billion for the fiscal year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Deere & Company reported net income of $1.051 billion for Q4 and $4.860 billion for the fiscal year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deere & Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-770",
       "headline": "Palo Alto Networks Accused by Ex-Manager of Accounting Fraud",
       "headline_en": null,
@@ -987,6 +1134,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-821",
+      "headline": "Poundland collapses into administration putting 11,000 jobs at risk before Christmas",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/news/uk/poundland-administration-jobs-christmas-b1306428.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T20:41:20Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Poundland has entered administration, threatening 11,000 jobs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland has entered administration, threatening 11,000 jobs.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1797,214 +1994,6 @@
           "name": "Symrise",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-697",
-      "headline": "Fragrance Giants Handed $630 Million in EU, U.K. Antitrust Fines",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/eu-fines-fragrance-giants-firmenich-givaudan-iff-517-million-over-pricing-f61209c0?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T17:07:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Givaudan",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "International Flavors & Fragrances",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Symrise",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-721",
-      "headline": "Poundland falls into administration with 11,000 jobs at risk",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/poundland-andy-burnham-jonathan-reynolds-government-alixpartners-b1306402.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T16:58:26Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Poundland has entered administration, putting 11,000 jobs at risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland has entered administration, putting 11,000 jobs at risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-729",
-      "headline": "Fragrance makers fined more than €500mn over Unilever price-fixing cartel",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/472d6327-a693-4023-a2ab-9672ad0e71b8?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T16:54:07Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Unilever and other fragrance makers were fined over €500 million for participating in a price-fixing cartel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Unilever and other fragrance makers were fined over €500 million for participating in a price-fixing cartel.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unilever",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-732",
-      "headline": "NBA To Fund At Least $10 Billion To Fund European Basketball Arenas",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/markmedina/2026/11/25/nba-to-fund-at-least-10-billion-to-fund-european-basketball-arenas/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T16:53:39Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The NBA announced a $10 billion investment plan for European basketball arenas.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The NBA announced a $10 billion investment plan for European basketball arenas.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NBA",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -300755,9 +300744,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6451286,
-    "news_picked_today": 1532,
-    "news_dropped_today": 22852
+    "news_seen_today": 6459386,
+    "news_picked_today": 1688,
+    "news_dropped_today": 23224
   },
   "book_momentum": {
     "live_count": 8,
