@@ -263,6 +263,14 @@ from ledger_records import resolve_integrity_status, supersession_target_violati
 from sector_valuation_checks import SECTOR_DATE, _FIN_INSTITUTION_FORBIDDEN, SECTOR_FORBIDDEN, eval_w_sector_valuation
 # Check BJ (§16 no double-charging a quality gap) lives in the same §16 module, for the same two callers.
 from sector_valuation_checks import BJ_DATE, eval_bj_quality_double_count
+# Check BN (§9 base rate must match the claim's unit, reverse-DCF) — same valuation-orb module, same callers.
+from sector_valuation_checks import BN_DATE, eval_bn_reverse_dcf_base_rate_unit
+
+def _bn_input(run):
+    """valuation/05_reverse-dcf.md markdown or None, for check BN."""
+    try:
+        with open(os.path.join(run,"valuation","05_reverse-dcf.md"),encoding="utf-8") as fh: return fh.read()
+    except (OSError,UnicodeDecodeError): return None
 
 def _bj_inputs(run):
     """(03 peers-orb markdown or None, valuation_summary.json peers_internals or None) for check BJ."""
@@ -2963,6 +2971,110 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] BJ({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=bjbad
 
+    # BN — §9 base rate must match the claim's unit (reverse-DCF Implied vs Achievable). No committed run
+    # reaches BN_DATE, so drive every branch here. The two FAIL rows are the real shipped defects.
+    BN=eval_bn_reverse_dcf_base_rate_unit
+    _bn_hd="| Implied Requirement | Company History | Earnings-Module Evidence | Achievable? |\n|---|---|---|---|\n"
+    _bn_hd2=("| Implied Requirement | Company History (same metric · level · period) | Base-rate basis | Evidence | Achievable? |\n"
+             "|---|---|---|---|---|\n")
+    _bn_emaar=_bn_hd+"| Implied FCFF CAGR = **−13.4%/yr** for 10 yrs (a permanent runoff) | Revenue CAGR **+15.4%/yr** FY2021–25 (accelerating: +7.3% / +32.7% / +39.6%) [earnings/01] | Consensus LT growth −14.8% | No |\n"
+    _bn_dher=_bn_hd+"| Implied FCF CAGR = 5.49%/yr for 7 yrs (pre-deal price) | Sits well below even the already-decelerating trend (FY26 guide 11.3% revenue growth alone) | tracked guidance | Yes |\n"
+    bncases=[
+        ("2026-11-21",_bn_emaar,None,"predates BN_DATE"),
+        ("2026-11-22",None,None,"no orb"),
+        ("2026-11-22","No table here.",None,"no Implied-vs-Achievable table"),
+        ("2026-11-22",_bn_emaar,["§9 base-rate unit mismatch","FCFF"],"EMAAR_2026-07-10 (real): FCFF vs revenue only"),
+        ("2026-11-22",_bn_dher,["§9 base-rate unit mismatch","revenue"],"DHER_2026-08-12 (real): FCF vs revenue only"),
+        ("2026-11-22",_bn_hd+"| NOPAT CAGR 16.4%/yr | Revenue CAGR 11.1%. NOPAT (normalized) CAGR ~36% | x | Stretch |\n",[],
+         "AMZN shape: revenue as context beside the matched NOPAT series"),
+        ("2026-11-22",_bn_hd+"| FCF CAGR 21.8% | 4yr CAGR 33.6% (FY22→FY25) | x | Yes |\n",[],"history names no metric: implicit unit"),
+        # §9/§27: PBT (profit-before-tax) is the SAME profit/cash-flow family as an implied FCF claim, so a
+        # history cell naming revenue AND PBT supplies the matched base rate — no §9 unit mismatch. PBT is
+        # standard statutory terminology in the default-likely Indian jurisdiction (§27); omitting it from the
+        # profit family false-flagged a §9-compliant row (red on the pre-fix regex, which carried PAT but not PBT).
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; PBT CAGR 14% FY22–26 | x | Yes |\n",[],
+         "PBT names the matched profit/cash-flow family (§27 Indian-filing term) — no §9 mismatch"),
+        # §9/§27: the SAME leak, same fix, for the other common profit/cash-flow abbreviations. PBDIT/PBIDT ARE
+        # EBITDA (the standard Indian P&L line) and OCF/CFO ARE operating cash flow / cash flow from operations;
+        # their spelled-out forms (EBITDA, "operating cash flow", "cash flow from operations") already matched,
+        # so only the abbreviations leaked and false-flagged a §9-compliant row. Red on the pre-fix regex (which
+        # carried EBITDA and the spelled-out cash-flow forms but not PBDIT/PBIDT/OCF/CFO); the check's own
+        # contract is that it "never blocks a correct row".
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; PBDIT CAGR 14% FY22–26 | x | Yes |\n",[],
+         "PBDIT (=EBITDA, §27 Indian P&L line) names the matched profit/cash-flow family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; OCF CAGR 14% FY22–26 | x | Yes |\n",[],
+         "OCF (operating cash flow) names the matched profit/cash-flow family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; CFO CAGR 14% FY22–26 | x | Yes |\n",[],
+         "CFO (cash flow from operations) names the matched profit/cash-flow family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied revenue CAGR = 6.0% | FY22→FY26 revenue CAGR = 20.13% | x | Yes |\n",[],"revenue vs revenue"),
+        ("2026-11-22",_bn_hd+"| Implied revenue CAGR = 6.0% | EBIT CAGR FY22–26 = 9.0% | x | Yes |\n",["revenue growth claim"],
+         "symmetric: revenue claim vs profit history only"),
+        ("2026-11-22",_bn_hd+"| Implied steady-state EBIT margin = 11.4% | Revenue grew 9.6% a year | x | Yes |\n",[],
+         "margin row is not a growth claim"),
+        ("2026-11-22",_bn_hd+"| FCF CAGR 16% | Revenue CAGR 15% [`earnings/01_historical-financials.md` §1] | x | Yes |\n",
+         ["§9 base-rate unit mismatch"],"a citation path naming 'earnings' is not the matched metric"),
+        ("2026-11-22",_bn_hd+"| FCF CAGR 16% | Revenue CAGR 15%, see earnings/01_historical-financials.md | x | Yes |\n",
+         ["§9 base-rate unit mismatch"],"a BARE (unbracketed) citation path naming 'earnings' is not the matched metric"),
+        ("2026-11-22",_bn_hd2+"| FCF CAGR 16% | Revenue CAGR 15% | proxy: revenue — FCF base negative in two of four years | x | Stretch |\n",[],
+         "declared proxy with a reason passes"),
+        ("2026-11-22",_bn_hd2+"| FCF CAGR 16% | Revenue CAGR 15% | proxy | x | Stretch |\n",["§9 base-rate unit mismatch"],
+         "a bare 'proxy' with no reason does not pass"),
+        ("2026-11-22",_bn_hd2+"| FCF CAGR 16% | Revenue CAGR 15% | matched | x | Stretch |\n",["§9 base-rate unit mismatch"],
+         "declaring 'matched' does not override the content"),
+        # §9: a profit-family word used as a document/event/source reference in a revenue-only history cell
+        # must NOT inject the profit family and mask the mismatch (keyword-collocation leak, lenient dir.).
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = −13% | Revenue CAGR +15% a year (from the FY24 earnings release) | x | No |\n",
+         ["§9 base-rate unit mismatch","profit/cash-flow"],"'earnings release' is a document, not the earnings metric"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = −13% | Revenue CAGR +15% a year, per the earnings module | x | No |\n",
+         ["§9 base-rate unit mismatch"],"'the earnings module' is an engine reference, not the earnings metric"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = −13% | Revenue grew 15% a year (earnings call commentary) | x | No |\n",
+         ["§9 base-rate unit mismatch"],"'earnings call commentary' is a document, not the earnings metric"),
+        # §9: a LEVEL (margin) row carrying only a bare time-adverb is a level, not a growth claim — skip it
+        # (do not fire a spurious 'growth claim' finding — the strict direction this guards).
+        ("2026-11-22",_bn_hd+"| Implied steady-state EBIT margin = 11.4% annually | Revenue grew 9% a year | x | Yes |\n",[],
+         "a margin level with 'annually' is still a level, not a growth claim"),
+        ("2026-11-22",_bn_hd+"| Implied EBIT margin of 12% held for a year | Revenue grew 9% a year | x | Yes |\n",[],
+         "a margin level with 'a year' is still a level, not a growth claim"),
+        # control: a genuine profit-growth claim stated with only the ambiguous time-adverb (no CAGR/grow)
+        # and no level noun MUST still be caught — the level-exclusion must not over-exclude.
+        ("2026-11-22",_bn_hd+"| Implied EPS 20% a year | Revenue CAGR 8% | x | No |\n",["§9 base-rate unit mismatch","profit/cash-flow"],
+         "'EPS 20% a year' (no CAGR, not a level noun) is still a profit growth claim"),
+        # §9/§27 (#830 follow-up): the English/IFRS/US-GAAP profit lines spelled with "income" (and the
+        # one-word "cashflow") ARE the matched profit/cash-flow family, so a history cell naming one beside
+        # a revenue CAGR as context is §9-compliant and must NOT fire — the check's stated contract is "it
+        # never blocks a correct row." Red on the pre-fix regex (which carried only net/operating income),
+        # green after. These cover the exact segment-decomposition case the SAME PR's §3 prompt mandates.
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; pre-tax income CAGR 14% FY22-26 | x | Yes |\n",[],
+         "'pre-tax income' names the matched profit family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue 9%; income before tax grew 14%/yr | x | Yes |\n",[],
+         "'income before tax' names the matched profit family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Consolidated revenue 9%; core segment income grew 30%/yr | x | Yes |\n",[],
+         "'segment income' (the §3 segment-decomposition case) names the matched family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue 9%; cashflow CAGR 14% | x | Yes |\n",[],
+         "one-word 'cashflow' names the matched cash-flow family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = -13% | Revenue CAGR +15% a year; fixed income holdings flat | x | No |\n",
+         ["§9 base-rate unit mismatch","profit/cash-flow"],
+         "'fixed income' must NOT count as the profit family — the real revenue-only mismatch still fires"),
+    ]
+    bnbad=0
+    for dt_,md_,exp,why in bncases:
+        got=BN(dt_,md_)
+        if exp is None: ok=(got is None)
+        elif not exp:   ok=(isinstance(got,list) and len(got)==0)
+        else:           ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
+        if not ok: bnbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BN {why} -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    # the agent's own §3 template row must pass its own gate
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..",".claude","agents","valuation","05_reverse-dcf.md"),encoding="utf-8") as _fh:
+            _tpl=BN(BN_DATE,_fh.read())
+        _ok=(_tpl==[])
+    except OSError:
+        _tpl=None; _ok=False
+    if not _ok: bnbad+=1
+    print(f"  [{'ok' if _ok else 'XX'}] BN 05_reverse-dcf.md's own §3 template passes -> {_tpl}")
+    bad+=bnbad
+
     # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
     # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
     import tempfile as _tf
@@ -4931,6 +5043,16 @@ for drp in runs:
         add("BJ_quality_double_count",False,"; ".join(bjresult))
     else:
         add("BJ_quality_double_count",True,"no earnings-multiple haircut is sized by the margin gap the denominator already carries")
+    # BN §9 base rate must match the claim's unit (forward-looking; landing BN_DATE) — a reverse-DCF
+    #   implied profit/cash-flow growth rate tested against revenue history alone (or the reverse).
+    bn_md=_bn_input(run)
+    bnresult=eval_bn_reverse_dcf_base_rate_unit(ddte,bn_md)
+    if bnresult is None:
+        add("BN_reverse_dcf_base_rate_unit",True,f"run predates the gate ({ddte}) or has no reverse-DCF Implied-vs-Achievable table — N/A",na=True)
+    elif bnresult:
+        add("BN_reverse_dcf_base_rate_unit",False,"; ".join(bnresult))
+    else:
+        add("BN_reverse_dcf_base_rate_unit",True,"every reverse-DCF implied growth rate is tested against history on the same metric (or a declared proxy)")
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
@@ -5058,6 +5180,11 @@ for drp in runs:
         if _r:
             retro.append({"check":"BM_verify_verdict_floor","status":"FAIL","detail":f"{os.path.basename(_az_vp)}: "+"; ".join(_r),
                           "note":f"retrospective — decision_date {ddte!r} predates BM_DATE ({BM_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if bnresult is None:
+        r=eval_bn_reverse_dcf_base_rate_unit(BN_DATE,bn_md)
+        if r:
+            retro.append({"check":"BN_reverse_dcf_base_rate_unit","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BN_DATE ({BN_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     if bhresult is None:
         r=eval_bh_net_debt_basis_label(BH_DATE,thesis)
         if r:
@@ -5142,6 +5269,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/balance-sheet-survival/02_maturity-wall-and-refinancing.md":["cash-finance-cost bridge","does not depend on a later `03` output"],
  ".claude/agents/balance-sheet-survival/03_liquidity-runway.md":["cash interest classification","cash finance costs absent from the chosen FCF","Unknown classification","do not silently annualise"],
  ".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md":["state it with its basis (CLAUDE.md §15)","Net debt (strict, §15)"],
+ ".claude/agents/valuation/05_reverse-dcf.md":["Matched-base-rate rule","Base-rate basis","check BN"],
  ".claude/agents/valuation/04_intrinsic-dcf.md":["benchmarked against peer-normal AND the company","Working capital scales with revenue"],
  ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1","RF-DISQ-001","Near-miss compounding signal"],
  ".claude/agents/business-model/12_red-flags-sweep.md":["RF-RFS-001","Aggressive-accounting tag"],
@@ -5157,10 +5285,10 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","eval_bj_quality_double_count","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","eval_bi_fx_conversion_consistency","eval_bj_quality_double_count","eval_bn_reverse_dcf_base_rate_unit","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one","BI_DATE","eval_bi_fx_conversion_consistency","_BI_PAIR"],
- "scripts/sector_valuation_checks.py":["SECTOR_DATE","eval_w_sector_valuation","BJ_DATE","eval_bj_quality_double_count","_BJ_FORMULA","_bj_ledger_rows"],
+ "scripts/sector_valuation_checks.py":["SECTOR_DATE","eval_w_sector_valuation","BJ_DATE","eval_bj_quality_double_count","_BJ_FORMULA","_bj_ledger_rows","BN_DATE","eval_bn_reverse_dcf_base_rate_unit","_bn_rows"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  # BF — without this row the whole basis-check module could be deleted and the suite would still
  # print PASS, which is the hole this registry exists to close (see its own comment above).
