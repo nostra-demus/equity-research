@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T13:56:49Z",
+  "generated_at": "2026-11-25T14:10:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-297",
@@ -1866,6 +1866,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-310",
+      "headline": "425 - Onconetix, Inc. (0001782107) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1782107/000121390026123933/0001213900-26-123933-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-25T13:32:20Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Form 425 SEC filing for Onconetix Inc. confirms an M&A business-combination communication is in process, but headline lacks deal value, counterparty, or terms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Form 425 SEC filing for Onconetix Inc. confirms an M&A business-combination communication is in process, but headline lacks deal value, counterparty, or terms.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Onconetix, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-265",
       "headline": "GOLD PEAK (00040): Voluntary Announcement - Conclusion of HK$1 Billion Three-Year Sustainability-Linked Syndicated Term Loan Facility Agreement by GP Industries Group",
       "headline_en": null,
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-150",
-      "headline": "EAX: Trading Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EAX?key=2924-03166479-2A1712910",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T03:18:02Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "EAX issued a price-sensitive trading update, which typically indicates a material deviation from previous expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "EAX issued a price-sensitive trading update, which typically indicates a material deviation from previous expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eagers Automotive",
-          "ticker": "APE",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302761,9 +302761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4599183,
-    "news_picked_today": 561,
-    "news_dropped_today": 13263
+    "news_seen_today": 4689659,
+    "news_picked_today": 563,
+    "news_dropped_today": 13573
   },
   "book_momentum": {
     "live_count": 8,
