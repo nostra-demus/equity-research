@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T16:02:32Z",
+  "generated_at": "2026-11-25T16:22:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-313",
@@ -784,6 +784,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-331",
+      "headline": "Dubai Islamic Bank to acquire Emirates Islamic to form Dh585bn major",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/banking/2026/11/25/dubai-islamic-bank-to-acquire-emirates-islamic-to-form-dh585bn-major/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T15:51:23Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Dubai Islamic Bank to acquire 100% of Emirates Islamic, forming combined entity with ~AED 585 billion (~$159.3 billion) in assets — a large Gulf banking consolidation with scale and efficiency implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai Islamic Bank to acquire 100% of Emirates Islamic, forming combined entity with ~AED 585 billion (~$159.3 billion) in assets — a large Gulf banking consolidation with scale and efficiency implications.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai Islamic Bank",
+          "ticker": null,
+          "listing_country": "AE"
+        },
+        {
+          "name": "Emirates Islamic",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-332",
+      "headline": "Dubai Islamic Bank agrees to acquire 100 percent of Emirates Islamic, lifting assets to $159.3 billion upon completion",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/dubai-islamic-bank-agrees-to-acquire-100-percent-of-emirates-islamic-lifting-assets-to-159-3-billion-upon-completion/?utm_source=rss&utm_medium=rss&utm_campaign=dubai-islamic-bank-agrees-to-acquire-100-percent-of-emirates-islamic-lifting-assets-to-159-3-billion-upon-completion",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T15:50:30Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Dubai Islamic Bank agrees to acquire 100% of Emirates Islamic, combined assets upon completion $159.3 billion — a material Gulf banking consolidation with capital structure and market-position implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai Islamic Bank agrees to acquire 100% of Emirates Islamic, combined assets upon completion $159.3 billion — a material Gulf banking consolidation with capital structure and market-position implications.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai Islamic Bank",
+          "ticker": null,
+          "listing_country": "AE"
+        },
+        {
+          "name": "Emirates Islamic",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,104 +2017,6 @@
           "name": "Dart Mining",
           "ticker": "DTM",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-174",
-      "headline": "SEG: AGM Presentations and Trading Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SEG?key=2924-03166519-3A707442",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T04:11:52Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The company issued a trading update explicitly marked as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company issued a trading update explicitly marked as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SEG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-157",
-      "headline": "Local Bounti Corporation Completes Acquisition of Revol Greens Facilities for $19,577,540",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/local-bounti-corporation-completes-acquisition-revol-greens-facilities-19577540",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:18:49Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Local Bounti acquired Revol Greens facilities for $19.58 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Local Bounti acquired Revol Greens facilities for $19.58 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Local Bounti Corporation",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -302763,9 +302773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5161565,
-    "news_picked_today": 630,
-    "news_dropped_today": 14226
+    "news_seen_today": 5240781,
+    "news_picked_today": 639,
+    "news_dropped_today": 14505
   },
   "book_momentum": {
     "live_count": 8,
