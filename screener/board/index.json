@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T06:40:42Z",
+  "generated_at": "2026-11-25T06:45:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -1506,6 +1506,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-212",
+      "headline": "Tata Sons To Consider SP Group Liquidity Plan, Restructuring At November 30 Board Meet",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/tata-sons-to-consider-sp-group-liquidity-plan-restructuring-at-november-30-board-meet-12373676#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T05:22:34Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Tata Sons is evaluating a liquidity plan and restructuring involving the SP Group, which is a significant corporate governance and capital structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Tata Sons is evaluating a liquidity plan and restructuring involving the SP Group, which is a significant corporate governance and capital structure event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-120",
       "headline": "Dell Raises Annual Sales Forecast Again On AI Server Demand",
       "headline_en": null,
@@ -1944,56 +1994,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-162",
-      "headline": "HP Inc. Reports Fiscal 2026 Net Revenue of $60.5 billion and Announces Dividend Increase",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/hp-inc-reports-fiscal-2026-net-revenue-605-billion-and-announces-dividend-increase",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:38:58Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "HP Inc. reported $60.5 billion in fiscal 2026 revenue and announced a dividend increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "HP Inc. reported $60.5 billion in fiscal 2026 revenue and announced a dividend increase.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HP Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302963,9 +302963,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2870929,
-    "news_picked_today": 314,
-    "news_dropped_today": 3142
+    "news_seen_today": 2902633,
+    "news_picked_today": 322,
+    "news_dropped_today": 3182
   },
   "book_momentum": {
     "live_count": 8,
