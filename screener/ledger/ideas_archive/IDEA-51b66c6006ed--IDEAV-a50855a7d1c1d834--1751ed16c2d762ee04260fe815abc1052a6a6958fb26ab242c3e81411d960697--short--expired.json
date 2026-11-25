@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-25T01:02:48Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-51b66c6006ed",
+    "idea_version": "IDEAV-a50855a7d1c1d834",
+    "idea_version_started_at": "2026-11-22T01:14:26Z",
+    "ticker": "BHP",
+    "company": "BHP Group",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A native title standoff threatens operations and future expansions across BHP's Australian copper assets, risking key production volumes and increasing operational friction.",
+    "why_now": "Reported on November 22, 2026, as an active dispute threatening heartland copper production.",
+    "conviction": 55,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 61,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 15,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-562c4368dbae"
+    ],
+    "primary_source_event_id": "EVT-562c4368dbae",
+    "source_headlines": [
+      "Native title stand-off casts a shadow over BHP’s copper heartland"
+    ],
+    "source_headline": "Native title stand-off casts a shadow over BHP’s copper heartland",
+    "source_url": "https://www.afr.com/companies/mining/native-title-stand-off-casts-a-shadow-over-bhp-s-copper-heartland-20261122-p61fnz?ref=rss&utm_medium=rss&utm_source=rss_feed",
+    "source_name": "Australian Financial Review",
+    "materiality_max": 85,
+    "newest_source_at": "2026-11-22T01:00:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-22T01:14:26Z",
+    "updated_at": "2026-11-22T01:14:26Z",
+    "decay_at": "2026-11-23T13:00:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

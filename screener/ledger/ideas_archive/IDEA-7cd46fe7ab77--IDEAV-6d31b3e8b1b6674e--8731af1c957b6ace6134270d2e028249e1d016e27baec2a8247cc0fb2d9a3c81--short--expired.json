@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-24T19:36:18Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-7cd46fe7ab77",
+    "idea_version": "IDEAV-6d31b3e8b1b6674e",
+    "idea_version_started_at": "2026-11-21T00:05:01Z",
+    "ticker": "BAYN",
+    "company": "Bayer AG",
+    "exchange": "XETRA",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A judge approved a massive $7.25bn litigation payout to settle claims that Roundup causes cancer, driving substantial cash outflows and balance sheet stress.",
+    "why_now": "Court approval of the settlement was reported on November 20, 2026, marking a major immediate financial liability.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-3ec0090681bb"
+    ],
+    "primary_source_event_id": "EVT-3ec0090681bb",
+    "source_headlines": [
+      "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer"
+    ],
+    "source_headline": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
+    "source_url": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
+    "source_name": "The Guardian — World news",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-20T23:42:43Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-21T00:05:01Z",
+    "updated_at": "2026-11-21T00:05:01Z",
+    "decay_at": "2026-11-22T11:42:43Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
