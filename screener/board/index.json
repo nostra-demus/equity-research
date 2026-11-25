@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T10:38:54Z",
+  "generated_at": "2026-11-25T10:43:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-222",
@@ -1762,6 +1762,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-263",
+      "headline": "Revised Settlement Schedule Offer to Buy – Acquisition Window (Takeover) for KRONOX LAB SCIENCES LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261125-7/20261125-7.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T10:27:38Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Kronox Lab Sciences Limited is subject to a takeover offer via the acquisition window.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Kronox Lab Sciences Limited is subject to a takeover offer via the acquisition window.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kronox Lab Sciences Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-245",
       "headline": "ZY INTL (08516): PROFIT WARNING - ESTIMATED DECREASE IN LOSS",
       "headline_en": null,
@@ -1953,55 +2002,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-143",
-      "headline": "425 - Maplebear Inc. (0001579091) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1579091/000119312526475639/0001193125-26-475639-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-24T21:05:09Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Maplebear Inc. (Instacart) filed a 425 communication regarding a business combination.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Maplebear Inc. (Instacart) filed a 425 communication regarding a business combination.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maplebear Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302755,9 +302755,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3965651,
-    "news_picked_today": 436,
-    "news_dropped_today": 9404
+    "news_seen_today": 3979983,
+    "news_picked_today": 446,
+    "news_dropped_today": 9418
   },
   "book_momentum": {
     "live_count": 8,
