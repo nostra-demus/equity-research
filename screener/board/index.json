@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-25T08:51:01Z",
+  "generated_at": "2026-11-25T09:24:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261125-222",
+      "headline": "SUNSHINE OIL (02012): UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500528.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T09:12:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Auditor's disclaimer of opinion on going concern raises material doubt about the company's ability to continue operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor's disclaimer of opinion on going concern raises material doubt about the company's ability to continue operations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sunshine Oil",
+          "ticker": "02012",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261125-165",
       "headline": "SHEIN-W (00625): INSIDE INFORMATION UPDATE ON THE U.S. FEDERAL TRADE COMMISSION INVESTIGATION",
@@ -1956,55 +2005,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-164",
-      "headline": "Basis Corporation (4068)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Basis Corporation is subject to a trading halt on the Japan Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Basis Corporation is subject to a trading halt on the Japan Exchange.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Basis Corporation",
-          "ticker": "4068",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -260568,78 +260568,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-043d03942dc6",
-      "idea_version": "IDEAV-d921e34ad338ccc3",
-      "idea_version_started_at": "2026-11-25T01:22:54Z",
-      "ticker": "MNRO",
-      "company": "Monro, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The suspension of the quarterly cash dividend signals significant liquidity constraints or a deterioration in free cash flow generation.",
-      "why_now": "The announcement was made on 2026-11-23; the market typically reacts negatively to dividend cuts as they indicate financial distress.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f9576315405b"
-      ],
-      "primary_source_event_id": "EVT-f9576315405b",
-      "source_headlines": [
-        "Monro, Inc. Announces Suspension of Quarterly Cash Dividend"
-      ],
-      "source_headline": "Monro, Inc. Announces Suspension of Quarterly Cash Dividend",
-      "source_url": "https://www.nasdaq.com/articles/monro-inc-announces-suspension-quarterly-cash-dividend",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-23T21:10:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T01:22:54Z",
-      "updated_at": "2026-11-25T01:22:54Z",
-      "decay_at": "2026-11-25T09:10:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-47caa3f3fead",
       "idea_version": "IDEAV-0d73abeb0e90c631",
       "idea_version_started_at": "2026-11-25T01:22:54Z",
@@ -261834,6 +261762,78 @@
       "surfaced_at": "2026-11-24T23:28:04Z",
       "updated_at": "2026-11-25T01:22:54Z",
       "decay_at": "2026-11-25T07:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-043d03942dc6",
+      "idea_version": "IDEAV-d921e34ad338ccc3",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "MNRO",
+      "company": "Monro, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The suspension of the quarterly cash dividend signals significant liquidity constraints or a deterioration in free cash flow generation.",
+      "why_now": "The announcement was made on 2026-11-23; the market typically reacts negatively to dividend cuts as they indicate financial distress.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f9576315405b"
+      ],
+      "primary_source_event_id": "EVT-f9576315405b",
+      "source_headlines": [
+        "Monro, Inc. Announces Suspension of Quarterly Cash Dividend"
+      ],
+      "source_headline": "Monro, Inc. Announces Suspension of Quarterly Cash Dividend",
+      "source_url": "https://www.nasdaq.com/articles/monro-inc-announces-suspension-quarterly-cash-dividend",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T21:10:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T01:22:54Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-25T09:10:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -265588,9 +265588,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 564,
     "shown_count": 499,
-    "hidden_count": 64,
+    "hidden_count": 65,
     "side_counts": {
       "long": {
         "total_count": 287,
@@ -265598,9 +265598,9 @@
         "hidden_count": 37
       },
       "short": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       }
     },
     "retention": {
@@ -265619,6 +265619,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-043d03942dc6",
+        "idea_version": "IDEAV-d921e34ad338ccc3",
+        "idea_version_started_at": "2026-11-25T01:22:54Z",
+        "ticker": "MNRO",
+        "company": "Monro, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The suspension of the quarterly cash dividend signals significant liquidity constraints or a deterioration in free cash flow generation.",
+        "why_now": "The announcement was made on 2026-11-23; the market typically reacts negatively to dividend cuts as they indicate financial distress.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f9576315405b"
+        ],
+        "primary_source_event_id": "EVT-f9576315405b",
+        "source_headlines": [
+          "Monro, Inc. Announces Suspension of Quarterly Cash Dividend"
+        ],
+        "source_headline": "Monro, Inc. Announces Suspension of Quarterly Cash Dividend",
+        "source_url": "https://www.nasdaq.com/articles/monro-inc-announces-suspension-quarterly-cash-dividend",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-23T21:10:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T01:22:54Z",
+        "updated_at": "2026-11-25T01:22:54Z",
+        "decay_at": "2026-11-25T09:10:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-25T09:10:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0d33d5cbe937",
         "idea_version": "IDEAV-9a0ad5f2c1175e4b",
@@ -302659,87 +302734,12 @@
         "archived_at": "2026-11-03T12:13:50Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5d7e7121c615",
-        "idea_version": "IDEAV-144f2e728dcf0083",
-        "idea_version_started_at": "2026-10-31T14:59:59Z",
-        "ticker": "YESBANK",
-        "company": "Yes Bank",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Axis Trustee has issued a demand for the restoration of ₹8,415 crore in AT1 bonds with a 3-day deadline, threatening contempt proceedings and signaling potential liquidity or legal distress.",
-        "why_now": "The demand was reported today, October 31, 2026, with a 3-day window for compliance.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a729629e19ca"
-        ],
-        "primary_source_event_id": "EVT-a729629e19ca",
-        "source_headlines": [
-          "Axis Trustee Demands Restoration Of ₹8,415 Crore Yes Bank AT1 Bonds Within 3 Days, Warns Of Contempt Proceedings"
-        ],
-        "source_headline": "Axis Trustee Demands Restoration Of ₹8,415 Crore Yes Bank AT1 Bonds Within 3 Days, Warns Of Contempt Proceedings",
-        "source_url": "https://www.freepressjournal.in/business/axis-trustee-demands-restoration-of-8415-crore-yes-bank-at1-bonds-within-3-days-warns-of-contempt-proceedings",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T08:20:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T07:00:21Z",
-        "updated_at": "2026-10-31T14:59:59Z",
-        "decay_at": "2026-11-01T20:20:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T12:13:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2670,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302758,9 +302758,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3559243,
-    "news_picked_today": 352,
-    "news_dropped_today": 7160
+    "news_seen_today": 3729374,
+    "news_picked_today": 358,
+    "news_dropped_today": 7178
   },
   "book_momentum": {
     "live_count": 8,
