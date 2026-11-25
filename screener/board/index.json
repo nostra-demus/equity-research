@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T10:43:28Z",
+  "generated_at": "2026-11-25T10:51:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-222",
@@ -1615,6 +1615,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-265",
+      "headline": "GOLD PEAK (00040): Voluntary Announcement - Conclusion of HK$1 Billion Three-Year Sustainability-Linked Syndicated Term Loan Facility Agreement by GP Industries Group",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500718.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T09:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "GP Industries secured a HK$1 billion three-year sustainability-linked syndicated term loan facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "GP Industries secured a HK$1 billion three-year sustainability-linked syndicated term loan facility.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GOLD PEAK",
+          "ticker": "00040",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-244",
       "headline": "CGN POWER (01816): COMMENCEMENT OF FULL CONSTRUCTION OF TAISHAN UNIT 3",
       "headline_en": null,
@@ -1913,55 +1962,6 @@
       "headline": "SCHEDULE 13D - BNY MELLON HIGH YIELD STRATEGIES FUND (0001057861) (Subject)",
       "headline_en": null,
       "url": "https://www.sec.gov/Archives/edgar/data/1057861/000106299326006271/0001062993-26-006271-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-25T00:18:43Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Saba Capital Management has filed a Schedule 13D, indicating a significant stake and potential activist involvement in the subject entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Saba Capital Management has filed a Schedule 13D, indicating a significant stake and potential activist involvement in the subject entity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BNY Mellon High Yield Strategies Fund",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-016",
-      "headline": "SCHEDULE 13D - Saba Capital Management, L.P. (0001510281) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1510281/000106299326006271/0001062993-26-006271-index.htm",
       "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
       "found_at": "2026-11-25T00:18:43Z",
@@ -302755,9 +302755,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3979983,
-    "news_picked_today": 446,
-    "news_dropped_today": 9418
+    "news_seen_today": 3994432,
+    "news_picked_today": 451,
+    "news_dropped_today": 9629
   },
   "book_momentum": {
     "live_count": 8,
