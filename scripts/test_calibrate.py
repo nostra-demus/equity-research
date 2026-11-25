@@ -1876,6 +1876,29 @@ def test_resolution_markdown_newline_prediction_stays_one_row():
           "the multi-line prediction is collapsed to a single spaced cell with '|' swapped to '/'")
 
 
+def test_resolution_coverage_sort_mixed_run_key_no_crash():
+    # calibrate.py's own sort-safety contract (the `_slice_key`/str-coercion discipline): a sort key must be
+    # a comparable primitive so one malformed record never raises mid-sort and aborts the whole calibration
+    # write. The unscored-forecast sort coerced `ticker` with str() but left `run` bare; `_run_date` returns
+    # None for a run-folder basename with no underscore, so two same-ticker, same-due unscored rows — one run
+    # None, one a str — raised `TypeError: '<' not supported between 'str' and 'NoneType'` mid-sort and aborted
+    # the entire /research:calibrate write. Regression for PR #825 (red before `str(u["run"])`, green after).
+    standing = [
+        {"run_root": "analyses/Z", "record": {"ticker": "Z", "decision": "Watchlist",
+         "decision_date": "2026-06-01", "basket": "Watchlist",
+         "forecast_ledger": [{"prediction": "a", "probability": 50, "time_window": "2026-07-01"}]}},
+        {"run_root": "analyses/Z_2026-01-01", "record": {"ticker": "Z", "decision": "Watchlist",
+         "decision_date": "2026-06-01", "basket": "Watchlist",
+         "forecast_ledger": [{"prediction": "b", "probability": 50, "time_window": "2026-07-01"}]}},
+    ]
+    out = C.build(standing=standing, today="2026-07-18", reviews_provider=lambda r: [])
+    fr = out["forecast_resolution"]
+    check(fr["n_matured"] == 2 and fr["n_matured_unscored"] == 2,
+          f"both same-ticker unscored matured rows are counted, the write did not abort (got {fr['n_matured']}/{fr['n_matured_unscored']})")
+    check(sorted(str(u["run"]) for u in fr["unscored"]) == ["2026-01-01", "None"],
+          f"the None run (folder basename without a date) is coerced for the sort, not compared against a str (got {[u['run'] for u in fr['unscored']]})")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -1915,7 +1938,8 @@ def main():
                test_reported_return_earliest_tracking_anchor,
                test_reported_return_changes_preserve_forecast_calibration,
                test_forecast_resolution_coverage,
-               test_resolution_markdown_newline_prediction_stays_one_row):
+               test_resolution_markdown_newline_prediction_stays_one_row,
+               test_resolution_coverage_sort_mixed_run_key_no_crash):
         print(f"[{fn.__name__}]")
         fn()
     print()

@@ -721,7 +721,7 @@ def resolution_coverage_summary(per_record, scored_pairs):
         "coverage_floor": MIN_RESOLUTION_COVERAGE,
         "below_floor": coverage is not None and coverage < MIN_RESOLUTION_COVERAGE,
         "brier_bounds_if_unscored_matured_settled": bounds,
-        "unscored": sorted(unscored, key=lambda u: (u["due_date"], str(u["ticker"]), u["run"], u["ledger_index"])),
+        "unscored": sorted(unscored, key=lambda u: (u["due_date"], str(u["ticker"]), str(u["run"]), u["ledger_index"])),
         "note": ("Population = the gated Brier's (provisional runs excluded). 'Matured' = the forecast's own due "
                  "date (resolves_on / due_date / resolve_by, then window_end, else the time_window text, a range closing "
                  "on its second date — the check-AS reader) is "
