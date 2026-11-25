@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T00:43:05Z",
+  "generated_at": "2026-11-25T00:47:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-006",
@@ -624,6 +624,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-030",
+      "headline": "Inflation hits 4.9pc in October dialling back rate cut hopes",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-slip-anthropic-shares-fall-below-ipo-price-nvidia-slides-anew-20261125-p61gzb?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T00:39:39Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Inflation at 4.9% in October reduces the likelihood of near-term interest rate cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Inflation at 4.9% in October reduces the likelihood of near-term interest rate cuts.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -1270,6 +1313,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-029",
+      "headline": "RBI cuts dollar sales as foreign inflows ease pressure on rupee",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/economy/finance/rbi-cuts-dollar-sales-as-foreign-inflows-ease-pressure-on-rupee/articleshow/136141084.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "The Reserve Bank of India is reducing dollar sales as foreign inflows stabilize the rupee.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "The Reserve Bank of India is reducing dollar sales as foreign inflows stabilize the rupee.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-013",
       "headline": "Thailand’s Shrinking Budget Room Raises Pressure for Tax Hikes",
       "headline_en": null,
@@ -1308,6 +1394,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-028",
+      "headline": "Mineros General Shareholders Assembly Approves Extraordinary Dividend of Approximately US$58 Million, Equivalent to US$0.20 Per Share",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/25/3409954/0/en/mineros-general-shareholders-assembly-approves-extraordinary-dividend-of-approximately-us-58-million-equivalent-to-us-0-20-per-share.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-25T00:28:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Mineros approved an extraordinary dividend of US$58 million, or US$0.20 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Mineros approved an extraordinary dividend of US$58 million, or US$0.20 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mineros",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301985,7 +302120,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5274,
+    "inbox_unconsumed": 5277,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -301994,9 +302129,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 239173,
-    "news_picked_today": 27,
-    "news_dropped_today": 285
+    "news_seen_today": 279004,
+    "news_picked_today": 30,
+    "news_dropped_today": 306
   },
   "book_momentum": {
     "live_count": 8,
