@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T04:49:25Z",
+  "generated_at": "2026-11-25T04:53:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -1880,6 +1880,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-175",
+      "headline": "Bangladesh raises garment workers’ minimum wage 36% after protests",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/asia/bangladesh-raises-garment-workers-minimum-wage-36-after-protests-4230334",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T04:34:06Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Bangladesh garment sector faces a 36% increase in minimum wage, impacting labor costs for manufacturers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Bangladesh garment sector faces a 36% increase in minimum wage, impacting labor costs for manufacturers.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Bangladesh Garment Industry",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-159",
       "headline": "iPhone assembler Foxconn faces pressure to settle payments in India; BCD Emprasa seeks ₹143 cr in insolvency proceedings",
       "headline_en": null,
@@ -1921,55 +1971,6 @@
           "name": "Foxconn",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-146",
-      "headline": "Trump reportedly says he is open to pardoning Jensen Huang ahead of CEO’s planned Senate committee testimony – as it happened",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/us-news/live/2026/nov/24/donald-trump-nvidia-jensen-huang-republicans-democrats-china-latest-news-updates",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T02:58:18Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Reports of potential presidential pardons for a major CEO ahead of Senate testimony represent a significant political and governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Reports of potential presidential pardons for a major CEO ahead of Senate testimony represent a significant political and governance event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NVIDIA",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -302875,9 +302876,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2089845,
-    "news_picked_today": 264,
-    "news_dropped_today": 2232
+    "news_seen_today": 2104120,
+    "news_picked_today": 265,
+    "news_dropped_today": 2279
   },
   "book_momentum": {
     "live_count": 8,
