@@ -116,6 +116,12 @@ def main():
               "(rerun on a pre-AZ_DATE folder would bypass the contradiction-sweep gate)")
     else:
         print("  [ok] full.md Step 10B.2 AZ call gates on `_live_date`")
+    # Same guard for check BM (verify-evidence verdict floor, verify-evidence.md §5).
+    if not re.search(r"eval_bm_verdict_floor\(\s*_live_date\s*,", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.2 BM call does NOT gate on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.2 BM call gates on `_live_date`")
 
     tmp = tempfile.mkdtemp(prefix="az_live_gate_")
     try:
@@ -143,6 +149,20 @@ def main():
              "PROVISIONAL", ["has no 'contradiction_checks' array"]),
             ("report is unreadable JSON", "UNREADABLE", "PROVISIONAL",
              ["verification_report.json unreadable"]),
+            # check BM — the verdict may not be softer than the report's own findings (verify-evidence.md §5).
+            ("BM: verdict Minor issues over a high fidelity break (softened verdict)",
+             {"verdict": "Minor issues", "contradiction_checks": [],
+              "fidelity_checks": [{"break_type": "qualifier_dropped", "severity": "high"}]},
+             "PROVISIONAL", ["verify-evidence verdict softer than its own findings", "fidelity_checks[0] severity=high"]),
+            ("BM: verdict Clean over a math break that does not tie",
+             {"verdict": "Clean", "contradiction_checks": [], "math_checks": [{"quantity": "EV", "ties": False}]},
+             "PROVISIONAL", ["verify-evidence verdict softer than its own findings", "math_checks[0] ties=false"]),
+            ("BM: verdict Minor issues with only medium findings (floor met)",
+             {"verdict": "Minor issues", "contradiction_checks": [], "claim_checks": [{"severity": "medium"}]},
+             "PASS", []),
+            ("BM: verdict Material issues over a high finding (floor met; F30 still stamps on the verdict alone)",
+             {"verdict": "Material issues", "contradiction_checks": [], "claim_checks": [{"severity": "high"}]},
+             "PROVISIONAL", ["verify-evidence verdict = Material issues"]),
         ]
         for index, (name, report, verdict, diagnostics) in enumerate(cases):
             run_root = os.path.join(tmp, f"case{index}", "TEST_" + PRE_CUTOFF_DATE)

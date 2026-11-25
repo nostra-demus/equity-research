@@ -338,6 +338,9 @@ def eval_ay_fixture_integrity(decision_date, status):
 # Import (not copy): eval.py is the single caller of this function for retrospective grading;
 # verify_evidence_checks.py is the single source of the detection logic, imported by both callers.
 from verify_evidence_checks import AZ_DATE, eval_az_contradiction_sweep
+# Check BM (verify-evidence verdict floor) lives in the same module, for the same two callers (this
+# harness + the live /research:full Step 10B.2 F30 stamp). See the BM_DATE comment block there.
+from verify_evidence_checks import BM_DATE, eval_bm_verdict_floor
 
 # ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §11 / synthesizer.md Rating Cap Rules: data_sufficiency_score < 30 → the decision MUST be the
@@ -856,6 +859,36 @@ if scope=="selftest":
         got=AZ(dt_,rep_); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] AZ({dt_!r},{rep_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    # check BM — verify-evidence verdict floor (verify-evidence.md §5). Expected values pinned to §5's own
+    # wording ("Material issues — a high flag"; "Clean — ... math ties, anchors agree"), not to code output.
+    BM=eval_bm_verdict_floor
+    _hi={"claim_checks":[{"claim":"x","severity":"high"}]}
+    bmcases=[  # (decision_date, report, expect)
+        ("2026-11-21",{"verdict":"Minor issues",**_hi},"fail"),                       # high flag under Minor → softened
+        ("2026-11-21",{"verdict":"Clean","fidelity_checks":[{"break_type":"qualifier_dropped","severity":"High "}]},"fail"),  # case/space-normalised
+        ("2026-11-21",{"verdict":"Clean","contradiction_checks":[{"severity":"critical","addressed":False}]},"fail"),
+        ("2026-11-21",{"verdict":" Minor issues ","claim_checks":[{"severity":"critical"}]},"fail"),  # whitespace verdict still read
+        ("2026-11-21",{"verdict":"Material issues",**_hi},"pass"),                    # floor met
+        ("2026-11-21",{"verdict":"Failed",**_hi},"pass"),
+        ("2026-11-21",{"verdict":"Material issues"},"pass"),                          # harsher than findings — conservative, never flagged
+        ("2026-11-21",{"verdict":"Clean","claim_checks":[{"severity":"medium"}]},"fail"),   # medium → floor is Minor
+        ("2026-11-21",{"verdict":"Minor issues","claim_checks":[{"severity":"medium"}]},"pass"),
+        ("2026-11-21",{"verdict":"Clean","math_checks":[{"quantity":"EV","ties":False}]},"fail"),  # Clean needs "math ties"
+        ("2026-11-21",{"verdict":"Clean","anchor_checks":[{"anchor":"net debt","consistent":False}]},"fail"),
+        ("2026-11-21",{"verdict":"Minor issues","math_checks":[{"ties":False}],"anchor_checks":[{"consistent":False}]},"pass"),  # "could move the decision" is the verifier's call
+        ("2026-11-21",{"verdict":"Clean","math_checks":[{"ties":None}],"claim_checks":[{"severity":"low"},{"severity":"info"}]},"pass"),
+        ("2026-11-21",{"verdict":"Clean","claim_checks":"none","math_checks":[1,None,"x"]},"pass"),  # malformed rows never crash
+        ("2026-11-21",{"verdict":"Clean","contradiction_checks":[{"verdict_word":"confirmed"}]},"pass"),  # no severity → nothing to floor
+        ("2026-11-20",{"verdict":"Minor issues",**_hi},"na"),                         # predates BM_DATE
+        ("not-a-date",{"verdict":"Minor issues",**_hi},"na"),
+        ("2026-11-21",None,"na"),                                                     # no report — check O's job
+        ("2026-11-21",False,"na"),                                                    # unreadable — AZ already fails it
+        ("2026-11-21",[],"na"),
+    ]
+    for dt_,rep_,exp in bmcases:
+        got,_r=BM(dt_,rep_); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BM({dt_!r},{rep_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp} {_r}"))
     # check Y — the golden suite can't reach the cap branches (every fixture is score 68-69 / Watchlist-Avoid
     # → trivial pass), so drive the full §11 gate here. Note the F1 cases: weak data caps a Short (matching
     # checks O/U/X), but a Pair hedge is intentionally exempt.
@@ -4170,7 +4203,7 @@ if scope=="selftest":
         _ok = _got == _want
         print(f"  [{'ok' if _ok else 'XX'}] {_nm}")
         if not _ok: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(bdcases)} check-BD + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(bmcases)} check-BM + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(bdcases)} check-BD + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4711,6 +4744,16 @@ for drp in runs:
         add("AZ_contradiction_sweep", True, f"contradiction_checks present ({len(_az_report.get('contradiction_checks') or [])} finding(s)) in {os.path.basename(_az_vp)}")
     else:
         add("AZ_contradiction_sweep", True, f"N/A (decision_date {ddte!r} predates AZ_DATE {AZ_DATE!r}, or no verification_report.json)", na=True)
+    # BM verify-evidence verdict floor (forward-looking; landing 2026-11-21) — the report's own verdict may
+    # not be softer than its own findings (verify-evidence.md §5). Reuses AZ's parse of the latest report.
+    bmresult, _bm_reasons = eval_bm_verdict_floor(ddte, _az_report)
+    if bmresult=="fail":
+        add("BM_verify_verdict_floor", False, f"{os.path.basename(_az_vp)}: " + "; ".join(_bm_reasons))
+    elif bmresult=="pass":
+        add("BM_verify_verdict_floor", True, f"verdict {(_az_report.get('verdict') or '').strip()!r} is consistent with its own findings")
+    else:
+        add("BM_verify_verdict_floor", True, f"N/A (decision_date {ddte!r} predates BM_DATE {BM_DATE!r}, or no readable verification_report.json)", na=True)
+        bmresult = None if isinstance(_az_report, dict) and isdate(ddte) else "na"
     # BA HARD GATE 11 kill-criteria trigger-test schema presence (forward-looking; landing 2026-08-22).
     # See the BA_DATE / eval_ba_kill_criteria_trigger_test comment block near AW_kill_criteria_overdue
     # for the full rationale. Basket-independent, like AY/AZ: any run whose kill_criteria[] is non-empty
@@ -5392,6 +5435,11 @@ for drp in runs:
         if r:
             retro.append({"check":"BJ_quality_double_count","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates BJ_DATE ({BJ_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if bmresult is None:
+        _r=eval_bm_verdict_floor(BM_DATE,_az_report)[1]
+        if _r:
+            retro.append({"check":"BM_verify_verdict_floor","status":"FAIL","detail":f"{os.path.basename(_az_vp)}: "+"; ".join(_r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BM_DATE ({BM_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     if bnresult is None:
         r=eval_bn_reverse_dcf_base_rate_unit(BN_DATE,bn_md)
         if r:
@@ -5533,9 +5581,16 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     # AZ was the only check in this file not registered here, so the whole thing could be deleted and the
     # suite would still report PASS — the exact hole this self-anchor exists to close.
     "check_az_governance_flag_cap_correspondence", "_az_slice", "_az_table_keys", "_az_row_first_cell", "azfails",
+    "eval_bm_verdict_floor", "BM_verify_verdict_floor", "BM_DATE", "bmcases",
     # BK — HARD GATE 11 on numeric forecast_ledger rows; detector + live wiring + authoring contract.
     "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
 ]
+# Check BM's live wiring (the F30 stamp) and its doctrine source (verify-evidence.md §5) — deleting either
+# would leave the eval row green while the pre-publish gate silently went back to trusting the verdict string.
+FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bm_verdict_floor(_live_date", "bm_reason"]
+FRAMEWORK_CONTRACTS.setdefault("scripts/verify_evidence_checks.py", []).extend(
+    ["BM_DATE", "bm_verdict_floor_violations", "eval_bm_verdict_floor", "_BM_SEVERITY_ARRAYS"])
+FRAMEWORK_CONTRACTS.setdefault(".claude/commands/research/verify-evidence.md", []).append("check BM")
 FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
     "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "_BK_REFERENCE", "_BK_COMPACT_PERIOD", "_BK_THRESHOLD_NUMBER", "_bk_pins_a_threshold", "eval_ba_kill_criteria_trigger_test",
 ]
