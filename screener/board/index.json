@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T03:42:46Z",
+  "generated_at": "2026-11-25T03:46:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-149",
@@ -390,6 +390,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-151",
+      "headline": "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/apl-apollo-tubes-shares-in-focus-as-brokerages-downgrade-cut-target-price-by-44-after-tata-steels-purchase/articleshow/136146849.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T03:29:43Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Brokerages downgraded APL Apollo Tubes and cut the target price by 44% following Tata Steel's purchase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brokerages downgraded APL Apollo Tubes and cut the target price by 44% following Tata Steel's purchase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "APL Apollo Tubes",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1683,6 +1732,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-152",
+      "headline": "Shadowfax Tech shares in focus on WeFast acquisition to enter intra-city logistics market",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/shadowfax-technologies-share-price-wefast-acquisition-reaction-intracity-sme-transportation-logistics-impact-20040695.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T03:33:18Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Shadowfax Tech is acquiring WeFast to expand into the intra-city logistics market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Shadowfax Tech is acquiring WeFast to expand into the intra-city logistics market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shadowfax Tech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-015",
       "headline": "HCL: Rifle Armor Plates Delivered to Latin America [price-sensitive]",
       "headline_en": null,
@@ -1874,104 +1972,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-117",
-      "headline": "KAO: Thick Copper Silver at Donkey Hill with high grade zones [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAO?key=2924-03166074-6A1356801",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T21:19:35Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Discovery of high-grade copper and silver zones is a material operational development for a mining company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Discovery of high-grade copper and silver zones is a material operational development for a mining company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kao Limited",
-          "ticker": "KAO",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-126",
-      "headline": "DBI: Q3-26 Distribution [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DBI?key=2924-03166047-2A1712692",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T21:15:20Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Dalrymple Bay Infrastructure announced a Q3-26 distribution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Dalrymple Bay Infrastructure announced a Q3-26 distribution.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dalrymple Bay Infrastructure",
-          "ticker": "DBI",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303095,9 +303095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1598876,
-    "news_picked_today": 198,
-    "news_dropped_today": 1698
+    "news_seen_today": 1637120,
+    "news_picked_today": 201,
+    "news_dropped_today": 1743
   },
   "book_momentum": {
     "live_count": 8,
