@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-25T13:26:09Z",
+  "generated_at": "2026-11-25T13:30:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261125-283",
+      "headline": "EXTRAWELL PHAR (00858): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112501433.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T12:52:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Profit warning issued; will reset revenue and earnings guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning issued; will reset revenue and earnings guidance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EXTRAWELL PHAR",
+          "ticker": "00858",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261125-272",
       "headline": "SUN KONG HLDGS (08631): INSIDE INFORMATION (1) FURTHER DELAY IN PUBLICATION OF 2026 ANNUAL RESULTS AND DESPATCH OF 2026 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 SEPTEMBER 2026 AND POSSIBLE DELAY IN DESPATCH OF 2026/27 INTERIM REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
@@ -1915,99 +1964,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261125-271",
-      "headline": "DINGYI GP INV (00508): PROFIT WARNING",
+      "inbox_id": "INB-20261125-289",
+      "headline": "Kanzhun Slips To Loss In Q3, Sees Revenue Growth In Q4; To Buy Back Up To $500 Mln Shares; Stock Up",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112501329.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T11:58:00Z",
+      "url": "https://www.nasdaq.com/articles/kanzhun-slips-loss-q3-sees-revenue-growth-q4-buy-back-500-mln-shares-stock",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T12:37:50Z",
       "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Unquantified profit warning indicates deteriorating earnings outlook and requires market re-assessment of forward profitability.",
+      "prelim_note": "Q3 loss reported; Q4 revenue-growth guidance provided; $500M share-buyback program authorized, with positive market reaction.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Unquantified profit warning indicates deteriorating earnings outlook and requires market re-assessment of forward profitability.",
-      "region": "CN",
+      "triage_score": 97,
+      "triage_reason": "Q3 loss reported; Q4 revenue-growth guidance provided; $500M share-buyback program authorized, with positive market reaction.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
+        "materiality": 75,
+        "source_tier": 0,
         "scope": 6,
-        "event": 7,
+        "event": 5,
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "guidance_change"
+        "earnings_revenue_margin",
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Dingyi GP Investments",
-          "ticker": "00508",
-          "listing_country": "HK"
+          "name": "Kanzhun",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-263",
-      "headline": "Revised Settlement Schedule Offer to Buy – Acquisition Window (Takeover) for KRONOX LAB SCIENCES LIMITED",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261125-7/20261125-7.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T10:27:38Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Kronox Lab Sciences Limited is subject to a takeover offer via the acquisition window.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Kronox Lab Sciences Limited is subject to a takeover offer via the acquisition window.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kronox Lab Sciences Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302761,9 +302762,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4430986,
-    "news_picked_today": 519,
-    "news_dropped_today": 13017
+    "news_seen_today": 4456758,
+    "news_picked_today": 533,
+    "news_dropped_today": 13051
   },
   "book_momentum": {
     "live_count": 8,
