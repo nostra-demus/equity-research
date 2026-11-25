@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T12:43:20Z",
+  "generated_at": "2026-11-25T12:47:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-272",
@@ -588,6 +588,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-278",
+      "headline": "Union Cabinet Approves Prudential's ₹11,500 Crore FDI Proposal To Acquire Majority Stake In Bharti Life Insurance: Report",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/union-cabinet-approves-prudentials-11500-crore-fdi-proposal-to-acquire-majority-stake-in-bharti-life-insurance-report",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T10:30:38Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Union Cabinet approval of Prudential's ₹11,500 crore majority acquisition of Bharti Life Insurance—a named cross-border M&A with regulatory clearance and capital-structure impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Union Cabinet approval of Prudential's ₹11,500 crore majority acquisition of Bharti Life Insurance—a named cross-border M&A with regulatory clearance and capital-structure impact.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prudential Financial Inc.",
+          "ticker": "PFI",
+          "listing_country": "US"
+        },
+        {
+          "name": "Bharti Life Insurance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1954,55 +2008,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-270",
-      "headline": "ELEPHANT HLDGS (08635): POSITIVE PROFIT ALERT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112500866.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T10:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Profit alert signals upside earnings surprise from official primary source; affects analyst expectations and can move stock, though no quantified guidance is disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Profit alert signals upside earnings surprise from official primary source; affects analyst expectations and can move stock, though no quantified guidance is disclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Elephant Holdings",
-          "ticker": "08635",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302756,9 +302761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4257189,
-    "news_picked_today": 478,
-    "news_dropped_today": 12506
+    "news_seen_today": 4269325,
+    "news_picked_today": 489,
+    "news_dropped_today": 12543
   },
   "book_momentum": {
     "live_count": 8,
