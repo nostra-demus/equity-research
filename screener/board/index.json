@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-25T17:02:52Z",
+  "generated_at": "2026-11-25T17:11:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261125-333",
+      "headline": "SC 14D9 - AYTU BIOPHARMA, INC (0001385818) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1385818/000143774926038257/0001437749-26-038257-index.htm",
+      "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-25T16:44:49Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Active tender offer for AYTU Biopharma confirmed by SC 14D9 target-response filing; shareholders must act on board recommendation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Active tender offer for AYTU Biopharma confirmed by SC 14D9 target-response filing; shareholders must act on board recommendation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AYTU Biopharma, Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261125-313",
       "headline": "HONBRIDGE (08137): MAJOR AND CONNECTED TRANSACTION - COMPLETION OF THE ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY",
@@ -1968,55 +2017,6 @@
           "name": "AMASSE CAPITAL",
           "ticker": "08168",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-204",
-      "headline": "DTM: Commencement of Legal Proceedings [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DTM?key=2924-03166611-3A707462",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T06:01:47Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The company has initiated legal proceedings, which indicates a material operational or legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company has initiated legal proceedings, which indicates a material operational or legal risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dart Mining",
-          "ticker": "DTM",
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -302773,9 +302773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5456793,
-    "news_picked_today": 661,
-    "news_dropped_today": 14963
+    "news_seen_today": 5482118,
+    "news_picked_today": 662,
+    "news_dropped_today": 15178
   },
   "book_momentum": {
     "live_count": 8,
