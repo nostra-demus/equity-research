@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T01:22:40Z",
+  "generated_at": "2026-11-25T01:23:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-006",
@@ -259439,79 +259439,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-0d33d5cbe937",
-      "idea_version": "IDEAV-73e21b4e0e1f14e3",
-      "idea_version_started_at": "2026-11-24T23:28:04Z",
-      "ticker": "ZS",
-      "company": "Zscaler, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Zscaler is being acquired by CrowdStrike in an all-stock transaction valued at $43.9 billion, creating a convergence play in the cybersecurity sector.",
-      "why_now": "The deal was announced on 2026-11-23; the stock will trade toward the implied acquisition price.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 24,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1780a9faa44b",
-        "EVT-1d4f6d03d7b0",
-        "EVT-390938771c16"
-      ],
-      "primary_source_event_id": "EVT-1780a9faa44b",
-      "source_headlines": [
-        "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
-        "CrowdStrike to buy Zscaler in $44 billion deal as AI supercharges cyberattacks",
-        "CrowdStrike to acquire Zscaler in $43.9 billion all-stock deal, expanding network security portfolio"
-      ],
-      "source_headline": "CrowdStrike to Acquire Zscaler, Inc. in All-Stock Transaction Valued at Approximately $43.9 billion",
-      "source_url": "https://www.nasdaq.com/articles/crowdstrike-acquire-zscaler-inc-all-stock-transaction-valued-approximately-439-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-23T16:39:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-24T23:28:04Z",
-      "updated_at": "2026-11-24T23:28:04Z",
-      "decay_at": "2026-11-25T04:39:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6e19f64e0907",
       "idea_version": "IDEAV-eaf1ca3c90dc4244",
       "idea_version_started_at": "2026-11-25T01:02:41Z",
@@ -259577,6 +259504,294 @@
       "surfaced_at": "2026-11-25T01:02:41Z",
       "updated_at": "2026-11-25T01:02:41Z",
       "decay_at": "2026-11-25T04:39:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0d33d5cbe937",
+      "idea_version": "IDEAV-9a0ad5f2c1175e4b",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "ZS",
+      "company": "Zscaler",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is being acquired for $43.9 billion, creating a convergence between the target's market price and the acquisition offer.",
+      "why_now": "The acquisition was announced on 2026-11-23; the trade captures the remaining spread between the current market price and the deal value.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-93426ba99132",
+        "EVT-b3f2cfc5841a",
+        "EVT-e5e7e3cdf20c"
+      ],
+      "primary_source_event_id": "EVT-93426ba99132",
+      "source_headlines": [
+        "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
+        "CrowdStrike to acquire Zscaler for $43.9B amid turbulent threat environment",
+        "CrowdStrike to acquire Zscaler for $44 billion"
+      ],
+      "source_headline": "Who is Jay Chaudhry? Indian-origin entrepreneur behind Zscaler's $43.9 bn deal as CrowdStrike moves to acquire firm",
+      "source_url": "https://www.livemint.com/companies/people/who-is-jay-chaudhry-indian-origin-entrepreneur-behind-zscalers-43-9-bn-deal-as-crowdstrike-moves-to-acquire-firm-11795451246658.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T19:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-24T23:28:04Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-25T07:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-043d03942dc6",
+      "idea_version": "IDEAV-d921e34ad338ccc3",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "MNRO",
+      "company": "Monro, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The suspension of the quarterly cash dividend signals significant liquidity constraints or a deterioration in free cash flow generation.",
+      "why_now": "The announcement was made on 2026-11-23; the market typically reacts negatively to dividend cuts as they indicate financial distress.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f9576315405b"
+      ],
+      "primary_source_event_id": "EVT-f9576315405b",
+      "source_headlines": [
+        "Monro, Inc. Announces Suspension of Quarterly Cash Dividend"
+      ],
+      "source_headline": "Monro, Inc. Announces Suspension of Quarterly Cash Dividend",
+      "source_url": "https://www.nasdaq.com/articles/monro-inc-announces-suspension-quarterly-cash-dividend",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-23T21:10:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T01:22:54Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-25T09:10:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-47caa3f3fead",
+      "idea_version": "IDEAV-0d73abeb0e90c631",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "01466",
+      "company": "Baijin Life Science Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning indicates that earnings will fall significantly short of expectations, likely leading to downward revisions in valuation multiples.",
+      "why_now": "The filing was released on 2026-11-24; the stock will likely reprice to reflect the lower earnings guidance.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5221b5569eb4"
+      ],
+      "primary_source_event_id": "EVT-5221b5569eb4",
+      "source_headlines": [
+        "BAIJIN LIFE SCI (01466): PROFIT WARNING"
+      ],
+      "source_headline": "BAIJIN LIFE SCI (01466): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401195.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T12:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T01:22:54Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-26T00:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-beed2a8f2403",
+      "idea_version": "IDEAV-7b5eeaad76f6ca69",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "01633",
+      "company": "Sheung Yue Group Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The profit warning indicates a material decline in operational profitability, which typically triggers a sell-off in small-cap equities.",
+      "why_now": "The filing was released on 2026-11-24; the market has not yet fully digested the impact of the earnings shortfall.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f9bba21c59f9"
+      ],
+      "primary_source_event_id": "EVT-f9bba21c59f9",
+      "source_headlines": [
+        "SHEUNG YUE GP (01633): PROFIT WARNING"
+      ],
+      "source_headline": "SHEUNG YUE GP (01633): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401383.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T13:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T01:22:54Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-26T01:36:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264372,78 +264587,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0a07bc01952d",
-      "idea_version": "IDEAV-cb84f68ad012059b",
-      "idea_version_started_at": "2026-11-22T01:14:26Z",
-      "ticker": "1211",
-      "company": "BYD Company",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Dutch court order blocking European sales of the BYD Ti7 due to design infringement directly stalls European export traction for a key vehicle model.",
-      "why_now": "Injunction issued and reported on November 22, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-685f9f8a6ba8"
-      ],
-      "primary_source_event_id": "EVT-685f9f8a6ba8",
-      "source_headlines": [
-        "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights"
-      ],
-      "source_headline": "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights",
-      "source_url": "https://cnevpost.com/2026/11/22/dutch-court-bars-eu-sales-byd-ti7-land-rover-defender-design/",
-      "source_name": "CnEVPost",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-22T01:07:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T01:14:26Z",
-      "updated_at": "2026-11-22T01:14:26Z",
-      "decay_at": "2026-11-23T13:07:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0ce3fe86b894",
       "idea_version": "IDEAV-63af75c69e1af049",
       "idea_version_started_at": "2026-11-22T06:13:17Z",
@@ -265389,9 +265532,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 575,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 75,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
         "total_count": 293,
@@ -265399,23 +265542,23 @@
         "hidden_count": 43
       },
       "short": {
-        "total_count": 283,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 32
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2069,
-      "oldest_retained_at": "2026-10-28T00:04:58Z",
+      "evicted_count": 2070,
+      "oldest_retained_at": "2026-10-28T02:52:22Z",
       "side_counts": {
         "long": {
           "evicted_count": 1333,
           "oldest_retained_at": "2026-11-04T18:57:41Z"
         },
         "short": {
-          "evicted_count": 737,
-          "oldest_retained_at": "2026-10-28T00:04:58Z"
+          "evicted_count": 738,
+          "oldest_retained_at": "2026-10-28T02:52:22Z"
         }
       }
     },
@@ -271085,8 +271228,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-23T13:07:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-25T01:23:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -302613,8 +302756,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2652,
-    "live_count": 7,
+    "surfaced_total": 2655,
+    "live_count": 10,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

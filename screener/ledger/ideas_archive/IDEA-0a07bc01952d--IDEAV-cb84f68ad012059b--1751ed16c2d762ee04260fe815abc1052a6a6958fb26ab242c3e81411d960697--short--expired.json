@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-29T16:12:55Z",
+  "archived_at": "2026-11-25T01:23:09Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-f37da333a82f",
-    "idea_version": "IDEAV-5fbb982d0893e35d",
-    "idea_version_started_at": "2026-10-26T13:58:56Z",
-    "ticker": "RECLTD",
-    "company": "REC Ltd",
-    "exchange": "NSE",
+    "idea_id": "IDEA-0a07bc01952d",
+    "idea_version": "IDEAV-cb84f68ad012059b",
+    "idea_version_started_at": "2026-11-22T01:14:26Z",
+    "ticker": "1211",
+    "company": "BYD Company",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "REC reported a 21% decline in net profit for Q2, reflecting potential margin compression or asset quality headwinds.",
-    "why_now": "The Q2 results were released on October 26, 2026.",
+    "reason": "A Dutch court order blocking European sales of the BYD Ti7 due to design infringement directly stalls European export traction for a key vehicle model.",
+    "why_now": "Injunction issued and reported on November 22, 2026.",
     "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 20,
+      "impact": 16,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -53,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-245868c36a28"
+      "EVT-685f9f8a6ba8"
     ],
-    "primary_source_event_id": "EVT-245868c36a28",
+    "primary_source_event_id": "EVT-685f9f8a6ba8",
     "source_headlines": [
-      "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend"
+      "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights"
     ],
-    "source_headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
-    "source_url": "https://www.cnbctv18.com/market/rec-share-price-q2-results-net-profit-revenue-declares-interim-dividend-20019558.htm",
-    "source_name": "CNBC-TV18",
-    "materiality_max": 100,
-    "newest_source_at": "2026-10-26T12:04:58Z",
+    "source_headline": "Dutch court bars EU sales of BYD Ti7, citing infringement of Land Rover Defender design rights",
+    "source_url": "https://cnevpost.com/2026/11/22/dutch-court-bars-eu-sales-byd-ti7-land-rover-defender-design/",
+    "source_name": "CnEVPost",
+    "materiality_max": 85,
+    "newest_source_at": "2026-11-22T01:07:22Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-26T13:58:56Z",
-    "updated_at": "2026-10-26T13:58:56Z",
-    "decay_at": "2026-10-28T00:04:58Z",
+    "surfaced_at": "2026-11-22T01:14:26Z",
+    "updated_at": "2026-11-22T01:14:26Z",
+    "decay_at": "2026-11-23T13:07:22Z",
     "status": "live",
     "promoted_signal_id": null
   }
