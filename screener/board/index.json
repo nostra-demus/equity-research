@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T00:57:26Z",
+  "generated_at": "2026-11-25T01:02:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-006",
@@ -247,6 +247,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-062",
+      "headline": "AR1: Acquisition of Hammer Metals Complete",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AR1?key=2924-03166364-2A1712852",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T00:49:06Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "The company completed the acquisition of Hammer Metals, representing a finalized inorganic growth event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company completed the acquisition of Hammer Metals, representing a finalized inorganic growth event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AR1",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1858,20 +1907,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261125-032",
-      "headline": "SGA: Major Shareholder EO Participation",
+      "inbox_id": "INB-20261125-063",
+      "headline": "PPS: Appointment of Managing Director",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SGA?key=2924-03166349-6A1356895",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PPS?key=2924-03166141-3A707359",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T00:32:36Z",
+      "found_at": "2026-11-24T21:40:15Z",
       "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Disclosure of major shareholder participation in equity offering.",
+      "prelim_note": "Routine appointment of a new Managing Director.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Disclosure of major shareholder participation in equity offering.",
+      "triage_score": 66,
+      "triage_reason": "Routine appointment of a new Managing Director.",
       "region": "OTHER",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
@@ -1879,73 +1928,24 @@
         "materiality": 40,
         "source_tier": 8,
         "scope": 6,
-        "event": 6,
+        "event": 4,
         "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
+        "event_id": "management",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "ownership_activist"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SGA",
-          "ticker": "SGA",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-007",
-      "headline": "SCG: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCG?key=2924-03166326-2A1712839",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T23:41:31Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Routine disclosure of a change in substantial shareholding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Routine disclosure of a change in substantial shareholding.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SCG",
+          "name": "PPS",
           "ticker": null,
           "listing_country": null
         }
@@ -302637,9 +302637,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 345031,
-    "news_picked_today": 64,
-    "news_dropped_today": 440
+    "news_seen_today": 358212,
+    "news_picked_today": 67,
+    "news_dropped_today": 461
   },
   "book_momentum": {
     "live_count": 8,
