@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T01:18:09Z",
+  "generated_at": "2026-11-25T01:22:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-006",
@@ -1608,6 +1608,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-071",
+      "headline": "ECH: Echelon AGM Presentation 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ECH?key=2924-03166121-3A707349",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T21:28:05Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "The company is presenting its annual general meeting materials which are marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "The company is presenting its annual general meeting materials which are marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Echelon",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-036",
       "headline": "OIL: Optiscan Appoints COO to Accelerate Operational Scale-Up",
       "headline_en": null,
@@ -1894,55 +1943,6 @@
           "name": "PCX",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-048",
-      "headline": "GSS: US Isothermal Patent Grant",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GSS?key=2924-03166160-2A1712756",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T21:53:36Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "GSS received a US Isothermal Patent Grant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "GSS received a US Isothermal Patent Grant.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GSS",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -302633,9 +302633,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 502411,
-    "news_picked_today": 76,
-    "news_dropped_today": 572
+    "news_seen_today": 528669,
+    "news_picked_today": 77,
+    "news_dropped_today": 595
   },
   "book_momentum": {
     "live_count": 8,
