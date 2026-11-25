@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T02:59:15Z",
+  "generated_at": "2026-11-25T03:02:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-121",
@@ -1633,6 +1633,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-126",
+      "headline": "DBI: Q3-26 Distribution [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DBI?key=2924-03166047-2A1712692",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T21:15:20Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Dalrymple Bay Infrastructure announced a Q3-26 distribution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Dalrymple Bay Infrastructure announced a Q3-26 distribution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dalrymple Bay Infrastructure",
+          "ticker": "DBI",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-012",
       "headline": "WiseTech founder Richard White’s sex-trafficking probe closed by AFP",
       "headline_en": null,
@@ -1917,50 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-086",
-      "headline": "China investigates politburo star in Xi Jinping’s latest purge",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/world/2026/nov/25/china-investigates-politburo-chen-jining-xi-jinping-purge",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T01:31:46Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "The investigation of a high-ranking Chinese official signals increased political risk and potential instability within the Chinese leadership structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The investigation of a high-ranking Chinese official signals increased political risk and potential instability within the Chinese leadership structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303084,9 +303089,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1315648,
-    "news_picked_today": 149,
-    "news_dropped_today": 1315
+    "news_seen_today": 1328670,
+    "news_picked_today": 155,
+    "news_dropped_today": 1333
   },
   "book_momentum": {
     "live_count": 8,
