@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T00:11:16Z",
+  "generated_at": "2026-11-25T00:14:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-006",
@@ -285,6 +285,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-009",
+      "headline": "MICROPORT NEURO (02172): VOLUNTARY ANNOUNCEMENT - UFO SPARK SELF-EXPANDING INTRASACCULAR ANEURYSM EMBOLIZATION DEVICE ENTERS THE INNOVATIVE GREEN PATH OF NMPA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500065.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-24T23:59:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "MicroPort Neuro's aneurysm device has been accepted into the NMPA's innovative green path, accelerating the regulatory approval process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "MicroPort Neuro's aneurysm device has been accepted into the NMPA's innovative green path, accelerating the regulatory approval process.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MicroPort NeuroTech",
+          "ticker": "02172",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301060,7 +301109,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5255,
+    "inbox_unconsumed": 5256,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -301069,9 +301118,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 26698,
-    "news_picked_today": 5,
-    "news_dropped_today": 43
+    "news_seen_today": 79878,
+    "news_picked_today": 9,
+    "news_dropped_today": 87
   },
   "book_momentum": {
     "live_count": 8,
