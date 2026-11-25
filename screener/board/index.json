@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T02:01:28Z",
+  "generated_at": "2026-11-25T02:04:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-081",
@@ -1136,6 +1136,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-092",
+      "headline": "AIOS Tech Inc. Announces Resignation of Co-Chief Executive Officer",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aios-tech-inc-announces-resignation-co-chief-executive-officer",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T01:39:29Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Resignation of a Co-Chief Executive Officer is a significant management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Resignation of a Co-Chief Executive Officer is a significant management change.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AIOS Tech Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-065",
       "headline": "Washington to unveil new tariffs after probe on excess factory capacity: sources",
       "headline_en": null,
@@ -1889,55 +1938,6 @@
       "companies": [
         {
           "name": "VR1",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-054",
-      "headline": "PHX: Resignation and appointment of Chairman",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PHX?key=2924-03166356-2A1712849",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T00:40:41Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Board leadership changes at PHX represent a shift in governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Board leadership changes at PHX represent a shift in governance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PHX",
           "ticker": null,
           "listing_country": null
         }
@@ -302773,9 +302773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 858493,
-    "news_picked_today": 108,
-    "news_dropped_today": 900
+    "news_seen_today": 884661,
+    "news_picked_today": 111,
+    "news_dropped_today": 921
   },
   "book_momentum": {
     "live_count": 8,
