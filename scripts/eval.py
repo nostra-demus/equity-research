@@ -3006,6 +3006,22 @@ if scope=="selftest":
         # and no level noun MUST still be caught — the level-exclusion must not over-exclude.
         ("2026-11-22",_bn_hd+"| Implied EPS 20% a year | Revenue CAGR 8% | x | No |\n",["§9 base-rate unit mismatch","profit/cash-flow"],
          "'EPS 20% a year' (no CAGR, not a level noun) is still a profit growth claim"),
+        # §9/§27 (#830 follow-up): the English/IFRS/US-GAAP profit lines spelled with "income" (and the
+        # one-word "cashflow") ARE the matched profit/cash-flow family, so a history cell naming one beside
+        # a revenue CAGR as context is §9-compliant and must NOT fire — the check's stated contract is "it
+        # never blocks a correct row." Red on the pre-fix regex (which carried only net/operating income),
+        # green after. These cover the exact segment-decomposition case the SAME PR's §3 prompt mandates.
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue CAGR 9%; pre-tax income CAGR 14% FY22-26 | x | Yes |\n",[],
+         "'pre-tax income' names the matched profit family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue 9%; income before tax grew 14%/yr | x | Yes |\n",[],
+         "'income before tax' names the matched profit family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Consolidated revenue 9%; core segment income grew 30%/yr | x | Yes |\n",[],
+         "'segment income' (the §3 segment-decomposition case) names the matched family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = 16% | Revenue 9%; cashflow CAGR 14% | x | Yes |\n",[],
+         "one-word 'cashflow' names the matched cash-flow family — no §9 mismatch"),
+        ("2026-11-22",_bn_hd+"| Implied FCF CAGR = -13% | Revenue CAGR +15% a year; fixed income holdings flat | x | No |\n",
+         ["§9 base-rate unit mismatch","profit/cash-flow"],
+         "'fixed income' must NOT count as the profit family — the real revenue-only mismatch still fires"),
     ]
     bnbad=0
     for dt_,md_,exp,why in bncases:

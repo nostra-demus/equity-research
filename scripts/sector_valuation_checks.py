@@ -333,8 +333,13 @@ _BN_STRONG_GROWTH = re.compile(r"\bCAGR\b|\bgrowth\b|\bgrow(?:s|n|ing)?\b|%\s*/\
 _BN_LEVEL = re.compile(r"\bmargins?\b|\bROE\b|\bROCE\b|\bROIC\b|\bROA\b|\breturns?\s+on\b|\byields?\b|"
                        r"\bratios?\b|\bmultiples?\b|\bturns?\b|\bDSO\b|\bDPO\b|\bDIO\b", re.I)
 _BN_REVENUE = re.compile(r"\b(?:revenues?|sales|top[\s-]?line|turnover)\b", re.I)
-_BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]cash[\s-]flows?|cash[\s-]flows?|OCF|CFO|NOPAT|EBITDA|"
-                        r"PBDIT|PBIDT|EBIT|EPS|net[\s-]income|earnings|profits?|operating[\s-]income|"
+_BN_PROFIT = re.compile(r"\b(?:FCFF?|FCFE|free[\s-]?cash[\s-]?flows?|cash[\s-]?flows?|cashflows?|OCF|CFO|NOPAT|EBITDA|"
+                        r"PBDIT|PBIDT|EBIT|EPS|earnings|profits?|"
+                        # English/IFRS/US-GAAP profit lines that use the word "income" (§27 — the global
+                        # issuer, not only the Indian PBT/PBDIT forms below); bounded so a bare "income"
+                        # (e.g. "fixed income", "rental income") does NOT count and mask a real §9 mismatch.
+                        r"(?:net|operating|pre[\s-]?tax|post[\s-]?tax|after[\s-]?tax|segment|divisional|core|underlying|comprehensive)[\s-]?income|"
+                        r"income\s+before\s+tax|"
                         r"PBIT|PBT|EBT|PAT)\b", re.I)
 _BN_CITE = re.compile(r"\[[^\]]*\]|`[^`]*`|\([^()]*\.md[^()]*\)|\b[\w/-]+\.md\b")
 # A metric word used as a document/event/source reference, not as the metric itself ("the FY24 earnings
