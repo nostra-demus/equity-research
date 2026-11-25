@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T05:25:25Z",
+  "generated_at": "2026-11-25T05:34:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -1348,6 +1348,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-189",
+      "headline": "BYD enters exclusive talks to buy Ineos car factory in France",
+      "headline_en": null,
+      "url": "https://technode.com/2026/11/25/byd-enters-exclusive-talks-to-buy-ineos-car-factory-in-france/",
+      "source_name": "TechNode",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T05:08:11Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "BYD is in exclusive talks to acquire an Ineos car factory in France, signaling a potential expansion of its European manufacturing footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "BYD is in exclusive talks to acquire an Ineos car factory in France, signaling a potential expansion of its European manufacturing footprint.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Ineos",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-120",
       "headline": "Dell Raises Annual Sales Forecast Again On AI Server Demand",
       "headline_en": null,
@@ -1934,55 +1988,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-096",
-      "headline": "SCHEDULE 13D - Vanda Pharmaceuticals Inc. (0001347178) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1347178/000119312526475804/0001193125-26-475804-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-24T21:22:35Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in Vanda Pharmaceuticals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in Vanda Pharmaceuticals.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vanda Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303024,9 +303029,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2319020,
-    "news_picked_today": 285,
-    "news_dropped_today": 2499
+    "news_seen_today": 2366326,
+    "news_picked_today": 289,
+    "news_dropped_today": 2567
   },
   "book_momentum": {
     "live_count": 8,
