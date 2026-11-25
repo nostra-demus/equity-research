@@ -64,6 +64,9 @@ PRE_CUTOFF_DATE = "2026-06-01"
 AA_BSS_MSG = "BSS synthesis verdict contains 'Distress risk'"
 AA_MG_MSG = "MG synthesis verdict contains 'Serious governance concerns'"
 AB_BM_MSG = "BM synthesis verdict contains 'Low-quality business'"
+# BL-specific violation substrings (§17 catalyst-timing gate; same module, same live wiring).
+BL_SHORT_MSG = "the catalyst module cannot time the thesis"
+BL_FLAG_MSG = "the flag is derived from the catalyst module's own read"
 
 # A final_thesis.md that passes the neighbouring structural live checks (Decision Audit
 # Trail for AJ, a sign-check line), so the only thing under test is the AA/AB wiring.
@@ -100,7 +103,7 @@ def extract_step_10b1_block(md_text):
 
 
 def write_fixture(root, decision, bss_verdict=None, mg_verdict=None, bm_verdict=None,
-                   bm_disqualifier_line=None):
+                   bm_disqualifier_line=None, catalyst=None, confidence_inputs=None):
     """Write a pre-cutoff record plus optional module syntheses carrying a verdict line.
     Module verdict lines use the fully-bolded `- **Verdict: <cat>**` form on purpose, so the
     test also exercises the broadened extract_synthesis_verdict regex in the live path.
@@ -128,6 +131,15 @@ def write_fixture(root, decision, bss_verdict=None, mg_verdict=None, bm_verdict=
             "fired_last_two_periods": False,
         }],
     }
+    if confidence_inputs is not None:
+        rec["confidence_inputs"] = confidence_inputs
+    if catalyst is not None:
+        # (verdict category, Timing visibility score) in the catalyst 99 template's own layout.
+        cdir = os.path.join(root, "catalyst")
+        os.makedirs(cdir, exist_ok=True)
+        with open(os.path.join(cdir, "99_catalyst-synthesis.md"), "w", encoding="utf-8") as f:
+            f.write(f"## 1. Catalyst Verdict\n\n- **Verdict:** {catalyst[0]}\n"
+                    f"- Catalyst strength /100: 45\n- Timing visibility /100: {catalyst[1]}\n")
     with open(os.path.join(root, "decision_record.json"), "w", encoding="utf-8") as f:
         json.dump(rec, f)
     with open(os.path.join(root, "final_thesis.md"), "w", encoding="utf-8") as f:
@@ -182,6 +194,34 @@ def main():
             print(f"  [XX] full.md Step 10B.1 {name} call does NOT gate on `_live_date` "
                   f"(a pre-landing-date rerun would bypass the §18/§13 verdict-lock cap)")
 
+    # BL (§17 catalyst-timing gate) must gate on _live_date too: a rerun regenerates the catalyst
+    # synthesis and the rating over a folder whose decision_date predates BL's landing date.
+    if re.search(r"eval_bl_catalyst_timing_gate\(\s*dec\s*,\s*_live_date\s*,", block):
+        print("  [ok] full.md Step 10B.1 BL call gates on `_live_date`")
+    else:
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BL call does NOT gate on `_live_date` "
+              "(a pre-landing-date rerun would bypass the §17 catalyst-timing gate)")
+
+    # (name, decision, (catalyst verdict, Timing visibility), confidence_inputs, MUST, MUST NOT).
+    # Expected behaviour is pinned to CLAUDE.md §17/§12 and synthesizer.md's Rating Cap Rules.
+    DATED, VAGUE, NONE = ("Dated, evidenced near-term catalysts", "Catalysts exist but timing vague",
+                          "No proven catalyst yet")
+    weak, strong = {"catalyst_timing_weak": True}, {"catalyst_timing_weak": False}
+    bl_cases = [
+        # the TSLA_2026-07-25 shape: flag honestly set, 70 ceiling not binding, short shipped.
+        ("Short, dated verdict, visibility 35", "Short Candidate", (DATED, 35), weak, [BL_SHORT_MSG], [BL_FLAG_MSG]),
+        ("Short, no proven catalyst", "Short Candidate", (NONE, 45), weak, [BL_SHORT_MSG], [BL_FLAG_MSG]),
+        ("Short, dated verdict, visibility 68 → allowed", "Short Candidate", (DATED, 68), strong, [],
+         [BL_SHORT_MSG, BL_FLAG_MSG]),
+        ("Avoid on the same weak timing → allowed", "Avoid", (DATED, 35), weak, [], [BL_SHORT_MSG, BL_FLAG_MSG]),
+        ("Pair Trade on the same weak timing → allowed", "Pair Trade / Hedge Required", (DATED, 35), weak, [],
+         [BL_SHORT_MSG, BL_FLAG_MSG]),
+        ("Buy, weak timing, flag set → 70 ceiling only", "Buy", (DATED, 35), weak, [], [BL_SHORT_MSG, BL_FLAG_MSG]),
+        ("Watchlist, vague verdict, flag left false", "Watchlist", (VAGUE, 58), strong, [BL_FLAG_MSG], [BL_SHORT_MSG]),
+        ("Watchlist, catalyst module absent → N/A", "Watchlist", None, strong, [], [BL_SHORT_MSG, BL_FLAG_MSG]),
+    ]
+
     # (decision, bss, mg, bm, bm_disqualifier_line, substrings that MUST be in GATE line,
     #  substrings that must NOT be)
     cases = [
@@ -228,6 +268,17 @@ def main():
             else:
                 bad += 1
                 print(f"  [XX] pre-cutoff folder, {name}: expected present={must!r} absent={mustnot!r}\n"
+                      f"       GATE: {gl!r}")
+        for index, (name, decision, catalyst, ci, must, mustnot) in enumerate(bl_cases):
+            run_root = os.path.join(tmp, f"bl{index}", f"TEST_{PRE_CUTOFF_DATE}")
+            write_fixture(run_root, decision, catalyst=catalyst, confidence_inputs=ci)
+            gl = gate_line(run_block(block_path, run_root))
+            ok = bool(gl) and all(m in gl for m in must) and all(m not in gl for m in mustnot)
+            if ok:
+                print(f"  [ok] BL pre-cutoff folder, {name}")
+            else:
+                bad += 1
+                print(f"  [XX] BL pre-cutoff folder, {name}: expected present={must!r} absent={mustnot!r}\n"
                       f"       GATE: {gl!r}")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

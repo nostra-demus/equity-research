@@ -978,3 +978,133 @@ def eval_be_driver_attribution_residual(decision_date, rev_txt, marg_txt):
         violations += _be_check_one(marg_txt, "03_margin-drivers.md", MARGIN_BRIDGE_TAG, "bps",
                                      "margin bridge")
     return violations
+
+
+# ── Check BL (§17 catalyst-timing gate: the weak-timing flag is derived, and a short needs timing) ──
+# CLAUDE.md §17: "A catalyst with no evidence and no date does not support conviction and must not
+# lift the rating." The catalyst module turns that into a verdict and a Timing visibility /100 score,
+# and synthesizer.md tells the master synthesizer to "drive the catalyst-timing confidence cap ... from
+# that module's Timing-visibility read and its verdict". Until this check, the only thing carrying
+# that read into the decision was `confidence_inputs.catalyst_timing_weak` — a boolean the synthesizer
+# sets by hand, checked against nothing — and all it buys is a confidence ceiling of 70
+# (scripts/confidence.py CATALYST_WEAK_CAP), a level no committed run has ever reached. So the
+# catalyst read could not change a rating, and nothing noticed if the flag was simply left false.
+#
+# The miss this exists for: TSLA_2026-07-25 shipped "Short Candidate" at 60/100 while its own catalyst
+# synthesis scored Timing visibility 35/100 and said the single most important catalyst "has no date
+# and cannot be timed". The flag was set, the 70 ceiling did not bind, and the short went out. The
+# engine's own 30-day review (analyses/TSLA_2026-07-25/reviews/2026-08-24_30d_decision_review.json)
+# recorded a -13.50% paper-short return and tagged it `timing error` + `catalyst delay`: "still
+# actioned a Short Candidate with catalyst timing visibility of 35/100. That knowable mismatch
+# supports timing error and catalyst delay without using hindsight."
+#
+# Two rules, both read from the catalyst module's own 99_*-synthesis.md:
+#   1. DERIVED FLAG. Timing is weak when the catalyst verdict is anything other than "Dated, evidenced
+#      near-term catalysts", or when Timing visibility sits in CLAUDE.md §12's weak band (<= 40). When
+#      it is weak, `confidence_inputs.catalyst_timing_weak` must be true. For the two verdicts that
+#      mean there is no usable calendar at all ("No proven catalyst yet", "Insufficient data"),
+#      listing "catalyst" in `modules_absent` is accepted instead — synthesizer.md calls that the
+#      "no-catalyst-timing cap".
+#   2. SHORT NEEDS TIMING. A "Short Candidate" is capped out when Timing visibility is in the weak
+#      band, or the verdict is "No proven catalyst yet" / "Insufficient data". The allowed ratings are
+#      then "Avoid" (the same view, without the paper short) or "Pair Trade / Hedge Required". No
+#      edge-score bypass: an edge says the price is wrong, not when it stops being wrong.
+#
+# Why rule 2 covers shorts and not longs. Time works for the holder of a sound business bought below
+# value, so a long with no dated catalyst is an ordinary value position and stays governed by the
+# 70 ceiling. Time works against a short: the loss is unbounded, the borrow costs money, and a
+# squeeze can force the exit before the thesis plays out. §24 prefers the error of omission; "Avoid"
+# is that error, "Short Candidate" on an event nobody can date is the error of commission.
+#
+# What this does NOT judge: whether the catalyst module's verdict and score are themselves right
+# (that stays with the module, its score caps, and the pre-mortem), and whether a "Catalysts exist
+# but timing vague" or "Long-dated" verdict with a middling score should also stop a short — those
+# keep the 70 ceiling only, so the rule fires on the clear cases and nothing else.
+# Landing date: 2026-11-20 (forward-looking; every committed run predates it → N/A → suite green).
+# No new record field is required, so a run written with the earlier prompts passes unless it commits
+# the defect itself.
+BL_DATE = "2026-11-20"
+SHORT_DECISION_BL = "Short Candidate"
+TIMING_WEAK_MAX_BL = 40  # CLAUDE.md §12: 21–40 is "weak", 0–20 "very weak"
+CATALYST_VERDICT_DATED = "Dated, evidenced near-term catalysts"
+# (category key, lowercase marker). The verdict line is free text around one of the five
+# MODULE_RULES.md categories; the EARLIEST marker in the line names the category, so a line such as
+# "Dated, evidenced near-term catalysts — not 'No proven catalyst yet'" reads as dated.
+_BL_VERDICT_MARKERS = (
+    ("dated", "dated, evidenced"),
+    ("vague", "timing vague"),
+    ("long_dated", "long-dated"),
+    ("none", "no proven catalyst"),
+    ("insufficient", "insufficient data"),
+)
+_BL_NO_CALENDAR = ("none", "insufficient")
+_BL_TV_RE = re.compile(r"Timing visibility\s*/\s*100[^\n\d]{0,60}?(\d{1,3})(?![\d.])", re.IGNORECASE)
+
+
+def extract_catalyst_timing(text):
+    """Read the catalyst synthesis' own timing read. Returns (category, timing_visibility):
+    category is one of 'dated' / 'vague' / 'long_dated' / 'none' / 'insufficient', or None when the
+    `**Verdict` line is absent or names none of the five MODULE_RULES.md categories;
+    timing_visibility is the 0–100 number on the first `Timing visibility /100` score line, or None.
+    Pure + module-level so `eval.py selftest` drives the real regexes over real rendered lines."""
+    if not isinstance(text, str):
+        return None, None
+    category = None
+    verdict = extract_synthesis_verdict(text)
+    if verdict:
+        low = verdict.lower()
+        hits = [(low.find(marker), key) for key, marker in _BL_VERDICT_MARKERS if marker in low]
+        if hits:
+            category = min(hits)[1]
+    tv = None
+    m = _BL_TV_RE.search(text)
+    if m and 0 <= int(m.group(1)) <= 100:
+        tv = int(m.group(1))
+    return category, tv
+
+
+def eval_bl_catalyst_timing_gate(decision, decision_date, catalyst_txt, confidence_inputs):
+    """Check BL. Returns None (N/A — pre-gate, the catalyst module did not run, or its synthesis
+    carries neither a recognisable verdict nor a Timing visibility score), or a list of violation
+    strings (empty = checked, satisfied).
+    catalyst_txt: catalyst 99_*-synthesis.md text, or None.
+    confidence_inputs: decision_record.confidence_inputs (rule 1 is skipped when it is not an object;
+    its presence is check AG's job)."""
+    if not (isdate(decision_date) and decision_date >= BL_DATE):
+        return None
+    if catalyst_txt is None:
+        return None
+    category, tv = extract_catalyst_timing(catalyst_txt)
+    if category is None and tv is None:
+        return None
+    tv_weak = tv is not None and tv <= TIMING_WEAK_MAX_BL
+    reasons = []
+    if category is not None and category != "dated":
+        reasons.append(f"catalyst verdict is not '{CATALYST_VERDICT_DATED}' (read as {category!r})")
+    if tv_weak:
+        reasons.append(f"Timing visibility {tv}/100 is in the §12 weak band (<= {TIMING_WEAK_MAX_BL})")
+    violations = []
+    if reasons and isinstance(confidence_inputs, dict):
+        absent = confidence_inputs.get("modules_absent")
+        absent = [str(m).strip().lower() for m in absent] if isinstance(absent, list) else []
+        flagged = confidence_inputs.get("catalyst_timing_weak") is True
+        if not flagged and category in _BL_NO_CALENDAR and "catalyst" in absent:
+            flagged = True
+        if not flagged:
+            violations.append(
+                f"catalyst timing is weak ({'; '.join(reasons)}) but confidence_inputs.catalyst_timing_weak="
+                f"{confidence_inputs.get('catalyst_timing_weak')!r} — the flag is derived from the catalyst "
+                f"module's own read, not chosen; set it true so the 70 confidence ceiling applies "
+                f"(CLAUDE.md §17; synthesizer.md Confidence Calibration)")
+    short_reasons = []
+    if tv_weak:
+        short_reasons.append(f"Timing visibility {tv}/100 (<= {TIMING_WEAK_MAX_BL})")
+    if category in _BL_NO_CALENDAR:
+        short_reasons.append(f"catalyst verdict read as {category!r}")
+    if decision == SHORT_DECISION_BL and short_reasons:
+        violations.append(
+            f"decision={decision!r} but the catalyst module cannot time the thesis ({'; '.join(short_reasons)}) "
+            f"— a short loses to time (unbounded loss, borrow cost, squeeze), so synthesizer.md Rating Cap "
+            f"Rules cap it at 'Avoid' or 'Pair Trade / Hedge Required' until a dated, evidenced catalyst "
+            f"exists (CLAUDE.md §17/§24; no edge-score bypass)")
+    return violations
