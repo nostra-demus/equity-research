@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T15:03:29Z",
+  "generated_at": "2026-11-25T15:14:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-313",
@@ -1817,6 +1817,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-324",
+      "headline": "AMASSE CAPITAL (08168): (1) RESIGNATION OF EDs; (2) CHANGE OF AUTHORISED REPRESENTATIVE; (3) APPOINTMENT OF EDs & AUTHORISED REPRESENTATIVE; (4) RESIGNATION OF INEDs & CHANGE OF COMPOSITION OF COMMITTEES OF THE BOARD; (5) APPOINTMENT OF INED; (6) FAILURE TO COMPLY WITH THE GEM LISTING RULES; (7) CHANGE OF COMPOSITION OF INDEPENDENT INVESTIGATION COMMITTEE; (8) CONTINUED SUSPENSION OF TRADING; AND (9) WITHDRAWAL OF CERTAIN ORDINARY RESOLUTIONS AT TH",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112501693.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T14:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Mass resignation of directors, failure to comply with listing rules, and continued suspension of trading indicate severe distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Mass resignation of directors, failure to comply with listing rules, and continued suspension of trading indicate severe distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management",
+        "litigation_enforcement",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMASSE CAPITAL",
+          "ticker": "08168",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-204",
       "headline": "DTM: Commencement of Legal Proceedings [price-sensitive]",
       "headline_en": null,
@@ -1959,55 +2010,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-310",
-      "headline": "425 - Onconetix, Inc. (0001782107) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1782107/000121390026123933/0001213900-26-123933-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-25T13:32:20Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Form 425 SEC filing for Onconetix Inc. confirms an M&A business-combination communication is in process, but headline lacks deal value, counterparty, or terms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Form 425 SEC filing for Onconetix Inc. confirms an M&A business-combination communication is in process, but headline lacks deal value, counterparty, or terms.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Onconetix, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302761,9 +302763,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4896214,
-    "news_picked_today": 579,
-    "news_dropped_today": 13701
+    "news_seen_today": 4949127,
+    "news_picked_today": 602,
+    "news_dropped_today": 13750
   },
   "book_momentum": {
     "live_count": 8,
