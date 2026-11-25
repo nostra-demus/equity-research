@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-25T14:44:01Z",
+  "generated_at": "2026-11-25T15:03:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261125-313",
+      "headline": "HONBRIDGE (08137): MAJOR AND CONNECTED TRANSACTION - COMPLETION OF THE ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112501525.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T13:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Honbridge completed acquisition of 51% equity stake in undisclosed target company, effecting change of control, from primary HK exchange filing; target name and purchase price not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honbridge completed acquisition of 51% equity stake in undisclosed target company, effecting change of control, from primary HK exchange filing; target name and purchase price not disclosed in headline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honbridge",
+          "ticker": "08137",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261125-312",
       "headline": "BOSIDENG (03998): Interim Results for the Six Months Ended September 30, 2026",
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-265",
-      "headline": "GOLD PEAK (00040): Voluntary Announcement - Conclusion of HK$1 Billion Three-Year Sustainability-Linked Syndicated Term Loan Facility Agreement by GP Industries Group",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500718.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T09:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "GP Industries secured a HK$1 billion three-year sustainability-linked syndicated term loan facility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "GP Industries secured a HK$1 billion three-year sustainability-linked syndicated term loan facility.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GOLD PEAK",
-          "ticker": "00040",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302761,9 +302761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4869480,
-    "news_picked_today": 571,
-    "news_dropped_today": 13613
+    "news_seen_today": 4896214,
+    "news_picked_today": 579,
+    "news_dropped_today": 13701
   },
   "book_momentum": {
     "live_count": 8,
