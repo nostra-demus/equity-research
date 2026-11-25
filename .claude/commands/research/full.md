@@ -734,6 +734,15 @@ try:
 except (OSError, ValueError, UnicodeDecodeError):
     pass  # absent/unreadable sidecar is AP's finding below; BJ still judges rules F and L on 03's text
 viol.extend(svc.eval_bj_quality_double_count(_live_date, _v03_txt, _bj_pi) or [])
+# check BN — §9 "the base rate must match the CLAIM's unit" (live pre-publish; mirrors eval.py check BN via
+# scripts/sector_valuation_checks.py, imported above as `svc`). In 05_reverse-dcf.md §3 "Implied vs Achievable",
+# a row whose implied requirement is a growth rate on one metric family (profit/cash flow, or revenue) while its
+# history cell names only the OTHER family is a category error, unless the row declares a `proxy: <metric> —
+# <why>` Base-rate basis. Defect it closes: EMAAR_2026-07-10 tested an implied FCFF CAGR of −13.4%/yr against
+# "Revenue CAGR +15.4%/yr" alone, the same kind of mismatch as the AMZN miss in CLAUDE.md §9. `_live_date` for
+# the same rerun-safety reason as BB/BD/BJ above.
+_v05_txt = _read_orb("valuation", "05_*.md")
+viol.extend(svc.eval_bn_reverse_dcf_base_rate_unit(_live_date, _v05_txt) or [])
 # check BE — §15 driver-attribution residual, earnings decomposition/bridge (live pre-publish; mirrors
 # eval.py check BE via scripts/rating_caps.py, same shared detection module as BB above). Mechanizes
 # earnings/MODULE_RULES.md's Driver Attribution rule (CLAUDE.md §15): 02_revenue-drivers.md §6a and
