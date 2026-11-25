@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-25T12:21:06Z",
+  "generated_at": "2026-11-25T12:36:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261125-272",
+      "headline": "SUN KONG HLDGS (08631): INSIDE INFORMATION (1) FURTHER DELAY IN PUBLICATION OF 2026 ANNUAL RESULTS AND DESPATCH OF 2026 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 SEPTEMBER 2026 AND POSSIBLE DELAY IN DESPATCH OF 2026/27 INTERIM REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112501327.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T11:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Continued delay in statutory filings (annual and interim results) combined with ongoing trading suspension signals going-concern and accounting red flags.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Continued delay in statutory filings (annual and interim results) combined with ongoing trading suspension signals going-concern and accounting red flags.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sun Kong Holdings",
+          "ticker": "08631",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261125-222",
       "headline": "SUNSHINE OIL (02012): UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
@@ -1811,6 +1861,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-271",
+      "headline": "DINGYI GP INV (00508): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112501329.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T11:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Unquantified profit warning indicates deteriorating earnings outlook and requires market re-assessment of forward profitability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Unquantified profit warning indicates deteriorating earnings outlook and requires market re-assessment of forward profitability.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dingyi GP Investments",
+          "ticker": "00508",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-263",
       "headline": "Revised Settlement Schedule Offer to Buy – Acquisition Window (Takeover) for KRONOX LAB SCIENCES LIMITED",
       "headline_en": null,
@@ -1904,104 +2003,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-245",
-      "headline": "ZY INTL (08516): PROFIT WARNING - ESTIMATED DECREASE IN LOSS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112500702.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T09:52:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "ZY International issued a formal profit warning indicating estimated decrease in net loss, revising profit expectations upward compared to prior guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "ZY International issued a formal profit warning indicating estimated decrease in net loss, revising profit expectations upward compared to prior guidance.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZY INTL",
-          "ticker": "08516",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-178",
-      "headline": "SGR: Payment of first instalment of AUSTRAC civil penalty",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SGR?key=2924-03166555-2A1712933",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T04:51:52Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Star Entertainment Group is paying the first installment of a civil penalty to AUSTRAC, confirming a significant regulatory liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Star Entertainment Group is paying the first installment of a civil penalty to AUSTRAC, confirming a significant regulatory liability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Star Entertainment Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302755,9 +302756,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4183533,
-    "news_picked_today": 465,
-    "news_dropped_today": 12447
+    "news_seen_today": 4245005,
+    "news_picked_today": 468,
+    "news_dropped_today": 12468
   },
   "book_momentum": {
     "live_count": 8,
