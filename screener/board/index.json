@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T03:51:15Z",
+  "generated_at": "2026-11-25T03:57:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-149",
@@ -1241,6 +1241,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-153",
+      "headline": "OCC Announces Enforcement Actions for November 2026",
+      "headline_en": null,
+      "url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-104.html",
+      "source_name": "Office of the Comptroller of the Currency — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-24T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "The OCC announced enforcement actions for November 2026, indicating regulatory oversight and potential penalties for banking institutions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The OCC announced enforcement actions for November 2026, indicating regulatory oversight and potential penalties for banking institutions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-090",
       "headline": "NXG: NexGen Grows High-Grade Subdomain Vertically & along strike [price-sensitive]",
       "headline_en": null,
@@ -1923,55 +1967,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-103",
-      "headline": "SS1: Silver-Gold Intersected 42m Above Existing Mineral Resource [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SS1?key=2924-03166093-6A1356814",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T21:23:45Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "SS1 intersected 42m of silver-gold mineralization above its existing resource, indicating potential for resource expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "SS1 intersected 42m of silver-gold mineralization above its existing resource, indicating potential for resource expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SS1",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303095,9 +303090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1687888,
-    "news_picked_today": 205,
-    "news_dropped_today": 1787
+    "news_seen_today": 1726280,
+    "news_picked_today": 206,
+    "news_dropped_today": 1834
   },
   "book_momentum": {
     "live_count": 8,
