@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T10:12:25Z",
+  "generated_at": "2026-11-25T10:27:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-222",
@@ -538,6 +538,163 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-252",
+      "headline": "Couche-Tard sees finish line for $8.6-billion takeover of Polish retailer Zabka Group",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-couche-tard-sees-finish-line-for-us86-billion-takeover-of-polish/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Couche-Tard completing $8.6-billion acquisition of Polish retail chain Zabka Group; large-cap M&A deal in advanced completion stage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Couche-Tard completing $8.6-billion acquisition of Polish retail chain Zabka Group; large-cap M&A deal in advanced completion stage.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Couche-Tard",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Zabka Group",
+          "ticker": null,
+          "listing_country": "PL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-262",
+      "headline": "Carlyle Sells 7% Stake In Piramal Pharma Via ₹2,200 Crore Block Deal: Report",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/carlyle-sells-7-stake-in-piramal-pharma-via-2200-crore-block-deal-report",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T08:57:19Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Carlyle sold a 7% stake in Piramal Pharma via a ₹2,200 crore block deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carlyle sold a 7% stake in Piramal Pharma via a ₹2,200 crore block deal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Piramal Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-261",
+      "headline": "Sejal Glass Expands Footprint With Rs 40.80 Cr Acquisition Of Magnumtuff’s Glass Business",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/spotlight/news-wire/sejal-glass-expands-footprint-with-rs-4080-cr-acquisition-of-magnumtuffs-glass-business",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T08:21:01Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Sejal Glass is acquiring Magnumtuff's Glass Business for Rs 40.80 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sejal Glass is acquiring Magnumtuff's Glass Business for Rs 40.80 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sejal Glass",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Magnumtuff",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1605,6 +1762,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-245",
+      "headline": "ZY INTL (08516): PROFIT WARNING - ESTIMATED DECREASE IN LOSS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1125/2026112500702.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T09:52:00Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "ZY International issued a formal profit warning indicating estimated decrease in net loss, revising profit expectations upward compared to prior guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "ZY International issued a formal profit warning indicating estimated decrease in net loss, revising profit expectations upward compared to prior guidance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZY INTL",
+          "ticker": "08516",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-178",
       "headline": "SGR: Payment of first instalment of AUSTRAC civil penalty",
       "headline_en": null,
@@ -1796,208 +2002,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-189",
-      "headline": "BYD enters exclusive talks to buy Ineos car factory in France",
-      "headline_en": null,
-      "url": "https://technode.com/2026/11/25/byd-enters-exclusive-talks-to-buy-ineos-car-factory-in-france/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T05:08:11Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "BYD is in exclusive talks to acquire an Ineos car factory in France, signaling a potential expansion of its European manufacturing footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "BYD is in exclusive talks to acquire an Ineos car factory in France, signaling a potential expansion of its European manufacturing footprint.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Ineos",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-212",
-      "headline": "Tata Sons To Consider SP Group Liquidity Plan, Restructuring At November 30 Board Meet",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tata-sons-to-consider-sp-group-liquidity-plan-restructuring-at-november-30-board-meet-12373676#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T05:22:34Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Tata Sons is evaluating a liquidity plan and restructuring involving the SP Group, which is a significant corporate governance and capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Tata Sons is evaluating a liquidity plan and restructuring involving the SP Group, which is a significant corporate governance and capital structure event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-120",
-      "headline": "Dell Raises Annual Sales Forecast Again On AI Server Demand",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/dell-raises-annual-sales-forecast-again-on-ai-server-demand-12373110#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T01:56:55Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Dell raised its annual sales forecast due to strong demand for AI servers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Dell raised its annual sales forecast due to strong demand for AI servers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-024",
-      "headline": "HVN: Retail Trading Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HVN?key=2924-03166189-2A1712776",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-24T22:04:01Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Retail trading update from Harvey Norman, flagged as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Retail trading update from Harvey Norman, flagged as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Harvey Norman",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302751,9 +302755,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3879454,
-    "news_picked_today": 410,
-    "news_dropped_today": 9022
+    "news_seen_today": 3922789,
+    "news_picked_today": 431,
+    "news_dropped_today": 9241
   },
   "book_momentum": {
     "live_count": 8,
