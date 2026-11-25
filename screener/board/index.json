@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T04:53:15Z",
+  "generated_at": "2026-11-25T04:58:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261125-165",
@@ -1294,6 +1294,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261125-177",
+      "headline": "Shadowfax Strikes ₹23.3 Crore Deal To Acquire WeFast, Accelerates Intra-City Logistics Expansion",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/shadowfax-strikes-233-crore-deal-to-acquire-wefast-accelerates-intra-city-logistics-expansion",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T04:29:26Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Shadowfax is acquiring WeFast for ₹23.3 crore to expand its logistics operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Shadowfax is acquiring WeFast for ₹23.3 crore to expand its logistics operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shadowfax",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "WeFast",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261125-105",
       "headline": "GoodRx Holdings, Inc. Reports Third Quarter 2026 Results, Restates Prior Periods, and Expects to Regain Nasdaq Compliance",
       "headline_en": null,
@@ -1925,55 +1979,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-159",
-      "headline": "iPhone assembler Foxconn faces pressure to settle payments in India; BCD Emprasa seeks ₹143 cr in insolvency proceedings",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/iphone-assembler-foxconn-faces-pressure-to-settle-payments-in-india-bcd-emprasa-seeks-143-cr-in-insolvency-proceedings-11795577685824.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:47:18Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "BCD Emprasa has filed for insolvency against Foxconn seeking 143 crore rupees in payments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "BCD Emprasa has filed for insolvency against Foxconn seeking 143 crore rupees in payments.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foxconn",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302876,9 +302881,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2104120,
-    "news_picked_today": 265,
-    "news_dropped_today": 2279
+    "news_seen_today": 2118395,
+    "news_picked_today": 269,
+    "news_dropped_today": 2299
   },
   "book_momentum": {
     "live_count": 8,
