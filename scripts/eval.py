@@ -3343,6 +3343,11 @@ if scope=="selftest":
     _bk_thou_pd = {"forecast_id":"F40","confirmation_trigger":"FY27 consolidated revenue prints 12,500.","falsification_trigger":"FY27 consolidated revenue prints 11,900."}  # thousands bar at sentence end
     _bk_dec_pd  = {"forecast_id":"F41","confirmation_trigger":"The P/E re-rates to 22.5.","falsification_trigger":"The P/E stays under its range."}  # decimal bar at sentence end
     _bk_ver_pd  = {"forecast_id":"F42","confirmation_trigger":"The platform ships release 1.2.3.","falsification_trigger":"The release slips."}  # guard: a dotted version label at sentence end stays a label (N/A)
+    # #826 follow-up fix: a number with ONE thousands group AND a decimal ('12,500.5', '1,123.7') matched
+    # NEITHER shape alt before the fix (the comma blocked the pure-decimal lookbehind; the decimal tail
+    # blocked the thousands trailing lookahead), so a real numeric bar escaped the gate. It MUST demand the
+    # two fields (§17/§19/§24 — prefer the error of omission). Red on the pre-fix regex, green after.
+    _bk_thoudec = {"forecast_id":"F43","confirmation_trigger":"FY27 consolidated revenue prints 12,500.5.","falsification_trigger":"FY27 consolidated revenue prints 11,900.5."}  # one thousands group + decimal
     bkcases=[  # (decision_date, forecast_ledger, expect: None=N/A, []=pass, [substr]=fail-with)
         (BK_DATE,[_bk_qyear],None),                                     # #826 F4: 'Q3 2027' is a period label, not a numeric bar
         (BK_DATE,[_bk_sform],None),                                     # #826 F1: 'S-4' is a form name, not a numeric bar
@@ -3381,6 +3386,8 @@ if scope=="selftest":
         (BK_DATE,[_bk_dec_pd],["forecast_ledger[0] (F41) pins a numeric threshold but has no comparable_basis",
                                "forecast_ledger[0] (F41) missing fired_last_two_periods"]),   # #826 fix: a trailing-period decimal bar must not escape the gate
         (BK_DATE,[_bk_ver_pd],None),                                   # guard: dotted version label '1.2.3.' at sentence end stays N/A after the fix
+        (BK_DATE,[_bk_thoudec],["forecast_ledger[0] (F43) pins a numeric threshold but has no comparable_basis",
+                                "forecast_ledger[0] (F43) missing fired_last_two_periods"]),  # #826 fix: a one-group thousands+decimal bar ('12,500.5') must not escape HARD GATE 11
         (BK_DATE,[_bk_ok],[]),
         (BK_DATE,[_bk_true],[]),                                        # True is a valid answer — presence gate, same as BA
         (BK_DATE,[_bk_nocb],["forecast_ledger[0] (F3) pins a numeric threshold but has no comparable_basis"]),

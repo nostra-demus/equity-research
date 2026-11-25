@@ -845,7 +845,7 @@ _BK_THRESHOLD_NUMBER = re.compile(
     # ... or a comparator AFTER it: '30 days or lower', '500 stores or more', '42 or better'
     _BK_NUM + r"(?:\s+[a-z]+){0,2}\s+or\s+(?:lower|higher|more|less|fewer|greater|better|worse|below|above)\b|" +
     r"(?<![\d.,/])\d+\.\d+(?!\.?\d)|"                        # (d) a decimal ...
-    r"(?<![\d.,/])\d{1,3}(?:,\d{2,3})+(?!\.?\d)",            #     ... or a thousands-separated number
+    r"(?<![\d.,/])\d{1,3}(?:,\d{2,3})+(?:\.\d+)?(?!\.?\d)",  #     ... or a thousands-separated number, with an optional decimal tail ('12,500.5' / '1,123.7': one thousands group + a decimal matched neither alt before — #826)
     # The trailing lookahead disqualifies a following dot ONLY when a digit follows it (…\.?\d), so a longer
     # version/date ('1.2.3', '01.03.2027') still doesn't read as a bare decimal, but a real decimal/thousands
     # bar at the END of a trigger sentence ('revenue prints 12,500.', 'the P/E re-rates to 22.5.') is no longer
