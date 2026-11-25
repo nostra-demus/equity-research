@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-25T22:47:49Z",
+  "generated_at": "2026-11-25T22:57:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261125-824",
+      "headline": "S-4 - RENASANT CORP (0000715072) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/715072/000119312526478688/0001193125-26-478688-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-25T22:23:09Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "Renasant filed S-4 M&A registration statement, official primary disclosure of confirmed merger transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Renasant filed S-4 M&A registration statement, official primary disclosure of confirmed merger transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Renasant Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261125-825",
+      "headline": "S-4 - UMB FINANCIAL CORP (0000101382) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/101382/000119312526478673/0001193125-26-478673-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-25T22:17:41Z",
+      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
+      "prelim_note": "UMB Financial filed S-4 M&A registration statement, official primary disclosure of confirmed merger transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UMB Financial filed S-4 M&A registration statement, official primary disclosure of confirmed merger transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UMB Financial Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261125-333",
       "headline": "SC 14D9 - AYTU BIOPHARMA, INC (0001385818) (Subject)",
@@ -1887,116 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-688",
-      "headline": "Poundland falls into administration with 11,000 jobs at risk",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/poundland-andy-burnham-jonathan-reynolds-government-mps-b1306402.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T17:13:45Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Poundland's administration puts 11,000 jobs at risk, confirming a major insolvency event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland's administration puts 11,000 jobs at risk, confirming a major insolvency event.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261125-698",
-      "headline": "Fragrance Giants Handed $630 Million in EU, U.K. Antitrust Fines",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/eu-fines-fragrance-giants-firmenich-givaudan-iff-517-million-over-pricing-f61209c0?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T17:07:00Z",
-      "sweep_file": "screener/inbox/2026-11-25_sweep.json",
-      "prelim_note": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Regulators imposed $630 million in antitrust fines on fragrance companies, impacting sector margins and legal risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Givaudan",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "International Flavors & Fragrances",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Symrise",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -300743,9 +300731,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6518470,
-    "news_picked_today": 1832,
-    "news_dropped_today": 23632
+    "news_seen_today": 6533436,
+    "news_picked_today": 1849,
+    "news_dropped_today": 23807
   },
   "book_momentum": {
     "live_count": 8,
