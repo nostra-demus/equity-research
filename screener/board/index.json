@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T03:17:20Z",
+  "generated_at": "2026-11-26T03:21:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1520,6 +1520,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-416",
+      "headline": "S&P warns Nvidia credit rating could be cut over 'rising' management and governance risk",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/26/nvidia-market-governance-risk.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T02:57:32Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "S&P warned that Nvidia's credit rating could be downgraded due to management and governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "S&P warned that Nvidia's credit rating could be downgraded due to management and governance concerns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-352",
       "headline": "Power Grid To Mull Rs 45,000 Crore Borrowing And $600 Million Term Loan On November 30",
       "headline_en": null,
@@ -1911,57 +1960,6 @@
           "name": "Saudi Aramco",
           "ticker": "2222.SA",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-144",
-      "headline": "McCormick Offers Colman's Sale To Address Competition Concerns Over Unilever Foods Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/mccormick-offers-colmans-sale-address-competition-concerns-over-unilever-foods-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T09:48:18Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "McCormick must divest Colman's brand to obtain regulatory approval for Unilever Foods acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "McCormick must divest Colman's brand to obtain regulatory approval for Unilever Foods acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "regulatory",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "McCormick",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -302131,9 +302129,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248714,
-    "news_picked_today": 602,
-    "news_dropped_today": 1918
+    "news_seen_today": 253730,
+    "news_picked_today": 604,
+    "news_dropped_today": 1940
   },
   "book_momentum": {
     "live_count": 8,
