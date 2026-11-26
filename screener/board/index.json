@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T01:12:53Z",
+  "generated_at": "2026-11-26T01:15:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -439,6 +439,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-186",
+      "headline": "Consortium reaches financial close on $2.1bn Taweelah C plant",
+      "headline_en": null,
+      "url": "https://www.meed.com/consortium-reaches-financial-close-on-21bn-taweelah-c-plant",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T08:43:30Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "A consortium has reached financial close on a $2.1 billion desalination plant project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A consortium has reached financial close on a $2.1 billion desalination plant project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1389,6 +1432,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-190",
+      "headline": "Samsung Display to become ams Osram’s largest shareholder",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10949386",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T08:43:11Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Samsung Display is set to become the largest shareholder of ams Osram, a significant strategic investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Samsung Display is set to become the largest shareholder of ams Osram, a significant strategic investment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Display",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "ams Osram",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-023",
       "headline": "Deere’s Outlook Falls Short in Cautious Stance for Next Year",
       "headline_en": null,
@@ -1831,83 +1928,34 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261126-009",
-      "headline": "Deere And Co Q4 Profit Falls",
+      "inbox_id": "INB-20261126-185",
+      "headline": "Google plans 1.2GW data center near Châteauroux, France - report",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/deere-and-co-q4-profit-falls",
-      "source_name": "Nasdaq",
+      "url": "https://www.datacenterdynamics.com/en/news/google-planning-12gw-data-center-near-ch%C3%A2teauroux-france-report/",
+      "source_name": "DataCenterDynamics",
       "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:24:04Z",
+      "found_at": "2026-11-25T08:46:00Z",
       "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Deere and Co reported a decline in Q4 profit, signaling potential headwinds in the agricultural equipment sector.",
+      "prelim_note": "Google is planning a significant 1.2GW data center investment in France.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Deere and Co reported a decline in Q4 profit, signaling potential headwinds in the agricultural equipment sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deere and Co",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-064",
-      "headline": "Trump to Lead TSMC Groundbreaking in Arizona After Nvidia Gambit",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/trump-to-lead-tsmc-groundbreaking-in-arizona-after-nvidia-gambit",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:00:02Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Donald Trump is set to lead the groundbreaking for TSMC's Arizona facility, signaling continued support for domestic semiconductor manufacturing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Donald Trump is set to lead the groundbreaking for TSMC's Arizona facility, signaling continued support for domestic semiconductor manufacturing.",
-      "region": "US",
+      "triage_score": 85,
+      "triage_reason": "Google is planning a significant 1.2GW data center investment in France.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
         "materiality": 70,
         "source_tier": 0,
-        "scope": 5,
+        "scope": 6,
         "event": 6,
         "size": 2,
         "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
         "size_bucket": "mega"
@@ -1918,66 +1966,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "TSMC",
-          "ticker": null,
-          "listing_country": "TW"
-        },
-        {
-          "name": "Nvidia",
+          "name": "Alphabet Inc",
           "ticker": null,
           "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-087",
-      "headline": "Li Auto Stuck in Red Despite Sales Growth",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/li-auto-stuck-in-red-despite-sales-growth-763e41bb?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:46:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Li Auto remains unprofitable despite sales growth, highlighting margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Li Auto remains unprofitable despite sales growth, highlighting margin pressure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Li Auto",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302144,9 +302138,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 93538,
-    "news_picked_today": 215,
-    "news_dropped_today": 649
+    "news_seen_today": 105158,
+    "news_picked_today": 226,
+    "news_dropped_today": 662
   },
   "book_momentum": {
     "live_count": 8,
