@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T03:21:09Z",
+  "generated_at": "2026-11-26T03:27:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -987,6 +987,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-426",
+      "headline": "HPE shares crash 17%, stock suffers its worst-ever single-day fall. Here's why",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/hpe-shares-crash-17-stock-suffers-its-worst-ever-single-day-fall-heres-why/slideshow/136148964.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T04:38:14Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "HPE shares fell 17% following a significant earnings or guidance disappointment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "HPE shares fell 17% following a significant earnings or guidance disappointment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hewlett Packard Enterprise",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-046",
       "headline": "GPIXEL (03277): INSIDE INFORMATION LATEST BUSINESS PERFORMANCE FOR THE FIRST TEN MONTHS OF 2026",
       "headline_en": null,
@@ -1910,55 +1959,6 @@
         {
           "name": "Roche",
           "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-127",
-      "headline": "Saudi Aramco’s largest-ever $7 billion investment in South Korea to add 3.2 million tons of petrochemical capacity",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/saudi-aramcos-largest-ever-7-billion-investment-in-south-korea-to-add-3-2-million-tons-of-petrochemical-capacity/?utm_source=rss&utm_medium=rss&utm_campaign=saudi-aramcos-largest-ever-7-billion-investment-in-south-korea-to-add-3-2-million-tons-of-petrochemical-capacity",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T09:59:02Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Saudi Aramco commits $7 billion to build 3.2 million tons of petrochemical capacity in South Korea, its largest-ever foreign investment in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Saudi Aramco commits $7 billion to build 3.2 million tons of petrochemical capacity in South Korea, its largest-ever foreign investment in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": "2222.SA",
           "listing_country": null
         }
       ],
@@ -302129,9 +302129,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 253730,
-    "news_picked_today": 604,
-    "news_dropped_today": 1940
+    "news_seen_today": 258762,
+    "news_picked_today": 620,
+    "news_dropped_today": 1996
   },
   "book_momentum": {
     "live_count": 8,
