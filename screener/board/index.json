@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-11-26T08:55:08Z",
+  "generated_at": "2026-11-26T09:32:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-647",
+      "headline": "ZYLOXTB (02190): DISCLOSEABLE TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF EQUITY INTEREST IN THE TARGET COMPANY AND THE PROPOSED ISSUE OF NEW H SHARES UNDER THE GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600615.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T09:19:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Zylox-Tonbridge announced a discloseable transaction involving the acquisition of equity interest in a target company and the issuance of new H shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zylox-Tonbridge announced a discloseable transaction involving the acquisition of equity interest in a target company and the issuance of new H shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zylox-Tonbridge",
+          "ticker": "02190",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-652",
+      "headline": "GREEN ECONOMY (01315): Profit Warning",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600598.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T09:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Green Economy issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Green Economy issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Green Economy",
+          "ticker": "01315",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-658",
+      "headline": "ES SERVICES (01995): DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF 100% EQUITY INTEREST IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600495.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T08:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Confirmed acquisition of 100% equity interest disclosed as discloseable transaction from official HK Exchange filing, but no deal value stated, so company-moving impact cannot be assessed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Confirmed acquisition of 100% equity interest disclosed as discloseable transaction from official HK Exchange filing, but no deal value stated, so company-moving impact cannot be assessed.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ES SERVICES",
+          "ticker": "01995",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-634",
       "headline": "PROSPER ONE (01470): QUARTERLY PROGRESS UPDATE ON MEASURES TO ADDRESS DISCLAIMER OF OPINION RELATING TO GOING CONCERN",
@@ -1822,153 +1969,6 @@
           "name": "S-Oil",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-588",
-      "headline": "Shein to Pay $100 Million to Settle FTC Claims of Unfair Customer Service",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/shein-to-pay-100-million-to-settle-ftc-claims-of-unfair-customer-service-1d294269?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:13:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Company to pay $100 million to settle FTC claims.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company to pay $100 million to settle FTC claims.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-613",
-      "headline": "Saint-Gobain bets big on India with Rs 11,000 crore investment, eyes regional manufacturing hub",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/saint-gobain-bets-big-on-india-with-rs-11000-crore-investment-eyes-regional-manufacturing-hub-569266-2026-11-25?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T19:05:02Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Saint-Gobain announced a significant Rs 11,000 crore investment to expand manufacturing capacity in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Saint-Gobain announced a significant Rs 11,000 crore investment to expand manufacturing capacity in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saint-Gobain",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-627",
-      "headline": "FirstEnergy utilities get approval for $2.5B gas plant in West Virginia",
-      "headline_en": null,
-      "url": "https://www.utilitydive.com/news/firstenergy-utilities-get-approval-for-25b-gas-plant-in-west-virginia/875646/",
-      "source_name": "Utility Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T17:26:49Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "FirstEnergy received regulatory approval for a $2.5 billion gas plant investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "FirstEnergy received regulatory approval for a $2.5 billion gas plant investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FirstEnergy",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -262311,77 +262311,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cc5b4717e138",
-      "idea_version": "IDEAV-71016f7c62ef70ba",
-      "idea_version_started_at": "2026-11-25T02:37:44Z",
-      "ticker": "WTC",
-      "company": "WiseTech Global",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The conclusion of the AFP investigation removes a significant governance overhang and legal uncertainty that has pressured the stock's valuation.",
-      "why_now": "The company confirmed the investigation's conclusion on 2026-11-24.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-13567ad83edd"
-      ],
-      "primary_source_event_id": "EVT-13567ad83edd",
-      "source_headlines": [
-        "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]"
-      ],
-      "source_headline": "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WTC?key=2924-03166090-2A1712732",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T21:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:37:44Z",
-      "updated_at": "2026-11-25T02:37:44Z",
-      "decay_at": "2026-11-26T09:22:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1daaee67f8a",
       "idea_version": "IDEAV-f27470cf4e2578cc",
       "idea_version_started_at": "2026-11-25T05:25:03Z",
@@ -262805,6 +262734,77 @@
       "surfaced_at": "2026-11-25T04:32:33Z",
       "updated_at": "2026-11-25T04:32:33Z",
       "decay_at": "2026-11-26T01:43:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cc5b4717e138",
+      "idea_version": "IDEAV-71016f7c62ef70ba",
+      "idea_version_started_at": "2026-11-25T02:37:44Z",
+      "ticker": "WTC",
+      "company": "WiseTech Global",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The conclusion of the AFP investigation removes a significant governance overhang and legal uncertainty that has pressured the stock's valuation.",
+      "why_now": "The company confirmed the investigation's conclusion on 2026-11-24.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-13567ad83edd"
+      ],
+      "primary_source_event_id": "EVT-13567ad83edd",
+      "source_headlines": [
+        "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]"
+      ],
+      "source_headline": "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WTC?key=2924-03166090-2A1712732",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T21:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T02:37:44Z",
+      "updated_at": "2026-11-25T02:37:44Z",
+      "decay_at": "2026-11-26T09:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263962,14 +263962,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 522,
     "shown_count": 499,
-    "hidden_count": 22,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
-        "total_count": 257,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 8
       },
       "short": {
         "total_count": 265,
@@ -263993,6 +263993,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cc5b4717e138",
+        "idea_version": "IDEAV-71016f7c62ef70ba",
+        "idea_version_started_at": "2026-11-25T02:37:44Z",
+        "ticker": "WTC",
+        "company": "WiseTech Global",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The conclusion of the AFP investigation removes a significant governance overhang and legal uncertainty that has pressured the stock's valuation.",
+        "why_now": "The company confirmed the investigation's conclusion on 2026-11-24.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-13567ad83edd"
+        ],
+        "primary_source_event_id": "EVT-13567ad83edd",
+        "source_headlines": [
+          "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]"
+        ],
+        "source_headline": "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WTC?key=2924-03166090-2A1712732",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T21:22:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T02:37:44Z",
+        "updated_at": "2026-11-25T02:37:44Z",
+        "decay_at": "2026-11-26T09:22:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T09:22:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-59d2359744d8",
         "idea_version": "IDEAV-a69d04588b2cf134",
@@ -297223,79 +297297,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-29b3246b56c4",
-        "idea_version": "IDEAV-3ab764c7de7cc890",
-        "idea_version_started_at": "2026-11-07T07:32:32Z",
-        "ticker": "ABNB",
-        "company": "Airbnb",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its revenue forecast, citing a sustained travel boom that is driving higher booking volumes and improved margins.",
-        "why_now": "The guidance increase was announced on 2026-11-06.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 63,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0d467925baff"
-        ],
-        "primary_source_event_id": "EVT-0d467925baff",
-        "source_headlines": [
-          "+++ Business Figures +++: Travel boom boosts Airbnb – revenue forecast raised"
-        ],
-        "source_headline": "+++ Geschäftszahlen +++: Reiseboom beflügelt Airbnb – Umsatzprognose angehoben",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-reiseboom-befluegelt-airbnb-umsatzprognose-angehoben/24098412.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T06:38:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-07T07:32:32Z",
-        "updated_at": "2026-11-07T07:32:32Z",
-        "decay_at": "2026-11-07T18:38:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T06:51:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-171af5eb047a",
         "idea_version": "IDEAV-afa5421a72f05ac8",
         "idea_version_started_at": "2026-11-07T14:06:00Z",
@@ -301107,7 +301108,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2676,
-    "live_count": 14,
+    "live_count": 13,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -301126,9 +301127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 554897,
-    "news_picked_today": 1215,
-    "news_dropped_today": 8745
+    "news_seen_today": 602612,
+    "news_picked_today": 1245,
+    "news_dropped_today": 8811
   },
   "book_momentum": {
     "live_count": 8,
