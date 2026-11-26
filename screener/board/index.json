@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T03:11:14Z",
+  "generated_at": "2026-11-26T03:17:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1177,6 +1177,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-415",
+      "headline": "Qfin Holdings, Inc. Reports Third Quarter 2026 Net Income of RMB380.5 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/qfin-holdings-inc-reports-third-quarter-2026-net-income-rmb3805-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T04:48:42Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Qfin Holdings reported net income of RMB380.5 million for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Qfin Holdings reported net income of RMB380.5 million for Q3 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qfin Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-045",
       "headline": "MAP: Deferral of AGM and Financial Reporting Obligations",
       "headline_en": null,
@@ -1674,6 +1723,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-406",
+      "headline": "Elon Musk's SpaceX Gets FCC Approval To Build AI Data Centres In Space With Up To 1 Million Satellites",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/elon-musks-spacex-gets-fcc-approval-to-build-ai-data-centres-in-space-with-up-to-1-million-satellites",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T02:43:47Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "SpaceX received FCC approval for a massive project to build AI data centers in space using up to 1 million satellites.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "SpaceX received FCC approval for a massive project to build AI data centers in space using up to 1 million satellites.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-298",
       "headline": "Musk appeals $2.6B Twitter fraud verdict: Report",
       "headline_en": null,
@@ -1867,105 +1965,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-340",
-      "headline": "Braskem S.A. Responds to CVM Regarding Extrajudicial Reorganization and Debt Restructuring Negotiations",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/braskem-sa-responds-cvm-regarding-extrajudicial-reorganization-and-debt-restructuring",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T01:29:30Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Braskem is responding to Brazilian securities regulator regarding extrajudicial reorganization and debt restructuring negotiations, an event indicating potential financial distress affecting capital structure, leverage, and solvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Braskem is responding to Brazilian securities regulator regarding extrajudicial reorganization and debt restructuring negotiations, an event indicating potential financial distress affecting capital structure, leverage, and solvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Braskem S.A.",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-216",
-      "headline": "FCC clears SpaceX to put up to a million satellites in orbit for Starmind data center network",
-      "headline_en": null,
-      "url": "https://www.geekwire.com/2026/fcc-clears-spacex-million-satellites-starmind-data-center/",
-      "source_name": "GeekWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T00:46:39Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "FCC approval for SpaceX to deploy up to 1 million satellites represents a massive infrastructure expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "FCC approval for SpaceX to deploy up to 1 million satellites represents a massive infrastructure expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
