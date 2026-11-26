@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T00:55:51Z",
+  "generated_at": "2026-11-26T00:59:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-164",
+      "headline": "Royal Enfield commits ₹1,000 crore to Tamil Nadu to expand its electric motorcycle operations",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/auto/royal-enfield-commits-rs-1000-crore-to-tamil-nadu-to-expand-its-electric-motorcycle-business-20041099.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T09:25:16Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Royal Enfield committed ₹1,000 crore for electric motorcycle operations expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Royal Enfield committed ₹1,000 crore for electric motorcycle operations expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Royal Enfield",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -745,6 +794,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-160",
+      "headline": "‎Tasheel subsidiary signs SAR 2.2B securitization deal, expects SAR 108M profit boost",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1956362",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T09:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Tasheel subsidiary signed a SAR 2.2B securitization deal with an expected SAR 108M profit boost.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Tasheel subsidiary signed a SAR 2.2B securitization deal with an expected SAR 108M profit boost.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tasheel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-047",
       "headline": "Financier Todd Boehly strikes deal for Lukoil assets",
       "headline_en": null,
@@ -1182,6 +1280,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-161",
+      "headline": "Unilever sale of Colman’s could resolve concerns over McCormick tie-up, says CMA",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/cma-unilever-competition-and-markets-authority-bisto-french-b3091243.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T09:25:51Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Potential divestment of Colman's could resolve regulatory concerns regarding the McCormick tie-up.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Potential divestment of Colman's could resolve regulatory concerns regarding the McCormick tie-up.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unilever",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "McCormick",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1821,154 +1974,6 @@
         {
           "name": "Ford",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-141",
-      "headline": "Samsung Electro-Mechanics to cancel 1.73 tln won worth of own shares",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261125010200320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T09:48:50Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Samsung Electro-Mechanics announced the cancellation of 1.73 trillion won worth of own shares, a significant capital return action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Samsung Electro-Mechanics announced the cancellation of 1.73 trillion won worth of own shares, a significant capital return action.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electro-Mechanics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-006",
-      "headline": "Heathrow seeks to pass on £300mn third runway planning costs to passengers",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/800abc68-933a-40f5-be6a-3e2f4a55ff88?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:24:03Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Heathrow is seeking to pass £300 million in planning costs to passengers, which may face regulatory pushback and impact operational pricing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Heathrow is seeking to pass £300 million in planning costs to passengers, which may face regulatory pushback and impact operational pricing.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Heathrow Airport",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-031",
-      "headline": "IBM Ends US Visa & Green Card Sponsorship For Most Consulting Roles, Asks Staff To Relocate Or Leave",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/ibm-ends-us-visa-green-card-sponsorship-for-most-consulting-roles-asks-staff-to-relocate-or-leave",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:10:36Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "IBM ends US visa and green-card sponsorship for most consulting roles, requiring staff relocation or departure; signals cost reduction and potential restructuring affecting consulting margin and hiring strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "IBM ends US visa and green-card sponsorship for most consulting roles, requiring staff relocation or departure; signals cost reduction and potential restructuring affecting consulting margin and hiring strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IBM",
-          "ticker": "IBM",
           "listing_country": "US"
         }
       ],
@@ -302139,9 +302144,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 63883,
-    "news_picked_today": 159,
-    "news_dropped_today": 537
+    "news_seen_today": 69877,
+    "news_picked_today": 180,
+    "news_dropped_today": 564
   },
   "book_momentum": {
     "live_count": 8,
