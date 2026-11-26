@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-26T21:40:55Z",
+  "generated_at": "2026-11-26T21:50:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-1031",
+      "headline": "ELK: Acquisition of Friday Claims & 3% Royalty Buy-Back [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ELK?key=2924-03167596-6A1357484",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T21:45:06Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Elk Petroleum is acquiring assets and buying back a 3% royalty, which directly impacts its capital structure and future cash flows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Elk Petroleum is acquiring assets and buying back a 3% royalty, which directly impacts its capital structure and future cash flows.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elk Petroleum",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-810",
       "headline": "ZXZN QI-HOUSE (08395): PROFIT WARNING",
@@ -1906,55 +1955,6 @@
           "name": "Air India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-930",
-      "headline": "Constellation Completes $5B Sale of 4.4GW PJM Assets to LS Power",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/constellation_completes_5b_sale_of_44gw_pjm_assets_to_ls_power-26-nov-2026-185175-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T13:35:43Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Constellation Energy completed a $5 billion sale of 4.4GW of assets to LS Power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Constellation Energy completed a $5 billion sale of 4.4GW of assets to LS Power.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Constellation Energy",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -301398,9 +301398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 944926,
-    "news_picked_today": 2524,
-    "news_dropped_today": 17437
+    "news_seen_today": 944955,
+    "news_picked_today": 2534,
+    "news_dropped_today": 17456
   },
   "book_momentum": {
     "live_count": 8,
