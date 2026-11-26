@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T05:20:16Z",
+  "generated_at": "2026-11-26T05:26:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1235,6 +1235,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-624",
+      "headline": "Sanofi’s $41 Billion Insmed Deal Shows Cost of a Patent Cliff",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/sanofis-41-billion-insmed-deal-shows-cost-of-a-patent-cliff-11795545425011.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T18:37:04Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Sanofi to acquire Insmed for $41 billion; material capital deployment addressing Sanofi's patent-cliff revenue headwind and altering both companies' capital structure and strategic positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanofi to acquire Insmed for $41 billion; material capital deployment addressing Sanofi's patent-cliff revenue headwind and altering both companies' capital structure and strategic positioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanofi",
+          "ticker": "SNY",
+          "listing_country": "US"
+        },
+        {
+          "name": "Insmed Incorporated",
+          "ticker": "INSM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-058",
       "headline": "Suzlon begins construction of 1 GW AI-powered wind blade factory in Tamil Nadu",
       "headline_en": null,
@@ -1910,55 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-460",
-      "headline": "Workday, Inc. Reports Fiscal 2027 Third Quarter Total Revenues of $2.705 Billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/workday-inc-reports-fiscal-2027-third-quarter-total-revenues-2705-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:08:42Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Workday reported quarterly revenue of $2.705 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Workday reported quarterly revenue of $2.705 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Workday",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302125,9 +302130,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 355272,
-    "news_picked_today": 1021,
-    "news_dropped_today": 3323
+    "news_seen_today": 361356,
+    "news_picked_today": 1051,
+    "news_dropped_today": 3437
   },
   "book_momentum": {
     "live_count": 8,
