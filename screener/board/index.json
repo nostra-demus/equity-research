@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T01:26:51Z",
+  "generated_at": "2026-11-26T01:38:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -51,6 +51,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-221",
+      "headline": "Norse Atlantic flights suspended after warning finances 'critical'",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/26/norse-airline-finance-business.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T01:04:54Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Norse Atlantic suspended flights after declaring its financial position critical, signaling potential insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic suspended flights after declaring its financial position critical, signaling potential insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-192",
       "headline": "S&P warns Nvidia's board may be compromised, puts chipmaker's rating on downgrade watch",
       "headline_en": null,
@@ -96,6 +146,50 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-217",
+      "headline": "Chinese group to develop 10 smart city sites in Indonesia under US$50 billion deal",
+      "headline_en": null,
+      "url": "https://www.scmp.com/economy/global-economy/article/3375762/chinese-group-develop-10-smart-city-sites-indonesia-under-us50-billion-deal",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T00:30:08Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "A Chinese group announced a $50 billion deal to develop 10 smart city sites in Indonesia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Chinese group announced a $50 billion deal to develop 10 smart city sites in Indonesia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -684,6 +778,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-210",
+      "headline": "LTR: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LTR?key=2924-03167107-6A1357224",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T01:01:56Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Disclosure that an entity has crossed the 5% substantial-holder threshold; affects control and governance dynamics, but buyer identity and strategic intent are not stated in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Disclosure that an entity has crossed the 5% substantial-holder threshold; affects control and governance dynamics, but buyer identity and strategic intent are not stated in headline.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LTR",
+          "ticker": "LTR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-211",
+      "headline": "PDI: Ceasing to be a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PDI?key=2924-03167104-6A1357221",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T00:57:01Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Disclosure that a substantial holder has exited below 5% threshold; signals ownership shift and may alter governance or control, but seller identity and exit rationale are not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Disclosure that a substantial holder has exited below 5% threshold; signals ownership shift and may alter governance or control, but seller identity and exit rationale are not disclosed in headline.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PDI",
+          "ticker": "PDI",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-038",
       "headline": "LAEKNA-B (02105): VOLUNTARY ANNOUNCEMENT PRESENTATIONS OF RESULTS FROM THE PHASE III CLINICAL TRIAL (AFFIRM-205) OF LAE002 (AFURESERTIB) AT SABCS 2026",
       "headline_en": null,
@@ -828,6 +1020,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-216",
+      "headline": "FCC clears SpaceX to put up to a million satellites in orbit for Starmind data center network",
+      "headline_en": null,
+      "url": "https://www.geekwire.com/2026/fcc-clears-spacex-million-satellites-starmind-data-center/",
+      "source_name": "GeekWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T00:46:39Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "FCC approval for SpaceX to deploy up to 1 million satellites represents a massive infrastructure expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "FCC approval for SpaceX to deploy up to 1 million satellites represents a massive infrastructure expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1723,251 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-023",
-      "headline": "Deere’s Outlook Falls Short in Cautious Stance for Next Year",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/deere-s-outlook-falls-short-in-cautious-stance-for-next-year",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:13:56Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Deere signals near-term caution with outlook falling short, implying downward guidance but specific numbers and drivers not quantified in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Deere signals near-term caution with outlook falling short, implying downward guidance but specific numbers and drivers not quantified in headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deere",
-          "ticker": "DE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-010",
-      "headline": "Huawei convicted on 10 counts in U.S. trial, but verdict is unlikely to slow China’s ‘national champion’",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/11/25/huawei-us-trial-racketeering-china-national-champion/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:23:25Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Huawei's conviction on 10 counts in a US trial highlights significant legal and regulatory risks for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Huawei's conviction on 10 counts in a US trial highlights significant legal and regulatory risks for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-015",
-      "headline": "Shein to pay $100mn to resolve US allegations it deceived customers",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/0128d44e-8ca1-49b8-868b-b8fe0e4824c6?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:18:59Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Shein agreed to pay $100 million to settle US allegations of deceiving customers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Shein agreed to pay $100 million to settle US allegations of deceiving customers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-103",
-      "headline": "Royal Enfield signs Rs 1,000 crore MoU with Tamil Nadu government for EV expansion",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/royal-enfield-signs-rs-1000-crore-mou-with-tamil-nadu-government-for-ev-expansion/articleshow/136157570.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:27:30Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Royal Enfield signs a Rs 1,000 crore MoU for EV expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Royal Enfield signs a Rs 1,000 crore MoU for EV expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Royal Enfield",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-104",
-      "headline": "‎Tasheel unit signs SAR 2.2B securitization deal",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1956362",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:27:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Tasheel unit signs a SAR 2.2B securitization deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Tasheel unit signs a SAR 2.2B securitization deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tasheel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262520,77 +262517,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-beed2a8f2403",
-      "idea_version": "IDEAV-7b5eeaad76f6ca69",
-      "idea_version_started_at": "2026-11-25T01:22:54Z",
-      "ticker": "01633",
-      "company": "Sheung Yue Group Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The profit warning indicates a material decline in operational profitability, which typically triggers a sell-off in small-cap equities.",
-      "why_now": "The filing was released on 2026-11-24; the market has not yet fully digested the impact of the earnings shortfall.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f9bba21c59f9"
-      ],
-      "primary_source_event_id": "EVT-f9bba21c59f9",
-      "source_headlines": [
-        "SHEUNG YUE GP (01633): PROFIT WARNING"
-      ],
-      "source_headline": "SHEUNG YUE GP (01633): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401383.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T13:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T01:22:54Z",
-      "updated_at": "2026-11-25T01:22:54Z",
-      "decay_at": "2026-11-26T01:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1daaee67f8a",
       "idea_version": "IDEAV-f27470cf4e2578cc",
       "idea_version_started_at": "2026-11-25T05:25:03Z",
@@ -263371,6 +263297,77 @@
       "surfaced_at": "2026-11-25T01:22:54Z",
       "updated_at": "2026-11-25T01:22:54Z",
       "decay_at": "2026-11-26T00:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-beed2a8f2403",
+      "idea_version": "IDEAV-7b5eeaad76f6ca69",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "01633",
+      "company": "Sheung Yue Group Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The profit warning indicates a material decline in operational profitability, which typically triggers a sell-off in small-cap equities.",
+      "why_now": "The filing was released on 2026-11-24; the market has not yet fully digested the impact of the earnings shortfall.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f9bba21c59f9"
+      ],
+      "primary_source_event_id": "EVT-f9bba21c59f9",
+      "source_headlines": [
+        "SHEUNG YUE GP (01633): PROFIT WARNING"
+      ],
+      "source_headline": "SHEUNG YUE GP (01633): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401383.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T13:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T01:22:54Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-26T01:36:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264970,9 +264967,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 264,
@@ -264980,9 +264977,9 @@
         "hidden_count": 14
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -265001,6 +264998,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-beed2a8f2403",
+        "idea_version": "IDEAV-7b5eeaad76f6ca69",
+        "idea_version_started_at": "2026-11-25T01:22:54Z",
+        "ticker": "01633",
+        "company": "Sheung Yue Group Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The profit warning indicates a material decline in operational profitability, which typically triggers a sell-off in small-cap equities.",
+        "why_now": "The filing was released on 2026-11-24; the market has not yet fully digested the impact of the earnings shortfall.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f9bba21c59f9"
+        ],
+        "primary_source_event_id": "EVT-f9bba21c59f9",
+        "source_headlines": [
+          "SHEUNG YUE GP (01633): PROFIT WARNING"
+        ],
+        "source_headline": "SHEUNG YUE GP (01633): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401383.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T13:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T01:22:54Z",
+        "updated_at": "2026-11-25T01:22:54Z",
+        "decay_at": "2026-11-26T01:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T01:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-143abf663c2d",
         "idea_version": "IDEAV-ac3e94a10990e56e",
@@ -302038,87 +302109,12 @@
         "archived_at": "2026-11-04T01:34:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9ac8f2ae4804",
-        "idea_version": "IDEAV-aba2c949217507f1",
-        "idea_version_started_at": "2026-11-01T03:42:18Z",
-        "ticker": "CLH",
-        "company": "Coca-Cola Hellenic Bottling Company",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A surge in fuel costs has directly impacted an Olympics contractor's profits by 15%, indicating significant margin pressure for companies reliant on logistics and event services.",
-        "why_now": "The impact of fuel cost surge wiping 15% off profit was reported on November 1, 2026, showing a current and significant earnings hit.",
-        "conviction": 40,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-359a4ef9c18c"
-        ],
-        "primary_source_event_id": "EVT-359a4ef9c18c",
-        "source_headlines": [
-          "Fuel cost surge wipes 15pc off Olympics contractor profit"
-        ],
-        "source_headline": "Fuel cost surge wipes 15pc off Olympics contractor profit",
-        "source_url": "https://www.afr.com/property/commercial/fuel-cost-surge-wipes-15pc-off-olympics-contractor-profit-20261101-p61a73?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T01:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T03:42:18Z",
-        "updated_at": "2026-11-01T03:42:18Z",
-        "decay_at": "2026-11-02T13:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T01:34:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2673,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302137,9 +302133,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117464,
-    "news_picked_today": 243,
-    "news_dropped_today": 693
+    "news_seen_today": 123585,
+    "news_picked_today": 257,
+    "news_dropped_today": 847
   },
   "book_momentum": {
     "live_count": 8,
