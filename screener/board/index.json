@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T17:05:28Z",
+  "generated_at": "2026-11-26T17:14:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -983,6 +983,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-890",
+      "headline": "Sheikh Mohammed reviews Dh1.2 billion Hatta plan, opens Dh1.4 billion power plant",
+      "headline_en": null,
+      "url": "https://gulfnews.com/uae/government/sheikh-mohammed-reviews-dh12-billion-hatta-plan-opens-dh14-billion-power-plant-1.500762219",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T14:42:01Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "ADNOC is investing Dh1.4 billion in a new power plant and Dh1.2 billion in a Hatta development plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ADNOC is investing Dh1.4 billion in a new power plant and Dh1.2 billion in a Hatta development plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADNOC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-815",
       "headline": "Rs 11 Lakh Fine On Blinkit, Zepto Licence Suspended: Maharashtra FDA's Big Crackdown",
       "headline_en": null,
@@ -1092,6 +1141,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-920",
+      "headline": "US maker of Marlboro cigarettes mulls over bid for Imperial Brands",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/marlboro-london-virginia-bristol-richmond-b3092205.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T13:50:29Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Philip Morris International is considering a bid for Imperial Brands.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Philip Morris International is considering a bid for Imperial Brands.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Philip Morris International",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Imperial Brands",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-799",
       "headline": "Air India’s new CEO announces $650 million cost-cutting plan with flight reshuffle, dept mergers",
       "headline_en": null,
@@ -1133,6 +1236,55 @@
           "name": "Air India",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-930",
+      "headline": "Constellation Completes $5B Sale of 4.4GW PJM Assets to LS Power",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/constellation_completes_5b_sale_of_44gw_pjm_assets_to_ls_power-26-nov-2026-185175-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T13:35:43Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Constellation Energy completed a $5 billion sale of 4.4GW of assets to LS Power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Constellation Energy completed a $5 billion sale of 4.4GW of assets to LS Power.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Constellation Energy",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1827,154 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-639",
-      "headline": "Norse Atlantic suspends all flights, warns it may file for bankruptcy after share price collapse",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/26/norse-airline-finance-business.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T08:25:47Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Airline suspends all flights and warns of possible bankruptcy filing, signaling imminent going-concern risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Airline suspends all flights and warns of possible bankruptcy filing, signaling imminent going-concern risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 87,
-      "rank_factors": {
-        "materiality": 87,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Norse Atlantic Airways",
-          "ticker": "NAY",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-641",
-      "headline": "Norse Suspends Flights, in Talks to Avoid Bankruptcy Filing",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-26/norse-suspends-flights-in-talks-to-avoid-bankruptcy-filing",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T08:07:01Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Norse Atlantic Airways faces a going-concern crisis—suspending all flights and negotiating to avoid bankruptcy filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Norse Atlantic Airways faces a going-concern crisis—suspending all flights and negotiating to avoid bankruptcy filing.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Norse Atlantic Airways",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-629",
-      "headline": "America's Car-Mart, Inc. Receives Nasdaq Delisting Notice Following Chapter 11 Bankruptcy Filings",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/americas-car-mart-inc-receives-nasdaq-delisting-notice-following-chapter-11-bankruptcy",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T05:39:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "America's Car-Mart files Chapter 11 bankruptcy and receives Nasdaq delisting notice, a survival-level default event and regulatory consequence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "America's Car-Mart files Chapter 11 bankruptcy and receives Nasdaq delisting notice, a survival-level default event and regulatory consequence.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "America's Car-Mart, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301200,9 +301204,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 926681,
-    "news_picked_today": 1930,
-    "news_dropped_today": 15614
+    "news_seen_today": 928271,
+    "news_picked_today": 2003,
+    "news_dropped_today": 15829
   },
   "book_momentum": {
     "live_count": 8,
