@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T07:59:13Z",
+  "generated_at": "2026-11-26T08:00:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-630",
@@ -261663,6 +261663,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c7c67a3816f9",
+      "idea_version": "IDEAV-ae38496a0f069204",
+      "idea_version_started_at": "2026-11-26T07:59:30Z",
+      "ticker": "INSM",
+      "company": "Insmed",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sanofi is acquiring Insmed for $41 billion, a significant premium to its current market valuation, driven by the strategic value of the Brinsupri lung drug.",
+      "why_now": "The acquisition deal was announced on 2026-11-25.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5f470702cecd",
+        "EVT-bb68f9c8c540"
+      ],
+      "primary_source_event_id": "EVT-5f470702cecd",
+      "source_headlines": [
+        "Sanofi Bets $41 Billion on Insmed and Its Lung Drug Brinsupri",
+        "Sanofi’s $41B Insmed Deal Shows Cost of a Patent Cliff"
+      ],
+      "source_headline": "Sanofi Bets $41 Billion on Insmed and Its Lung Drug Brinsupri",
+      "source_url": "https://247wallst.com/investing/2026/11/25/sanofi-bets-41-billion-on-insmed-and-its-lung-drug-brinsupri/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T20:19:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T07:59:30Z",
+      "updated_at": "2026-11-26T07:59:30Z",
+      "decay_at": "2026-11-27T08:19:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2fc2f45acf84",
       "idea_version": "IDEAV-b7b709f6aced4a95",
       "idea_version_started_at": "2026-11-26T06:44:42Z",
@@ -301027,8 +301099,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2675,
-    "live_count": 13,
+    "surfaced_total": 2676,
+    "live_count": 14,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
