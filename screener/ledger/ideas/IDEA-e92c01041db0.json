@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-e92c01041db0",
+  "idea_version": "IDEAV-078f81c713db72ee",
+  "idea_version_started_at": "2026-11-26T21:18:44Z",
+  "ticker": "2222",
+  "company": "Saudi Aramco",
+  "exchange": "Tadawul",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Operations at Saudi Aramco's Jazan refinery have been halted following an attack, which will disrupt its production and potentially impact revenue.",
+  "why_now": "The attack on the Jazan refinery and the subsequent halt in operations is a live event reported on November 26, 2026.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-55dee4dab961",
+    "EVT-23a53afabd7f"
+  ],
+  "primary_source_event_id": "EVT-55dee4dab961",
+  "source_headlines": [
+    "Saudi Arabia says operations at refinery in Jazan halted after attack",
+    "Attack on Saudi’s Jazan refinery kills one person, disrupts operations"
+  ],
+  "source_headline": "Saudi Arabia says operations at refinery in Jazan halted after attack",
+  "source_url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-arabia-says-operations-refinery-jazan-halted-after-attack",
+  "source_name": "Middle East Eye",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-26T20:34:34Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-26T21:18:44Z",
+  "updated_at": "2026-11-26T21:18:44Z",
+  "decay_at": "2026-11-28T08:34:34Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
