@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T12:27:35Z",
+  "generated_at": "2026-11-26T12:39:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-647",
@@ -449,6 +449,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-764",
+      "headline": "South Africa’s IDC in Talks for $257 Million Stake in Sugar Firm",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-26/south-africa-s-idc-in-talks-for-257-million-stake-in-sugar-firm",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T09:55:38Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "The Industrial Development Corporation of South Africa is in talks to acquire a $257 million stake in a sugar firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Industrial Development Corporation of South Africa is in talks to acquire a $257 million stake in a sugar firm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Industrial Development Corporation of South Africa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-670",
       "headline": "UK: Britische Discounter-Kette Poundland insolvent – 12.000 Jobs bedroht",
       "headline_en": "UK: British discount chain Poundland insolvent — 12,000 jobs threatened",
@@ -591,6 +640,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-755",
+      "headline": "Full list of Poundland stores in London as retail chain collapses into administration",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/shopping/poundland-administration-london-stores-b1306476.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T09:37:21Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Poundland's retail chain has collapsed into administration, a major insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland's retail chain has collapsed into administration, a major insolvency event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1862,105 +1960,6 @@
       "companies": [
         {
           "name": "HP Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-578",
-      "headline": "America's Car-Mart, Inc. Files for Chapter 11 Protection and Enters Stalking Horse Asset Purchase Agreement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/americas-car-mart-inc-files-chapter-11-protection-and-enters-stalking-horse-asset-purchase",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:19:50Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "America's Car-Mart has filed for Chapter 11 bankruptcy protection, a definitive survival event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "America's Car-Mart has filed for Chapter 11 bankruptcy protection, a definitive survival event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "America's Car-Mart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-579",
-      "headline": "Dell Lifts Outlook as Revenue Doubles on Server Demand",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/dell-lifts-outlook-as-revenue-doubles-on-server-demand-40c14b0b?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T21:19:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Dell reported revenue doubling on server demand and raised its outlook, a major positive financial event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell reported revenue doubling on server demand and raised its outlook, a major positive financial event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies",
           "ticker": null,
           "listing_country": "US"
         }
@@ -301117,9 +301116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 774570,
-    "news_picked_today": 1422,
-    "news_dropped_today": 12234
+    "news_seen_today": 791499,
+    "news_picked_today": 1445,
+    "news_dropped_today": 12403
   },
   "book_momentum": {
     "live_count": 8,
