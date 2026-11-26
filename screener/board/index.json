@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T22:19:07Z",
+  "generated_at": "2026-11-26T22:24:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-1031",
@@ -831,6 +831,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-1050",
+      "headline": "Bravura Solutions Raises FY27 Revenue And Cash EBITDA Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bravura-solutions-raises-fy27-revenue-and-cash-ebitda-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T21:43:11Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Bravura Solutions raised its FY27 revenue and cash EBITDA guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bravura Solutions raised its FY27 revenue and cash EBITDA guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bravura Solutions",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-1051",
+      "headline": "Tullow Oil Raises FY26 Production Outlook, Lowers Free Cash Flow Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/tullow-oil-raises-fy26-production-outlook-lowers-free-cash-flow-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T21:40:27Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Tullow Oil raised its FY26 production outlook but lowered its free cash flow guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tullow Oil raised its FY26 production outlook but lowered its free cash flow guidance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tullow Oil",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1841,104 +1939,6 @@
           "name": "CoreWeave",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-830",
-      "headline": "Nakheel awards AED 1.4 billion Palm Jebel Ali villa contract",
-      "headline_en": null,
-      "url": "https://www.arnnewscentre.ae/news/business/nakheel-awards-aed-1-4-billion-palm-jebel-ali-villa-contract/",
-      "source_name": "ARN News Centre — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T14:51:04Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Nakheel awarded a 1.4 billion AED construction contract for the Palm Jebel Ali project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nakheel awarded a 1.4 billion AED construction contract for the Palm Jebel Ali project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nakheel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-890",
-      "headline": "Sheikh Mohammed reviews Dh1.2 billion Hatta plan, opens Dh1.4 billion power plant",
-      "headline_en": null,
-      "url": "https://gulfnews.com/uae/government/sheikh-mohammed-reviews-dh12-billion-hatta-plan-opens-dh14-billion-power-plant-1.500762219",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T14:42:01Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "ADNOC is investing Dh1.4 billion in a new power plant and Dh1.2 billion in a Hatta development plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ADNOC is investing Dh1.4 billion in a new power plant and Dh1.2 billion in a Hatta development plan.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADNOC",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -301383,9 +301383,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 945092,
-    "news_picked_today": 2567,
-    "news_dropped_today": 17560
+    "news_seen_today": 945106,
+    "news_picked_today": 2573,
+    "news_dropped_today": 17568
   },
   "book_momentum": {
     "live_count": 8,
