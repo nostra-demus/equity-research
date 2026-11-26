@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-26T23:14:27Z",
+  "generated_at": "2026-11-26T23:24:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-1065",
+      "headline": "VAU: Removal from Official List",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03167700-6A1357513",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T23:12:51Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Removal from the official list indicates a delisting event for VAU.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Removal from the official list indicates a delisting event for VAU.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VAU",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-1057",
       "headline": "JAV: FAU Takeover Offer Interest Reaches 61% Min Acceptance Satis",
@@ -1893,55 +1942,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-879",
-      "headline": "ADIB raises $500 million in U.S. dollar-denominated tier-one perpetual sukuk as order book exceeds $1.5 billion",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/adib-raises-500-million-in-u-s-dollar-denominated-tier-one-perpetual-sukuk-as-order-book-exceeds-1-5-billion/?utm_source=rss&utm_medium=rss&utm_campaign=adib-raises-500-million-in-u-s-dollar-denominated-tier-one-perpetual-sukuk-as-order-book-exceeds-1-5-billion",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T16:09:25Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Abu Dhabi Islamic Bank raised $500 million in tier-one perpetual sukuk with an order book exceeding $1.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Abu Dhabi Islamic Bank raised $500 million in tier-one perpetual sukuk with an order book exceeding $1.5 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abu Dhabi Islamic Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301598,9 +301598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 945256,
-    "news_picked_today": 2611,
-    "news_dropped_today": 17680
+    "news_seen_today": 945285,
+    "news_picked_today": 2619,
+    "news_dropped_today": 17701
   },
   "book_momentum": {
     "live_count": 8,
