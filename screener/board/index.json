@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T04:31:13Z",
+  "generated_at": "2026-11-26T04:41:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1868,93 +1868,100 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261126-045",
-      "headline": "MAP: Deferral of AGM and Financial Reporting Obligations",
+      "inbox_id": "INB-20261126-522",
+      "headline": "This AI Chip Stock Just Crashed 38% on a Memory Shortage Warning. Its Filings Flagged the Risk Months Ago",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAP?key=2924-03167045-2A1713131",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-25T23:45:26Z",
+      "url": "https://www.fool.com/investing/2026/11/24/this-ai-chip-stock-just-crashed-38-on-a-memory-shortage-warning-its-filings-flagged-the-risk-months-ago/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T23:27:08Z",
       "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Deferral of financial reporting obligations is a red flag regarding corporate governance and transparency.",
+      "prelim_note": "AI semiconductor company (inferred Nvidia) issued memory shortage warning, triggering 38% stock crash; market is now repricing a supply-driven impact on revenue/margins that prior filings had flagged.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Deferral of financial reporting obligations is a red flag regarding corporate governance and transparency.",
-      "region": "OTHER",
+      "triage_score": 97,
+      "triage_reason": "AI semiconductor company (inferred Nvidia) issued memory shortage warning, triggering 38% stock crash; market is now repricing a supply-driven impact on revenue/margins that prior filings had flagged.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 76,
       "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
+        "materiality": 76,
+        "source_tier": 0,
         "scope": 6,
         "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "accounting_restatement"
+        "guidance_change",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "MAP",
+          "name": "Nvidia",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261126-437",
-      "headline": "US proposes surprise new tariffs on Brazil, Brasilia calls move ‘unacceptable’",
+      "inbox_id": "INB-20261126-530",
+      "headline": "Harvey Norman profit plunges 47pc as shoppers pull back",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/world/us-proposes-surprise-new-tariffs-on-brazil-brasilia-calls-move-unacceptable-20013476.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.afr.com/companies/retail/harvey-norman-profit-plunges-47pc-as-shoppers-pull-back-20261125-p61h2x?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-11-26T02:37:51Z",
+      "found_at": "2026-11-24T23:07:09Z",
       "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "New surprise tariffs on Brazil represent a significant trade policy shift and geopolitical risk.",
+      "prelim_note": "Harvey Norman reported a 47% plunge in profit due to reduced consumer spending.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "New surprise tariffs on Brazil represent a significant trade policy shift and geopolitical risk.",
+      "triage_score": 97,
+      "triage_reason": "Harvey Norman reported a 47% plunge in profit due to reduced consumer spending.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "regulatory"
+        "earnings_revenue_margin"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harvey Norman",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302121,9 +302128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 318716,
-    "news_picked_today": 820,
-    "news_dropped_today": 2636
+    "news_seen_today": 326745,
+    "news_picked_today": 864,
+    "news_dropped_today": 2808
   },
   "book_momentum": {
     "live_count": 8,
