@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T17:14:27Z",
+  "generated_at": "2026-11-26T17:25:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -689,6 +689,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-931",
+      "headline": "SAP weighs 10,000 job cuts as Europe’s top software company pushes AI strategy",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/sap-weighs-10000-job-cuts-as-europes-top-software-company-pushes-ai-strategy/article71747963.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T16:55:22Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "SAP is reportedly planning to cut 10,000 jobs as part of a strategic shift toward AI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SAP is reportedly planning to cut 10,000 jobs as part of a strategic shift toward AI.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAP SE",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-886",
       "headline": "Trans-Oil Warns of Going-Concern Risk Pending Debt Waiver",
       "headline_en": null,
@@ -875,6 +924,55 @@
       "companies": [
         {
           "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-947",
+      "headline": "TVS pares Swiss e-bike exposure as overseas bets bleed ₹1,158 crore; Norton losses widen",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/tvs-pares-swiss-e-bike-exposure-as-overseas-bets-bleed-1158-crore-norton-losses-widen/article71741851.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T15:26:30Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "TVS Motor reported significant losses of ₹1,158 crore on overseas bets and widening losses at Norton, directly impacting earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TVS Motor reported significant losses of ₹1,158 crore on overseas bets and widening losses at Norton, directly impacting earnings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TVS Motor",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1887,98 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-743",
-      "headline": "UK signs £8bn deal to ensure submarines are 'warfighting ready'",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cq39gz99l1pyo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T09:23:46Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "The UK government signed an £8 billion deal for submarine maintenance and readiness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The UK government signed an £8 billion deal for submarine maintenance and readiness.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-875",
-      "headline": "Unilever perfume suppliers fined €500m over ‘beer and curry’ cartel",
-      "headline_en": null,
-      "url": "https://www.cityam.com/unilever-perfume-suppliers-fined-500m-over-beer-and-curry-cartel/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T08:59:31Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Unilever suppliers fined €500m for cartel activity, representing a significant regulatory enforcement action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Unilever suppliers fined €500m for cartel activity, representing a significant regulatory enforcement action.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unilever",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301204,9 +301210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 928271,
-    "news_picked_today": 2003,
-    "news_dropped_today": 15829
+    "news_seen_today": 932125,
+    "news_picked_today": 2021,
+    "news_dropped_today": 15907
   },
   "book_momentum": {
     "live_count": 8,
