@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T14:43:41Z",
+  "generated_at": "2026-11-26T14:51:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -91,6 +91,55 @@
         {
           "name": "S Harbourhold",
           "ticker": "01663",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-818",
+      "headline": "QUALI-SMART (01348): PROFIT ALERT - REDUCTION IN LOSS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112601564.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T14:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "The company issued a profit alert indicating a reduction in net loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit alert indicating a reduction in net loss.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Quali-Smart Holdings Ltd",
+          "ticker": "01348",
           "listing_country": "CN"
         }
       ],
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-107",
-      "headline": "Stock Crash: Norwegian budget carrier plunges 86% after warning finances are 'critical'",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/norse-atlantic-share-price-86-percent-crash-in-single-session-high-fuel-costs-weak-financials-20040814.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:15:05Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Norwegian budget carrier stock crashes 86% after explicit warning that company finances are 'critical', signaling severe financial distress and potential going-concern risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Norwegian budget carrier stock crashes 86% after explicit warning that company finances are 'critical', signaling severe financial distress and potential going-concern risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 7,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Norwegian Air Shuttle",
-          "ticker": null,
-          "listing_country": "NO"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301331,9 +301331,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 871604,
-    "news_picked_today": 1724,
-    "news_dropped_today": 13732
+    "news_seen_today": 874037,
+    "news_picked_today": 1733,
+    "news_dropped_today": 13867
   },
   "book_momentum": {
     "live_count": 8,
