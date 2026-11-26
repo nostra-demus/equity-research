@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-26T22:25:18Z",
+  "generated_at": "2026-11-26T22:28:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-1055",
+      "headline": "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.G6M?key=2924-03167643-2A1713348",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T22:23:26Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Company made an early debt repayment of $11.5 million, improving its balance sheet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company made an early debt repayment of $11.5 million, improving its balance sheet.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Group 6 Metals",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-1031",
       "headline": "ELK: Acquisition of Friday Claims & 3% Royalty Buy-Back [price-sensitive]",
@@ -1890,55 +1939,6 @@
           "name": "TVS Motor",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-878",
-      "headline": "CoreWeave Just Fell 11% in a Week as Default Fears Mount. Can a $4.5 Billion Meta-Backed Loan Get CRWV Stock Back to $50?",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/26/coreweave-is-down-11-in-a-week-as-default-fears-mount-can-a-4-5-billion-meta-backed-loan-get-crwv-stock-back-to-50/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T15:06:42Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "CoreWeave faces mounting default fears and an 11% stock decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CoreWeave faces mounting default fears and an 11% stock decline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CoreWeave",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -301383,9 +301383,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 945106,
-    "news_picked_today": 2573,
-    "news_dropped_today": 17568
+    "news_seen_today": 945129,
+    "news_picked_today": 2581,
+    "news_dropped_today": 17583
   },
   "book_momentum": {
     "live_count": 8,
