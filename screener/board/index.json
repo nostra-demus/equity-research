@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T03:33:17Z",
+  "generated_at": "2026-11-26T03:43:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1324,6 +1324,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-456",
+      "headline": "Pliant Therapeutics, Inc. Receives Nasdaq Minimum Bid Price Deficiency Notice on November 23, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pliant-therapeutics-inc-receives-nasdaq-minimum-bid-price-deficiency-notice-november-23",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T01:59:27Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Nasdaq minimum-bid-price deficiency notice signals imminent delisting risk and mandatory capital restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Nasdaq minimum-bid-price deficiency notice signals imminent delisting risk and mandatory capital restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pliant Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-045",
       "headline": "MAP: Deferral of AGM and Financial Reporting Obligations",
       "headline_en": null,
@@ -1908,55 +1957,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-406",
-      "headline": "Elon Musk's SpaceX Gets FCC Approval To Build AI Data Centres In Space With Up To 1 Million Satellites",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/elon-musks-spacex-gets-fcc-approval-to-build-ai-data-centres-in-space-with-up-to-1-million-satellites",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T02:43:47Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "SpaceX received FCC approval for a massive project to build AI data centers in space using up to 1 million satellites.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "SpaceX received FCC approval for a massive project to build AI data centers in space using up to 1 million satellites.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302123,9 +302123,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 273513,
-    "news_picked_today": 644,
-    "news_dropped_today": 2044
+    "news_seen_today": 278382,
+    "news_picked_today": 672,
+    "news_dropped_today": 2184
   },
   "book_momentum": {
     "live_count": 8,
