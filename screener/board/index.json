@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-26T22:43:42Z",
+  "generated_at": "2026-11-26T22:48:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-1057",
+      "headline": "JAV: FAU Takeover Offer Interest Reaches 61% Min Acceptance Satis",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JAV?key=2924-03167668-6A1357502",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T22:42:46Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Javelin Minerals has reached the 61% minimum acceptance threshold for its takeover offer, signaling a high probability of deal completion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Javelin Minerals has reached the 61% minimum acceptance threshold for its takeover offer, signaling a high probability of deal completion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Javelin Minerals",
+          "ticker": "JAV",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-1055",
       "headline": "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]",
@@ -1888,55 +1937,6 @@
       "companies": [
         {
           "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-947",
-      "headline": "TVS pares Swiss e-bike exposure as overseas bets bleed ₹1,158 crore; Norton losses widen",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/tvs-pares-swiss-e-bike-exposure-as-overseas-bets-bleed-1158-crore-norton-losses-widen/article71741851.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T15:26:30Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "TVS Motor reported significant losses of ₹1,158 crore on overseas bets and widening losses at Norton, directly impacting earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TVS Motor reported significant losses of ₹1,158 crore on overseas bets and widening losses at Norton, directly impacting earnings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TVS Motor",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -301526,9 +301526,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 945167,
-    "news_picked_today": 2589,
-    "news_dropped_today": 17613
+    "news_seen_today": 945180,
+    "news_picked_today": 2593,
+    "news_dropped_today": 17622
   },
   "book_momentum": {
     "live_count": 8,
