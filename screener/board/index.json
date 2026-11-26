@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T02:19:05Z",
+  "generated_at": "2026-11-26T02:22:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1324,6 +1324,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-339",
+      "headline": "Roche's breast cancer drug gets two USFDA approvals in a week; sales potential at $14 billion",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/roche-breast-cancer-drug-wilserdly-usfda-approvals-usd-14-billion-sales-potential-20040959.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T07:05:52Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Roche received two USFDA approvals for a breast cancer drug with a stated sales potential of $14 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Roche received two USFDA approvals for a breast cancer drug with a stated sales potential of $14 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Roche",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-127",
       "headline": "Saudi Aramco’s largest-ever $7 billion investment in South Korea to add 3.2 million tons of petrochemical capacity",
       "headline_en": null,
@@ -1907,55 +1956,6 @@
         {
           "name": "John Deere",
           "ticker": "DE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-063",
-      "headline": "An $87bn debt gamble tests the limits of the Ellison family fortune",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f269760e-e9e4-4bf9-b88b-a5daaa5b5b52?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:00:04Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "The Ellison family's $87 billion debt exposure poses a significant risk to their financial stability and asset holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The Ellison family's $87 billion debt exposure poses a significant risk to their financial stability and asset holdings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -302126,9 +302126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 180810,
-    "news_picked_today": 408,
-    "news_dropped_today": 1368
+    "news_seen_today": 186246,
+    "news_picked_today": 418,
+    "news_dropped_today": 1382
   },
   "book_momentum": {
     "live_count": 8,
