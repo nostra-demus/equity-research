@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T15:26:16Z",
+  "generated_at": "2026-11-26T15:34:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -946,6 +946,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-872",
+      "headline": "Altria Considers $157 Billion Tobacco Tie-Up With Imperial Brands",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/altria-considering-possible-offer-for-imperial-brands-7cef494b?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T13:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Altria is considering a massive $157 billion acquisition of Imperial Brands.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Altria is considering a massive $157 billion acquisition of Imperial Brands.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Altria",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Imperial Brands",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-853",
+      "headline": "Bayer To Invest Up To €500 Mln In Beijing Production Site; Shares Up",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bayer-invest-eu500-mln-beijing-production-site-shares",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T13:07:53Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Bayer is committing to a major capital expenditure of 500 million euros for a new production site in Beijing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bayer is committing to a major capital expenditure of 500 million euros for a new production site in Beijing.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-685",
       "headline": "‎Leen Alkhair raises factory construction contract to SAR 389.2M, capacity to 500,000 tons",
       "headline_en": null,
@@ -1435,6 +1538,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-875",
+      "headline": "Unilever perfume suppliers fined €500m over ‘beer and curry’ cartel",
+      "headline_en": null,
+      "url": "https://www.cityam.com/unilever-perfume-suppliers-fined-500m-over-beer-and-curry-cartel/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T08:59:31Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Unilever suppliers fined €500m for cartel activity, representing a significant regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Unilever suppliers fined €500m for cartel activity, representing a significant regulatory enforcement action.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unilever",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-639",
       "headline": "Norse Atlantic suspends all flights, warns it may file for bankruptcy after share price collapse",
       "headline_en": null,
@@ -1822,148 +1974,6 @@
           "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-217",
-      "headline": "Chinese group to develop 10 smart city sites in Indonesia under US$50 billion deal",
-      "headline_en": null,
-      "url": "https://www.scmp.com/economy/global-economy/article/3375762/chinese-group-develop-10-smart-city-sites-indonesia-under-us50-billion-deal",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T00:30:08Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "A Chinese group announced a $50 billion deal to develop 10 smart city sites in Indonesia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A Chinese group announced a $50 billion deal to develop 10 smart city sites in Indonesia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-207",
-      "headline": "Vivakor Signs Definitive Agreement for $40 Million Acquisition of Direct Midstream",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vivakor-signs-definitive-agreement-40-million-acquisition-direct-midstream",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T00:19:32Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Vivakor signed a definitive agreement to acquire Direct Midstream for $40 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vivakor signed a definitive agreement to acquire Direct Midstream for $40 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vivakor",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-005",
-      "headline": "Aramco Completes $7B Petrochemical Project in South Korea",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/aramco_completes_7b_petrochemical_project_in_south_korea-25-nov-2026-185162-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:24:48Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Aramco completed a major $7 billion petrochemical project, representing a significant capital investment and capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aramco completed a major $7 billion petrochemical project, representing a significant capital investment and capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -262304,79 +262314,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1c4bfe21ab2f",
-      "idea_version": "IDEAV-70f5b1c969c7be7d",
-      "idea_version_started_at": "2026-11-25T07:21:01Z",
-      "ticker": "APLAPOLLO",
-      "company": "APL Apollo Tubes",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces significant competitive pressure and market share loss following Tata Steel's entry into the structural steel tube market, leading to widespread brokerage downgrades.",
-      "why_now": "Brokerage reports and target price cuts were published on 2026-11-25.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-68cd5c5005dd"
-      ],
-      "primary_source_event_id": "EVT-68cd5c5005dd",
-      "source_headlines": [
-        "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase"
-      ],
-      "source_headline": "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/apl-apollo-tubes-shares-in-focus-as-brokerages-downgrade-cut-target-price-by-44-after-tata-steels-purchase/articleshow/136146849.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-25T03:29:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T05:15:15Z",
-      "updated_at": "2026-11-25T07:21:01Z",
-      "decay_at": "2026-11-26T15:29:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6e19f64e0907",
       "idea_version": "IDEAV-eaf1ca3c90dc4244",
       "idea_version_started_at": "2026-11-25T01:02:41Z",
@@ -262800,6 +262737,79 @@
       "surfaced_at": "2026-11-25T21:50:14Z",
       "updated_at": "2026-11-25T21:50:14Z",
       "decay_at": "2026-11-26T00:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1c4bfe21ab2f",
+      "idea_version": "IDEAV-70f5b1c969c7be7d",
+      "idea_version_started_at": "2026-11-25T07:21:01Z",
+      "ticker": "APLAPOLLO",
+      "company": "APL Apollo Tubes",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces significant competitive pressure and market share loss following Tata Steel's entry into the structural steel tube market, leading to widespread brokerage downgrades.",
+      "why_now": "Brokerage reports and target price cuts were published on 2026-11-25.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-68cd5c5005dd"
+      ],
+      "primary_source_event_id": "EVT-68cd5c5005dd",
+      "source_headlines": [
+        "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase"
+      ],
+      "source_headline": "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/apl-apollo-tubes-shares-in-focus-as-brokerages-downgrade-cut-target-price-by-44-after-tata-steels-purchase/articleshow/136146849.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T03:29:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-23T05:15:15Z",
+      "updated_at": "2026-11-25T07:21:01Z",
+      "decay_at": "2026-11-26T15:29:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264170,9 +264180,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 525,
+    "total_count": 526,
     "shown_count": 499,
-    "hidden_count": 26,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
         "total_count": 259,
@@ -264180,9 +264190,9 @@
         "hidden_count": 9
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -264201,6 +264211,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1c4bfe21ab2f",
+        "idea_version": "IDEAV-70f5b1c969c7be7d",
+        "idea_version_started_at": "2026-11-25T07:21:01Z",
+        "ticker": "APLAPOLLO",
+        "company": "APL Apollo Tubes",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces significant competitive pressure and market share loss following Tata Steel's entry into the structural steel tube market, leading to widespread brokerage downgrades.",
+        "why_now": "Brokerage reports and target price cuts were published on 2026-11-25.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-68cd5c5005dd"
+        ],
+        "primary_source_event_id": "EVT-68cd5c5005dd",
+        "source_headlines": [
+          "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase"
+        ],
+        "source_headline": "APL Apollo Tubes shares in focus as brokerages downgrade, cut target price by 44% after Tata Steel’s purchase",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/apl-apollo-tubes-shares-in-focus-as-brokerages-downgrade-cut-target-price-by-44-after-tata-steels-purchase/articleshow/136146849.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-25T03:29:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-23T05:15:15Z",
+        "updated_at": "2026-11-25T07:21:01Z",
+        "decay_at": "2026-11-26T15:29:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T15:29:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-70d5716d01ea",
         "idea_version": "IDEAV-4712795420ffdce1",
@@ -301231,87 +301317,12 @@
         "archived_at": "2026-11-04T10:33:16Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0bef1911dcca",
-        "idea_version": "IDEAV-bd28bcfe74bc4f59",
-        "idea_version_started_at": "2026-11-01T09:50:42Z",
-        "ticker": "PNB",
-        "company": "Punjab National Bank",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Internal control failures and fraud at a branch level increase the risk of regulatory fines, reputational damage, and potential asset quality scrutiny.",
-        "why_now": "The incident was reported on 2026-11-01, creating immediate negative sentiment and potential for regulatory follow-up.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 44,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1d22cffa00dc"
-        ],
-        "primary_source_event_id": "EVT-1d22cffa00dc",
-        "source_headlines": [
-          "PNB Greater Noida 'Sector Pi' branch fraud: Caught on CCTV! How employee used 6 logins to transfer customers' money"
-        ],
-        "source_headline": "PNB Greater Noida 'Sector Pi' branch fraud: Caught on CCTV! How employee used 6 logins to transfer customers' money",
-        "source_url": "https://www.livemint.com/news/india/pnb-greater-noida-sector-pi-branch-fraud-caught-on-cctv-how-employee-used-6-logins-to-transfer-customers-money-11793525073106.html",
-        "source_name": "Mint",
-        "materiality_max": 89,
-        "newest_source_at": "2026-11-01T09:31:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T09:50:42Z",
-        "updated_at": "2026-11-01T09:50:42Z",
-        "decay_at": "2026-11-02T21:31:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:33:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2682,
-    "live_count": 13,
+    "live_count": 12,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -301330,9 +301341,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 885378,
-    "news_picked_today": 1822,
-    "news_dropped_today": 14162
+    "news_seen_today": 887441,
+    "news_picked_today": 1870,
+    "news_dropped_today": 14306
   },
   "book_momentum": {
     "live_count": 8,
