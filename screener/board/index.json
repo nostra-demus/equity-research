@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T15:39:02Z",
+  "generated_at": "2026-11-26T15:43:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -681,6 +681,55 @@
           "name": "OTP Bank",
           "ticker": "40506",
           "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-878",
+      "headline": "CoreWeave Just Fell 11% in a Week as Default Fears Mount. Can a $4.5 Billion Meta-Backed Loan Get CRWV Stock Back to $50?",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/26/coreweave-is-down-11-in-a-week-as-default-fears-mount-can-a-4-5-billion-meta-backed-loan-get-crwv-stock-back-to-50/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T15:06:42Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "CoreWeave faces mounting default fears and an 11% stock decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CoreWeave faces mounting default fears and an 11% stock decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1927,56 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-192",
-      "headline": "S&P warns Nvidia's board may be compromised, puts chipmaker's rating on downgrade watch",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/sp-warns-nvidias-board-may-be-compromised-puts-chipmakers-rating-on-downgrade-watch/articleshow/136175537.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T00:48:46Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "S&P placed Nvidia on downgrade watch citing concerns over board governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "S&P placed Nvidia on downgrade watch citing concerns over board governance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "credit_rating_downgrade",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301341,9 +301340,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 889266,
-    "news_picked_today": 1874,
-    "news_dropped_today": 14326
+    "news_seen_today": 891032,
+    "news_picked_today": 1885,
+    "news_dropped_today": 14387
   },
   "book_momentum": {
     "live_count": 8,
