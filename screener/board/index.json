@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-26T00:11:09Z",
+  "generated_at": "2026-11-26T00:20:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-039",
+      "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): The acquisition of 17.5% of the shares in Ipoteka Bank has been closed",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600038.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T23:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "OTP Bank closed acquisition of 17.5% stake in Ipoteka Bank; material ownership/capital event from primary source, though price and strategic rationale undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OTP Bank closed acquisition of 17.5% stake in Ipoteka Bank; material ownership/capital event from primary source, though price and strategic rationale undisclosed.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OTP Bank",
+          "ticker": "40506",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-005",
       "headline": "Aramco Completes $7B Petrochemical Project in South Korea",
@@ -46,6 +95,153 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-046",
+      "headline": "GPIXEL (03277): INSIDE INFORMATION LATEST BUSINESS PERFORMANCE FOR THE FIRST TEN MONTHS OF 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T22:02:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "The company is disclosing business performance data for the first ten months of 2026, which provides material insight into financial trajectory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The company is disclosing business performance data for the first ten months of 2026, which provides material insight into financial trajectory.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GPIXEL",
+          "ticker": "03277",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-045",
+      "headline": "MAP: Deferral of AGM and Financial Reporting Obligations",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAP?key=2924-03167045-2A1713131",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T23:45:26Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Deferral of financial reporting obligations is a red flag regarding corporate governance and transparency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Deferral of financial reporting obligations is a red flag regarding corporate governance and transparency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MAP",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-038",
+      "headline": "LAEKNA-B (02105): VOLUNTARY ANNOUNCEMENT PRESENTATIONS OF RESULTS FROM THE PHASE III CLINICAL TRIAL (AFFIRM-205) OF LAE002 (AFURESERTIB) AT SABCS 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600044.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Phase III trial results (AFFIRM-205, LAE002) to be presented at SABCS 2026; outcome determines approval pathway and pipeline value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Phase III trial results (AFFIRM-205, LAE002) to be presented at SABCS 2026; outcome determines approval pathway and pipeline value.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Laekna",
+          "ticker": "02105",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97,6 +293,55 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-047",
+      "headline": "Financier Todd Boehly strikes deal for Lukoil assets",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/643dc287-d112-4715-bdf1-aa49b98a4af7?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T23:18:32Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Todd Boehly strikes deal for Lukoil assets; named M&A with confirmed acquirer and target affects capital structure and cash flow, though deal size and strategic intent remain unspecified and sanctions environment is sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Todd Boehly strikes deal for Lukoil assets; named M&A with confirmed acquirer and target affects capital structure and cash flow, though deal size and strategic intent remain unspecified and sanctions environment is sensitive.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lukoil",
+          "ticker": "LKOH",
+          "listing_country": "RU"
         }
       ],
       "size_bucket": "mega",
@@ -646,6 +891,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-051",
+      "headline": "U.S. targets China, EU with new tariffs citing overcapacity",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/26/us-china-eu-tariffs-overcapacity/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T23:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "US announces new tariffs on China and EU citing overcapacity; directly affects export costs, margin pressure, supply-chain reconfiguration, and demand for manufacturers and trading companies globally.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "US announces new tariffs on China and EU citing overcapacity; directly affects export costs, margin pressure, supply-chain reconfiguration, and demand for manufacturers and trading companies globally.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-008",
       "headline": "HBX Group Reports Profit In FY26",
       "headline_en": null,
@@ -744,6 +1032,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-050",
+      "headline": "CoreWeave’s banks to sell US$4.5 billion Meta-tied loan next week",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/coreweaves-banks-sell-us4-5-billion-meta-tied-loan-next-week",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T23:58:11Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "CoreWeave's $4.5 billion debt facility is being syndicated by its lenders to other banks next week; the facility is tied to Meta, indicating Meta is a key customer or revenue backstop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "CoreWeave's $4.5 billion debt facility is being syndicated by its lenders to other banks next week; the facility is tied to Meta, indicating Meta is a key customer or revenue backstop.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-052",
+      "headline": "Nvidia at risk of rating cut by S&P over governance concerns",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/nvidia-risk-rating-cut-sp-over-governance-concerns",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T22:22:41Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "S&P is reportedly considering a rating downgrade of Nvidia on governance concerns, not yet formally confirmed as a watch or downgrade action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "S&P is reportedly considering a rating downgrade of Nvidia on governance concerns, not yet formally confirmed as a watch or downgrade action.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-033",
       "headline": "Shein Profit Rises Despite Lower Revenue as It Adapts to Trade Challenges",
       "headline_en": null,
@@ -793,6 +1179,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-040",
+      "headline": "TA YANG GROUP (01991): RIGHTS ISSUE ON THE BASIS OF TWO (2) RIGHTS SHARES FOR EVERY ONE (1) NEW SHARE HELD ON THE RECORD DATE AT A SUBSCRIPTION PRICE OF HK$0.80 PER RIGHTS SHARE ON A NON-UNDERWRITTEN BASIS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T22:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Non-underwritten rights issue (2:1 at HK$0.80) signals potential distress; material capital action but outcome and use of proceeds unspecified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Non-underwritten rights issue (2:1 at HK$0.80) signals potential distress; material capital action but outcome and use of proceeds unspecified.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ta Yang Group",
+          "ticker": "01991",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-020",
       "headline": "PepsiCo India to invest ₹868 cr in new foods manufacturing facility in Tamil Nadu",
       "headline_en": null,
@@ -837,6 +1272,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-044",
+      "headline": "MXI: On-Market Share Buy-Back Program [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MXI?key=2924-03167047-3A707554",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T23:48:21Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "The company announced an on-market share buy-back program, which is a capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "The company announced an on-market share buy-back program, which is a capital allocation event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MXI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -928,6 +1412,104 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-041",
+      "headline": "QGL: 2026 AGM Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.QGL?key=2924-03167054-3A707557",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T23:55:21Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "AGM presentation flagged [price-sensitive] by ASX; headline uninformative—full text should be reviewed for guidance, capital actions, M&A, or strategy shifts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "AGM presentation flagged [price-sensitive] by ASX; headline uninformative—full text should be reviewed for guidance, capital actions, M&A, or strategy shifts.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QGL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-042",
+      "headline": "AUV: AGM Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AUV?key=2924-03167052-6A1357192",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T23:54:41Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "AGM presentation flagged [price-sensitive] by ASX; headline uninformative—full text should be reviewed for guidance, capital actions, M&A, or strategy shifts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "AGM presentation flagged [price-sensitive] by ASX; headline uninformative—full text should be reviewed for guidance, capital actions, M&A, or strategy shifts.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AUV",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1028,6 +1610,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-048",
+      "headline": "US trading partners’ patience wears thin as Trump slaps on new tariffs",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/us/economy-trade-business/article/3375819/us-trading-partners-patience-wears-thin-trump-slaps-new-tariffs",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T23:30:23Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Trump administration signals new tariffs on unspecified trading partners; sector-level policy event that alters operational risk and may shift supply/demand, but lacks rate, country, and product specificity needed to quantify impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Trump administration signals new tariffs on unspecified trading partners; sector-level policy event that alters operational risk and may shift supply/demand, but lacks rate, country, and product specificity needed to quantify impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1176,6 +1801,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-049",
+      "headline": "Asia-Pacific markets set for subdued open as investors weigh fresh U.S. tariffs",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/26/stock-markets-today-.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T00:01:07Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "US tariff policy concerns could suppress Asia-Pacific market appetite broadly, but no tariff rate, scope, effective date, or affected sector disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "US tariff policy concerns could suppress Asia-Pacific market appetite broadly, but no tariff rate, scope, effective date, or affected sector disclosed.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-036",
       "headline": "China urges EU to honor consensus on hybrid vehicle trade",
       "headline_en": null,
@@ -1219,536 +1887,49 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261126-007",
-      "headline": "Anthropic Expands in Zurich to Tap City’s AI Talent Pool",
+      "inbox_id": "INB-20261126-043",
+      "headline": "MXI: Notification of buy-back - MXI",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/anthropic-expands-in-zurich-moving-to-tap-city-s-ai-talent-pool",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:25:14Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MXI?key=2924-03167049-3A707556",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-25T23:50:21Z",
       "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Anthropic is expanding its international footprint to Zurich to access specialized AI talent, supporting its growth strategy.",
+      "prelim_note": "Buyback program notification announced; materiality depends entirely on program size relative to market cap and capital-policy context, neither disclosed in headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Anthropic is expanding its international footprint to Zurich to access specialized AI talent, supporting its growth strategy.",
+      "triage_score": 55,
+      "triage_reason": "Buyback program notification announced; materiality depends entirely on program size relative to market cap and capital-policy context, neither disclosed in headline.",
       "region": "OTHER",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
+      "materiality_pre_score": 36,
       "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
+        "materiality": 36,
+        "source_tier": 8,
         "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-004",
-      "headline": "Honda ALPHA Electric SUV Design Sketches Out Ahead Of December 2 Global Premiere In India",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/honda-alpha-electric-suv-design-sketches-out-ahead-of-december-2-global-premiere-in-india-12375457#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:25:13Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Honda is expanding its EV portfolio with a new SUV model, signaling strategic focus on the Indian electric vehicle market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Honda is expanding its EV portfolio with a new SUV model, signaling strategic focus on the Indian electric vehicle market.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-014",
-      "headline": "Mahadev betting app scam: Why ED arrested Delhi lawyer over alleged ₹15 crore payment from kingpin Saurabh Chandrakar",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/mahadev-betting-app-scam-why-ed-arrested-delhi-lawyer-over-alleged-15-crore-payment-from-kingpin-saurabh-chandrakar-11795603074616.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:19:59Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Ongoing investigation into the Mahadev betting app scam involving a ₹15 crore payment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Ongoing investigation into the Mahadev betting app scam involving a ₹15 crore payment.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-037",
-      "headline": "Volkswagen Virtus facelift launches 11 December: How it stacks up against Slavia, City and Verna on price",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/auto/photo/volkswagen-virtus-facelift-launches-11-december-how-it-stacks-up-against-slavia-city-and-verna-on-price-569448-2026-11-25?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:04:49Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Volkswagen is launching a facelift for the Virtus model, impacting its competitive positioning in the Indian sedan market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Volkswagen is launching a facelift for the Virtus model, impacting its competitive positioning in the Indian sedan market.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-016",
-      "headline": "FPJ Exclusive: Water Crisis Hits ₹150-Crore Hakeem Ajmal Khan Hospital In Mumbra; Dialysis Delays Alleged, Illegal Connections Under Scanner",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/fpj-exclusive-water-crisis-hits-150-crore-hakeem-ajmal-khan-hospital-in-mumbra-dialysis-delays-alleged-illegal-connections-under-scanner",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:19:20Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Operational crisis at a ₹150-crore hospital due to water shortages and alleged illegal connections.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Operational crisis at a ₹150-crore hospital due to water shortages and alleged illegal connections.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-027",
-      "headline": "SEBI exploring AI sandbox, domestically governed AI model for securities market: Chairman Pandey",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sebi-exploring-ai-sandbox-domestically-governed-ai-model-for-securities-market-chairman-pandey-20041248.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:09:21Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "SEBI chair signals active exploration of domestic AI governance framework and sandbox for Indian securities sector; regulatory tailwind but exploratory stage, no company named, no confirmed policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "SEBI chair signals active exploration of domestic AI governance framework and sandbox for Indian securities sector; regulatory tailwind but exploratory stage, no company named, no confirmed policy.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 46,
-      "rank_factors": {
-        "materiality": 46,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-012",
-      "headline": "Supreme Court flags political influence in criminal prosecution in Senthil Balaji cash-for-jobs case",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/supreme-court-flags-political-influence-in-criminal-prosecution-in-senthil-balaji-cash-for-jobs-case-4230734",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:22:30Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Supreme Court observation regarding political influence in a high-profile corruption case may impact institutional credibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Supreme Court observation regarding political influence in a high-profile corruption case may impact institutional credibility.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-018",
-      "headline": "350MW data center campus proposed in New South Wales, Australia",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/350mw-data-center-campus-proposed-in-new-south-wales-australia/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:20:02Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Proposal for a 350MW data center campus indicates significant infrastructure expansion in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Proposal for a 350MW data center campus indicates significant infrastructure expansion in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-028",
-      "headline": "India Offers $1.2 Billion to Boost Heavy Equipment Production",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/india-offers-1-2-billion-to-boost-heavy-equipment-production",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:09:38Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "India announces $1.2 billion subsidy for heavy-equipment production, shifting sector demand and capex investment outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "India announces $1.2 billion subsidy for heavy-equipment production, shifting sector demand and capex investment outlook.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-002",
-      "headline": "Israeli strikes kill 11 Palestinians, including two girls today in Gaza",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-strikes-kill-11-palestinians-including-two-girls-today-gaza",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T23:11:06Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Ongoing military escalation in the Middle East poses significant geopolitical risk to regional stability and global markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Ongoing military escalation in the Middle East poses significant geopolitical risk to regional stability and global markets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-003",
-      "headline": "Israeli strike kills Hamas official, his wife and children",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/11/25/israeli-strike-kills-hamas-official-his-wife-and-children?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-25T11:24:37Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Targeted military strike indicates a significant escalation in regional conflict, impacting geopolitical risk assessments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Targeted military strike indicates a significant escalation in regional conflict, impacting geopolitical risk assessments.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-035",
-      "headline": "Poland Asks NATO to Shoot Down Russian Missiles Over Ukraine",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/poland-asks-nato-to-shoot-down-russian-missiles-over-ukraine",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:07:06Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Poland's request to NATO to intercept Russian missiles over Ukraine marks a significant escalation in geopolitical conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Poland's request to NATO to intercept Russian missiles over Ukraine marks a significant escalation in geopolitical conflict.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
         "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "macro_sector"
+        "capital_actions"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MXI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -262377,77 +262558,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-47caa3f3fead",
-      "idea_version": "IDEAV-0d73abeb0e90c631",
-      "idea_version_started_at": "2026-11-25T01:22:54Z",
-      "ticker": "01466",
-      "company": "Baijin Life Science Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates that earnings will fall significantly short of expectations, likely leading to downward revisions in valuation multiples.",
-      "why_now": "The filing was released on 2026-11-24; the stock will likely reprice to reflect the lower earnings guidance.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5221b5569eb4"
-      ],
-      "primary_source_event_id": "EVT-5221b5569eb4",
-      "source_headlines": [
-        "BAIJIN LIFE SCI (01466): PROFIT WARNING"
-      ],
-      "source_headline": "BAIJIN LIFE SCI (01466): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401195.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T12:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T01:22:54Z",
-      "updated_at": "2026-11-25T01:22:54Z",
-      "decay_at": "2026-11-26T00:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-beed2a8f2403",
       "idea_version": "IDEAV-7b5eeaad76f6ca69",
       "idea_version_started_at": "2026-11-25T01:22:54Z",
@@ -263153,6 +263263,77 @@
       "surfaced_at": "2026-11-25T01:22:54Z",
       "updated_at": "2026-11-25T01:22:54Z",
       "decay_at": "2026-11-25T09:10:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-47caa3f3fead",
+      "idea_version": "IDEAV-0d73abeb0e90c631",
+      "idea_version_started_at": "2026-11-25T01:22:54Z",
+      "ticker": "01466",
+      "company": "Baijin Life Science Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning indicates that earnings will fall significantly short of expectations, likely leading to downward revisions in valuation multiples.",
+      "why_now": "The filing was released on 2026-11-24; the stock will likely reprice to reflect the lower earnings guidance.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5221b5569eb4"
+      ],
+      "primary_source_event_id": "EVT-5221b5569eb4",
+      "source_headlines": [
+        "BAIJIN LIFE SCI (01466): PROFIT WARNING"
+      ],
+      "source_headline": "BAIJIN LIFE SCI (01466): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401195.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T12:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T01:22:54Z",
+      "updated_at": "2026-11-25T01:22:54Z",
+      "decay_at": "2026-11-26T00:17:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264752,9 +264933,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 499,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
         "total_count": 264,
@@ -264762,9 +264943,9 @@
         "hidden_count": 14
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -264783,6 +264964,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-47caa3f3fead",
+        "idea_version": "IDEAV-0d73abeb0e90c631",
+        "idea_version_started_at": "2026-11-25T01:22:54Z",
+        "ticker": "01466",
+        "company": "Baijin Life Science Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning indicates that earnings will fall significantly short of expectations, likely leading to downward revisions in valuation multiples.",
+        "why_now": "The filing was released on 2026-11-24; the stock will likely reprice to reflect the lower earnings guidance.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5221b5569eb4"
+        ],
+        "primary_source_event_id": "EVT-5221b5569eb4",
+        "source_headlines": [
+          "BAIJIN LIFE SCI (01466): PROFIT WARNING"
+        ],
+        "source_headline": "BAIJIN LIFE SCI (01466): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401195.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T12:17:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T01:22:54Z",
+        "updated_at": "2026-11-25T01:22:54Z",
+        "decay_at": "2026-11-26T00:17:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T00:17:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-23556acaca7e",
         "idea_version": "IDEAV-bfabedef45c2028d",
@@ -301818,87 +302073,12 @@
         "archived_at": "2026-11-04T03:39:16Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2498ee6921aa",
-        "idea_version": "IDEAV-4f8529ab4c7075b6",
-        "idea_version_started_at": "2026-10-31T22:55:38Z",
-        "ticker": "EKI",
-        "company": "EKI Energy Services",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The 12-month ban on the Managing Director by SEBI for financial misrepresentation creates significant governance risk and leadership uncertainty.",
-        "why_now": "The regulatory order was issued on 2026-10-31.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d87e3453a815"
-        ],
-        "primary_source_event_id": "EVT-d87e3453a815",
-        "source_headlines": [
-          "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation"
-        ],
-        "source_headline": "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation",
-        "source_url": "https://www.thehindubusinessline.com/markets/sebi-bars-eki-energy-services-md-manish-dabkara-for-12-months-over-financial-misrepresentation/article71650614.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-31T17:01:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T19:00:11Z",
-        "updated_at": "2026-10-31T22:55:38Z",
-        "decay_at": "2026-11-02T05:01:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-03T17:02:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2673,
-    "live_count": 19,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -301908,7 +302088,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5324,
+    "inbox_unconsumed": 5327,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -301917,9 +302097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6705,
-    "news_picked_today": 37,
-    "news_dropped_today": 83
+    "news_seen_today": 13287,
+    "news_picked_today": 52,
+    "news_dropped_today": 212
   },
   "book_momentum": {
     "live_count": 8,
