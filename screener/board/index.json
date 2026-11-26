@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T15:15:19Z",
+  "generated_at": "2026-11-26T15:26:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -684,6 +684,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-830",
+      "headline": "Nakheel awards AED 1.4 billion Palm Jebel Ali villa contract",
+      "headline_en": null,
+      "url": "https://www.arnnewscentre.ae/news/business/nakheel-awards-aed-1-4-billion-palm-jebel-ali-villa-contract/",
+      "source_name": "ARN News Centre — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T14:51:04Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Nakheel awarded a 1.4 billion AED construction contract for the Palm Jebel Ali project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nakheel awarded a 1.4 billion AED construction contract for the Palm Jebel Ali project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nakheel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,56 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-105",
-      "headline": "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/25/norse-atlantic-financial-warning-fuel-costs.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:18:03Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Norse Atlantic officially warns finances are 'critical' amid soaring fuel costs; stock falls 81%, signaling going-concern risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Norse Atlantic officially warns finances are 'critical' amid soaring fuel costs; stock falls 81%, signaling going-concern risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Norse Atlantic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301331,9 +301330,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 883297,
-    "news_picked_today": 1788,
-    "news_dropped_today": 14028
+    "news_seen_today": 885378,
+    "news_picked_today": 1822,
+    "news_dropped_today": 14162
   },
   "book_momentum": {
     "live_count": 8,
