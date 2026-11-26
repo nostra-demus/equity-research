@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-26T12:54:42Z",
+  "generated_at": "2026-11-26T13:07:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-781",
+      "headline": "B & S INTL HLDG (01705): JOINT ANNOUNCEMENT - (1) COMPLETION OF THE SALE AND PURCHASE AGREEMENT IN RELATION TO 75% OF THE TOTAL ISSUED SHARE CAPITAL OF B & S INTERNATIONAL HOLDINGS LTD. AND (2) UNCONDITIONAL MANDATORY CASH OFFER BY SOMERLEY CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF B & S INTERNATIONAL HOLDINGS LTD. (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE OFFEROR CONCERT PARTIES)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112601414.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T12:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "B & S International Holdings Ltd. announced the completion of a 75% stake sale and a mandatory cash offer for remaining shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "B & S International Holdings Ltd. announced the completion of a 75% stake sale and a mandatory cash offer for remaining shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "B & S International Holdings Ltd.",
+          "ticker": "01705",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-647",
       "headline": "ZYLOXTB (02190): DISCLOSEABLE TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF EQUITY INTEREST IN THE TARGET COMPANY AND THE PROPOSED ISSUE OF NEW H SHARES UNDER THE GENERAL MANDATE",
@@ -1909,57 +1958,6 @@
       "companies": [
         {
           "name": "Universal Health Services",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-541",
-      "headline": "+++ Geschäftszahlen +++: Dell erhöht nach Rekordquartal Ziele erneut – Mehr Aktienrückkäufe",
-      "headline_en": "+++ Business Figures +++: Dell raises targets again after record quarter – More share buybacks",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-dell-erhoeht-nach-rekordquartal-ziele-erneut-mehr-aktienrueckkaeufe/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T22:12:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Dell reported a record quarter, raised its financial targets, and increased share buybacks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell reported a record quarter, raised its financial targets, and increased share buybacks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell",
           "ticker": null,
           "listing_country": "US"
         }
@@ -262445,77 +262443,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ff87b80bbb2f",
-      "idea_version": "IDEAV-b8819d27074ec29c",
-      "idea_version_started_at": "2026-11-25T04:58:38Z",
-      "ticker": "A2M",
-      "company": "A2 Milk Company",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The court approval of the class action settlement removes a significant legal overhang and uncertainty regarding potential financial liabilities.",
-      "why_now": "The settlement was officially approved on 2026-11-25.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5e016361ed4d"
-      ],
-      "primary_source_event_id": "EVT-5e016361ed4d",
-      "source_headlines": [
-        "A2M: Class action settlement approved"
-      ],
-      "source_headline": "A2M: Class action settlement approved",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.A2M?key=2924-03166378-2A1712862",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-25T01:04:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T04:58:38Z",
-      "updated_at": "2026-11-25T04:58:38Z",
-      "decay_at": "2026-11-26T13:04:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1daaee67f8a",
       "idea_version": "IDEAV-f27470cf4e2578cc",
       "idea_version_started_at": "2026-11-25T05:25:03Z",
@@ -263011,6 +262938,77 @@
       "surfaced_at": "2026-11-25T04:58:38Z",
       "updated_at": "2026-11-25T04:58:38Z",
       "decay_at": "2026-11-26T11:55:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ff87b80bbb2f",
+      "idea_version": "IDEAV-b8819d27074ec29c",
+      "idea_version_started_at": "2026-11-25T04:58:38Z",
+      "ticker": "A2M",
+      "company": "A2 Milk Company",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The court approval of the class action settlement removes a significant legal overhang and uncertainty regarding potential financial liabilities.",
+      "why_now": "The settlement was officially approved on 2026-11-25.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5e016361ed4d"
+      ],
+      "primary_source_event_id": "EVT-5e016361ed4d",
+      "source_headlines": [
+        "A2M: Class action settlement approved"
+      ],
+      "source_headline": "A2M: Class action settlement approved",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.A2M?key=2924-03166378-2A1712862",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T01:04:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T04:58:38Z",
+      "updated_at": "2026-11-25T04:58:38Z",
+      "decay_at": "2026-11-26T13:04:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264168,14 +264166,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 522,
+    "total_count": 523,
     "shown_count": 499,
-    "hidden_count": 23,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 257,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 8
       },
       "short": {
         "total_count": 266,
@@ -264199,6 +264197,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ff87b80bbb2f",
+        "idea_version": "IDEAV-b8819d27074ec29c",
+        "idea_version_started_at": "2026-11-25T04:58:38Z",
+        "ticker": "A2M",
+        "company": "A2 Milk Company",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The court approval of the class action settlement removes a significant legal overhang and uncertainty regarding potential financial liabilities.",
+        "why_now": "The settlement was officially approved on 2026-11-25.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5e016361ed4d"
+        ],
+        "primary_source_event_id": "EVT-5e016361ed4d",
+        "source_headlines": [
+          "A2M: Class action settlement approved"
+        ],
+        "source_headline": "A2M: Class action settlement approved",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.A2M?key=2924-03166378-2A1712862",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-25T01:04:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T04:58:38Z",
+        "updated_at": "2026-11-25T04:58:38Z",
+        "decay_at": "2026-11-26T13:04:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T13:04:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-11b6e2c4e611",
         "idea_version": "IDEAV-7b2d76197878b1f7",
@@ -297500,81 +297572,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-13f962c9cc6f",
-        "idea_version": "IDEAV-ede637399b62f565",
-        "idea_version_started_at": "2026-11-07T07:32:32Z",
-        "ticker": "HINDALCO",
-        "company": "Hindalco Industries",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a doubling of Q2 profit to ₹5,132 crore, indicating strong operational leverage and margin expansion.",
-        "why_now": "The earnings results were released on 2026-11-06.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1f9c414f88a7"
-        ],
-        "primary_source_event_id": "EVT-1f9c414f88a7",
-        "source_headlines": [
-          "Sensex today | Stock Market Live: Sensex crosses 80,400, Nifty tops 24,800; Hindalco Q2 profit doubles to ₹5,132 crore"
-        ],
-        "source_headline": "Sensex today | Stock Market Live: Sensex crosses 80,400, Nifty tops 24,800; Hindalco Q2 profit doubles to ₹5,132 crore",
-        "source_url": "https://www.thehindubusinessline.com/markets/sensex-nifty50-today-stock-market-live-updates-6-november-2026/article71669668.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 99,
-        "newest_source_at": "2026-11-06T08:58:58Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-07T07:32:32Z",
-        "updated_at": "2026-11-07T07:32:32Z",
-        "decay_at": "2026-11-07T20:58:58Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T10:01:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-083c9caae543",
         "idea_version": "IDEAV-0f0112c7bb3d2895",
         "idea_version_started_at": "2026-11-07T10:18:55Z",
@@ -301313,7 +301310,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2682,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -301332,9 +301329,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 808094,
-    "news_picked_today": 1483,
-    "news_dropped_today": 12581
+    "news_seen_today": 811313,
+    "news_picked_today": 1495,
+    "news_dropped_today": 12881
   },
   "book_momentum": {
     "live_count": 8,
