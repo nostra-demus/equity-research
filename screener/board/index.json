@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T06:24:15Z",
+  "generated_at": "2026-11-26T06:33:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-629",
+      "headline": "America's Car-Mart, Inc. Receives Nasdaq Delisting Notice Following Chapter 11 Bankruptcy Filings",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/americas-car-mart-inc-receives-nasdaq-delisting-notice-following-chapter-11-bankruptcy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T05:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "America's Car-Mart files Chapter 11 bankruptcy and receives Nasdaq delisting notice, a survival-level default event and regulatory consequence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "America's Car-Mart files Chapter 11 bankruptcy and receives Nasdaq delisting notice, a survival-level default event and regulatory consequence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "America's Car-Mart, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,55 +1965,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-415",
-      "headline": "Qfin Holdings, Inc. Reports Third Quarter 2026 Net Income of RMB380.5 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/qfin-holdings-inc-reports-third-quarter-2026-net-income-rmb3805-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T04:48:42Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Qfin Holdings reported net income of RMB380.5 million for Q3 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Qfin Holdings reported net income of RMB380.5 million for Q3 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qfin Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302130,9 +302131,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 416589,
-    "news_picked_today": 1126,
-    "news_dropped_today": 4274
+    "news_seen_today": 423601,
+    "news_picked_today": 1136,
+    "news_dropped_today": 4576
   },
   "book_momentum": {
     "live_count": 8,
