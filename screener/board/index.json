@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T06:44:23Z",
+  "generated_at": "2026-11-26T06:45:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -261663,6 +261663,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2fc2f45acf84",
+      "idea_version": "IDEAV-b7b709f6aced4a95",
+      "idea_version_started_at": "2026-11-26T06:44:42Z",
+      "ticker": "AYTU",
+      "company": "AYTU Biopharma",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The filing of an SC 14D9 indicates the company is responding to a tender offer, which typically establishes a floor near the offer price and signals potential acquisition upside.",
+      "why_now": "The SC 14D9 was filed on 2026-11-25, making the tender offer process live and actionable.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d9b49cfda6e8"
+      ],
+      "primary_source_event_id": "EVT-d9b49cfda6e8",
+      "source_headlines": [
+        "SC 14D9 - AYTU BIOPHARMA, INC (0001385818) (Subject)"
+      ],
+      "source_headline": "SC 14D9 - AYTU BIOPHARMA, INC (0001385818) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1385818/000143774926038257/0001437749-26-038257-index.htm",
+      "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T16:44:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T06:44:42Z",
+      "updated_at": "2026-11-26T06:44:42Z",
+      "decay_at": "2026-11-27T04:44:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-661acc26fe05",
       "idea_version": "IDEAV-a61ef6fe52c2fb88",
       "idea_version_started_at": "2026-11-25T02:37:44Z",
@@ -261728,6 +261798,77 @@
       "surfaced_at": "2026-11-25T02:37:44Z",
       "updated_at": "2026-11-25T02:37:44Z",
       "decay_at": "2026-11-26T09:56:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4ce013a7716a",
+      "idea_version": "IDEAV-cfae884e6c7533ef",
+      "idea_version_started_at": "2026-11-26T06:44:42Z",
+      "ticker": "00625",
+      "company": "SHEIN",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Ongoing FTC investigation into business practices creates significant regulatory overhang and potential for material fines or operational restrictions.",
+      "why_now": "The company issued an inside information update on the investigation on 2026-11-25, signaling the matter is active and evolving.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a341f8ce50e5"
+      ],
+      "primary_source_event_id": "EVT-a341f8ce50e5",
+      "source_headlines": [
+        "SHEIN-W (00625): INSIDE INFORMATION UPDATE ON THE U.S. FEDERAL TRADE COMMISSION INVESTIGATION"
+      ],
+      "source_headline": "SHEIN-W (00625): INSIDE INFORMATION UPDATE ON THE U.S. FEDERAL TRADE COMMISSION INVESTIGATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500193.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T04:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T06:44:42Z",
+      "updated_at": "2026-11-26T06:44:42Z",
+      "decay_at": "2026-11-26T16:15:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -262298,216 +262439,6 @@
       "surfaced_at": "2026-11-25T01:02:41Z",
       "updated_at": "2026-11-25T01:02:41Z",
       "decay_at": "2026-11-25T04:39:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-aad7fd245829",
-      "idea_version": "IDEAV-095bc5eaa3747455",
-      "idea_version_started_at": "2026-11-23T04:28:54Z",
-      "ticker": "BYDDY",
-      "company": "BYD",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A court-ordered ban on selling a key SUV model in the EU market directly threatens the company's revenue growth and margin profile in a critical expansion region.",
-      "why_now": "The regulatory ruling was reported on 2026-11-23, creating an immediate barrier to sales.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9b18b714fed7"
-      ],
-      "primary_source_event_id": "EVT-9b18b714fed7",
-      "source_headlines": [
-        "BYD hit after court bars SUV from EU over Land Rover design copy"
-      ],
-      "source_headline": "BYD hit after court bars SUV from EU over Land Rover design copy",
-      "source_url": "https://www.ft.com/content/aeb7d4c9-393f-4ea3-9465-0bbeb754c614?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-23T02:48:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T01:32:50Z",
-      "updated_at": "2026-11-23T04:28:54Z",
-      "decay_at": "2026-11-24T14:48:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ff1f7dd9e225",
-      "idea_version": "IDEAV-3ffbc52208ec87e8",
-      "idea_version_started_at": "2026-11-23T04:03:56Z",
-      "ticker": "BYDDF",
-      "company": "BYD Company",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A court-ordered ban on selling a key SUV model in the EU market directly restricts revenue growth and market share in a critical high-margin region.",
-      "why_now": "The ruling is immediate, creating a sudden regulatory barrier to entry for their European expansion strategy.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9b18b714fed7"
-      ],
-      "primary_source_event_id": "EVT-9b18b714fed7",
-      "source_headlines": [
-        "BYD hit after court bars SUV from EU over Land Rover design copy"
-      ],
-      "source_headline": "BYD hit after court bars SUV from EU over Land Rover design copy",
-      "source_url": "https://www.ft.com/content/aeb7d4c9-393f-4ea3-9465-0bbeb754c614?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-23T02:48:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T04:03:56Z",
-      "updated_at": "2026-11-23T04:03:56Z",
-      "decay_at": "2026-11-24T14:48:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e402cc95df0c",
-      "idea_version": "IDEAV-a757a7419f6eeb82",
-      "idea_version_started_at": "2026-11-23T01:40:12Z",
-      "ticker": "BHP",
-      "company": "BHP Group",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BHP plans to double its copper output in South Australia, which should increase future revenue and cash flow from copper sales.",
-      "why_now": "The company unveiled its plans on November 23, 2026, indicating a long-term strategic commitment to copper expansion.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a007bdd270c0"
-      ],
-      "primary_source_event_id": "EVT-a007bdd270c0",
-      "source_headlines": [
-        "BHP unveils plans to double copper output in South Australia by 2040"
-      ],
-      "source_headline": "BHP unveils plans to double copper output in South Australia by 2040",
-      "source_url": "https://www.livemint.com/companies/bhp-unveils-plans-to-double-copper-output-in-south-australia-by-2040-11795393729229.html",
-      "source_name": "Mint",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-23T00:28:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T01:40:12Z",
-      "updated_at": "2026-11-23T01:40:12Z",
-      "decay_at": "2026-11-24T12:28:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263940,1060 +263871,45 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-04234caf33c0",
-      "idea_version": "IDEAV-5dc0aa7724bce31c",
-      "idea_version_started_at": "2026-11-23T05:54:59Z",
-      "ticker": "ASHOKA",
-      "company": "Ashoka Buildcon",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured new infrastructure projects worth over Rs 4,200 crore, providing a clear boost to its order book and future revenue visibility.",
-      "why_now": "The contract wins were announced on November 23, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-84af43ae0442"
-      ],
-      "primary_source_event_id": "EVT-84af43ae0442",
-      "source_headlines": [
-        "Ashoka Buildcon shares jump 7% after securing projects worth over Rs 4,200 crore from NHAI and Rajasthan Metro"
-      ],
-      "source_headline": "Ashoka Buildcon shares jump 7% after securing projects worth over Rs 4,200 crore from NHAI and Rajasthan Metro",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/ashoka-buildcon-shares-jump-7-after-securing-projects-worth-over-rs-4200-crore-from-nhai-and-rajasthan-metro/articleshow/136089837.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-23T04:55:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T05:54:59Z",
-      "updated_at": "2026-11-23T05:54:59Z",
-      "decay_at": "2026-11-24T16:55:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-45be7ab74aa4",
-      "idea_version": "IDEAV-6e17cbfbbedc10a3",
-      "idea_version_started_at": "2026-11-23T04:03:56Z",
-      "ticker": "ADANIENSOL",
-      "company": "Adani Energy Solutions",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Vikramshila Power expands the company's transmission and distribution footprint, directly increasing its regulated asset base and long-term revenue potential.",
-      "why_now": "The deal was announced today, November 23, 2026, and is expected to drive immediate investor focus on the company's growth trajectory.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-57f3248e6357"
-      ],
-      "primary_source_event_id": "EVT-57f3248e6357",
-      "source_headlines": [
-        "Adani Energy Solutions stock to be in focus after signing deal to acquire Vikramshila Power"
-      ],
-      "source_headline": "Adani Energy Solutions stock to be in focus after signing deal to acquire Vikramshila Power",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/adani-energy-solutions-stock-to-be-in-focus-after-signing-deal-to-acquire-vikramshila-power/articleshow/136088334.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 96,
-      "newest_source_at": "2026-11-23T03:39:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-21T08:55:04Z",
-      "updated_at": "2026-11-23T04:03:56Z",
-      "decay_at": "2026-11-24T15:39:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-97980858e223",
-      "idea_version": "IDEAV-0635205beb06f0ce",
-      "idea_version_started_at": "2026-11-23T03:45:00Z",
-      "ticker": "BYD",
-      "company": "BYD Company",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An EU court injunction barring BYD's SUV from the European market over Land Rover design copying directly blocks expansion and revenue growth in a crucial high-margin export market.",
-      "why_now": "The European court ruling was reported on November 23, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9b18b714fed7"
-      ],
-      "primary_source_event_id": "EVT-9b18b714fed7",
-      "source_headlines": [
-        "BYD hit after court bars SUV from EU over Land Rover design copy"
-      ],
-      "source_headline": "BYD hit after court bars SUV from EU over Land Rover design copy",
-      "source_url": "https://www.ft.com/content/aeb7d4c9-393f-4ea3-9465-0bbeb754c614?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-23T02:48:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T03:45:00Z",
-      "updated_at": "2026-11-23T03:45:00Z",
-      "decay_at": "2026-11-24T14:48:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-03fabaf447e1",
-      "idea_version": "IDEAV-1806c89ab615ebbf",
-      "idea_version_started_at": "2026-11-23T03:25:41Z",
-      "ticker": "TATACONSUM",
-      "company": "Tata Consumer Products",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tensions ahead of the scheduled November 26, 2026 Tata Sons board meeting regarding a potential mandatory RBI IPO listing bring valuation unlocked attention to Tata Group holding structure beneficiaries.",
-      "why_now": "Noel Tata formally requested a deferral ahead of the critical November 26, 2026 board meeting.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 17,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-69ededabab8a",
-        "EVT-dcd9c3d2818b"
-      ],
-      "primary_source_event_id": "EVT-69ededabab8a",
-      "source_headlines": [
-        "Showdown ahead of Nov 26 meet: Chandrasekaran backs Tata Sons IPO, Noel Tata flags conflict",
-        "Noel Tata seeks deferral of November 26 Tata Sons board meeting amid listing face-off"
-      ],
-      "source_headline": "Showdown ahead of Nov 26 meet: Chandrasekaran backs Tata Sons IPO, Noel Tata flags conflict",
-      "source_url": "https://www.businesstoday.in/latest/corporate/story/showdown-ahead-of-november-26-meet-chandrasekaran-backs-tata-sons-ipo-noel-tata-flags-conflict-568968-2026-11-23?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-23T02:42:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T03:25:41Z",
-      "updated_at": "2026-11-23T03:25:41Z",
-      "decay_at": "2026-11-24T14:42:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1e80c0cc8da4",
-      "idea_version": "IDEAV-ac7e6ce60fc059fe",
-      "idea_version_started_at": "2026-11-23T05:15:15Z",
-      "ticker": "015760",
-      "company": "Korea Electric Power Corporation",
-      "exchange": "KRX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A major data breach exposing 1.52 million customers creates significant regulatory, legal, and reputational risk for the utility provider.",
-      "why_now": "The breach was reported on 2026-11-23, and the company now faces potential fines and remediation costs.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d648c8aa44b0"
-      ],
-      "primary_source_event_id": "EVT-d648c8aa44b0",
-      "source_headlines": [
-        "KEPCO Data Breach Exposes Personal Information of 1.52 Million"
-      ],
-      "source_headline": "KEPCO Data Breach Exposes Personal Information of 1.52 Million",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281900",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-23T05:13:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T05:15:15Z",
-      "updated_at": "2026-11-23T05:15:15Z",
-      "decay_at": "2026-11-24T17:13:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-81e5f73ffc97",
-      "idea_version": "IDEAV-5e2a77c820fc4b00",
-      "idea_version_started_at": "2026-11-23T02:59:23Z",
-      "ticker": "016360",
-      "company": "Samsung Securities",
-      "exchange": "KRX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A cybersecurity breach involving the personal information of 8,000 clients creates immediate reputational risk, potential regulatory fines, and increased compliance costs.",
-      "why_now": "The breach was reported on 2026-11-23, and the market has not yet fully digested the potential impact on client trust and operational expenses.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a43ce05954c"
-      ],
-      "primary_source_event_id": "EVT-8a43ce05954c",
-      "source_headlines": [
-        "(LEAD) Personal information of more than 8,000 clients at Samsung Securities breached"
-      ],
-      "source_headline": "(LEAD) Personal information of more than 8,000 clients at Samsung Securities breached",
-      "source_url": "https://en.yna.co.kr/view/AEN20261123002951320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-23T02:12:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T01:59:11Z",
-      "updated_at": "2026-11-23T02:59:23Z",
-      "decay_at": "2026-11-24T14:12:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-592b06bbc851",
-      "idea_version": "IDEAV-2b8c460d291af6be",
-      "idea_version_started_at": "2026-11-23T02:39:11Z",
-      "ticker": "PAGEIND",
-      "company": "Page Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Persistent weakness in sales growth is compressing margins and forcing the stock toward 52-week lows, indicating a structural slowdown in consumer demand for their premium apparel segment.",
-      "why_now": "The stock is currently testing 52-week lows as of 2026-11-23, reflecting a breakdown in investor sentiment regarding the company's growth trajectory.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fcfc9e033068"
-      ],
-      "primary_source_event_id": "EVT-fcfc9e033068",
-      "source_headlines": [
-        "Page Industries nears 52-week low as weak sales growth spooks investors"
-      ],
-      "source_headline": "Page Industries nears 52-week low as weak sales growth spooks investors",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/page-industries-nears-52-week-low-as-weak-sales-growth-spooks-investors/articleshow/136086702.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-23T01:52:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T02:39:11Z",
-      "updated_at": "2026-11-23T02:39:11Z",
-      "decay_at": "2026-11-24T13:52:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8509ac2c8601",
-      "idea_version": "IDEAV-c6a0a7d5492d6185",
-      "idea_version_started_at": "2026-11-23T03:45:00Z",
-      "ticker": "APLAPOLLO",
-      "company": "APL Apollo Tubes",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Steel has signed a $1.7 billion (₹32,266 crore) share purchase agreement to acquire a controlling stake in APL Apollo Tubes, driving significant strategic consolidation and potential synergy premium for the target.",
-      "why_now": "The transaction was formally executed via a share purchase agreement announced on November 23, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f32c2d5917db",
-        "EVT-ca9e31925ea3"
-      ],
-      "primary_source_event_id": "EVT-f32c2d5917db",
-      "source_headlines": [
-        "Tata Steel to acquire majority control of APL Apollo Tubes in mega ₹32,266 crore deal",
-        "Tata Steel signs $1.7 billion share purchase agreement to acquire 26.4% stake in APL Apollo Tubes — All we know"
-      ],
-      "source_headline": "Tata Steel to acquire majority control of APL Apollo Tubes in mega ₹32,266 crore deal",
-      "source_url": "https://www.cnbctv18.com/market/tata-steel-share-price-to-acquire-controlling-stake-in-apl-apollo-tubes-32266-crore-open-offer-timeline-block-deals-20039528.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-23T03:23:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T03:25:41Z",
-      "updated_at": "2026-11-23T03:45:00Z",
-      "decay_at": "2026-11-24T15:23:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9ee16cbb53b7",
-      "idea_version": "IDEAV-63413b177f54fbc7",
-      "idea_version_started_at": "2026-11-23T03:45:00Z",
-      "ticker": "TATASTEEL",
-      "company": "Tata Steel",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Acquiring majority control of APL Apollo Tubes in a massive $1.7 billion (₹32,266 crore) deal creates near-term cash flow drag and debt integration risks for Tata Steel.",
-      "why_now": "The acquisition agreement was announced on November 23, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f32c2d5917db",
-        "EVT-ca9e31925ea3"
-      ],
-      "primary_source_event_id": "EVT-f32c2d5917db",
-      "source_headlines": [
-        "Tata Steel to acquire majority control of APL Apollo Tubes in mega ₹32,266 crore deal",
-        "Tata Steel signs $1.7 billion share purchase agreement to acquire 26.4% stake in APL Apollo Tubes — All we know"
-      ],
-      "source_headline": "Tata Steel to acquire majority control of APL Apollo Tubes in mega ₹32,266 crore deal",
-      "source_url": "https://www.cnbctv18.com/market/tata-steel-share-price-to-acquire-controlling-stake-in-apl-apollo-tubes-32266-crore-open-offer-timeline-block-deals-20039528.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-23T03:23:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T03:45:00Z",
-      "updated_at": "2026-11-23T03:45:00Z",
-      "decay_at": "2026-11-24T15:23:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3033ff5504a5",
-      "idea_version": "IDEAV-c0172cdc689fcbe8",
-      "idea_version_started_at": "2026-11-23T01:40:12Z",
-      "ticker": "0017",
-      "company": "New World Development Company Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "New World Development is accelerating urban redevelopment projects to boost cash flow, which should improve its liquidity position.",
-      "why_now": "The company's strategy to accelerate redevelopment for cash flow was reported on November 23, 2026, indicating an active measure to address its financial position.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-549336dc44fa"
-      ],
-      "primary_source_event_id": "EVT-549336dc44fa",
-      "source_headlines": [
-        "‘Raising capital’: embattled New World accelerates urban redevelopment to boost cash flow"
-      ],
-      "source_headline": "‘Raising capital’: embattled New World accelerates urban redevelopment to boost cash flow",
-      "source_url": "https://www.scmp.com/business/banking-finance/article/3375329/raising-capital-embattled-new-world-accelerates-urban-redevelopment-boost-cash-flow",
-      "source_name": "South China Morning Post",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-23T01:00:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T01:40:12Z",
-      "updated_at": "2026-11-23T01:40:12Z",
-      "decay_at": "2026-11-24T13:00:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-79276c19db88",
-      "idea_version": "IDEAV-b2637ad816e13db4",
-      "idea_version_started_at": "2026-11-23T02:15:07Z",
-      "ticker": "LLC",
-      "company": "Lendlease Group",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Management ruled out an emergency equity raise despite ongoing balance sheet strain, leaving debt overhang and refinancing risks to weigh on margins and equity valuation.",
-      "why_now": "Public statement on November 23, 2026, directly highlights unresolved corporate balance sheet pressures.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-809d36314a09"
-      ],
-      "primary_source_event_id": "EVT-809d36314a09",
-      "source_headlines": [
-        "Lendlease rules out emergency capital raising but debt woes linger"
-      ],
-      "source_headline": "Lendlease rules out emergency capital raising but debt woes linger",
-      "source_url": "https://www.afr.com/property/commercial/lendlease-rules-out-emergency-capital-raising-but-debt-woes-linger-20261123-p61ges?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 82,
-      "newest_source_at": "2026-11-23T01:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-22T01:32:50Z",
-      "updated_at": "2026-11-23T02:15:07Z",
-      "decay_at": "2026-11-24T13:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-00000eb03515",
-      "idea_version": "IDEAV-bafbaea3b920e31c",
-      "idea_version_started_at": "2026-11-23T01:40:12Z",
-      "ticker": "000970",
-      "company": "Kumho Tire Co., Inc.",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Kumho Tire will supply its 'Ecsta HS52' tires to Stellantis Fiat, accelerating its penetration into the European original equipment market and boosting future sales.",
-      "why_now": "The news of the supply deal was reported on November 23, 2026, indicating a fresh commercial catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d715a918b0f2"
-      ],
-      "primary_source_event_id": "EVT-d715a918b0f2",
-      "source_headlines": [
-        "Kumho Tire to supply 'Ecsta HS52' to Stellantis Fiat... accelerating penetration into the European OE market"
-      ],
-      "source_headline": "금호타이어, 스텔란티스 피아트에 '엑스타 HS52' 공급…유럽 OE 시장 공략 박차",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281876",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 67,
-      "newest_source_at": "2026-11-23T00:20:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T01:40:12Z",
-      "updated_at": "2026-11-23T01:40:12Z",
-      "decay_at": "2026-11-24T12:20:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-23ebfe6ae498",
-      "idea_version": "IDEAV-be92c5031fcb2e29",
-      "idea_version_started_at": "2026-11-23T03:25:41Z",
-      "ticker": "ALQ",
-      "company": "ALS Limited",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The stock dropped 12% following adverse earnings performance metrics disclosed during market hours.",
-      "why_now": "Trading dislocation active on November 23, 2026 following the immediate earnings result.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-18b10a3e3a0e"
-      ],
-      "primary_source_event_id": "EVT-18b10a3e3a0e",
-      "source_headlines": [
-        "ASX trims losses on mining rebound; ALS dives 12pc"
-      ],
-      "source_headline": "ASX trims losses on mining rebound; ALS dives 12pc",
-      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-fall-wall-street-tech-rout-deepens-20261123-p61gd2?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-23T03:07:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T03:25:41Z",
-      "updated_at": "2026-11-23T03:25:41Z",
-      "decay_at": "2026-11-24T15:07:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-08fcf828dde7",
-      "idea_version": "IDEAV-34edd410db8e6872",
-      "idea_version_started_at": "2026-11-23T03:25:41Z",
-      "ticker": "068760",
-      "company": "Celltrion Pharm",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Achieving 90% antibody-drug conjugate manufacturing efficiency improves yield margins and unit economics for its biopharmaceutical pipeline.",
-      "why_now": "The tech breakthrough achievement was reported on November 23, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-62707c18e3a8"
-      ],
-      "primary_source_event_id": "EVT-62707c18e3a8",
-      "source_headlines": [
-        "Celltrion Pharm achieves 90% ADC manufacturing efficiency"
-      ],
-      "source_headline": "셀트리온제약, ADC 제조효율 90% 달성",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281909",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 82,
-      "newest_source_at": "2026-11-23T02:12:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-23T03:25:41Z",
-      "updated_at": "2026-11-23T03:25:41Z",
-      "decay_at": "2026-11-24T14:12:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 500,
+      "file_count": 501,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 521,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
+        "total_count": 257,
+        "shown_count": 250,
+        "hidden_count": 7
+      },
+      "short": {
         "total_count": 265,
         "shown_count": 250,
         "hidden_count": 15
-      },
-      "short": {
-        "total_count": 274,
-        "shown_count": 250,
-        "hidden_count": 24
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2124,
-      "oldest_retained_at": "2026-10-30T06:17:14Z",
+      "evicted_count": 2140,
+      "oldest_retained_at": "2026-11-01T03:19:57Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1366,
-          "oldest_retained_at": "2026-11-06T22:00:47Z"
+          "evicted_count": 1374,
+          "oldest_retained_at": "2026-11-07T12:17:10Z"
         },
         "short": {
-          "evicted_count": 759,
-          "oldest_retained_at": "2026-10-30T06:17:14Z"
+          "evicted_count": 768,
+          "oldest_retained_at": "2026-11-01T03:19:57Z"
         }
       }
     },
@@ -266631,8 +265547,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T17:13:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -266706,8 +265622,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T16:55:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -266781,8 +265697,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T15:39:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -266857,8 +265773,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T15:23:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -266933,8 +265849,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T15:23:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267009,8 +265925,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T15:07:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267082,8 +265998,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T14:48:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267155,8 +266071,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T14:48:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267230,8 +266146,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T14:48:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267308,8 +266224,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T14:42:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267383,8 +266299,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T14:12:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267458,8 +266374,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T14:12:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267534,8 +266450,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T13:52:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267609,8 +266525,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T13:00:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267684,8 +266600,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T13:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267757,8 +266673,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T12:28:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267832,8 +266748,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-24T12:20:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-26T06:44:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -302111,8 +301027,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2673,
-    "live_count": 11,
+    "surfaced_total": 2675,
+    "live_count": 13,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

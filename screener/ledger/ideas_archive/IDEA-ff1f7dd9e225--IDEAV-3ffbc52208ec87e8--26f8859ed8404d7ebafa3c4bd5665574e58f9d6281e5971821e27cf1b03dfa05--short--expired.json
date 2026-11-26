@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-11-02T12:13:40Z",
+  "archived_at": "2026-11-26T06:44:51Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-887dbee70f05",
-    "idea_version": "IDEAV-65cc662b01843e5d",
-    "idea_version_started_at": "2026-10-31T11:39:53Z",
-    "ticker": "INTC",
-    "company": "Intel",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-ff1f7dd9e225",
+    "idea_version": "IDEAV-3ffbc52208ec87e8",
+    "idea_version_started_at": "2026-11-23T04:03:56Z",
+    "ticker": "BYDDF",
+    "company": "BYD Company",
+    "exchange": "OTC Markets",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "The company signaled a lack of free cash flow generation for the upcoming fiscal year, indicating severe pressure on capital allocation and balance sheet flexibility.",
-    "why_now": "The guidance warning was issued on 2026-10-30, creating immediate negative sentiment regarding the company's turnaround trajectory.",
-    "conviction": 80,
+    "reason": "A court-ordered ban on selling a key SUV model in the EU market directly restricts revenue growth and market share in a critical high-margin region.",
+    "why_now": "The ruling is immediate, creating a sudden regulatory barrier to entry for their European expansion strategy.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 63,
+    "trade_score": 65,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 21,
+      "impact": 19,
       "specificity": 15,
-      "timing": 6,
+      "timing": 10,
       "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-49eaf90eaf9c"
+      "EVT-9b18b714fed7"
     ],
-    "primary_source_event_id": "EVT-49eaf90eaf9c",
+    "primary_source_event_id": "EVT-9b18b714fed7",
     "source_headlines": [
-      "Intel Just Warned It Probably Won’t Generate Free Cash Flow Next Year"
+      "BYD hit after court bars SUV from EU over Land Rover design copy"
     ],
-    "source_headline": "Intel Just Warned It Probably Won’t Generate Free Cash Flow Next Year",
-    "source_url": "https://247wallst.com/investing/2026/10/30/intel-just-warned-it-probably-wont-generate-free-cash-flow-next-year/",
-    "source_name": "24/7 Wall St.",
-    "materiality_max": 100,
-    "newest_source_at": "2026-10-30T11:18:10Z",
+    "source_headline": "BYD hit after court bars SUV from EU over Land Rover design copy",
+    "source_url": "https://www.ft.com/content/aeb7d4c9-393f-4ea3-9465-0bbeb754c614?syn-25a6b1a6=1",
+    "source_name": "Financial Times",
+    "materiality_max": 94,
+    "newest_source_at": "2026-11-23T02:48:12Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-30T22:42:14Z",
-    "updated_at": "2026-10-31T11:39:53Z",
-    "decay_at": "2026-10-31T23:18:10Z",
+    "surfaced_at": "2026-11-23T04:03:56Z",
+    "updated_at": "2026-11-23T04:03:56Z",
+    "decay_at": "2026-11-24T14:48:12Z",
     "status": "live",
     "promoted_signal_id": null
   }

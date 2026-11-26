@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-2fc2f45acf84",
+  "idea_version": "IDEAV-b7b709f6aced4a95",
+  "idea_version_started_at": "2026-11-26T06:44:42Z",
+  "ticker": "AYTU",
+  "company": "AYTU Biopharma",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The filing of an SC 14D9 indicates the company is responding to a tender offer, which typically establishes a floor near the offer price and signals potential acquisition upside.",
+  "why_now": "The SC 14D9 was filed on 2026-11-25, making the tender offer process live and actionable.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-d9b49cfda6e8"
+  ],
+  "primary_source_event_id": "EVT-d9b49cfda6e8",
+  "source_headlines": [
+    "SC 14D9 - AYTU BIOPHARMA, INC (0001385818) (Subject)"
+  ],
+  "source_headline": "SC 14D9 - AYTU BIOPHARMA, INC (0001385818) (Subject)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1385818/000143774926038257/0001437749-26-038257-index.htm",
+  "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-25T16:44:49Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-26T06:44:42Z",
+  "updated_at": "2026-11-26T06:44:42Z",
+  "decay_at": "2026-11-27T04:44:49Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

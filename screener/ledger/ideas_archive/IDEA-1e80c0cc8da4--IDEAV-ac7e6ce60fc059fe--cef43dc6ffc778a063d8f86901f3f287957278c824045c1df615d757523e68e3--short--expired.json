@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-11-08T22:12:11Z",
+  "archived_at": "2026-11-26T06:44:51Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-f9fb9f7caa56",
-    "idea_version": "IDEAV-21c63f60a107b9f4",
-    "idea_version_started_at": "2026-11-05T22:25:32Z",
-    "ticker": "MYX",
-    "company": "Mayne Pharma",
-    "exchange": "ASX",
+    "idea_id": "IDEA-1e80c0cc8da4",
+    "idea_version": "IDEAV-ac7e6ce60fc059fe",
+    "idea_version_started_at": "2026-11-23T05:15:15Z",
+    "ticker": "015760",
+    "company": "Korea Electric Power Corporation",
+    "exchange": "KRX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "Mayne Pharma's divestiture of its International segment for $55.5m adds cash, improving liquidity and potentially boosting EPS, supporting a long position.",
-    "why_now": "The divestiture was announced on 2026-11-05, providing a fresh catalyst.",
-    "conviction": 55,
+    "reason": "A major data breach exposing 1.52 million customers creates significant regulatory, legal, and reputational risk for the utility provider.",
+    "why_now": "The breach was reported on 2026-11-23, and the company now faces potential fines and remediation costs.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 18,
+      "evidence": 14,
+      "impact": 16,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-8c6fa202610a"
+      "EVT-d648c8aa44b0"
     ],
-    "primary_source_event_id": "EVT-8c6fa202610a",
+    "primary_source_event_id": "EVT-d648c8aa44b0",
     "source_headlines": [
-      "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]"
+      "KEPCO Data Breach Exposes Personal Information of 1.52 Million"
     ],
-    "source_headline": "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYX?key=2924-03158746-3A705930",
-    "source_name": "ASX (Australia Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-11-05T21:52:54Z",
+    "source_headline": "KEPCO Data Breach Exposes Personal Information of 1.52 Million",
+    "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281900",
+    "source_name": "Business Korea — All English Articles",
+    "materiality_max": 87,
+    "newest_source_at": "2026-11-23T05:13:38Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-11-05T22:25:32Z",
-    "updated_at": "2026-11-05T22:25:32Z",
-    "decay_at": "2026-11-07T09:52:54Z",
+    "surfaced_at": "2026-11-23T05:15:15Z",
+    "updated_at": "2026-11-23T05:15:15Z",
+    "decay_at": "2026-11-24T17:13:38Z",
     "status": "live",
     "promoted_signal_id": null
   }
