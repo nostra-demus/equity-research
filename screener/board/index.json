@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T19:20:11Z",
+  "generated_at": "2026-11-26T19:29:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -683,6 +683,49 @@
           "listing_country": "HK"
         }
       ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-995",
+      "headline": "Saudi Arabia says operations at refinery in Jazan halted after attack",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-arabia-says-operations-refinery-jazan-halted-after-attack",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T19:21:47Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "A halt in operations at a refinery following an attack is a material supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A halt in operations at a refinery following an attack is a material supply shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -1927,55 +1970,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-782",
-      "headline": "Pharmakonzern: Bayer baut Pharmaproduktion in China für bis zu 500 Millionen Euro aus",
-      "headline_en": "Pharmaceutical group: Bayer expands pharmaceutical production in China for up to 500 million euros",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/pharmakonzern-bayer-baut-pharmaproduktion-in-china-fuer-bis-zu-500-millionen-euro-aus/100273011.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T12:31:35Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Bayer is expanding its pharmaceutical production in China with a 500 million euro investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bayer is expanding its pharmaceutical production in China with a 500 million euro investment.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bayer",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301198,9 +301192,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 944539,
-    "news_picked_today": 2438,
-    "news_dropped_today": 17146
+    "news_seen_today": 944561,
+    "news_picked_today": 2445,
+    "news_dropped_today": 17161
   },
   "book_momentum": {
     "live_count": 8,
