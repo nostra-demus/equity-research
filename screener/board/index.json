@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T10:31:26Z",
+  "generated_at": "2026-11-26T10:51:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-647",
@@ -341,6 +341,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-685",
+      "headline": "‎Leen Alkhair raises factory construction contract to SAR 389.2M, capacity to 500,000 tons",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1956764",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T12:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Leen Alkhair increased a factory construction contract to SAR 389.2M, significantly expanding production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Leen Alkhair increased a factory construction contract to SAR 389.2M, significantly expanding production capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leen Alkhair",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1953,6 @@
         "size": 2,
         "recency": 1,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EasyJet",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-259",
-      "headline": "EasyJet profits plunge on £244 million fuel cost hit",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/easyjet-middle-east-iran-luton-apollo-b3091178.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T08:23:30Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "EasyJet reported a profit plunge driven by a quantified £244 million increase in fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "EasyJet reported a profit plunge driven by a quantified £244 million increase in fuel costs.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -261528,78 +261528,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-205d9d4ce667",
-      "idea_version": "IDEAV-e6dbcd1e11b88324",
-      "idea_version_started_at": "2026-11-25T02:37:44Z",
-      "ticker": "DELL",
-      "company": "Dell Technologies",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Dell reported strong Q3 results and raised its full-year fiscal 2027 outlook by $10 billion, signaling sustained demand in its core infrastructure and server segments.",
-      "why_now": "The earnings and guidance update was released on 2026-11-24.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-23c1233b8e2e",
-        "EVT-32f2aae7a20b"
-      ],
-      "primary_source_event_id": "EVT-23c1233b8e2e",
-      "source_headlines": [
-        "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
-        "Dell Technologies Q3 Profit Soars; Raises FY27 Outlook"
-      ],
-      "source_headline": "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
-      "source_url": "https://www.nasdaq.com/articles/dell-just-reported-earnings-and-raised-its-forecast-10-billion-stock-buy-after-tuesdays",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T22:31:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:37:44Z",
-      "updated_at": "2026-11-25T02:37:44Z",
-      "decay_at": "2026-11-26T10:31:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-70d5716d01ea",
       "idea_version": "IDEAV-4712795420ffdce1",
       "idea_version_started_at": "2026-11-25T05:25:03Z",
@@ -262376,6 +262304,78 @@
       "surfaced_at": "2026-11-25T01:02:41Z",
       "updated_at": "2026-11-25T01:02:41Z",
       "decay_at": "2026-11-25T04:39:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-205d9d4ce667",
+      "idea_version": "IDEAV-e6dbcd1e11b88324",
+      "idea_version_started_at": "2026-11-25T02:37:44Z",
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Dell reported strong Q3 results and raised its full-year fiscal 2027 outlook by $10 billion, signaling sustained demand in its core infrastructure and server segments.",
+      "why_now": "The earnings and guidance update was released on 2026-11-24.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-23c1233b8e2e",
+        "EVT-32f2aae7a20b"
+      ],
+      "primary_source_event_id": "EVT-23c1233b8e2e",
+      "source_headlines": [
+        "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
+        "Dell Technologies Q3 Profit Soars; Raises FY27 Outlook"
+      ],
+      "source_headline": "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
+      "source_url": "https://www.nasdaq.com/articles/dell-just-reported-earnings-and-raised-its-forecast-10-billion-stock-buy-after-tuesdays",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T22:31:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T02:37:44Z",
+      "updated_at": "2026-11-25T02:37:44Z",
+      "decay_at": "2026-11-26T10:31:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263962,14 +263962,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 524,
     "shown_count": 499,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       },
       "short": {
         "total_count": 266,
@@ -263993,6 +263993,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-205d9d4ce667",
+        "idea_version": "IDEAV-e6dbcd1e11b88324",
+        "idea_version_started_at": "2026-11-25T02:37:44Z",
+        "ticker": "DELL",
+        "company": "Dell Technologies",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Dell reported strong Q3 results and raised its full-year fiscal 2027 outlook by $10 billion, signaling sustained demand in its core infrastructure and server segments.",
+        "why_now": "The earnings and guidance update was released on 2026-11-24.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-23c1233b8e2e",
+          "EVT-32f2aae7a20b"
+        ],
+        "primary_source_event_id": "EVT-23c1233b8e2e",
+        "source_headlines": [
+          "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
+          "Dell Technologies Q3 Profit Soars; Raises FY27 Outlook"
+        ],
+        "source_headline": "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
+        "source_url": "https://www.nasdaq.com/articles/dell-just-reported-earnings-and-raised-its-forecast-10-billion-stock-buy-after-tuesdays",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T22:31:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T02:37:44Z",
+        "updated_at": "2026-11-25T02:37:44Z",
+        "decay_at": "2026-11-26T10:31:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T10:31:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-661acc26fe05",
         "idea_version": "IDEAV-a61ef6fe52c2fb88",
@@ -297220,82 +297295,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e0d687380dd8",
-        "idea_version": "IDEAV-69d093e45abfc0c5",
-        "idea_version_started_at": "2026-11-07T07:32:32Z",
-        "ticker": "DTG",
-        "company": "Daimler Truck",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A 73% rise in profit was driven by a one-time customs refund and strong operational performance, providing a significant boost to net income.",
-        "why_now": "The earnings report was released on 2026-11-06.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9cf70e8350bc"
-        ],
-        "primary_source_event_id": "EVT-9cf70e8350bc",
-        "source_headlines": [
-          "Truck manufacturer: Hundreds of millions in customs refunds – Daimler Truck profit rises by 73 percent"
-        ],
-        "source_headline": "Lkw-Hersteller: Hunderte Millionen Zollzurückzahlung – Gewinn von Daimler Truck steigt um 73 Prozent",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/zoll-rueckzahlungen-gewinn-von-daimler-truck-steigt-um-73-prozent/100267801.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 99,
-        "newest_source_at": "2026-11-06T08:49:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-07T07:32:32Z",
-        "updated_at": "2026-11-07T07:32:32Z",
-        "decay_at": "2026-11-07T20:49:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T10:01:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-083c9caae543",
         "idea_version": "IDEAV-0f0112c7bb3d2895",
         "idea_version_started_at": "2026-11-07T10:18:55Z",
@@ -301109,7 +301108,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2676,
-    "live_count": 12,
+    "live_count": 11,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -301128,9 +301127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 658449,
-    "news_picked_today": 1284,
-    "news_dropped_today": 10788
+    "news_seen_today": 673955,
+    "news_picked_today": 1299,
+    "news_dropped_today": 10917
   },
   "book_momentum": {
     "live_count": 8,
