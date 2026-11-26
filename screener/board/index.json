@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T12:14:43Z",
+  "generated_at": "2026-11-26T12:24:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-647",
@@ -390,6 +390,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-744",
+      "headline": "UniCredit Clears Final Hurdle to Take Over Commerzbank",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-26/unicredit-clears-final-hurdle-to-take-over-commerzbank-video-mwxge90q",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T11:12:46Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "UniCredit clears final regulatory hurdle to acquire Commerzbank, a named large cross-border financial-institution consolidation directly changing shareholder optionality for both parties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UniCredit clears final regulatory hurdle to acquire Commerzbank, a named large cross-border financial-institution consolidation directly changing shareholder optionality for both parties.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UniCredit",
+          "ticker": "UCG",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Commerzbank",
+          "ticker": "CBK",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,60 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-624",
-      "headline": "Sanofi’s $41 Billion Insmed Deal Shows Cost of a Patent Cliff",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/sanofis-41-billion-insmed-deal-shows-cost-of-a-patent-cliff-11795545425011.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T18:37:04Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Sanofi to acquire Insmed for $41 billion; material capital deployment addressing Sanofi's patent-cliff revenue headwind and altering both companies' capital structure and strategic positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi to acquire Insmed for $41 billion; material capital deployment addressing Sanofi's patent-cliff revenue headwind and altering both companies' capital structure and strategic positioning.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": "SNY",
-          "listing_country": "US"
-        },
-        {
-          "name": "Insmed Incorporated",
-          "ticker": "INSM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301117,9 +301117,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 763535,
-    "news_picked_today": 1416,
-    "news_dropped_today": 12048
+    "news_seen_today": 770956,
+    "news_picked_today": 1419,
+    "news_dropped_today": 12141
   },
   "book_momentum": {
     "live_count": 8,
