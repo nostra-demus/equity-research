@@ -1,0 +1,77 @@
+{
+  "idea_id": "IDEA-cf18e164e741",
+  "idea_version": "IDEAV-9357f582c5c13e34",
+  "idea_version_started_at": "2026-11-26T12:39:59Z",
+  "ticker": "NRTG",
+  "company": "Norse Atlantic",
+  "exchange": null,
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company has issued a critical warning regarding its financial viability and has suspended flight operations, signaling an imminent risk of insolvency.",
+  "why_now": "Operations were suspended as of 2026-11-26 following the financial warning.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b37898da4c79",
+    "EVT-9b221fd5e8c8"
+  ],
+  "primary_source_event_id": "EVT-b37898da4c79",
+  "source_headlines": [
+    "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
+    "Norse Atlantic flights suspended after warning finances 'critical'"
+  ],
+  "source_headline": "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
+  "source_url": "https://www.cnbc.com/2026/11/25/norse-atlantic-financial-warning-fuel-costs.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-26T01:04:54Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-26T12:39:59Z",
+  "updated_at": "2026-11-26T12:39:59Z",
+  "decay_at": "2026-11-27T13:04:54Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

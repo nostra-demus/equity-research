@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-0547eb1704d8",
+  "idea_version": "IDEAV-d7716ba48751c1d5",
+  "idea_version_started_at": "2026-11-26T12:39:59Z",
+  "ticker": "HCTI",
+  "company": "Healthcare Triangle, Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company has received a formal delisting notice from Nasdaq, which typically leads to significant liquidity evaporation and forced selling by institutional holders.",
+  "why_now": "The delisting decision and suspension notice were issued on 2026-11-26.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-bc1ca3c75e83"
+  ],
+  "primary_source_event_id": "EVT-bc1ca3c75e83",
+  "source_headlines": [
+    "Healthcare Triangle, Inc. Receives Nasdaq Delisting Decision and Suspension Notice"
+  ],
+  "source_headline": "Healthcare Triangle, Inc. Receives Nasdaq Delisting Decision and Suspension Notice",
+  "source_url": "https://www.nasdaq.com/articles/healthcare-triangle-inc-receives-nasdaq-delisting-decision-and-suspension-notice",
+  "source_name": "Nasdaq",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-26T01:20:12Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-26T12:39:59Z",
+  "updated_at": "2026-11-26T12:39:59Z",
+  "decay_at": "2026-11-27T13:20:12Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
