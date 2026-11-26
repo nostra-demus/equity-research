@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T05:11:16Z",
+  "generated_at": "2026-11-26T05:20:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1578,6 +1578,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-613",
+      "headline": "Saint-Gobain bets big on India with Rs 11,000 crore investment, eyes regional manufacturing hub",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/saint-gobain-bets-big-on-india-with-rs-11000-crore-investment-eyes-regional-manufacturing-hub-569266-2026-11-25?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T19:05:02Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Saint-Gobain announced a significant Rs 11,000 crore investment to expand manufacturing capacity in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Saint-Gobain announced a significant Rs 11,000 crore investment to expand manufacturing capacity in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saint-Gobain",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-046",
       "headline": "GPIXEL (03277): INSIDE INFORMATION LATEST BUSINESS PERFORMANCE FOR THE FIRST TEN MONTHS OF 2026",
       "headline_en": null,
@@ -1905,60 +1954,6 @@
       "companies": [
         {
           "name": "Workday",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-461",
-      "headline": "Malaysia Airlines Picks Boeing 787s for Widebody Expansion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/malaysia-airlines-picks-boeing-787s-for-widebody-fleet-expansion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T03:03:48Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Malaysia Airlines is expanding its fleet with Boeing 787s, a significant capital commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Malaysia Airlines is expanding its fleet with Boeing 787s, a significant capital commitment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Malaysia Airlines",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Boeing",
           "ticker": null,
           "listing_country": "US"
         }
@@ -302130,9 +302125,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 351974,
-    "news_picked_today": 991,
-    "news_dropped_today": 3185
+    "news_seen_today": 355272,
+    "news_picked_today": 1021,
+    "news_dropped_today": 3323
   },
   "book_momentum": {
     "live_count": 8,
