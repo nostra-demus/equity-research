@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-26T06:59:36Z",
+  "generated_at": "2026-11-26T07:04:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261126-630",
+      "headline": "[TSE]Decision on Delisting, etc.: SOFT99corporation",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20261126-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T06:40:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "JPX announced delisting decision on SOFT99 Corporation, a going-concern and capital-structure survival event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JPX announced delisting decision on SOFT99 Corporation, a going-concern and capital-structure survival event.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SOFT99 Corporation",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261126-039",
       "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): The acquisition of 17.5% of the shares in Ipoteka Bank has been closed",
@@ -1911,55 +1960,6 @@
       "companies": [
         {
           "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-374",
-      "headline": "Huawei found guilty of money laundering and conspiracy to steal trade secrets in US case",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/future/technology/2026/11/25/huawei-found-guilty-of-money-laundering-and-conspiracy-to-steal-trade-secrets-in-us-case/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T05:09:43Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Huawei was found guilty of money laundering and trade secret theft in a US court case, posing significant legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Huawei was found guilty of money laundering and trade secret theft in a US court case, posing significant legal and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huawei",
           "ticker": null,
           "listing_country": null
         }
@@ -301047,9 +301047,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 450531,
-    "news_picked_today": 1155,
-    "news_dropped_today": 5085
+    "news_seen_today": 457055,
+    "news_picked_today": 1159,
+    "news_dropped_today": 5105
   },
   "book_momentum": {
     "live_count": 8,
