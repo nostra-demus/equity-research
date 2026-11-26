@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T01:42:59Z",
+  "generated_at": "2026-11-26T01:53:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -490,6 +490,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-242",
+      "headline": "Aramco opens $7bn Shaheen chemicals project in Seoul",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/energy/2026/11/25/aramco-opens-7bn-shaheen-chemicals-project-in-seoul/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T08:42:45Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Aramco has opened a $7 billion chemicals project in Seoul, representing a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aramco has opened a $7 billion chemicals project in Seoul, representing a significant capital investment.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-058",
       "headline": "Suzlon begins construction of 1 GW AI-powered wind blade factory in Tamil Nadu",
       "headline_en": null,
@@ -588,6 +637,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-259",
+      "headline": "EasyJet profits plunge on £244 million fuel cost hit",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/easyjet-middle-east-iran-luton-apollo-b3091178.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T08:23:30Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "EasyJet reported a profit plunge driven by a quantified £244 million increase in fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "EasyJet reported a profit plunge driven by a quantified £244 million increase in fuel costs.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EasyJet",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-046",
       "headline": "GPIXEL (03277): INSIDE INFORMATION LATEST BUSINESS PERFORMANCE FOR THE FIRST TEN MONTHS OF 2026",
       "headline_en": null,
@@ -632,55 +730,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-100",
-      "headline": "EasyJet profits plunge on £244 million fuel cost hit",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/easyjet-middle-east-iran-apollo-luton-b3091178.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:28:09Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "EasyJet reports a profit plunge due to a £244 million fuel cost hit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "EasyJet reports a profit plunge due to a £244 million fuel cost hit.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EasyJet",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1811,6 +1860,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-262",
+      "headline": "Starbucks Reportedly Engages Advisers To Explore Potential Sale Of Japan Business",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/starbucks-reportedly-engages-advisers-explore-potential-sale-japan-business",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T08:08:06Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Starbucks is reportedly exploring a sale of its Japan business, a significant strategic shift for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Starbucks is reportedly exploring a sale of its Japan business, a significant strategic shift for the company.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Starbucks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-197",
       "headline": "SNS: Multimillion-dollar Contract with the City of Chicago Signed [price-sensitive]",
       "headline_en": null,
@@ -1855,104 +1953,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-235",
-      "headline": "Prospect Capital Corporation Enters Revolving Credit Facility Extension",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/prospect-capital-corporation-enters-revolving-credit-facility-extension",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T00:19:23Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Extension of a revolving credit facility provides liquidity and stability for the company's capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Extension of a revolving credit facility provides liquidity and stability for the company's capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prospect Capital Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-066",
-      "headline": "Rakuten Securities data leak exposes assets in 1.68 mil. accounts",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261125/p2g/00m/0bu/060000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:00:11Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "A data leak at Rakuten Securities has exposed the asset information of 1.68 million accounts, posing significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A data leak at Rakuten Securities has exposed the asset information of 1.68 million accounts, posing significant operational and reputational risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rakuten Securities",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262079,77 +262079,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ea7d53b3869b",
-      "idea_version": "IDEAV-19020c0b235041e4",
-      "idea_version_started_at": "2026-11-25T04:32:33Z",
-      "ticker": "00919",
-      "company": "Modern Health Technology",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, signaling better-than-expected earnings growth.",
-      "why_now": "The positive profit alert was filed on 2026-11-24.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5e779bfdc169"
-      ],
-      "primary_source_event_id": "EVT-5e779bfdc169",
-      "source_headlines": [
-        "MODERNHEALTHTEC (00919): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "MODERNHEALTHTEC (00919): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401461.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T13:43:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T04:32:33Z",
-      "updated_at": "2026-11-25T04:32:33Z",
-      "decay_at": "2026-11-26T01:43:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cc5b4717e138",
       "idea_version": "IDEAV-71016f7c62ef70ba",
       "idea_version_started_at": "2026-11-25T02:37:44Z",
@@ -263067,6 +262996,77 @@
       "surfaced_at": "2026-11-25T04:32:33Z",
       "updated_at": "2026-11-25T04:32:33Z",
       "decay_at": "2026-11-25T22:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ea7d53b3869b",
+      "idea_version": "IDEAV-19020c0b235041e4",
+      "idea_version_started_at": "2026-11-25T04:32:33Z",
+      "ticker": "00919",
+      "company": "Modern Health Technology",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, signaling better-than-expected earnings growth.",
+      "why_now": "The positive profit alert was filed on 2026-11-24.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5e779bfdc169"
+      ],
+      "primary_source_event_id": "EVT-5e779bfdc169",
+      "source_headlines": [
+        "MODERNHEALTHTEC (00919): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "MODERNHEALTHTEC (00919): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401461.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T13:43:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T04:32:33Z",
+      "updated_at": "2026-11-25T04:32:33Z",
+      "decay_at": "2026-11-26T01:43:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264955,14 +264955,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       },
       "short": {
         "total_count": 270,
@@ -264986,6 +264986,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ea7d53b3869b",
+        "idea_version": "IDEAV-19020c0b235041e4",
+        "idea_version_started_at": "2026-11-25T04:32:33Z",
+        "ticker": "00919",
+        "company": "Modern Health Technology",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, signaling better-than-expected earnings growth.",
+        "why_now": "The positive profit alert was filed on 2026-11-24.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5e779bfdc169"
+        ],
+        "primary_source_event_id": "EVT-5e779bfdc169",
+        "source_headlines": [
+          "MODERNHEALTHTEC (00919): POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "MODERNHEALTHTEC (00919): POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401461.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T13:43:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T04:32:33Z",
+        "updated_at": "2026-11-25T04:32:33Z",
+        "decay_at": "2026-11-26T01:43:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T01:43:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-beed2a8f2403",
         "idea_version": "IDEAV-7b5eeaad76f6ca69",
@@ -297919,81 +297993,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bd666baba5fc",
-        "idea_version": "IDEAV-fe610c94607885a1",
-        "idea_version_started_at": "2026-11-07T11:59:19Z",
-        "ticker": "SAFARI",
-        "company": "Safari Industries",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 9.1% revenue increase and announced a ₹230 crore expansion plan, indicating strong demand and growth trajectory.",
-        "why_now": "The earnings and expansion plan were announced on 2026-11-06.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e14e0f42cdec"
-        ],
-        "primary_source_event_id": "EVT-e14e0f42cdec",
-        "source_headlines": [
-          "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan"
-        ],
-        "source_headline": "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan",
-        "source_url": "https://www.freepressjournal.in/business/safari-industries-q2-fy27-profit-at-3693-crore-revenue-rises-91-as-company-unveils-230-crore-expansion-plan",
-        "source_name": "Free Press Journal",
-        "materiality_max": 99,
-        "newest_source_at": "2026-11-06T05:29:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-07T11:59:19Z",
-        "updated_at": "2026-11-07T11:59:19Z",
-        "decay_at": "2026-11-07T17:29:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T05:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-171af5eb047a",
         "idea_version": "IDEAV-afa5421a72f05ac8",
         "idea_version_started_at": "2026-11-07T14:06:00Z",
@@ -302102,7 +302101,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2673,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302121,9 +302120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 129538,
-    "news_picked_today": 274,
-    "news_dropped_today": 926
+    "news_seen_today": 146893,
+    "news_picked_today": 309,
+    "news_dropped_today": 1083
   },
   "book_momentum": {
     "live_count": 8,
