@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T02:14:03Z",
+  "generated_at": "2026-11-26T02:19:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -583,6 +583,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-338",
+      "headline": "Rémy Cointreau H1 Net Profit Down, COP Climbs; Updates FY27 Profit View, Sees Growth By FY32",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/remy-cointreau-h1-net-profit-down-cop-climbs-updates-fy27-profit-view-sees-growth-fy32",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T07:09:50Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Rémy Cointreau reported a decline in H1 net profit and updated its FY27 profit outlook, signaling ongoing operational challenges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rémy Cointreau reported a decline in H1 net profit and updated its FY27 profit outlook, signaling ongoing operational challenges.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rémy Cointreau",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1910,55 +1960,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-225",
-      "headline": "Ellison family’s fortune hit hard over $131b Hollywood debt gamble",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/ellison-family-s-fortune-hit-hard-over-131b-hollywood-debt-gamble-20261126-p61hea?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T00:59:05Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "The Ellison family faces significant financial pressure linked to $131 billion in debt associated with Hollywood investments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The Ellison family faces significant financial pressure linked to $131 billion in debt associated with Hollywood investments.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ellison family",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302125,9 +302126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 169665,
-    "news_picked_today": 357,
-    "news_dropped_today": 1203
+    "news_seen_today": 180810,
+    "news_picked_today": 408,
+    "news_dropped_today": 1368
   },
   "book_momentum": {
     "live_count": 8,
