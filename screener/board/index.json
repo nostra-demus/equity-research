@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T19:09:45Z",
+  "generated_at": "2026-11-26T19:13:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -261672,76 +261672,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-353fd962829f",
-      "idea_version": "IDEAV-7ce817ab729e22a2",
-      "idea_version_started_at": "2026-11-26T12:39:59Z",
-      "ticker": "RCO.PA",
-      "company": "Rémy Cointreau",
-      "exchange": "Paris",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "H1 net profit declined and the company pushed back its growth expectations to FY32, indicating a prolonged period of weak demand and margin pressure.",
-      "why_now": "The earnings report and guidance update were released on 2026-11-25.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-813610e1cd8e"
-      ],
-      "primary_source_event_id": "EVT-813610e1cd8e",
-      "source_headlines": [
-        "Rémy Cointreau H1 Net Profit Down, COP Climbs; Updates FY27 Profit View, Sees Growth By FY32"
-      ],
-      "source_headline": "Rémy Cointreau H1 Net Profit Down, COP Climbs; Updates FY27 Profit View, Sees Growth By FY32",
-      "source_url": "https://www.nasdaq.com/articles/remy-cointreau-h1-net-profit-down-cop-climbs-updates-fy27-profit-view-sees-growth-fy32",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-25T07:09:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T12:39:59Z",
-      "updated_at": "2026-11-26T12:39:59Z",
-      "decay_at": "2026-11-26T19:09:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0547eb1704d8",
       "idea_version": "IDEAV-d7716ba48751c1d5",
       "idea_version_started_at": "2026-11-26T12:39:59Z",
@@ -262525,6 +262455,76 @@
       "surfaced_at": "2026-11-25T05:25:03Z",
       "updated_at": "2026-11-25T05:25:03Z",
       "decay_at": "2026-11-26T14:08:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-353fd962829f",
+      "idea_version": "IDEAV-7ce817ab729e22a2",
+      "idea_version_started_at": "2026-11-26T12:39:59Z",
+      "ticker": "RCO.PA",
+      "company": "Rémy Cointreau",
+      "exchange": "Paris",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "H1 net profit declined and the company pushed back its growth expectations to FY32, indicating a prolonged period of weak demand and margin pressure.",
+      "why_now": "The earnings report and guidance update were released on 2026-11-25.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-813610e1cd8e"
+      ],
+      "primary_source_event_id": "EVT-813610e1cd8e",
+      "source_headlines": [
+        "Rémy Cointreau H1 Net Profit Down, COP Climbs; Updates FY27 Profit View, Sees Growth By FY32"
+      ],
+      "source_headline": "Rémy Cointreau H1 Net Profit Down, COP Climbs; Updates FY27 Profit View, Sees Growth By FY32",
+      "source_url": "https://www.nasdaq.com/articles/remy-cointreau-h1-net-profit-down-cop-climbs-updates-fy27-profit-view-sees-growth-fy32",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T07:09:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T12:39:59Z",
+      "updated_at": "2026-11-26T12:39:59Z",
+      "decay_at": "2026-11-26T19:09:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264042,9 +264042,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 524,
     "shown_count": 499,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
         "total_count": 258,
@@ -264052,9 +264052,9 @@
         "hidden_count": 8
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -264073,6 +264073,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-353fd962829f",
+        "idea_version": "IDEAV-7ce817ab729e22a2",
+        "idea_version_started_at": "2026-11-26T12:39:59Z",
+        "ticker": "RCO.PA",
+        "company": "Rémy Cointreau",
+        "exchange": "Paris",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "H1 net profit declined and the company pushed back its growth expectations to FY32, indicating a prolonged period of weak demand and margin pressure.",
+        "why_now": "The earnings report and guidance update were released on 2026-11-25.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-813610e1cd8e"
+        ],
+        "primary_source_event_id": "EVT-813610e1cd8e",
+        "source_headlines": [
+          "Rémy Cointreau H1 Net Profit Down, COP Climbs; Updates FY27 Profit View, Sees Growth By FY32"
+        ],
+        "source_headline": "Rémy Cointreau H1 Net Profit Down, COP Climbs; Updates FY27 Profit View, Sees Growth By FY32",
+        "source_url": "https://www.nasdaq.com/articles/remy-cointreau-h1-net-profit-down-cop-climbs-updates-fy27-profit-view-sees-growth-fy32",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-25T07:09:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T12:39:59Z",
+        "updated_at": "2026-11-26T12:39:59Z",
+        "decay_at": "2026-11-26T19:09:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T19:09:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4ce013a7716a",
         "idea_version": "IDEAV-cfae884e6c7533ef",
@@ -301103,86 +301176,12 @@
         "archived_at": "2026-11-05T06:02:09Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e4eb269da001",
-        "idea_version": "IDEAV-5d906db714eb9ee0",
-        "idea_version_started_at": "2026-11-01T11:55:44Z",
-        "ticker": "PERI",
-        "company": "Perion Network Ltd.",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Perion Network is being acquired by Affle for $420 million in an all-cash deal, indicating a potential downside for Perion shareholders if the deal terms are not favorable or if the deal faces hurdles.",
-        "why_now": "The acquisition announcement was made on November 1, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b2dc4d495419"
-        ],
-        "primary_source_event_id": "EVT-b2dc4d495419",
-        "source_headlines": [
-          "Affle To Acquire Perion In $420 Mln All-Cash Deal"
-        ],
-        "source_headline": "Affle To Acquire Perion In $420 Mln All-Cash Deal",
-        "source_url": "https://www.nasdaq.com/articles/affle-acquire-perion-420-mln-all-cash-deal",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T10:49:30Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T11:55:44Z",
-        "updated_at": "2026-11-01T11:55:44Z",
-        "decay_at": "2026-11-02T22:49:30Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T10:56:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2684,
-    "live_count": 12,
+    "live_count": 11,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -301201,9 +301200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 944491,
-    "news_picked_today": 2431,
-    "news_dropped_today": 17105
+    "news_seen_today": 944496,
+    "news_picked_today": 2432,
+    "news_dropped_today": 17109
   },
   "book_momentum": {
     "live_count": 8,
