@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T03:07:47Z",
+  "generated_at": "2026-11-26T03:11:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1624,6 +1624,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-402",
+      "headline": "Norse Atlantic’s financial woes deepen: Flights cancelled, IndiGo deal ends, takeover talks on",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/norse-atlantic-s-financial-woes-deepen-flights-cancelled-indigo-deal-ends-takeover-talks-on-11795658948871.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T02:47:43Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Norse Atlantic faces severe financial distress, cancelled flights, and is in takeover talks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Norse Atlantic faces severe financial distress, cancelled flights, and is in takeover talks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-298",
       "headline": "Musk appeals $2.6B Twitter fraud verdict: Report",
       "headline_en": null,
@@ -1916,60 +1966,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-013",
-      "headline": "Broadcom Bought $1 Billion Worth of Anthropic’s IPO, and It Has Tens of Billions More Riding on Its Success.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/broadcom-bought-1-billion-worth-anthropics-ipo-and-it-has-tens-billions-more-riding-its",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:20:02Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Broadcom invested $1 billion in Anthropic, signaling a major strategic commitment to AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Broadcom invested $1 billion in Anthropic, signaling a major strategic commitment to AI infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Broadcom",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302136,9 +302132,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 228521,
-    "news_picked_today": 579,
-    "news_dropped_today": 1869
+    "news_seen_today": 243641,
+    "news_picked_today": 585,
+    "news_dropped_today": 1887
   },
   "book_momentum": {
     "live_count": 8,
