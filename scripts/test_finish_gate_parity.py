@@ -168,7 +168,7 @@ _DEF_RE = re.compile(r"^def (eval_[A-Za-z0-9_]+)\s*\(", re.M)
 
 
 def discover_detectors(scripts_dir=SCRIPTS):
-    """Every `eval_*` detector DEFINED in scripts/, outside the grader and the test files.
+    """Every `eval_*` detector DEFINED under scripts/ (recursively), outside the grader and tests.
 
     These are the shared, dual-use detection functions. Discovery is dynamic so a future shared
     module is covered with no edit here (CLAUDE.md §26 zero-touch). eval.py is excluded (it is the
@@ -178,9 +178,11 @@ def discover_detectors(scripts_dir=SCRIPTS):
     (name -> defining basename, name -> set of basenames if duplicated)."""
     found = {}
     dupes = {}
-    for path in sorted(glob.glob(os.path.join(scripts_dir, "*.py"))):
-        base = os.path.basename(path)
-        if not os.path.isfile(path) or base == "eval.py" or base.startswith("test_"):
+    for path in sorted(glob.glob(os.path.join(scripts_dir, "**", "*.py"), recursive=True)):
+        base = os.path.relpath(path, scripts_dir).replace(os.sep, "/")
+        leaf = os.path.basename(path)
+        if (not os.path.isfile(path) or base == "eval.py" or re.match(r"test[_-]", leaf)
+                or "node_modules/" in base or "__pycache__/" in base):
             continue
         with open(path, encoding="utf-8") as f:
             text = f.read()
@@ -192,14 +194,26 @@ def discover_detectors(scripts_dir=SCRIPTS):
     return found, dupes
 
 
-def _is_selftest_test(test):
-    """True for `<x> == "selftest"` / `"--selftest"` and for `__name__ == "__main__"`."""
-    if not isinstance(test, ast.Compare) or len(test.comparators) != 1:
-        return False
-    for side in (test.left, test.comparators[0]):
-        if isinstance(side, ast.Constant) and side.value in ("selftest", "--selftest", "__main__"):
-            return True
-    return False
+def _selftest_guard(test):
+    """Classify an `if` test: "eq" for `<x> == "selftest"` / `"--selftest"` / `__name__ ==
+    "__main__"` (the BODY is self-test code), "ne" for the same comparison with `!=` (the ELSE
+    branch is self-test code), None for anything else. The operator is checked, not just the
+    operands — `if scope != "selftest":` guards PRODUCTION code and must not be pruned."""
+    if not isinstance(test, ast.Compare) or len(test.comparators) != 1 or len(test.ops) != 1:
+        return None
+    if not any(isinstance(side, ast.Constant) and side.value in ("selftest", "--selftest", "__main__")
+               for side in (test.left, test.comparators[0])):
+        return None
+    if isinstance(test.ops[0], ast.Eq):
+        return "eq"
+    if isinstance(test.ops[0], ast.NotEq):
+        return "ne"
+    return None
+
+
+def _is_dead_test(test):
+    """`if False:` / `if 0:` / `if None:` — a branch that can never run."""
+    return isinstance(test, ast.Constant) and not test.value
 
 
 def _is_selftest_def(node):
@@ -207,45 +221,102 @@ def _is_selftest_def(node):
             and re.match(r"_*(selftest|self_test)", node.name) is not None)
 
 
-def executable_calls(src, what, skip_selftest=False):
+def executable_calls(src, what, skip_selftest=False, entry_only=False):
     """The set of names CALLED by executable code in `src` — `f(...)` and `mod.f(...)` both yield
     `f`. Parsed with `ast`, so a name inside a comment, string or docstring is never a call and a
-    `def f(` line is never a call to `f`. With skip_selftest, code that only runs in a self-test is
-    ignored: the BODY of an `if <x> == "selftest":` / `if __name__ == "__main__":` block (its
-    `else:` branch is kept) and any function named `_selftest*`. A source that does not parse
-    raises ValueError naming `what`, so the guard fails loudly instead of passing on nothing."""
+    `def f(` line is never a call to `f`. A constant-false branch (`if False:`) is never executed
+    and is ignored. With skip_selftest, code that only runs in a self-test is ignored: the
+    self-test side of an `if <x> == / != "selftest":` or `__name__ == / != "__main__"` block and
+    any function named `_selftest*`. With entry_only, a call inside a function body counts only
+    if that function is itself called — transitively — from the script's top-level code, so a
+    detector call parked in a helper nobody invokes is not mistaken for a live one. A source that
+    does not parse raises ValueError naming `what`, so the guard fails loudly instead of passing
+    on nothing."""
     try:
         tree = ast.parse(src)
     except SyntaxError as e:
         raise ValueError(f"{what}: does not parse as Python ({e.msg}, line {e.lineno}) — refusing "
                          "to judge call-site parity on unparseable source.")
-    names = set()
+    top = set()          # calls made outside any function body
+    in_func = {}         # function name -> calls made inside its body (same-named defs merged)
 
-    def visit(node):
+    def visit(node, bucket):
         if skip_selftest and _is_selftest_def(node):
             return
-        if skip_selftest and isinstance(node, ast.If) and _is_selftest_test(node.test):
-            for child in node.orelse:
-                visit(child)
+        if isinstance(node, ast.If):
+            if _is_dead_test(node.test):
+                for child in node.orelse:
+                    visit(child, bucket)
+                return
+            guard = _selftest_guard(node.test) if skip_selftest else None
+            if guard:
+                for child in (node.orelse if guard == "eq" else node.body):
+                    visit(child, bucket)
+                return
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            # decorators and default values run at definition time, in the enclosing scope
+            for child in node.decorator_list + node.args.defaults + [d for d in node.args.kw_defaults if d]:
+                visit(child, bucket)
+            inner = in_func.setdefault(node.name, set())
+            for child in node.body:
+                visit(child, inner)
             return
         if isinstance(node, ast.Call):
             f = node.func
             if isinstance(f, ast.Name):
-                names.add(f.id)
+                bucket.add(f.id)
             elif isinstance(f, ast.Attribute):
-                names.add(f.attr)
+                bucket.add(f.attr)
         for child in ast.iter_child_nodes(node):
-            visit(child)
+            visit(child, bucket)
 
-    visit(tree)
-    return names
+    visit(tree, top)
+    if not entry_only:
+        return top.union(*in_func.values()) if in_func else set(top)
+    reached, frontier = set(top), [n for n in in_func if n in top]
+    seen = set()
+    while frontier:
+        fn = frontier.pop()
+        if fn in seen:
+            continue
+        seen.add(fn)
+        reached |= in_func[fn]
+        frontier.extend(n for n in in_func if n in in_func[fn] and n not in seen)
+    return reached
+
+
+def wrapper_delegates(eval_src, name, modbase):
+    """True iff eval.py's own `def name(...)` is a thin wrapper that CALLS the shared `name`
+    imported from its defining module (under any alias). A same-named eval.py function that does
+    not delegate is a second, divergent implementation: the grader would run one body and the live
+    gate another while name-based parity reported both as wired."""
+    modname = os.path.basename(modbase)
+    modname = modname[:-3] if modname.endswith(".py") else modname
+    tree = ast.parse(eval_src)
+    local = {a.asname or a.name for n in ast.walk(tree) if isinstance(n, ast.ImportFrom)
+             and n.module and n.module.split(".")[-1] == modname
+             for a in n.names if a.name == name}
+    local.discard(name)  # the inline def shadows an un-aliased import, so that is not delegation
+    for n in ast.walk(tree):
+        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == name:
+            if any(isinstance(c, ast.Call) and isinstance(c.func, ast.Name) and c.func.id in local
+                   for c in ast.walk(n)):
+                return True
+    return False
+
+
+def stale_live_calls(live_calls, detectors):
+    """`eval_*` names the live gate calls that no shared module defines — a detector renamed or
+    removed while its full.md call stayed behind. The heredoc would die on a NameError /
+    AttributeError at publish time instead of enforcing anything."""
+    return sorted(n for n in live_calls if n.startswith("eval_") and n not in detectors)
 
 
 def gate_calls(blocks):
     """Names called across the 10B finish-gate heredocs, each parsed as its own script."""
     names = set()
     for k, block in enumerate(blocks, 1):
-        names |= executable_calls(block, f"full.md 10B heredoc #{k}")
+        names |= executable_calls(block, f"full.md 10B heredoc #{k}", entry_only=True)
     return names
 
 
@@ -294,11 +365,12 @@ def module_scanned_by_eval(name, modbase, eval_src, scripts_dir=SCRIPTS):
     module but never invoked by it (or invoked only by the module's `_selftest`) is NOT counted
     grader-reachable, so it cannot silently evade Invariant 2. The import is matched with a
     whitespace-tolerant regex (not a fixed-spacing substring)."""
-    modname = modbase[:-3] if modbase.endswith(".py") else modbase
+    modname = os.path.basename(modbase)
+    modname = modname[:-3] if modname.endswith(".py") else modname
     with open(os.path.join(scripts_dir, modbase), encoding="utf-8") as f:
         mtext = f.read()
     has_scan = "def scan_committed(" in mtext
-    imported = re.search(r"from\s+" + re.escape(modname) + r"\s+import\b", eval_src) is not None
+    imported = re.search(r"from\s+(?:[\w.]+\.)?" + re.escape(modname) + r"\s+import\b", eval_src) is not None
     if not (has_scan and imported):
         return False
     # executable, non-selftest call inside the module (a call only in `_selftest` grades nothing)
@@ -428,6 +500,22 @@ def selfcheck():
         raise AssertionError("unparseable source did not raise")
     except ValueError:
         pass
+    # the comparison OPERATOR decides which side is self-test code
+    ne = 'if scope != "selftest":\n    eval_prod(1)\nelse:\n    eval_st(1)\n'
+    got_ne = executable_calls(ne, "selfcheck", skip_selftest=True)
+    assert "eval_prod" in got_ne and "eval_st" not in got_ne, f"`!= selftest` guard misread: {got_ne}"
+    # entry_only: a call in an uncalled helper or under `if False:` is not live; a call in a helper
+    # reached (transitively) from top-level code is.
+    blk = ('def unused():\n    eval_parked(1)\ndef inner():\n    eval_deep(1)\n'
+           'def outer():\n    inner()\nif False:\n    eval_dead(1)\nouter()\neval_top(1)\n')
+    got_e = executable_calls(blk, "selfcheck", entry_only=True)
+    assert got_e >= {"eval_top", "eval_deep"} and not (got_e & {"eval_parked", "eval_dead"}), f"entry reachability wrong: {got_e}"
+    # a live call to a detector nobody defines is stale wiring
+    assert stale_live_calls({"eval_gone", "eval_here", "print"}, {"eval_here": "m.py"}) == ["eval_gone"], "stale live call missed"
+    # a same-named eval.py def must delegate to the shared one
+    w_ok = "from m import eval_w as _w\ndef eval_w(x):\n    return _w(x)\n"
+    w_bad = "from m import eval_w as _w\ndef eval_w(x):\n    return []\n"
+    assert wrapper_delegates(w_ok, "eval_w", "m.py") and not wrapper_delegates(w_bad, "eval_w", "m.py"), "wrapper delegation check wrong"
     # a `## ` header after the gate closes the 10B section (steps 10C / 11 / 12 are not the gate)
     md_after = md_10b + "## 12. Commit\n```bash\npython3 - <<'PY'\ny = eval_probe_y(d)\nPY\n```\n"
     blocks_after, _sec = extract_gate_blocks(md_after)
@@ -548,6 +636,13 @@ def main():
     issues, n_live = evaluate(detectors, graded, in_gate)
     inline_defs = inline_eval_defs(eval_src)
     issues += evaluate_inline(inline_defs, set(detectors), section_text)
+    for name in stale_live_calls(live_calls, detectors):
+        issues.append((name, "inv3", "is called by the live finish gate but no shared module under "
+                       "scripts/ defines it (renamed or removed?) — the gate block would crash instead of enforcing it"))
+    for name in inline_defs:
+        if name in detectors and not wrapper_delegates(eval_src, name, detectors[name]):
+            issues.append((name, "inv3", "is defined BOTH inline in eval.py and in a shared module, and the "
+                           "eval.py definition does not delegate to the shared one — two implementations under one name"))
     for name, code, detail in issues:
         bad += 1
         where = f" [defined in {detectors[name]}]" if name in detectors else ""
