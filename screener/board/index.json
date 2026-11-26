@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T02:26:42Z",
+  "generated_at": "2026-11-26T02:36:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1171,6 +1171,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-352",
+      "headline": "Power Grid To Mull Rs 45,000 Crore Borrowing And $600 Million Term Loan On November 30",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/power-grid-to-mull-rs-45-000-crore-borrowing-and-600-million-term-loan-on-november-30-12378144#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T01:46:08Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Power Grid is planning to raise approximately Rs 45,000 crore in debt and a $600 million term loan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Power Grid is planning to raise approximately Rs 45,000 crore in debt and a $600 million term loan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Power Grid Corporation of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-295",
       "headline": "Samsung Display invests 210 mln euros in ams OSRAM, becomes largest shareholder",
       "headline_en": null,
@@ -1473,6 +1522,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-340",
+      "headline": "Braskem S.A. Responds to CVM Regarding Extrajudicial Reorganization and Debt Restructuring Negotiations",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/braskem-sa-responds-cvm-regarding-extrajudicial-reorganization-and-debt-restructuring",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T01:29:30Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Braskem is responding to Brazilian securities regulator regarding extrajudicial reorganization and debt restructuring negotiations, an event indicating potential financial distress affecting capital structure, leverage, and solvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Braskem is responding to Brazilian securities regulator regarding extrajudicial reorganization and debt restructuring negotiations, an event indicating potential financial distress affecting capital structure, leverage, and solvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Braskem S.A.",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-216",
       "headline": "FCC clears SpaceX to put up to a million satellites in orbit for Starmind data center network",
       "headline_en": null,
@@ -1769,6 +1867,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-362",
+      "headline": "Mizuho extends global banking push to India with Avendus deal",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/26/companies/mizuho-avendus-deal-banking-india/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T02:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Mizuho is expanding its global footprint by acquiring a stake in Avendus Capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Mizuho is expanding its global footprint by acquiring a stake in Avendus Capital.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mizuho Financial Group",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Avendus Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-231",
       "headline": "US approves SpaceX plan to send a million data satellites to space",
       "headline_en": null,
@@ -1813,153 +1965,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-047",
-      "headline": "Financier Todd Boehly strikes deal for Lukoil assets",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/643dc287-d112-4715-bdf1-aa49b98a4af7?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T23:18:32Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Todd Boehly strikes deal for Lukoil assets; named M&A with confirmed acquirer and target affects capital structure and cash flow, though deal size and strategic intent remain unspecified and sanctions environment is sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Todd Boehly strikes deal for Lukoil assets; named M&A with confirmed acquirer and target affects capital structure and cash flow, though deal size and strategic intent remain unspecified and sanctions environment is sensitive.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lukoil",
-          "ticker": "LKOH",
-          "listing_country": "RU"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-019",
-      "headline": "i-80 Gold Announces the Start of Production Mining at Archimedes Underground",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/i-80-gold-announces-start-production-mining-archimedes-underground",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:18:48Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "i-80 Gold announces commencement of production mining at Archimedes Underground, moving from development phase to revenue-generation and capex inflection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "i-80 Gold announces commencement of production mining at Archimedes Underground, moving from development phase to revenue-generation and capex inflection.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "i-80 Gold",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-024",
-      "headline": "Deere’s Outlook Misses as Modest Farm Rebound Seen in 2027",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/deere-s-outlook-falls-short-in-cautious-stance-for-next-year",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:13:56Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "John Deere's forward outlook misses expectations and signals only modest farm-sector recovery in 2027, moving earnings guidance lower.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "John Deere's forward outlook misses expectations and signals only modest farm-sector recovery in 2027, moving earnings guidance lower.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "John Deere",
-          "ticker": "DE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262157,77 +262162,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2266b0de6b60",
-      "idea_version": "IDEAV-1662b922c5ff508a",
-      "idea_version_started_at": "2026-11-25T02:11:57Z",
-      "ticker": "08232",
-      "company": "THAC GROUP",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is proposing a highly dilutive non-underwritten rights issue of three shares for every one held, which significantly pressures existing shareholder equity.",
-      "why_now": "The filing was released on 2026-11-24.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-36a612397776"
-      ],
-      "primary_source_event_id": "EVT-36a612397776",
-      "source_headlines": [
-        "THAC GROUP (08232): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; AND (2) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS"
-      ],
-      "source_headline": "THAC GROUP (08232): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; AND (2) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1124/2026112401561.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T14:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:11:57Z",
-      "updated_at": "2026-11-25T02:11:57Z",
-      "decay_at": "2026-11-26T02:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-59d2359744d8",
       "idea_version": "IDEAV-a69d04588b2cf134",
       "idea_version_started_at": "2026-11-25T02:11:57Z",
@@ -262293,77 +262227,6 @@
       "surfaced_at": "2026-11-25T02:11:57Z",
       "updated_at": "2026-11-25T02:11:57Z",
       "decay_at": "2026-11-26T02:52:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-771f11b60046",
-      "idea_version": "IDEAV-126ae6a9c684a91d",
-      "idea_version_started_at": "2026-11-25T02:11:57Z",
-      "ticker": "06182",
-      "company": "TWINTEK",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
-      "why_now": "The filing was released on 2026-11-24.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-52f37770dae1"
-      ],
-      "primary_source_event_id": "EVT-52f37770dae1",
-      "source_headlines": [
-        "TWINTEK (06182): PROFIT WARNING"
-      ],
-      "source_headline": "TWINTEK (06182): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401565.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T14:33:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:11:57Z",
-      "updated_at": "2026-11-25T02:11:57Z",
-      "decay_at": "2026-11-26T02:33:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263084,6 +262947,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2266b0de6b60",
+      "idea_version": "IDEAV-1662b922c5ff508a",
+      "idea_version_started_at": "2026-11-25T02:11:57Z",
+      "ticker": "08232",
+      "company": "THAC GROUP",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is proposing a highly dilutive non-underwritten rights issue of three shares for every one held, which significantly pressures existing shareholder equity.",
+      "why_now": "The filing was released on 2026-11-24.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-36a612397776"
+      ],
+      "primary_source_event_id": "EVT-36a612397776",
+      "source_headlines": [
+        "THAC GROUP (08232): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; AND (2) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS"
+      ],
+      "source_headline": "THAC GROUP (08232): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; AND (2) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1124/2026112401561.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T14:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T02:11:57Z",
+      "updated_at": "2026-11-25T02:11:57Z",
+      "decay_at": "2026-11-26T02:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3fad66433b2e",
       "idea_version": "IDEAV-b14360353c2db98d",
       "idea_version_started_at": "2026-11-25T02:11:57Z",
@@ -263149,6 +263083,77 @@
       "surfaced_at": "2026-11-25T02:11:57Z",
       "updated_at": "2026-11-25T02:11:57Z",
       "decay_at": "2026-11-26T02:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-771f11b60046",
+      "idea_version": "IDEAV-126ae6a9c684a91d",
+      "idea_version_started_at": "2026-11-25T02:11:57Z",
+      "ticker": "06182",
+      "company": "TWINTEK",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
+      "why_now": "The filing was released on 2026-11-24.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-52f37770dae1"
+      ],
+      "primary_source_event_id": "EVT-52f37770dae1",
+      "source_headlines": [
+        "TWINTEK (06182): PROFIT WARNING"
+      ],
+      "source_headline": "TWINTEK (06182): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401565.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T14:33:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T02:11:57Z",
+      "updated_at": "2026-11-25T02:11:57Z",
+      "decay_at": "2026-11-26T02:33:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264962,9 +264967,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 265,
@@ -264972,9 +264977,9 @@
         "hidden_count": 15
       },
       "short": {
-        "total_count": 271,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -264993,6 +264998,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-771f11b60046",
+        "idea_version": "IDEAV-126ae6a9c684a91d",
+        "idea_version_started_at": "2026-11-25T02:11:57Z",
+        "ticker": "06182",
+        "company": "TWINTEK",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
+        "why_now": "The filing was released on 2026-11-24.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-52f37770dae1"
+        ],
+        "primary_source_event_id": "EVT-52f37770dae1",
+        "source_headlines": [
+          "TWINTEK (06182): PROFIT WARNING"
+        ],
+        "source_headline": "TWINTEK (06182): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401565.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T14:33:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T02:11:57Z",
+        "updated_at": "2026-11-25T02:11:57Z",
+        "decay_at": "2026-11-26T02:33:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T02:33:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2266b0de6b60",
+        "idea_version": "IDEAV-1662b922c5ff508a",
+        "idea_version_started_at": "2026-11-25T02:11:57Z",
+        "ticker": "08232",
+        "company": "THAC GROUP",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is proposing a highly dilutive non-underwritten rights issue of three shares for every one held, which significantly pressures existing shareholder equity.",
+        "why_now": "The filing was released on 2026-11-24.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-36a612397776"
+        ],
+        "primary_source_event_id": "EVT-36a612397776",
+        "source_headlines": [
+          "THAC GROUP (08232): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; AND (2) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS"
+        ],
+        "source_headline": "THAC GROUP (08232): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; AND (2) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1124/2026112401561.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T14:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T02:11:57Z",
+        "updated_at": "2026-11-25T02:11:57Z",
+        "decay_at": "2026-11-26T02:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T02:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3fad66433b2e",
         "idea_version": "IDEAV-b14360353c2db98d",
@@ -301956,158 +302109,12 @@
         "archived_at": "2026-11-04T03:58:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0f3b55677926",
-        "idea_version": "IDEAV-9f19e3bcb244102a",
-        "idea_version_started_at": "2026-11-01T02:15:36Z",
-        "ticker": "LI",
-        "company": "Li Auto",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Li Auto's October delivery figures dropped to 29,025, marking the lowest volume since February and indicating a significant loss of momentum compared to peers.",
-        "why_now": "The delivery data was released on November 1, 2026, highlighting a sharp deceleration in sales.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-963b9af963e8"
-        ],
-        "primary_source_event_id": "EVT-963b9af963e8",
-        "source_headlines": [
-          "Li Auto's October deliveries fall to 29,025, lowest since February"
-        ],
-        "source_headline": "Li Auto's October deliveries fall to 29,025, lowest since February",
-        "source_url": "https://cnevpost.com/2026/11/01/li-auto-oct-2026-deliveries/",
-        "source_name": "CnEVPost",
-        "materiality_max": 93,
-        "newest_source_at": "2026-11-01T02:14:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T02:15:36Z",
-        "updated_at": "2026-11-01T02:15:36Z",
-        "decay_at": "2026-11-02T14:14:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T03:39:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-35072f3bcc46",
-        "idea_version": "IDEAV-d2a912e59be6f7b4",
-        "idea_version_started_at": "2026-11-01T03:42:18Z",
-        "ticker": "9449.T",
-        "company": "GMO Internet Group",
-        "exchange": "Tokyo Stock Exchange",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "GMO Internet Group's CEO is holding a news conference regarding a cyberattack, suggesting potential operational disruptions and financial impacts from the security breach.",
-        "why_now": "The news conference is scheduled for Monday, November 2, 2026, indicating an immediate need for information and potential market reaction.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0d0a64b6b5c2"
-        ],
-        "primary_source_event_id": "EVT-0d0a64b6b5c2",
-        "source_headlines": [
-          "GMO’s CEO Kumagai to hold news conference Monday on cyberattack"
-        ],
-        "source_headline": "GMO’s CEO Kumagai to hold news conference Monday on cyberattack",
-        "source_url": "https://www.japantimes.co.jp/news/2026/11/01/japan/gmo-ceo-kumagai-cyberattack-presser/",
-        "source_name": "The Japan Times",
-        "materiality_max": 85,
-        "newest_source_at": "2026-11-01T01:34:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T03:42:18Z",
-        "updated_at": "2026-11-01T03:42:18Z",
-        "decay_at": "2026-11-02T13:34:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T01:34:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2673,
-    "live_count": 14,
+    "live_count": 12,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302126,9 +302133,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 191809,
-    "news_picked_today": 424,
-    "news_dropped_today": 1400
+    "news_seen_today": 197348,
+    "news_picked_today": 453,
+    "news_dropped_today": 1539
   },
   "book_momentum": {
     "live_count": 8,
