@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T04:03:13Z",
+  "generated_at": "2026-11-26T04:06:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1085,6 +1085,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-465",
+      "headline": "Huawei Found Guilty of US Charges in Landmark Case",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-25/huawei-found-guilty-of-us-charges-in-landmark-case-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T02:38:46Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Major legal conviction for a large technology firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Major legal conviction for a large technology firm.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huawei",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-046",
       "headline": "GPIXEL (03277): INSIDE INFORMATION LATEST BUSINESS PERFORMANCE FOR THE FIRST TEN MONTHS OF 2026",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-352",
-      "headline": "Power Grid To Mull Rs 45,000 Crore Borrowing And $600 Million Term Loan On November 30",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/power-grid-to-mull-rs-45-000-crore-borrowing-and-600-million-term-loan-on-november-30-12378144#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T01:46:08Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Power Grid is planning to raise approximately Rs 45,000 crore in debt and a $600 million term loan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Power Grid is planning to raise approximately Rs 45,000 crore in debt and a $600 million term loan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Power Grid Corporation of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302121,9 +302121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 301228,
-    "news_picked_today": 733,
-    "news_dropped_today": 2339
+    "news_seen_today": 305692,
+    "news_picked_today": 744,
+    "news_dropped_today": 2352
   },
   "book_momentum": {
     "live_count": 8,
