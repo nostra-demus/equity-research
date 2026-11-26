@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T09:43:55Z",
+  "generated_at": "2026-11-26T09:46:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-647",
@@ -92,6 +92,55 @@
           "name": "Green Economy",
           "ticker": "01315",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-659",
+      "headline": "Suspension of Trading in Debentures of SI CREVA CAPITAL SERVICES PRIVATE LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261126-6/20261126-6.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T09:12:37Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "The suspension of trading in debentures indicates potential liquidity or credit distress for the issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The suspension of trading in debentures indicates potential liquidity or credit distress for the issuer.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SI CREVA CAPITAL SERVICES PRIVATE LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-488",
-      "headline": "S-Oil completes 9 tln-won project to build petrochemical facilities in Ulsan",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261125003200320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T01:45:23Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "S-Oil completed a 9 trillion won petrochemical facility project, a major capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "S-Oil completed a 9 trillion won petrochemical facility project, a major capacity expansion.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "S-Oil",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301127,9 +301127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 613322,
-    "news_picked_today": 1254,
-    "news_dropped_today": 8970
+    "news_seen_today": 618495,
+    "news_picked_today": 1260,
+    "news_dropped_today": 9012
   },
   "book_momentum": {
     "live_count": 8,
