@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T03:27:50Z",
+  "generated_at": "2026-11-26T03:33:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -43,6 +43,55 @@
           "name": "OTP Bank",
           "ticker": "40506",
           "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-438",
+      "headline": "Air India chief seeks to cut $838 million in costs in 2026",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/air-india-chief-seeks-to-cut-838-million-in-costs-in-2026",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T02:50:38Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Air India is targeting a specific cost reduction of $838 million, which is a material impact on its financial structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Air India is targeting a specific cost reduction of $838 million, which is a material impact on its financial structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1324,6 +1373,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-437",
+      "headline": "US proposes surprise new tariffs on Brazil, Brasilia calls move ‘unacceptable’",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/us-proposes-surprise-new-tariffs-on-brazil-brasilia-calls-move-unacceptable-20013476.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T02:37:51Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "New surprise tariffs on Brazil represent a significant trade policy shift and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "New surprise tariffs on Brazil represent a significant trade policy shift and geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-076",
       "headline": "PepsiCo India To Invest ₹868 Crore In Tamil Nadu Food Manufacturing Plant",
       "headline_en": null,
@@ -1865,104 +1957,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-298",
-      "headline": "Musk appeals $2.6B Twitter fraud verdict: Report",
-      "headline_en": null,
-      "url": "https://thehill.com/regulation/court-battles/6244265-musk-appeals-twitter-fraud-verdict-report/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T01:31:35Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Musk is appealing a $2.6 billion fraud verdict, representing a significant potential liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Musk is appealing a $2.6 billion fraud verdict, representing a significant potential liability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "X Corp (Twitter)",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-339",
-      "headline": "Roche's breast cancer drug gets two USFDA approvals in a week; sales potential at $14 billion",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/roche-breast-cancer-drug-wilserdly-usfda-approvals-usd-14-billion-sales-potential-20040959.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T07:05:52Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Roche received two USFDA approvals for a breast cancer drug with a stated sales potential of $14 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Roche received two USFDA approvals for a breast cancer drug with a stated sales potential of $14 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roche",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302129,9 +302123,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 258762,
-    "news_picked_today": 620,
-    "news_dropped_today": 1996
+    "news_seen_today": 273513,
+    "news_picked_today": 644,
+    "news_dropped_today": 2044
   },
   "book_momentum": {
     "live_count": 8,
