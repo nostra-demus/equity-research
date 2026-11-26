@@ -121,7 +121,7 @@ GATE_ONLY_OK = {}
 
 # ── Invariant 3 registry: every `eval_*` check defined INLINE in eval.py, classified. ────────────
 # kind "live":  (kind, marker_regex, note) — the 10B gate's EXECUTABLE text must still match
-#   marker_regex. That text is each heredoc re-rendered from its AST (so comments are gone and a
+#   marker_regex. That text is each heredoc re-rendered from its AST with string literals emptied (so comments and message text are gone and a
 #   marker can only match real code) plus the shell command lines of the 10B section. A marker is
 #   therefore written against the check's own condition, not against the comment describing it.
 # kind "retrospective": (kind, None, reason) — not enforced by the pre-publish gate; say why.
@@ -129,7 +129,7 @@ GATE_ONLY_OK = {}
 # empty note, or a `live` marker that no longer matches the 10B section each FAIL the guard.
 INLINE_EVAL = {
     "eval_x_verify_floor": (
-        "live", r"verdict not in \(['\"]Clean['\"], ['\"]Minor issues['\"]\)",
+        "live", r"if verdict not in \(",
         "10B.2 stamps PROVISIONAL on any verify-evidence verdict outside Clean / Minor issues "
         "(hand-written, and stricter than check X: it applies to every run, not only conviction baskets)."),
     "eval_y_data_sufficiency": (
@@ -167,7 +167,7 @@ INLINE_EVAL = {
         "(same remedy as eval_t_probability)."),
 }
 
-_DEF_RE = re.compile(r"^def (eval_[A-Za-z0-9_]+)\s*\(", re.M)
+_DEF_RE = re.compile(r"^(?:async[ \t]+)?def[ \t]+(eval_[A-Za-z0-9_]+)\s*\(", re.M)
 
 
 def discover_detectors(scripts_dir=SCRIPTS):
@@ -532,6 +532,18 @@ def selfcheck():
     assert re.search(r"ds < 30", extract_gate_blocks(md_code)[1]), "executable marker not found"
     assert "python3 - <<'PY'" in sec_cmt, "shell command lines missing from the gate's executable text"
 
+    # ...nor is one that survives only inside a STRING literal or f-string
+    md_str = md_cmt.replace("x = 1", "x = 'if ds < 30'; y = f'ds < 30 {x}'")
+    assert re.search(r"ds < 30", extract_gate_blocks(md_str)[1]) is None, "string-literal text leaked into the gate's executable text"
+    # a detector call must resolve to an import of its defining module in the same heredoc
+    dm = {"eval_q": "qmod.py"}
+    assert unresolved_live_calls(["import qmod as q\nq.eval_q(1)\n", "from qmod import eval_q\neval_q(1)\n"], dm) == [], "resolved calls flagged"
+    assert [n for n, _ in unresolved_live_calls(["q.eval_q(1)\n"], dm)] == ["eval_q"], "call with a missing module import not flagged"
+    assert [n for n, _ in unresolved_live_calls(["import other as q\nq.eval_q(1)\n"], dm)] == ["eval_q"], "call through the wrong module not flagged"
+    assert [n for n, _ in unresolved_live_calls(["eval_q(1)\n"], dm)] == ["eval_q"], "bare call with no import not flagged"
+    # async shared detectors are discovered like sync ones
+    assert _DEF_RE.findall("async def eval_async(x):\n    return []\n") == ["eval_async"], "async detector not discovered"
+
     # Invariant 3: unclassified inline check, stale entry, vanished live marker, missing reason.
     reg = {"eval_a": ("live", r"mirrors check A", "n"), "eval_b": ("retrospective", None, "why")}
     assert evaluate_inline(["eval_a", "eval_b", "eval_shared"], {"eval_shared"}, "# mirrors check A", reg) == [], "inv3 clean world leaked"
@@ -542,6 +554,51 @@ def selfcheck():
     print("  [ok] selfcheck: parity predicate, allowlist hygiene, 10B-only extraction, strict "
           "terminator, executable-call detection, selftest exclusion, scan_committed reach-check and "
           "inline classification each pass a clean world and fail a broken one")
+
+
+class _Blank(ast.NodeTransformer):
+    """Empty every string literal and f-string, so re-rendered code carries structure only: a
+    marker can then match a real condition but never text parked in a message or docstring."""
+    def visit_Constant(self, node):
+        return ast.copy_location(ast.Constant(value=""), node) if isinstance(node.value, (str, bytes)) else node
+
+    def visit_JoinedStr(self, node):
+        return ast.copy_location(ast.Constant(value=""), node)
+
+
+def unresolved_live_calls(blocks, detectors):
+    """Detector calls in the gate whose receiver does not resolve, in the SAME heredoc, to an import
+    of the detector's defining module: `rc.eval_x(...)` needs `import <module> as rc` (or `import
+    <module>`), a bare `eval_x(...)` needs `from <module> import eval_x`. A call that outlives its
+    import raises NameError at publish time instead of enforcing anything. Returns [(name, why)]."""
+    out = []
+    for k, block in enumerate(blocks, 1):
+        tree = ast.parse(block)
+        mod_alias, from_name = {}, {}
+        for n in ast.walk(tree):
+            if isinstance(n, ast.Import):
+                for a in n.names:
+                    mod_alias[a.asname or a.name.split(".")[0]] = a.name.split(".")[-1]
+            elif isinstance(n, ast.ImportFrom) and n.module:
+                for a in n.names:
+                    from_name[a.asname or a.name] = (n.module.split(".")[-1], a.name)
+        for n in ast.walk(tree):
+            if not isinstance(n, ast.Call):
+                continue
+            f = n.func
+            if isinstance(f, ast.Attribute) and f.attr in detectors:
+                want = os.path.basename(detectors[f.attr])[:-3]
+                recv = f.value.id if isinstance(f.value, ast.Name) else None
+                if mod_alias.get(recv) != want:
+                    out.append((f.attr, f"heredoc #{k} calls it as `{recv}.{f.attr}(...)` but `{recv}` is not an import of {want} in that block"))
+            elif isinstance(f, ast.Name) and f.id in from_name and from_name[f.id][1] in detectors:
+                mod, real = from_name[f.id]
+                want = os.path.basename(detectors[real])[:-3]
+                if mod != want:
+                    out.append((real, f"heredoc #{k} imports it from {mod}, but it is defined in {want}"))
+            elif isinstance(f, ast.Name) and f.id in detectors:
+                out.append((f.id, f"heredoc #{k} calls it bare but never imports it from its defining module"))
+    return out
 
 
 def extract_gate_blocks(md_text):
@@ -600,7 +657,7 @@ def extract_gate_blocks(md_text):
     code = []
     for k, block in enumerate(blocks, 1):
         try:
-            code.append(ast.unparse(ast.parse(block)))   # comments dropped: executable text only
+            code.append(ast.unparse(_Blank().visit(ast.parse(block))))   # code structure only
         except SyntaxError as e:
             raise ValueError(f"full.md 10B heredoc #{k}: does not parse as Python ({e.msg}, line "
                              f"{e.lineno}) — refusing to judge the live gate on unparseable source.")
@@ -660,6 +717,8 @@ def main():
     for name in stale_live_calls(live_calls, detectors):
         issues.append((name, "inv3", "is called by the live finish gate but no shared module under "
                        "scripts/ defines it (renamed or removed?) — the gate block would crash instead of enforcing it"))
+    for name, why in unresolved_live_calls(blocks, detectors):
+        issues.append((name, "inv3", why))
     for name in inline_defs:
         if name in detectors and not wrapper_delegates(eval_src, name, detectors[name]):
             issues.append((name, "inv3", "is defined BOTH inline in eval.py and in a shared module, and the "
