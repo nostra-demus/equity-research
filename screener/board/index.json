@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T00:39:51Z",
+  "generated_at": "2026-11-26T00:45:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -95,6 +95,105 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-105",
+      "headline": "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/25/norse-atlantic-financial-warning-fuel-costs.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T10:18:03Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Norse Atlantic officially warns finances are 'critical' amid soaring fuel costs; stock falls 81%, signaling going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic officially warns finances are 'critical' amid soaring fuel costs; stock falls 81%, signaling going-concern risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-107",
+      "headline": "Stock Crash: Norwegian budget carrier plunges 86% after warning finances are 'critical'",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/norse-atlantic-share-price-86-percent-crash-in-single-session-high-fuel-costs-weak-financials-20040814.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T10:15:05Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Norwegian budget carrier stock crashes 86% after explicit warning that company finances are 'critical', signaling severe financial distress and potential going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norwegian budget carrier stock crashes 86% after explicit warning that company finances are 'critical', signaling severe financial distress and potential going-concern risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norwegian Air Shuttle",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1086,6 +1185,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-109",
+      "headline": "Seat At The Table, Not A Slice Of The Pie: Inside The Rs 1.9 Lakh Crore TVS Family Feud",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/seat-at-the-table-not-a-slice-of-the-pie-inside-the-rs-1-9-lakh-crore-tvs-family-feud-12375059#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T10:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Family feud over ₹1.9 lakh crore TVS Group raises governance and capital-allocation uncertainty at major Indian auto and diversified conglomerate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Family feud over ₹1.9 lakh crore TVS Group raises governance and capital-allocation uncertainty at major Indian auto and diversified conglomerate.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TVS",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-009",
       "headline": "Deere And Co Q4 Profit Falls",
       "headline_en": null,
@@ -1824,158 +1972,6 @@
           "name": "BP",
           "ticker": "BP.L",
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-091",
-      "headline": "Wipro to take over UK-based BP's finance operations, 3,000 employees to move under deal",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/wipro-share-price-to-take-over-uk-based-bps-finance-operations-3000-employees-to-move-under-deal-20041206.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:43:34Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Wipro wins outsourcing contract to manage BP's finance operations with 3,000-employee transfer; a confirmed commercial win with defined scope.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Wipro wins outsourcing contract to manage BP's finance operations with 3,000-employee transfer; a confirmed commercial win with defined scope.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wipro",
-          "ticker": "WIT",
-          "listing_country": "IN"
-        },
-        {
-          "name": "BP",
-          "ticker": "BP",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-074",
-      "headline": "Who is behind China's $270 million AI server network? Fresh Alice Huang links emerge after US blacklists Megaspeed",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/who-is-behind-chinas-270-million-ai-server-network-fresh-alice-huang-links-emerge-after-us-blacklists-megaspeed-11795601361199.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:56:03Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Fresh links emerge between Alice Huang and a $270 million Chinese AI server network following US blacklisting of Megaspeed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Fresh links emerge between Alice Huang and a $270 million Chinese AI server network following US blacklisting of Megaspeed.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Megaspeed",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-062",
-      "headline": "Dangote Refinery Set to Become Africa’s Most Valuable Listed Company",
-      "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/Dangote-Refinery-Set-to-Become-Africas-Most-Valuable-Listed-Company.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Dangote Refinery is positioned to become Africa's most valuable listed company, signaling significant scale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Dangote Refinery is positioned to become Africa's most valuable listed company, signaling significant scale.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dangote Refinery",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -302145,9 +302141,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51501,
-    "news_picked_today": 110,
-    "news_dropped_today": 370
+    "news_seen_today": 57721,
+    "news_picked_today": 117,
+    "news_dropped_today": 411
   },
   "book_momentum": {
     "live_count": 8,
