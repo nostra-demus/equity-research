@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T16:44:34Z",
+  "generated_at": "2026-11-26T17:04:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -684,6 +684,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-886",
+      "headline": "Trans-Oil Warns of Going-Concern Risk Pending Debt Waiver",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-26/trans-oil-warns-of-going-concern-risk-pending-debt-waiver",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T16:39:29Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Going-concern warning pending debt waiver signals solvency risk and potential default.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Going-concern warning pending debt waiver signals solvency risk and potential default.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trans-Oil",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-438",
-      "headline": "Air India chief seeks to cut $838 million in costs in 2026",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/air-india-chief-seeks-to-cut-838-million-in-costs-in-2026",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T02:50:38Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Air India is targeting a specific cost reduction of $838 million, which is a material impact on its financial structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Air India is targeting a specific cost reduction of $838 million, which is a material impact on its financial structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301124,9 +301124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 920178,
-    "news_picked_today": 1922,
-    "news_dropped_today": 15478
+    "news_seen_today": 926681,
+    "news_picked_today": 1930,
+    "news_dropped_today": 15614
   },
   "book_momentum": {
     "live_count": 8,
