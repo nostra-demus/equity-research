@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T20:38:13Z",
+  "generated_at": "2026-11-26T20:40:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-810",
@@ -261873,6 +261873,151 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0b64a2ce2686",
+      "idea_version": "IDEAV-703204ca9ce7f27a",
+      "idea_version_started_at": "2026-11-26T20:38:38Z",
+      "ticker": "IMB",
+      "company": "Imperial Brands",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Altria is exploring a takeover bid for Imperial Brands, which typically forces a significant premium on the target's share price to secure shareholder approval.",
+      "why_now": "The news of the potential $157 billion tie-up broke on 2026-11-26, creating an immediate arbitrage opportunity.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-16837d6cdb91",
+        "EVT-f8221f20c86d"
+      ],
+      "primary_source_event_id": "EVT-16837d6cdb91",
+      "source_headlines": [
+        "Altria Considers $157 Billion Tobacco Tie-Up With Imperial Brands",
+        "Altria explores takeover bid for Imperial Brands"
+      ],
+      "source_headline": "Altria Considers $157 Billion Tobacco Tie-Up With Imperial Brands",
+      "source_url": "https://www.wsj.com/business/deals/altria-considering-possible-offer-for-imperial-brands-7cef494b?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T13:57:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T20:38:38Z",
+      "updated_at": "2026-11-26T20:38:38Z",
+      "decay_at": "2026-11-28T01:57:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-671ed28cb051",
+      "idea_version": "IDEAV-6ad2742c86d7c890",
+      "idea_version_started_at": "2026-11-26T20:38:38Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "S&P downgraded Jaguar Land Rover (a core subsidiary) to 'BB+' due to weak cash flow and rising debt, which increases the cost of capital and financial risk for the parent company.",
+      "why_now": "The credit rating downgrade was announced on 2026-11-26, and the market has not yet fully adjusted for the increased debt-servicing burden.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5e7664357011"
+      ],
+      "primary_source_event_id": "EVT-5e7664357011",
+      "source_headlines": [
+        "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt"
+      ],
+      "source_headline": "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt",
+      "source_url": "https://www.cnbctv18.com/market/sp-downgrades-tata-motors-owned-jlr-to-bb-on-weaker-cash-flow-flags-rising-debt-20042455.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T16:01:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T20:38:38Z",
+      "updated_at": "2026-11-26T20:38:38Z",
+      "decay_at": "2026-11-28T04:01:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-664fe983637d",
       "idea_version": "IDEAV-4d46c1693d024ec5",
       "idea_version_started_at": "2026-11-26T19:19:48Z",
@@ -301166,8 +301311,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2685,
-    "live_count": 12,
+    "surfaced_total": 2687,
+    "live_count": 14,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
