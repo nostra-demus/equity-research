@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T02:46:05Z",
+  "generated_at": "2026-11-26T02:55:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -633,6 +633,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-373",
+      "headline": "BYD eyes a second European plant, enters talks with Ineos over a French assembly",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/china-evs/article/3375711/byd-eyes-second-european-plant-enters-talks-ineos-over-french-assembly-france",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T06:47:48Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "BYD is in talks to establish a second European plant in France, a major capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BYD is in talks to establish a second European plant in France, a major capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,60 +1961,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-362",
-      "headline": "Mizuho extends global banking push to India with Avendus deal",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/26/companies/mizuho-avendus-deal-banking-india/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T02:06:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Mizuho is expanding its global footprint by acquiring a stake in Avendus Capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Mizuho is expanding its global footprint by acquiring a stake in Avendus Capital.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mizuho Financial Group",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Avendus Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262163,77 +262158,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-59d2359744d8",
-      "idea_version": "IDEAV-a69d04588b2cf134",
-      "idea_version_started_at": "2026-11-25T02:11:57Z",
-      "ticker": "01150",
-      "company": "MILAN STATION",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The combination of share consolidation and a non-underwritten rights issue suggests severe balance sheet distress and heavy dilution for minority shareholders.",
-      "why_now": "The filing was released on 2026-11-24.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dcdbf3f1309c"
-      ],
-      "primary_source_event_id": "EVT-dcdbf3f1309c",
-      "source_headlines": [
-        "MILAN STATION (01150): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED SHARE CONSOLIDATION AND CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; (4) PLACING AGREEMENT UNDER THE COMPENSATORY ARRANGEMENTS; AND (5) NOTICE OF EXTRAORDINARY GENERAL MEETING"
-      ],
-      "source_headline": "MILAN STATION (01150): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED SHARE CONSOLIDATION AND CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; (4) PLACING AGREEMENT UNDER THE COMPENSATORY ARRANGEMENTS; AND (5) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401603.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T14:52:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:11:57Z",
-      "updated_at": "2026-11-25T02:11:57Z",
-      "decay_at": "2026-11-26T02:52:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1daaee67f8a",
       "idea_version": "IDEAV-f27470cf4e2578cc",
       "idea_version_started_at": "2026-11-25T05:25:03Z",
@@ -263084,6 +263008,77 @@
       "surfaced_at": "2026-11-25T02:11:57Z",
       "updated_at": "2026-11-25T02:11:57Z",
       "decay_at": "2026-11-26T02:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-59d2359744d8",
+      "idea_version": "IDEAV-a69d04588b2cf134",
+      "idea_version_started_at": "2026-11-25T02:11:57Z",
+      "ticker": "01150",
+      "company": "MILAN STATION",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The combination of share consolidation and a non-underwritten rights issue suggests severe balance sheet distress and heavy dilution for minority shareholders.",
+      "why_now": "The filing was released on 2026-11-24.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dcdbf3f1309c"
+      ],
+      "primary_source_event_id": "EVT-dcdbf3f1309c",
+      "source_headlines": [
+        "MILAN STATION (01150): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED SHARE CONSOLIDATION AND CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; (4) PLACING AGREEMENT UNDER THE COMPENSATORY ARRANGEMENTS; AND (5) NOTICE OF EXTRAORDINARY GENERAL MEETING"
+      ],
+      "source_headline": "MILAN STATION (01150): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED SHARE CONSOLIDATION AND CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; (4) PLACING AGREEMENT UNDER THE COMPENSATORY ARRANGEMENTS; AND (5) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401603.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T14:52:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T02:11:57Z",
+      "updated_at": "2026-11-25T02:11:57Z",
+      "decay_at": "2026-11-26T02:52:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264968,9 +264963,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 265,
@@ -264978,9 +264973,9 @@
         "hidden_count": 15
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -264999,6 +264994,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-59d2359744d8",
+        "idea_version": "IDEAV-a69d04588b2cf134",
+        "idea_version_started_at": "2026-11-25T02:11:57Z",
+        "ticker": "01150",
+        "company": "MILAN STATION",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The combination of share consolidation and a non-underwritten rights issue suggests severe balance sheet distress and heavy dilution for minority shareholders.",
+        "why_now": "The filing was released on 2026-11-24.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dcdbf3f1309c"
+        ],
+        "primary_source_event_id": "EVT-dcdbf3f1309c",
+        "source_headlines": [
+          "MILAN STATION (01150): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED SHARE CONSOLIDATION AND CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; (4) PLACING AGREEMENT UNDER THE COMPENSATORY ARRANGEMENTS; AND (5) NOTICE OF EXTRAORDINARY GENERAL MEETING"
+        ],
+        "source_headline": "MILAN STATION (01150): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED SHARE CONSOLIDATION AND CHANGE IN BOARD LOT SIZE; (3) PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; (4) PLACING AGREEMENT UNDER THE COMPENSATORY ARRANGEMENTS; AND (5) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401603.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T14:52:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T02:11:57Z",
+        "updated_at": "2026-11-25T02:11:57Z",
+        "decay_at": "2026-11-26T02:52:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T02:52:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-771f11b60046",
         "idea_version": "IDEAV-126ae6a9c684a91d",
@@ -302034,88 +302103,12 @@
         "archived_at": "2026-11-04T04:30:07Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-32b27c260ad7",
-        "idea_version": "IDEAV-3a4893254c2fbf6c",
-        "idea_version_started_at": "2026-11-01T06:01:40Z",
-        "ticker": "SURAJEST",
-        "company": "Suraj Estate Developers",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company reported a 30% decline in Q2 profit, indicating margin compression or slowing project execution.",
-        "why_now": "The Q2 results were released on November 1, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-de7745ef6f51"
-        ],
-        "primary_source_event_id": "EVT-de7745ef6f51",
-        "source_headlines": [
-          "Suraj Estate Developers Q2 results: Profit down 30%"
-        ],
-        "source_headline": "Suraj Estate Developers Q2 results: Profit down 30%",
-        "source_url": "https://www.thehindubusinessline.com/companies/suraj-estate-developers-q2-results-profit-down-30/article71652058.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T03:47:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T06:01:40Z",
-        "updated_at": "2026-11-01T06:01:40Z",
-        "decay_at": "2026-11-02T15:47:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T03:58:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2673,
-    "live_count": 12,
+    "live_count": 11,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302134,9 +302127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 208051,
-    "news_picked_today": 486,
-    "news_dropped_today": 1602
+    "news_seen_today": 213311,
+    "news_picked_today": 531,
+    "news_dropped_today": 1749
   },
   "book_momentum": {
     "live_count": 8,
