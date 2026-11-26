@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T01:15:58Z",
+  "generated_at": "2026-11-26T01:26:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -46,6 +46,105 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-192",
+      "headline": "S&P warns Nvidia's board may be compromised, puts chipmaker's rating on downgrade watch",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/sp-warns-nvidias-board-may-be-compromised-puts-chipmakers-rating-on-downgrade-watch/articleshow/136175537.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T00:48:46Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "S&P placed Nvidia on downgrade watch citing concerns over board governance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "S&P placed Nvidia on downgrade watch citing concerns over board governance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-207",
+      "headline": "Vivakor Signs Definitive Agreement for $40 Million Acquisition of Direct Midstream",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vivakor-signs-definitive-agreement-40-million-acquisition-direct-midstream",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T00:19:32Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Vivakor signed a definitive agreement to acquire Direct Midstream for $40 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vivakor signed a definitive agreement to acquire Direct Midstream for $40 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vivakor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -886,6 +985,100 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-193",
+      "headline": "Federal Court Rules in Favor of CPSC in Landmark E-Commerce Product Safety Case",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2027/Federal-Court-Rules-in-Favor-of-CPSC-in-Landmark-E-Commerce-Product-Safety-Case",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-26T01:17:07Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "A federal court ruling against an e-commerce platform regarding product safety sets a significant legal precedent for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "A federal court ruling against an e-commerce platform regarding product safety sets a significant legal precedent for the sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-195",
+      "headline": "LAEKNA-B (02105): VOLUNTARY ANNOUNCEMENT SUBMISSION OF INVESTIGATIONAL NEW DRUG APPLICATION FOR LAE123 TO THE U.S. FOOD AND DRUG ADMINISTRATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600046.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T00:11:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Laekna submitted an IND application to the FDA for LAE123, a key step in clinical development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Laekna submitted an IND application to the FDA for LAE123, a key step in clinical development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Laekna",
+          "ticker": "02105",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-047",
       "headline": "Financier Todd Boehly strikes deal for Lukoil assets",
       "headline_en": null,
@@ -1224,6 +1417,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-197",
+      "headline": "SNS: Multimillion-dollar Contract with the City of Chicago Signed [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SNS?key=2924-03167096-2A1713148",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-26T00:51:31Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "SNS secured a multimillion-dollar contract with the City of Chicago.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "SNS secured a multimillion-dollar contract with the City of Chicago.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SNS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1726,252 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-109",
-      "headline": "Seat At The Table, Not A Slice Of The Pie: Inside The Rs 1.9 Lakh Crore TVS Family Feud",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/seat-at-the-table-not-a-slice-of-the-pie-inside-the-rs-1-9-lakh-crore-tvs-family-feud-12375059#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Family feud over ₹1.9 lakh crore TVS Group raises governance and capital-allocation uncertainty at major Indian auto and diversified conglomerate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Family feud over ₹1.9 lakh crore TVS Group raises governance and capital-allocation uncertainty at major Indian auto and diversified conglomerate.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TVS",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-119",
-      "headline": "Aareal Bank Nears Commercial Real Estate SRT With 12% Premium",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-25/aareal-bank-nears-commercial-real-estate-srt-with-12-premium",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T10:04:32Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Aareal Bank is nearing a significant commercial real estate risk transfer transaction, which impacts its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Aareal Bank is nearing a significant commercial real estate risk transfer transaction, which impacts its capital structure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aareal Bank",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-175",
-      "headline": "AstraZeneca’s China strategy: fewer sales staff, more investment?",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/companies/article/3375725/astrazenecas-china-strategy-fewer-sales-staff-more-investment",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T09:00:06Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "AstraZeneca is shifting its China strategy by reducing sales headcount while increasing investment, signaling a pivot in operational focus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "AstraZeneca is shifting its China strategy by reducing sales headcount while increasing investment, signaling a pivot in operational focus.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AstraZeneca",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-177",
-      "headline": "Huawei responds to US jury verdict, says it will pursue legal options",
-      "headline_en": null,
-      "url": "https://gulfnews.com/technology/companies/huawei-responds-to-us-jury-verdict-says-it-will-pursue-legal-options-1.500760327",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T08:58:10Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Huawei is pursuing legal options following a US jury verdict, indicating ongoing legal risk and potential financial or operational impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Huawei is pursuing legal options following a US jury verdict, indicating ongoing legal risk and potential financial or operational impact.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-185",
-      "headline": "Google plans 1.2GW data center near Châteauroux, France - report",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/google-planning-12gw-data-center-near-ch%C3%A2teauroux-france-report/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T08:46:00Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Google is planning a significant 1.2GW data center investment in France.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Google is planning a significant 1.2GW data center investment in France.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262240,81 +262236,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-143abf663c2d",
-      "idea_version": "IDEAV-ac3e94a10990e56e",
-      "idea_version_started_at": "2026-11-25T02:11:57Z",
-      "ticker": "01055",
-      "company": "CHINA SOUTHERN AIRLINES",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced a major capital expenditure commitment for aircraft purchases, which will increase debt leverage and capital intensity in a challenging operating environment.",
-      "why_now": "The filing was released on 2026-11-24.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3ebd7ff7cdfd",
-        "EVT-4f95c6b4317e",
-        "EVT-8dcc50b19a37"
-      ],
-      "primary_source_event_id": "EVT-3ebd7ff7cdfd",
-      "source_headlines": [
-        "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
-        "CHINA SOUTH AIR (01055): Major Transaction - Airbus Aircraft Purchase Agreements",
-        "CHINA SOUTH AIR (01055): MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT"
-      ],
-      "source_headline": "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401221.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T13:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:11:57Z",
-      "updated_at": "2026-11-25T02:11:57Z",
-      "decay_at": "2026-11-26T01:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2266b0de6b60",
       "idea_version": "IDEAV-1662b922c5ff508a",
       "idea_version_started_at": "2026-11-25T02:11:57Z",
@@ -263232,6 +263153,81 @@
       "surfaced_at": "2026-11-25T04:32:33Z",
       "updated_at": "2026-11-25T04:32:33Z",
       "decay_at": "2026-11-25T22:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-143abf663c2d",
+      "idea_version": "IDEAV-ac3e94a10990e56e",
+      "idea_version_started_at": "2026-11-25T02:11:57Z",
+      "ticker": "01055",
+      "company": "CHINA SOUTHERN AIRLINES",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company announced a major capital expenditure commitment for aircraft purchases, which will increase debt leverage and capital intensity in a challenging operating environment.",
+      "why_now": "The filing was released on 2026-11-24.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3ebd7ff7cdfd",
+        "EVT-4f95c6b4317e",
+        "EVT-8dcc50b19a37"
+      ],
+      "primary_source_event_id": "EVT-3ebd7ff7cdfd",
+      "source_headlines": [
+        "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
+        "CHINA SOUTH AIR (01055): Major Transaction - Airbus Aircraft Purchase Agreements",
+        "CHINA SOUTH AIR (01055): MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT"
+      ],
+      "source_headline": "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401221.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-24T13:16:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T02:11:57Z",
+      "updated_at": "2026-11-25T02:11:57Z",
+      "decay_at": "2026-11-26T01:16:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -264974,9 +264970,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 499,
-    "hidden_count": 31,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
         "total_count": 264,
@@ -264984,9 +264980,9 @@
         "hidden_count": 14
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -265005,6 +265001,84 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-143abf663c2d",
+        "idea_version": "IDEAV-ac3e94a10990e56e",
+        "idea_version_started_at": "2026-11-25T02:11:57Z",
+        "ticker": "01055",
+        "company": "CHINA SOUTHERN AIRLINES",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company announced a major capital expenditure commitment for aircraft purchases, which will increase debt leverage and capital intensity in a challenging operating environment.",
+        "why_now": "The filing was released on 2026-11-24.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3ebd7ff7cdfd",
+          "EVT-4f95c6b4317e",
+          "EVT-8dcc50b19a37"
+        ],
+        "primary_source_event_id": "EVT-3ebd7ff7cdfd",
+        "source_headlines": [
+          "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
+          "CHINA SOUTH AIR (01055): Major Transaction - Airbus Aircraft Purchase Agreements",
+          "CHINA SOUTH AIR (01055): MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT"
+        ],
+        "source_headline": "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401221.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-24T13:16:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-25T02:11:57Z",
+        "updated_at": "2026-11-25T02:11:57Z",
+        "decay_at": "2026-11-26T01:16:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-26T01:16:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-47caa3f3fead",
         "idea_version": "IDEAV-0d73abeb0e90c631",
@@ -302039,87 +302113,12 @@
         "archived_at": "2026-11-04T01:34:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-083c9caae543",
-        "idea_version": "IDEAV-98032d0888923e28",
-        "idea_version_started_at": "2026-11-01T03:42:18Z",
-        "ticker": "VOW3",
-        "company": "Volkswagen",
-        "exchange": "XTRA",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "IG Metall warning strikes in the German metal and electrical industry, a key sector for automotive manufacturing, are likely to disrupt production and increase costs for major automakers like Volkswagen.",
-        "why_now": "Warning strikes began shortly after midnight on November 1, 2026, indicating an immediate operational risk.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "sector_cycle",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c10d6ca9b45c"
-        ],
-        "primary_source_event_id": "EVT-c10d6ca9b45c",
-        "source_headlines": [
-          "Metal and electrical industry: IG Metall warning strikes started shortly after midnight"
-        ],
-        "source_headline": "Metall- und Elektroindustrie: Warnstreiks der IG Metall kurz nach Mitternacht gestartet",
-        "source_url": "https://www.handelsblatt.com/politik/deutschland/metall-und-elektroindustrie-warnstreiks-der-ig-metall-kurz-nach-mitternacht-gestartet/100266374.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 68,
-        "newest_source_at": "2026-11-01T00:41:16Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T03:42:18Z",
-        "updated_at": "2026-11-01T03:42:18Z",
-        "decay_at": "2026-11-02T12:41:16Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-04T03:39:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2673,
-    "live_count": 18,
+    "live_count": 17,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -302138,9 +302137,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 105158,
-    "news_picked_today": 226,
-    "news_dropped_today": 662
+    "news_seen_today": 117464,
+    "news_picked_today": 243,
+    "news_dropped_today": 693
   },
   "book_momentum": {
     "live_count": 8,
