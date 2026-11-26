@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T04:06:51Z",
+  "generated_at": "2026-11-26T04:15:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -889,6 +889,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-470",
+      "headline": "Rakuten Credit Risk Surges After Yen Bond Offering Scrapped",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-25/rakuten-credit-risk-surges-after-yen-bond-offering-scrapped",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T02:23:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Rakuten's credit risk has surged following the cancellation of a bond offering, signaling potential liquidity stress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rakuten's credit risk has surged following the cancellation of a bond offering, signaling potential liquidity stress.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rakuten",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-479",
+      "headline": "HP Gives Profit Forecast Aiming Tighter Grip On Memory Costs",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/hp-gives-profit-forecast-aiming-tighter-grip-on-memory-costs-12373116#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T02:00:29Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "HP provided a profit forecast aimed at reducing memory costs, signaling a strategic shift in margin management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HP provided a profit forecast aimed at reducing memory costs, signaling a strategic shift in margin management.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HP Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-058",
       "headline": "Suzlon begins construction of 1 GW AI-powered wind blade factory in Tamil Nadu",
       "headline_en": null,
@@ -1129,6 +1227,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-488",
+      "headline": "S-Oil completes 9 tln-won project to build petrochemical facilities in Ulsan",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261125003200320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T01:45:23Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "S-Oil completed a 9 trillion won petrochemical facility project, a major capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "S-Oil completed a 9 trillion won petrochemical facility project, a major capacity expansion.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S-Oil",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1574,6 +1721,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-487",
+      "headline": "Huawei convicted on 10 of 12 US charges over Iran dealings, trade-secret theft",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/huawei-convicted-on-10-of-12-us-charges-over-iran-dealings-trade-secret-theft-20040664.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-25T01:45:10Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Huawei was convicted on 10 of 12 US charges, significantly increasing legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Huawei was convicted on 10 of 12 US charges, significantly increasing legal and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huawei",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-045",
       "headline": "MAP: Deferral of AGM and Financial Reporting Obligations",
       "headline_en": null,
@@ -1759,202 +1955,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-210",
-      "headline": "LTR: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LTR?key=2924-03167107-6A1357224",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-26T01:01:56Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Disclosure that an entity has crossed the 5% substantial-holder threshold; affects control and governance dynamics, but buyer identity and strategic intent are not stated in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Disclosure that an entity has crossed the 5% substantial-holder threshold; affects control and governance dynamics, but buyer identity and strategic intent are not stated in headline.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LTR",
-          "ticker": "LTR",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-211",
-      "headline": "PDI: Ceasing to be a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PDI?key=2924-03167104-6A1357221",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-26T00:57:01Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Disclosure that a substantial holder has exited below 5% threshold; signals ownership shift and may alter governance or control, but seller identity and exit rationale are not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Disclosure that a substantial holder has exited below 5% threshold; signals ownership shift and may alter governance or control, but seller identity and exit rationale are not disclosed in headline.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PDI",
-          "ticker": "PDI",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-324",
-      "headline": "S&P Places Nvidia’s AA Rating on Negative CreditWatch Over Governance Risks",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282242",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T04:44:42Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "S&P placing Nvidia on Negative CreditWatch due to governance risks is a material event for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "S&P placing Nvidia on Negative CreditWatch due to governance risks is a material event for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-416",
-      "headline": "S&P warns Nvidia credit rating could be cut over 'rising' management and governance risk",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/26/nvidia-market-governance-risk.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T02:57:32Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "S&P warned that Nvidia's credit rating could be downgraded due to management and governance concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "S&P warned that Nvidia's credit rating could be downgraded due to management and governance concerns.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302121,9 +302121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 305692,
-    "news_picked_today": 744,
-    "news_dropped_today": 2352
+    "news_seen_today": 314424,
+    "news_picked_today": 773,
+    "news_dropped_today": 2467
   },
   "book_momentum": {
     "live_count": 8,
