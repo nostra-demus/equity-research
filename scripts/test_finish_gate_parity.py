@@ -120,26 +120,29 @@ RETROSPECTIVE_ONLY = {
 GATE_ONLY_OK = {}
 
 # ── Invariant 3 registry: every `eval_*` check defined INLINE in eval.py, classified. ────────────
-# kind "live":  (kind, marker_regex, note) — the 10B section must still match marker_regex.
+# kind "live":  (kind, marker_regex, note) — the 10B gate's EXECUTABLE text must still match
+#   marker_regex. That text is each heredoc re-rendered from its AST (so comments are gone and a
+#   marker can only match real code) plus the shell command lines of the 10B section. A marker is
+#   therefore written against the check's own condition, not against the comment describing it.
 # kind "retrospective": (kind, None, reason) — not enforced by the pre-publish gate; say why.
 # An inline check missing from this table, a table entry that is no longer an inline check, an
 # empty note, or a `live` marker that no longer matches the 10B section each FAIL the guard.
 INLINE_EVAL = {
     "eval_x_verify_floor": (
-        "live", r'verdict not in \("Clean", "Minor issues"\)',
+        "live", r"verdict not in \(['\"]Clean['\"], ['\"]Minor issues['\"]\)",
         "10B.2 stamps PROVISIONAL on any verify-evidence verdict outside Clean / Minor issues "
         "(hand-written, and stricter than check X: it applies to every run, not only conviction baskets)."),
     "eval_y_data_sufficiency": (
-        "live", r"mirrors eval\.py check Y",
+        "live", r"\(?ds < 30\)? and \(?dec != ",
         "10B.1 re-implements the §11 data-sufficiency ↔ decision cap in its heredoc."),
     "eval_z_thesis_type_cap": (
-        "live", r"mirrors ALL of eval\.py eval_z_thesis_type_cap",
+        "live", r"t in _EXTERNAL for t in tt\)+ and \(?dec in _ABOVE_STARTER",
         "10B.1 re-implements the §14 thesis_type enum + external-variable conviction cap in its heredoc."),
     "eval_ah_expectations_gap_gate": (
-        "live", r"GATE-EXPECTATIONS: PROVISIONAL",
+        "live", r"no_edge and _isnum\(cf\) and \(?cf > 60",
         "10B.3 re-implements the expectations-gap existence + §7 edge-consistency stamp in its heredoc."),
     "eval_ax_data_needs_v2": (
-        "live", r"scripts/eval\.py --data-needs-prewrite",
+        "live", r"python3 scripts/eval\.py --data-needs-prewrite",
         "10B.3-prewrite shells out to eval.py's own creation-time scope, which calls this function "
         "directly (no re-implementation) and STOPS the run before sealing on a failure."),
     "eval_ay_fixture_integrity": (
@@ -329,7 +332,7 @@ def inline_eval_defs(eval_src):
 def evaluate_inline(inline_defs, shared, section_text, registry=None):
     """Invariant 3. `inline_defs` = eval_* names defined in eval.py; `shared` = names that are ALSO
     shared-module detectors (thin eval.py wrappers — Invariants 1/2 already cover those);
-    `section_text` = the raw 10B section of full.md. Returns [(name, 'inv3', message)]."""
+    `section_text` = the 10B gate's executable text (see extract_gate_blocks). Returns [(name, 'inv3', message)]."""
     if registry is None:
         registry = INLINE_EVAL
     issues = []
@@ -350,7 +353,7 @@ def evaluate_inline(inline_defs, shared, section_text, registry=None):
             issues.append((name, "inv3", "INLINE_EVAL entry has no note/reason"))
         if kind == "live":
             if not marker or re.search(marker, section_text) is None:
-                issues.append((name, "inv3", f"INLINE_EVAL says the 10B gate enforces it, but marker /{marker}/ is no longer in the 10B section — the live mirror was removed or reworded"))
+                issues.append((name, "inv3", f"INLINE_EVAL says the 10B gate enforces it, but marker /{marker}/ is no longer in the 10B gate's executable code — the live mirror was removed or rewritten"))
         elif marker is not None:
             issues.append((name, "inv3", "INLINE_EVAL retrospective entry must not carry a marker"))
     return issues
@@ -521,6 +524,14 @@ def selfcheck():
     blocks_after, _sec = extract_gate_blocks(md_after)
     assert len(blocks_after) == 1 and "eval_probe_y" not in gate_calls(blocks_after), "post-gate `## ` step leaked into the gate"
 
+    # a mirror marker that survives only in a COMMENT is not evidence the check still runs
+    md_cmt = "### 10B.1 — V\n```bash\npython3 - <<'PY'\n# if ds < 30: flag\nx = 1\nPY\n```\n"
+    _b, sec_cmt = extract_gate_blocks(md_cmt)
+    assert re.search(r"ds < 30", sec_cmt) is None, "comment text leaked into the gate's executable text"
+    md_code = md_cmt.replace("x = 1", "if ds < 30: x = 1")
+    assert re.search(r"ds < 30", extract_gate_blocks(md_code)[1]), "executable marker not found"
+    assert "python3 - <<'PY'" in sec_cmt, "shell command lines missing from the gate's executable text"
+
     # Invariant 3: unclassified inline check, stale entry, vanished live marker, missing reason.
     reg = {"eval_a": ("live", r"mirrors check A", "n"), "eval_b": ("retrospective", None, "why")}
     assert evaluate_inline(["eval_a", "eval_b", "eval_shared"], {"eval_shared"}, "# mirrors check A", reg) == [], "inv3 clean world leaked"
@@ -537,8 +548,9 @@ def extract_gate_blocks(md_text):
     """The body of every embedded python heredoc that lives in a Step 10B FINISH-GATE section of
     full.md — a block opened by a line ending in `<<'PY'` (or `<<\"PY\"`) and closed by a
     column-0 `PY`. A detector counts as wired live when one of those blocks CALLS it. Returns
-    (blocks, section_text): one string per heredoc, plus the raw text of the whole 10B section
-    (prose + commands + heredocs) that the Invariant-3 mirror markers are searched in.
+    (blocks, section_text): one string per heredoc, plus the gate's EXECUTABLE text — the 10B
+    section's shell command lines and each heredoc re-rendered from its AST, comments removed —
+    which is what the Invariant-3 mirror markers are searched in.
 
     Two things it gets right (both are ways a weaker extractor would HIDE a real Invariant-1 gap):
       · SECTION-SCOPED. Only heredocs under a `### 10B` header are the finish gate — the blocks that
@@ -560,14 +572,17 @@ def extract_gate_blocks(md_text):
     opener = re.compile(r"<<\s*['\"]PY['\"]\s*$")
     header = re.compile(r"^#{2,3}\s+(\S+)")
     in_10b = False
+    in_fence = False
     while i < len(lines):
         h = header.match(lines[i])
         if h:
             in_10b = h.group(1).startswith("10B")
             i += 1
             continue
-        if in_10b:
-            section.append(lines[i])
+        if lines[i].lstrip().startswith("```"):
+            in_fence = not in_fence
+        elif in_10b and in_fence and not lines[i].lstrip().startswith("#"):
+            section.append(lines[i])       # a shell command line of the gate
         if in_10b and opener.search(lines[i]):
             j = i + 1
             body = []
@@ -579,11 +594,17 @@ def extract_gate_blocks(md_text):
                     f"full.md: 10B finish-gate heredoc opened at line {i + 1} has no column-0 'PY' "
                     "terminator before EOF — refusing to extract a truncated/garbled live gate.")
             blocks.append("\n".join(body))
-            section.extend(body)
             i = j + 1
         else:
             i += 1
-    return blocks, "\n".join(section)
+    code = []
+    for k, block in enumerate(blocks, 1):
+        try:
+            code.append(ast.unparse(ast.parse(block)))   # comments dropped: executable text only
+        except SyntaxError as e:
+            raise ValueError(f"full.md 10B heredoc #{k}: does not parse as Python ({e.msg}, line "
+                             f"{e.lineno}) — refusing to judge the live gate on unparseable source.")
+    return blocks, "\n".join(section + code)
 
 
 _MSG = {
