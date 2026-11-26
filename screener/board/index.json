@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T22:09:27Z",
+  "generated_at": "2026-11-26T22:18:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-1031",
@@ -738,6 +738,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-1047",
+      "headline": "SAP weighs cutting at least 10,000 positions in AI restructuring",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/sap-weighs-cutting-least-10000-positions-ai-restructuring",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T22:12:22Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "SAP is considering cutting at least 10,000 positions as part of an AI-driven restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SAP is considering cutting at least 10,000 positions as part of an AI-driven restructuring.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAP",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-1040",
       "headline": "Binance lifts withdrawal suspension after US$6.3 billion crypto heist",
       "headline_en": null,
@@ -880,6 +929,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-1049",
+      "headline": "Norse Atlantic suspends flights, warns of bankruptcy",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/266681/business/norse-atlantic-suspends-flights-warns-of-bankruptcy",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Norse Atlantic is suspending flights and warning of potential bankruptcy, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic is suspending flights and warning of potential bankruptcy, indicating severe financial distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1844,115 +1942,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-815",
-      "headline": "Rs 11 Lakh Fine On Blinkit, Zepto Licence Suspended: Maharashtra FDA's Big Crackdown",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/rs-11-lakh-fine-on-blinkit-zepto-licence-suspended-maharashtra-fdas-big-crackdown-12381392#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T14:26:47Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Maharashtra FDA imposed an 11 Lakh fine on Blinkit and suspended Zepto's licence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maharashtra FDA imposed an 11 Lakh fine on Blinkit and suspended Zepto's licence.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blinkit",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Zepto",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-817",
-      "headline": "Altria explores takeover bid for Imperial Brands",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/696e99b0-f6d1-4a1a-95b0-f68de88520d9?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T13:57:45Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Altria is exploring a takeover bid for Imperial Brands.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Altria is exploring a takeover bid for Imperial Brands.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Altria",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Imperial Brands",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301393,9 +301382,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 945051,
-    "news_picked_today": 2558,
-    "news_dropped_today": 17528
+    "news_seen_today": 945092,
+    "news_picked_today": 2567,
+    "news_dropped_today": 17560
   },
   "book_momentum": {
     "live_count": 8,
