@@ -472,6 +472,14 @@ def selfcheck():
     md_10b = md_10a.replace("### 10A.2 — Audit dossier", "### 10B.1 — Deterministic validator")
     blocks_b, _ = extract_gate_blocks(md_10b)
     assert len(blocks_b) == 1 and "eval_probe_x" in gate_calls(blocks_b), "10B gate heredoc not extracted"
+    # a heredoc OUTSIDE a ``` fence (prose / example) under a 10B header is documentation, not the
+    # gate -> must NOT be extracted; a real one inside a ```bash fence in the same section MUST.
+    md_unfenced = ("### 10B.1 — V\nexample (not run):\npython3 - <<'PY'\nx = eval_probe_x(d)\nPY\n"
+                   "```bash\npython3 - <<'PY'\ny = eval_probe_y(d)\nPY\n```\n")
+    blocks_uf, _ = extract_gate_blocks(md_unfenced)
+    calls_uf = gate_calls(blocks_uf)
+    assert "eval_probe_x" not in calls_uf, "out-of-fence prose heredoc wrongly counted as the live gate"
+    assert len(blocks_uf) == 1 and "eval_probe_y" in calls_uf, "in-fence gate heredoc not extracted"
     # an indented `  PY` does NOT terminate a Bash heredoc -> must raise (not silently truncate+pass)
     md_bad = "### 10B.1 — V\n```bash\npython3 - <<'PY'\nx = eval_probe_x(d)\n  PY\n```\n"
     try:
@@ -609,7 +617,7 @@ def extract_gate_blocks(md_text):
     section's shell command lines and each heredoc re-rendered from its AST, comments removed —
     which is what the Invariant-3 mirror markers are searched in.
 
-    Two things it gets right (both are ways a weaker extractor would HIDE a real Invariant-1 gap):
+    Three things it gets right (each is a way a weaker extractor would HIDE a real Invariant-1 gap):
       · SECTION-SCOPED. Only heredocs under a `### 10B` header are the finish gate — the blocks that
         can stamp `final_thesis.md` PROVISIONAL. Heredocs under a `### 10A` section (e.g. 10A.2's
         audit dossier, which is best-effort and `must never abort the run`) are EXCLUDED: a detector
@@ -617,6 +625,11 @@ def extract_gate_blocks(md_text):
         real gate call. Section state flips on every `## ` / `### ` header (any non-10B section —
         including the `## 10C` / `## 11` / `## 12` steps after the gate — turns collection off), so
         moving a detector call into a non-gate block fails the guard.
+      · FENCE-SCOPED. Only a heredoc that opens INSIDE an executable ``` fence runs when the gate
+        runs. A heredoc-shaped line sitting in prose or an indented example under a 10B header — not
+        inside a ``` block — is documentation, not the gate, so it is EXCLUDED (the opener is
+        accepted only while `in_fence`). Otherwise a stale example calling a detector would keep the
+        guard green after the real executable call was removed.
       · EXACT TERMINATOR. A Bash `<<'PY'` heredoc (no `-`) is closed ONLY by a line that is exactly
         `PY` at column 0; an indented `  PY` does not terminate it. The terminator is matched exactly
         (not `.strip()`), and an opener with no column-0 `PY` before EOF raises rather than silently
@@ -640,7 +653,7 @@ def extract_gate_blocks(md_text):
             in_fence = not in_fence
         elif in_10b and in_fence and not lines[i].lstrip().startswith("#"):
             section.append(lines[i])       # a shell command line of the gate
-        if in_10b and opener.search(lines[i]):
+        if in_10b and in_fence and opener.search(lines[i]):
             j = i + 1
             body = []
             while j < len(lines) and lines[j] != "PY":
