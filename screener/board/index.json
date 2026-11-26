@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T13:07:12Z",
+  "generated_at": "2026-11-26T13:11:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-781",
@@ -439,6 +439,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-782",
+      "headline": "Pharmakonzern: Bayer baut Pharmaproduktion in China für bis zu 500 Millionen Euro aus",
+      "headline_en": "Pharmaceutical group: Bayer expands pharmaceutical production in China for up to 500 million euros",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/pharmakonzern-bayer-baut-pharmaproduktion-in-china-fuer-bis-zu-500-millionen-euro-aus/100273011.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T12:31:35Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Bayer is expanding its pharmaceutical production in China with a 500 million euro investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bayer is expanding its pharmaceutical production in China with a 500 million euro investment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,55 +1958,6 @@
       "companies": [
         {
           "name": "HP Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-493",
-      "headline": "Universal Health Services, Inc. to Sell Aiken Regional Medical Centers for Approximately $500 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/universal-health-services-inc-sell-aiken-regional-medical-centers-approximately-500",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T01:39:20Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Universal Health Services is selling Aiken Regional Medical Centers for approximately $500 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Universal Health Services is selling Aiken Regional Medical Centers for approximately $500 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Universal Health Services",
           "ticker": null,
           "listing_country": "US"
         }
@@ -301329,9 +301329,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 811313,
-    "news_picked_today": 1495,
-    "news_dropped_today": 12881
+    "news_seen_today": 814284,
+    "news_picked_today": 1512,
+    "news_dropped_today": 12936
   },
   "book_momentum": {
     "live_count": 8,
