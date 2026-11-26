@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T11:46:29Z",
+  "generated_at": "2026-11-26T11:54:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-647",
@@ -439,6 +439,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261126-719",
+      "headline": "Aramco launch $7bn petrochemicals project in South Korea",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/energy/aramco-launch-7bn-petrochemicals-project-in-south-korea",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T09:44:45Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Saudi Aramco announces $7bn petrochemicals project in South Korea, a major capacity-expansion commitment affecting future earnings, capital allocation, and strategic positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Saudi Aramco announces $7bn petrochemicals project in South Korea, a major capacity-expansion commitment affecting future earnings, capital allocation, and strategic positioning.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": "2222",
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-134",
-      "headline": "+++ Geschäftszahlen +++: Teures Kerosin – Easyjet-Gewinn bricht um fast 90 Prozent ein",
-      "headline_en": "+++ Business Figures +++: Expensive Kerosene – Easyjet profit collapses by almost 90 percent",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-teures-kerosin-easyjet-gewinn-bricht-um-fast-90-prozent-ein/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-25T09:50:58Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "EasyJet reported a nearly 90% collapse in profit due to high fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "EasyJet reported a nearly 90% collapse in profit due to high fuel costs.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EasyJet",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -301124,9 +301124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 727404,
-    "news_picked_today": 1345,
-    "news_dropped_today": 11735
+    "news_seen_today": 731186,
+    "news_picked_today": 1384,
+    "news_dropped_today": 11840
   },
   "book_momentum": {
     "live_count": 8,
