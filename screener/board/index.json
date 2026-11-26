@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T04:46:07Z",
+  "generated_at": "2026-11-26T04:49:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261126-039",
@@ -1036,6 +1036,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-541",
+      "headline": "+++ Geschäftszahlen +++: Dell erhöht nach Rekordquartal Ziele erneut – Mehr Aktienrückkäufe",
+      "headline_en": "+++ Business Figures +++: Dell raises targets again after record quarter – More share buybacks",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-dell-erhoeht-nach-rekordquartal-ziele-erneut-mehr-aktienrueckkaeufe/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T22:12:00Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Dell reported a record quarter, raised its financial targets, and increased share buybacks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell reported a record quarter, raised its financial targets, and increased share buybacks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-058",
       "headline": "Suzlon begins construction of 1 GW AI-powered wind blade factory in Tamil Nadu",
       "headline_en": null,
@@ -1770,6 +1821,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261126-531",
+      "headline": "ASX to slip as Anthropic, Nvidia slide; Harvey Norman pre-tax profit falls 47pc",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-slip-anthropic-shares-fall-below-ipo-price-nvidia-slides-anew-20261125-p61gzb?ref=rss&utm_medium=rss&utm_source=rss_markets",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-24T22:27:24Z",
+      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
+      "prelim_note": "Harvey Norman pre-tax profit fell 47%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Harvey Norman pre-tax profit fell 47%.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harvey Norman",
+          "ticker": "HVN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261126-456",
       "headline": "Pliant Therapeutics, Inc. Receives Nasdaq Minimum Bid Price Deficiency Notice on November 23, 2026",
       "headline_en": null,
@@ -1863,105 +1963,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-522",
-      "headline": "This AI Chip Stock Just Crashed 38% on a Memory Shortage Warning. Its Filings Flagged the Risk Months Ago",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/24/this-ai-chip-stock-just-crashed-38-on-a-memory-shortage-warning-its-filings-flagged-the-risk-months-ago/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T23:27:08Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "AI semiconductor company (inferred Nvidia) issued memory shortage warning, triggering 38% stock crash; market is now repricing a supply-driven impact on revenue/margins that prior filings had flagged.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "AI semiconductor company (inferred Nvidia) issued memory shortage warning, triggering 38% stock crash; market is now repricing a supply-driven impact on revenue/margins that prior filings had flagged.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261126-530",
-      "headline": "Harvey Norman profit plunges 47pc as shoppers pull back",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/harvey-norman-profit-plunges-47pc-as-shoppers-pull-back-20261125-p61h2x?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-24T23:07:09Z",
-      "sweep_file": "screener/inbox/2026-11-26_sweep.json",
-      "prelim_note": "Harvey Norman reported a 47% plunge in profit due to reduced consumer spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Harvey Norman reported a 47% plunge in profit due to reduced consumer spending.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Harvey Norman",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -302128,9 +302129,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 330583,
-    "news_picked_today": 894,
-    "news_dropped_today": 2874
+    "news_seen_today": 338012,
+    "news_picked_today": 910,
+    "news_dropped_today": 2906
   },
   "book_momentum": {
     "live_count": 8,
