@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T00:54:28Z",
+  "generated_at": "2026-11-27T01:04:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -189,6 +189,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-064",
+      "headline": "Musk vows to give away $27b in SpaceX shares in AI charm offensive",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/north-america/musk-vows-to-give-away-27b-in-spacex-shares-in-ai-charm-offensive-20261127-p61hrx?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Elon Musk announced plans to divest $27 billion in SpaceX shares, representing a significant capital shift for the private company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Elon Musk announced plans to divest $27 billion in SpaceX shares, representing a significant capital shift for the private company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -788,6 +837,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-069",
+      "headline": "2 S. Korean naval submarines under repair after accidents",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261127001800315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:45:47Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Two South Korean naval submarines are under repair following accidents, impacting military operational readiness.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Two South Korean naval submarines are under repair following accidents, impacting military operational readiness.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-049",
       "headline": "Sebi likely to seek deal details from Tata Steel and APL Apollo",
       "headline_en": null,
@@ -891,6 +983,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-062",
+      "headline": "Tokyo inflation accelerates, backing case for BOJ rate hike",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/tokyo-inflation-accelerates-backing-case-boj-rate-hike",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:53:47Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Tokyo inflation accelerated, increasing the probability of a Bank of Japan rate hike which impacts global liquidity and currency markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Tokyo inflation accelerated, increasing the probability of a Bank of Japan rate hike which impacts global liquidity and currency markets.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-030",
       "headline": "US Plans for Tariffs Face Pushback",
       "headline_en": null,
@@ -949,49 +1084,6 @@
       "triage_score": 82,
       "triage_reason": "Argentina implements significant monetary policy change by barring central bank from printing money for government spending.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-008",
-      "headline": "Tokyo Inflation Accelerates, Backing Case for BOJ Rate Hike",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-26/tokyo-inflation-accelerates-keeping-boj-wary-of-price-pressure",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T23:36:40Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Accelerating Tokyo inflation increases the probability of a Bank of Japan rate hike.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Accelerating Tokyo inflation increases the probability of a Bank of Japan rate hike.",
-      "region": "JP",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1101,6 +1193,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-065",
+      "headline": "Macquarie management shake-up; Seven risks for investors to watch; Sam Wood’s mansion sells for loss as he’s denied bail",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/macquarie-management-shake-up-seven-risks-for-investors-to-watch-sam-wood-s-mansion-sells-for-loss-as-he-s-denied-bail-20261127-p61huq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:55:27Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Macquarie Group announced a management shake-up, which is a material event for the financial institution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Macquarie Group announced a management shake-up, which is a material event for the financial institution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1351,6 +1492,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-067",
+      "headline": "Chubu Electric submits improvement plan, announces disciplinary action",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261127/p2g/00m/0bu/006000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T01:00:09Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Chubu Electric Power is facing regulatory pressure requiring an improvement plan and disciplinary actions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Chubu Electric Power is facing regulatory pressure requiring an improvement plan and disciplinary actions.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chubu Electric Power",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1617,6 +1808,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-070",
+      "headline": "KHNP Reviews Dukovany Nuclear Project Preparations",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282343",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T04:25:49Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "KHNP is reviewing preparations for the Dukovany nuclear project, a significant infrastructure development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "KHNP is reviewing preparations for the Dukovany nuclear project, a significant infrastructure development.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Hydro & Nuclear Power",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-011",
       "headline": "KANTONE HOLDING (01059): DISCLOSEABLE TRANSACTION IN RESPECT OF THE DISPOSAL OF LISTED SECURITIES",
       "headline_en": null,
@@ -1666,287 +1906,42 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261127-018",
-      "headline": "NASA Wanted a 100-Kilowatt Reactor on the Moon but Is Settling for 20",
+      "inbox_id": "INB-20261127-071",
+      "headline": "Michael Burry Sells Nasdaq-100 Puts, Shifts Portfolio Toward Long Bets",
       "headline_en": null,
-      "url": "https://oilprice.com/Alternative-Energy/Nuclear-Power/NASA-Wanted-a-100-Kilowatt-Reactor-on-the-Moon-but-Is-Settling-for-20.html",
-      "source_name": "OilPrice.com",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282342",
+      "source_name": "Business Korea — All English Articles",
       "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:00:00Z",
+      "found_at": "2026-11-27T04:22:45Z",
       "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "NASA is scaling back the power requirements for its lunar reactor project.",
+      "prelim_note": "Michael Burry's portfolio shift indicates a change in market positioning by a notable investor.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 62,
-      "triage_reason": "NASA is scaling back the power requirements for its lunar reactor project.",
+      "triage_reason": "Michael Burry's portfolio shift indicates a change in market positioning by a notable investor.",
       "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "relevance": "material",
+      "materiality_pre_score": 45,
       "rank_factors": {
-        "materiality": 40,
+        "materiality": 45,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "capex",
+        "event_id": "ownership_activist",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capex"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NASA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-053",
-      "headline": "한수원, 체코 두코바니 원전 건설 준비상황 점검",
-      "headline_en": "KHNP inspects preparation status for Dukovany nuclear power plant construction",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282332",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:07:40Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "KHNP is inspecting the preparation status for the construction of the Dukovany nuclear power plant in the Czech Republic.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "KHNP is inspecting the preparation status for the construction of the Dukovany nuclear power plant in the Czech Republic.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Hydro & Nuclear Power",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-051",
-      "headline": "삼성바이오에피스, 중국서 차세대 TPD 기술 확보 시동",
-      "headline_en": "Samsung Bioepis starts securing next-generation TPD technology in China",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282336",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:24:54Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Samsung Bioepis is initiating the acquisition of next-generation TPD technology in China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Samsung Bioepis is initiating the acquisition of next-generation TPD technology in China.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Bioepis",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-021",
-      "headline": "Wave of policy change is ‘overwhelming’ pension providers, says top Schroders executive",
-      "headline_en": null,
-      "url": "https://www.cityam.com/wave-of-policy-change-is-overwhelming-pension-providers-says-top-schroders-executive/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:01:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Schroders executive notes the burden of policy changes on pension providers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Schroders executive notes the burden of policy changes on pension providers.",
-      "region": "GB",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Schroders",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-022",
-      "headline": "하나은행 GLN, 말레이시아 QR결제 서비스 오픈",
-      "headline_en": "Hana Bank GLN opens QR payment service in Malaysia",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282326",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Hana Bank launched a QR payment service in Malaysia, expanding its international digital payment footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Hana Bank launched a QR payment service in Malaysia, expanding its international digital payment footprint.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hana Bank",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-025",
-      "headline": "Water firms to identify 250,000 vulnerable households in England eligible for discounts",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/nov/27/water-firms-to-identify-250000-vulnerable-households-in-england-eligible-for-discounts",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:01:48Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Water utilities in England are mandated to identify and provide discounts to 250,000 vulnerable households, impacting revenue margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Water utilities in England are mandated to identify and provide discounts to 250,000 vulnerable households, impacting revenue margins.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -304340,9 +304335,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 220,
-    "news_picked_today": 62,
-    "news_dropped_today": 158
+    "news_seen_today": 270,
+    "news_picked_today": 72,
+    "news_dropped_today": 198
   },
   "book_momentum": {
     "live_count": 8,
