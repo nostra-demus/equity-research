@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T00:19:16Z",
+  "generated_at": "2026-11-27T00:24:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-001",
@@ -394,6 +394,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-030",
+      "headline": "US Plans for Tariffs Face Pushback",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-27/us-plans-for-tariffs-face-pushback-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:15:56Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Pushback against US tariff plans signals potential trade policy friction and increased geopolitical/economic risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Pushback against US tariff plans signals potential trade policy friction and increased geopolitical/economic risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-008",
       "headline": "Tokyo Inflation Accelerates, Backing Case for BOJ Rate Hike",
       "headline_en": null,
@@ -475,6 +518,60 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-028",
+      "headline": "KAR: Ceasing to be a substantial holder from CBA",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03167730-3A707684",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T00:15:56Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Commonwealth Bank of Australia has ceased to be a substantial holder in Karoon Energy, indicating a change in institutional ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Commonwealth Bank of Australia has ceased to be a substantial holder in Karoon Energy, indicating a change in institutional ownership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Karoon Energy",
+          "ticker": "KAR",
+          "listing_country": "AU"
+        },
+        {
+          "name": "Commonwealth Bank of Australia",
+          "ticker": "CBA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -671,6 +768,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-029",
+      "headline": "Target cut its Apple Black Friday discount in half",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/target-cut-its-apple-black-friday-discount-in-half",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:17:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Target is reducing promotional discounts on Apple products, which may impact sales volume for the holiday period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Target is reducing promotional discounts on Apple products, which may impact sales volume for the holiday period.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Target",
+          "ticker": "TGT",
+          "listing_country": "US"
+        },
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1054,6 +1205,104 @@
           "name": "HEG",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-026",
+      "headline": "Update on Reverse Takeover Transaction | MSTXF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MSTXF/update-on-reverse-takeover-teo5bmcjhdwu.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-27T00:20:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "The company is providing an update on a reverse takeover transaction, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "The company is providing an update on a reverse takeover transaction, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mast Therapeutics",
+          "ticker": "MSTXF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-027",
+      "headline": "Wealthsimple faces backlash over interest rate cuts, rollback of perks",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/investing/personal-finance/article-wealthsimple-changes-interest-rate-cuts-chequing-rollback-perks/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:16:20Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Public backlash regarding interest rate cuts and perk rollbacks is a reputational issue but lacks immediate financial quantification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Public backlash regarding interest rate cuts and perk rollbacks is a reputational issue but lacks immediate financial quantification.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wealthsimple",
+          "ticker": null,
+          "listing_country": "CA"
         }
       ],
       "size_bucket": "unknown",
@@ -303067,7 +303316,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5352,
+    "inbox_unconsumed": 5357,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -303076,9 +303325,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 78,
-    "news_picked_today": 22,
-    "news_dropped_today": 56
+    "news_seen_today": 114,
+    "news_picked_today": 30,
+    "news_dropped_today": 84
   },
   "book_momentum": {
     "live_count": 8,
