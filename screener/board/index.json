@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T12:30:42Z",
+  "generated_at": "2026-11-27T12:31:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-430",
@@ -263886,6 +263886,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-24315bb2ea5b",
+      "idea_version": "IDEAV-665fa92a04c70998",
+      "idea_version_started_at": "2026-11-27T12:31:02Z",
+      "ticker": "LBIRD",
+      "company": "Lumibird",
+      "exchange": "Euronext Paris",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Thales is targeting a majority stake in the company in a deal valued at $483 million, which typically provides a floor for the share price near the offer terms.",
+      "why_now": "The deal was reported on 2026-11-27.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f03a7bfbd40e"
+      ],
+      "primary_source_event_id": "EVT-f03a7bfbd40e",
+      "source_headlines": [
+        "Lumibird Shares Surge After Thales Targets Majority Stake in $483 Million Laser Deal"
+      ],
+      "source_headline": "Lumibird Shares Surge After Thales Targets Majority Stake in $483 Million Laser Deal",
+      "source_url": "https://www.wsj.com/business/deals/lumibird-shares-surge-after-thales-targets-majority-stake-in-483-million-laser-deal-48d6e693?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T08:52:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T12:31:02Z",
+      "updated_at": "2026-11-27T12:31:02Z",
+      "decay_at": "2026-11-28T20:52:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-52fef4928a87",
       "idea_version": "IDEAV-f1c0e342eb0e3475",
       "idea_version_started_at": "2026-11-27T12:02:05Z",
@@ -266833,77 +266906,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-23556acaca7e",
-      "idea_version": "IDEAV-bfabedef45c2028d",
-      "idea_version_started_at": "2026-11-25T21:50:14Z",
-      "ticker": "00374",
-      "company": "Four Seas Mercantile",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, signaling an improvement in earnings performance for the period.",
-      "why_now": "The filing was released on 2026-11-24, making this a fresh catalyst for a re-rating.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7c0f5a3b927d"
-      ],
-      "primary_source_event_id": "EVT-7c0f5a3b927d",
-      "source_headlines": [
-        "FOUR SEAS MER (00374): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "FOUR SEAS MER (00374): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401181.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T12:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T21:50:14Z",
-      "updated_at": "2026-11-25T21:50:14Z",
-      "decay_at": "2026-11-26T00:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-306ac3608d9a",
       "idea_version": "IDEAV-ef71f657af6ce15e",
       "idea_version_started_at": "2026-11-25T21:50:14Z",
@@ -267689,77 +267691,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-47caa3f3fead",
-      "idea_version": "IDEAV-0d73abeb0e90c631",
-      "idea_version_started_at": "2026-11-25T01:22:54Z",
-      "ticker": "01466",
-      "company": "Baijin Life Science Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates that earnings will fall significantly short of expectations, likely leading to downward revisions in valuation multiples.",
-      "why_now": "The filing was released on 2026-11-24; the stock will likely reprice to reflect the lower earnings guidance.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5221b5569eb4"
-      ],
-      "primary_source_event_id": "EVT-5221b5569eb4",
-      "source_headlines": [
-        "BAIJIN LIFE SCI (01466): PROFIT WARNING"
-      ],
-      "source_headline": "BAIJIN LIFE SCI (01466): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401195.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T12:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T01:22:54Z",
-      "updated_at": "2026-11-25T01:22:54Z",
-      "decay_at": "2026-11-26T00:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-beed2a8f2403",
       "idea_version": "IDEAV-7b5eeaad76f6ca69",
       "idea_version_started_at": "2026-11-25T01:22:54Z",
@@ -267912,33 +267843,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 522,
     "shown_count": 499,
-    "hidden_count": 25,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
-        "total_count": 259,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 8
       },
       "short": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2153,
-      "oldest_retained_at": "2026-11-02T05:01:28Z",
+      "evicted_count": 2155,
+      "oldest_retained_at": "2026-11-02T12:41:16Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1379,
-          "oldest_retained_at": "2026-11-07T17:02:40Z"
+          "evicted_count": 1380,
+          "oldest_retained_at": "2026-11-07T17:29:52Z"
         },
         "short": {
-          "evicted_count": 776,
-          "oldest_retained_at": "2026-11-02T05:01:28Z"
+          "evicted_count": 777,
+          "oldest_retained_at": "2026-11-02T12:41:16Z"
         }
       }
     },
@@ -269715,8 +269646,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T00:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-27T12:31:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269789,8 +269720,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T00:08:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-27T12:31:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -305040,8 +304971,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2716,
-    "live_count": 38,
+    "surfaced_total": 2717,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
