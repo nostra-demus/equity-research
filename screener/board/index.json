@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T04:13:28Z",
+  "generated_at": "2026-11-27T04:17:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -265114,6 +265114,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-13769b7ed880",
+      "idea_version": "IDEAV-91be51c04946ec68",
+      "idea_version_started_at": "2026-11-27T04:13:47Z",
+      "ticker": "LGP",
+      "company": "Little Green Pharma",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has submitted agreed penalties to the court regarding TGA (Therapeutic Goods Administration) regulatory breaches, which will result in a direct cash outflow and potential reputational damage.",
+      "why_now": "The filing was released today, November 27, 2026, confirming the penalty submission.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3c77495c74e4"
+      ],
+      "primary_source_event_id": "EVT-3c77495c74e4",
+      "source_headlines": [
+        "LGP: Agreed TGA penalties submitted for Court approval"
+      ],
+      "source_headline": "LGP: Agreed TGA penalties submitted for Court approval",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGP?key=2924-03167892-6A1357597",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-27T03:53:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T04:13:47Z",
+      "updated_at": "2026-11-27T04:13:47Z",
+      "decay_at": "2026-11-28T15:53:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-de5c328d9705",
       "idea_version": "IDEAV-e05f32b87e5ea3f1",
       "idea_version_started_at": "2026-11-27T01:44:51Z",
@@ -265321,6 +265392,78 @@
       "surfaced_at": "2026-11-27T00:08:42Z",
       "updated_at": "2026-11-27T00:08:42Z",
       "decay_at": "2026-11-28T12:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3a81f9017113",
+      "idea_version": "IDEAV-9b245821c019538c",
+      "idea_version_started_at": "2026-11-27T04:13:47Z",
+      "ticker": "BIOCON",
+      "company": "Biocon",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Brazilian health regulator (ANVISA) has approved the company's biosimilar for breast cancer, opening a new revenue stream in a major emerging market.",
+      "why_now": "The regulatory approval was reported today, November 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-67d8acc84e03"
+      ],
+      "primary_source_event_id": "EVT-67d8acc84e03",
+      "source_headlines": [
+        "Biocon shares gain after Brazil health regulator approves biosimilar for breast cancer drug"
+      ],
+      "source_headline": "Biocon shares gain after Brazil health regulator approves biosimilar for breast cancer drug",
+      "source_url": "https://www.cnbctv18.com/market/biocon-share-price-brazil-health-regulator-anvisa-approves-biosimilar-breast-cancer-treatment-her2-20042639.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 89,
+      "newest_source_at": "2026-11-27T03:56:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T04:13:47Z",
+      "updated_at": "2026-11-27T04:13:47Z",
+      "decay_at": "2026-11-28T15:56:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -304539,8 +304682,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2706,
-    "live_count": 32,
+    "surfaced_total": 2708,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
