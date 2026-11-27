@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T22:41:20Z",
+  "generated_at": "2026-11-27T22:50:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-718",
@@ -539,6 +539,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-738",
+      "headline": "Block, Inc. Reaches Agreement in Principle to Settle Federal Securities Class Action for Approximately $442.5 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/block-inc-reaches-agreement-principle-settle-federal-securities-class-action-approximately",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T22:20:17Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Block, Inc. agreed to a $442.5 million settlement for a federal securities class action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Block, Inc. agreed to a $442.5 million settlement for a federal securities class action.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Block, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1903,55 +1952,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-499",
-      "headline": "Adani Group targets ₹2.2 lakh crore capex investment in FY27",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-group-targets-22-lakh-crore-capex-investment-in-fy27/article71750655.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T12:48:16Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Adani Group targets ₹2.2 lakh crore capex investment for FY27, a named, quantified capacity-expansion commitment affecting capital structure, leverage outlook, and analyst expectations for growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Group targets ₹2.2 lakh crore capex investment for FY27, a named, quantified capacity-expansion commitment affecting capital structure, leverage outlook, and analyst expectations for growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305192,9 +305192,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 124795,
-    "news_picked_today": 1632,
-    "news_dropped_today": 18457
+    "news_seen_today": 124837,
+    "news_picked_today": 1639,
+    "news_dropped_today": 18492
   },
   "book_momentum": {
     "live_count": 8,
