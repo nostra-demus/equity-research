@@ -178,7 +178,8 @@ def defined_detectors(text, what):
     would keep a removed detector "defined", so a stale call in both callers would satisfy parity
     and slip past stale_live_calls() while crashing at run time. `_DEF_RE` is only a cheap
     prefilter (a real module-level def always matches it), so a file with no candidate line is
-    never parsed; a candidate file that does not parse raises ValueError naming `what`."""
+    never parsed; a candidate file that does not parse raises ValueError naming `what`, and so
+    does an `async def` detector (neither caller awaits, so it could never execute)."""
     if not _DEF_RE.search(text):
         return []
     try:
@@ -186,8 +187,16 @@ def defined_detectors(text, what):
     except SyntaxError as e:
         raise ValueError(f"{what}: does not parse as Python ({e.msg}, line {e.lineno}) — refusing "
                          "to judge which detectors it defines from unparseable source.")
+    is_async = [n.name for n in tree.body
+                if isinstance(n, ast.AsyncFunctionDef) and n.name.startswith("eval_")]
+    if is_async:
+        # Both callers are synchronous: a bare `eval_x(...)` on an `async def` only builds a
+        # coroutine, so the detector body would never run while call-site parity reported it wired.
+        raise ValueError(f"{what}: detector(s) {sorted(is_async)} are `async def` — the grader and the "
+                         "live gate call detectors synchronously, so an async detector would never "
+                         "execute. Make it a plain `def`.")
     return [n.name for n in tree.body
-            if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name.startswith("eval_")]
+            if isinstance(n, ast.FunctionDef) and n.name.startswith("eval_")]
 
 
 def discover_detectors(scripts_dir=SCRIPTS):
@@ -604,8 +613,12 @@ def selfcheck():
     assert [n for n, _ in unresolved_live_calls(["q.eval_q(1)\n"], dm)] == ["eval_q"], "call with a missing module import not flagged"
     assert [n for n, _ in unresolved_live_calls(["import other as q\nq.eval_q(1)\n"], dm)] == ["eval_q"], "call through the wrong module not flagged"
     assert [n for n, _ in unresolved_live_calls(["eval_q(1)\n"], dm)] == ["eval_q"], "bare call with no import not flagged"
-    # async shared detectors are discovered like sync ones
-    assert defined_detectors("async def eval_async(x):\n    return []\n", "selfcheck") == ["eval_async"], "async detector not discovered"
+    # an `async def` detector is rejected outright: a synchronous call would never run its body
+    try:
+        defined_detectors("async def eval_async(x):\n    return []\n", "selfcheck")
+        raise AssertionError("async detector was accepted (a bare call would only create a coroutine)")
+    except ValueError:
+        pass
     # a `def eval_x(` line that survives only inside a docstring / string is NOT a definition
     ghost = 'DOC = """example:\ndef eval_ghost(x):\n    return []\n"""\ndef eval_live(x):\n    return []\n'
     assert defined_detectors(ghost, "selfcheck") == ["eval_live"], "docstring `def` counted as a detector definition"
