@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T01:48:41Z",
+  "generated_at": "2026-11-27T01:53:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -645,6 +645,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-115",
+      "headline": "ASX gains; Neuren slides after hitting US drug trial hurdle",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-spain-s-de-cos-is-poised-to-take-ecb-presidency-20261127-p61hq5?ref=rss&utm_medium=rss&utm_source=rss_markets",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-26T23:52:56Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Neuren Pharmaceuticals shares slide following a significant hurdle in a US drug trial, directly impacting its primary value driver.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Neuren Pharmaceuticals shares slide following a significant hurdle in a US drug trial, directly impacting its primary value driver.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neuren Pharmaceuticals",
+          "ticker": "NEU",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-012",
       "headline": "E&P GLOBAL (01142): INSIDE INFORMATION UPDATE ON LEGAL PROCEEDINGS IN RELATION TO RUSSIAN MINING LICENSES",
       "headline_en": null,
@@ -1191,50 +1240,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261127-019",
-      "headline": "ASX gains; Neuren slides after hitting US drug trial hurdle",
+      "inbox_id": "INB-20261127-112",
+      "headline": "Argentina bans its central bank from printing money for govt",
       "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-spain-s-de-cos-is-poised-to-take-ecb-presidency-20261127-p61hq5?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "url": "https://www.cnbctv18.com/economy/argentina-bans-its-central-bank-from-printing-money-for-govt-20042573.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-11-26T23:52:56Z",
+      "found_at": "2026-11-27T01:45:37Z",
       "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Neuren Pharmaceuticals shares fell following a hurdle in a US drug trial.",
+      "prelim_note": "Argentina's ban on central bank money printing for government financing is a major structural shift in monetary policy aimed at curbing hyperinflation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Neuren Pharmaceuticals shares fell following a hurdle in a US drug trial.",
+      "triage_score": 86,
+      "triage_reason": "Argentina's ban on central bank money printing for government financing is a major structural shift in monetary policy aimed at curbing hyperinflation.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "product"
+        "macro_sector",
+        "regulatory"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Neuren Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,49 +1945,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-048",
-      "headline": "Amal Parikh, Puneet Bhatia to raise $1-billion PE fund",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/amal-parikh-puneet-bhatia-to-raise-1-billion-pe-fund/articleshow/136206088.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:31:37Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "New $1-billion private equity fund being raised.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New $1-billion private equity fund being raised.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -304475,9 +304476,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 433,
-    "news_picked_today": 109,
-    "news_dropped_today": 324
+    "news_seen_today": 453,
+    "news_picked_today": 118,
+    "news_dropped_today": 335
   },
   "book_momentum": {
     "live_count": 8,
