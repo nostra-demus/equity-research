@@ -3734,6 +3734,7 @@ if scope=="selftest":
     _bp_count = _bp("At least 2 of the Q2, Q3, Q4 exchange filings show positive net additions","At most 1 of those 3 quarters shows positive net adds","F9")
     _bp_cnt2  = _bp("At least 3 of the 4 filings show growth","At most 1 of the 4 filings shows growth","F10")
     _bp_neg   = _bp("Capex does not exceed $5bn","Capex above $6bn","F11")
+    _bp_negp  = _bp("Capex does not print $5bn or higher","Capex above $6bn","F20")
     _bp_same  = _bp("Stock closes above AED 20.00 on 10 consecutive days","Stock fails to exceed AED 17.00","F12")
     _bp_unit  = _bp("Peak-year capex < 40% of normalised FCF","Masterplan capex exceeds AED 15 Bn a year","F13")
     _bp_event = _bp("The FY2026 10-K is filed by 2027-03-01 with a clean opinion.","No such filing by 2027-03-01.","F14")
@@ -3754,6 +3755,7 @@ if scope=="selftest":
         (BP_DATE,[_bp_count],[]),                                      # integer count: >=2 / <=1 is a clean split
         (BP_DATE,[_bp_cnt2],["forecast_ledger[0] (F10) triggers leave a dead zone"]),   # >=3 / <=1 leaves exactly 2
         (BP_DATE,[_bp_neg],None),                                      # negated comparator: ambiguous, not judged
+        (BP_DATE,[_bp_negp],None),                                     # negation before a postfix comparator ('… or higher'): ambiguous too
         (BP_DATE,[_bp_same],None),                                     # same-direction bars are not a pair
         (BP_DATE,[_bp_unit],None),                                     # % vs AED bn: different measures
         (BP_DATE,[_bp_event],None),                                    # event row, no bars

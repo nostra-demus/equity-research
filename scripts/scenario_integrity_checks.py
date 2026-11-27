@@ -994,7 +994,7 @@ def _bp_bars(text):
         if any(p.start("num") == m.start("num") for p, _, _, _ in found):
             continue  # 'at or above 4.46x or higher' — already read by the prefix form
         up = m.group("word").lower() in ("higher", "more", "greater", "above")
-        found.append((m, "up" if up else "dn", True, False))
+        found.append((m, "up" if up else "dn", True, bool(_BP_NEGATED.search(text[:m.start()]))))
     bars = []
     for m, direction, incl, negated in found:
         try:
