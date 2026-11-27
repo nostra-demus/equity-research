@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T19:36:47Z",
+  "generated_at": "2026-11-27T19:37:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-718",
@@ -263388,6 +263388,75 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-d9881205f478",
+      "idea_version": "IDEAV-d7275faedef8649d",
+      "idea_version_started_at": "2026-11-27T19:37:04Z",
+      "ticker": "CDRO",
+      "company": "Codere Online Luxembourg, S.A.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification, which typically precedes a total loss of liquidity and significant equity impairment.",
+      "why_now": "The delisting notice was filed on 2026-11-27, signaling immediate distress.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 78,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ccbf052a9c0c"
+      ],
+      "primary_source_event_id": "EVT-ccbf052a9c0c",
+      "source_headlines": [
+        "25-NSE - Codere Online Luxembourg, S.A. (0001866782) (Subject)"
+      ],
+      "source_headline": "25-NSE - Codere Online Luxembourg, S.A. (0001866782) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1866782/000135445726001116/0001354457-26-001116-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T18:25:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:37:04Z",
+      "updated_at": "2026-11-27T19:37:04Z",
+      "decay_at": "2026-11-29T06:25:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-26fd0025147c",
       "idea_version": "IDEAV-79393b7c9f178a06",
       "idea_version_started_at": "2026-11-27T17:45:35Z",
@@ -263453,6 +263522,146 @@
       "surfaced_at": "2026-11-27T17:45:35Z",
       "updated_at": "2026-11-27T17:45:35Z",
       "decay_at": "2026-11-28T23:07:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0c63b840ab2f",
+      "idea_version": "IDEAV-782f2217fca8a46a",
+      "idea_version_started_at": "2026-11-27T19:37:04Z",
+      "ticker": "VZ",
+      "company": "Verizon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Verizon is in active negotiations to acquire Fidium for $6 billion, which would expand its fiber footprint and potentially improve long-term revenue growth.",
+      "why_now": "The report of the $6 billion deal surfaced on 2026-11-27.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d8521f39a6a"
+      ],
+      "primary_source_event_id": "EVT-3d8521f39a6a",
+      "source_headlines": [
+        "Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says"
+      ],
+      "source_headline": "Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says",
+      "source_url": "https://www.livemint.com/companies/verizon-in-talks-to-buy-fidium-in-6-billion-deal-ft-says-11795804342081.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T18:32:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:37:04Z",
+      "updated_at": "2026-11-27T19:37:04Z",
+      "decay_at": "2026-11-29T06:32:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8dd0e6cca9b7",
+      "idea_version": "IDEAV-3a839ad5b37dd9f3",
+      "idea_version_started_at": "2026-11-27T19:37:04Z",
+      "ticker": "CRDF",
+      "company": "Cardiff Oncology",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company failed to satisfy Nasdaq's continued listing requirements, creating a high risk of delisting and restricted access to capital markets.",
+      "why_now": "The notice of failure to satisfy listing rules was issued on 2026-11-27.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-29f22ba919d4"
+      ],
+      "primary_source_event_id": "EVT-29f22ba919d4",
+      "source_headlines": [
+        "Cardiff Oncology, Inc. Received Notice of Delisting or Failure to Satisfy a Continued Listing Rule or Standard from Nasdaq"
+      ],
+      "source_headline": "Cardiff Oncology, Inc. Received Notice of Delisting or Failure to Satisfy a Continued Listing Rule or Standard from Nasdaq",
+      "source_url": "https://www.nasdaq.com/articles/cardiff-oncology-inc-received-notice-delisting-or-failure-satisfy-continued-listing-rule",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T18:38:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:37:04Z",
+      "updated_at": "2026-11-27T19:37:04Z",
+      "decay_at": "2026-11-29T06:38:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -304964,8 +305173,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2724,
-    "live_count": 44,
+    "surfaced_total": 2727,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
