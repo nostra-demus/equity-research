@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T06:16:29Z",
+  "generated_at": "2026-11-27T06:22:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -1468,6 +1468,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-273",
+      "headline": "Coal India’s Largest Mining Subsidiary Makes Tepid Market Debut, Mahanadi Coalfields Shares List Below ₹136 IPO Price",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/coal-indias-largest-mining-subsidiary-makes-tepid-market-debut-mahanadi-coalfields-shares-list-below-136-ipo-price",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T05:25:49Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Mahanadi Coalfields listed below its IPO price of ₹136, indicating weak market demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Mahanadi Coalfields listed below its IPO price of ₹136, indicating weak market demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanadi Coalfields",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-040",
       "headline": "CCIAM FUTURE EN (00145): TRADING HALT",
       "headline_en": null,
@@ -1900,55 +1949,6 @@
           "name": "SoftBank Group",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-227",
-      "headline": "Rio Tinto Ships First Ore From Giant Simandou Mine to Europe",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-27/rio-tinto-ships-first-ore-from-giant-simandou-mine-to-europe",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T03:53:44Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Rio Tinto successfully commenced shipping iron ore from the Simandou mine, a major capacity milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Rio Tinto successfully commenced shipping iron ore from the Simandou mine, a major capacity milestone.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mega",
@@ -304907,9 +304907,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3782,
-    "news_picked_today": 354,
-    "news_dropped_today": 2228
+    "news_seen_today": 4055,
+    "news_picked_today": 362,
+    "news_dropped_today": 2268
   },
   "book_momentum": {
     "live_count": 8,
