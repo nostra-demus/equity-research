@@ -254,7 +254,7 @@ def _is_selftest_def(node):
             and re.match(r"_*(selftest|self_test)", node.name) is not None)
 
 
-def executable_calls(src, what, skip_selftest=False, entry_only=False):
+def executable_calls(src, what, skip_selftest=False, entry_only=False, detail=None):
     """The set of names CALLED by executable code in `src` — `f(...)` and `mod.f(...)` both yield
     `f`. Parsed with `ast`, so a name inside a comment, string or docstring is never a call and a
     `def f(` line is never a call to `f`. A constant-false branch (`if False:`) is never executed
@@ -264,7 +264,9 @@ def executable_calls(src, what, skip_selftest=False, entry_only=False):
     if that function is itself called — transitively — from the script's top-level code, so a
     detector call parked in a helper nobody invokes is not mistaken for a live one. A source that
     does not parse raises ValueError naming `what`, so the guard fails loudly instead of passing
-    on nothing."""
+    on nothing. If `detail` is a dict it is filled, from the SAME pruned walk, with `bare` (names
+    called as `f(...)`) and `qualified` (`(receiver, f)` pairs for `receiver.f(...)`), so a caller
+    can resolve a call against its import on the path that actually executes."""
     try:
         tree = ast.parse(src)
     except SyntaxError as e:
@@ -298,8 +300,12 @@ def executable_calls(src, what, skip_selftest=False, entry_only=False):
             f = node.func
             if isinstance(f, ast.Name):
                 bucket.add(f.id)
+                if detail is not None:
+                    detail.setdefault("bare", set()).add(f.id)
             elif isinstance(f, ast.Attribute):
                 bucket.add(f.attr)
+                if detail is not None and isinstance(f.value, ast.Name):
+                    detail.setdefault("qualified", set()).add((f.value.id, f.attr))
         for child in ast.iter_child_nodes(node):
             visit(child, bucket)
 
@@ -338,15 +344,17 @@ def wrapper_delegates(eval_src, name, modbase):
     return False
 
 
-def grader_calls_detector(eval_src, name, modbase, grader_calls):
+def grader_calls_detector(eval_src, name, modbase, detail):
     """True iff eval.py's grading code calls `name` THROUGH a binding to its defining module — the
     same resolution unresolved_live_calls() applies to the live heredocs. A call counts when it is
       · a bare call to a local name bound by `from <module> import name [as alias]`,
       · a module-qualified call `m.name(...)` where `m` is `import <module> [as m]`, or
       · a call to eval.py's own same-named `def name` (a wrapper; that it delegates to the shared
         definition is checked separately by wrapper_delegates()).
-    `grader_calls` is executable_calls(eval_src, skip_selftest=True). Bare membership of `name` in
-    that set is NOT enough: if the import is deleted or renamed while the call stays, the grader
+    `detail` is the bare / receiver-qualified call record executable_calls(eval_src,
+    skip_selftest=True, detail=...) fills, so the call AND its receiver are judged on the same
+    production path — a correctly qualified call living only in the self-test branch cannot be
+    joined to an unrelated `other.name(...)` in production. Name-only membership is NOT enough: if the import is deleted or renamed while the call stays, the grader
     raises NameError — or runs an unrelated same-named symbol — yet name-only matching would still
     report the detector as graded."""
     modname = os.path.basename(modbase)
@@ -361,15 +369,10 @@ def grader_calls_detector(eval_src, name, modbase, grader_calls):
                           if a.name.split(".")[-1] == modname}
         elif isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == name:
             wrapped = True
+    bare, qualified = detail.get("bare", set()), detail.get("qualified", set())
     if wrapped:
-        return name in grader_calls
-    if bound & grader_calls:
-        return True
-    if name not in grader_calls:
-        return False
-    return any(isinstance(c, ast.Call) and isinstance(c.func, ast.Attribute) and c.func.attr == name
-               and isinstance(c.func.value, ast.Name) and c.func.value.id in mod_alias
-               for c in ast.walk(tree))
+        return name in bare
+    return bool(bound & bare) or any((m, name) in qualified for m in mod_alias)
 
 
 def stale_live_calls(live_calls, detectors):
@@ -379,11 +382,47 @@ def stale_live_calls(live_calls, detectors):
     return sorted(n for n in live_calls if n.startswith("eval_") and n not in detectors)
 
 
+def live_imports(tree):
+    """Import bindings a heredoc script really has at MODULE scope when it runs: (module alias ->
+    module, local name -> (module, real name)). An import under a constant-false branch never
+    executes, and one inside a function / class body binds a local there, not a module-level name
+    — neither makes a top-level `q.eval_x(...)` resolvable, so neither is collected."""
+    mod_alias, from_name = {}, {}
+
+    def visit(node):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Lambda)):
+            return
+        if isinstance(node, ast.If) and _is_dead_test(node.test):
+            for child in node.orelse:
+                visit(child)
+            return
+        if isinstance(node, ast.Import):
+            for a in node.names:
+                mod_alias[a.asname or a.name.split(".")[0]] = a.name.split(".")[-1]
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            for a in node.names:
+                from_name[a.asname or a.name] = (node.module.split(".")[-1], a.name)
+        for child in ast.iter_child_nodes(node):
+            visit(child)
+
+    visit(tree)
+    return mod_alias, from_name
+
+
 def gate_calls(blocks):
-    """Names called across the 10B finish-gate heredocs, each parsed as its own script."""
+    """Names called across the 10B finish-gate heredocs, each parsed as its own script. A call
+    through a `from <module> import real as alias` binding is recorded under the REAL name — the
+    function that actually executes — so `from m import eval_q as eval_r; eval_r(...)` counts as a
+    live call to eval_q, never to eval_r."""
     names = set()
     for k, block in enumerate(blocks, 1):
-        names |= executable_calls(block, f"full.md 10B heredoc #{k}", entry_only=True)
+        called = executable_calls(block, f"full.md 10B heredoc #{k}", entry_only=True)
+        _mods, from_name = live_imports(ast.parse(block))
+        for local, (_mod, real) in from_name.items():
+            if local != real and local in called:
+                called.discard(local)
+                called.add(real)
+        names |= called
     return names
 
 
@@ -629,7 +668,9 @@ def selfcheck():
         pass
     # a grader call counts only through a binding to the defining module
     def _g(src):
-        return grader_calls_detector(src, "eval_q", "qmod.py", executable_calls(src, "selfcheck", skip_selftest=True))
+        d = {}
+        executable_calls(src, "selfcheck", skip_selftest=True, detail=d)
+        return grader_calls_detector(src, "eval_q", "qmod.py", d)
     assert _g("from qmod import eval_q\neval_q(1)\n"), "resolved bare grader call not counted"
     assert _g("from qmod import eval_q as _q\n_q(1)\n"), "aliased grader call not counted"
     assert _g("import qmod as q\nq.eval_q(1)\n"), "module-qualified grader call not counted"
@@ -638,6 +679,23 @@ def selfcheck():
     assert not _g("from other import eval_q\neval_q(1)\n"), "grader call bound to the wrong module counted as graded"
     assert not _g("import other as q\nq.eval_q(1)\n"), "grader call through the wrong module counted as graded"
     assert not _g("from qmod import eval_q\n"), "imported-but-never-called detector counted as graded"
+    # the qualified call and its receiver must sit on the SAME production path
+    assert not _g('import qmod as q\nimport other\nif scope == "selftest":\n    q.eval_q(1)\nother.eval_q(1)\n'), \
+        "selftest-only qualified call joined to an unrelated production call"
+    assert not _g("from qmod import eval_q\nimport other\nother.eval_q(1)\n"), "unrelated qualified call counted as the bound bare call"
+    # live imports count only at executable module scope
+    assert [n for n, _ in unresolved_live_calls(["if False:\n    import qmod as q\nq.eval_q(1)\n"], dm)] == ["eval_q"], "import under `if False:` accepted as a live binding"
+    assert [n for n, _ in unresolved_live_calls(["def h():\n    import qmod as q\nq.eval_q(1)\n"], dm)] == ["eval_q"], "import inside an uncalled helper accepted as a live binding"
+    # a live call through an alias counts for the detector that really runs
+    assert gate_calls(["from qmod import eval_q as eval_r\neval_r(1)\n"]) >= {"eval_q"}, "aliased live call not normalised to the real detector"
+    assert "eval_r" not in gate_calls(["from qmod import eval_q as eval_r\neval_r(1)\n"]), "aliased live call credited to the alias name"
+    # a `<<'PY'` heredoc fed to a non-Python command is not gate code -> must raise
+    try:
+        extract_gate_blocks("### 10B.1 — V\n```bash\ncat <<'PY'\nx = eval_probe_x(d)\nPY\n```\n")
+        raise AssertionError("non-Python heredoc was extracted as live gate code")
+    except ValueError:
+        pass
+    assert len(extract_gate_blocks("### 10B.1 — V\n```bash\nRUN_ROOT=\"a\" python3 - \"x\" <<'PY'\nx = 1\nPY\n```\n")[0]) == 1, "env-prefixed python heredoc not extracted"
 
     # Invariant 3: unclassified inline check, stale entry, vanished live marker, missing reason.
     reg = {"eval_a": ("live", r"mirrors check A", "n"), "eval_b": ("retrospective", None, "why")}
@@ -665,18 +723,12 @@ def unresolved_live_calls(blocks, detectors):
     """Detector calls in the gate whose receiver does not resolve, in the SAME heredoc, to an import
     of the detector's defining module: `rc.eval_x(...)` needs `import <module> as rc` (or `import
     <module>`), a bare `eval_x(...)` needs `from <module> import eval_x`. A call that outlives its
-    import raises NameError at publish time instead of enforcing anything. Returns [(name, why)]."""
+    import raises NameError at publish time instead of enforcing anything. Only imports that execute
+    at the heredoc's module scope count (see live_imports). Returns [(name, why)]."""
     out = []
     for k, block in enumerate(blocks, 1):
         tree = ast.parse(block)
-        mod_alias, from_name = {}, {}
-        for n in ast.walk(tree):
-            if isinstance(n, ast.Import):
-                for a in n.names:
-                    mod_alias[a.asname or a.name.split(".")[0]] = a.name.split(".")[-1]
-            elif isinstance(n, ast.ImportFrom) and n.module:
-                for a in n.names:
-                    from_name[a.asname or a.name] = (n.module.split(".")[-1], a.name)
+        mod_alias, from_name = live_imports(tree)
         for n in ast.walk(tree):
             if not isinstance(n, ast.Call):
                 continue
@@ -704,7 +756,7 @@ def extract_gate_blocks(md_text):
     section's shell command lines and each heredoc re-rendered from its AST, comments removed —
     which is what the Invariant-3 mirror markers are searched in.
 
-    Three things it gets right (each is a way a weaker extractor would HIDE a real Invariant-1 gap):
+    Four things it gets right (each is a way a weaker extractor would HIDE a real Invariant-1 gap):
       · SECTION-SCOPED. Only heredocs under a `### 10B` header are the finish gate — the blocks that
         can stamp `final_thesis.md` PROVISIONAL. Heredocs under a `### 10A` section (e.g. 10A.2's
         audit dossier, which is best-effort and `must never abort the run`) are EXCLUDED: a detector
@@ -717,6 +769,9 @@ def extract_gate_blocks(md_text):
         inside a ``` block — is documentation, not the gate, so it is EXCLUDED (the opener is
         accepted only while `in_fence`). Otherwise a stale example calling a detector would keep the
         guard green after the real executable call was removed.
+      · PYTHON-FED. The opener line must be a `python3 - … <<'PY'` invocation. A `<<'PY'` heredoc
+        feeding any other command (`cat <<'PY'`) only prints its body, so a detector named in it
+        never runs; such a block raises instead of being counted.
       · EXACT TERMINATOR. A Bash `<<'PY'` heredoc (no `-`) is closed ONLY by a line that is exactly
         `PY` at column 0; an indented `  PY` does not terminate it. The terminator is matched exactly
         (not `.strip()`), and an opener with no column-0 `PY` before EOF raises rather than silently
@@ -727,6 +782,7 @@ def extract_gate_blocks(md_text):
     section = []
     i = 0
     opener = re.compile(r"<<\s*['\"]PY['\"]\s*$")
+    py_cmd = re.compile(r"(?:^|[\s;&|(])python3?(?:\.\d+)?\s+-(?:\s|$)")
     header = re.compile(r"^#{2,3}\s+(\S+)")
     in_10b = False
     in_fence = False
@@ -741,6 +797,12 @@ def extract_gate_blocks(md_text):
         elif in_10b and in_fence and not lines[i].lstrip().startswith("#"):
             section.append(lines[i])       # a shell command line of the gate
         if in_10b and in_fence and opener.search(lines[i]):
+            if not py_cmd.search(lines[i]):
+                raise ValueError(
+                    f"full.md: 10B heredoc opened at line {i + 1} is not stdin of a `python3 -` "
+                    "invocation — a `<<'PY'` body fed to another command (e.g. `cat`) is printed, "
+                    "not run, so it cannot be judged as live gate code. Use a different heredoc "
+                    "tag for non-Python text.")
             j = i + 1
             body = []
             while j < len(lines) and lines[j] != "PY":
@@ -796,9 +858,10 @@ def main():
     bad = 0
     try:
         detectors, dupes = discover_detectors()
-        grader_calls = executable_calls(eval_src, "scripts/eval.py", skip_selftest=True)
+        grader_detail = {}
+        executable_calls(eval_src, "scripts/eval.py", skip_selftest=True, detail=grader_detail)
         live_calls = gate_calls(blocks)
-        graded = {n: (grader_calls_detector(eval_src, n, detectors[n], grader_calls)
+        graded = {n: (grader_calls_detector(eval_src, n, detectors[n], grader_detail)
                       or module_scanned_by_eval(n, detectors[n], eval_src))
                   for n in detectors}
     except ValueError as e:
