@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T06:06:31Z",
+  "generated_at": "2026-11-27T06:15:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -1081,6 +1081,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-267",
+      "headline": "WGN: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WGN?key=2924-03168025-2A1713514",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T05:59:13Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Change in substantial holding disclosed to ASX is material for control and ownership; size, direction, and crossing threshold unknown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Change in substantial holding disclosed to ASX is material for control and ownership; size, direction, and crossing threshold unknown.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-222",
       "headline": "CD2: Half-yearly report and accounts - 30 September 2026 [price-sensitive]",
       "headline_en": null,
@@ -1906,60 +1949,6 @@
           "name": "Rio Tinto",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-205",
-      "headline": "Israeli military 'dependent on Amazon and Google' for its war on Gaza, former employees says",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-military-dependent-amazon-and-google-its-war-gaza",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T03:50:52Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Allegations of dependency on tech giants for military operations create significant reputational and regulatory risk for Amazon and Google.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Allegations of dependency on tech giants for military operations create significant reputational and regulatory risk for Amazon and Google.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Alphabet",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -304918,9 +304907,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3558,
-    "news_picked_today": 346,
-    "news_dropped_today": 2140
+    "news_seen_today": 3782,
+    "news_picked_today": 354,
+    "news_dropped_today": 2228
   },
   "book_momentum": {
     "live_count": 8,
