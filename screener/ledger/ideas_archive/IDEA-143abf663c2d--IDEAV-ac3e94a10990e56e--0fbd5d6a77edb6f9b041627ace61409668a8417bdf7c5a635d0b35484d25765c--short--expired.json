@@ -1,0 +1,82 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-27T15:34:53Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-143abf663c2d",
+    "idea_version": "IDEAV-ac3e94a10990e56e",
+    "idea_version_started_at": "2026-11-25T02:11:57Z",
+    "ticker": "01055",
+    "company": "CHINA SOUTHERN AIRLINES",
+    "exchange": "HKEX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company announced a major capital expenditure commitment for aircraft purchases, which will increase debt leverage and capital intensity in a challenging operating environment.",
+    "why_now": "The filing was released on 2026-11-24.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-3ebd7ff7cdfd",
+      "EVT-4f95c6b4317e",
+      "EVT-8dcc50b19a37"
+    ],
+    "primary_source_event_id": "EVT-3ebd7ff7cdfd",
+    "source_headlines": [
+      "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
+      "CHINA SOUTH AIR (01055): Major Transaction - Airbus Aircraft Purchase Agreements",
+      "CHINA SOUTH AIR (01055): MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT"
+    ],
+    "source_headline": "CHINA SOUTH AIR (01055): (1) MAJOR TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (2) DISCLOSEABLE TRANSACTION IN RELATION TO PURCHASE OF AIRCRAFT; (3) AUTHORISATION TO XIAMEN AIRLINES COMPANY LIMITED ON THE PROVISION OF GUARANTEES; AND (4) NOTICE OF EGM",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401221.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-24T13:16:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-25T02:11:57Z",
+    "updated_at": "2026-11-25T02:11:57Z",
+    "decay_at": "2026-11-26T01:16:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

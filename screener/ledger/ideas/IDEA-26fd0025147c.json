@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-26fd0025147c",
+  "idea_version": "IDEAV-79393b7c9f178a06",
+  "idea_version_started_at": "2026-11-27T17:45:35Z",
+  "ticker": "EQT",
+  "company": "EQT Corp",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "pair",
+  "pair_with": "RRC",
+  "reason": "The filing of a 425 form indicates a formal business combination process between EQT and Range Resources, creating a classic merger arbitrage opportunity where the spread between the offer price and current market price is the primary driver.",
+  "why_now": "The SEC filing on 2026-11-27 confirms the initiation of formal merger communications, making the deal active and actionable.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 75,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 18,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "pair_trade",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-7ca227b11f62",
+    "EVT-e6485f0cdc41"
+  ],
+  "primary_source_event_id": "EVT-7ca227b11f62",
+  "source_headlines": [
+    "425 - EQT Corp (0000033213) (Filed by)",
+    "425 - RANGE RESOURCES CORP (0000315852) (Subject)"
+  ],
+  "source_headline": "425 - EQT Corp (0000033213) (Filed by)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/33213/000121390026124284/0001213900-26-124284-index.htm",
+  "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-27T11:07:16Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-27T17:45:35Z",
+  "updated_at": "2026-11-27T17:45:35Z",
+  "decay_at": "2026-11-28T23:07:16Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
