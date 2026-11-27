@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T03:49:33Z",
+  "generated_at": "2026-11-27T03:58:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -192,6 +192,55 @@
           "name": "Apple",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-199",
+      "headline": "SAP may cut at least 10,000 jobs in AI-driven restructuring",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/sap-may-cut-at-least-10000-jobs-in-ai-driven-restructuring-19942358.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T03:55:01Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "SAP is reportedly planning to cut at least 10,000 jobs as part of an AI-driven restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SAP is reportedly planning to cut at least 10,000 jobs as part of an AI-driven restructuring.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAP",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "mega",
@@ -885,6 +934,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-197",
+      "headline": "LGP: Agreed TGA penalties submitted for Court approval",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGP?key=2924-03167892-6A1357597",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T03:53:57Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "LGP has agreed to TGA penalties for court approval, indicating a confirmed regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "LGP has agreed to TGA penalties for court approval, indicating a confirmed regulatory enforcement action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Little Green Pharma",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-168",
       "headline": "KLV: Performance update Q1 FY2027 [price-sensitive]",
       "headline_en": null,
@@ -1369,6 +1467,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-205",
+      "headline": "Israeli military 'dependent on Amazon and Google' for its war on Gaza, former employees says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-military-dependent-amazon-and-google-its-war-gaza",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T03:50:52Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Allegations of dependency on tech giants for military operations create significant reputational and regulatory risk for Amazon and Google.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Allegations of dependency on tech giants for military operations create significant reputational and regulatory risk for Amazon and Google.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-149",
       "headline": "더 시에나 그룹, 골프존카운티 지분 전량 인수 추진",
       "headline_en": "The Siena Group pushes to acquire full stake in Golfzon County",
@@ -1802,153 +1954,6 @@
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-194",
-      "headline": "HSBC reorganises support roles in India, impacting over 20,000 jobs",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/hsbc-reorganises-support-roles-in-india-impacting-over-20000-jobs/article71749300.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T03:36:14Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "HSBC is reorganizing support roles in India, impacting over 20,000 jobs, which indicates a significant operational shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "HSBC is reorganizing support roles in India, impacting over 20,000 jobs, which indicates a significant operational shift.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-192",
-      "headline": "Tata boardroom tussle: Bombay High Court to hear Tata Trusts' plea against Chandra's reappointment today",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/tata-boardroom-tussle-bombay-high-court-to-hear-tata-trusts-plea-against-n-chandrasekarans-reappointment-today-heres-what-you-need-to-know-569793-2026-11-27?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T03:14:58Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "The Bombay High Court is hearing a plea against the reappointment of the Tata chairman, creating management and governance uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The Bombay High Court is hearing a plea against the reappointment of the Tata chairman, creating management and governance uncertainty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-165",
-      "headline": "Amazon staff to strike and rally on busiest weekend of the year",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/amazon-staff-to-strike-and-rally-on-busiest-weekend-of-the-year-13617042",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T03:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Amazon staff are planning strikes during their busiest weekend, which poses a risk to operational efficiency and revenue during a peak period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Amazon staff are planning strikes during their busiest weekend, which poses a risk to operational efficiency and revenue during a peak period.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
           "ticker": null,
           "listing_country": "US"
         }
@@ -304553,9 +304558,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 948,
-    "news_picked_today": 233,
-    "news_dropped_today": 715
+    "news_seen_today": 983,
+    "news_picked_today": 242,
+    "news_dropped_today": 741
   },
   "book_momentum": {
     "live_count": 8,
