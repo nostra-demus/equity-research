@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T00:24:57Z",
+  "generated_at": "2026-11-27T00:29:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-001",
@@ -925,6 +925,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-032",
+      "headline": "Airtel, Jio push back against Trai ask for prime spots to display low-price plans",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/trai-jio-airtel-recharge-plans-11795678686881.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:20:31Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Airtel and Jio are opposing a regulatory request from Trai regarding the display of low-price plans, which could impact marketing and customer acquisition strategies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Airtel and Jio are opposing a regulatory request from Trai regarding the display of low-price plans, which could impact marketing and customer acquisition strategies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharti Airtel",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Reliance Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-011",
       "headline": "KANTONE HOLDING (01059): DISCLOSEABLE TRANSACTION IN RESPECT OF THE DISPOSAL OF LISTED SECURITIES",
       "headline_en": null,
@@ -1208,6 +1262,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-031",
+      "headline": "Qantas and Air New Zealand planes too close at Sydney airport with ‘mental models’ of crews to be investigated",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/nov/27/qantas-plane-aborted-landing-sydney-airport-mental-model-investigation",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:10:55Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "A near-miss incident at Sydney airport involving Qantas and Air New Zealand is under investigation but unlikely to have a material financial impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "A near-miss incident at Sydney airport involving Qantas and Air New Zealand is under investigation but unlikely to have a material financial impact.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qantas Airways",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Air New Zealand",
+          "ticker": null,
+          "listing_country": "NZ"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303459,7 +303567,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5357,
+    "inbox_unconsumed": 5359,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -303468,9 +303576,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 114,
-    "news_picked_today": 30,
-    "news_dropped_today": 84
+    "news_seen_today": 126,
+    "news_picked_today": 32,
+    "news_dropped_today": 94
   },
   "book_momentum": {
     "live_count": 8,
