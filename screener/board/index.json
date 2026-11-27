@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T13:13:33Z",
+  "generated_at": "2026-11-27T13:18:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-430",
@@ -391,6 +391,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-470",
+      "headline": "Thames Water warns High Court it will ‘most likely’ plunge into administration if rescue plan blocked",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/thames-water-high-court-debt-b3092775.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T13:04:52Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Thames Water warned the High Court that it will likely enter administration if its rescue plan is blocked.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thames Water warned the High Court that it will likely enter administration if its rescue plan is blocked.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thames Water",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1944,49 +1993,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-386",
-      "headline": "Kuwait Says Iranian Drone Strike Kills Two as Houthi Attack Hits Jazan Refinery",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-27/horizons-middle-east-africa-11-27-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T07:52:46Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Military strike on a refinery and geopolitical escalation in the Middle East poses a significant supply shock risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Military strike on a refinery and geopolitical escalation in the Middle East poses a significant supply shock risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305019,9 +305025,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 79272,
-    "news_picked_today": 920,
-    "news_dropped_today": 11078
+    "news_seen_today": 80410,
+    "news_picked_today": 929,
+    "news_dropped_today": 11141
   },
   "book_momentum": {
     "live_count": 8,
