@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T17:31:12Z",
+  "generated_at": "2026-11-27T17:37:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-559",
@@ -490,6 +490,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-702",
+      "headline": "BAE Systems awarded £4.5bn military deal days after announcing plans to cut 1000 jobs",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/bae-systems-dead-combat-vehicles-jobs-b3092966.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T17:21:17Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "BAE Systems secured a 4.5 billion GBP military contract while simultaneously announcing 1000 job cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BAE Systems secured a 4.5 billion GBP military contract while simultaneously announcing 1000 job cuts.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAE Systems",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1943,55 +1993,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-411",
-      "headline": "IHH Healthcare’s Q3 net profit rises 10.2% to US$164.8 million",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/ihh-healthcares-q3-net-profit-rises-10-2-us164-8-million",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T10:27:41Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "IHH Healthcare reported a 10.2% increase in Q3 net profit to US$164.8 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IHH Healthcare reported a 10.2% increase in Q3 net profit to US$164.8 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IHH Healthcare",
-          "ticker": null,
-          "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304594,9 +304595,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117964,
-    "news_picked_today": 1440,
-    "news_dropped_today": 14210
+    "news_seen_today": 118050,
+    "news_picked_today": 1454,
+    "news_dropped_today": 14282
   },
   "book_momentum": {
     "live_count": 8,
