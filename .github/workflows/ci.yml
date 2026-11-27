@@ -206,6 +206,9 @@ jobs:
       - name: Live finish-gate AQ regression (Step 10B.1 §13 forensic-mosaic cap reads all 4 owning modules incl. business-model, and MG's two RF-REG-002 source specialists)
         run: python3 scripts/test_live_gate_aq.py
 
+      - name: Finish-gate parity guard (every eval.py-graded detector is also wired into the full.md live gate, and vice-versa — closes the recurring "defined in eval.py, forgotten in the live gate" class)
+        run: python3 scripts/test_finish_gate_parity.py
+
       - name: Score-breakdown unit tests (screener Phase 0.1 materiality)
         run: python3 scripts/test_screener_score_breakdown.py
 
