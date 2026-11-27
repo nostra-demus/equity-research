@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T16:51:43Z",
+  "generated_at": "2026-11-27T16:57:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-559",
@@ -686,6 +686,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-664",
+      "headline": "Adani Group plans ₹2.2 lakh crore capex in FY27, commits $10 billion to data centres",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/adani-group-targets-22-lakh-crore-capex-investment-in-fy27/article71750655.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T15:17:32Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Adani Group announced ₹2.2 lakh crore capex program for FY27 with $10 billion committed to data centres, materially affecting capital allocation and strategic growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Group announced ₹2.2 lakh crore capex program for FY27 with $10 billion committed to data centres, materially affecting capital allocation and strategic growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1945,55 +1994,6 @@
           "name": "Thales",
           "ticker": null,
           "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-349",
-      "headline": "PIC in R2.6bn deal for Grit’s African development business",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/south-africa/pic-in-r2-6bn-deal-for-grits-african-development-business/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T08:25:03Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "PIC is acquiring Grit's African development business for R2.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PIC is acquiring Grit's African development business for R2.6 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grit",
-          "ticker": null,
-          "listing_country": "ZA"
         }
       ],
       "size_bucket": "small",
@@ -304599,9 +304599,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 116270,
-    "news_picked_today": 1337,
-    "news_dropped_today": 13617
+    "news_seen_today": 116442,
+    "news_picked_today": 1346,
+    "news_dropped_today": 13632
   },
   "book_momentum": {
     "live_count": 8,
