@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T09:35:52Z",
+  "generated_at": "2026-11-27T09:46:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-338",
@@ -240,6 +240,60 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-351",
+      "headline": "Lumibird Shares Surge After Thales Targets Majority Stake in $483 Million Laser Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/lumibird-shares-surge-after-thales-targets-majority-stake-in-483-million-laser-deal-48d6e693?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T08:52:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Thales is targeting a majority stake in Lumibird in a $483 million laser deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thales is targeting a majority stake in Lumibird in a $483 million laser deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lumibird",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Thales",
+          "ticker": null,
+          "listing_country": "FR"
         }
       ],
       "size_bucket": "small",
@@ -1916,55 +1970,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-168",
-      "headline": "KLV: Performance update Q1 FY2027 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KLV?key=2924-03167857-6A1357572",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T03:10:12Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "KLV released a performance update for Q1 FY2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "KLV released a performance update for Q1 FY2027.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KLV",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305205,9 +305210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51675,
-    "news_picked_today": 524,
-    "news_dropped_today": 8215
+    "news_seen_today": 52196,
+    "news_picked_today": 533,
+    "news_dropped_today": 8278
   },
   "book_momentum": {
     "live_count": 8,
