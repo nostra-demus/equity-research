@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T14:02:27Z",
+  "generated_at": "2026-11-27T14:21:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-472",
@@ -686,6 +686,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-545",
+      "headline": "Uber Secures 87.13% Stake In Delivery Hero",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/uber-secures-8713-stake-delivery-hero",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T12:10:20Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Uber secured an 87.13% stake in Delivery Hero, a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber secured an 87.13% stake in Delivery Hero, a major M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Delivery Hero",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,50 +2006,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-061",
-      "headline": "Iran war live: Worker killed and refinery operations partially suspended following Saudi Jazan attack",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/iran-us-israel-war-live-latest-updates",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:41:28Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "A military attack on a refinery causing partial suspension of operations is a direct supply shock to the energy sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A military attack on a refinery causing partial suspension of operations is a direct supply shock to the energy sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305027,9 +305037,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 86263,
-    "news_picked_today": 1049,
-    "news_dropped_today": 11597
+    "news_seen_today": 92474,
+    "news_picked_today": 1074,
+    "news_dropped_today": 11860
   },
   "book_momentum": {
     "live_count": 8,
