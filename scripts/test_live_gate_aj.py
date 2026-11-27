@@ -241,6 +241,13 @@ def main():
         print("  [XX] full.md Step 10B.1 BK call is missing or does NOT gate on `_live_date`")
     else:
         print("  [ok] full.md Step 10B.1 BK call gates on `_live_date`")
+    # Static guard: the live BP call (forecast confirmation/falsification bars must meet) must also gate on
+    # _live_date — a rerun regenerates decision_record.json's forecast_ledger, exactly as BA/BK.
+    if not re.search(r"eval_bp_forecast_outcome_partition\(\s*_live_date\s*,", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BP call is missing or does NOT gate on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.1 BP call gates on `_live_date`")
 
     # Static guard: the live BF call must be judged on _live_date, never ddte — decision_date never
     # advances on a rerun, so a ddte-keyed BF would exempt every pre-BF_ENFORCE_DATE folder forever.

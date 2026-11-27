@@ -912,6 +912,179 @@ def eval_bk_forecast_trigger_test(decision_date, forecast_ledger):
         return None
     return issues
 
+# ── Check BP (§19 / synthesizer.md Forecast Ledger "Exhaustive, partitioned triggers") — a numeric
+# forecast's confirmation and falsification bars must MEET. A forecast carries ONE probability, so it is a
+# yes/no proposition: the Brier score needs the event to resolve true or false. When the two triggers pin
+# different numbers on the same measure ("confirm: revenue below EUR3,750m / falsify: revenue above
+# EUR4,050m") there is a dead zone between them. A print inside it is neither a hit nor a miss, so the
+# review loop — which rightly refuses to rewrite a frozen trigger — records "not assessable" and the row
+# drops out of calibration. That is not neutral: the band absorbs exactly the near-misses, so the forecast
+# can only ever be scored wrong when it is badly wrong, which flatters the hit rate and the Brier the AG
+# calibration haircut is computed from. The engine then learns it is better calibrated than it is.
+#
+# Measured on the committed corpus (2026-11-27): 103 forecast rows in 21 decision records; this check
+# judges a row in 20 of those records and finds a dead zone in 12 rows across 6 runs (AMZN_2026-07-10,
+# DHER_2026-08-12, EMAAR_2026-07-03, ORCL_2026-08-14, TMCV_2026-06-07, UBER_2026-08-06), no overlap, and
+# no false positive on a hand read of every judged row. The cost is on file: across the latest review of
+# each reviewed run, 23 of the 50 forecasts that reached a terminal read were "not assessable", and two of
+# those reviews name this shape outright — DHER_2026-08-12 F01 ("EUR4024.5m lies in the original
+# EUR3750-4050 inconclusive band") and F02 ("EUR426.7m lies in the original EUR390-460 inconclusive band").
+# Both were plain misses of the stated prediction that never reached the Brier score. Until now the
+# partition rule was prose-only: check AO fails only the degenerate case of two IDENTICAL trigger
+# sentences, and its own comment defers "outcome-space exhaustiveness" to authoring time.
+#
+# Deliberately narrow — precision over recall, because a violation stamps a thesis PROVISIONAL. A row is
+# judged only on a measure where EACH trigger pins exactly one directional bar (a comparator from the
+# closed UP/DOWN vocabulary below + a number) of the same currency and unit kind, pointing in OPPOSITE
+# directions. Everything ambiguous is left alone: a trigger with two different bars of one kind (an
+# AND/OR compound — "< consensus OR < year-ago"), a negated comparator ("does not exceed"), same-direction
+# bars, bars of different units, a "between X and Y" range, and non-numeric (event) rows. On the judged
+# measure the two numbers must be equal (one side inclusive); a plain integer count may instead be a
+# discrete complement ("at least 2 of 3 quarters" / "at most 1"). A GAP (dead zone) and an OVERLAP (both
+# triggers fire on the same outcome) are both partition failures — and that holds even if the author put
+# the two bars on two different metrics of the same unit: then both, or neither, can happen, and the row
+# still does not settle one way. There is no opt-out field: the fix is
+# always available — make the falsification the exact complement of the confirmation, and carry the
+# wide-miss level, if it matters, as its own forecast row or as a kill criterion. A print exactly ON a
+# shared bar that both sides exclude (or both include) is not judged here; the authoring rule covers it.
+# Forward-looking for pass/fail; eval.py also re-runs it as a retrospective advisory, because a dead-zone
+# row in an already-published, still-open ledger is a live defect the next review will hit.
+BP_DATE = "2026-12-08"
+_BP_UP = (r"(?:>=|≥|>|\b(?:at\s+or\s+above|above|exceed(?:s|ed|ing)?|at\s+least|"
+          r"(?:more|greater|higher)\s+than|not?\s+(?:less|lower|fewer)\s+than)\b)")
+_BP_DN = (r"(?:<=|≤|<|\b(?:at\s+or\s+below|below|at\s+most|"
+          r"(?:less|lower|fewer)\s+than|not?\s+(?:more|greater|higher)\s+than)\b)")
+_BP_INCLUSIVE = re.compile(r">=|≥|<=|≤|\bat\s+or\b|\bat\s+(?:least|most)\b|\bnot?\s", re.I)
+_BP_CCY = (r"(?:(?:us|hk|a|c|s|nz)?\$|[₹€£¥₩₽]|\b(?:rs\.?|inr|usd|eur|gbp|jpy|rmb|cny|cnh|hkd|krw|sar|aed|sgd|"
+           r"aud|cad|chf|brl|egp|mxn|zar|idr|try)\.?\s?)")   # no trailing \b: 'EUR3,750m' / 'Rs17.00' glue the code to the digit
+_BP_SUFFIX = (r"(?:%|\s?(?:percent(?:age\s+points?)?|per\s+cent|ppts?|pp|bps?|basis\s+points?|x|times|"
+              r"k|thousand|lakhs?|lacs?|crores?|cr|mn|mm|mln|million|m|bn|bln|billion|b|tn|trillion)\b)")
+_BP_FILL = r"(?:\s*(?:of|approximately|approx\.?|about|around|roughly|nearly|c\.)\b)?\s*~?\s*"
+_BP_BAR = re.compile(
+    r"(?P<cmp>" + _BP_UP + "|" + _BP_DN + r")" + _BP_FILL + r"(?P<ccy>" + _BP_CCY + r")?\s?"
+    r"(?P<num>[-+−]?" + _BK_NUM + r")(?![\d'’])(?P<suf>" + _BP_SUFFIX + r")?", re.I)
+# The comparator written AFTER the number: '4.46x or higher', '500 or fewer'. Always inclusive.
+_BP_BAR_POST = re.compile(
+    r"(?P<ccy>" + _BP_CCY + r")?\s?(?P<num>[-+−]?" + _BK_NUM + r")(?P<suf>" + _BP_SUFFIX + r")?"
+    r"\s+or\s+(?P<word>higher|more|greater|above|lower|less|fewer|below)\b", re.I)
+_BP_UP_ONLY = re.compile(r"^" + _BP_UP + r"$", re.I)
+# A negated comparator ('does not exceed 5%', 'fails to hold above', 'never below') reverses its meaning.
+# Rather than guess the scope of the negation, the bar is marked ambiguous and its measure is not judged.
+# ('not less than' / 'no more than' are whole comparators above, not negations.)
+_BP_NEGATED = re.compile(r"(?:\b(?:not|never|cannot|without|no\s+longer|fail(?:s|ed|ing)?\s+to|unable\s+to)|n['’]t)"
+                         r"(?:\s+[a-z]+){0,2}\s*$", re.I)
+_BP_CCY_CANON = {"$": "usd", "us$": "usd", "usd": "usd", "₹": "inr", "rs": "inr", "inr": "inr", "€": "eur",
+                 "eur": "eur", "£": "gbp", "gbp": "gbp", "¥": "jpy", "jpy": "jpy", "rmb": "cny", "cny": "cny",
+                 "cnh": "cny", "₩": "krw", "krw": "krw"}
+_BP_SCALE = {"k": 1e3, "thousand": 1e3, "lakh": 1e5, "lakhs": 1e5, "lac": 1e5, "lacs": 1e5, "cr": 1e7,
+             "crore": 1e7, "crores": 1e7, "m": 1e6, "mn": 1e6, "mm": 1e6, "mln": 1e6, "million": 1e6,
+             "b": 1e9, "bn": 1e9, "bln": 1e9, "billion": 1e9, "tn": 1e12, "trillion": 1e12}
+
+def _bp_bars(text):
+    """Every directional numeric bar in one trigger, as dicts {dir, value, incl, sig, raw, ambiguous}.
+    `sig` = (currency, unit kind) — the measure the bar is on; `value` is scaled to base units so
+    '$2.86bn' and '$2,860m' compare equal."""
+    text = _bk_strip_labels(text)
+    found = []
+    for m in _BP_BAR.finditer(text):
+        cmp_ = m.group("cmp").strip()
+        found.append((m, "up" if _BP_UP_ONLY.match(cmp_) else "dn", bool(_BP_INCLUSIVE.search(cmp_)),
+                      bool(_BP_NEGATED.search(text[:m.start()]))))
+    for m in _BP_BAR_POST.finditer(text):
+        if any(p.start("num") == m.start("num") for p, _, _, _ in found):
+            continue  # 'at or above 4.46x or higher' — already read by the prefix form
+        up = m.group("word").lower() in ("higher", "more", "greater", "above")
+        found.append((m, "up" if up else "dn", True, False))
+    bars = []
+    for m, direction, incl, negated in found:
+        try:
+            value = float(m.group("num").replace(",", "").replace("−", "-"))
+        except ValueError:
+            continue
+        suf = re.sub(r"\s+", " ", (m.group("suf") or "").strip().lower())
+        ccy = re.sub(r"[\s.]", "", (m.group("ccy") or "").lower())
+        ccy = _BP_CCY_CANON.get(ccy, ccy)
+        if suf in _BP_SCALE:
+            kind, value = "amount", value * _BP_SCALE[suf]
+        elif suf in ("%", "percent", "per cent"):
+            kind = "pct"
+        elif suf.startswith(("pp", "percentage")):
+            kind = "pp"
+        elif suf.startswith(("bp", "basis")):
+            kind = "bps"
+        elif suf in ("x", "times"):
+            kind = "x"
+        else:
+            kind = "amount" if ccy else "plain"
+        bars.append({"dir": direction, "value": value, "incl": incl, "sig": (ccy, kind),
+                     "raw": re.sub(r"\s+", " ", m.group(0).strip()), "ambiguous": negated,
+                     "integer": kind == "plain" and not suf and float(value).is_integer()})
+    return bars
+
+def _bp_single_bar_by_measure(bars):
+    """{sig: bar} for each measure on which the trigger pins exactly ONE distinct, unambiguous bar."""
+    by_sig = {}
+    for b in bars:
+        by_sig.setdefault(b["sig"], []).append(b)
+    out = {}
+    for sig, group in by_sig.items():
+        if any(b["ambiguous"] for b in group):
+            continue
+        if len({(b["dir"], b["value"]) for b in group}) == 1:
+            out[sig] = group[0]
+    return out
+
+def eval_bp_forecast_outcome_partition(decision_date, forecast_ledger):
+    """Core of check BP. Returns None (N/A — pre-gate, malformed/empty ledger, or no row with a pair of
+    opposed same-measure bars to judge) or a list of violation strings (empty list = every judged row's
+    triggers meet). Side-effect-free + module-level so the eval selftest, the retrospective advisory and
+    the live finish gate call the same logic."""
+    if not (_isdate(decision_date) and decision_date >= BP_DATE):
+        return None
+    if not isinstance(forecast_ledger, list) or not forecast_ledger:
+        return None  # T flags a non-list ledger; an empty ledger is allowed (§19)
+    issues = []
+    judged = 0
+    for i, e in enumerate(forecast_ledger):
+        if not isinstance(e, dict):
+            continue  # T flags non-object entries
+        ct, ft = e.get("confirmation_trigger"), e.get("falsification_trigger")
+        if not (isinstance(ct, str) and isinstance(ft, str)):
+            continue
+        cbars = _bp_single_bar_by_measure(_bp_bars(ct))
+        fbars = _bp_single_bar_by_measure(_bp_bars(ft))
+        fid = str(e.get("forecast_id") or f"#{i}")[:60]
+        for sig in sorted(set(cbars) & set(fbars)):
+            c, f = cbars[sig], fbars[sig]
+            if c["dir"] == f["dir"]:
+                continue  # same-direction bars are not a confirm/falsify pair on one threshold
+            judged += 1
+            up, dn = (c, f) if c["dir"] == "up" else (f, c)
+            if math.isclose(up["value"], dn["value"], rel_tol=1e-9, abs_tol=1e-12):
+                continue  # the bars meet — the outcome space is partitioned
+            if up["integer"] and dn["integer"]:
+                # a plain count: 'at least 2' / 'at most 1' (or 'more than 1' / 'fewer than 2') is a clean split
+                lo_of_up = up["value"] if up["incl"] else up["value"] + 1
+                hi_of_dn = dn["value"] if dn["incl"] else dn["value"] - 1
+                if lo_of_up == hi_of_dn + 1:
+                    continue
+            tail = ("make the falsification trigger the exact complement of the confirmation trigger (same "
+                    "number, opposite comparator, one side 'at or'); carry a wide-miss level as its own "
+                    "forecast row or a kill criterion (§19; synthesizer.md Forecast Ledger 'Exhaustive, "
+                    "partitioned triggers')")
+            if up["value"] > dn["value"]:
+                issues.append(f"forecast_ledger[{i}] ({fid}) triggers leave a dead zone — confirmation "
+                              f"'{c['raw']}' vs falsification '{f['raw']}': an outcome between the two bars is "
+                              f"neither a hit nor a miss, so the review loop cannot score it and the row's single "
+                              f"probability is not the probability of a yes/no event; {tail}")
+            else:
+                issues.append(f"forecast_ledger[{i}] ({fid}) triggers overlap — confirmation '{c['raw']}' vs "
+                              f"falsification '{f['raw']}': an outcome between the two bars fires BOTH, so the "
+                              f"row cannot settle one way; {tail}")
+    if not judged:
+        return None
+    return issues
+
 
 def _isdate(s):
     import datetime

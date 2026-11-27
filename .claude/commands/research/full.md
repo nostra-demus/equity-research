@@ -1087,6 +1087,13 @@ viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_crite
 # scored as a hit by the calibration loop although the status quo already cleared it. Uses `_live_date`
 # for the same reason BA does.
 viol.extend(sic.eval_bk_forecast_trigger_test(_live_date, d.get("forecast_ledger")) or [])
+# check BP — a numeric forecast's confirmation and falsification bars must MEET (live pre-publish; mirrors
+# eval.py check BP via the same module). A forecast carries one probability, so it is a yes/no event:
+# "confirm: revenue below EUR3,750m / falsify: revenue above EUR4,050m" leaves a dead zone where a print is
+# neither a hit nor a miss. The review loop then records "not assessable" (DHER_2026-08-12 F01/F02 did
+# exactly this) and the near-miss never reaches the Brier score — the forecast can only be scored wrong
+# when it is badly wrong. Uses `_live_date` for the same reason BA/BK do.
+viol.extend(sic.eval_bp_forecast_outcome_partition(_live_date, d.get("forecast_ledger")) or [])
 # checks AM/AR — §8 bear-case / bull-case sanity (live pre-publish; mirrors eval.py checks AM/AR
 # via scripts/scenario_integrity_checks.py, the same shared module as AT/AU/AV/BC/BA above).
 # CLAUDE.md §8 requires every thesis to state "the strongest bear case" (and, by the same
