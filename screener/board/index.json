@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T12:35:11Z",
+  "generated_at": "2026-11-27T12:43:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-430",
@@ -441,6 +441,119 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-442",
+      "headline": "Deutsche Boerse’s €5.3 billion Allfunds Deal Gets EU Approval",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-27/deutsche-boerse-s-5-3-billion-allfunds-deal-gets-eu-approval",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Deutsche Boerse received EU approval for its €5.3 billion acquisition of Allfunds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Deutsche Boerse received EU approval for its €5.3 billion acquisition of Allfunds.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deutsche Boerse",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Allfunds",
+          "ticker": null,
+          "listing_country": "ES"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-444",
+      "headline": "Volkswagen drags rivals Mercedes, BMW into $1.2 billion tax fight",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/cars-uvs/volkswagen-drags-rivals-mercedes-bmw-into-1-2-billion-tax-fight/articleshow/136218973.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T10:51:26Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Volkswagen is involving Mercedes and BMW in a $1.2 billion tax dispute, creating significant legal and financial risk for all three companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen is involving Mercedes and BMW in a $1.2 billion tax dispute, creating significant legal and financial risk for all three companies.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Mercedes-Benz Group",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "BMW",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1863,105 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-064",
-      "headline": "Musk vows to give away $27b in SpaceX shares in AI charm offensive",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/musk-vows-to-give-away-27b-in-spacex-shares-in-ai-charm-offensive-20261127-p61hrx?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Elon Musk announced plans to divest $27 billion in SpaceX shares, representing a significant capital shift for the private company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Elon Musk announced plans to divest $27 billion in SpaceX shares, representing a significant capital shift for the private company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-417",
-      "headline": "GLMS SEC (01456): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE PARTICIPATION BY THE WHOLLY-OWNED SUBSIDIARY MINSHENG SECURITIES IN THE MERGER BY ABSORPTION OF MINSHENG FUTURES BY GUOLIAN FUTURES BY WAY OF SHARE EXCHANGE AMENDMENTS TO THE ARTICLES OF ASSOCIATION AND NOTICE OF THE EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112701481.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T11:35:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "GLMS SEC subsidiary Minsheng Securities participates in merger by absorption of Minsheng Futures by Guolian Futures via share exchange; discloseable connected transaction with articles amendments and extraordinary general meeting notice.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "GLMS SEC subsidiary Minsheng Securities participates in merger by absorption of Minsheng Futures by Guolian Futures via share exchange; discloseable connected transaction with articles amendments and extraordinary general meeting notice.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 63,
-      "rank_factors": {
-        "materiality": 63,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GLMS SEC",
-          "ticker": "01456",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304991,9 +305005,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 72748,
-    "news_picked_today": 871,
-    "news_dropped_today": 10479
+    "news_seen_today": 74727,
+    "news_picked_today": 881,
+    "news_dropped_today": 10541
   },
   "book_momentum": {
     "live_count": 8,
