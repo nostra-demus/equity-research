@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-95ed328d5065",
-  "idea_version": "IDEAV-ae5eb5999ecd2878",
-  "idea_version_started_at": "2026-11-24T20:58:18Z",
-  "ticker": "08448",
-  "company": "PREMIER INTEL",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-52fef4928a87",
+  "idea_version": "IDEAV-f1c0e342eb0e3475",
+  "idea_version_started_at": "2026-11-27T12:02:05Z",
+  "ticker": "SPP",
+  "company": "Spar Group",
+  "exchange": "JSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a profit warning, signaling deteriorating earnings performance and potential margin compression.",
-  "why_now": "The filing was released on 2026-11-24.",
-  "conviction": 65,
+  "reason": "The company issued a profit warning indicating a potential drop of up to 49.5% in earnings, signaling significant operational or margin pressure.",
+  "why_now": "The warning was issued on 2026-11-27.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 19,
+    "evidence": 14,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,8 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,31 +45,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-4fb501c605f9"
+    "EVT-3687ca9ab017"
   ],
-  "primary_source_event_id": "EVT-4fb501c605f9",
+  "primary_source_event_id": "EVT-3687ca9ab017",
   "source_headlines": [
-    "PREMIER INTEL (08448): PROFIT WARNING"
+    "Spar warns of up to 49.5% profit drop"
   ],
-  "source_headline": "PREMIER INTEL (08448): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1124/2026112401099.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Spar warns of up to 49.5% profit drop",
+  "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/spar-warns-of-up-to-49-5-profit-drop/",
+  "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-24T11:34:00Z",
+  "newest_source_at": "2026-11-27T08:20:50Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-24T20:58:18Z",
-  "updated_at": "2026-11-24T20:58:18Z",
-  "decay_at": "2026-11-25T23:34:00Z",
+  "surfaced_at": "2026-11-27T12:02:05Z",
+  "updated_at": "2026-11-27T12:02:05Z",
+  "decay_at": "2026-11-28T20:20:50Z",
   "status": "live",
   "promoted_signal_id": null
 }
