@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T08:53:16Z",
+  "generated_at": "2026-11-27T08:57:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -1424,6 +1424,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-324",
+      "headline": "BEIJING N STAR (00588): PROPOSED SPIN-OFF OF A COMMERCIAL REAL ESTATE SECURITIES INVESTMENT FUND AND ITS SEPARATE LISTING ON THE SHANGHAI STOCK EXCHANGE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700382.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T08:33:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Proposed spin-off and separate listing of a commercial-real-estate securities investment fund on Shanghai Stock Exchange subject to shareholder and regulatory approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Proposed spin-off and separate listing of a commercial-real-estate securities investment fund on Shanghai Stock Exchange subject to shareholder and regulatory approval.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beijing N Star",
+          "ticker": "00588",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-312",
       "headline": "MP1: Becoming a substantial holder from MUFG",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-040",
-      "headline": "CCIAM FUTURE EN (00145): TRADING HALT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112601388.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T00:38:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Trading halt announced for CCIAM Future Energy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading halt announced for CCIAM Future Energy.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CCIAM Future Energy",
-          "ticker": "00145",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305209,9 +305209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 43536,
-    "news_picked_today": 459,
-    "news_dropped_today": 7584
+    "news_seen_today": 44392,
+    "news_picked_today": 467,
+    "news_dropped_today": 7624
   },
   "book_momentum": {
     "live_count": 8,
