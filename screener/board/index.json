@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-27T14:35:47Z",
+  "generated_at": "2026-11-27T14:47:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261127-559",
+      "headline": "EVERG VEHICLE (00708): (1) DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING; (2) RIGHT OF REVIEW OF THE DECISION ON CANCELLATION OF LISTING; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112701935.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T14:24:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Hong Kong listing committee decision to cancel EVERG VEHICLE's listing with continued trading suspension eliminates shareholder liquidity and signals distress requiring liquidation or restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hong Kong listing committee decision to cancel EVERG VEHICLE's listing with continued trading suspension eliminates shareholder liquidity and signals distress requiring liquidation or restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EVERG VEHICLE",
+          "ticker": "00708",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261127-472",
       "headline": "CHINANEWENERGY (01156): QUARTERLY UPDATE ON THE ACTION PLAN TO ADDRESS THE DISCLAIMER OF OPINION CONTAINED IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
@@ -1947,65 +1997,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-095",
-      "headline": "Altria, Japan Tobacco explore takeover of Imperial Brands",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/27/companies/japan-tobacco-considers-imperial-acquisition/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T01:31:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Altria and Japan Tobacco are reportedly exploring a takeover of Imperial Brands, a major M&A event in the tobacco sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Altria and Japan Tobacco are reportedly exploring a takeover of Imperial Brands, a major M&A event in the tobacco sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Altria",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Japan Tobacco",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Imperial Brands",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305037,9 +305028,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 96839,
-    "news_picked_today": 1094,
-    "news_dropped_today": 11984
+    "news_seen_today": 97563,
+    "news_picked_today": 1106,
+    "news_dropped_today": 12188
   },
   "book_momentum": {
     "live_count": 8,
