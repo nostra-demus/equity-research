@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T05:24:21Z",
+  "generated_at": "2026-11-27T05:40:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -983,6 +983,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-265",
+      "headline": "Thames Water seeks to delay debt repayments to secure £2.4bn emergency loan",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/f7c0d928-ed8b-4835-9a60-1acf098a98c1?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T05:00:22Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Thames Water seeking £2.4bn emergency loan and debt-repayment delays signals material solvency crisis and covenant risk at a major UK water utility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Thames Water seeking £2.4bn emergency loan and debt-repayment delays signals material solvency crisis and covenant risk at a major UK water utility.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thames Water",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-115",
       "headline": "ASX gains; Neuren slides after hitting US drug trial hurdle",
       "headline_en": null,
@@ -1914,55 +1963,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-149",
-      "headline": "더 시에나 그룹, 골프존카운티 지분 전량 인수 추진",
-      "headline_en": "The Siena Group pushes to acquire full stake in Golfzon County",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282362",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T01:56:13Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "The Siena Group is pursuing the acquisition of the entire stake in Golfzon County.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The Siena Group is pursuing the acquisition of the entire stake in Golfzon County.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Golfzon County",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304918,9 +304918,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2758,
-    "news_picked_today": 321,
-    "news_dropped_today": 1987
+    "news_seen_today": 2972,
+    "news_picked_today": 338,
+    "news_dropped_today": 2066
   },
   "book_momentum": {
     "live_count": 8,
