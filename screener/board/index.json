@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T03:44:16Z",
+  "generated_at": "2026-11-27T03:49:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -542,31 +542,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261127-135",
-      "headline": "Mahanadi Coalfields Set for Mumbai Debut After $969 Million IPO",
+      "inbox_id": "INB-20261127-196",
+      "headline": "Mahanadi Coalfields set for Mumbai debut after ₹8,981 crore IPO",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-27/mahanadi-coalfields-set-for-mumbai-debut-after-969-million-ipo",
-      "source_name": "Bloomberg",
+      "url": "https://www.thehindubusinessline.com/markets/mahanadi-coalfields-set-for-mumbai-debut-after-8981-crore-ipo/article71749298.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-11-27T02:00:00Z",
+      "found_at": "2026-11-27T03:42:51Z",
       "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Mahanadi Coalfields is launching a $969 million IPO in Mumbai.",
+      "prelim_note": "Mahanadi Coalfields is launching an IPO valued at 8981 crore rupees.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 98,
-      "triage_reason": "Mahanadi Coalfields is launching a $969 million IPO in Mumbai.",
+      "triage_reason": "Mahanadi Coalfields is launching an IPO valued at 8981 crore rupees.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1467,6 +1467,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-195",
+      "headline": "FGH: Strategic partnership update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FGH?key=2924-03167886-2A1713455",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T03:41:27Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "The company announced a strategic partnership update labeled as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The company announced a strategic partnership update labeled as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FGH",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-148",
       "headline": "White House Challenges South Korea Over Coupang Fines",
       "headline_en": null,
@@ -1905,61 +1954,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-162",
-      "headline": "Baumärkte: Kartellrechtliche Hürden könnten Fusion von Obi und Toom erschweren",
-      "headline_en": "DIY stores: Antitrust hurdles could complicate the merger of Obi and Toom",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/baumaerkte-kartellrecht-koennte-fusion-von-obi-und-toom-erschweren/100273004.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T03:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Antitrust hurdles may block the potential merger between Obi and Toom, impacting the German DIY retail sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Antitrust hurdles may block the potential merger between Obi and Toom, impacting the German DIY retail sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Obi",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Toom",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304559,9 +304553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 928,
-    "news_picked_today": 230,
-    "news_dropped_today": 698
+    "news_seen_today": 948,
+    "news_picked_today": 233,
+    "news_dropped_today": 715
   },
   "book_momentum": {
     "live_count": 8,
