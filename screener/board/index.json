@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T04:35:20Z",
+  "generated_at": "2026-11-27T04:36:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -263599,6 +263599,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3ca8f8fe21a8",
+      "idea_version": "IDEAV-aecce3202dc413d0",
+      "idea_version_started_at": "2026-11-27T04:35:49Z",
+      "ticker": "RIO",
+      "company": "Rio Tinto Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Rio Tinto's revenue and cash flow will increase as it begins shipping ore from its giant Simandou mine, adding new production capacity.",
+      "why_now": "Rio Tinto shipped its first ore from the Simandou mine to Europe today, November 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f99aa826be5"
+      ],
+      "primary_source_event_id": "EVT-2f99aa826be5",
+      "source_headlines": [
+        "Rio Tinto Ships First Ore From Giant Simandou Mine to Europe"
+      ],
+      "source_headline": "Rio Tinto Ships First Ore From Giant Simandou Mine to Europe",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/rio-tinto-ships-first-ore-from-giant-simandou-mine-to-europe",
+      "source_name": "Bloomberg",
+      "materiality_max": 90,
+      "newest_source_at": "2026-11-27T03:53:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T04:35:49Z",
+      "updated_at": "2026-11-27T04:35:49Z",
+      "decay_at": "2026-11-28T15:53:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b91423024442",
       "idea_version": "IDEAV-e03151c6fc0a83d8",
       "idea_version_started_at": "2026-11-27T01:15:11Z",
@@ -265177,6 +265247,149 @@
       "surfaced_at": "2026-11-27T04:13:47Z",
       "updated_at": "2026-11-27T04:13:47Z",
       "decay_at": "2026-11-28T15:53:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4063eaebd6fd",
+      "idea_version": "IDEAV-fb20f9812ace51f8",
+      "idea_version_started_at": "2026-11-27T04:35:49Z",
+      "ticker": "02096",
+      "company": "Simcere Pharmaceutical Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Simcere Pharma's revenue and future earnings potential should increase following the National Medical Products Administration's approval for marketing of its drug Xianlinda in China.",
+      "why_now": "The approval for marketing of Xianlinda was announced today, November 27, 2026, by the National Medical Products Administration.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b6c3e34900ad"
+      ],
+      "primary_source_event_id": "EVT-b6c3e34900ad",
+      "source_headlines": [
+        "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF XIANLINDA IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION"
+      ],
+      "source_headline": "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF XIANLINDA IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700233.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-27T04:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T04:35:49Z",
+      "updated_at": "2026-11-27T04:35:49Z",
+      "decay_at": "2026-11-28T16:05:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-661a368ec8c5",
+      "idea_version": "IDEAV-5a50bbfc614e25bf",
+      "idea_version_started_at": "2026-11-27T04:35:49Z",
+      "ticker": "9984",
+      "company": "SoftBank Group Corp.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SoftBank Group's cost of capital and debt servicing expenses are likely to increase due to heightened credit risk indicated by its ¥1 trillion retail bond offering.",
+      "why_now": "Bloomberg reported today, November 27, 2026, that SoftBank Group's ¥1 trillion retail bond shows more credit risk.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c1f482104de0"
+      ],
+      "primary_source_event_id": "EVT-c1f482104de0",
+      "source_headlines": [
+        "SoftBank Group’s ¥1 Trillion Retail Bond Shows More Credit Risk"
+      ],
+      "source_headline": "SoftBank Group’s ¥1 Trillion Retail Bond Shows More Credit Risk",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/softbank-group-s-1-trillion-retail-bond-shows-more-credit-risk",
+      "source_name": "Bloomberg",
+      "materiality_max": 90,
+      "newest_source_at": "2026-11-27T03:56:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T04:35:49Z",
+      "updated_at": "2026-11-27T04:35:49Z",
+      "decay_at": "2026-11-28T15:56:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -304680,8 +304893,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2708,
-    "live_count": 34,
+    "surfaced_total": 2711,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
