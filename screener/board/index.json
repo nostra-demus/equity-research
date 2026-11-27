@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T04:55:32Z",
+  "generated_at": "2026-11-27T04:55:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -263815,6 +263815,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-bb6c79ef8ffe",
+      "idea_version": "IDEAV-2b7f7613125ccb57",
+      "idea_version_started_at": "2026-11-27T04:55:36Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing a major order for 20 long-range jets from Qantas provides a significant boost to the company's order backlog and long-term revenue visibility.",
+      "why_now": "The selection of Boeing for this order was reported on November 27, 2026, creating an immediate positive catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dffde7f3c6b8"
+      ],
+      "primary_source_event_id": "EVT-dffde7f3c6b8",
+      "source_headlines": [
+        "Qantas Set to Pick Boeing for Bulk of 20 Long-Range Jet Order"
+      ],
+      "source_headline": "Qantas Set to Pick Boeing for Bulk of 20 Long-Range Jet Order",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/qantas-set-to-pick-boeing-for-bulk-of-20-long-range-jet-order",
+      "source_name": "Bloomberg",
+      "materiality_max": 91,
+      "newest_source_at": "2026-11-27T04:29:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-25T07:21:01Z",
+      "updated_at": "2026-11-27T04:55:36Z",
+      "decay_at": "2026-11-28T16:29:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2d93368aeb39",
       "idea_version": "IDEAV-5aa762719f2d6b61",
       "idea_version_started_at": "2026-11-27T00:24:37Z",
@@ -265978,76 +266048,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bb6c79ef8ffe",
-      "idea_version": "IDEAV-b534aa597906033b",
-      "idea_version_started_at": "2026-11-25T07:21:01Z",
-      "ticker": "BA",
-      "company": "Boeing",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $7.4 billion order from Xiamen Airlines provides a significant boost to the company's commercial aircraft backlog and cash flow visibility.",
-      "why_now": "The deal was announced on 2026-11-25.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7912bfdfa40b"
-      ],
-      "primary_source_event_id": "EVT-7912bfdfa40b",
-      "source_headlines": [
-        "China’s Xiamen Airlines to buy 50 Boeing jets in $7.4 billion deal"
-      ],
-      "source_headline": "China’s Xiamen Airlines to buy 50 Boeing jets in $7.4 billion deal",
-      "source_url": "https://www.cnbc.com/2026/11/25/china-xiamen-boeing-deal.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-25T03:58:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T07:21:01Z",
-      "updated_at": "2026-11-25T07:21:01Z",
-      "decay_at": "2026-11-26T15:58:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-e6dbcd1e11b88324",
       "idea_version_started_at": "2026-11-25T02:37:44Z",
@@ -267764,14 +267764,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 523,
     "shown_count": 499,
-    "hidden_count": 25,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 7
       },
       "short": {
         "total_count": 267,
@@ -268160,79 +268160,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-26T16:15:00Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bb6c79ef8ffe",
-        "idea_version": "IDEAV-b534aa597906033b",
-        "idea_version_started_at": "2026-11-25T07:21:01Z",
-        "ticker": "BA",
-        "company": "Boeing",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $7.4 billion order from Xiamen Airlines provides a significant boost to the company's commercial aircraft backlog and cash flow visibility.",
-        "why_now": "The deal was announced on 2026-11-25.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7912bfdfa40b"
-        ],
-        "primary_source_event_id": "EVT-7912bfdfa40b",
-        "source_headlines": [
-          "China’s Xiamen Airlines to buy 50 Boeing jets in $7.4 billion deal"
-        ],
-        "source_headline": "China’s Xiamen Airlines to buy 50 Boeing jets in $7.4 billion deal",
-        "source_url": "https://www.cnbc.com/2026/11/25/china-xiamen-boeing-deal.html",
-        "source_name": "CNBC",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-25T03:58:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-25T07:21:01Z",
-        "updated_at": "2026-11-25T07:21:01Z",
-        "decay_at": "2026-11-26T15:58:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-26T15:58:32Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -301015,6 +300942,80 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-134411564950",
+        "idea_version": "IDEAV-332275a26d1a6278",
+        "idea_version_started_at": "2026-11-06T19:23:03Z",
+        "ticker": "MRNA",
+        "company": "Moderna",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Moderna reported a Q3 profit and raised its annual revenue growth outlook, signaling better-than-expected commercial execution.",
+        "why_now": "The company issued its updated financial guidance and Q3 results on 2026-11-06.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 72,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-78eaaba253f3",
+          "EVT-92772249e1ac"
+        ],
+        "primary_source_event_id": "EVT-78eaaba253f3",
+        "source_headlines": [
+          "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+          "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook"
+        ],
+        "source_headline": "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+        "source_url": "https://www.marketwatch.com/story/modernas-stock-jumps-after-biotech-raises-sales-outlook-65363127?mod=mw_rss_topstories",
+        "source_name": "MarketWatch",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T14:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T19:23:03Z",
+        "updated_at": "2026-11-06T19:23:03Z",
+        "decay_at": "2026-11-08T02:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T16:04:32Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-4a06f8ed4686",
         "idea_version": "IDEAV-01354d69d0928dbb",
         "idea_version_started_at": "2026-11-06T19:23:03Z",
@@ -304898,7 +304899,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2711,
-    "live_count": 36,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
