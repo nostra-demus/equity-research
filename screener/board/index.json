@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T02:05:02Z",
+  "generated_at": "2026-11-27T02:09:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -1622,6 +1622,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-124",
+      "headline": "Dubai firm told to repay Dh2.18m after 277 workers go unpaid",
+      "headline_en": null,
+      "url": "https://gulfnews.com/uae/dubai/dubai-firm-told-to-repay-dh218m-after-277-workers-go-unpaid-1.500762577",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T01:38:16Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "A Dubai firm was ordered to pay Dh2.18 million in unpaid wages, representing a legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A Dubai firm was ordered to pay Dh2.18 million in unpaid wages, representing a legal and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-069",
       "headline": "2 S. Korean naval submarines under repair after accidents",
       "headline_en": null,
@@ -1880,49 +1923,6 @@
       "triage_score": 82,
       "triage_reason": "Pushback against US tariff plans signals potential trade policy friction and increased geopolitical/economic risk.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-046",
-      "headline": "Argentina bars Central Bank from printing money to fund government spending",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/11/27/argentina-bars-central-bank-from-printing-money-to-fund-government-spending?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-27T00:11:16Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Argentina implements significant monetary policy change by barring central bank from printing money for government spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Argentina implements significant monetary policy change by barring central bank from printing money for government spending.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -304476,9 +304476,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 504,
-    "news_picked_today": 125,
-    "news_dropped_today": 379
+    "news_seen_today": 538,
+    "news_picked_today": 130,
+    "news_dropped_today": 408
   },
   "book_momentum": {
     "live_count": 8,
