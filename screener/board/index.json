@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-27T11:57:01Z",
+  "generated_at": "2026-11-27T12:01:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261127-424",
+      "headline": "425 - EQT Corp (0000033213) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/33213/000121390026124284/0001213900-26-124284-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-27T11:07:16Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "SEC Form 425 filed; indicates M&A is in motion, but deal value, counterparty, and direction unspecified from headline alone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEC Form 425 filed; indicates M&A is in motion, but deal value, counterparty, and direction unspecified from headline alone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT Corp",
+          "ticker": "EQT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-423",
+      "headline": "425 - RANGE RESOURCES CORP (0000315852) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/315852/000121390026124284/0001213900-26-124284-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-27T11:07:16Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "SEC Form 425 filed; indicates M&A is in motion, but deal value, counterparty, and direction unspecified from headline alone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEC Form 425 filed; indicates M&A is in motion, but deal value, counterparty, and direction unspecified from headline alone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Range Resources Corp",
+          "ticker": "RRC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261127-338",
       "headline": "TATA HEALTH (01255): INSIDE INFORMATION UPDATE ON WINDING-UP PETITION",
@@ -1864,104 +1962,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-337",
-      "headline": "HKE HOLDINGS (01726): (1) MAJOR AND CONNECTED TRANSACTIONS REGARDING DISPOSAL OF THE ISSUED SHARE IN AND THE SHAREHOLDER'S LOAN TO THE TARGET GROUPS AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700384.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T08:33:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "HKEX-labeled major connected-party disposal of share stake and shareholder loan to target companies; regulatory threshold triggers disclosure requirement, but deal value, target identity, and strategic rationale are undisclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "HKEX-labeled major connected-party disposal of share stake and shareholder loan to target companies; regulatory threshold triggers disclosure requirement, but deal value, target identity, and strategic rationale are undisclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HKE Holdings",
-          "ticker": "1726",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-073",
-      "headline": "RHC: Ramsay Sante Demerger Scheme Effective",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03167760-2A1713408",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T01:08:17Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "The demerger scheme for Ramsay Sante has become effective, representing a major corporate restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The demerger scheme for Ramsay Sante has become effective, representing a major corporate restructuring.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ramsay Health Care",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305200,9 +305200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 66655,
-    "news_picked_today": 826,
-    "news_dropped_today": 9924
+    "news_seen_today": 67331,
+    "news_picked_today": 829,
+    "news_dropped_today": 9993
   },
   "book_momentum": {
     "live_count": 8,
