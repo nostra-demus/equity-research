@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-27T09:05:26Z",
+  "generated_at": "2026-11-27T09:17:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261127-338",
+      "headline": "TATA HEALTH (01255): INSIDE INFORMATION UPDATE ON WINDING-UP PETITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700378.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T08:32:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Company disclosed as inside information an update on active winding-up petition (insolvency / court liquidation proceeding), creating going-concern risk and potential total loss of equity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company disclosed as inside information an update on active winding-up petition (insolvency / court liquidation proceeding), creating going-concern risk and potential total loss of equity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Health",
+          "ticker": "1255",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261127-225",
       "headline": "XIIL N2911-R (85522): PUBLICATION OF OFFERING CIRCULAR AND PRICING SUPPLEMENT ON THE STOCK EXCHANGE OF HONG KONG LIMITED - Issue of CNY2,250,000,000 2.50 per cent. Sustainable Notes due 2029 by Xiamen International Investment Limited Under Its U.S.$500,000,000 Medium Term Note Programme with the Benefit of a Keepwell Deed Provided by Xiamen International Bank Co., Ltd.",
@@ -194,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-334",
+      "headline": "Spar warns of up to 49.5% profit drop",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/spar-warns-of-up-to-49-5-profit-drop/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T08:20:50Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Spar warns of up to 49.5% profit decline—a quantified guidance cut signaling material operational distress, margin compression, or market downturn; moves earnings expectations and cash flow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Spar warns of up to 49.5% profit decline—a quantified guidance cut signaling material operational distress, margin compression, or market downturn; moves earnings expectations and cash flow.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spar",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -983,6 +1081,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-336",
+      "headline": "COSCO SHIP ENGY (01138): (1) DISCLOSEABLE AND CONNECTED TRANSACTIONS AND CONTINUING CONNECTED TRANSACTIONS REGARDING THE CHARTER; (2) DISCLOSEABLE AND CONNECTED TRANSACTIONS REGARDING CONSTRUCTION OF SIX VERY LARGE CRUDE CARRIERS; (3) THE BAREBOAT CHARTER-IN OF 14 NEWBUILD VLCCS; AND (4) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700432.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Fleet expansion announcement covering construction of 6 newbuild VLCCs and bareboat charter-in of 14 newbuild VLCCs; represents major capital deployment and operational capacity expansion for international shipping operator; transaction value and terms not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Fleet expansion announcement covering construction of 6 newbuild VLCCs and bareboat charter-in of 14 newbuild VLCCs; represents major capital deployment and operational capacity expansion for international shipping operator; transaction value and terms not disclosed in headline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COSCO Shipping Energy",
+          "ticker": "01138",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-337",
+      "headline": "HKE HOLDINGS (01726): (1) MAJOR AND CONNECTED TRANSACTIONS REGARDING DISPOSAL OF THE ISSUED SHARE IN AND THE SHAREHOLDER'S LOAN TO THE TARGET GROUPS AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700384.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T08:33:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "HKEX-labeled major connected-party disposal of share stake and shareholder loan to target companies; regulatory threshold triggers disclosure requirement, but deal value, target identity, and strategic rationale are undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "HKEX-labeled major connected-party disposal of share stake and shareholder loan to target companies; regulatory threshold triggers disclosure requirement, but deal value, target identity, and strategic rationale are undisclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HKE Holdings",
+          "ticker": "1726",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-073",
       "headline": "RHC: Ramsay Sante Demerger Scheme Effective",
       "headline_en": null,
@@ -1767,203 +1965,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-331",
-      "headline": "CHAMPION TECH (00092): PROPOSED ADOPTION OF NEW BYE-LAWS AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700528.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T08:39:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Trading suspension continuance paired with proposed bye-law adoption signals material capital-market or structural distress requiring regulatory or governance intervention.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Trading suspension continuance paired with proposed bye-law adoption signals material capital-market or structural distress requiring regulatory or governance intervention.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Champion Tech",
-          "ticker": "00092",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-217",
-      "headline": "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF XIANLINDA IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700233.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T04:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Simcere Pharma received NMPA marketing approval for its drug Xianlinda in China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Simcere Pharma received NMPA marketing approval for its drug Xianlinda in China.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Simcere Pharma",
-          "ticker": "02096",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-150",
-      "headline": "PRO: Details of Auditor Appointment/Resignation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PRO?key=2924-03167841-2A1713446",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T02:53:37Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Auditor changes are significant governance events that can impact investor confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Auditor changes are significant governance events that can impact investor confidence.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PRO",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-322",
-      "headline": "Churchill China warns on profit as European demand weakens",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/churchill-china-warns-on-profit-as-european-demand-weakens/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T07:48:56Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Profit warning from Churchill China citing European demand weakness; earnings downgrade is decision-changing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Profit warning from Churchill China citing European demand weakness; earnings downgrade is decision-changing.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Churchill China",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305204,9 +305205,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 45340,
-    "news_picked_today": 476,
-    "news_dropped_today": 7807
+    "news_seen_today": 46852,
+    "news_picked_today": 496,
+    "news_dropped_today": 7955
   },
   "book_momentum": {
     "live_count": 8,
