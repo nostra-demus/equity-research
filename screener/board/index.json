@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T17:23:41Z",
+  "generated_at": "2026-11-27T17:31:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-559",
@@ -618,6 +618,55 @@
         "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-692",
+      "headline": "Norse Atlantic airline files for bankruptcy",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/norse-atlantic-airline-files-for-bankruptcy-1.500763340",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T16:13:54Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Bankruptcy filing by Norse Atlantic Airways is a default and going-concern event materially impairing capital structure and stakeholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bankruptcy filing by Norse Atlantic Airways is a default and going-concern event materially impairing capital structure and stakeholder value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 7,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1940,55 +1989,6 @@
           "name": "IHH Healthcare",
           "ticker": null,
           "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-399",
-      "headline": "Arms Maker Rheinmetall Slashes Midterm Forecasts After Order Setbacks",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/arms-maker-rheinmetall-slashes-midterm-forecasts-after-order-setbacks-6f24dfad?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T09:42:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Rheinmetall slashed its midterm forecasts due to order setbacks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rheinmetall slashed its midterm forecasts due to order setbacks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rheinmetall",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -304594,9 +304594,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117662,
-    "news_picked_today": 1412,
-    "news_dropped_today": 14022
+    "news_seen_today": 117964,
+    "news_picked_today": 1440,
+    "news_dropped_today": 14210
   },
   "book_momentum": {
     "live_count": 8,
