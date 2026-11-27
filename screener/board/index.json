@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T14:25:41Z",
+  "generated_at": "2026-11-27T14:35:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-472",
@@ -437,6 +437,55 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-548",
+      "headline": "Airline Norse Atlantic files for bankruptcy, succumbing to aviation fuel costs",
+      "headline_en": null,
+      "url": "https://www.dw.com/en/airline-norse-atlantic-files-for-bankruptcy-succumbing-to-aviation-fuel-costs/a-80076728?maca=en-rss-en-bus-2091-rdf",
+      "source_name": "Deutsche Welle",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T14:20:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Norse Atlantic files for bankruptcy; equity wipeout and solvency failure, with no clear recovery path for stakeholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic files for bankruptcy; equity wipeout and solvency failure, with no clear recovery path for stakeholders.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 87,
+      "rank_factors": {
+        "materiality": 87,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1957,55 +2006,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-081",
-      "headline": "Panadol maker Haleon launches innovation hub in Singapore, to invest $100m annually in regional R&D",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/panadol-maker-haleon-launches-innovation-hub-in-singapore-to-invest-100m-annually-in-regional-rd",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T01:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Haleon is launching an innovation hub in Singapore and will invest $100 million annually in regional R&D.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Haleon is launching an innovation hub in Singapore and will invest $100 million annually in regional R&D.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Haleon",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305037,9 +305037,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 93213,
-    "news_picked_today": 1090,
-    "news_dropped_today": 11892
+    "news_seen_today": 96839,
+    "news_picked_today": 1094,
+    "news_dropped_today": 11984
   },
   "book_momentum": {
     "live_count": 8,
