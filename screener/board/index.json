@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T00:34:20Z",
+  "generated_at": "2026-11-27T00:44:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-001",
@@ -51,37 +51,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261127-002",
-      "headline": "MAJOR HLDGS (01389): COMPOSITE OFFER AND RESPONSE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT)",
+      "inbox_id": "INB-20261127-044",
+      "headline": "TTT: Scheme Becomes Effective",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700057.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TTT?key=2924-03167737-3A707685",
+      "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-26T22:49:00Z",
+      "found_at": "2026-11-27T00:31:51Z",
       "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Composite offer document for the mandatory unconditional cash offer for Major Holdings Limited.",
+      "prelim_note": "Scheme of arrangement has become effective for TTT.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Composite offer document for the mandatory unconditional cash offer for Major Holdings Limited.",
-      "region": "CN",
+      "triage_score": 97,
+      "triage_reason": "Scheme of arrangement has become effective for TTT.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 60,
         "source_tier": 8,
         "scope": 5,
         "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
         "event_id": "mna",
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "mna"
@@ -89,12 +89,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Major Holdings Limited",
-          "ticker": "01389",
-          "listing_country": "CN"
+          "name": "TTT",
+          "ticker": null,
+          "listing_country": null
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198,6 +198,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-040",
+      "headline": "CCIAM FUTURE EN (00145): TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112601388.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T00:38:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Trading halt announced for CCIAM Future Energy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Trading halt announced for CCIAM Future Energy.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCIAM Future Energy",
+          "ticker": "00145",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-038",
+      "headline": "GSK spinoff Haleon eyes billion-dollar Healthkart bet",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/gsk-consumer-healthkart-acquisition-deal-11795688783370.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:30:31Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Haleon is reportedly considering a billion-dollar acquisition of Healthkart.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Haleon is reportedly considering a billion-dollar acquisition of Healthkart.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Haleon",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Healthkart",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-009",
       "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - BEPIROVIRSEN APPROVED FOR MARKETING IN CHINA AS A FIRST-IN-CLASS FUNCTIONAL CURE FOR CHRONIC HEPATITIS B",
       "headline_en": null,
@@ -296,6 +399,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-037",
+      "headline": "Kalyan Silks promoters eye minority stake sale at up to ₹3,000 cr valuation",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/kalyan-silks-promoters-explore-minority-stake-sale-at-upto-rs-3-000-cr-valn-11795687123191.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:31:11Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Promoters are exploring a minority stake sale at a valuation of up to ₹3,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Promoters are exploring a minority stake sale at a valuation of up to ₹3,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kalyan Silks",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-019",
       "headline": "ASX gains; Neuren slides after hitting US drug trial hurdle",
       "headline_en": null,
@@ -340,6 +492,158 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-050",
+      "headline": "Privacy coins face diverging fortunes as KuCoin moves to drop Monero",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/privacy-coins-kucoin-drop-monero-grayscale-zcash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:35:39Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "KuCoin is delisting Monero, creating significant liquidity and regulatory risk for the privacy coin.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "KuCoin is delisting Monero, creating significant liquidity and regulatory risk for the privacy coin.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KuCoin",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-052",
+      "headline": "시지바이오 노보팩토리, 美 FDA 현장 실사 무사통과",
+      "headline_en": "CGBio Novo Factory passes US FDA on-site inspection",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282335",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:20:29Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "CGBio's Novo Factory successfully passed a US FDA on-site inspection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "CGBio's Novo Factory successfully passed a US FDA on-site inspection.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CGBio",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-049",
+      "headline": "Sebi likely to seek deal details from Tata Steel and APL Apollo",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-likely-to-seek-deal-details-from-tata-steel-and-apl-apollo/articleshow/136206041.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:18:06Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Sebi is seeking deal details from Tata Steel and APL Apollo, indicating potential regulatory scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Sebi is seeking deal details from Tata Steel and APL Apollo, indicating potential regulatory scrutiny.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "APL Apollo Tubes",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -437,6 +741,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-046",
+      "headline": "Argentina bars Central Bank from printing money to fund government spending",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/27/argentina-bars-central-bank-from-printing-money-to-fund-government-spending?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-27T00:11:16Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Argentina implements significant monetary policy change by barring central bank from printing money for government spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Argentina implements significant monetary policy change by barring central bank from printing money for government spending.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-008",
       "headline": "Tokyo Inflation Accelerates, Backing Case for BOJ Rate Hike",
       "headline_en": null,
@@ -473,6 +820,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-048",
+      "headline": "Amal Parikh, Puneet Bhatia to raise $1-billion PE fund",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/amal-parikh-puneet-bhatia-to-raise-1-billion-pe-fund/articleshow/136206088.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:31:37Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "New $1-billion private equity fund being raised.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "New $1-billion private equity fund being raised.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -675,6 +1065,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-042",
+      "headline": "MODERN CHI MED (01643): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700113.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T00:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Trading resumed for Modern Chinese Medicine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Trading resumed for Modern Chinese Medicine.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Modern Chinese Medicine",
+          "ticker": "01643",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-006",
       "headline": "GREEN POWER GP (01870): RESULTS OF RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY FOUR (4) EXISTING SHARES HELD ON THE RECORD DATE",
       "headline_en": null,
@@ -773,6 +1212,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-045",
+      "headline": "BAK: Annual General Meeting Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BAK?key=2924-03167736-6A1357522",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T00:30:51Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Annual General Meeting presentation flagged as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Annual General Meeting presentation flagged as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAK",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-029",
       "headline": "Target cut its Apple Black Friday discount in half",
       "headline_en": null,
@@ -822,104 +1310,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-003",
-      "headline": "VIRSCEND EDU (01565): SPECIAL DIVIDEND FOR THE YEAR ENDED 31 AUGUST 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-26T22:18:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Virscend Education announced a special dividend for the year ended 31 August 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Virscend Education announced a special dividend for the year ended 31 August 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Virscend Education",
-          "ticker": "01565",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-004",
-      "headline": "VIRSCEND EDU (01565): FINAL DIVIDEND FOR THE YEAR ENDED 31 AUGUST 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700027.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-26T22:17:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Virscend Education announced a final dividend for the year ended 31 August 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Virscend Education announced a final dividend for the year ended 31 August 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Virscend Education",
-          "ticker": "01565",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1072,6 +1462,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-053",
+      "headline": "한수원, 체코 두코바니 원전 건설 준비상황 점검",
+      "headline_en": "KHNP inspects preparation status for Dukovany nuclear power plant construction",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282332",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:07:40Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "KHNP is inspecting the preparation status for the construction of the Dukovany nuclear power plant in the Czech Republic.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "KHNP is inspecting the preparation status for the construction of the Dukovany nuclear power plant in the Czech Republic.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Hydro & Nuclear Power",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-051",
+      "headline": "삼성바이오에피스, 중국서 차세대 TPD 기술 확보 시동",
+      "headline_en": "Samsung Bioepis starts securing next-generation TPD technology in China",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282336",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:24:54Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Samsung Bioepis is initiating the acquisition of next-generation TPD technology in China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Samsung Bioepis is initiating the acquisition of next-generation TPD technology in China.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Bioepis",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1267,6 +1755,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-054",
+      "headline": "이노메트리, 각형 배터리 검사 시장 정조준…글로벌 점유율 확대 박차",
+      "headline_en": "Innometry targets prismatic battery inspection market to accelerate global share expansion",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282330",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Innometry is targeting the prismatic battery inspection market to expand its global market share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Innometry is targeting the prismatic battery inspection market to expand its global market share.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innometry",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-031",
       "headline": "Qantas and Air New Zealand planes too close at Sydney airport with ‘mental models’ of crews to be investigated",
       "headline_en": null,
@@ -1370,113 +1907,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261127-034",
-      "headline": "Tech Mahindra Limited - Ex-Date: 30-Nov-2026",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T00:41:50Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Ex-date for a dividend is a routine corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Ex-date for a dividend is a routine corporate action.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tech Mahindra Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-035",
-      "headline": "Japan's Senate to vote on censure motion against scandal-hit minister",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261127/p2g/00m/0na/016000c",
-      "source_name": "The Mainichi",
+      "inbox_id": "INB-20261127-055",
+      "headline": "더핑크퐁컴퍼니 '씰룩', 일본 수족관부터 유럽 패션까지 시장 확대",
+      "headline_en": "The Pinkfong Company's 'Sealook' expands market from Japanese aquariums to European fashion",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282328",
+      "source_name": "Business Korea — All Articles (CDN)",
       "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:30:08Z",
+      "found_at": "2026-11-26T23:54:23Z",
       "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Political censure motions are routine in parliamentary systems and rarely impact market-moving fundamentals.",
+      "prelim_note": "The Pinkfong Company is expanding the market for its 'Sealook' IP from Japanese aquariums to European fashion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Political censure motions are routine in parliamentary systems and rarely impact market-moving fundamentals.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-027",
-      "headline": "Wealthsimple faces backlash over interest rate cuts, rollback of perks",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/investing/personal-finance/article-wealthsimple-changes-interest-rate-cuts-chequing-rollback-perks/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:16:20Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Public backlash regarding interest rate cuts and perk rollbacks is a reputational issue but lacks immediate financial quantification.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Public backlash regarding interest rate cuts and perk rollbacks is a reputational issue but lacks immediate financial quantification.",
-      "region": "OTHER",
+      "triage_score": 52,
+      "triage_reason": "The Pinkfong Company is expanding the market for its 'Sealook' IP from Japanese aquariums to European fashion.",
+      "region": "KR",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
       "rank_factors": {
@@ -1484,7 +1929,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 0,
-        "size": 0,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -1492,7 +1937,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
         "commercial"
@@ -1500,184 +1945,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Wealthsimple",
+          "name": "The Pinkfong Company",
           "ticker": null,
-          "listing_country": "CA"
+          "listing_country": "KR"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-007",
-      "headline": "China’s property debt crisis deepens as second wave of restructurings looms",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/markets/article/3375947/chinas-property-debt-crisis-deepens-second-wave-restructurings-looms",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:00:06Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Deepening property debt crisis in China signals systemic risk for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Deepening property debt crisis in China signals systemic risk for the sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-020",
-      "headline": "Japan Bank Shares Risk Further Unwind as Funding Cost Bites",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-26/japan-bank-shares-risk-further-unwind-as-funding-cost-bites",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T23:41:36Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Rising funding costs pose a risk to Japanese bank shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Rising funding costs pose a risk to Japanese bank shares.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-033",
-      "headline": "Smaller Hong Kong companies urged to upgrade themselves to handle new US tariffs",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/hong-kong/hong-kong-economy/article/3375957/smaller-hong-kong-companies-urged-upgrade-themselves-handle-new-us-tariffs",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:30:05Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Generic advice to small businesses regarding trade policy is not a specific company-moving event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Generic advice to small businesses regarding trade policy is not a specific company-moving event.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-017",
-      "headline": "Ukraine's Strike in Benghazi Threatens the Deal That Keeps Libya at Peace",
-      "headline_en": null,
-      "url": "https://oilprice.com/Geopolitics/Africa/Ukraines-Strike-in-Benghazi-Threatens-the-Deal-That-Keeps-Libya-at-Peace.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "A military strike in Libya threatens the peace deal and potential oil supply stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "A military strike in Libya threatens the peace deal and potential oil supply stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303702,7 +303975,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5362,
+    "inbox_unconsumed": 5367,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -303711,9 +303984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 142,
-    "news_picked_today": 35,
-    "news_dropped_today": 107
+    "news_seen_today": 185,
+    "news_picked_today": 55,
+    "news_dropped_today": 130
   },
   "book_momentum": {
     "live_count": 8,
