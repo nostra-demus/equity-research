@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T11:16:59Z",
+  "generated_at": "2026-11-27T11:22:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-338",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-411",
+      "headline": "IHH Healthcare’s Q3 net profit rises 10.2% to US$164.8 million",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/ihh-healthcares-q3-net-profit-rises-10-2-us164-8-million",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T10:27:41Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "IHH Healthcare reported a 10.2% increase in Q3 net profit to US$164.8 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IHH Healthcare reported a 10.2% increase in Q3 net profit to US$164.8 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IHH Healthcare",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,55 +1960,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-265",
-      "headline": "Thames Water seeks to delay debt repayments to secure £2.4bn emergency loan",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f7c0d928-ed8b-4835-9a60-1acf098a98c1?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T05:00:22Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Thames Water seeking £2.4bn emergency loan and debt-repayment delays signals material solvency crisis and covenant risk at a major UK water utility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Thames Water seeking £2.4bn emergency loan and debt-repayment delays signals material solvency crisis and covenant risk at a major UK water utility.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Thames Water",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305200,9 +305200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 60842,
-    "news_picked_today": 758,
-    "news_dropped_today": 9416
+    "news_seen_today": 61114,
+    "news_picked_today": 770,
+    "news_dropped_today": 9476
   },
   "book_momentum": {
     "live_count": 8,
