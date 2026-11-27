@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-27T00:44:30Z",
+  "generated_at": "2026-11-27T00:49:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261127-056",
+      "headline": "MMI: Senior Debt Restructure Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MMI?key=2924-03167742-2A1713399",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T00:39:31Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "The company is undergoing a senior debt restructure, which is a material event for its capital structure and solvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a senior debt restructure, which is a material event for its capital structure and solvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MMI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261127-001",
       "headline": "MAJOR HLDGS (01389): JOINT ANNOUNCEMENT DESPATCH OF THE COMPOSITE DOCUMENT RELATING TO THE MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT)",
@@ -1902,55 +1952,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-055",
-      "headline": "더핑크퐁컴퍼니 '씰룩', 일본 수족관부터 유럽 패션까지 시장 확대",
-      "headline_en": "The Pinkfong Company's 'Sealook' expands market from Japanese aquariums to European fashion",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282328",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-26T23:54:23Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "The Pinkfong Company is expanding the market for its 'Sealook' IP from Japanese aquariums to European fashion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "The Pinkfong Company is expanding the market for its 'Sealook' IP from Japanese aquariums to European fashion.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Pinkfong Company",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -303984,9 +303985,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 185,
-    "news_picked_today": 55,
-    "news_dropped_today": 130
+    "news_seen_today": 196,
+    "news_picked_today": 57,
+    "news_dropped_today": 139
   },
   "book_momentum": {
     "live_count": 8,
