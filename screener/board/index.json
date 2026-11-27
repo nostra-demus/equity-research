@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T17:55:21Z",
+  "generated_at": "2026-11-27T17:59:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-559",
@@ -490,6 +490,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-708",
+      "headline": "Hackers Hit US Air Force Cloud System Running Air-Defense and Munitions Data",
+      "headline_en": null,
+      "url": "https://decrypt.co/384174/us-air-force-hack-cloud-system-air-defense-munitions-data",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T17:43:29Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "A cyberattack on a US Air Force cloud system managing air-defense data constitutes a major security breach.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A cyberattack on a US Air Force cloud system managing air-defense data constitutes a major security breach.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,65 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-444",
-      "headline": "Volkswagen drags rivals Mercedes, BMW into $1.2 billion tax fight",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/cars-uvs/volkswagen-drags-rivals-mercedes-bmw-into-1-2-billion-tax-fight/articleshow/136218973.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T10:51:26Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Volkswagen is involving Mercedes and BMW in a $1.2 billion tax dispute, creating significant legal and financial risk for all three companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen is involving Mercedes and BMW in a $1.2 billion tax dispute, creating significant legal and financial risk for all three companies.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Mercedes-Benz Group",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304738,9 +304722,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 118339,
-    "news_picked_today": 1464,
-    "news_dropped_today": 14527
+    "news_seen_today": 118373,
+    "news_picked_today": 1470,
+    "news_dropped_today": 14555
   },
   "book_momentum": {
     "live_count": 8,
