@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T11:46:31Z",
+  "generated_at": "2026-11-27T11:54:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-338",
@@ -243,6 +243,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-421",
+      "headline": "Malaysia's Axiata Group to sell overseas Edotco tower units for combined value of $2.9bn",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/malaysias-axiata-group-to-sell-overseas-edotco-tower-units-for-combined-value-of-29bn/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T11:30:52Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Axiata announced sale of overseas Edotco tower units for $2.9 billion, a material capital redeployment affecting cash position, leverage, and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Axiata announced sale of overseas Edotco tower units for $2.9 billion, a material capital redeployment affecting cash position, leverage, and capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axiata Group",
+          "ticker": "AXIATA",
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1669,6 +1719,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-417",
+      "headline": "GLMS SEC (01456): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE PARTICIPATION BY THE WHOLLY-OWNED SUBSIDIARY MINSHENG SECURITIES IN THE MERGER BY ABSORPTION OF MINSHENG FUTURES BY GUOLIAN FUTURES BY WAY OF SHARE EXCHANGE AMENDMENTS TO THE ARTICLES OF ASSOCIATION AND NOTICE OF THE EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112701481.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T11:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "GLMS SEC subsidiary Minsheng Securities participates in merger by absorption of Minsheng Futures by Guolian Futures via share exchange; discloseable connected transaction with articles amendments and extraordinary general meeting notice.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "GLMS SEC subsidiary Minsheng Securities participates in merger by absorption of Minsheng Futures by Guolian Futures via share exchange; discloseable connected transaction with articles amendments and extraordinary general meeting notice.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 63,
+      "rank_factors": {
+        "materiality": 63,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GLMS SEC",
+          "ticker": "01456",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-387",
       "headline": "Settlement Schedule Offer to Buy – Acquisition Window (Takeover) for ACI INFOCOM LIMITED",
       "headline_en": null,
@@ -1857,104 +1957,6 @@
       "companies": [
         {
           "name": "Ramsay Health Care",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-077",
-      "headline": "NOU: Implementation of Schemes of Arrangement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NOU?key=2924-03167752-2A1713405",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T00:59:46Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Implementation of a scheme of arrangement is a definitive corporate transaction event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Implementation of a scheme of arrangement is a definitive corporate transaction event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NOU",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-044",
-      "headline": "TTT: Scheme Becomes Effective",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TTT?key=2924-03167737-3A707685",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T00:31:51Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Scheme of arrangement has become effective for TTT.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Scheme of arrangement has become effective for TTT.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TTT",
           "ticker": null,
           "listing_country": null
         }
@@ -305198,9 +305200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 63759,
-    "news_picked_today": 817,
-    "news_dropped_today": 9837
+    "news_seen_today": 64978,
+    "news_picked_today": 825,
+    "news_dropped_today": 9901
   },
   "book_momentum": {
     "live_count": 8,
