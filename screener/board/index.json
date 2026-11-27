@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T12:52:18Z",
+  "generated_at": "2026-11-27T13:08:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-430",
@@ -1741,6 +1741,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-462",
+      "headline": "Dell, Super Micro Under Pressure as Nvidia Halts Shipments to 4 Asian Countries",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/27/dell-super-micro-under-pressure-as-nvidia-halts-shipments-to-4-asian-countries/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T12:22:03Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Nvidia halted shipments to 4 Asian countries, impacting Dell and Super Micro.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Nvidia halted shipments to 4 Asian countries, impacting Dell and Super Micro.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Super Micro Computer",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-452",
       "headline": "DZUG (01635): ANNOUNCEMENT FRAMEWORK AGREEMENT FOR POTENTIAL DISPOSAL",
       "headline_en": null,
@@ -1928,55 +1987,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-287",
-      "headline": "Babcock lands record £8.7bn deal to maintain the Royal Navy's nuclear submarines",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16325235/Babcock-lands-record-8-7bn-deal-maintain-Royal-Navys-nuclear-submarines.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T06:00:46Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Babcock secured a record £8.7 billion contract for Royal Navy submarine maintenance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Babcock secured a record £8.7 billion contract for Royal Navy submarine maintenance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Babcock International",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265061,81 +265071,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cf18e164e741",
-      "idea_version": "IDEAV-9357f582c5c13e34",
-      "idea_version_started_at": "2026-11-26T12:39:59Z",
-      "ticker": "NRTG",
-      "company": "Norse Atlantic",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has issued a critical warning regarding its financial viability and has suspended flight operations, signaling an imminent risk of insolvency.",
-      "why_now": "Operations were suspended as of 2026-11-26 following the financial warning.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b37898da4c79",
-        "EVT-9b221fd5e8c8"
-      ],
-      "primary_source_event_id": "EVT-b37898da4c79",
-      "source_headlines": [
-        "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
-        "Norse Atlantic flights suspended after warning finances 'critical'"
-      ],
-      "source_headline": "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
-      "source_url": "https://www.cnbc.com/2026/11/25/norse-atlantic-financial-warning-fuel-costs.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T01:04:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T12:39:59Z",
-      "updated_at": "2026-11-26T12:39:59Z",
-      "decay_at": "2026-11-27T13:04:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aec8b5beea0b",
       "idea_version": "IDEAV-767971dba7c28d24",
       "idea_version_started_at": "2026-11-27T06:36:29Z",
@@ -266850,6 +266785,81 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-cf18e164e741",
+      "idea_version": "IDEAV-9357f582c5c13e34",
+      "idea_version_started_at": "2026-11-26T12:39:59Z",
+      "ticker": "NRTG",
+      "company": "Norse Atlantic",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has issued a critical warning regarding its financial viability and has suspended flight operations, signaling an imminent risk of insolvency.",
+      "why_now": "Operations were suspended as of 2026-11-26 following the financial warning.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b37898da4c79",
+        "EVT-9b221fd5e8c8"
+      ],
+      "primary_source_event_id": "EVT-b37898da4c79",
+      "source_headlines": [
+        "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
+        "Norse Atlantic flights suspended after warning finances 'critical'"
+      ],
+      "source_headline": "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
+      "source_url": "https://www.cnbc.com/2026/11/25/norse-atlantic-financial-warning-fuel-costs.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T01:04:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T12:39:59Z",
+      "updated_at": "2026-11-26T12:39:59Z",
+      "decay_at": "2026-11-27T13:04:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4ce013a7716a",
       "idea_version": "IDEAV-cfae884e6c7533ef",
       "idea_version_started_at": "2026-11-26T06:44:42Z",
@@ -267858,9 +267868,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 522,
+    "total_count": 523,
     "shown_count": 499,
-    "hidden_count": 23,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
         "total_count": 258,
@@ -267868,9 +267878,9 @@
         "hidden_count": 8
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -267889,6 +267899,84 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cf18e164e741",
+        "idea_version": "IDEAV-9357f582c5c13e34",
+        "idea_version_started_at": "2026-11-26T12:39:59Z",
+        "ticker": "NRTG",
+        "company": "Norse Atlantic",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has issued a critical warning regarding its financial viability and has suspended flight operations, signaling an imminent risk of insolvency.",
+        "why_now": "Operations were suspended as of 2026-11-26 following the financial warning.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b37898da4c79",
+          "EVT-9b221fd5e8c8"
+        ],
+        "primary_source_event_id": "EVT-b37898da4c79",
+        "source_headlines": [
+          "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
+          "Norse Atlantic flights suspended after warning finances 'critical'"
+        ],
+        "source_headline": "Budget carrier Norse Atlantic falls 81% after warning its finances are ‘critical’ amid soaring fuel costs",
+        "source_url": "https://www.cnbc.com/2026/11/25/norse-atlantic-financial-warning-fuel-costs.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T01:04:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T12:39:59Z",
+        "updated_at": "2026-11-26T12:39:59Z",
+        "decay_at": "2026-11-27T13:04:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-27T13:04:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-657fb7507a470816",
@@ -304907,87 +304995,12 @@
         "archived_at": "2026-11-05T06:02:09Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2c0a537d28f4",
-        "idea_version": "IDEAV-f571b505c54b4753",
-        "idea_version_started_at": "2026-11-01T19:26:17Z",
-        "ticker": "2070",
-        "company": "SPIMACO",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The CFO confirmed Q3 losses are being driven by a combination of declining sales and increased provisioning, suggesting deteriorating credit or operational quality.",
-        "why_now": "The specific driver of the loss was clarified by management on November 1, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1e53b69965fd"
-        ],
-        "primary_source_event_id": "EVT-1e53b69965fd",
-        "source_headlines": [
-          "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
-        ],
-        "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
-        "source_name": "Argaam — Main News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T19:20:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T19:26:17Z",
-        "updated_at": "2026-11-01T19:26:17Z",
-        "decay_at": "2026-11-03T07:20:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2717,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -305006,9 +305019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 76650,
-    "news_picked_today": 893,
-    "news_dropped_today": 10793
+    "news_seen_today": 78547,
+    "news_picked_today": 908,
+    "news_dropped_today": 10970
   },
   "book_momentum": {
     "live_count": 8,
