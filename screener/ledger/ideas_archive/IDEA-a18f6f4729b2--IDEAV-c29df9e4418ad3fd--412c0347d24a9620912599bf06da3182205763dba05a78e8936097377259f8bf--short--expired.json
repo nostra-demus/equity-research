@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-11-03T15:37:57Z",
+  "archived_at": "2026-11-27T12:02:12Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-8f55cfd3a569",
-    "idea_version": "IDEAV-12e1242652157832",
-    "idea_version_started_at": "2026-10-31T22:55:38Z",
-    "ticker": "BIRLACORPN",
-    "company": "Birla Corporation",
-    "exchange": "NSE",
+    "idea_id": "IDEA-a18f6f4729b2",
+    "idea_version": "IDEAV-c29df9e4418ad3fd",
+    "idea_version_started_at": "2026-11-25T04:32:33Z",
+    "ticker": "01162",
+    "company": "Lumina Group",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "A 58.6% decline in net profit despite revenue growth highlights severe margin compression and operational challenges.",
-    "why_now": "The Q2 results were released on 2026-10-31.",
-    "conviction": 60,
+    "reason": "The profit alert indicates a negative shift in earnings, suggesting operational headwinds that are likely to weigh on the share price.",
+    "why_now": "The profit alert was filed on 2026-11-24.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 21,
+      "evidence": 25,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,8 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -49,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-fde758db3da8"
+      "EVT-a3f0383f9c8f"
     ],
-    "primary_source_event_id": "EVT-fde758db3da8",
+    "primary_source_event_id": "EVT-a3f0383f9c8f",
     "source_headlines": [
-      "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore"
+      "LUMINA GROUP (01162): PROFIT ALERT"
     ],
-    "source_headline": "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore",
-    "source_url": "https://www.cnbctv18.com/market/earnings/birla-corporation-q2-results-net-profit-falls-58-per-cent-to-rs-37-crore-revenue-rises-95-to-rs-24154-crore-20024134.htm",
-    "source_name": "CNBC-TV18",
+    "source_headline": "LUMINA GROUP (01162): PROFIT ALERT",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112400903.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-31T13:34:32Z",
+    "newest_source_at": "2026-11-24T10:46:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-31T17:22:38Z",
-    "updated_at": "2026-10-31T22:55:38Z",
-    "decay_at": "2026-11-02T01:34:32Z",
+    "surfaced_at": "2026-11-25T04:32:33Z",
+    "updated_at": "2026-11-25T04:32:33Z",
+    "decay_at": "2026-11-25T22:46:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
