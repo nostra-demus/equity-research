@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T17:45:16Z",
+  "generated_at": "2026-11-27T17:49:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-559",
@@ -263424,6 +263424,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-26fd0025147c",
+      "idea_version": "IDEAV-79393b7c9f178a06",
+      "idea_version_started_at": "2026-11-27T17:45:35Z",
+      "ticker": "EQT",
+      "company": "EQT Corp",
+      "exchange": "NYSE",
+      "direction": "pair",
+      "pair_with": "RRC",
+      "reason": "The filing of a 425 form indicates a formal business combination process between EQT and Range Resources, creating a classic merger arbitrage opportunity where the spread between the offer price and current market price is the primary driver.",
+      "why_now": "The SEC filing on 2026-11-27 confirms the initiation of formal merger communications, making the deal active and actionable.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 75,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7ca227b11f62",
+        "EVT-e6485f0cdc41"
+      ],
+      "primary_source_event_id": "EVT-7ca227b11f62",
+      "source_headlines": [
+        "425 - EQT Corp (0000033213) (Filed by)",
+        "425 - RANGE RESOURCES CORP (0000315852) (Subject)"
+      ],
+      "source_headline": "425 - EQT Corp (0000033213) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/33213/000121390026124284/0001213900-26-124284-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T11:07:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T17:45:35Z",
+      "updated_at": "2026-11-27T17:45:35Z",
+      "decay_at": "2026-11-28T23:07:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3ca8f8fe21a8",
       "idea_version": "IDEAV-aecce3202dc413d0",
       "idea_version_started_at": "2026-11-27T04:35:49Z",
@@ -263840,6 +263911,78 @@
       "surfaced_at": "2026-11-27T00:49:33Z",
       "updated_at": "2026-11-27T00:49:33Z",
       "decay_at": "2026-11-28T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8dadbfed5f8f",
+      "idea_version": "IDEAV-bef4689b0b2d5ae3",
+      "idea_version_started_at": "2026-11-27T17:45:35Z",
+      "ticker": "DB1",
+      "company": "Deutsche Boerse",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "EU regulatory approval removes the primary hurdle for the €5.3 billion acquisition of Allfunds, allowing Deutsche Boerse to proceed with its strategy to expand its fund distribution platform.",
+      "why_now": "The regulatory clearance was announced on 2026-11-27, removing the uncertainty that previously capped the stock's valuation regarding this deal.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-31d5f08cd7c3"
+      ],
+      "primary_source_event_id": "EVT-31d5f08cd7c3",
+      "source_headlines": [
+        "Deutsche Boerse’s €5.3 billion Allfunds Deal Gets EU Approval"
+      ],
+      "source_headline": "Deutsche Boerse’s €5.3 billion Allfunds Deal Gets EU Approval",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/deutsche-boerse-s-5-3-billion-allfunds-deal-gets-eu-approval",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T11:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T17:45:35Z",
+      "updated_at": "2026-11-27T17:45:35Z",
+      "decay_at": "2026-11-28T23:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -304575,8 +304718,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2718,
-    "live_count": 38,
+    "surfaced_total": 2720,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
