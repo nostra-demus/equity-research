@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T03:58:08Z",
+  "generated_at": "2026-11-27T04:07:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -1718,6 +1718,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-211",
+      "headline": "Biocon shares gain after Brazil health regulator approves biosimilar for breast cancer drug",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/biocon-share-price-brazil-health-regulator-anvisa-approves-biosimilar-breast-cancer-treatment-her2-20042639.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T03:56:04Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Brazil health regulator approves Biocon biosimilar for breast cancer; material expansion of market access and revenue opportunity from regulatory clearance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Brazil health regulator approves Biocon biosimilar for breast cancer; material expansion of market access and revenue opportunity from regulatory clearance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Biocon",
+          "ticker": "BIOCON",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-175",
       "headline": "Mercedes-Benz plans new China JV for local auto part supplies",
       "headline_en": null,
@@ -1910,55 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-166",
-      "headline": "Chinese-Controlled Firms Used as Conduits for Nvidia’s Advanced AI Chips",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282372",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T06:29:58Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Reports of Chinese-controlled firms acting as conduits for Nvidia chips suggest potential circumvention of US export controls, increasing regulatory risk for Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Reports of Chinese-controlled firms acting as conduits for Nvidia chips suggest potential circumvention of US export controls, increasing regulatory risk for Nvidia.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304558,9 +304559,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 983,
-    "news_picked_today": 242,
-    "news_dropped_today": 741
+    "news_seen_today": 1295,
+    "news_picked_today": 249,
+    "news_dropped_today": 1046
   },
   "book_momentum": {
     "live_count": 8,
