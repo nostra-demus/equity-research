@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T02:49:36Z",
+  "generated_at": "2026-11-27T02:50:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -264961,6 +264961,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7e82c3ea91c9",
+      "idea_version": "IDEAV-0fc0c20164d93761",
+      "idea_version_started_at": "2026-11-27T02:49:53Z",
+      "ticker": "NEU",
+      "company": "Neuren Pharmaceuticals",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company encountered a significant hurdle in its US drug trial, which directly threatens its primary revenue growth catalyst and clinical pipeline valuation.",
+      "why_now": "The trial failure was reported on 2026-11-26, with the market reacting as of the 2026-11-27 session.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6ccbea59b5a9"
+      ],
+      "primary_source_event_id": "EVT-6ccbea59b5a9",
+      "source_headlines": [
+        "ASX gains; Neuren slides after hitting US drug trial hurdle"
+      ],
+      "source_headline": "ASX gains; Neuren slides after hitting US drug trial hurdle",
+      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-spain-s-de-cos-is-poised-to-take-ecb-presidency-20261127-p61hq5?ref=rss&utm_medium=rss&utm_source=rss_markets",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 96,
+      "newest_source_at": "2026-11-26T23:52:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T00:08:42Z",
+      "updated_at": "2026-11-27T02:49:53Z",
+      "decay_at": "2026-11-28T11:52:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-de5c328d9705",
       "idea_version": "IDEAV-e05f32b87e5ea3f1",
       "idea_version_started_at": "2026-11-27T01:44:51Z",
@@ -265168,79 +265241,6 @@
       "surfaced_at": "2026-11-27T00:08:42Z",
       "updated_at": "2026-11-27T00:08:42Z",
       "decay_at": "2026-11-28T12:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-7e82c3ea91c9",
-      "idea_version": "IDEAV-b7e3aa7a8f2ce128",
-      "idea_version_started_at": "2026-11-27T00:08:42Z",
-      "ticker": "NEU",
-      "company": "Neuren Pharmaceuticals",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Shares are under pressure following news that a US clinical drug trial encountered a major operational or efficacy hurdle.",
-      "why_now": "Reported on November 26, 2026, triggering an immediate market reaction on the ASX.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8a79b1fa8f1"
-      ],
-      "primary_source_event_id": "EVT-f8a79b1fa8f1",
-      "source_headlines": [
-        "ASX gains; Neuren slides after hitting US drug trial hurdle"
-      ],
-      "source_headline": "ASX gains; Neuren slides after hitting US drug trial hurdle",
-      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-spain-s-de-cos-is-poised-to-take-ecb-presidency-20261127-p61hq5?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-26T23:52:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-27T00:08:42Z",
-      "updated_at": "2026-11-27T00:08:42Z",
-      "decay_at": "2026-11-28T11:52:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
