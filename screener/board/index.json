@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T00:29:21Z",
+  "generated_at": "2026-11-27T00:34:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-001",
@@ -1370,6 +1370,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-034",
+      "headline": "Tech Mahindra Limited - Ex-Date: 30-Nov-2026",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
+      "source_name": "NSE India — Corporate Actions (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T00:41:50Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Ex-date for a dividend is a routine corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Ex-date for a dividend is a routine corporate action.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tech Mahindra Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-035",
+      "headline": "Japan's Senate to vote on censure motion against scandal-hit minister",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261127/p2g/00m/0na/016000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:30:08Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Political censure motions are routine in parliamentary systems and rarely impact market-moving fundamentals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Political censure motions are routine in parliamentary systems and rarely impact market-moving fundamentals.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-027",
       "headline": "Wealthsimple faces backlash over interest rate cuts, rollback of perks",
       "headline_en": null,
@@ -1490,6 +1582,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-033",
+      "headline": "Smaller Hong Kong companies urged to upgrade themselves to handle new US tariffs",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/hong-kong/hong-kong-economy/article/3375957/smaller-hong-kong-companies-urged-upgrade-themselves-handle-new-us-tariffs",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T00:30:05Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Generic advice to small businesses regarding trade policy is not a specific company-moving event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Generic advice to small businesses regarding trade policy is not a specific company-moving event.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -303567,7 +303702,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5359,
+    "inbox_unconsumed": 5362,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -303576,9 +303711,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 126,
-    "news_picked_today": 32,
-    "news_dropped_today": 94
+    "news_seen_today": 142,
+    "news_picked_today": 35,
+    "news_dropped_today": 107
   },
   "book_momentum": {
     "live_count": 8,
