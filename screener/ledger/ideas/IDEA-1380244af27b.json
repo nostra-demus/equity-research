@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-3dc76c63d458",
-  "idea_version": "IDEAV-88ffd855b16084a0",
-  "idea_version_started_at": "2026-11-24T20:58:18Z",
-  "ticker": "01890",
-  "company": "CHINA KEPEI",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-1380244af27b",
+  "idea_version": "IDEAV-c36d7345b1c05491",
+  "idea_version_started_at": "2026-11-26T21:40:26Z",
+  "ticker": "ARMCO",
+  "company": "Saudi Aramco",
+  "exchange": "TADAWUL",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a profit warning, which typically precedes downward revisions to analyst estimates and valuation multiples.",
-  "why_now": "The filing was released on 2026-11-23.",
-  "conviction": 70,
+  "reason": "The strike on the Jazan refinery creates immediate operational disruption and potential supply chain constraints for Saudi Aramco's downstream refining capacity.",
+  "why_now": "The attack occurred on 2026-11-26, and the market has not yet fully digested the extent of the operational downtime.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 21,
     "specificity": 7,
-    "timing": 6,
+    "timing": 10,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d64ca76c9f0e"
+    "EVT-122821c48ed3"
   ],
-  "primary_source_event_id": "EVT-d64ca76c9f0e",
+  "primary_source_event_id": "EVT-122821c48ed3",
   "source_headlines": [
-    "CHINA KEPEI (01890): PROFIT WARNING"
+    "Strike on Saudi Jazan Refinery Halts Some Operations, Kills One"
   ],
-  "source_headline": "CHINA KEPEI (01890): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1123/2026112301711.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Strike on Saudi Jazan Refinery Halts Some Operations, Kills One",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-11-26/strike-on-saudi-jazan-refinery-halts-some-operations-kills-one",
+  "source_name": "Bloomberg",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-23T14:45:00Z",
+  "newest_source_at": "2026-11-26T21:05:21Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-24T20:58:18Z",
-  "updated_at": "2026-11-24T20:58:18Z",
-  "decay_at": "2026-11-25T02:45:00Z",
+  "surfaced_at": "2026-11-26T21:40:26Z",
+  "updated_at": "2026-11-26T21:40:26Z",
+  "decay_at": "2026-11-28T09:05:21Z",
   "status": "live",
   "promoted_signal_id": null
 }

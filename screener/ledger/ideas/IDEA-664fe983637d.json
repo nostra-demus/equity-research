@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-043d03942dc6",
-  "idea_version": "IDEAV-d921e34ad338ccc3",
-  "idea_version_started_at": "2026-11-25T01:22:54Z",
-  "ticker": "MNRO",
-  "company": "Monro, Inc.",
-  "exchange": "NASDAQ",
+  "idea_id": "IDEA-664fe983637d",
+  "idea_version": "IDEAV-d576cb9e59dcf069",
+  "idea_version_started_at": "2026-11-26T22:18:41Z",
+  "ticker": "NORSE",
+  "company": "Norse Atlantic Airways",
+  "exchange": null,
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The suspension of the quarterly cash dividend signals significant liquidity constraints or a deterioration in free cash flow generation.",
-  "why_now": "The announcement was made on 2026-11-23; the market typically reacts negatively to dividend cuts as they indicate financial distress.",
-  "conviction": 75,
+  "reason": "The company has suspended flights and issued a formal bankruptcy warning, indicating a high probability of equity wipeout.",
+  "why_now": "The distress signal was issued on 2026-11-26, making the insolvency risk immediate.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 18,
+    "impact": 21,
     "specificity": 7,
-    "timing": 6,
+    "timing": 10,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -44,31 +45,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "balance_sheet_survival",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-f9576315405b"
+    "EVT-86f72b9b2150"
   ],
-  "primary_source_event_id": "EVT-f9576315405b",
+  "primary_source_event_id": "EVT-86f72b9b2150",
   "source_headlines": [
-    "Monro, Inc. Announces Suspension of Quarterly Cash Dividend"
+    "Norse Atlantic suspends flights, warns of bankruptcy"
   ],
-  "source_headline": "Monro, Inc. Announces Suspension of Quarterly Cash Dividend",
-  "source_url": "https://www.nasdaq.com/articles/monro-inc-announces-suspension-quarterly-cash-dividend",
-  "source_name": "Nasdaq",
+  "source_headline": "Norse Atlantic suspends flights, warns of bankruptcy",
+  "source_url": "https://www.qatar-tribune.com/article/266681/business/norse-atlantic-suspends-flights-warns-of-bankruptcy",
+  "source_name": "Qatar Tribune — Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-23T21:10:19Z",
+  "newest_source_at": "2026-11-26T21:00:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-25T01:22:54Z",
-  "updated_at": "2026-11-25T01:22:54Z",
-  "decay_at": "2026-11-25T09:10:19Z",
+  "surfaced_at": "2026-11-26T19:19:48Z",
+  "updated_at": "2026-11-26T22:18:41Z",
+  "decay_at": "2026-11-28T09:00:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

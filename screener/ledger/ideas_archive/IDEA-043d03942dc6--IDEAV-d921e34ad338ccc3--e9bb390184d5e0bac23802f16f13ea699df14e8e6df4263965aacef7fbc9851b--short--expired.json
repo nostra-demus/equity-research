@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-11-09T00:39:56Z",
+  "archived_at": "2026-11-26T21:18:50Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-1e404b952344",
-    "idea_version": "IDEAV-5b51c852f5641457",
-    "idea_version_started_at": "2026-11-06T07:46:04Z",
-    "ticker": "M&M",
-    "company": "Mahindra & Mahindra",
-    "exchange": "NSE",
+    "idea_id": "IDEA-043d03942dc6",
+    "idea_version": "IDEAV-d921e34ad338ccc3",
+    "idea_version_started_at": "2026-11-25T01:22:54Z",
+    "ticker": "MNRO",
+    "company": "Monro, Inc.",
+    "exchange": "NASDAQ",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "Strong demand for SUVs has driven a 25% increase in Q2 net profit, demonstrating effective margin expansion in their core automotive segment.",
-    "why_now": "The Q2 earnings results were reported on November 6, 2026.",
-    "conviction": 65,
+    "reason": "The suspension of the quarterly cash dividend signals significant liquidity constraints or a deterioration in free cash flow generation.",
+    "why_now": "The announcement was made on 2026-11-23; the market typically reacts negatively to dividend cuts as they indicate financial distress.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 20,
+      "impact": 18,
       "specificity": 7,
-      "timing": 10,
+      "timing": 6,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -49,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
-    "thesis_type": "company_specific",
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-889cca8cafe8"
+      "EVT-f9576315405b"
     ],
-    "primary_source_event_id": "EVT-889cca8cafe8",
+    "primary_source_event_id": "EVT-f9576315405b",
     "source_headlines": [
-      "SUVs drive up M&M Q2 net profit by 25%"
+      "Monro, Inc. Announces Suspension of Quarterly Cash Dividend"
     ],
-    "source_headline": "SUVs drive up M&M Q2 net profit by 25%",
-    "source_url": "https://timesofindia.indiatimes.com/business/india-business/suvs-drive-up-mm-q2-net-profit-by-25/articleshow/135589534.cms",
-    "source_name": "The Times of India (Business)",
+    "source_headline": "Monro, Inc. Announces Suspension of Quarterly Cash Dividend",
+    "source_url": "https://www.nasdaq.com/articles/monro-inc-announces-suspension-quarterly-cash-dividend",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-11-06T00:31:51Z",
+    "newest_source_at": "2026-11-23T21:10:19Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-11-06T07:46:04Z",
-    "updated_at": "2026-11-06T07:46:04Z",
-    "decay_at": "2026-11-07T12:31:51Z",
+    "surfaced_at": "2026-11-25T01:22:54Z",
+    "updated_at": "2026-11-25T01:22:54Z",
+    "decay_at": "2026-11-25T09:10:19Z",
     "status": "live",
     "promoted_signal_id": null
   }
