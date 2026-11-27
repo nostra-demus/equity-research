@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T11:28:58Z",
+  "generated_at": "2026-11-27T11:31:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-338",
@@ -338,6 +338,55 @@
           "name": "Rheinmetall",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-416",
+      "headline": "Petronas Greenlights Suriname's 1st Offshore Gas Project",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/petronas_greenlights_surinames_1st_offshore_gas_project-27-nov-2026-185181-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T09:21:44Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Petronas approved Suriname's first offshore gas project, representing a major capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Petronas approved Suriname's first offshore gas project, representing a major capital investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Petronas",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1908,55 +1957,6 @@
           "name": "TTT",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-014",
-      "headline": "SFCE (01165): QUARTERLY UPDATE ON RESUMPTION PROGRESS AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-26T22:08:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Company remains under trading suspension with ongoing resumption progress updates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company remains under trading suspension with ongoing resumption progress updates.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SFCE",
-          "ticker": "01165",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -305200,9 +305200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 61242,
-    "news_picked_today": 785,
-    "news_dropped_today": 9533
+    "news_seen_today": 61274,
+    "news_picked_today": 793,
+    "news_dropped_today": 9549
   },
   "book_momentum": {
     "live_count": 8,
