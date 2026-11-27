@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T03:18:07Z",
+  "generated_at": "2026-11-27T03:24:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -1081,6 +1081,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-184",
+      "headline": "Argentina Congress Bans Central Bank From Printing Money To Fund Government Spending As Javier Milei Pushes Inflation Reforms",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/argentina-congress-bans-central-bank-from-printing-money-to-fund-government-spending-as-javier-milei-pushes-inflation-reforms",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T02:48:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Banning the central bank from printing money to fund government spending is a significant fiscal reform that can impact inflation and economic stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Banning the central bank from printing money to fund government spending is a significant fiscal reform that can impact inflation and economic stability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-126",
       "headline": "Tokyo’s faster pace of inflation backs case for Bank of Japan rate hike",
       "headline_en": null,
@@ -1917,55 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-093",
-      "headline": "Dubai Palm Jebel Ali real estate: Nakheel awards $381m contract to build 176 beachfront villas",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/real-estate/dubai-palm-jebel-ali-real-estate-nakheel-awards-381m-contract-to-build-176-beachfront-villas",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T01:21:39Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Nakheel awarded a $381 million contract for real estate development in Dubai.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Nakheel awarded a $381 million contract for real estate development in Dubai.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nakheel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304495,9 +304489,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 830,
-    "news_picked_today": 202,
-    "news_dropped_today": 628
+    "news_seen_today": 852,
+    "news_picked_today": 211,
+    "news_dropped_today": 641
   },
   "book_momentum": {
     "live_count": 8,
