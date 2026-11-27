@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T09:17:44Z",
+  "generated_at": "2026-11-27T09:22:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-338",
@@ -240,6 +240,55 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-349",
+      "headline": "PIC in R2.6bn deal for Grit’s African development business",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/south-africa/pic-in-r2-6bn-deal-for-grits-african-development-business/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T08:25:03Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "PIC is acquiring Grit's African development business for R2.6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PIC is acquiring Grit's African development business for R2.6 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grit",
+          "ticker": null,
+          "listing_country": "ZA"
         }
       ],
       "size_bucket": "small",
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-226",
-      "headline": "Huawei guilty on 10 counts in US trial; Nvidia’s Jensen Huang returns: SCMP’s 7 highlights",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/article/3375979/huawei-guilty-10-counts-us-trial-nvidias-jensen-huang-returns-scmps-7-highlights",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T04:15:06Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Huawei was found guilty on 10 counts in a US trial, representing a significant legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Huawei was found guilty on 10 counts in a US trial, representing a significant legal and operational risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305205,9 +305205,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46852,
-    "news_picked_today": 496,
-    "news_dropped_today": 7955
+    "news_seen_today": 47661,
+    "news_picked_today": 514,
+    "news_dropped_today": 8033
   },
   "book_momentum": {
     "live_count": 8,
