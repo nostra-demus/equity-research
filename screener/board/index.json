@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T18:49:10Z",
+  "generated_at": "2026-11-27T18:57:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-718",
@@ -536,6 +536,55 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-719",
+      "headline": "Cardiff Oncology, Inc. Received Notice of Delisting or Failure to Satisfy a Continued Listing Rule or Standard from Nasdaq",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cardiff-oncology-inc-received-notice-delisting-or-failure-satisfy-continued-listing-rule",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T18:38:47Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Cardiff Oncology received a notice of delisting from Nasdaq, indicating a failure to satisfy continued listing standards.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cardiff Oncology received a notice of delisting from Nasdaq, indicating a failure to satisfy continued listing standards.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cardiff Oncology",
+          "ticker": "CRDF",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-526",
-      "headline": "Nvidia agrees to $290 million settlement over 2018 crypto mining GPU sales",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/big-tech/nvidia-agrees-to-usd290-million-settlement-over-2018-crypto-mining-gpu-sales-ends-eight-year-investor-lawsuit-without-admitting-wrongdoing",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T11:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Nvidia agrees to a $290 million settlement regarding 2018 crypto mining GPU sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia agrees to a $290 million settlement regarding 2018 crypto mining GPU sales.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304852,9 +304852,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122025,
-    "news_picked_today": 1518,
-    "news_dropped_today": 16157
+    "news_seen_today": 122208,
+    "news_picked_today": 1532,
+    "news_dropped_today": 16326
   },
   "book_momentum": {
     "live_count": 8,
