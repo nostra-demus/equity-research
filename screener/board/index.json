@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T19:26:04Z",
+  "generated_at": "2026-11-27T19:36:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-718",
@@ -539,6 +539,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-731",
+      "headline": "Puig to Buy 75% Stake in Artessence for About €1.2 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-27/puig-to-buy-75-stake-in-artessence-for-about-1-2-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T19:28:32Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Puig to acquire a 75% stake in Artessence for €1.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Puig to acquire a 75% stake in Artessence for €1.2 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Puig",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-724",
+      "headline": "NARF Industries H1 Loss Narrows On Strong Revenue Growth, Announces FY27 Revenue Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/narf-industries-h1-loss-narrows-strong-revenue-growth-announces-fy27-revenue-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T18:49:02Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "NARF Industries reported a narrowed H1 loss and provided a forward-looking revenue outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NARF Industries reported a narrowed H1 loss and provided a forward-looking revenue outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NARF Industries",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1855,115 +1954,6 @@
           "name": "Delivery Hero",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-524",
-      "headline": "Volkswagen drags rivals Mercedes, BMW into $1.2 billion India tax fight: Report",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/volkswagen-drags-rivals-mercedes-bmw-into-usd-1-2-billion-india-tax-fight-20043171.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T11:35:05Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Volkswagen is involved in a $1.2 billion tax dispute in India, with potential implications for Mercedes and BMW.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen is involved in a $1.2 billion tax dispute in India, with potential implications for Mercedes and BMW.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Mercedes-Benz",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-421",
-      "headline": "Malaysia's Axiata Group to sell overseas Edotco tower units for combined value of $2.9bn",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/malaysias-axiata-group-to-sell-overseas-edotco-tower-units-for-combined-value-of-29bn/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T11:30:52Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Axiata announced sale of overseas Edotco tower units for $2.9 billion, a material capital redeployment affecting cash position, leverage, and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Axiata announced sale of overseas Edotco tower units for $2.9 billion, a material capital redeployment affecting cash position, leverage, and capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Axiata Group",
-          "ticker": "AXIATA",
-          "listing_country": "MY"
         }
       ],
       "size_bucket": "large",
@@ -304994,9 +304984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122629,
-    "news_picked_today": 1536,
-    "news_dropped_today": 16648
+    "news_seen_today": 122995,
+    "news_picked_today": 1549,
+    "news_dropped_today": 16836
   },
   "book_momentum": {
     "live_count": 8,
