@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T10:48:53Z",
+  "generated_at": "2026-11-27T10:55:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-338",
@@ -1135,6 +1135,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-402",
+      "headline": "KINGBOARD HLDG (00148): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO DISCLOSEABLE TRANSACTION - ACQUISITION OF PROPERTY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112701245.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T10:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Kingboard Holdings is acquiring property in a discloseable transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Kingboard Holdings is acquiring property in a discloseable transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kingboard Holdings",
+          "ticker": "00148",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-350",
       "headline": "GAC GROUP (02238): Overseas Regulatory Announcement - Announcement on the Progress of the Issuance of Shares to Acquire Assets and Raise Supporting Funds which constitute a Related Party Transaction",
       "headline_en": null,
@@ -1911,56 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-320",
-      "headline": "Filatex Fashions Limited: The Exchange has sought clarification from Filatex Fashions Limited for the quarter ended 30-Sep-2026 with respect to Regulation 33 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015. On basis of above the Company is required to clarify the following: -1.Financial results submitted is not as per format prescribed by SEBI-XBRL not submitted 2.Standalone Balance sheet statement not submitted 3.Consolidated Balance sheet statement not submitted",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=FILATFASH&seq=106872614",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T07:43:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "SEBI-mandated quarterly financial disclosures not filed in prescribed format and balance sheets missing; BSE/NSE exchange seeks clarification.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SEBI-mandated quarterly financial disclosures not filed in prescribed format and balance sheets missing; BSE/NSE exchange seeks clarification.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Filatex Fashions Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305201,9 +305200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 57782,
-    "news_picked_today": 702,
-    "news_dropped_today": 9088
+    "news_seen_today": 58198,
+    "news_picked_today": 718,
+    "news_dropped_today": 9120
   },
   "book_momentum": {
     "live_count": 8,
