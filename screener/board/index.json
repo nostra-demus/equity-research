@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T02:20:21Z",
+  "generated_at": "2026-11-27T02:21:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-057",
@@ -264018,6 +264018,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0b64a2ce2686",
+      "idea_version": "IDEAV-3f967f450c16fd8e",
+      "idea_version_started_at": "2026-11-27T02:21:01Z",
+      "ticker": "IMB",
+      "company": "Imperial Brands",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is a potential takeover target for Altria and Japan Tobacco, which would likely command a significant premium over its current market valuation.",
+      "why_now": "The report of active takeover exploration by major industry players surfaced on 2026-11-27.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb6e4e8af7e7"
+      ],
+      "primary_source_event_id": "EVT-eb6e4e8af7e7",
+      "source_headlines": [
+        "Altria, Japan Tobacco explore takeover of Imperial Brands"
+      ],
+      "source_headline": "Altria, Japan Tobacco explore takeover of Imperial Brands",
+      "source_url": "https://www.japantimes.co.jp/business/2026/11/27/companies/japan-tobacco-considers-imperial-acquisition/",
+      "source_name": "The Japan Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T01:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T20:38:38Z",
+      "updated_at": "2026-11-27T02:21:01Z",
+      "decay_at": "2026-11-28T13:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-74ae3e2e6b5e",
       "idea_version": "IDEAV-2d310a38a7ee97e0",
       "idea_version_started_at": "2026-11-27T00:49:33Z",
@@ -264591,79 +264663,6 @@
       "surfaced_at": "2026-11-26T21:18:44Z",
       "updated_at": "2026-11-26T21:18:44Z",
       "decay_at": "2026-11-28T08:34:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0b64a2ce2686",
-      "idea_version": "IDEAV-6f69e7cde6347970",
-      "idea_version_started_at": "2026-11-26T20:59:42Z",
-      "ticker": "IMB",
-      "company": "Imperial Brands",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Philip Morris International is reportedly considering a 26 billion pound takeover bid for the company, which would likely command a significant premium over the current market valuation.",
-      "why_now": "The news of the potential bid emerged on 2026-11-26, making it a live M&A catalyst.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eafc2397f10e",
-        "EVT-4f9dfc15d514"
-      ],
-      "primary_source_event_id": "EVT-eafc2397f10e",
-      "source_headlines": [
-        "US maker of Marlboro cigarettes mulls over bid for Imperial Brands",
-        "Marlboro man eyes British tobacco giant and Rizla-maker Imperial Brands for a £26bn takeover bid"
-      ],
-      "source_headline": "US maker of Marlboro cigarettes mulls over bid for Imperial Brands",
-      "source_url": "https://www.independent.co.uk/news/business/marlboro-london-virginia-bristol-richmond-b3092205.html",
-      "source_name": "The Independent — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T18:05:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T20:38:38Z",
-      "updated_at": "2026-11-26T20:59:42Z",
-      "decay_at": "2026-11-28T06:05:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
