@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T07:35:36Z",
+  "generated_at": "2026-11-27T07:51:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -1276,6 +1276,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-312",
+      "headline": "MP1: Becoming a substantial holder from MUFG",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MP1?key=2924-03168104-2A1713559",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T07:35:03Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "MP1 disclosed substantial-holder threshold crossing by MUFG; material capital-structure shift with governance and partnership implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "MP1 disclosed substantial-holder threshold crossing by MUFG; material capital-structure shift with governance and partnership implications.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 64,
+      "rank_factors": {
+        "materiality": 64,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 6,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MP1",
+          "ticker": "MP1",
+          "listing_country": "AU"
+        },
+        {
+          "name": "MUFG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-222",
       "headline": "CD2: Half-yearly report and accounts - 30 September 2026 [price-sensitive]",
       "headline_en": null,
@@ -1907,56 +1961,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-155",
-      "headline": "NTM: Share Placement and Twin Peaks Project Exploration Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NTM?key=2924-03167845-6A1357563",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T02:56:37Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Native Mineral Resources announced a share placement and an exploration update for its Twin Peaks project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Native Mineral Resources announced a share placement and an exploration update for its Twin Peaks project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Native Mineral Resources",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304984,9 +304988,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15894,
-    "news_picked_today": 429,
-    "news_dropped_today": 5190
+    "news_seen_today": 26652,
+    "news_picked_today": 431,
+    "news_dropped_today": 5260
   },
   "book_momentum": {
     "live_count": 8,
