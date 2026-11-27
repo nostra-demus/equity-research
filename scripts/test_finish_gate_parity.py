@@ -69,7 +69,8 @@ THREE SUBTLETIES IT GETS RIGHT.
   · The grader reaches some detectors only THROUGH a module's `scan_committed()` aggregator
     (`eval_ap_*`, `eval_bf_*`, `eval_multiple_metric_basis`, `eval_scenario_basis_coherence` are
     graded that way, never called by name in eval.py). A detector therefore counts as graded when
-    eval.py calls it directly OR when its defining module exposes `scan_committed`, eval.py
+    eval.py calls it directly — through a binding that resolves to its defining module, so a call
+    that outlived its import does not count — OR when its defining module exposes `scan_committed`, eval.py
     imports from that module, and the module's own non-selftest code calls it.
 
 Self-contained, fixture-free, exits nonzero on failure so CI fails loudly.
@@ -170,13 +171,33 @@ INLINE_EVAL = {
 _DEF_RE = re.compile(r"^(?:async[ \t]+)?def[ \t]+(eval_[A-Za-z0-9_]+)\s*\(", re.M)
 
 
+def defined_detectors(text, what):
+    """The `eval_*` functions a module really DEFINES at module level — read from parsed
+    `FunctionDef` / `AsyncFunctionDef` nodes, never from text. A column-0 `def eval_x(` line left
+    behind in a docstring, comment-adjacent string or example is not a definition: counting it
+    would keep a removed detector "defined", so a stale call in both callers would satisfy parity
+    and slip past stale_live_calls() while crashing at run time. `_DEF_RE` is only a cheap
+    prefilter (a real module-level def always matches it), so a file with no candidate line is
+    never parsed; a candidate file that does not parse raises ValueError naming `what`."""
+    if not _DEF_RE.search(text):
+        return []
+    try:
+        tree = ast.parse(text)
+    except SyntaxError as e:
+        raise ValueError(f"{what}: does not parse as Python ({e.msg}, line {e.lineno}) — refusing "
+                         "to judge which detectors it defines from unparseable source.")
+    return [n.name for n in tree.body
+            if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name.startswith("eval_")]
+
+
 def discover_detectors(scripts_dir=SCRIPTS):
     """Every `eval_*` detector DEFINED under scripts/ (recursively), outside the grader and tests.
 
     These are the shared, dual-use detection functions. Discovery is dynamic so a future shared
     module is covered with no edit here (CLAUDE.md §26 zero-touch). eval.py is excluded (it is the
     grader, not a detector library); test_*.py are excluded (their re-defined stubs are not the
-    source of truth). A glob match that is not a regular file (e.g. a directory named `*.py`) is
+    source of truth). Definitions come from the parsed AST (see defined_detectors), so a `def eval_x(`
+    line surviving only in a docstring or string is not a detector. A glob match that is not a regular file (e.g. a directory named `*.py`) is
     skipped before any open(), so discovery cannot crash on an odd tree. Returns
     (name -> defining basename, name -> set of basenames if duplicated)."""
     found = {}
@@ -189,7 +210,7 @@ def discover_detectors(scripts_dir=SCRIPTS):
             continue
         with open(path, encoding="utf-8") as f:
             text = f.read()
-        for name in _DEF_RE.findall(text):
+        for name in defined_detectors(text, f"scripts/{base}"):
             if name in found and found[name] != base:
                 dupes.setdefault(name, {found[name]}).add(base)
             else:
@@ -306,6 +327,40 @@ def wrapper_delegates(eval_src, name, modbase):
                    for c in ast.walk(n)):
                 return True
     return False
+
+
+def grader_calls_detector(eval_src, name, modbase, grader_calls):
+    """True iff eval.py's grading code calls `name` THROUGH a binding to its defining module — the
+    same resolution unresolved_live_calls() applies to the live heredocs. A call counts when it is
+      · a bare call to a local name bound by `from <module> import name [as alias]`,
+      · a module-qualified call `m.name(...)` where `m` is `import <module> [as m]`, or
+      · a call to eval.py's own same-named `def name` (a wrapper; that it delegates to the shared
+        definition is checked separately by wrapper_delegates()).
+    `grader_calls` is executable_calls(eval_src, skip_selftest=True). Bare membership of `name` in
+    that set is NOT enough: if the import is deleted or renamed while the call stays, the grader
+    raises NameError — or runs an unrelated same-named symbol — yet name-only matching would still
+    report the detector as graded."""
+    modname = os.path.basename(modbase)
+    modname = modname[:-3] if modname.endswith(".py") else modname
+    tree = ast.parse(eval_src)
+    bound, mod_alias, wrapped = set(), set(), False
+    for n in ast.walk(tree):
+        if isinstance(n, ast.ImportFrom) and n.module and n.module.split(".")[-1] == modname:
+            bound |= {a.asname or a.name for a in n.names if a.name == name}
+        elif isinstance(n, ast.Import):
+            mod_alias |= {a.asname or a.name.split(".")[0] for a in n.names
+                          if a.name.split(".")[-1] == modname}
+        elif isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == name:
+            wrapped = True
+    if wrapped:
+        return name in grader_calls
+    if bound & grader_calls:
+        return True
+    if name not in grader_calls:
+        return False
+    return any(isinstance(c, ast.Call) and isinstance(c.func, ast.Attribute) and c.func.attr == name
+               and isinstance(c.func.value, ast.Name) and c.func.value.id in mod_alias
+               for c in ast.walk(tree))
 
 
 def stale_live_calls(live_calls, detectors):
@@ -550,7 +605,26 @@ def selfcheck():
     assert [n for n, _ in unresolved_live_calls(["import other as q\nq.eval_q(1)\n"], dm)] == ["eval_q"], "call through the wrong module not flagged"
     assert [n for n, _ in unresolved_live_calls(["eval_q(1)\n"], dm)] == ["eval_q"], "bare call with no import not flagged"
     # async shared detectors are discovered like sync ones
-    assert _DEF_RE.findall("async def eval_async(x):\n    return []\n") == ["eval_async"], "async detector not discovered"
+    assert defined_detectors("async def eval_async(x):\n    return []\n", "selfcheck") == ["eval_async"], "async detector not discovered"
+    # a `def eval_x(` line that survives only inside a docstring / string is NOT a definition
+    ghost = 'DOC = """example:\ndef eval_ghost(x):\n    return []\n"""\ndef eval_live(x):\n    return []\n'
+    assert defined_detectors(ghost, "selfcheck") == ["eval_live"], "docstring `def` counted as a detector definition"
+    try:
+        defined_detectors("def eval_broken(:\n", "selfcheck")
+        raise AssertionError("unparseable detector module did not raise")
+    except ValueError:
+        pass
+    # a grader call counts only through a binding to the defining module
+    def _g(src):
+        return grader_calls_detector(src, "eval_q", "qmod.py", executable_calls(src, "selfcheck", skip_selftest=True))
+    assert _g("from qmod import eval_q\neval_q(1)\n"), "resolved bare grader call not counted"
+    assert _g("from qmod import eval_q as _q\n_q(1)\n"), "aliased grader call not counted"
+    assert _g("import qmod as q\nq.eval_q(1)\n"), "module-qualified grader call not counted"
+    assert _g("from qmod import eval_q as _q\ndef eval_q(x):\n    return _q(x)\neval_q(1)\n"), "wrapper grader call not counted"
+    assert not _g("eval_q(1)\n"), "grader call with its import deleted counted as graded"
+    assert not _g("from other import eval_q\neval_q(1)\n"), "grader call bound to the wrong module counted as graded"
+    assert not _g("import other as q\nq.eval_q(1)\n"), "grader call through the wrong module counted as graded"
+    assert not _g("from qmod import eval_q\n"), "imported-but-never-called detector counted as graded"
 
     # Invariant 3: unclassified inline check, stale entry, vanished live marker, missing reason.
     reg = {"eval_a": ("live", r"mirrors check A", "n"), "eval_b": ("retrospective", None, "why")}
@@ -707,21 +781,21 @@ def main():
     print(f"  [ok] full.md: extracted {n_blocks} embedded python heredoc block(s)")
 
     bad = 0
-    detectors, dupes = discover_detectors()
+    try:
+        detectors, dupes = discover_detectors()
+        grader_calls = executable_calls(eval_src, "scripts/eval.py", skip_selftest=True)
+        live_calls = gate_calls(blocks)
+        graded = {n: (grader_calls_detector(eval_src, n, detectors[n], grader_calls)
+                      or module_scanned_by_eval(n, detectors[n], eval_src))
+                  for n in detectors}
+    except ValueError as e:
+        print(f"  [XX] {e}")
+        print("FINISH-GATE PARITY FAIL (unparseable caller or detector module)")
+        sys.exit(1)
     for name, where in sorted(dupes.items()):
         bad += 1
         print(f"  [XX] detector {name} is def'd in multiple modules {sorted(where)} — ambiguous "
               "source of truth; one must be the shared definition.")
-
-    try:
-        grader_calls = executable_calls(eval_src, "scripts/eval.py", skip_selftest=True)
-        live_calls = gate_calls(blocks)
-        graded = {n: (n in grader_calls or module_scanned_by_eval(n, detectors[n], eval_src))
-                  for n in detectors}
-    except ValueError as e:
-        print(f"  [XX] {e}")
-        print("FINISH-GATE PARITY FAIL (unparseable caller)")
-        sys.exit(1)
     in_gate = {n: n in live_calls for n in detectors}
 
     issues, n_live = evaluate(detectors, graded, in_gate)
