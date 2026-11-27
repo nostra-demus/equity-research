@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T15:35:09Z",
+  "generated_at": "2026-11-27T15:38:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-559",
@@ -487,6 +487,197 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-605",
+      "headline": "S&P cuts Tata Motors PV rating to BBB-; JLR to BB+ on cash burn",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/sp-cuts-tata-motors-pv-rating-to-bbb-jlr-to-bb-on-cash-burn/article71751339.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T14:59:43Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "S&P downgraded Tata Motors PV to BBB- and JLR to BB+ citing cash burn concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "S&P downgraded Tata Motors PV to BBB- and JLR to BB+ citing cash burn concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-598",
+      "headline": "Mizuho Financial Group, Inc. Reports Financial Results for the six months ended September 30, 2026 and Announces Up to ¥200,000,000,000 Share Repurchase Program",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/mizuho-financial-group-inc-reports-financial-results-six-months-ended-september-30-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T14:58:42Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Mizuho Financial Group reported financial results and announced a share repurchase program of up to ¥200 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mizuho Financial Group reported financial results and announced a share repurchase program of up to ¥200 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mizuho Financial Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-600",
+      "headline": "75-year-old amusement park's owner files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/scene-one-entertainment-parks-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T14:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "An amusement park owner filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An amusement park owner filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-612",
+      "headline": "Norse Atlantic files for bankruptcy, halts flights",
+      "headline_en": null,
+      "url": "https://www.arnnewscentre.ae/news/business/norse-atlantic-files-for-bankruptcy-halts-flights/",
+      "source_name": "ARN News Centre — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T14:48:05Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Norse Atlantic filed for bankruptcy and ceased operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic filed for bankruptcy and ceased operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1786,203 +1977,6 @@
         "event": 4,
         "size": 2,
         "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SAP",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-142",
-      "headline": "South Korea’s KFTC Seeks Up to 53.6 Billion Won Fine Over Apple AI Ads",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=282367",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T06:11:32Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "The KFTC is seeking a 53.6 billion won fine against Apple for alleged unfair advertising practices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The KFTC is seeking a 53.6 billion won fine against Apple for alleged unfair advertising practices.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-305",
-      "headline": "Mahanadi Coalfields Shares Rebound After Discounted Listing, But Can Its Rs 17,900 Crore Expansion Deliver?",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/mahanadi-coalfields-share-price-today-november-27-ipo-listing-discount-rebound-after-discounted-listing-but-can-its-rs-17-900-crore-expansion-deliver-12383214#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T05:02:25Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Mahanadi Coalfields is undertaking a major capital expenditure project valued at Rs 17,900 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mahanadi Coalfields is undertaking a major capital expenditure project valued at Rs 17,900 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahanadi Coalfields",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-237",
-      "headline": "Software Firm SAP Looking To Layoff At Least 10,000 Employees In AI-Led Overhaul",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/software-firm-sap-looking-to-layoff-at-least-10000-employees-in-ai-led-overhaul",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T04:11:45Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "SAP plans to lay off at least 10,000 employees as part of an AI-led restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SAP plans to lay off at least 10,000 employees as part of an AI-led restructuring.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SAP",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-199",
-      "headline": "SAP may cut at least 10,000 jobs in AI-driven restructuring",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/sap-may-cut-at-least-10000-jobs-in-ai-driven-restructuring-19942358.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T03:55:01Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "SAP is reportedly planning to cut at least 10,000 jobs as part of an AI-driven restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SAP is reportedly planning to cut at least 10,000 jobs as part of an AI-driven restructuring.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
@@ -304605,9 +304599,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 103558,
-    "news_picked_today": 1194,
-    "news_dropped_today": 12608
+    "news_seen_today": 104341,
+    "news_picked_today": 1237,
+    "news_dropped_today": 12637
   },
   "book_momentum": {
     "live_count": 8,
