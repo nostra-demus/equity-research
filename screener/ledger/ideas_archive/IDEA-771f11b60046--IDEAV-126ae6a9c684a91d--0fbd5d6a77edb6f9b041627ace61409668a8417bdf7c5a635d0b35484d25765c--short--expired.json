@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-11-04T01:34:51Z",
+  "archived_at": "2026-11-27T15:34:53Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-9ac8f2ae4804",
-    "idea_version": "IDEAV-aba2c949217507f1",
-    "idea_version_started_at": "2026-11-01T03:42:18Z",
-    "ticker": "CLH",
-    "company": "Coca-Cola Hellenic Bottling Company",
-    "exchange": "LSE",
+    "idea_id": "IDEA-771f11b60046",
+    "idea_version": "IDEAV-126ae6a9c684a91d",
+    "idea_version_started_at": "2026-11-25T02:11:57Z",
+    "ticker": "06182",
+    "company": "TWINTEK",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "A surge in fuel costs has directly impacted an Olympics contractor's profits by 15%, indicating significant margin pressure for companies reliant on logistics and event services.",
-    "why_now": "The impact of fuel cost surge wiping 15% off profit was reported on November 1, 2026, showing a current and significant earnings hit.",
-    "conviction": 40,
+    "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
+    "why_now": "The filing was released on 2026-11-24.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-359a4ef9c18c"
+      "EVT-52f37770dae1"
     ],
-    "primary_source_event_id": "EVT-359a4ef9c18c",
+    "primary_source_event_id": "EVT-52f37770dae1",
     "source_headlines": [
-      "Fuel cost surge wipes 15pc off Olympics contractor profit"
+      "TWINTEK (06182): PROFIT WARNING"
     ],
-    "source_headline": "Fuel cost surge wipes 15pc off Olympics contractor profit",
-    "source_url": "https://www.afr.com/property/commercial/fuel-cost-surge-wipes-15pc-off-olympics-contractor-profit-20261101-p61a73?ref=rss&utm_medium=rss&utm_source=rss_feed",
-    "source_name": "Australian Financial Review",
+    "source_headline": "TWINTEK (06182): PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1124/2026112401565.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-11-01T01:00:00Z",
+    "newest_source_at": "2026-11-24T14:33:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-11-01T03:42:18Z",
-    "updated_at": "2026-11-01T03:42:18Z",
-    "decay_at": "2026-11-02T13:00:00Z",
+    "surfaced_at": "2026-11-25T02:11:57Z",
+    "updated_at": "2026-11-25T02:11:57Z",
+    "decay_at": "2026-11-26T02:33:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
