@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T08:57:44Z",
+  "generated_at": "2026-11-27T09:05:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -1772,6 +1772,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-331",
+      "headline": "CHAMPION TECH (00092): PROPOSED ADOPTION OF NEW BYE-LAWS AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700528.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T08:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Trading suspension continuance paired with proposed bye-law adoption signals material capital-market or structural distress requiring regulatory or governance intervention.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Trading suspension continuance paired with proposed bye-law adoption signals material capital-market or structural distress requiring regulatory or governance intervention.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Champion Tech",
+          "ticker": "00092",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-217",
       "headline": "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF XIANLINDA IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-273",
-      "headline": "Coal India’s Largest Mining Subsidiary Makes Tepid Market Debut, Mahanadi Coalfields Shares List Below ₹136 IPO Price",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/coal-indias-largest-mining-subsidiary-makes-tepid-market-debut-mahanadi-coalfields-shares-list-below-136-ipo-price",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T05:25:49Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Mahanadi Coalfields listed below its IPO price of ₹136, indicating weak market demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Mahanadi Coalfields listed below its IPO price of ₹136, indicating weak market demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahanadi Coalfields",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263395,76 +263395,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-11fd1de25c85",
-      "idea_version": "IDEAV-68c743a53f509a91",
-      "idea_version_started_at": "2026-11-26T11:29:32Z",
-      "ticker": "TRGP",
-      "company": "Targa Resources",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Acquiring Kinetik Holdings would expand Targa's midstream footprint in the Permian Basin, likely driving long-term synergies and scale.",
-      "why_now": "The news of active M&A talks broke on 2026-11-25, suggesting a potential deal announcement is imminent.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-91843679b795"
-      ],
-      "primary_source_event_id": "EVT-91843679b795",
-      "source_headlines": [
-        "Targa Is Said in Talks to Buy Kinetik in Major Pipeline Tie-Up"
-      ],
-      "source_headline": "Targa Is Said in Talks to Buy Kinetik in Major Pipeline Tie-Up",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/targa-is-said-in-talks-to-buy-kinetik-in-major-pipeline-tie-up",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-25T21:00:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T11:29:32Z",
-      "updated_at": "2026-11-26T11:29:32Z",
-      "decay_at": "2026-11-27T09:00:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-657fb7507a470816",
       "idea_version_started_at": "2026-11-26T11:29:32Z",
@@ -263529,76 +263459,6 @@
       "surfaced_at": "2026-11-26T11:29:32Z",
       "updated_at": "2026-11-26T11:29:32Z",
       "decay_at": "2026-11-27T11:32:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e02be1b7b066",
-      "idea_version": "IDEAV-06cef39423687211",
-      "idea_version_started_at": "2026-11-26T11:29:32Z",
-      "ticker": "PANW",
-      "company": "Palo Alto Networks",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Allegations of accounting fraud create significant downside risk to the stock price and potential regulatory scrutiny.",
-      "why_now": "The report surfaced on 2026-11-25, creating immediate uncertainty regarding the integrity of reported financial results.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-025f806dc71c"
-      ],
-      "primary_source_event_id": "EVT-025f806dc71c",
-      "source_headlines": [
-        "Palo Alto Networks Accused by Ex-Manager of Accounting Fraud"
-      ],
-      "source_headline": "Palo Alto Networks Accused by Ex-Manager of Accounting Fraud",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/palo-alto-networks-accused-by-ex-executive-of-accounting-fraud",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-25T21:01:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T11:29:32Z",
-      "updated_at": "2026-11-26T11:29:32Z",
-      "decay_at": "2026-11-27T09:01:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -266266,6 +266126,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-11fd1de25c85",
+      "idea_version": "IDEAV-68c743a53f509a91",
+      "idea_version_started_at": "2026-11-26T11:29:32Z",
+      "ticker": "TRGP",
+      "company": "Targa Resources",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Acquiring Kinetik Holdings would expand Targa's midstream footprint in the Permian Basin, likely driving long-term synergies and scale.",
+      "why_now": "The news of active M&A talks broke on 2026-11-25, suggesting a potential deal announcement is imminent.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-91843679b795"
+      ],
+      "primary_source_event_id": "EVT-91843679b795",
+      "source_headlines": [
+        "Targa Is Said in Talks to Buy Kinetik in Major Pipeline Tie-Up"
+      ],
+      "source_headline": "Targa Is Said in Talks to Buy Kinetik in Major Pipeline Tie-Up",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/targa-is-said-in-talks-to-buy-kinetik-in-major-pipeline-tie-up",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T21:00:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T11:29:32Z",
+      "updated_at": "2026-11-26T11:29:32Z",
+      "decay_at": "2026-11-27T09:00:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-e6dbcd1e11b88324",
       "idea_version_started_at": "2026-11-25T02:37:44Z",
@@ -266332,6 +266262,76 @@
       "surfaced_at": "2026-11-25T02:37:44Z",
       "updated_at": "2026-11-25T02:37:44Z",
       "decay_at": "2026-11-26T10:31:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e02be1b7b066",
+      "idea_version": "IDEAV-06cef39423687211",
+      "idea_version_started_at": "2026-11-26T11:29:32Z",
+      "ticker": "PANW",
+      "company": "Palo Alto Networks",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Allegations of accounting fraud create significant downside risk to the stock price and potential regulatory scrutiny.",
+      "why_now": "The report surfaced on 2026-11-25, creating immediate uncertainty regarding the integrity of reported financial results.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-025f806dc71c"
+      ],
+      "primary_source_event_id": "EVT-025f806dc71c",
+      "source_headlines": [
+        "Palo Alto Networks Accused by Ex-Manager of Accounting Fraud"
+      ],
+      "source_headline": "Palo Alto Networks Accused by Ex-Manager of Accounting Fraud",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/palo-alto-networks-accused-by-ex-executive-of-accounting-fraud",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-25T21:01:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T11:29:32Z",
+      "updated_at": "2026-11-26T11:29:32Z",
+      "decay_at": "2026-11-27T09:01:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -268054,19 +268054,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 526,
     "shown_count": 499,
-    "hidden_count": 25,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -268085,6 +268085,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e02be1b7b066",
+        "idea_version": "IDEAV-06cef39423687211",
+        "idea_version_started_at": "2026-11-26T11:29:32Z",
+        "ticker": "PANW",
+        "company": "Palo Alto Networks",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Allegations of accounting fraud create significant downside risk to the stock price and potential regulatory scrutiny.",
+        "why_now": "The report surfaced on 2026-11-25, creating immediate uncertainty regarding the integrity of reported financial results.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-025f806dc71c"
+        ],
+        "primary_source_event_id": "EVT-025f806dc71c",
+        "source_headlines": [
+          "Palo Alto Networks Accused by Ex-Manager of Accounting Fraud"
+        ],
+        "source_headline": "Palo Alto Networks Accused by Ex-Manager of Accounting Fraud",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/palo-alto-networks-accused-by-ex-executive-of-accounting-fraud",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-25T21:01:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T11:29:32Z",
+        "updated_at": "2026-11-26T11:29:32Z",
+        "decay_at": "2026-11-27T09:01:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-27T09:01:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-11fd1de25c85",
+        "idea_version": "IDEAV-68c743a53f509a91",
+        "idea_version_started_at": "2026-11-26T11:29:32Z",
+        "ticker": "TRGP",
+        "company": "Targa Resources",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Acquiring Kinetik Holdings would expand Targa's midstream footprint in the Permian Basin, likely driving long-term synergies and scale.",
+        "why_now": "The news of active M&A talks broke on 2026-11-25, suggesting a potential deal announcement is imminent.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-91843679b795"
+        ],
+        "primary_source_event_id": "EVT-91843679b795",
+        "source_headlines": [
+          "Targa Is Said in Talks to Buy Kinetik in Major Pipeline Tie-Up"
+        ],
+        "source_headline": "Targa Is Said in Talks to Buy Kinetik in Major Pipeline Tie-Up",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/targa-is-said-in-talks-to-buy-kinetik-in-major-pipeline-tie-up",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-25T21:00:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T11:29:32Z",
+        "updated_at": "2026-11-26T11:29:32Z",
+        "decay_at": "2026-11-27T09:00:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-27T09:00:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c7c67a3816f9",
         "idea_version": "IDEAV-ae38496a0f069204",
@@ -301232,81 +301378,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c8978df6808e",
-        "idea_version": "IDEAV-a5ed1126b7a855b9",
-        "idea_version_started_at": "2026-11-06T20:30:17Z",
-        "ticker": "01905",
-        "company": "Haitong Unitrust International Financial Leasing",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is the subject of a voluntary cash partial offer for both domestic and H shares, which typically provides a floor and potential premium for shareholders.",
-        "why_now": "The irrevocable undertaking was announced on 2026-11-06.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d770a783a585"
-        ],
-        "primary_source_event_id": "EVT-d770a783a585",
-        "source_headlines": [
-          "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY"
-        ],
-        "source_headline": "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601728.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T14:30:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-06T20:30:17Z",
-        "updated_at": "2026-11-06T20:30:17Z",
-        "decay_at": "2026-11-08T02:30:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T16:04:32Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4a06f8ed4686",
         "idea_version": "IDEAV-01354d69d0928dbb",
         "idea_version_started_at": "2026-11-06T19:23:03Z",
@@ -305109,88 +305180,12 @@
         "archived_at": "2026-11-05T06:02:09Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6f524fe22bd6",
-        "idea_version": "IDEAV-39c251864e9ddb4e",
-        "idea_version_started_at": "2026-11-01T11:55:44Z",
-        "ticker": "BINANCE",
-        "company": "Binance",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Binance is beginning customer withdrawals in phases following a $6.3 billion heist, indicating significant operational and financial distress.",
-        "why_now": "The phased withdrawal plan was announced on November 1, 2026, following a major security breach.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f8c78b08669d"
-        ],
-        "primary_source_event_id": "EVT-f8c78b08669d",
-        "source_headlines": [
-          "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes"
-        ],
-        "source_headline": "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes",
-        "source_url": "https://www.ndtvprofit.com/business/binance-to-begin-customer-withdrawals-in-phases-after-over-usd-6-billion-heist-what-phase-1-includes-12267176#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T11:21:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-01T07:00:15Z",
-        "updated_at": "2026-11-01T11:55:44Z",
-        "decay_at": "2026-11-02T23:21:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2715,
-    "live_count": 40,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -305209,9 +305204,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 44392,
-    "news_picked_today": 467,
-    "news_dropped_today": 7624
+    "news_seen_today": 45340,
+    "news_picked_today": 476,
+    "news_dropped_today": 7807
   },
   "book_momentum": {
     "live_count": 8,
