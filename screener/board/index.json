@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T16:09:42Z",
+  "generated_at": "2026-11-27T16:31:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-559",
@@ -487,6 +487,55 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-621",
+      "headline": "Norse Atlantic files for bankruptcy protection, passengers left stranded",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/norse-atlantic-files-for-bankruptcy-protection-passengers-left-stranded",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T16:15:17Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Norse Atlantic has filed for bankruptcy protection, a terminal event for equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic has filed for bankruptcy protection, a terminal event for equity holders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic Airways",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1948,55 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-319",
-      "headline": "AirAsia delays staff salary payments to end of month, internal email shows",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/airasia-delays-staff-salary-payments-end-month-internal-email-shows",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T07:26:53Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Delaying staff salary payments is a clear indicator of liquidity distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Delaying staff salary payments is a clear indicator of liquidity distress.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AirAsia",
-          "ticker": null,
-          "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304599,9 +304599,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 110222,
-    "news_picked_today": 1259,
-    "news_dropped_today": 13023
+    "news_seen_today": 114962,
+    "news_picked_today": 1276,
+    "news_dropped_today": 13246
   },
   "book_momentum": {
     "live_count": 8,
