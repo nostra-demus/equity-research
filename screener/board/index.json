@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T10:39:55Z",
+  "generated_at": "2026-11-27T10:46:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-338",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-399",
+      "headline": "Arms Maker Rheinmetall Slashes Midterm Forecasts After Order Setbacks",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/arms-maker-rheinmetall-slashes-midterm-forecasts-after-order-setbacks-6f24dfad?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T09:42:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Rheinmetall slashed its midterm forecasts due to order setbacks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rheinmetall slashed its midterm forecasts due to order setbacks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,60 +1961,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-310",
-      "headline": "Imperial Brands Stock Up On Altria's Confirmation Of Possible Takeover Offer",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/imperial-brands-stock-altrias-confirmation-possible-takeover-offer",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T06:20:33Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Altria confirms possible takeover offer for Imperial Brands; Imperial stock rallied; material M&A development but not yet completed deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Altria confirms possible takeover offer for Imperial Brands; Imperial stock rallied; material M&A development but not yet completed deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Imperial Brands",
-          "ticker": "IMB",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Altria Group",
-          "ticker": "MO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305206,9 +305201,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 57523,
-    "news_picked_today": 648,
-    "news_dropped_today": 8907
+    "news_seen_today": 57758,
+    "news_picked_today": 696,
+    "news_dropped_today": 9070
   },
   "book_momentum": {
     "live_count": 8,
