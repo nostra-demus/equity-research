@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-27T12:13:13Z",
+  "generated_at": "2026-11-27T12:19:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261127-430",
+      "headline": "JU FU TANG BIOT (08217): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1127/2026112701565.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-27T12:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Company issued a profit warning, indicating a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a profit warning, indicating a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JU FU TANG BIOT",
+          "ticker": "08217",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261127-424",
       "headline": "425 - EQT Corp (0000033213) (Filed by)",
@@ -1911,57 +1961,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-336",
-      "headline": "COSCO SHIP ENGY (01138): (1) DISCLOSEABLE AND CONNECTED TRANSACTIONS AND CONTINUING CONNECTED TRANSACTIONS REGARDING THE CHARTER; (2) DISCLOSEABLE AND CONNECTED TRANSACTIONS REGARDING CONSTRUCTION OF SIX VERY LARGE CRUDE CARRIERS; (3) THE BAREBOAT CHARTER-IN OF 14 NEWBUILD VLCCS; AND (4) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700432.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T08:35:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Fleet expansion announcement covering construction of 6 newbuild VLCCs and bareboat charter-in of 14 newbuild VLCCs; represents major capital deployment and operational capacity expansion for international shipping operator; transaction value and terms not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Fleet expansion announcement covering construction of 6 newbuild VLCCs and bareboat charter-in of 14 newbuild VLCCs; represents major capital deployment and operational capacity expansion for international shipping operator; transaction value and terms not disclosed in headline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "COSCO Shipping Energy",
-          "ticker": "01138",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305060,9 +305059,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 69313,
-    "news_picked_today": 836,
-    "news_dropped_today": 10154
+    "news_seen_today": 69991,
+    "news_picked_today": 847,
+    "news_dropped_today": 10167
   },
   "book_momentum": {
     "live_count": 8,
