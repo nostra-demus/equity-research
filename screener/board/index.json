@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T07:17:33Z",
+  "generated_at": "2026-11-27T07:35:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-225",
@@ -1130,6 +1130,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261127-310",
+      "headline": "Imperial Brands Stock Up On Altria's Confirmation Of Possible Takeover Offer",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/imperial-brands-stock-altrias-confirmation-possible-takeover-offer",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T06:20:33Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Altria confirms possible takeover offer for Imperial Brands; Imperial stock rallied; material M&A development but not yet completed deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Altria confirms possible takeover offer for Imperial Brands; Imperial stock rallied; material M&A development but not yet completed deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Imperial Brands",
+          "ticker": "IMB",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Altria Group",
+          "ticker": "MO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261127-115",
       "headline": "ASX gains; Neuren slides after hitting US drug trial hurdle",
       "headline_en": null,
@@ -1903,55 +1957,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-009",
-      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - BEPIROVIRSEN APPROVED FOR MARKETING IN CHINA AS A FIRST-IN-CLASS FUNCTIONAL CURE FOR CHRONIC HEPATITIS B",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700099.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T00:02:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "SBP Group received marketing approval for Bepirovirsen in China as a first-in-class treatment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SBP Group received marketing approval for Bepirovirsen in China as a first-in-class treatment.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SBP Group",
-          "ticker": "01177",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -304979,9 +304984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10824,
-    "news_picked_today": 423,
-    "news_dropped_today": 4764
+    "news_seen_today": 15894,
+    "news_picked_today": 429,
+    "news_dropped_today": 5190
   },
   "book_momentum": {
     "live_count": 8,
