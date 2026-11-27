@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T13:58:07Z",
+  "generated_at": "2026-11-27T14:02:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-472",
@@ -437,6 +437,55 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-538",
+      "headline": "Budget airline Norse Atlantic files for bankruptcy in Europe after failing to secure funding",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/27/norse-atlantic-bankruptcy-fuel-costs.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T13:32:10Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Norse Atlantic files for bankruptcy in Europe after failing to secure funding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic files for bankruptcy in Europe after failing to secure funding.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic Airways",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1947,56 +1996,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-434",
-      "headline": "CHALCO (02600): ANNOUNCEMENT ON DISCLOSEABLE TRANSACTION AND CONNECTED TRANSACTION ENTERING INTO THE EPC GENERAL CONTRACT WITH CHALIECO",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112701513.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-27T11:50:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Chalco entered into an EPC general contract with Chalieco, representing a discloseable and connected transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Chalco entered into an EPC general contract with Chalieco, representing a discloseable and connected transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chalco",
-          "ticker": "02600",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305028,9 +305027,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 84739,
-    "news_picked_today": 1034,
-    "news_dropped_today": 11540
+    "news_seen_today": 86263,
+    "news_picked_today": 1049,
+    "news_dropped_today": 11597
   },
   "book_momentum": {
     "live_count": 8,
