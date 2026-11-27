@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T19:12:28Z",
+  "generated_at": "2026-11-27T19:17:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261127-718",
@@ -263469,6 +263469,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fec1fab83fc8",
+      "idea_version": "IDEAV-af95f14d1bf1664b",
+      "idea_version_started_at": "2026-11-27T19:13:17Z",
+      "ticker": "IEP",
+      "company": "Icahn Enterprises",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company explicitly warned of potential inability to refinance $1.4 billion in debt maturing in May 2027, creating a significant solvency risk.",
+      "why_now": "The warning was issued on 2026-11-27 regarding a May 2027 maturity wall.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7739b2f84e27"
+      ],
+      "primary_source_event_id": "EVT-7739b2f84e27",
+      "source_headlines": [
+        "Icahn Enterprises Warns It May Not Be Able to Refinance $1.4 Billion Due in May"
+      ],
+      "source_headline": "Icahn Enterprises Warns It May Not Be Able to Refinance $1.4 Billion Due in May",
+      "source_url": "https://247wallst.com/investing/2026/11/27/icahn-enterprises-warns-it-may-not-be-able-to-refinance-1-4-billion-due-in-may/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T16:47:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:13:17Z",
+      "updated_at": "2026-11-27T19:13:17Z",
+      "decay_at": "2026-11-29T04:47:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6b2cd695b3aa",
       "idea_version": "IDEAV-92552a171a6d3798",
       "idea_version_started_at": "2026-11-27T18:07:52Z",
@@ -264025,6 +264095,78 @@
       "surfaced_at": "2026-11-27T00:49:33Z",
       "updated_at": "2026-11-27T00:49:33Z",
       "decay_at": "2026-11-28T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-26a4a64ef76e",
+      "idea_version": "IDEAV-9cadca008ae7b87c",
+      "idea_version_started_at": "2026-11-27T19:13:17Z",
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "S&P downgraded the company's credit rating due to persistent cash burn, which increases borrowing costs and signals potential liquidity strain.",
+      "why_now": "The rating action was announced on 2026-11-27.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f730813481eb"
+      ],
+      "primary_source_event_id": "EVT-f730813481eb",
+      "source_headlines": [
+        "S&P cuts Tata Motors PV rating to BBB-; JLR to BB+ on cash burn"
+      ],
+      "source_headline": "S&P cuts Tata Motors PV rating to BBB-; JLR to BB+ on cash burn",
+      "source_url": "https://www.thehindubusinessline.com/companies/sp-cuts-tata-motors-pv-rating-to-bbb-jlr-to-bb-on-cash-burn/article71751339.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T14:59:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:13:17Z",
+      "updated_at": "2026-11-27T19:13:17Z",
+      "decay_at": "2026-11-29T02:59:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -304832,8 +304974,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2722,
-    "live_count": 42,
+    "surfaced_total": 2724,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
