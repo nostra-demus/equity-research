@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T08:25:25Z",
+  "generated_at": "2026-11-28T08:31:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -1179,6 +1179,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-204",
+      "headline": "OpenAI accuses Apple of stealing trade secrets in countersuit",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/americas/openai-accuses-apple-of-stealing-trade-secrets-in-countersuit-1.500763719",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T07:56:48Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "OpenAI has filed a countersuit against Apple alleging theft of trade secrets, escalating legal risk for both companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "OpenAI has filed a countersuit against Apple alleging theft of trade secrets, escalating legal risk for both companies.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-126",
       "headline": "Africa’s richest man is taking his mega-refinery public in a blockbuster IPO",
       "headline_en": null,
@@ -1941,61 +1995,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-101",
-      "headline": "Blackstone sells 1.55% stake in IGI for ₹280 crore to meet public shareholding norms",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/blackstone-sells-155-stake-in-igi-for-280-crore-to-meet-public-shareholding-norms/article71753547.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T04:15:55Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Blackstone sold a 1.55% stake in IGI for ₹280 crore to comply with public shareholding regulations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Blackstone sold a 1.55% stake in IGI for ₹280 crore to comply with public shareholding regulations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndoStar Capital Finance",
-          "ticker": "INDOSTAR",
-          "listing_country": "IN"
-        },
-        {
-          "name": "Blackstone",
-          "ticker": "BX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307688,9 +307687,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2178,
-    "news_picked_today": 247,
-    "news_dropped_today": 1187
+    "news_seen_today": 2255,
+    "news_picked_today": 254,
+    "news_dropped_today": 1233
   },
   "book_momentum": {
     "live_count": 8,
