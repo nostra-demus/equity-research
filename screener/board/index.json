@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T04:20:34Z",
+  "generated_at": "2026-11-28T04:31:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -763,6 +763,110 @@
           "name": "Telus",
           "ticker": null,
           "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-101",
+      "headline": "Blackstone sells 1.55% stake in IGI for ₹280 crore to meet public shareholding norms",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/blackstone-sells-155-stake-in-igi-for-280-crore-to-meet-public-shareholding-norms/article71753547.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:15:55Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Blackstone sold a 1.55% stake in IGI for ₹280 crore to comply with public shareholding regulations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Blackstone sold a 1.55% stake in IGI for ₹280 crore to comply with public shareholding regulations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndoStar Capital Finance",
+          "ticker": "INDOSTAR",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Blackstone",
+          "ticker": "BX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-104",
+      "headline": "Korea Post Hit By Major Cyberattack, Personal Data Of Over 1.13 Lakh Customers Exposed",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/korea-post-hit-by-major-cyberattack-personal-data-of-over-113-lakh-customers-exposed",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:11:59Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "A major cyberattack on Korea Post exposed personal data of over 1.13 lakh customers, posing significant operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A major cyberattack on Korea Post exposed personal data of over 1.13 lakh customers, posing significant operational and reputational risk.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Post",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -1864,105 +1968,6 @@
           "name": "Theralase Technologies Inc.",
           "ticker": "TLT",
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-030",
-      "headline": "HeartSciences Inc. Enters Into Debt Exchange Agreement in Connection With Proposed Transaction",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/heartsciences-inc-enters-debt-exchange-agreement-connection-proposed-transaction",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:38:39Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "HeartSciences entered into a debt exchange agreement, signaling a restructuring of its existing debt obligations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "HeartSciences entered into a debt exchange agreement, signaling a restructuring of its existing debt obligations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HeartSciences Inc.",
-          "ticker": "HSCS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-023",
-      "headline": "Infobird Co., Ltd Entered into a Securities Purchase Agreement for the Issuance of Convertible Promissory Notes",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/infobird-co-ltd-entered-securities-purchase-agreement-issuance-convertible-promissory",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T23:58:52Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Infobird is issuing convertible promissory notes, which provides capital but introduces potential dilution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Infobird is issuing convertible promissory notes, which provides capital but introduces potential dilution.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infobird Co., Ltd",
-          "ticker": "IFBD",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -268841,6 +268846,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3060680a62c4",
+      "idea_version": "IDEAV-b26b3339670e4fa1",
+      "idea_version_started_at": "2026-11-28T04:30:48Z",
+      "ticker": "KEC",
+      "company": "KEC International",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured new transmission & distribution (T&D) and cable segment contracts valued at ₹1,400 crore, expanding its order book and expanding future revenue visibility.",
+      "why_now": "Order win announced on November 28, 2026, providing immediate order-book momentum.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0ac77a24135b"
+      ],
+      "primary_source_event_id": "EVT-0ac77a24135b",
+      "source_headlines": [
+        "KEC International bags new orders worth ₹1,400 crore in T&D and cable segments"
+      ],
+      "source_headline": "KEC International bags new orders worth ₹1,400 crore in T&D and cable segments",
+      "source_url": "https://www.cnbctv18.com/market/kec-international-share-price-bags-new-orders-worth-rupees-1400-crore-in-transmission-distribution-transportation-cables-segments-20043479.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 86,
+      "newest_source_at": "2026-11-28T04:13:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T04:30:48Z",
+      "updated_at": "2026-11-28T04:30:48Z",
+      "decay_at": "2026-11-29T16:13:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1c4bfe21ab2f",
       "idea_version": "IDEAV-d829e311121df716",
       "idea_version_started_at": "2026-11-27T01:15:11Z",
@@ -270134,77 +270211,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4ce013a7716a",
-      "idea_version": "IDEAV-cfae884e6c7533ef",
-      "idea_version_started_at": "2026-11-26T06:44:42Z",
-      "ticker": "00625",
-      "company": "SHEIN",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Ongoing FTC investigation into business practices creates significant regulatory overhang and potential for material fines or operational restrictions.",
-      "why_now": "The company issued an inside information update on the investigation on 2026-11-25, signaling the matter is active and evolving.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a341f8ce50e5"
-      ],
-      "primary_source_event_id": "EVT-a341f8ce50e5",
-      "source_headlines": [
-        "SHEIN-W (00625): INSIDE INFORMATION UPDATE ON THE U.S. FEDERAL TRADE COMMISSION INVESTIGATION"
-      ],
-      "source_headline": "SHEIN-W (00625): INSIDE INFORMATION UPDATE ON THE U.S. FEDERAL TRADE COMMISSION INVESTIGATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500193.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-25T04:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T06:44:42Z",
-      "updated_at": "2026-11-26T06:44:42Z",
-      "decay_at": "2026-11-26T16:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-306ac3608d9a",
       "idea_version": "IDEAV-ef71f657af6ce15e",
       "idea_version_started_at": "2026-11-25T21:50:14Z",
@@ -270357,9 +270363,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 513,
+    "total_count": 512,
     "shown_count": 499,
-    "hidden_count": 14,
+    "hidden_count": 13,
     "side_counts": {
       "long": {
         "total_count": 253,
@@ -270367,23 +270373,23 @@
         "hidden_count": 3
       },
       "short": {
-        "total_count": 261,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 10
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2169,
-      "oldest_retained_at": "2026-11-02T21:31:10Z",
+      "evicted_count": 2170,
+      "oldest_retained_at": "2026-11-02T22:04:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 1385,
           "oldest_retained_at": "2026-11-08T01:21:18Z"
         },
         "short": {
-          "evicted_count": 786,
-          "oldest_retained_at": "2026-11-02T21:31:10Z"
+          "evicted_count": 787,
+          "oldest_retained_at": "2026-11-02T22:04:00Z"
         }
       }
     },
@@ -271426,8 +271432,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T16:15:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-28T04:30:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -307491,8 +307497,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2739,
-    "live_count": 56,
+    "surfaced_total": 2740,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -307511,9 +307517,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 501,
-    "news_picked_today": 109,
-    "news_dropped_today": 378
+    "news_seen_today": 526,
+    "news_picked_today": 113,
+    "news_dropped_today": 399
   },
   "book_momentum": {
     "live_count": 8,

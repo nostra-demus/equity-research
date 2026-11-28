@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-28T04:30:55Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-4ce013a7716a",
+    "idea_version": "IDEAV-cfae884e6c7533ef",
+    "idea_version_started_at": "2026-11-26T06:44:42Z",
+    "ticker": "00625",
+    "company": "SHEIN",
+    "exchange": "HKEX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Ongoing FTC investigation into business practices creates significant regulatory overhang and potential for material fines or operational restrictions.",
+    "why_now": "The company issued an inside information update on the investigation on 2026-11-25, signaling the matter is active and evolving.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 6,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "policy_conditional",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-a341f8ce50e5"
+    ],
+    "primary_source_event_id": "EVT-a341f8ce50e5",
+    "source_headlines": [
+      "SHEIN-W (00625): INSIDE INFORMATION UPDATE ON THE U.S. FEDERAL TRADE COMMISSION INVESTIGATION"
+    ],
+    "source_headline": "SHEIN-W (00625): INSIDE INFORMATION UPDATE ON THE U.S. FEDERAL TRADE COMMISSION INVESTIGATION",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1125/2026112500193.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-25T04:15:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-26T06:44:42Z",
+    "updated_at": "2026-11-26T06:44:42Z",
+    "decay_at": "2026-11-26T16:15:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
