@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T09:41:18Z",
+  "generated_at": "2026-11-28T09:50:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -94,6 +94,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-210",
+      "headline": "Burnham urged to act now to save London stock market as FTSE 100 catering giant defects to New York and foreign bidders plot £26bn tobacco takeover",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16327473/Burnham-urged-act-save-London-stock-market-FTSE-100-catering-giant-defects-New-York-foreign-bidders-plot-26bn-tobacco-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T09:40:08Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "A major UK-listed catering firm is moving its listing to New York, and a £26bn tobacco takeover bid is being plotted, highlighting concerns over the London stock market's competitiveness.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major UK-listed catering firm is moving its listing to New York, and a £26bn tobacco takeover bid is being plotted, highlighting concerns over the London stock market's competitiveness.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "FTSE 100",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1942,56 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-188",
-      "headline": "Technosport targets ₹1,000 crore revenue in FY27, plans 130 exclusive stores",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/technosport-targets-1000-crore-revenue-in-fy27-plans-130-exclusive-stores/article71750799.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T07:31:37Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Technosport announced a target of ₹1,000 crore in revenue by FY27 along with plans to expand by opening 130 exclusive stores.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Technosport announced a target of ₹1,000 crore in revenue by FY27 along with plans to expand by opening 130 exclusive stores.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Technosport",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -267932,78 +267932,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8ec8d93bd8fb",
-      "idea_version": "IDEAV-6de0bf48a674d4e6",
-      "idea_version_started_at": "2026-11-26T22:38:38Z",
-      "ticker": "BVS",
-      "company": "Bravura Solutions",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bravura Solutions raised its FY27 revenue and cash EBITDA guidance, indicating improved future profitability and top-line growth.",
-      "why_now": "The company issued the updated guidance on November 26, 2026, providing a fresh catalyst for re-evaluation of its future earnings potential.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ca6d9c8ab3d"
-      ],
-      "primary_source_event_id": "EVT-5ca6d9c8ab3d",
-      "source_headlines": [
-        "Bravura Solutions Raises FY27 Revenue And Cash EBITDA Guidance"
-      ],
-      "source_headline": "Bravura Solutions Raises FY27 Revenue And Cash EBITDA Guidance",
-      "source_url": "https://www.nasdaq.com/articles/bravura-solutions-raises-fy27-revenue-and-cash-ebitda-guidance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T21:43:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T22:38:38Z",
-      "updated_at": "2026-11-26T22:38:38Z",
-      "decay_at": "2026-11-28T09:43:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aec8b5beea0b",
       "idea_version": "IDEAV-767971dba7c28d24",
       "idea_version_started_at": "2026-11-27T06:36:29Z",
@@ -269938,6 +269866,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8ec8d93bd8fb",
+      "idea_version": "IDEAV-6de0bf48a674d4e6",
+      "idea_version_started_at": "2026-11-26T22:38:38Z",
+      "ticker": "BVS",
+      "company": "Bravura Solutions",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bravura Solutions raised its FY27 revenue and cash EBITDA guidance, indicating improved future profitability and top-line growth.",
+      "why_now": "The company issued the updated guidance on November 26, 2026, providing a fresh catalyst for re-evaluation of its future earnings potential.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5ca6d9c8ab3d"
+      ],
+      "primary_source_event_id": "EVT-5ca6d9c8ab3d",
+      "source_headlines": [
+        "Bravura Solutions Raises FY27 Revenue And Cash EBITDA Guidance"
+      ],
+      "source_headline": "Bravura Solutions Raises FY27 Revenue And Cash EBITDA Guidance",
+      "source_url": "https://www.nasdaq.com/articles/bravura-solutions-raises-fy27-revenue-and-cash-ebitda-guidance",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T21:43:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T22:38:38Z",
+      "updated_at": "2026-11-26T22:38:38Z",
+      "decay_at": "2026-11-28T09:43:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-664fe983637d",
       "idea_version": "IDEAV-d576cb9e59dcf069",
       "idea_version_started_at": "2026-11-26T22:18:41Z",
@@ -270602,14 +270602,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 514,
+    "total_count": 515,
     "shown_count": 499,
-    "hidden_count": 15,
+    "hidden_count": 16,
     "side_counts": {
       "long": {
-        "total_count": 253,
+        "total_count": 254,
         "shown_count": 250,
-        "hidden_count": 3
+        "hidden_count": 4
       },
       "short": {
         "total_count": 262,
@@ -270633,6 +270633,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8ec8d93bd8fb",
+        "idea_version": "IDEAV-6de0bf48a674d4e6",
+        "idea_version_started_at": "2026-11-26T22:38:38Z",
+        "ticker": "BVS",
+        "company": "Bravura Solutions",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bravura Solutions raised its FY27 revenue and cash EBITDA guidance, indicating improved future profitability and top-line growth.",
+        "why_now": "The company issued the updated guidance on November 26, 2026, providing a fresh catalyst for re-evaluation of its future earnings potential.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5ca6d9c8ab3d"
+        ],
+        "primary_source_event_id": "EVT-5ca6d9c8ab3d",
+        "source_headlines": [
+          "Bravura Solutions Raises FY27 Revenue And Cash EBITDA Guidance"
+        ],
+        "source_headline": "Bravura Solutions Raises FY27 Revenue And Cash EBITDA Guidance",
+        "source_url": "https://www.nasdaq.com/articles/bravura-solutions-raises-fy27-revenue-and-cash-ebitda-guidance",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T21:43:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T22:38:38Z",
+        "updated_at": "2026-11-26T22:38:38Z",
+        "decay_at": "2026-11-28T09:43:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T09:43:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1380244af27b",
         "idea_version": "IDEAV-c36d7345b1c05491",
@@ -304532,80 +304607,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-89ae39c7d833",
-        "idea_version": "IDEAV-f0f68e729880d19c",
-        "idea_version_started_at": "2026-11-06T20:30:17Z",
-        "ticker": "02223",
-        "company": "Casablanca Group",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is disposing of a subsidiary and simultaneously declaring a special dividend, signaling a return of capital to shareholders.",
-        "why_now": "The filing was released on 2026-11-06.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3e14a6077a33"
-        ],
-        "primary_source_event_id": "EVT-3e14a6077a33",
-        "source_headlines": [
-          "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND"
-        ],
-        "source_headline": "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601752.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T14:38:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-06T20:30:17Z",
-        "updated_at": "2026-11-06T20:30:17Z",
-        "decay_at": "2026-11-08T02:38:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T16:04:32Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4a06f8ed4686",
         "idea_version": "IDEAV-01354d69d0928dbb",
         "idea_version_started_at": "2026-11-06T19:23:03Z",
@@ -307736,7 +307737,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2744,
-    "live_count": 58,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -307755,9 +307756,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2613,
-    "news_picked_today": 276,
-    "news_dropped_today": 1455
+    "news_seen_today": 2703,
+    "news_picked_today": 277,
+    "news_dropped_today": 1544
   },
   "book_momentum": {
     "live_count": 8,
