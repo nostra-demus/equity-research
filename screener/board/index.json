@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T13:06:23Z",
+  "generated_at": "2026-11-28T13:16:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -1303,6 +1303,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-251",
+      "headline": "Textron Unloads a Barely Profitable Industrial Business",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/28/textron-unloads-a-barely-profitable-industrial-business/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T13:08:02Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Textron is divesting a business unit to improve overall profitability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Textron is divesting a business unit to improve overall profitability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Textron",
+          "ticker": "TXT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-225",
       "headline": "OpenAI Countersues Apple Over Alleged Trade Secret Theft As AI Hardware Rivalry Intensifies",
       "headline_en": null,
@@ -1910,60 +1959,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-248",
-      "headline": "OpenAI Countersues Apple, Accusing It of “Coercing and Threatening” Suppliers",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/28/openai-countersues-apple-accusing-it-of-coercing-and-threatening-suppliers/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T12:57:41Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "OpenAI has filed a countersuit against Apple, escalating legal risk and potential operational friction between two major technology entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "OpenAI has filed a countersuit against Apple, escalating legal risk and potential operational friction between two major technology entities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307873,9 +307868,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5605,
-    "news_picked_today": 383,
-    "news_dropped_today": 2332
+    "news_seen_today": 5682,
+    "news_picked_today": 387,
+    "news_dropped_today": 2405
   },
   "book_momentum": {
     "live_count": 8,
