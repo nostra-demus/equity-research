@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-28T00:20:14Z",
+  "generated_at": "2026-11-28T00:40:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261128-017",
+      "headline": "Press Release: First-Citizens Bank & Trust Company, Raleigh, North Carolina Assumes Substantially All Deposits and Purchases Substantially All Assets of United Fidelity Bank, fsb, Evansville, Indiana",
+      "headline_en": null,
+      "url": "https://content.govdelivery.com/accounts/USFDIC/bulletins/4345523",
+      "source_name": "FDIC (Press Releases, via GovDelivery)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-28T00:22:35Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "First-Citizens Bank & Trust Company is acquiring the assets and deposits of United Fidelity Bank, fsb.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "First-Citizens Bank & Trust Company is acquiring the assets and deposits of United Fidelity Bank, fsb.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First-Citizens Bank & Trust Company",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "United Fidelity Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261128-005",
       "headline": "Citigroup’s $35 Billion Bookkeeping Snafu Sparks Shake-Up in Upper Ranks",
@@ -96,6 +150,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-018",
+      "headline": "KPMG paid staff departing over complaints more than $1.7m for silence",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/professional-services/kpmg-paid-staff-departing-over-complaints-more-than-1-7m-for-silence-20261128-p61i26?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:30:29Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "KPMG paid over $1.7 million in non-disclosure agreements to departing staff following complaints, raising reputational and governance risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "KPMG paid over $1.7 million in non-disclosure agreements to departing staff following complaints, raising reputational and governance risks.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPMG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305865,7 +305968,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5383,
+    "inbox_unconsumed": 5385,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
