@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T09:50:49Z",
+  "generated_at": "2026-11-28T09:51:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -268649,6 +268649,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0ca44cea0e16",
+      "idea_version": "IDEAV-81757c983dd3728e",
+      "idea_version_started_at": "2026-11-28T09:51:07Z",
+      "ticker": "CPG",
+      "company": "Compass Group plc",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is planning to move its primary share listing to New York, which typically leads to index rebalancing and increased institutional ownership from US-based funds.",
+      "why_now": "The announcement was made on 28 November 2026, signaling the start of the transition process.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1bdd00d32afe"
+      ],
+      "primary_source_event_id": "EVT-1bdd00d32afe",
+      "source_headlines": [
+        "Compass boss loses his bearings in letter to Chancellor as firm plans to move main share listing to New York, says ALEX BRUMMER"
+      ],
+      "source_headline": "Compass boss loses his bearings in letter to Chancellor as firm plans to move main share listing to New York, says ALEX BRUMMER",
+      "source_url": "https://www.thisismoney.co.uk/money/markets/article-16327015/Compass-boss-loses-bearings-letter-Chancellor-firm-plans-main-share-listing-New-York-says-ALEX-BRUMMER.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-28T07:57:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T09:51:07Z",
+      "updated_at": "2026-11-28T09:51:07Z",
+      "decay_at": "2026-11-29T19:57:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c0b50d229557",
       "idea_version": "IDEAV-9faa624ae9b62373",
       "idea_version_started_at": "2026-11-28T06:32:43Z",
@@ -307736,8 +307808,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2744,
-    "live_count": 57,
+    "surfaced_total": 2745,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
