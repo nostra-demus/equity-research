@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T01:14:06Z",
+  "generated_at": "2026-11-28T01:20:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -303,6 +303,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-040",
+      "headline": "FSSAI sanctions prosecution against Bisleri in another case; bacteria found in Bengal sample",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/fssai-sanctions-prosecution-against-bisleri-in-another-case-bacteria-found-in-bengal-sample-4234050",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:58:56Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The food safety regulator has sanctioned prosecution against Bisleri following the detection of bacteria in a sample.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The food safety regulator has sanctioned prosecution against Bisleri following the detection of bacteria in a sample.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -897,55 +946,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261128-021",
-      "headline": "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb | FCNCA Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/FCNCA/first-citizens-bank-enters-into-whole-bank-purchase-of-united-pe1z61921j2j.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-28T00:40:00Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Duplicate of item 8: First Citizens Bank is acquiring United Fidelity Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Duplicate of item 8: First Citizens Bank is acquiring United Fidelity Bank.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Citizens BancShares, Inc.",
-          "ticker": "FCNCA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261128-014",
       "headline": "IRGC says two oil tankers catch fire after hitting naval mines",
       "headline_en": null,
@@ -1131,55 +1131,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-037",
-      "headline": "KPMG paid departing staff up to $200,000 to sign NDAs after complaints",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/professional-services/kpmg-paid-staff-departing-over-complaints-more-than-1-7m-for-silence-20261128-p61i26?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:30:29Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "KPMG faces reputational risk following reports of using large payments to secure NDAs from departing staff after complaints.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "KPMG faces reputational risk following reports of using large payments to secure NDAs from departing staff after complaints.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPMG",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1424,6 +1375,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-041",
+      "headline": "Apple's big Hyderabad surprise: December 10 opening brings more than just iPhones",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/photo/apples-big-hyderabad-surprise-december-10-opening-brings-more-than-just-iphones-569962-2026-11-28?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:45:04Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Apple is opening a new location in Hyderabad, which is a routine expansion of its retail footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Apple is opening a new location in Hyderabad, which is a routine expansion of its retail footprint.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-009",
       "headline": "Amazon takes its car store abroad for the first time in 2027",
       "headline_en": null,
@@ -1566,6 +1566,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-042",
+      "headline": "US disables ship trying to leave Iran, as Tehran vows to confront blockade",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/west-asia/us-disables-ship-trying-to-leave-iran-as-tehran-vows-to-confront-blockade-4234183",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:07:57Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Geopolitical escalation involving a US-Iran maritime confrontation increases regional conflict risk and potential supply chain disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation involving a US-Iran maritime confrontation increases regional conflict risk and potential supply chain disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307128,7 +307171,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5406,
+    "inbox_unconsumed": 5407,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -307137,9 +307180,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 183,
-    "news_picked_today": 39,
-    "news_dropped_today": 144
+    "news_seen_today": 192,
+    "news_picked_today": 42,
+    "news_dropped_today": 150
   },
   "book_momentum": {
     "live_count": 8,
