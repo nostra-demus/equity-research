@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T02:04:25Z",
+  "generated_at": "2026-11-28T02:09:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -494,6 +494,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-058",
+      "headline": "Bisleri In Trouble Again: West Bengal Water Sample Tests Positive For Coliform Bacteria",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/bisleri-in-trouble-again-west-bengal-water-sample-tests-positive-coliform-bacteria-12387297#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:59:46Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Bisleri faces regulatory scrutiny and potential reputational damage following a failed water quality test in West Bengal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Bisleri faces regulatory scrutiny and potential reputational damage following a failed water quality test in West Bengal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri International",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,55 +1937,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-041",
-      "headline": "Apple's big Hyderabad surprise: December 10 opening brings more than just iPhones",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/apples-big-hyderabad-surprise-december-10-opening-brings-more-than-just-iphones-569962-2026-11-28?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:45:04Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Apple is opening a new location in Hyderabad, which is a routine expansion of its retail footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Apple is opening a new location in Hyderabad, which is a routine expansion of its retail footprint.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307199,9 +307200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 285,
-    "news_picked_today": 58,
-    "news_dropped_today": 213
+    "news_seen_today": 294,
+    "news_picked_today": 59,
+    "news_dropped_today": 221
   },
   "book_momentum": {
     "live_count": 8,
