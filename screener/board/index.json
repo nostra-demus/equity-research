@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T04:31:28Z",
+  "generated_at": "2026-11-28T04:39:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -1656,6 +1656,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-106",
+      "headline": "FPIs can trade in physically settled non-agri commodity derivatives",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/fpis-can-trade-in-physically-settled-non-agri-commodity-derivatives/articleshow/136238156.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:17:11Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Foreign Portfolio Investors (FPIs) are now permitted to trade in physically settled non-agricultural commodity derivatives, which could increase market activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Foreign Portfolio Investors (FPIs) are now permitted to trade in physically settled non-agricultural commodity derivatives, which could increase market activity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-089",
       "headline": "Ethanol policy reset: What does the shift in feedstock priorities mean for sugar mills and farmers?",
       "headline_en": null,
@@ -1922,55 +1966,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-076",
-      "headline": "Theralase Technologies Inc. Q3 Loss Narrows",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/theralase-technologies-inc-q3-loss-narrows",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T02:44:55Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Theralase Technologies reported a narrowing net loss for Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Theralase Technologies reported a narrowing net loss for Q3.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Theralase Technologies Inc.",
-          "ticker": "TLT",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307517,9 +307512,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 526,
-    "news_picked_today": 113,
-    "news_dropped_today": 399
+    "news_seen_today": 532,
+    "news_picked_today": 115,
+    "news_dropped_today": 403
   },
   "book_momentum": {
     "live_count": 8,
