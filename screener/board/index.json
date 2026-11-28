@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T03:59:26Z",
+  "generated_at": "2026-11-28T04:05:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -351,6 +351,66 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-091",
+      "headline": "Tech rebounds; Seatrium retrenches over 200 staff; StarHub, M1 to merge: Markets this week",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/tech-rebounds-seatrium-retrenches-over-200-staff-starhub-m1-to-merge-markets-this-week",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Seatrium is laying off over 200 staff and StarHub is merging with M1, representing significant operational and structural changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Seatrium is laying off over 200 staff and StarHub is merging with M1, representing significant operational and structural changes.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seatrium",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "StarHub",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "M1",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1910,49 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-014",
-      "headline": "IRGC says two oil tankers catch fire after hitting naval mines",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/irgc-says-two-oil-tankers-catch-fire-after-hitting-naval-mines",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:06:49Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "The report of oil tankers hitting naval mines in the Middle East represents a significant supply shock risk to global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The report of oil tankers hitting naval mines in the Middle East represents a significant supply shock risk to global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -268111,78 +268128,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-671ed28cb051",
-      "idea_version": "IDEAV-6ad2742c86d7c890",
-      "idea_version_started_at": "2026-11-26T20:38:38Z",
-      "ticker": "TTM",
-      "company": "Tata Motors",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "S&P downgraded Jaguar Land Rover (a core subsidiary) to 'BB+' due to weak cash flow and rising debt, which increases the cost of capital and financial risk for the parent company.",
-      "why_now": "The credit rating downgrade was announced on 2026-11-26, and the market has not yet fully adjusted for the increased debt-servicing burden.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5e7664357011"
-      ],
-      "primary_source_event_id": "EVT-5e7664357011",
-      "source_headlines": [
-        "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt"
-      ],
-      "source_headline": "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt",
-      "source_url": "https://www.cnbctv18.com/market/sp-downgrades-tata-motors-owned-jlr-to-bb-on-weaker-cash-flow-flags-rising-debt-20042455.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T16:01:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T20:38:38Z",
-      "updated_at": "2026-11-26T20:38:38Z",
-      "decay_at": "2026-11-28T04:01:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aec8b5beea0b",
       "idea_version": "IDEAV-767971dba7c28d24",
       "idea_version_started_at": "2026-11-27T06:36:29Z",
@@ -269899,6 +269844,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-671ed28cb051",
+      "idea_version": "IDEAV-6ad2742c86d7c890",
+      "idea_version_started_at": "2026-11-26T20:38:38Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "S&P downgraded Jaguar Land Rover (a core subsidiary) to 'BB+' due to weak cash flow and rising debt, which increases the cost of capital and financial risk for the parent company.",
+      "why_now": "The credit rating downgrade was announced on 2026-11-26, and the market has not yet fully adjusted for the increased debt-servicing burden.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5e7664357011"
+      ],
+      "primary_source_event_id": "EVT-5e7664357011",
+      "source_headlines": [
+        "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt"
+      ],
+      "source_headline": "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt",
+      "source_url": "https://www.cnbctv18.com/market/sp-downgrades-tata-motors-owned-jlr-to-bb-on-weaker-cash-flow-flags-rising-debt-20042455.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T16:01:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T20:38:38Z",
+      "updated_at": "2026-11-26T20:38:38Z",
+      "decay_at": "2026-11-28T04:01:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4d60d8e457f6",
       "idea_version": "IDEAV-a64be9e107a11c2d",
       "idea_version_started_at": "2026-11-26T17:04:53Z",
@@ -270344,9 +270361,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 512,
+    "total_count": 513,
     "shown_count": 499,
-    "hidden_count": 13,
+    "hidden_count": 14,
     "side_counts": {
       "long": {
         "total_count": 253,
@@ -270354,9 +270371,9 @@
         "hidden_count": 3
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -270375,6 +270392,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-671ed28cb051",
+        "idea_version": "IDEAV-6ad2742c86d7c890",
+        "idea_version_started_at": "2026-11-26T20:38:38Z",
+        "ticker": "TTM",
+        "company": "Tata Motors",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "S&P downgraded Jaguar Land Rover (a core subsidiary) to 'BB+' due to weak cash flow and rising debt, which increases the cost of capital and financial risk for the parent company.",
+        "why_now": "The credit rating downgrade was announced on 2026-11-26, and the market has not yet fully adjusted for the increased debt-servicing burden.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5e7664357011"
+        ],
+        "primary_source_event_id": "EVT-5e7664357011",
+        "source_headlines": [
+          "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt"
+        ],
+        "source_headline": "S&P downgrades Tata Motors-owned JLR to ‘BB+’ on weaker cash flow, flags rising debt",
+        "source_url": "https://www.cnbctv18.com/market/sp-downgrades-tata-motors-owned-jlr-to-bb-on-weaker-cash-flow-flags-rising-debt-20042455.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T16:01:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T20:38:38Z",
+        "updated_at": "2026-11-26T20:38:38Z",
+        "decay_at": "2026-11-28T04:01:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T04:01:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4d60d8e457f6",
         "idea_version": "IDEAV-a64be9e107a11c2d",
@@ -307399,87 +307491,12 @@
         "archived_at": "2026-11-05T06:02:09Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-923a827de8a7",
-        "idea_version": "IDEAV-8fe145a2fd7d577e",
-        "idea_version_started_at": "2026-11-02T03:12:16Z",
-        "ticker": "6701",
-        "company": "NEC Corporation",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "NEC's headquarters were raided by a special counsel over improper stipends, which could lead to fines, reputational damage, and operational disruption.",
-        "why_now": "The raid occurred on November 2, 2026, making this a live and developing legal and reputational risk event.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9fe0dc02996a"
-        ],
-        "primary_source_event_id": "EVT-9fe0dc02996a",
-        "source_headlines": [
-          "Special counsel raids NEC headquarters over improper stipends"
-        ],
-        "source_headline": "Special counsel raids NEC headquarters over improper stipends",
-        "source_url": "https://en.yna.co.kr/view/AEN20261102004600315",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 94,
-        "newest_source_at": "2026-11-02T02:35:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T03:12:16Z",
-        "updated_at": "2026-11-02T03:12:16Z",
-        "decay_at": "2026-11-03T14:35:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2739,
-    "live_count": 57,
+    "live_count": 56,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -307498,9 +307515,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 453,
-    "news_picked_today": 97,
-    "news_dropped_today": 342
+    "news_seen_today": 458,
+    "news_picked_today": 99,
+    "news_dropped_today": 345
   },
   "book_momentum": {
     "live_count": 8,
