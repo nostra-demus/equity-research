@@ -747,6 +747,8 @@ from scenario_integrity_checks import (
     BK_DATE,
     eval_bp_forecast_outcome_partition,
     BP_DATE,
+    eval_bq_forecast_settlement_basis,
+    BQ_DATE,
     eval_am_bear_case_sanity,
     eval_ar_short_bull_case_sanity,
     AM_DATE,
@@ -3780,6 +3782,57 @@ if scope=="selftest":
             ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
         print(("  [ok] " if ok else "  [BAD] ")+f"BP({_dd!r},fl={_fl!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
+    # ---- check BQ: a numeric forecast names its settling document and the definition of its bar (§5/§19) --
+    # Fixtures are the shapes on file: UBER_2026-08-06 (a 20.50% SG&A bar struck on vendor SG&A, settled on
+    # the 10-Q), ORCL_2026-08-14 (strict net debt/EBITDA — nobody prints it, so it needs a formula),
+    # HAIER_2026-08-13 (the outcome IS a later Capital IQ consensus reading).
+    def _bq(so,fid="F1",cb="Q3 FY2025 on the same captions: 18.27% [Q3 FY2025 10-Q]",trig="at or above 18.0%"):
+        r={"forecast_id":fid,"confirmation_trigger":f"SG&A ratio is {trig}","falsification_trigger":"SG&A ratio is below 18.0%","comparable_basis":cb}
+        if so is not None: r["settles_on"]=so
+        return r
+    _bq_rep  = {"document":"Q3 FY2026 Form 10-Q","basis":"as_reported","definition":"Gross margin as the income statement prints it, consolidated, GAAP"}
+    _bq_der  = {"document":"Q3 FY2026 Form 10-Q","basis":"derived","definition":"(Sales and marketing + General and administrative) / Revenue, all three as captioned in the income statement"}
+    _bq_ven  = {"document":"Capital IQ estimates export, first refresh after the H1 print","basis":"vendor","definition":"FY2026 EPS mean consensus, snapshot dated on or after 2026-08-28"}
+    _bq_recon= {"document":"H1 2026 interim report","basis":"as_reported","definition":"Gross margin as printed in the income statement, not the Capital IQ 26.33% figure"}
+    _bq_event= {"forecast_id":"F9","confirmation_trigger":"The FY2026 10-K is filed by 2027-03-01 with a clean opinion.","falsification_trigger":"No such filing by 2027-03-01."}
+    bqcases=[
+        (BQ_DATE,[_bq(_bq_rep)],[]),
+        (BQ_DATE,[_bq(_bq_der)],[]),
+        (BQ_DATE,[_bq(_bq_recon)],[]),                                 # reconciling AWAY from a vendor figure in the definition is the author doing it right
+        (BQ_DATE,[_bq(_bq_rep),_bq(_bq_ven,"F2")],[]),                 # one vendor-settled row beside a filing-settled one is allowed
+        (BQ_DATE,[_bq(None)],["forecast_ledger[0] (F1) pins a numeric threshold but has no settles_on object"]),
+        (BQ_DATE,[_bq("Q3 10-Q")],["forecast_ledger[0] (F1) pins a numeric threshold but has no settles_on object"]),  # a string is not the object
+        (BQ_DATE,[_bq({"document":" ","basis":"as_reported","definition":""})],["settles_on.document is blank","settles_on.definition is blank"]),
+        (BQ_DATE,[_bq(dict(_bq_rep,basis="reported"))],["settles_on.basis is 'reported'"]),
+        (BQ_DATE,[_bq(dict(_bq_rep,basis=None))],["settles_on.basis is None"]),
+        (BQ_DATE,[_bq(dict(_bq_rep,document="Capital IQ financials export"))],["settles_on.document names a data vendor"]),
+        (BQ_DATE,[_bq(dict(_bq_der,definition="Strict net debt to EBITDA as the engine defines it"))],["settles_on.basis is 'derived' but settles_on.definition carries no formula"]),
+        (BQ_DATE,[_bq(dict(_bq_der,definition="Revenue less cost of sales, both as captioned in the income statement"))],[]),   # 'less' is a formula word
+        (BQ_DATE,[_bq(dict(_bq_der,definition="A margin of less than the prior year, as management frames it"))],["settles_on.definition carries no formula"]),  # 'less than' is not
+        (BQ_DATE,[_bq(dict(_bq_ven,document="Q3 FY2026 Form 10-Q")),_bq(_bq_rep,"F2")],["forecast_ledger[0] (F1) settles_on.basis is 'vendor' but settles_on.document names no data vendor"]),
+        (BQ_DATE,[_bq(_bq_der,cb="LTM Jun-2026 SG&A ratio 20.50%, FY2025 19.87% (Capital IQ)")],["comparable_basis takes its figure from a data vendor and names no filing"]),  # the UBER_2026-08-06 shape
+        (BQ_DATE,[_bq(_bq_der,cb="Q3 FY2025 18.27% [Q3 FY2025 10-Q]; the Capital IQ field shows 19.9% on a wider scope")],[]),  # a filing is named: reconciled, not vendor-struck
+        (BQ_DATE,[_bq(_bq_rep,cb="Pre-print consensus revenue $14.5bn (Capital IQ, 2026-08-06); year-ago $13.5bn")],[]),     # a frozen consensus level IS the bar
+        (BQ_DATE,[_bq(_bq_rep,cb="Year-ago quarter included $120m of vendor financing income")],[]),                          # 'vendor' as a business word
+        (BQ_DATE,[_bq(_bq_ven)],["all 1 numeric forecast row(s) settle on a data-vendor reading"]),
+        (BQ_DATE,[_bq(_bq_ven),_bq_event],["all 1 numeric forecast row(s) settle on a data-vendor reading"]),                # the event row is not a numeric row
+        (BQ_DATE,[_bq_event,_bq(None,"F2"),_bq(_bq_rep,"F3")],["forecast_ledger[1] (F2) pins a numeric threshold but has no settles_on object"]),  # index tracks the row
+        (BQ_DATE,[_bq_event],None),                                    # event row only → N/A
+        (BQ_DATE,[_bq_event,"plain string row"],None),                 # non-object rows are T's job
+        ("2026-12-09",[_bq(None)],None),                               # predates BQ_DATE → N/A
+        (BQ_DATE,[],None),
+        (BQ_DATE,None,None),
+        (BQ_DATE,5,None),
+        ("not-a-date",[_bq(None)],None),
+    ]
+    for _dd,_fl,_want in bqcases:
+        got=eval_bq_forecast_settlement_basis(_dd,_fl)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BQ({_dd!r},fl={_fl!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
 
     # ---- check BB: §16 Sector Cycle Reality Test compounding cap -----------------------------------
     _bb_elev02 = "## 5. Sector Cycle Reality Test\nSector re-rated ~32%.\nRF-VAL-001: own-history band cycle-elevated — sector index re-rated 32% over the window, cited 2026-08-01\n"
@@ -4923,6 +4976,17 @@ for drp in runs:
         add("BP_forecast_outcome_partition", False, "; ".join(bpresult))
     else:
         add("BP_forecast_outcome_partition", True, "every judged forecast_ledger row's confirmation and falsification bars meet")
+    # BQ — a numeric forecast names the document that prints its outcome and the definition its bar was
+    # struck on (forward-looking; landing BQ_DATE). See the BQ_DATE block in
+    # scripts/scenario_integrity_checks.py. No retrospective advisory: committed runs predate the field.
+    _bqr = eval_bq_forecast_settlement_basis(ddte, d.get("forecast_ledger"))
+    if _bqr is None:
+        add("BQ_forecast_settlement_basis", True,
+            f"N/A (decision_date {ddte!r} predates BQ_DATE {BQ_DATE!r}, or no numeric forecast_ledger row)", na=True)
+    elif _bqr:
+        add("BQ_forecast_settlement_basis", False, "; ".join(_bqr))
+    else:
+        add("BQ_forecast_settlement_basis", True, "every numeric forecast_ledger row names its settling document, basis and definition")
     # The valuation specialist/synthesis text readers are defined ONCE here, unconditionally, at loop-body
     # scope, so every date-gated cap that consumes them (BB below, then AD/AE/AF/AQ) can call them no
     # matter which gate fires first. They were previously defined inside the AD/AE blocks, which sit
@@ -5755,6 +5819,8 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
     # BP — forecast confirmation/falsification bars must meet (no dead zone); detector + live wiring + authoring contract.
     "BP_forecast_outcome_partition", "eval_bp_forecast_outcome_partition", "bpcases",
+    # BQ — a numeric forecast names its settling document + the definition of its bar; detector + live wiring + authoring contract.
+    "BQ_forecast_settlement_basis", "eval_bq_forecast_settlement_basis", "bqcases",
 ]
 # Check BM's live wiring (the F30 stamp) and its doctrine source (verify-evidence.md §5) — deleting either
 # would leave the eval row green while the pre-publish gate silently went back to trusting the verdict string.
@@ -5765,6 +5831,7 @@ FRAMEWORK_CONTRACTS.setdefault(".claude/commands/research/verify-evidence.md", [
 FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
     "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "_BK_REFERENCE", "_BK_COMPACT_PERIOD", "_BK_THRESHOLD_NUMBER", "_bk_pins_a_threshold", "eval_ba_kill_criteria_trigger_test",
     "BP_DATE", "eval_bp_forecast_outcome_partition", "_bp_bars", "_bp_single_bar_by_measure", "_BP_NEGATED",
+    "BQ_DATE", "eval_bq_forecast_settlement_basis", "BQ_BASES", "_BQ_VENDOR", "_BQ_FORMULA",
 ]
 FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bk_forecast_trigger_test"]
 FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["fired_last_two_periods", "check BK"]
@@ -5772,6 +5839,10 @@ FRAMEWORK_CONTRACTS["frameworks/DECISION_LEDGER.md"] += ["check BK"]
 FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bp_forecast_outcome_partition(_live_date"]
 FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["check BP", "exact complement"]
 FRAMEWORK_CONTRACTS["frameworks/DECISION_LEDGER.md"] += ["check BP"]
+FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bq_forecast_settlement_basis(_live_date"]
+FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["check BQ", "settles_on"]
+FRAMEWORK_CONTRACTS["frameworks/DECISION_LEDGER.md"] += ["check BQ", "settles_on"]
+FRAMEWORK_CONTRACTS.setdefault(".claude/commands/research/review-decisions.md", []).append("settles_on")
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
     try: jtxt=open(jf).read()

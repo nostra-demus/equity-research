@@ -71,6 +71,10 @@ FC_GOOD = {
     "time_window": f"results due by {_NEAR_TERM_DATE}",
     "comparable_basis": "Q1 this year vs Q1 a year earlier EBITDA margin (prior-year Q1: 11.8%).",
     "fired_last_two_periods": False,
+    # check BQ (BQ_DATE 2026-12-10) requires a numeric row to name its settling document and definition;
+    # carried here for the same reason as the BK fields above — so this control stays PASS after it lands.
+    "settles_on": {"document": "Q1 results release", "basis": "derived",
+                   "definition": "EBITDA / Revenue, both as printed in the results release"},
 }
 # A bare 'beats consensus' with no pinned number anywhere — check AO's core defect.
 FC_BARE_CONSENSUS = {
@@ -93,6 +97,8 @@ FC_FAR = {
     "time_window": f"by {_FAR_DATE}",
     "comparable_basis": "FY28 vs FY27 revenue on the same consolidated basis (FY27: $8.6bn).",
     "fired_last_two_periods": False,
+    "settles_on": {"document": "FY28 annual report", "basis": "as_reported",
+                   "definition": "Revenue as the consolidated income statement prints it"},
 }
 
 

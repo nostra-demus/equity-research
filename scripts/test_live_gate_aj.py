@@ -248,6 +248,13 @@ def main():
         print("  [XX] full.md Step 10B.1 BP call is missing or does NOT gate on `_live_date`")
     else:
         print("  [ok] full.md Step 10B.1 BP call gates on `_live_date`")
+    # Static guard: the live BQ call (a numeric forecast names its settling document and definition) must
+    # also gate on _live_date — a rerun regenerates decision_record.json's forecast_ledger, exactly as BA/BK/BP.
+    if not re.search(r"eval_bq_forecast_settlement_basis\(\s*_live_date\s*,", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BQ call is missing or does NOT gate on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.1 BQ call gates on `_live_date`")
 
     # Static guard: the live BF call must be judged on _live_date, never ddte — decision_date never
     # advances on a rerun, so a ddte-keyed BF would exempt every pre-BF_ENFORCE_DATE folder forever.

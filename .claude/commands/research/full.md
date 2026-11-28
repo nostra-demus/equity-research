@@ -1094,6 +1094,13 @@ viol.extend(sic.eval_bk_forecast_trigger_test(_live_date, d.get("forecast_ledger
 # exactly this) and the near-miss never reaches the Brier score — the forecast can only be scored wrong
 # when it is badly wrong. Uses `_live_date` for the same reason BA/BK do.
 viol.extend(sic.eval_bp_forecast_outcome_partition(_live_date, d.get("forecast_ledger")) or [])
+# check BQ — a numeric forecast names the document that will print its outcome and the definition its bar
+# was struck on (live pre-publish; mirrors eval.py check BQ via the same module). A bar taken from a data
+# vendor and settled on the company's own filing cannot be scored: the UBER_2026-08-06 SG&A forecast set a
+# 20.50% bar from vendor SG&A, the filing's own lines gave 17.7%, and the review recorded "not assessable".
+# Eleven of the 23 "not assessable" forecast reads on file are this defect. Uses `_live_date` for the same
+# reason BA/BK/BP do.
+viol.extend(sic.eval_bq_forecast_settlement_basis(_live_date, d.get("forecast_ledger")) or [])
 # checks AM/AR — §8 bear-case / bull-case sanity (live pre-publish; mirrors eval.py checks AM/AR
 # via scripts/scenario_integrity_checks.py, the same shared module as AT/AU/AV/BC/BA above).
 # CLAUDE.md §8 requires every thesis to state "the strongest bear case" (and, by the same

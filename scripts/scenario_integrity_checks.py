@@ -1085,6 +1085,125 @@ def eval_bp_forecast_outcome_partition(decision_date, forecast_ledger):
         return None
     return issues
 
+# ── Check BQ (§5 / §19 / synthesizer.md Forecast Ledger "Named settleable document") — a numeric
+# forecast must say WHERE its outcome will be printed and ON WHAT DEFINITION, and that definition must be
+# the one its bar was struck on. A bar can be a clean number, meet its opposite (check BP), carry a
+# comparable (check BK) and still be impossible to score: the review opens the settling document and finds
+# a figure measured a different way from the bar. It then rightly refuses to mark a hit or a miss, records
+# "not assessable", and the row never reaches the Brier score.
+#
+# Measured on the committed corpus (2026-11-28): across the latest review of each reviewed run, 23
+# forecasts read "not assessable". Eleven of them are this defect, more than any other cause:
+#   - seven bars were struck on one definition and settled on another — HAIER_2026-08-13 gross margin
+#     ("FY25 vendor gross margin 26.33% [vs] company-derived 26.66%") and its half-year beat set against a
+#     standalone-quarter consensus; ORCL_2026-08-14 gross margin and strict net debt/EBITDA ("No vendor
+#     EBITDA is silently recast as company-reported"); UBER_2026-08-06 SG&A ratio ("thresholds came from
+#     vendor SG&A ... not a demonstrated bridge to the filing lines" — the filing's own lines gave 17.7%
+#     against a 20.50% bar); TMCV_2026-06-07 underlying EBITDA margin; INDIAMART_2026-08-14 (a
+#     consolidated bar, a standalone disclosure);
+#   - four had an outcome that IS a later data-vendor reading nobody could obtain — EMAAR_2026-07-10
+#     ("no matched standalone-Q2 EPS and EBITDA against frozen consensus"), HAIER_2026-08-13 ("the exact
+#     FIRST post-H1 Capital IQ refresh ... no paid pull is authorized"), UBER_2026-08-06 and
+#     UBER_2026-08-09 (pre-print consensus history "not independently verified").
+# The authoring rule ("State WHERE the answer will come from") was prose inside a trigger sentence, with
+# no field to hold the answer and no check.
+#
+# Contract: every forecast_ledger row that pins a numeric threshold (check BK's own test) carries
+#   "settles_on": {"document": "...", "basis": "as_reported" | "derived" | "vendor", "definition": "..."}
+#   - as_reported: the document prints the figure under the named caption; `definition` gives that caption
+#     and its scope (consolidated / standalone, statutory / adjusted, period).
+#   - derived: nobody prints the figure; `definition` is the formula over captions the document does print,
+#     so a reviewer recomputes it instead of declining to.
+#   - vendor: the outcome is itself a data-vendor reading (a consensus level, a vendor-computed multiple);
+#     `document` names the vendor and `definition` the field and snapshot date. Settling it needs a dated
+#     export in the pool, so a record may not rest ALL its numeric forecasts on this basis.
+# Fails: a missing/blank part; an unknown basis; a vendor named as the document of an as_reported /
+# derived row; a derived definition with no formula; a vendor basis whose document
+# names no vendor; an as_reported / derived row whose `comparable_basis` (check BK) takes its figure from
+# a data vendor and names no filing — the bar's history is then the vendor's number, not the document's
+# (§5: "a vendor's number and the filing's number for the same metric are not interchangeable"); and a
+# record whose every numeric forecast is vendor-settled. A comparable that quotes a frozen CONSENSUS level
+# from a vendor is fine: the consensus is the bar, and the reported figure is what gets measured.
+# Presence, shape and self-consistency only — whether the named caption really is what the document
+# prints stays with the author and verify-evidence. Event rows are N/A. Forward-looking: committed runs
+# predate the field, so they are N/A, not retro-failed.
+BQ_DATE = "2026-12-10"
+BQ_BASES = ("as_reported", "derived", "vendor")
+_BQ_VENDOR = re.compile(r"\b(?:capital\s?iq|cap\s?iq|ciq|s&p\s+(?:capital|global\s+market)|bloomberg|factset|"
+                        r"refinitiv|lseg|eikon|visible\s+alpha|morningstar|screener(?:\.in)?|trendlyne|"
+                        r"tikr|koyfin|yahoo\s+finance|data[\s-]?vendor|"
+                        # bare 'vendor' is also a business word ('vendor financing'), so it counts only
+                        # when it qualifies a figure
+                        r"vendor[\s-](?:derived|computed|basis|figure|field|export|data|definition|"
+                        r"consensus|estimate|number))\b", re.I)
+# 'less' is a subtraction word ("revenue less cost of sales") but not in "less than"; a missed formula
+# word stamps a correct row PROVISIONAL, so the vocabulary errs wide (Gemini review, PR #834).
+_BQ_FORMULA = re.compile(r"[/÷×*+=−]|\s-\s|\b(?:divided\s+by|minus|less(?!\s+than)|times|plus|sum\s+of|ratio\s+of|"
+                         r"multiplied\s+by|net\s+of|as\s+a\s+(?:percentage|share|%)\s+of)\b", re.I)
+
+def eval_bq_forecast_settlement_basis(decision_date, forecast_ledger):
+    """Core of check BQ. Returns None (N/A — pre-gate, malformed/empty ledger, or no numeric forecast)
+    or a list of violation strings (empty list = every numeric forecast row passes). Side-effect-free +
+    module-level so the eval selftest and the live finish gate call the same logic."""
+    if not (_isdate(decision_date) and decision_date >= BQ_DATE):
+        return None
+    if not isinstance(forecast_ledger, list) or not forecast_ledger:
+        return None  # T flags a non-list ledger; an empty ledger is allowed (§19)
+    issues = []
+    numeric = vendor_rows = 0
+    for i, e in enumerate(forecast_ledger):
+        if not isinstance(e, dict) or not _bk_pins_a_threshold(e):
+            continue  # T flags non-object rows; an event forecast has no measured figure to define
+        numeric += 1
+        tag = f"forecast_ledger[{i}] ({str(e.get('forecast_id') or f'#{i}')[:60]})"
+        so = e.get("settles_on")
+        if not isinstance(so, dict):
+            issues.append(f"{tag} pins a numeric threshold but has no settles_on object — name the document "
+                          f"that will print the outcome, the basis (as_reported / derived / vendor) and the "
+                          f"definition the bar was struck on (§5/§19)")
+            continue
+        doc, basis, defn = (so.get(k) for k in ("document", "basis", "definition"))
+        doc = doc.strip() if isinstance(doc, str) else ""
+        defn = defn.strip() if isinstance(defn, str) else ""
+        if not doc:
+            issues.append(f"{tag} settles_on.document is blank — name the one document that prints the outcome")
+        if not defn:
+            issues.append(f"{tag} settles_on.definition is blank — give the caption as the document prints it, "
+                          f"or the formula over its captions")
+        if basis not in BQ_BASES:
+            issues.append(f"{tag} settles_on.basis is {basis!r} — must be one of {', '.join(BQ_BASES)}")
+            continue
+        if basis == "vendor":
+            vendor_rows += 1
+            if doc and not _BQ_VENDOR.search(doc):
+                issues.append(f"{tag} settles_on.basis is 'vendor' but settles_on.document names no data vendor "
+                              f"— name the vendor export that will hold the reading, or change the basis")
+            continue
+        # Only the DOCUMENT is tested: a definition that reconciles away from a vendor figure ("as printed
+        # in the income statement, not the Capital IQ 26.33%") is the author doing this right.
+        if _BQ_VENDOR.search(doc):
+            issues.append(f"{tag} settles_on.basis is '{basis}' but settles_on.document names a data vendor — "
+                          f"a vendor's figure is not what the company's document prints (§5); name the company "
+                          f"document, or declare basis 'vendor'")
+        if basis == "derived" and defn and not _BQ_FORMULA.search(defn):
+            issues.append(f"{tag} settles_on.basis is 'derived' but settles_on.definition carries no formula — "
+                          f"write the calculation over the captions the document prints, so a reviewer can "
+                          f"recompute it")
+        cb = e.get("comparable_basis")
+        if (isinstance(cb, str) and _BQ_VENDOR.search(cb) and not _AO_NAMED_DOC.search(cb)
+                and not _AO_CONSENSUS.search(cb)):
+            issues.append(f"{tag} settles on a company document ('{basis}') but comparable_basis takes its "
+                          f"figure from a data vendor and names no filing — the bar and the outcome are then "
+                          f"measured two different ways and the review cannot score the row; restate the "
+                          f"comparable from the document's own captions (§5/§17)")
+    if not numeric:
+        return None
+    if vendor_rows == numeric:
+        issues.append(f"all {numeric} numeric forecast row(s) settle on a data-vendor reading — the review "
+                      f"loop works from public documents and cannot buy a pull; add at least one forecast "
+                      f"settled by a company document (§19)")
+    return issues
+
 
 def _isdate(s):
     import datetime
