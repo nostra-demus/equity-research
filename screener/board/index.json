@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T03:49:01Z",
+  "generated_at": "2026-11-28T03:54:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -1621,6 +1621,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-090",
+      "headline": "US-India Trade Deal Close To Culmination, Says Piyush Goyal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/india/us-india-trade-deal-close-to-culmination-says-piyush-goyal-12387408#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T02:50:41Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "A trade deal between the US and India could significantly impact bilateral trade flows and sector-specific tariffs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "A trade deal between the US and India could significantly impact bilateral trade flows and sector-specific tariffs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-076",
       "headline": "Theralase Technologies Inc. Q3 Loss Narrows",
       "headline_en": null,
@@ -1910,55 +1953,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-026",
-      "headline": "Icahn Enterprises L.P. Amends Employment Agreements for CEO Ted Papapostolou and CFO Robert Flint, Increasing Base Salaries to $6,500,000 and $2,250,000",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/icahn-enterprises-lp-amends-employment-agreements-ceo-ted-papapostolou-and-cfo-robert",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:38:37Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Icahn Enterprises increased executive base salaries to $6.5M and $2.25M, representing a significant increase in fixed compensation costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Icahn Enterprises increased executive base salaries to $6.5M and $2.25M, representing a significant increase in fixed compensation costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Icahn Enterprises L.P.",
-          "ticker": "IEP",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307434,9 +307428,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 445,
-    "news_picked_today": 95,
-    "news_dropped_today": 336
+    "news_seen_today": 451,
+    "news_picked_today": 96,
+    "news_dropped_today": 341
   },
   "book_momentum": {
     "live_count": 8,
