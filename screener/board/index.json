@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T09:35:39Z",
+  "generated_at": "2026-11-28T09:41:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -91,6 +91,55 @@
           "name": "United Fidelity Bank",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-207",
+      "headline": "BPCL approves ₹1.27 lakh crore Andhra Refinery, targets July 2032 for commercial operations",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/bpcl-approves-127-lakh-crore-andhra-refinery-targets-july-2032-for-commercial-operations/article71754048.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T09:35:30Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "BPCL announced a major capital expenditure project for a new refinery in Andhra Pradesh valued at ₹1.27 lakh crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL announced a major capital expenditure project for a new refinery in Andhra Pradesh valued at ₹1.27 lakh crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1179,6 +1228,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-209",
+      "headline": "Italian company wins $650m Aramco contract",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/energy/italian-company-wins-650m-aramco-contract",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T09:32:59Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "An unnamed Italian company secured a $650 million contract from Saudi Aramco, representing a significant revenue-generating event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "An unnamed Italian company secured a $650 million contract from Saudi Aramco, representing a significant revenue-generating event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-205",
       "headline": "Walmart's Chris Nicholas likely to visit India on 30 November as Flipkart's Krishnamurthy steps down | What we know",
       "headline_en": null,
@@ -1894,106 +1992,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-187",
-      "headline": "Karnataka govt issues show-cause notice to Indian Oil: What ethanol measurement discrepancies did it find?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/karnataka-govt-issues-show-cause-notice-to-indian-oil-what-ethanol-measurement-discrepancies-did-it-find-11795849950575.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T07:25:21Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Karnataka government issued a show-cause notice to Indian Oil Corporation regarding ethanol measurement discrepancies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Karnataka government issued a show-cause notice to Indian Oil Corporation regarding ethanol measurement discrepancies.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Oil Corporation",
-          "ticker": "IOC",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-139",
-      "headline": "FSSAI sanctions prosecution against Bisleri over bacteria-positive sample",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/fssai-sanctions-prosecution-against-bisleri-over-bacteria-positive-sample/article71753820.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T07:21:30Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "FSSAI has sanctioned prosecution against Bisleri following a bacteria-positive sample, posing reputational and operational risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "FSSAI has sanctioned prosecution against Bisleri following a bacteria-positive sample, posing reputational and operational risks.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bisleri",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
