@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T03:39:19Z",
+  "generated_at": "2026-11-28T03:44:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -51,6 +51,66 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-088",
+      "headline": "Volkswagen drags rivals Mercedes, BMW into $1.2 billion India tax fight",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/volkswagen-drags-rivals-mercedes-bmw-into-usd-1-2-billion-india-tax-fight-2-20043477.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T03:32:15Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Volkswagen, Mercedes, and BMW are involved in a $1.2 billion tax dispute with Indian authorities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen, Mercedes, and BMW are involved in a $1.2 billion tax dispute with Indian authorities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "BMW",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1874,55 +1934,6 @@
       "launched_signal_id": null,
       "triage_score": 67,
       "triage_reason": "Suzano S.A. has appointed a new independent auditor, which is a standard but significant corporate governance update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suzano S.A.",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-002",
-      "headline": "Suzano S.A. Engages BDO RCS Auditores Independentes as Independent Auditor for CVM",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/suzano-sa-engages-bdo-rcs-auditores-independentes-independent-auditor-cvm",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T23:39:37Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Suzano S.A. has formally engaged BDO RCS Auditores Independentes as its independent auditor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Suzano S.A. has formally engaged BDO RCS Auditores Independentes as its independent auditor.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -307428,9 +307439,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 439,
-    "news_picked_today": 93,
-    "news_dropped_today": 332
+    "news_seen_today": 442,
+    "news_picked_today": 94,
+    "news_dropped_today": 334
   },
   "book_momentum": {
     "live_count": 8,
