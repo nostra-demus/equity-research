@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T07:07:02Z",
+  "generated_at": "2026-11-28T08:02:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -535,6 +535,50 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-136",
+      "headline": "Certain Mobile Electronic Devices; Notice of the Commission's Final Determination Finding a Violation of Section 337; Issuance of a Limited Exclusion Order and a Cease and Desist Order; Termination of the Investigation",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/11/30/2026-24208/certain-mobile-electronic-devices-notice-of-the-commissions-final-determination-finding-a-violation",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-30T05:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The ITC issued a limited exclusion order and cease and desist order against mobile electronic devices, impacting market access for affected entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The ITC issued a limited exclusion order and cease and desist order against mobile electronic devices, impacting market access for affected entities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1216,6 +1260,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-139",
+      "headline": "FSSAI sanctions prosecution against Bisleri over bacteria-positive sample",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/fssai-sanctions-prosecution-against-bisleri-over-bacteria-positive-sample/article71753820.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T07:21:30Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "FSSAI has sanctioned prosecution against Bisleri following a bacteria-positive sample, posing reputational and operational risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "FSSAI has sanctioned prosecution against Bisleri following a bacteria-positive sample, posing reputational and operational risks.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-121",
       "headline": "Bisleri Faces Fresh FSSAI Prosecution After Coliform Bacteria Found In Packaged Drinking Water Sample In West Bengal",
       "headline_en": null,
@@ -1414,56 +1508,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-084",
-      "headline": "FSSAI sanctions prosecution against Bisleri in another case; bacteria found in Bengal sample",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/india/news/fssai-sanctions-prosecution-against-bisleri-in-another-case-bacteria-found-in-bengal-sample-20043468.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T03:15:35Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "The food safety regulator FSSAI has sanctioned prosecution against Bisleri following the detection of bacteria in a sample.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The food safety regulator FSSAI has sanctioned prosecution against Bisleri following the detection of bacteria in a sample.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bisleri",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,49 +1996,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-066",
-      "headline": "Hackers breach U.S. Air Force flagship Cloud One computing platform",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/28/world/hackers-us-air-force-computing-platform/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:11:00Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "A major security breach of the U.S. Air Force's Cloud One platform indicates significant operational and national security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "A major security breach of the U.S. Air Force's Cloud One platform indicates significant operational and national security risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307757,9 +307758,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1019,
-    "news_picked_today": 178,
-    "news_dropped_today": 827
+    "news_seen_today": 1773,
+    "news_picked_today": 183,
+    "news_dropped_today": 918
   },
   "book_momentum": {
     "live_count": 8,
