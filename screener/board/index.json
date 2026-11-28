@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T00:40:43Z",
+  "generated_at": "2026-11-28T00:54:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -51,6 +51,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-019",
+      "headline": "Vivos Therapeutics, Inc. Received Staff Determination for Nasdaq Delisting and Requested Hearing",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vivos-therapeutics-inc-received-staff-determination-nasdaq-delisting-and-requested-hearing",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:08:39Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Vivos Therapeutics received a Nasdaq delisting notice, which is a survival event and forced delisting risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vivos Therapeutics received a Nasdaq delisting notice, which is a survival event and forced delisting risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vivos Therapeutics, Inc.",
+          "ticker": "VVOS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -199,6 +248,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-022",
+      "headline": "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/60-degrees-pharmaceuticals-inc-received-nasdaq-staff-determination-letter-regarding",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:08:39Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The company received a Nasdaq deficiency notice regarding stockholders' equity requirements, risking future delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The company received a Nasdaq deficiency notice regarding stockholders' equity requirements, risking future delisting.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "60 Degrees Pharmaceuticals, Inc.",
+          "ticker": "SXTP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -400,6 +498,159 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-023",
+      "headline": "Infobird Co., Ltd Entered into a Securities Purchase Agreement for the Issuance of Convertible Promissory Notes",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/infobird-co-ltd-entered-securities-purchase-agreement-issuance-convertible-promissory",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:58:52Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Infobird is issuing convertible promissory notes, which provides capital but introduces potential dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Infobird is issuing convertible promissory notes, which provides capital but introduces potential dilution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infobird Co., Ltd",
+          "ticker": "IFBD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-020",
+      "headline": "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/first-citizens-bank-enters-into-whole-bank-purchase-of-united-fidelity-bank-fsb-302951956.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-28T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "First Citizens Bank is acquiring United Fidelity Bank in a whole bank purchase agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "First Citizens Bank is acquiring United Fidelity Bank in a whole bank purchase agreement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Citizens BancShares, Inc.",
+          "ticker": "FCNCA",
+          "listing_country": "US"
+        },
+        {
+          "name": "United Fidelity Bank, fsb",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-021",
+      "headline": "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb | FCNCA Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/FCNCA/first-citizens-bank-enters-into-whole-bank-purchase-of-united-pe1z61921j2j.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-28T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Duplicate of item 8: First Citizens Bank is acquiring United Fidelity Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Duplicate of item 8: First Citizens Bank is acquiring United Fidelity Bank.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Citizens BancShares, Inc.",
+          "ticker": "FCNCA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-014",
       "headline": "IRGC says two oil tankers catch fire after hitting naval mines",
       "headline_en": null,
@@ -536,6 +787,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-025",
+      "headline": "India Inc tightens third-party vendor checks over data breach liability ahead of DPDP Act deadline",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/dpdp-act-vendor-data-security-compliance-deadline-2027-11795750619761.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:45:25Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Indian companies are increasing vendor due diligence to mitigate legal and financial risks associated with the upcoming Digital Personal Data Protection Act.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Indian companies are increasing vendor due diligence to mitigate legal and financial risks associated with the upcoming Digital Personal Data Protection Act.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -855,6 +1149,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-024",
+      "headline": "Why Monte Rosa Therapeutics Stock Slumped Today",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/27/why-monte-rosa-therapeutics-stock-slumped-today/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:34:55Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Opinion/recap piece explaining past stock price movement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Opinion/recap piece explaining past stock price movement.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monte Rosa Therapeutics",
+          "ticker": "GLUE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264241,6 +264584,79 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ec064cbaf128",
+      "idea_version": "IDEAV-62e20092ea95a171",
+      "idea_version_started_at": "2026-11-28T00:51:27Z",
+      "ticker": "FCNCA",
+      "company": "First Citizens BancShares, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "First-Citizens Bank & Trust Company's acquisition of substantially all deposits and assets of United Fidelity Bank, fsb, is likely to expand its asset base and market share.",
+      "why_now": "The acquisition was announced and completed on November 28, 2026, providing an immediate catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 83,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-be718c15d919",
+        "EVT-8445646936e7",
+        "EVT-9db3a1c7baf9"
+      ],
+      "primary_source_event_id": "EVT-be718c15d919",
+      "source_headlines": [
+        "Press Release: First-Citizens Bank & Trust Company, Raleigh, North Carolina Assumes Substantially All Deposits and Purchases Substantially All Assets of United Fidelity Bank, fsb, Evansville, Indiana",
+        "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb | FCNCA Stock News",
+        "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb"
+      ],
+      "source_headline": "Press Release: First-Citizens Bank & Trust Company, Raleigh, North Carolina Assumes Substantially All Deposits and Purchases Substantially All Assets of United Fidelity Bank, fsb, Evansville, Indiana",
+      "source_url": "https://content.govdelivery.com/accounts/USFDIC/bulletins/4345523",
+      "source_name": "FDIC (Press Releases, via GovDelivery)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-28T00:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:51:27Z",
+      "updated_at": "2026-11-28T00:51:27Z",
+      "decay_at": "2026-11-29T12:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d9881205f478",
       "idea_version": "IDEAV-d7275faedef8649d",
       "idea_version_started_at": "2026-11-27T19:37:04Z",
@@ -264445,6 +264861,76 @@
       "surfaced_at": "2026-11-27T19:37:04Z",
       "updated_at": "2026-11-27T19:37:04Z",
       "decay_at": "2026-11-29T06:32:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1d0bde7005f1",
+      "idea_version": "IDEAV-60891f198a1bd8e2",
+      "idea_version_started_at": "2026-11-28T00:51:27Z",
+      "ticker": "VVOS",
+      "company": "Vivos Therapeutics, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Vivos Therapeutics faces potential delisting from Nasdaq, which could severely impact its liquidity and investor confidence.",
+      "why_now": "The company received a Staff Determination for Nasdaq Delisting on November 28, 2026, and has requested a hearing, indicating an active and immediate threat.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5318a7146c45"
+      ],
+      "primary_source_event_id": "EVT-5318a7146c45",
+      "source_headlines": [
+        "Vivos Therapeutics, Inc. Received Staff Determination for Nasdaq Delisting and Requested Hearing"
+      ],
+      "source_headline": "Vivos Therapeutics, Inc. Received Staff Determination for Nasdaq Delisting and Requested Hearing",
+      "source_url": "https://www.nasdaq.com/articles/vivos-therapeutics-inc-received-staff-determination-nasdaq-delisting-and-requested-hearing",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-28T00:08:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:51:27Z",
+      "updated_at": "2026-11-28T00:51:27Z",
+      "decay_at": "2026-11-29T12:08:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -265146,6 +265632,76 @@
       "surfaced_at": "2026-11-28T00:15:06Z",
       "updated_at": "2026-11-28T00:15:06Z",
       "decay_at": "2026-11-29T12:08:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-dd257424763b",
+      "idea_version": "IDEAV-9159e34d996a5a19",
+      "idea_version_started_at": "2026-11-28T00:51:27Z",
+      "ticker": "SXTP",
+      "company": "60 Degrees Pharmaceuticals, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "60 Degrees Pharmaceuticals received a Nasdaq Staff Determination Letter regarding its stockholders’ equity requirement, signaling a risk of delisting.",
+      "why_now": "The company received the determination letter on November 28, 2026, creating an immediate concern about its listing status.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f87392b3ec98"
+      ],
+      "primary_source_event_id": "EVT-f87392b3ec98",
+      "source_headlines": [
+        "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement"
+      ],
+      "source_headline": "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement",
+      "source_url": "https://www.nasdaq.com/articles/60-degrees-pharmaceuticals-inc-received-nasdaq-staff-determination-letter-regarding",
+      "source_name": "Nasdaq",
+      "materiality_max": 84,
+      "newest_source_at": "2026-11-28T00:08:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:51:27Z",
+      "updated_at": "2026-11-28T00:51:27Z",
+      "decay_at": "2026-11-29T12:08:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -305957,8 +306513,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2730,
-    "live_count": 48,
+    "surfaced_total": 2733,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -305968,7 +306524,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5385,
+    "inbox_unconsumed": 5392,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -305977,9 +306533,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 100,
-    "news_picked_today": 18,
-    "news_dropped_today": 82
+    "news_seen_today": 137,
+    "news_picked_today": 25,
+    "news_dropped_today": 112
   },
   "book_momentum": {
     "live_count": 8,
