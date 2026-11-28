@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T01:10:07Z",
+  "generated_at": "2026-11-28T01:14:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -1830,6 +1830,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-039",
+      "headline": "South Africa’s credit rating upgraded after years of economic stagnation",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/892ffe2f-1641-4e3d-b0d6-2693ca15cc95?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:13:58Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "South Africa received a sovereign credit rating upgrade, signaling improved fiscal or economic stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "South Africa received a sovereign credit rating upgrade, signaling improved fiscal or economic stability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307085,7 +307128,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5405,
+    "inbox_unconsumed": 5406,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -307094,9 +307137,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 176,
-    "news_picked_today": 38,
-    "news_dropped_today": 138
+    "news_seen_today": 183,
+    "news_picked_today": 39,
+    "news_dropped_today": 144
   },
   "book_momentum": {
     "live_count": 8,
