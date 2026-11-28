@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T00:51:54Z",
+  "generated_at": "2026-11-28T00:54:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -787,6 +787,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-025",
+      "headline": "India Inc tightens third-party vendor checks over data breach liability ahead of DPDP Act deadline",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/dpdp-act-vendor-data-security-compliance-deadline-2027-11795750619761.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:45:25Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Indian companies are increasing vendor due diligence to mitigate legal and financial risks associated with the upcoming Digital Personal Data Protection Act.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Indian companies are increasing vendor due diligence to mitigate legal and financial risks associated with the upcoming Digital Personal Data Protection Act.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -306481,7 +306524,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5391,
+    "inbox_unconsumed": 5392,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -306490,9 +306533,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 121,
-    "news_picked_today": 24,
-    "news_dropped_today": 97
+    "news_seen_today": 137,
+    "news_picked_today": 25,
+    "news_dropped_today": 112
   },
   "book_momentum": {
     "live_count": 8,
