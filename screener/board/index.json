@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T04:11:02Z",
+  "generated_at": "2026-11-28T04:20:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -910,6 +910,55 @@
       "companies": [
         {
           "name": "KPMG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-100",
+      "headline": "KEC International bags new orders worth ₹1,400 crore in T&D and cable segments",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/kec-international-share-price-bags-new-orders-worth-rupees-1400-crore-in-transmission-distribution-transportation-cables-segments-20043479.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:13:31Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "KEC International has secured new orders worth ₹1,400 crore in the T&D and cable segments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "KEC International has secured new orders worth ₹1,400 crore in the T&D and cable segments.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KEC International",
           "ticker": null,
           "listing_country": null
         }
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-033",
-      "headline": "Brookfield Renewable Corporation Enters into an Amending Agreement Regarding Arrangement Agreement and Plan of Arrangement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/brookfield-renewable-corporation-enters-amending-agreement-regarding-arrangement-agreement",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:18:41Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Brookfield Renewable Corporation amended an existing arrangement agreement, indicating a change in the terms of a pending transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Brookfield Renewable Corporation amended an existing arrangement agreement, indicating a change in the terms of a pending transaction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Renewable Corporation",
-          "ticker": "BEPC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307511,9 +307511,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 478,
-    "news_picked_today": 105,
-    "news_dropped_today": 359
+    "news_seen_today": 501,
+    "news_picked_today": 109,
+    "news_dropped_today": 378
   },
   "book_momentum": {
     "live_count": 8,
