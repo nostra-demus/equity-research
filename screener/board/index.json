@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T03:25:20Z",
+  "generated_at": "2026-11-28T03:35:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -750,6 +750,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-085",
+      "headline": "OpenAI says Apple pressured suppliers to shun its devices",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/openai-says-apple-pressured-suppliers-shun-its-devices",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T03:25:27Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "OpenAI alleges Apple engaged in anti-competitive behavior by pressuring suppliers to shun its devices, posing potential regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "OpenAI alleges Apple engaged in anti-competitive behavior by pressuring suppliers to shun its devices, posing potential regulatory and operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-058",
       "headline": "Bisleri In Trouble Again: West Bengal Water Sample Tests Positive For Coliform Bacteria",
       "headline_en": null,
@@ -795,60 +850,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-052",
-      "headline": "OpenAI says Apple pressured suppliers to shun its devices",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/28/tech/openai-apple-pressured-suppliers/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Allegations of anti-competitive pressure on suppliers by Apple could lead to regulatory scrutiny or legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Allegations of anti-competitive pressure on suppliers by Apple could lead to regulatory scrutiny or legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307366,9 +307367,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 420,
-    "news_picked_today": 88,
-    "news_dropped_today": 318
+    "news_seen_today": 431,
+    "news_picked_today": 90,
+    "news_dropped_today": 327
   },
   "book_momentum": {
     "live_count": 8,
