@@ -745,6 +745,8 @@ from scenario_integrity_checks import (
     BA_DATE,
     eval_bk_forecast_trigger_test,
     BK_DATE,
+    eval_bp_forecast_outcome_partition,
+    BP_DATE,
     eval_am_bear_case_sanity,
     eval_ar_short_bull_case_sanity,
     AM_DATE,
@@ -3714,6 +3716,70 @@ if scope=="selftest":
             ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
         print(("  [ok] " if ok else "  [BAD] ")+f"BK({_dd!r},fl={_fl!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
+    # ---- check BP: a numeric forecast's confirmation and falsification bars must MEET (§19) -------------
+    # Fixtures are the shapes on file: DHER_2026-08-12 F01/F02 (the two rows a review later recorded as
+    # "not assessable ... lies in the original inconclusive band"), ORCL_2026-08-14 (comparator written
+    # after the number), TSLA_2026-07-25 (an OR compound that IS a clean split and must not be judged),
+    # INDIAMART_2026-08-14 (an integer count split 'at least 2' / 'at most 1').
+    def _bp(c,f,fid="F1"): return {"forecast_id":fid,"confirmation_trigger":c,"falsification_trigger":f}
+    _bp_gap   = _bp("FQ2 2026 reported revenue prints below EUR3,750m [FQ2 2026 results release, 2026-08-27]",
+                    "FQ2 2026 reported revenue prints above EUR4,050m [FQ2 2026 results release, 2026-08-27]. A print between EUR3,750m-EUR4,050m is in-line.")
+    _bp_gap2  = _bp("H1 2026 Adjusted EBITDA prints above EUR460m","H1 2026 Adjusted EBITDA prints below EUR390m","F2")
+    _bp_post  = _bp("Reported net debt/EBITDA (strict) at FQ1 FY2027 is 4.46x or higher.","Reported net debt/EBITDA (strict) at FQ1 FY2027 falls below 4.20x.","F3")
+    _bp_over  = _bp("Q2 EBITDA margin at or above 12.0%","Q2 EBITDA margin below 12.5%","F4")
+    _bp_ok    = _bp("The Q3 FY2026 Form 10-Q reports GAAP gross margin below 59.3%.","The same filing reports GAAP gross margin at or above 59.3%.","F5")
+    _bp_scale = _bp("Reported Adjusted EBITDA at or above $2.86bn","Reported Adjusted EBITDA below $2,860m","F6")
+    _bp_sscal = _bp("Revenue above $2.9bn","Revenue below $2,860m","F7")
+    _bp_or    = _bp("Q3 FY2026 reported revenue < $27,420.6mm consensus OR < $28,095mm YoY","Q3 FY2026 revenue >= $28,095mm","F8")
+    _bp_count = _bp("At least 2 of the Q2, Q3, Q4 exchange filings show positive net additions","At most 1 of those 3 quarters shows positive net adds","F9")
+    _bp_cnt2  = _bp("At least 3 of the 4 filings show growth","At most 1 of the 4 filings shows growth","F10")
+    _bp_neg   = _bp("Capex does not exceed $5bn","Capex above $6bn","F11")
+    _bp_negp  = _bp("Capex does not print $5bn or higher","Capex above $6bn","F20")
+    _bp_same  = _bp("Stock closes above AED 20.00 on 10 consecutive days","Stock fails to exceed AED 17.00","F12")
+    _bp_unit  = _bp("Peak-year capex < 40% of normalised FCF","Masterplan capex exceeds AED 15 Bn a year","F13")
+    _bp_event = _bp("The FY2026 10-K is filed by 2027-03-01 with a clean opinion.","No such filing by 2027-03-01.","F14")
+    _bp_multi = _bp("Revenue at or above INR 7,340.9M and EBITDA margin at or above 33%","Revenue below INR 7,340.9M or EBITDA margin below 31%","F15")
+    _bp_ccy   = _bp("FY27E normalised EPS falls below Rs17.00","FY27 consensus holds above Rs19.00","F16")
+    _bp_paren = _bp("AWS segment margin < 33% (>140bp compression)","AWS segment margin ≥35% sustained","F17")
+    _bp_pmi   = _bp("PMI above 50","PMI below 50","F18")
+    _bp_date  = _bp("EPS at or above $1.08 in the release due before 2026-08-27","EPS below $1.08 in the same release","F19")
+    bpcases=[
+        (BP_DATE,[_bp_gap],["forecast_ledger[0] (F1) triggers leave a dead zone — confirmation 'below EUR3,750m' vs falsification 'above EUR4,050m'"]),
+        (BP_DATE,[_bp_gap2],["forecast_ledger[0] (F2) triggers leave a dead zone"]),
+        (BP_DATE,[_bp_post],["forecast_ledger[0] (F3) triggers leave a dead zone — confirmation '4.46x or higher' vs falsification 'below 4.20x'"]),
+        (BP_DATE,[_bp_over],["forecast_ledger[0] (F4) triggers overlap"]),
+        (BP_DATE,[_bp_ok],[]),
+        (BP_DATE,[_bp_scale],[]),                                      # $2.86bn == $2,860m after scaling
+        (BP_DATE,[_bp_sscal],["forecast_ledger[0] (F7) triggers leave a dead zone"]),   # $2.9bn vs $2,860m
+        (BP_DATE,[_bp_or],None),                                       # two different bars on one side: an OR compound, not judged
+        (BP_DATE,[_bp_count],[]),                                      # integer count: >=2 / <=1 is a clean split
+        (BP_DATE,[_bp_cnt2],["forecast_ledger[0] (F10) triggers leave a dead zone"]),   # >=3 / <=1 leaves exactly 2
+        (BP_DATE,[_bp_neg],None),                                      # negated comparator: ambiguous, not judged
+        (BP_DATE,[_bp_negp],None),                                     # negation before a postfix comparator ('… or higher'): ambiguous too
+        (BP_DATE,[_bp_same],None),                                     # same-direction bars are not a pair
+        (BP_DATE,[_bp_unit],None),                                     # % vs AED bn: different measures
+        (BP_DATE,[_bp_event],None),                                    # event row, no bars
+        (BP_DATE,[_bp_multi],["forecast_ledger[0] (F15) triggers leave a dead zone — confirmation 'at or above 33%' vs falsification 'below 31%'"]),  # revenue leg meets, margin leg does not
+        (BP_DATE,[_bp_ccy],["forecast_ledger[0] (F16) triggers leave a dead zone"]),    # 'Rs17.00' — code glued to the digit
+        (BP_DATE,[_bp_paren],["forecast_ledger[0] (F17) triggers leave a dead zone — confirmation '< 33%' vs falsification '≥35%'"]),  # the bp parenthetical is another measure
+        (BP_DATE,[_bp_pmi],[]),                                        # a plain integer level that meets is fine
+        (BP_DATE,[_bp_date],[]),                                       # the ISO date is not a bar
+        (BP_DATE,[_bp_ok,_bp_event,_bp_gap],["forecast_ledger[2] (F1) triggers leave a dead zone"]),  # index tracks the row
+        (BP_DATE,[_bp_event,"plain string row",{"confirmation_trigger":5}],None),       # non-object / non-string are T's job
+        ("2026-12-07",[_bp_gap],None),                                 # predates BP_DATE → N/A
+        (BP_DATE,[],None),
+        (BP_DATE,None,None),
+        (BP_DATE,5,None),
+        ("not-a-date",[_bp_gap],None),
+    ]
+    for _dd,_fl,_want in bpcases:
+        got=eval_bp_forecast_outcome_partition(_dd,_fl)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BP({_dd!r},fl={_fl!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
 
     # ---- check BB: §16 Sector Cycle Reality Test compounding cap -----------------------------------
     _bb_elev02 = "## 5. Sector Cycle Reality Test\nSector re-rated ~32%.\nRF-VAL-001: own-history band cycle-elevated — sector index re-rated 32% over the window, cited 2026-08-01\n"
@@ -4845,6 +4911,18 @@ for drp in runs:
         add("BK_forecast_trigger_test", False, "; ".join(_bkr))
     else:
         add("BK_forecast_trigger_test", True, "every numeric forecast_ledger row carries comparable_basis and fired_last_two_periods")
+    # BP — a numeric forecast's confirmation and falsification bars must meet: no dead zone, no overlap
+    # (forward-looking; landing BP_DATE). See the BP_DATE block in scripts/scenario_integrity_checks.py.
+    # Unlike BK it reads only fields every committed ledger already carries, so pre-gate runs are re-read
+    # in the retrospective-advisory block below: a dead-zone row in a still-open ledger is a live defect.
+    bpresult = eval_bp_forecast_outcome_partition(ddte, d.get("forecast_ledger"))
+    if bpresult is None:
+        add("BP_forecast_outcome_partition", True,
+            f"N/A (decision_date {ddte!r} predates BP_DATE {BP_DATE!r}, or no forecast_ledger row pins a pair of opposed same-measure bars)", na=True)
+    elif bpresult:
+        add("BP_forecast_outcome_partition", False, "; ".join(bpresult))
+    else:
+        add("BP_forecast_outcome_partition", True, "every judged forecast_ledger row's confirmation and falsification bars meet")
     # The valuation specialist/synthesis text readers are defined ONCE here, unconditionally, at loop-body
     # scope, so every date-gated cap that consumes them (BB below, then AD/AE/AF/AQ) can call them no
     # matter which gate fires first. They were previously defined inside the AD/AE blocks, which sit
@@ -5530,6 +5608,11 @@ for drp in runs:
         if r:
             retro.append({"check":"BN_reverse_dcf_base_rate_unit","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates BN_DATE ({BN_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if bpresult is None:
+        r=eval_bp_forecast_outcome_partition(BP_DATE,d.get("forecast_ledger"))
+        if r:
+            retro.append({"check":"BP_forecast_outcome_partition","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BP_DATE ({BP_DATE}); informational only, does not affect pass/gate_eligible/suite_pass; the frozen triggers are never rewritten"})
     if bhresult is None:
         r=eval_bh_net_debt_basis_label(BH_DATE,thesis)
         if r:
@@ -5670,6 +5753,8 @@ FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     "eval_bm_verdict_floor", "BM_verify_verdict_floor", "BM_DATE", "bmcases",
     # BK — HARD GATE 11 on numeric forecast_ledger rows; detector + live wiring + authoring contract.
     "BK_forecast_trigger_test", "eval_bk_forecast_trigger_test", "bkcases",
+    # BP — forecast confirmation/falsification bars must meet (no dead zone); detector + live wiring + authoring contract.
+    "BP_forecast_outcome_partition", "eval_bp_forecast_outcome_partition", "bpcases",
 ]
 # Check BM's live wiring (the F30 stamp) and its doctrine source (verify-evidence.md §5) — deleting either
 # would leave the eval row green while the pre-publish gate silently went back to trusting the verdict string.
@@ -5679,10 +5764,14 @@ FRAMEWORK_CONTRACTS.setdefault("scripts/verify_evidence_checks.py", []).extend(
 FRAMEWORK_CONTRACTS.setdefault(".claude/commands/research/verify-evidence.md", []).append("check BM")
 FRAMEWORK_CONTRACTS["scripts/scenario_integrity_checks.py"] = [
     "BK_DATE", "eval_bk_forecast_trigger_test", "_BK_FORM_NAMES", "_BK_QTR_YEAR", "_BK_NL_DATE", "_BK_NUM_DATE", "_BK_REFERENCE", "_BK_COMPACT_PERIOD", "_BK_THRESHOLD_NUMBER", "_bk_pins_a_threshold", "eval_ba_kill_criteria_trigger_test",
+    "BP_DATE", "eval_bp_forecast_outcome_partition", "_bp_bars", "_bp_single_bar_by_measure", "_BP_NEGATED",
 ]
 FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bk_forecast_trigger_test"]
 FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["fired_last_two_periods", "check BK"]
 FRAMEWORK_CONTRACTS["frameworks/DECISION_LEDGER.md"] += ["check BK"]
+FRAMEWORK_CONTRACTS[".claude/commands/research/full.md"] += ["eval_bp_forecast_outcome_partition(_live_date"]
+FRAMEWORK_CONTRACTS[".claude/agents/synthesizer.md"] += ["check BP", "exact complement"]
+FRAMEWORK_CONTRACTS["frameworks/DECISION_LEDGER.md"] += ["check BP"]
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
     try: jtxt=open(jf).read()
