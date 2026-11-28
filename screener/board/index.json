@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T12:26:38Z",
+  "generated_at": "2026-11-28T12:57:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -94,6 +94,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-245",
+      "headline": "SAP weighs 10,000 job cuts again in brutal 2026 AI tech layoff cycle",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/employment/sap-10000-job-cuts-ai-restructuring",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T12:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "SAP is reportedly planning 10,000 job cuts as part of a restructuring effort.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SAP is reportedly planning 10,000 job cuts as part of a restructuring effort.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAP",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-246",
+      "headline": "Chile's FNE Seeks Over $80 Mln Fine Against Apple For IOS Abuse",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/chiles-fne-seeks-over-80-mln-fine-against-apple-ios-abuse",
+      "source_name": "Nasdaq.com (per-symbol RSS)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T12:23:29Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Chile's antitrust regulator is seeking a fine of over $80 million against Apple for alleged iOS abuse.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chile's antitrust regulator is seeking a fine of over $80 million against Apple for alleged iOS abuse.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -785,6 +883,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-244",
+      "headline": "Myanmar airstrike hits wedding house, killing at least six",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/asia/myanmar-airstrike-hits-wedding-house-killing-at-least-six-1.500764216",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T12:10:37Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "A Myanmar airstrike hitting a wedding house and causing civilian casualties represents a significant escalation of conflict and geopolitical risk in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A Myanmar airstrike hitting a wedding house and causing civilian casualties represents a significant escalation of conflict and geopolitical risk in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1725,6 +1866,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-239",
+      "headline": "Energie: Uniper könnte mit bis zu 16 Milliarden Euro bewertet werden",
+      "headline_en": "Energy: Uniper could be valued at up to 16 billion euros",
+      "url": "https://www.handelsblatt.com/unternehmen/energie/energie-uniper-koennte-mit-bis-zu-16-milliarden-euro-bewertet-werden/100273352.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T12:32:36Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Uniper could be valued at up to 16 billion euros, indicating potential market interest or valuation benchmarks for the energy firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Uniper could be valued at up to 16 billion euros, indicating potential market interest or valuation benchmarks for the energy firm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uniper",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-220",
       "headline": "Capri Global Capital to invest ₹200 crore in housing finance arm through rights issue",
       "headline_en": null,
@@ -1769,207 +1959,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-209",
-      "headline": "Italian company wins $650m Aramco contract",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/energy/italian-company-wins-650m-aramco-contract",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T09:32:59Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "An unnamed Italian company secured a $650 million contract from Saudi Aramco, representing a significant revenue-generating event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "An unnamed Italian company secured a $650 million contract from Saudi Aramco, representing a significant revenue-generating event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-205",
-      "headline": "Walmart's Chris Nicholas likely to visit India on 30 November as Flipkart's Krishnamurthy steps down | What we know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/walmarts-chris-nicholas-likely-to-visit-india-on-30-november-as-flipkarts-krishnamurthy-steps-down-what-we-know-11795853815607.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T08:25:07Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Flipkart CEO Kalyan Krishnamurthy is stepping down, representing a significant leadership change for the major Indian e-commerce entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Flipkart CEO Kalyan Krishnamurthy is stepping down, representing a significant leadership change for the major Indian e-commerce entity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flipkart",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-196",
-      "headline": "Compass boss loses his bearings in letter to Chancellor as firm plans to move main share listing to New York, says ALEX BRUMMER",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16327015/Compass-boss-loses-bearings-letter-Chancellor-firm-plans-main-share-listing-New-York-says-ALEX-BRUMMER.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T07:57:20Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Compass disclosed a plan to relocate its primary stock listing from London to New York, a capital-structure change affecting shareholder base, liquidity venue, and regulatory jurisdiction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Compass disclosed a plan to relocate its primary stock listing from London to New York, a capital-structure change affecting shareholder base, liquidity venue, and regulatory jurisdiction.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Compass Group plc",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-204",
-      "headline": "OpenAI accuses Apple of stealing trade secrets in countersuit",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/openai-accuses-apple-of-stealing-trade-secrets-in-countersuit-1.500763719",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T07:56:48Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "OpenAI has filed a countersuit against Apple alleging theft of trade secrets, escalating legal risk for both companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "OpenAI has filed a countersuit against Apple alleging theft of trade secrets, escalating legal risk for both companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266267,77 +266256,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b91423024442",
-      "idea_version": "IDEAV-e03151c6fc0a83d8",
-      "idea_version_started_at": "2026-11-27T01:15:11Z",
-      "ticker": "HLN",
-      "company": "Haleon",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Haleon is reportedly pursuing a billion-dollar acquisition of Healthkart to aggressively expand its footprint in the high-growth Indian consumer health and nutrition market.",
-      "why_now": "Reported on November 27, 2026, as a live strategic expansion move into a key emerging market.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4ff7a5aeb295"
-      ],
-      "primary_source_event_id": "EVT-4ff7a5aeb295",
-      "source_headlines": [
-        "GSK spinoff Haleon eyes billion-dollar Healthkart bet"
-      ],
-      "source_headline": "GSK spinoff Haleon eyes billion-dollar Healthkart bet",
-      "source_url": "https://www.livemint.com/companies/gsk-consumer-healthkart-acquisition-deal-11795688783370.html",
-      "source_name": "Mint",
-      "materiality_max": 91,
-      "newest_source_at": "2026-11-27T00:30:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-27T01:15:11Z",
-      "updated_at": "2026-11-27T01:15:11Z",
-      "decay_at": "2026-11-28T12:30:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-83a5f660606d",
       "idea_version": "IDEAV-3cc76df8dd8d687b",
       "idea_version_started_at": "2026-11-27T03:24:55Z",
@@ -267475,78 +267393,6 @@
       "surfaced_at": "2026-11-26T20:38:38Z",
       "updated_at": "2026-11-27T02:21:01Z",
       "decay_at": "2026-11-28T13:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-74ae3e2e6b5e",
-      "idea_version": "IDEAV-2d310a38a7ee97e0",
-      "idea_version_started_at": "2026-11-27T00:49:33Z",
-      "ticker": "MMI",
-      "company": "MMI",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An update on a senior debt restructure indicates potential financial distress and a higher risk of default or significant dilution.",
-      "why_now": "The filing is dated today and marked as price-sensitive, indicating immediate market relevance.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dea9f618842f"
-      ],
-      "primary_source_event_id": "EVT-dea9f618842f",
-      "source_headlines": [
-        "MMI: Senior Debt Restructure Update [price-sensitive]"
-      ],
-      "source_headline": "MMI: Senior Debt Restructure Update [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MMI?key=2924-03167742-2A1713399",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-27T00:39:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-27T00:49:33Z",
-      "updated_at": "2026-11-27T00:49:33Z",
-      "decay_at": "2026-11-28T12:39:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -268842,6 +268688,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b91423024442",
+      "idea_version": "IDEAV-e03151c6fc0a83d8",
+      "idea_version_started_at": "2026-11-27T01:15:11Z",
+      "ticker": "HLN",
+      "company": "Haleon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Haleon is reportedly pursuing a billion-dollar acquisition of Healthkart to aggressively expand its footprint in the high-growth Indian consumer health and nutrition market.",
+      "why_now": "Reported on November 27, 2026, as a live strategic expansion move into a key emerging market.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4ff7a5aeb295"
+      ],
+      "primary_source_event_id": "EVT-4ff7a5aeb295",
+      "source_headlines": [
+        "GSK spinoff Haleon eyes billion-dollar Healthkart bet"
+      ],
+      "source_headline": "GSK spinoff Haleon eyes billion-dollar Healthkart bet",
+      "source_url": "https://www.livemint.com/companies/gsk-consumer-healthkart-acquisition-deal-11795688783370.html",
+      "source_name": "Mint",
+      "materiality_max": 91,
+      "newest_source_at": "2026-11-27T00:30:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T01:15:11Z",
+      "updated_at": "2026-11-27T01:15:11Z",
+      "decay_at": "2026-11-28T12:30:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2d93368aeb39",
       "idea_version": "IDEAV-5aa762719f2d6b61",
       "idea_version_started_at": "2026-11-27T00:24:37Z",
@@ -269190,6 +269107,78 @@
       "surfaced_at": "2026-11-27T00:49:33Z",
       "updated_at": "2026-11-27T00:49:33Z",
       "decay_at": "2026-11-28T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-74ae3e2e6b5e",
+      "idea_version": "IDEAV-2d310a38a7ee97e0",
+      "idea_version_started_at": "2026-11-27T00:49:33Z",
+      "ticker": "MMI",
+      "company": "MMI",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An update on a senior debt restructure indicates potential financial distress and a higher risk of default or significant dilution.",
+      "why_now": "The filing is dated today and marked as price-sensitive, indicating immediate market relevance.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dea9f618842f"
+      ],
+      "primary_source_event_id": "EVT-dea9f618842f",
+      "source_headlines": [
+        "MMI: Senior Debt Restructure Update [price-sensitive]"
+      ],
+      "source_headline": "MMI: Senior Debt Restructure Update [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MMI?key=2924-03167742-2A1713399",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T00:39:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T00:49:33Z",
+      "updated_at": "2026-11-27T00:49:33Z",
+      "decay_at": "2026-11-28T12:39:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -270797,19 +270786,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 531,
     "shown_count": 499,
-    "hidden_count": 30,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -270828,6 +270817,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-74ae3e2e6b5e",
+        "idea_version": "IDEAV-2d310a38a7ee97e0",
+        "idea_version_started_at": "2026-11-27T00:49:33Z",
+        "ticker": "MMI",
+        "company": "MMI",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "An update on a senior debt restructure indicates potential financial distress and a higher risk of default or significant dilution.",
+        "why_now": "The filing is dated today and marked as price-sensitive, indicating immediate market relevance.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dea9f618842f"
+        ],
+        "primary_source_event_id": "EVT-dea9f618842f",
+        "source_headlines": [
+          "MMI: Senior Debt Restructure Update [price-sensitive]"
+        ],
+        "source_headline": "MMI: Senior Debt Restructure Update [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MMI?key=2924-03167742-2A1713399",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-27T00:39:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-27T00:49:33Z",
+        "updated_at": "2026-11-27T00:49:33Z",
+        "decay_at": "2026-11-28T12:39:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T12:39:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b91423024442",
+        "idea_version": "IDEAV-e03151c6fc0a83d8",
+        "idea_version_started_at": "2026-11-27T01:15:11Z",
+        "ticker": "HLN",
+        "company": "Haleon",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Haleon is reportedly pursuing a billion-dollar acquisition of Healthkart to aggressively expand its footprint in the high-growth Indian consumer health and nutrition market.",
+        "why_now": "Reported on November 27, 2026, as a live strategic expansion move into a key emerging market.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4ff7a5aeb295"
+        ],
+        "primary_source_event_id": "EVT-4ff7a5aeb295",
+        "source_headlines": [
+          "GSK spinoff Haleon eyes billion-dollar Healthkart bet"
+        ],
+        "source_headline": "GSK spinoff Haleon eyes billion-dollar Healthkart bet",
+        "source_url": "https://www.livemint.com/companies/gsk-consumer-healthkart-acquisition-deal-11795688783370.html",
+        "source_name": "Mint",
+        "materiality_max": 91,
+        "newest_source_at": "2026-11-27T00:30:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-27T01:15:11Z",
+        "updated_at": "2026-11-27T01:15:11Z",
+        "decay_at": "2026-11-28T12:30:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T12:30:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1c4bfe21ab2f",
         "idea_version": "IDEAV-d829e311121df716",
@@ -304963,82 +305101,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-6270ed4f3c1c",
-        "idea_version": "IDEAV-49b0da9e940c36fc",
-        "idea_version_started_at": "2026-11-07T12:20:59Z",
-        "ticker": "DIVISLAB",
-        "company": "Divi's Laboratories",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 64% surge in net profit and 35% revenue growth in Q2, driven by margin expansion.",
-        "why_now": "The earnings results were released today, November 7, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8f90679c58d6",
-          "EVT-ba69c45e4501"
-        ],
-        "primary_source_event_id": "EVT-8f90679c58d6",
-        "source_headlines": [
-          "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
-          "Divi's Lab net profit surges 63% to ₹1,127 cr in Q2"
-        ],
-        "source_headline": "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
-        "source_url": "https://www.ndtvprofit.com/markets/divis-laboratories-q2-results-net-profit-jumps-64-to-rs-1-127-crore-revenue-rises-35-margins-expand-12296198#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-07T09:56:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-07T12:20:59Z",
-        "updated_at": "2026-11-07T12:20:59Z",
-        "decay_at": "2026-11-08T21:56:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-10T11:31:05Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b20ce3cd0f57",
         "idea_version": "IDEAV-64086dc66cf21e07",
         "idea_version_started_at": "2026-11-06T22:25:06Z",
@@ -307853,87 +307915,12 @@
         "archived_at": "2026-11-06T01:05:07Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fee1e839a5af",
-        "idea_version": "IDEAV-7713be9b154fa86f",
-        "idea_version_started_at": "2026-11-03T02:31:59Z",
-        "ticker": "TCMD",
-        "company": "Tactile Medical",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Operating expenses are growing faster than revenue, signaling margin compression and poor cost control.",
-        "why_now": "The Q3 2026 earnings report released on 2026-11-02 highlights this negative divergence.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dd4dd1048acc"
-        ],
-        "primary_source_event_id": "EVT-dd4dd1048acc",
-        "source_headlines": [
-          "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction"
-        ],
-        "source_headline": "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction",
-        "source_url": "https://www.nasdaq.com/articles/tactile-medicals-spending-outpaces-sales-rapid-earnings-reaction",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T22:13:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-03T02:31:59Z",
-        "updated_at": "2026-11-03T02:31:59Z",
-        "decay_at": "2026-11-04T10:13:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T22:25:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2747,
-    "live_count": 46,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -307952,9 +307939,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3358,
-    "news_picked_today": 357,
-    "news_dropped_today": 2041
+    "news_seen_today": 5560,
+    "news_picked_today": 375,
+    "news_dropped_today": 2295
   },
   "book_momentum": {
     "live_count": 8,
