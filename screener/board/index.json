@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T10:35:41Z",
+  "generated_at": "2026-11-28T10:42:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -666,6 +666,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-219",
+      "headline": "8th Pay Commission Could Cost Centre ₹3 Lakh Crore, Strain Fiscal Deficit In FY28: Deutsche Bank",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/8th-pay-commission-could-cost-centre-3-lakh-crore-strain-fiscal-deficit-in-fy28-deutsche-bank",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T10:10:20Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The potential cost of the 8th Pay Commission to the Indian government (₹3 Lakh Crore) and its impact on the fiscal deficit is a significant macroeconomic event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The potential cost of the 8th Pay Commission to the Indian government (₹3 Lakh Crore) and its impact on the fiscal deficit is a significant macroeconomic event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -1940,55 +1983,6 @@
         {
           "name": "Gladiator Solutions, Inc.",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-032",
-      "headline": "Gulf Resources, Inc. Enters Into Asset Purchase Agreement for Bromine and Crude Salt Assets",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/gulf-resources-inc-enters-asset-purchase-agreement-bromine-and-crude-salt-assets",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:18:50Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Gulf Resources entered into an asset purchase agreement for bromine and crude salt assets, expanding its operational capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Gulf Resources entered into an asset purchase agreement for bromine and crude salt assets, expanding its operational capacity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gulf Resources, Inc.",
-          "ticker": "GURE",
           "listing_country": "US"
         }
       ],
@@ -307901,9 +307895,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2921,
-    "news_picked_today": 297,
-    "news_dropped_today": 1742
+    "news_seen_today": 2951,
+    "news_picked_today": 304,
+    "news_dropped_today": 1759
   },
   "book_momentum": {
     "live_count": 8,
