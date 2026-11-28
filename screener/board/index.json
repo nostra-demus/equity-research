@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T00:51:04Z",
+  "generated_at": "2026-11-28T00:51:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -264541,6 +264541,79 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ec064cbaf128",
+      "idea_version": "IDEAV-62e20092ea95a171",
+      "idea_version_started_at": "2026-11-28T00:51:27Z",
+      "ticker": "FCNCA",
+      "company": "First Citizens BancShares, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "First-Citizens Bank & Trust Company's acquisition of substantially all deposits and assets of United Fidelity Bank, fsb, is likely to expand its asset base and market share.",
+      "why_now": "The acquisition was announced and completed on November 28, 2026, providing an immediate catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 83,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-be718c15d919",
+        "EVT-8445646936e7",
+        "EVT-9db3a1c7baf9"
+      ],
+      "primary_source_event_id": "EVT-be718c15d919",
+      "source_headlines": [
+        "Press Release: First-Citizens Bank & Trust Company, Raleigh, North Carolina Assumes Substantially All Deposits and Purchases Substantially All Assets of United Fidelity Bank, fsb, Evansville, Indiana",
+        "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb | FCNCA Stock News",
+        "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb"
+      ],
+      "source_headline": "Press Release: First-Citizens Bank & Trust Company, Raleigh, North Carolina Assumes Substantially All Deposits and Purchases Substantially All Assets of United Fidelity Bank, fsb, Evansville, Indiana",
+      "source_url": "https://content.govdelivery.com/accounts/USFDIC/bulletins/4345523",
+      "source_name": "FDIC (Press Releases, via GovDelivery)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-28T00:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:51:27Z",
+      "updated_at": "2026-11-28T00:51:27Z",
+      "decay_at": "2026-11-29T12:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d9881205f478",
       "idea_version": "IDEAV-d7275faedef8649d",
       "idea_version_started_at": "2026-11-27T19:37:04Z",
@@ -264745,6 +264818,76 @@
       "surfaced_at": "2026-11-27T19:37:04Z",
       "updated_at": "2026-11-27T19:37:04Z",
       "decay_at": "2026-11-29T06:32:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1d0bde7005f1",
+      "idea_version": "IDEAV-60891f198a1bd8e2",
+      "idea_version_started_at": "2026-11-28T00:51:27Z",
+      "ticker": "VVOS",
+      "company": "Vivos Therapeutics, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Vivos Therapeutics faces potential delisting from Nasdaq, which could severely impact its liquidity and investor confidence.",
+      "why_now": "The company received a Staff Determination for Nasdaq Delisting on November 28, 2026, and has requested a hearing, indicating an active and immediate threat.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5318a7146c45"
+      ],
+      "primary_source_event_id": "EVT-5318a7146c45",
+      "source_headlines": [
+        "Vivos Therapeutics, Inc. Received Staff Determination for Nasdaq Delisting and Requested Hearing"
+      ],
+      "source_headline": "Vivos Therapeutics, Inc. Received Staff Determination for Nasdaq Delisting and Requested Hearing",
+      "source_url": "https://www.nasdaq.com/articles/vivos-therapeutics-inc-received-staff-determination-nasdaq-delisting-and-requested-hearing",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-28T00:08:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:51:27Z",
+      "updated_at": "2026-11-28T00:51:27Z",
+      "decay_at": "2026-11-29T12:08:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -265446,6 +265589,76 @@
       "surfaced_at": "2026-11-28T00:15:06Z",
       "updated_at": "2026-11-28T00:15:06Z",
       "decay_at": "2026-11-29T12:08:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-dd257424763b",
+      "idea_version": "IDEAV-9159e34d996a5a19",
+      "idea_version_started_at": "2026-11-28T00:51:27Z",
+      "ticker": "SXTP",
+      "company": "60 Degrees Pharmaceuticals, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "60 Degrees Pharmaceuticals received a Nasdaq Staff Determination Letter regarding its stockholders’ equity requirement, signaling a risk of delisting.",
+      "why_now": "The company received the determination letter on November 28, 2026, creating an immediate concern about its listing status.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f87392b3ec98"
+      ],
+      "primary_source_event_id": "EVT-f87392b3ec98",
+      "source_headlines": [
+        "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement"
+      ],
+      "source_headline": "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement",
+      "source_url": "https://www.nasdaq.com/articles/60-degrees-pharmaceuticals-inc-received-nasdaq-staff-determination-letter-regarding",
+      "source_name": "Nasdaq",
+      "materiality_max": 84,
+      "newest_source_at": "2026-11-28T00:08:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:51:27Z",
+      "updated_at": "2026-11-28T00:51:27Z",
+      "decay_at": "2026-11-29T12:08:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -306257,8 +306470,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2730,
-    "live_count": 48,
+    "surfaced_total": 2733,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

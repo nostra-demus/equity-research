@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-dd257424763b",
+  "idea_version": "IDEAV-9159e34d996a5a19",
+  "idea_version_started_at": "2026-11-28T00:51:27Z",
+  "ticker": "SXTP",
+  "company": "60 Degrees Pharmaceuticals, Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "60 Degrees Pharmaceuticals received a Nasdaq Staff Determination Letter regarding its stockholders’ equity requirement, signaling a risk of delisting.",
+  "why_now": "The company received the determination letter on November 28, 2026, creating an immediate concern about its listing status.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 16,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-f87392b3ec98"
+  ],
+  "primary_source_event_id": "EVT-f87392b3ec98",
+  "source_headlines": [
+    "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement"
+  ],
+  "source_headline": "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement",
+  "source_url": "https://www.nasdaq.com/articles/60-degrees-pharmaceuticals-inc-received-nasdaq-staff-determination-letter-regarding",
+  "source_name": "Nasdaq",
+  "materiality_max": 84,
+  "newest_source_at": "2026-11-28T00:08:39Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-28T00:51:27Z",
+  "updated_at": "2026-11-28T00:51:27Z",
+  "decay_at": "2026-11-29T12:08:39Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
