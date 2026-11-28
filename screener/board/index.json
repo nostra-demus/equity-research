@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T11:38:33Z",
+  "generated_at": "2026-11-28T11:41:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -91,6 +91,55 @@
           "name": "United Fidelity Bank",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-230",
+      "headline": "BPCL board approves ₹1.27 lakh crore refinery, petrochemical complex in Andhra Pradesh",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/bpcl-board-approves-rs1-27-lakh-crore-refinery-petrochemical-complex-in-andhra-pradesh-570087-2026-11-28?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T11:19:30Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "BPCL board approved a major capital expenditure of ₹1.27 lakh crore for a new refinery and petrochemical complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL board approved a major capital expenditure of ₹1.27 lakh crore for a new refinery and petrochemical complex.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BPCL",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -193,55 +242,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-195",
-      "headline": "BPCL board approves ₹1.27 lakh crore refinery & petrochemical complex in Andhra Pradesh",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/bpcl-share-price-board-approves-rs-1-27-lakh-crore-refinery-and-petrochemical-complex-in-andhra-pradesh-20043571.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T08:03:01Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "BPCL board approves ₹1.27 lakh crore capex for new refinery and petrochemical complex in Andhra Pradesh, a major capacity-expansion and capital-allocation commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BPCL board approves ₹1.27 lakh crore capex for new refinery and petrochemical complex in Andhra Pradesh, a major capacity-expansion and capital-allocation commitment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Petroleum Corporation Limited",
-          "ticker": "BPCL",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307964,9 +307964,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3190,
-    "news_picked_today": 327,
-    "news_dropped_today": 1903
+    "news_seen_today": 3211,
+    "news_picked_today": 332,
+    "news_dropped_today": 1919
   },
   "book_momentum": {
     "live_count": 8,
