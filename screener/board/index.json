@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T01:04:06Z",
+  "generated_at": "2026-11-28T01:09:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -308,6 +308,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-036",
+      "headline": "Bisleri in fresh trouble after FSSAI finds bacteria in West Bengal sample",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/fmcg/bisleri-in-fresh-trouble-after-fssai-finds-bacteria-in-west-bengal-sample/articleshow/136236026.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:52:14Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Bisleri faces regulatory scrutiny after FSSAI found bacteria in a sample, posing a risk to brand reputation and potential operational penalties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Bisleri faces regulatory scrutiny after FSSAI found bacteria in a sample, posing a risk to brand reputation and potential operational penalties.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-018",
       "headline": "KPMG paid staff departing over complaints more than $1.7m for silence",
       "headline_en": null,
@@ -597,6 +647,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-035",
+      "headline": "Japan to revise AI law to introduce penalties",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/11/28/japan/politics/japan-revise-ai-law-penalties/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Japan is planning to introduce penalties for AI-related legal violations, increasing compliance risk for the technology sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Japan is planning to introduce penalties for AI-related legal violations, increasing compliance risk for the technology sector.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1043,6 +1136,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-037",
+      "headline": "KPMG paid departing staff up to $200,000 to sign NDAs after complaints",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/professional-services/kpmg-paid-staff-departing-over-complaints-more-than-1-7m-for-silence-20261128-p61i26?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:30:29Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "KPMG faces reputational risk following reports of using large payments to secure NDAs from departing staff after complaints.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "KPMG faces reputational risk following reports of using large payments to secure NDAs from departing staff after complaints.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPMG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-028",
       "headline": "Banco Macro S.A. Reports Relevant Event Regarding Share Acquisition",
       "headline_en": null,
@@ -1424,6 +1566,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-038",
+      "headline": "US military fires on ship attempting to breach Iran blockade",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/us-military-fires-ship-attempting-breach-iran-blockade",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:44:39Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "US military engagement with a ship attempting to breach an Iran blockade represents a significant geopolitical escalation in a critical maritime region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "US military engagement with a ship attempting to breach an Iran blockade represents a significant geopolitical escalation in a critical maritime region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -306971,7 +307156,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5401,
+    "inbox_unconsumed": 5405,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -306980,9 +307165,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 161,
-    "news_picked_today": 34,
-    "news_dropped_today": 127
+    "news_seen_today": 176,
+    "news_picked_today": 38,
+    "news_dropped_today": 138
   },
   "book_momentum": {
     "live_count": 8,
