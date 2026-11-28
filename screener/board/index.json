@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T08:06:59Z",
+  "generated_at": "2026-11-28T08:13:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -776,6 +776,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-193",
+      "headline": "Spain's NxN acquires hosting and services firm Occentus Networks",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/spains-nxn-acquires-hosting-and-services-firm-occentus-networks/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T08:00:29Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Spain's NxN has acquired hosting and services firm Occentus Networks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Spain's NxN has acquired hosting and services firm Occentus Networks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NxN",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Occentus Networks",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,56 +1967,6 @@
       "launched_signal_id": null,
       "triage_score": 86,
       "triage_reason": "Indian regulators found unsafe bacteria in Bisleri bottled water samples amid an industry-wide crackdown.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bisleri International",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-127",
-      "headline": "Bisleri tests unsafe again as FSSAI finds coliform bacteria in new water sample",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/bisleri-tests-unsafe-again-as-fssai-finds-coliform-bacteria-in-new-water-sample/article71753725.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T06:28:58Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "FSSAI found unsafe coliform bacteria in new water samples from Bisleri during a regulatory crackdown.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "FSSAI found unsafe coliform bacteria in new water samples from Bisleri during a regulatory crackdown.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -307756,9 +307760,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1947,
-    "news_picked_today": 236,
-    "news_dropped_today": 1039
+    "news_seen_today": 2009,
+    "news_picked_today": 240,
+    "news_dropped_today": 1073
   },
   "book_momentum": {
     "live_count": 8,
