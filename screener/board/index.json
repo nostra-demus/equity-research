@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T11:42:08Z",
+  "generated_at": "2026-11-28T11:47:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -139,6 +139,55 @@
         {
           "name": "BPCL",
           "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-232",
+      "headline": "BPCL Shares In Focus As OMC Bets Rs 1.27 Lakh Crore On Andhra Pradesh Refinery",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/bpcl-shares-in-focus-as-omc-bets-rs-1-27-lakh-crore-on-andhra-pradesh-refinery-12388849#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T11:16:34Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "BPCL announced a major capital expenditure of Rs 1.27 lakh crore for a new refinery in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL announced a major capital expenditure of Rs 1.27 lakh crore for a new refinery in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum Corporation Ltd",
+          "ticker": "BPCL",
           "listing_country": "IN"
         }
       ],
@@ -1926,60 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-112",
-      "headline": "More airlines, more choice? Adani seeks govt nod to invest in aviation, challenge Air India-IndiGo duopoly",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/more-airlines-more-choice-adani-seeks-govt-nod-to-invest-in-aviation-challenge-air-india-indigo-duopoly-570051-2026-11-28?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T04:36:27Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Adani Group is seeking government approval to enter the aviation sector, which would disrupt the current duopoly held by Air India and IndiGo.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Adani Group is seeking government approval to enter the aviation sector, which would disrupt the current duopoly held by Air India and IndiGo.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "IndiGo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
