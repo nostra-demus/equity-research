@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T02:09:30Z",
+  "generated_at": "2026-11-28T02:14:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -188,6 +188,60 @@
       "companies": [
         {
           "name": "Citigroup",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-059",
+      "headline": "OpenAI vs Apple: What is the trade secrets dispute, and why are the two tech giants heading for a legal battle?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/openai-vs-apple-what-is-the-trade-secrets-dispute-and-why-are-the-two-tech-giants-heading-for-a-legal-battle-11795830326678.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T02:09:29Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "A potential legal dispute over trade secrets between two major tech companies could impact intellectual property and competitive positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "A potential legal dispute over trade secrets between two major tech companies could impact intellectual property and competitive positioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "OpenAI",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1468,6 +1522,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-060",
+      "headline": "Bombay High Court allows Tata Sons meet, says outcome subject to final orders",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/bombay-high-court-allows-tata-sons-meet-says-outcome-subject-to-final-orders-101795830765431.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:58:58Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "A court ruling regarding a Tata Sons meeting outcome is a procedural development in a high-profile corporate governance matter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "A court ruling regarding a Tata Sons meeting outcome is a procedural development in a high-profile corporate governance matter.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-028",
       "headline": "Banco Macro S.A. Reports Relevant Event Regarding Share Acquisition",
       "headline_en": null,
@@ -1839,104 +1942,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-053",
-      "headline": "Etihad launches Maldives travel partnership allowing passengers to redeem miles on island flights",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/etihad-launches-maldives-travel-partnership-allowing-passengers-to-redeem-miles-on-island-flights",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:30:37Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Etihad Airways is expanding its loyalty program utility through a new partnership, which is a routine commercial development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Etihad Airways is expanding its loyalty program utility through a new partnership, which is a routine commercial development.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Etihad Airways",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-048",
-      "headline": "Abu Dhabi real estate: Aldar generates $245m in Yas Island property sales as expats and overseas buyers drive demand",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/real-estate/abu-dhabi-real-estate-aldar-generates-245m-in-yas-island-property-sales-as-expats-and-overseas-buyers-drive-demand",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:20:02Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Aldar reports $245m in Yas Island property sales driven by expat and overseas buyer demand; reporting period unspecified, routine development-phase revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Aldar reports $245m in Yas Island property sales driven by expat and overseas buyer demand; reporting period unspecified, routine development-phase revenue.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aldar",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307200,9 +307205,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 294,
-    "news_picked_today": 59,
-    "news_dropped_today": 221
+    "news_seen_today": 300,
+    "news_picked_today": 61,
+    "news_dropped_today": 225
   },
   "book_momentum": {
     "live_count": 8,
