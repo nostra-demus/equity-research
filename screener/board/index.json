@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-11-28T08:02:01Z",
+  "generated_at": "2026-11-28T08:06:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261128-172",
+      "headline": "Application for Final Commitment for a Long-Term Loan or Financial Guarantee in Excess of $100 million: AP300089XX",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/11/30/2026-24207/application-for-final-commitment-for-a-long-term-loan-or-financial-guarantee-in-excess-of-100",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-30T05:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The Export-Import Bank of the United States is processing a long-term loan guarantee exceeding $100 million, indicating significant project financing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Export-Import Bank of the United States is processing a long-term loan guarantee exceeding $100 million, indicating significant project financing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261128-017",
       "headline": "Press Release: First-Citizens Bank & Trust Company, Raleigh, North Carolina Assumes Substantially All Deposits and Purchases Substantially All Assets of United Fidelity Bank, fsb, Evansville, Indiana",
@@ -540,6 +583,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-181",
+      "headline": "Global Blood Therapeutics; Withdrawal of Approval of New Drug Application for OXBRYTA (Voxelotor) Tablets, 300 Milligrams and 500 Milligrams and OXBRYTA (Voxelotor) Tablet, for Suspension, 300 Milligrams",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/11/30/2026-24166/global-blood-therapeutics-withdrawal-of-approval-of-new-drug-application-for-oxbryta-voxelotor",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-30T05:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "FDA formalizes withdrawal of approval for Global Blood Therapeutics' drug OXBRYTA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "FDA formalizes withdrawal of approval for Global Blood Therapeutics' drug OXBRYTA.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global Blood Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-136",
       "headline": "Certain Mobile Electronic Devices; Notice of the Commission's Final Determination Finding a Violation of Section 337; Issuance of a Limited Exclusion Order and a Cease and Desist Order; Termination of the Investigation",
       "headline_en": null,
@@ -575,6 +668,50 @@
       "event_types": [
         "regulatory",
         "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-142",
+      "headline": "Self-Regulatory Organizations; Fixed Income Clearing Corporation; Order Approving a Proposed Rule Change, as Modified by Partial Amendment No. 1, To Modify the GSD Rules To Adopt a U.S. Treasury Clearing Trade Submission Requirement",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/11/30/2026-24299/self-regulatory-organizations-fixed-income-clearing-corporation-order-approving-a-proposed-rule",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-30T05:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Approval of a rule change requiring U.S. Treasury clearing trade submission, a significant structural shift for fixed income markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Approval of a rule change requiring U.S. Treasury clearing trade submission, a significant structural shift for fixed income markets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -639,6 +776,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-190",
+      "headline": "Tata Sons vs Tata Trusts: Caveats filed in Bombay HC, Supreme Court ahead of crucial November 30 board meeting",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/tata-sons-vs-tata-trusts-caveats-filed-in-bombay-hc-supreme-court-ahead-of-crucial-november-30-board-meeting-570058-2026-11-28?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T07:24:11Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Caveats were filed in the Bombay High Court and Supreme Court amidst legal and governance friction between Tata Sons and Tata Trusts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Caveats were filed in the Bombay High Court and Supreme Court amidst legal and governance friction between Tata Sons and Tata Trusts.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "ownership_activist",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1260,6 +1447,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-188",
+      "headline": "Technosport targets ₹1,000 crore revenue in FY27, plans 130 exclusive stores",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/technosport-targets-1000-crore-revenue-in-fy27-plans-130-exclusive-stores/article71750799.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T07:31:37Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Technosport announced a target of ₹1,000 crore in revenue by FY27 along with plans to expand by opening 130 exclusive stores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Technosport announced a target of ₹1,000 crore in revenue by FY27 along with plans to expand by opening 130 exclusive stores.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Technosport",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-187",
+      "headline": "Karnataka govt issues show-cause notice to Indian Oil: What ethanol measurement discrepancies did it find?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/karnataka-govt-issues-show-cause-notice-to-indian-oil-what-ethanol-measurement-discrepancies-did-it-find-11795849950575.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T07:25:21Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Karnataka government issued a show-cause notice to Indian Oil Corporation regarding ethanol measurement discrepancies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Karnataka government issued a show-cause notice to Indian Oil Corporation regarding ethanol measurement discrepancies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Oil Corporation",
+          "ticker": "IOC",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-139",
       "headline": "FSSAI sanctions prosecution against Bisleri over bacteria-positive sample",
       "headline_en": null,
@@ -1704,295 +1991,6 @@
           "name": "Bisleri International",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-100",
-      "headline": "KEC International bags new orders worth ₹1,400 crore in T&D and cable segments",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/kec-international-share-price-bags-new-orders-worth-rupees-1400-crore-in-transmission-distribution-transportation-cables-segments-20043479.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T04:13:31Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "KEC International has secured new orders worth ₹1,400 crore in the T&D and cable segments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "KEC International has secured new orders worth ₹1,400 crore in the T&D and cable segments.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KEC International",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-058",
-      "headline": "Bisleri In Trouble Again: West Bengal Water Sample Tests Positive For Coliform Bacteria",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/bisleri-in-trouble-again-west-bengal-water-sample-tests-positive-coliform-bacteria-12387297#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:59:46Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Bisleri faces regulatory scrutiny and potential reputational damage following a failed water quality test in West Bengal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Bisleri faces regulatory scrutiny and potential reputational damage following a failed water quality test in West Bengal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bisleri International",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-071",
-      "headline": "Internet Post Office hacked; personal data of at least 113,000 customers leaked",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261128001400315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T02:38:35Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "A data breach at the Internet Post Office involving 113,000 customers represents a significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A data breach at the Internet Post Office involving 113,000 customers represents a significant operational and reputational risk.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-068",
-      "headline": "Mountain Province Diamonds Inc. Q3 Loss Rises",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/mountain-province-diamonds-inc-q3-loss-rises",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T02:31:04Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Mountain Province Diamonds reported an increase in Q3 losses, indicating deteriorating financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Mountain Province Diamonds reported an increase in Q3 losses, indicating deteriorating financial performance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mountain Province Diamonds Inc.",
-          "ticker": "MPVD",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-062",
-      "headline": "Korea Post confirms data breach affecting at least 113,000 customers",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10952405",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T02:13:20Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Korea Post confirmed a data breach affecting at least 113,000 customers, creating operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Korea Post confirmed a data breach affecting at least 113,000 customers, creating operational and reputational risk.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Post",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-078",
-      "headline": "Opera's 2027 Outlook: AI-Driven Browser Ecosystem Maintains Rapid Growth",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/operas-2027-outlook-ai-driven-browser-ecosystem-maintains-rapid-growth",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T02:40:14Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Opera issued a positive 2027 outlook based on AI-driven growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Opera issued a positive 2027 outlook based on AI-driven growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Opera Limited",
-          "ticker": "OPRA",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -307758,9 +307756,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1773,
-    "news_picked_today": 183,
-    "news_dropped_today": 918
+    "news_seen_today": 1947,
+    "news_picked_today": 236,
+    "news_dropped_today": 1039
   },
   "book_momentum": {
     "live_count": 8,
