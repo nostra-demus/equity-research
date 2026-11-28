@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T13:00:41Z",
+  "generated_at": "2026-11-28T13:06:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -1166,6 +1166,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-249",
+      "headline": "FCC approves Elon Musk’s 1-million-satellite 'Starmind' orbital data center plan",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/space/fcc-approves-elon-musks-1-million-satellite-starmind-orbital-data-center-plan-first-747-sized-compute-unit-due-by-2033-despite-kessler-syndrome-fears",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "SpaceX received FCC approval for a significant orbital data center project involving 1 million satellites.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "SpaceX received FCC approval for a significant orbital data center project involving 1 million satellites.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-136",
       "headline": "Certain Mobile Electronic Devices; Notice of the Commission's Final Determination Finding a Violation of Section 337; Issuance of a Limited Exclusion Order and a Cease and Desist Order; Termination of the Investigation",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-239",
-      "headline": "Energie: Uniper könnte mit bis zu 16 Milliarden Euro bewertet werden",
-      "headline_en": "Energy: Uniper could be valued at up to 16 billion euros",
-      "url": "https://www.handelsblatt.com/unternehmen/energie/energie-uniper-koennte-mit-bis-zu-16-milliarden-euro-bewertet-werden/100273352.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T12:32:36Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Uniper could be valued at up to 16 billion euros, indicating potential market interest or valuation benchmarks for the energy firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Uniper could be valued at up to 16 billion euros, indicating potential market interest or valuation benchmarks for the energy firm.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uniper",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307873,9 +307873,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5577,
-    "news_picked_today": 379,
-    "news_dropped_today": 2308
+    "news_seen_today": 5605,
+    "news_picked_today": 383,
+    "news_dropped_today": 2332
   },
   "book_momentum": {
     "live_count": 8,
