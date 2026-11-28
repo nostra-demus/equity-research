@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T05:44:38Z",
+  "generated_at": "2026-11-28T05:49:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -1808,6 +1808,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-124",
+      "headline": "India-Based ACG Capsules To Move Production To US After Trump Trade Crackdown",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/economy/india-based-acg-capsules-to-move-production-to-u-s-after-trump-trade-crackdown-12387812#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T05:34:57Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "ACG Capsules is shifting production to the US to mitigate risks associated with potential trade crackdowns, indicating increased operational costs and supply chain restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "ACG Capsules is shifting production to the US to mitigate risks associated with potential trade crackdowns, indicating increased operational costs and supply chain restructuring.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ACG Capsules",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-003",
       "headline": "Trans Mountain to Ship Fully Loaded Tankers by Summer, CEO Says",
       "headline_en": null,
@@ -1943,50 +1992,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-089",
-      "headline": "Ethanol policy reset: What does the shift in feedstock priorities mean for sugar mills and farmers?",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/agri-business/ethanol-policy-reset-what-does-the-shift-in-feedstock-priorities-mean-for-sugar-mills-and-farmers/article71751156.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T03:39:38Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "A shift in ethanol feedstock priorities directly impacts the revenue and operational margins of sugar mills in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A shift in ethanol feedstock priorities directly impacts the revenue and operational margins of sugar mills in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -307679,9 +307684,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 744,
-    "news_picked_today": 141,
-    "news_dropped_today": 589
+    "news_seen_today": 763,
+    "news_picked_today": 145,
+    "news_dropped_today": 604
   },
   "book_momentum": {
     "live_count": 8,
