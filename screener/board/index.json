@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T08:32:28Z",
+  "generated_at": "2026-11-28T08:41:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -1130,6 +1130,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-205",
+      "headline": "Walmart's Chris Nicholas likely to visit India on 30 November as Flipkart's Krishnamurthy steps down | What we know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/walmarts-chris-nicholas-likely-to-visit-india-on-30-november-as-flipkarts-krishnamurthy-steps-down-what-we-know-11795853815607.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T08:25:07Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Flipkart CEO Kalyan Krishnamurthy is stepping down, representing a significant leadership change for the major Indian e-commerce entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Flipkart CEO Kalyan Krishnamurthy is stepping down, representing a significant leadership change for the major Indian e-commerce entity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flipkart",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-196",
       "headline": "Compass boss loses his bearings in letter to Chancellor as firm plans to move main share listing to New York, says ALEX BRUMMER",
       "headline_en": null,
@@ -1946,55 +1995,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-114",
-      "headline": "La succession: France’s wealthiest family said to be battling over who will take over LVMH",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/nov/28/french-succession-bernard-arnault-lvmh",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T05:00:30Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Reports of internal succession disputes within the controlling family of LVMH could impact long-term governance and strategic stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Reports of internal succession disputes within the controlling family of LVMH could impact long-term governance and strategic stability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LVMH",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -268080,79 +268080,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e92c01041db0",
-      "idea_version": "IDEAV-078f81c713db72ee",
-      "idea_version_started_at": "2026-11-26T21:18:44Z",
-      "ticker": "2222",
-      "company": "Saudi Aramco",
-      "exchange": "Tadawul",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Operations at Saudi Aramco's Jazan refinery have been halted following an attack, which will disrupt its production and potentially impact revenue.",
-      "why_now": "The attack on the Jazan refinery and the subsequent halt in operations is a live event reported on November 26, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-55dee4dab961",
-        "EVT-23a53afabd7f"
-      ],
-      "primary_source_event_id": "EVT-55dee4dab961",
-      "source_headlines": [
-        "Saudi Arabia says operations at refinery in Jazan halted after attack",
-        "Attack on Saudi’s Jazan refinery kills one person, disrupts operations"
-      ],
-      "source_headline": "Saudi Arabia says operations at refinery in Jazan halted after attack",
-      "source_url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-arabia-says-operations-refinery-jazan-halted-after-attack",
-      "source_name": "Middle East Eye",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T20:34:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T21:18:44Z",
-      "updated_at": "2026-11-26T21:18:44Z",
-      "decay_at": "2026-11-28T08:34:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aec8b5beea0b",
       "idea_version": "IDEAV-767971dba7c28d24",
       "idea_version_started_at": "2026-11-27T06:36:29Z",
@@ -270087,6 +270014,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e92c01041db0",
+      "idea_version": "IDEAV-078f81c713db72ee",
+      "idea_version_started_at": "2026-11-26T21:18:44Z",
+      "ticker": "2222",
+      "company": "Saudi Aramco",
+      "exchange": "Tadawul",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Operations at Saudi Aramco's Jazan refinery have been halted following an attack, which will disrupt its production and potentially impact revenue.",
+      "why_now": "The attack on the Jazan refinery and the subsequent halt in operations is a live event reported on November 26, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-55dee4dab961",
+        "EVT-23a53afabd7f"
+      ],
+      "primary_source_event_id": "EVT-55dee4dab961",
+      "source_headlines": [
+        "Saudi Arabia says operations at refinery in Jazan halted after attack",
+        "Attack on Saudi’s Jazan refinery kills one person, disrupts operations"
+      ],
+      "source_headline": "Saudi Arabia says operations at refinery in Jazan halted after attack",
+      "source_url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-arabia-says-operations-refinery-jazan-halted-after-attack",
+      "source_name": "Middle East Eye",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T20:34:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T21:18:44Z",
+      "updated_at": "2026-11-26T21:18:44Z",
+      "decay_at": "2026-11-28T08:34:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-671ed28cb051",
       "idea_version": "IDEAV-6ad2742c86d7c890",
       "idea_version_started_at": "2026-11-26T20:38:38Z",
@@ -270533,9 +270533,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 511,
+    "total_count": 512,
     "shown_count": 499,
-    "hidden_count": 12,
+    "hidden_count": 13,
     "side_counts": {
       "long": {
         "total_count": 253,
@@ -270543,9 +270543,9 @@
         "hidden_count": 3
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -270564,6 +270564,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e92c01041db0",
+        "idea_version": "IDEAV-078f81c713db72ee",
+        "idea_version_started_at": "2026-11-26T21:18:44Z",
+        "ticker": "2222",
+        "company": "Saudi Aramco",
+        "exchange": "Tadawul",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Operations at Saudi Aramco's Jazan refinery have been halted following an attack, which will disrupt its production and potentially impact revenue.",
+        "why_now": "The attack on the Jazan refinery and the subsequent halt in operations is a live event reported on November 26, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-55dee4dab961",
+          "EVT-23a53afabd7f"
+        ],
+        "primary_source_event_id": "EVT-55dee4dab961",
+        "source_headlines": [
+          "Saudi Arabia says operations at refinery in Jazan halted after attack",
+          "Attack on Saudi’s Jazan refinery kills one person, disrupts operations"
+        ],
+        "source_headline": "Saudi Arabia says operations at refinery in Jazan halted after attack",
+        "source_url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-arabia-says-operations-refinery-jazan-halted-after-attack",
+        "source_name": "Middle East Eye",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T20:34:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T21:18:44Z",
+        "updated_at": "2026-11-26T21:18:44Z",
+        "decay_at": "2026-11-28T08:34:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T08:34:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-671ed28cb051",
         "idea_version": "IDEAV-6ad2742c86d7c890",
@@ -307587,88 +307663,12 @@
         "archived_at": "2026-11-05T06:02:09Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ae11504817ba",
-        "idea_version": "IDEAV-89565329d8e38640",
-        "idea_version_started_at": "2026-11-02T04:24:27Z",
-        "ticker": "JAL",
-        "company": "Japan Airlines",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Japan Airlines reported a 42.2% drop in its net profit for the April-September period.",
-        "why_now": "The earnings report was released today, providing a current catalyst for the stock's performance.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d1b6456ad044"
-        ],
-        "primary_source_event_id": "EVT-d1b6456ad044",
-        "source_headlines": [
-          "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
-        ],
-        "source_headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
-        "source_url": "https://english.kyodonews.net/articles/-/90110",
-        "source_name": "Kyodo News (Japan Wire)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T03:08:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T04:24:27Z",
-        "updated_at": "2026-11-02T04:24:27Z",
-        "decay_at": "2026-11-03T15:08:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2743,
-    "live_count": 60,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
