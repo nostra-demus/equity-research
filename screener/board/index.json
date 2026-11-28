@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T11:10:56Z",
+  "generated_at": "2026-11-28T11:27:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -961,6 +961,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-225",
+      "headline": "OpenAI Countersues Apple Over Alleged Trade Secret Theft As AI Hardware Rivalry Intensifies",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/openai-countersues-apple-over-alleged-trade-secret-theft-as-ai-hardware-rivalry-intensifies",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T10:26:01Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "OpenAI files countersuit against Apple alleging trade-secret theft in AI hardware; raises legal liability and competitive-strategy risk for Apple.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "OpenAI files countersuit against Apple alleging trade-secret theft in AI hardware; raises legal liability and competitive-strategy risk for Apple.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-213",
       "headline": "Delhi High Court sets aside stay on NHAI's 3-year debarment of PNC Infratech",
       "headline_en": null,
@@ -1065,6 +1119,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-222",
+      "headline": "US shuts United Fidelity Bank, marks biggest lender failure in over 2 years",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/us-shuts-united-fidelity-bank-marks-biggest-lender-failure-in-over-2-years/articleshow/136244271.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T10:45:43Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "US bank failure (United Fidelity Bank), largest in over 2 years, signals financial-sector distress and increased insolvency risk to peers and depositors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "US bank failure (United Fidelity Bank), largest in over 2 years, signals financial-sector distress and increased insolvency risk to peers and depositors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Fidelity Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1877,110 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-097",
-      "headline": "Fresh trouble for Bisleri: Another water quality issue, lab test confirms bacteria; FSSAI moves to prosecution",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/fresh-trouble-for-bisleri-another-water-quality-issue-lab-test-confirms-bacteria-fssai-moves-to-prosecution-11795838279373.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T04:04:07Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Bisleri faces prosecution by FSSAI following water quality issues and bacterial contamination findings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Bisleri faces prosecution by FSSAI following water quality issues and bacterial contamination findings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bisleri",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-059",
-      "headline": "OpenAI vs Apple: What is the trade secrets dispute, and why are the two tech giants heading for a legal battle?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/openai-vs-apple-what-is-the-trade-secrets-dispute-and-why-are-the-two-tech-giants-heading-for-a-legal-battle-11795830326678.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T02:09:29Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "A potential legal dispute over trade secrets between two major tech companies could impact intellectual property and competitive positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A potential legal dispute over trade secrets between two major tech companies could impact intellectual property and competitive positioning.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307893,9 +307892,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3048,
-    "news_picked_today": 317,
-    "news_dropped_today": 1843
+    "news_seen_today": 3151,
+    "news_picked_today": 322,
+    "news_dropped_today": 1869
   },
   "book_momentum": {
     "live_count": 8,
