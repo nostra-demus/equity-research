@@ -3807,6 +3807,8 @@ if scope=="selftest":
         (BQ_DATE,[_bq(dict(_bq_rep,basis=None))],["settles_on.basis is None"]),
         (BQ_DATE,[_bq(dict(_bq_rep,document="Capital IQ financials export"))],["settles_on.document names a data vendor"]),
         (BQ_DATE,[_bq(dict(_bq_der,definition="Strict net debt to EBITDA as the engine defines it"))],["settles_on.basis is 'derived' but settles_on.definition carries no formula"]),
+        (BQ_DATE,[_bq(dict(_bq_der,definition="Revenue less cost of sales, both as captioned in the income statement"))],[]),   # 'less' is a formula word
+        (BQ_DATE,[_bq(dict(_bq_der,definition="A margin of less than the prior year, as management frames it"))],["settles_on.definition carries no formula"]),  # 'less than' is not
         (BQ_DATE,[_bq(dict(_bq_ven,document="Q3 FY2026 Form 10-Q")),_bq(_bq_rep,"F2")],["forecast_ledger[0] (F1) settles_on.basis is 'vendor' but settles_on.document names no data vendor"]),
         (BQ_DATE,[_bq(_bq_der,cb="LTM Jun-2026 SG&A ratio 20.50%, FY2025 19.87% (Capital IQ)")],["comparable_basis takes its figure from a data vendor and names no filing"]),  # the UBER_2026-08-06 shape
         (BQ_DATE,[_bq(_bq_der,cb="Q3 FY2025 18.27% [Q3 FY2025 10-Q]; the Capital IQ field shows 19.9% on a wider scope")],[]),  # a filing is named: reconciled, not vendor-struck

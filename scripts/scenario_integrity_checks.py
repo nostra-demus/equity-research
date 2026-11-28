@@ -1136,7 +1136,9 @@ _BQ_VENDOR = re.compile(r"\b(?:capital\s?iq|cap\s?iq|ciq|s&p\s+(?:capital|global
                         # when it qualifies a figure
                         r"vendor[\s-](?:derived|computed|basis|figure|field|export|data|definition|"
                         r"consensus|estimate|number))\b", re.I)
-_BQ_FORMULA = re.compile(r"[/÷×*+=−]|\s-\s|\b(?:divided\s+by|minus|plus|sum\s+of|ratio\s+of|"
+# 'less' is a subtraction word ("revenue less cost of sales") but not in "less than"; a missed formula
+# word stamps a correct row PROVISIONAL, so the vocabulary errs wide (Gemini review, PR #834).
+_BQ_FORMULA = re.compile(r"[/÷×*+=−]|\s-\s|\b(?:divided\s+by|minus|less(?!\s+than)|times|plus|sum\s+of|ratio\s+of|"
                          r"multiplied\s+by|net\s+of|as\s+a\s+(?:percentage|share|%)\s+of)\b", re.I)
 
 def eval_bq_forecast_settlement_basis(decision_date, forecast_ledger):
