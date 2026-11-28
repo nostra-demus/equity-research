@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T12:58:24Z",
+  "generated_at": "2026-11-28T13:00:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -1866,6 +1866,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-248",
+      "headline": "OpenAI Countersues Apple, Accusing It of “Coercing and Threatening” Suppliers",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/28/openai-countersues-apple-accusing-it-of-coercing-and-threatening-suppliers/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T12:57:41Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "OpenAI has filed a countersuit against Apple, escalating legal risk and potential operational friction between two major technology entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "OpenAI has filed a countersuit against Apple, escalating legal risk and potential operational friction between two major technology entities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-239",
       "headline": "Energie: Uniper könnte mit bis zu 16 Milliarden Euro bewertet werden",
       "headline_en": "Energy: Uniper could be valued at up to 16 billion euros",
@@ -1910,55 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-220",
-      "headline": "Capri Global Capital to invest ₹200 crore in housing finance arm through rights issue",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/capri-global-capital-share-price-to-invest-rs-200-crore-in-housing-finance-arm-through-rights-issue-20043619.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T10:56:25Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Capri Global Capital is injecting ₹200 crore into its housing finance subsidiary via a rights issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Capri Global Capital is injecting ₹200 crore into its housing finance subsidiary via a rights issue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capri Global Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307868,9 +307873,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5560,
-    "news_picked_today": 375,
-    "news_dropped_today": 2295
+    "news_seen_today": 5577,
+    "news_picked_today": 379,
+    "news_dropped_today": 2308
   },
   "book_momentum": {
     "live_count": 8,
