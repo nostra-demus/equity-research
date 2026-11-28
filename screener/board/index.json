@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T06:33:07Z",
+  "generated_at": "2026-11-28T06:37:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -1378,6 +1378,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-128",
+      "headline": "India finds unsafe Bisleri sample due to bacteria amid bottled water crackdown",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/asia/south-asia/article/3376119/india-finds-unsafe-bisleri-sample-due-bacteria-amid-bottled-water-crackdown",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T06:30:21Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Indian regulators found unsafe bacteria in Bisleri bottled water samples amid an industry-wide crackdown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Indian regulators found unsafe bacteria in Bisleri bottled water samples amid an industry-wide crackdown.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri International",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-127",
+      "headline": "Bisleri tests unsafe again as FSSAI finds coliform bacteria in new water sample",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/bisleri-tests-unsafe-again-as-fssai-finds-coliform-bacteria-in-new-water-sample/article71753725.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T06:28:58Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "FSSAI found unsafe coliform bacteria in new water samples from Bisleri during a regulatory crackdown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "FSSAI found unsafe coliform bacteria in new water samples from Bisleri during a regulatory crackdown.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri International",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-100",
       "headline": "KEC International bags new orders worth ₹1,400 crore in T&D and cable segments",
       "headline_en": null,
@@ -1901,104 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-003",
-      "headline": "Trans Mountain to Ship Fully Loaded Tankers by Summer, CEO Says",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-27/trans-mountain-to-ship-fully-loaded-tankers-by-summer-ceo-says",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T23:51:19Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Trans Mountain expects to begin shipping fully loaded tankers by summer, indicating progress on a major infrastructure project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Trans Mountain expects to begin shipping fully loaded tankers by summer, indicating progress on a major infrastructure project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trans Mountain",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-050",
-      "headline": "Lupin Launches Generic Sitagliptin Tablets In U.S. After FDA Approval",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/lupin-launches-generic-sitagliptin-tablets-us-after-fda-approval",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:20:25Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Lupin launched a generic version of Sitagliptin in the US following FDA approval, expanding its product portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Lupin launched a generic version of Sitagliptin in the US following FDA approval, expanding its product portfolio.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lupin",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307761,9 +307763,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 864,
-    "news_picked_today": 158,
-    "news_dropped_today": 692
+    "news_seen_today": 931,
+    "news_picked_today": 160,
+    "news_dropped_today": 757
   },
   "book_momentum": {
     "live_count": 8,
