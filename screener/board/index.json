@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T02:14:27Z",
+  "generated_at": "2026-11-28T02:15:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -268970,6 +268970,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-24495f8f7491",
+      "idea_version": "IDEAV-bb2b0d3de51f3984",
+      "idea_version_started_at": "2026-11-28T02:14:44Z",
+      "ticker": "SGBX",
+      "company": "Safe & Green Holdings Corp.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is conducting unregistered sales of common stock, which typically signals immediate shareholder dilution and downward pressure on the share price.",
+      "why_now": "The announcement was made on 2026-11-28, making the dilution impact immediate.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 44,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-37a982719f73"
+      ],
+      "primary_source_event_id": "EVT-37a982719f73",
+      "source_headlines": [
+        "Safe & Green Holdings Corp. Reports Unregistered Sales of Common Stock"
+      ],
+      "source_headline": "Safe & Green Holdings Corp. Reports Unregistered Sales of Common Stock",
+      "source_url": "https://www.nasdaq.com/articles/safe-green-holdings-corp-reports-unregistered-sales-common-stock",
+      "source_name": "Nasdaq",
+      "materiality_max": 60,
+      "newest_source_at": "2026-11-28T00:38:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T02:14:44Z",
+      "updated_at": "2026-11-28T02:14:44Z",
+      "decay_at": "2026-11-29T12:38:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3db6def89171",
       "idea_version": "IDEAV-7bda882e6340338c",
       "idea_version_started_at": "2026-11-27T00:49:33Z",
@@ -269247,76 +269319,6 @@
       "surfaced_at": "2026-11-26T11:29:32Z",
       "updated_at": "2026-11-26T11:29:32Z",
       "decay_at": "2026-11-27T09:01:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-70d5716d01ea",
-      "idea_version": "IDEAV-4712795420ffdce1",
-      "idea_version_started_at": "2026-11-25T05:25:03Z",
-      "ticker": "GDRX",
-      "company": "GoodRx Holdings",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is restating prior financial periods, which introduces significant uncertainty regarding historical earnings quality and potential regulatory scrutiny.",
-      "why_now": "The restatement announcement occurred on 2026-11-25, creating immediate downside risk to the valuation multiple.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-98d020a5f21b"
-      ],
-      "primary_source_event_id": "EVT-98d020a5f21b",
-      "source_headlines": [
-        "GoodRx Holdings, Inc. Reports Third Quarter 2026 Results, Restates Prior Periods, and Expects to Regain Nasdaq Compliance"
-      ],
-      "source_headline": "GoodRx Holdings, Inc. Reports Third Quarter 2026 Results, Restates Prior Periods, and Expects to Regain Nasdaq Compliance",
-      "source_url": "https://www.nasdaq.com/articles/goodrx-holdings-inc-reports-third-quarter-2026-results-restates-prior-periods-and-expects",
-      "source_name": "Nasdaq",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-25T02:08:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T05:25:03Z",
-      "updated_at": "2026-11-25T05:25:03Z",
-      "decay_at": "2026-11-26T14:08:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -270051,9 +270053,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 513,
+    "total_count": 512,
     "shown_count": 499,
-    "hidden_count": 14,
+    "hidden_count": 13,
     "side_counts": {
       "long": {
         "total_count": 253,
@@ -270061,23 +270063,23 @@
         "hidden_count": 3
       },
       "short": {
-        "total_count": 261,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 10
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2168,
-      "oldest_retained_at": "2026-11-02T20:27:30Z",
+      "evicted_count": 2169,
+      "oldest_retained_at": "2026-11-02T21:31:10Z",
       "side_counts": {
         "long": {
           "evicted_count": 1385,
           "oldest_retained_at": "2026-11-08T01:21:18Z"
         },
         "short": {
-          "evicted_count": 785,
-          "oldest_retained_at": "2026-11-02T20:27:30Z"
+          "evicted_count": 786,
+          "oldest_retained_at": "2026-11-02T21:31:10Z"
         }
       }
     },
@@ -271118,8 +271120,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T14:08:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-28T02:14:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -307185,8 +307187,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2734,
-    "live_count": 52,
+    "surfaced_total": 2735,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
