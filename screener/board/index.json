@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T04:05:18Z",
+  "generated_at": "2026-11-28T04:10:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -509,6 +509,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-097",
+      "headline": "Fresh trouble for Bisleri: Another water quality issue, lab test confirms bacteria; FSSAI moves to prosecution",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/fresh-trouble-for-bisleri-another-water-quality-issue-lab-test-confirms-bacteria-fssai-moves-to-prosecution-11795838279373.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:04:07Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Bisleri faces prosecution by FSSAI following water quality issues and bacterial contamination findings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Bisleri faces prosecution by FSSAI following water quality issues and bacterial contamination findings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,60 +1962,6 @@
         {
           "name": "Brookfield Renewable Corporation",
           "ticker": "BEPC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-020",
-      "headline": "First Citizens Bank Enters into Whole Bank Purchase of United Fidelity Bank, fsb",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/first-citizens-bank-enters-into-whole-bank-purchase-of-united-fidelity-bank-fsb-302951956.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-28T00:40:00Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "First Citizens Bank is acquiring United Fidelity Bank in a whole bank purchase agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "First Citizens Bank is acquiring United Fidelity Bank in a whole bank purchase agreement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Citizens BancShares, Inc.",
-          "ticker": "FCNCA",
-          "listing_country": "US"
-        },
-        {
-          "name": "United Fidelity Bank, fsb",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -307515,9 +307511,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 458,
-    "news_picked_today": 99,
-    "news_dropped_today": 345
+    "news_seen_today": 478,
+    "news_picked_today": 105,
+    "news_dropped_today": 359
   },
   "book_momentum": {
     "live_count": 8,
