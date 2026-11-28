@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T00:54:30Z",
+  "generated_at": "2026-11-28T01:04:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -150,6 +150,110 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-027",
+      "headline": "Sentinel Holdings Ltd. Announces Termination of Gladiator Solutions, Inc. Stock for Stock Acquisition and Settlement of Litigation",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sentinel-holdings-ltd-announces-termination-gladiator-solutions-inc-stock-stock",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:28:49Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Sentinel Holdings terminated a previously announced acquisition of Gladiator Solutions, Inc. and settled related litigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Sentinel Holdings terminated a previously announced acquisition of Gladiator Solutions, Inc. and settled related litigation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sentinel Holdings Ltd.",
+          "ticker": "SNTL",
+          "listing_country": "US"
+        },
+        {
+          "name": "Gladiator Solutions, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-032",
+      "headline": "Gulf Resources, Inc. Enters Into Asset Purchase Agreement for Bromine and Crude Salt Assets",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/gulf-resources-inc-enters-asset-purchase-agreement-bromine-and-crude-salt-assets",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:18:50Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Gulf Resources entered into an asset purchase agreement for bromine and crude salt assets, expanding its operational capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Gulf Resources entered into an asset purchase agreement for bromine and crude salt assets, expanding its operational capacity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gulf Resources, Inc.",
+          "ticker": "GURE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -498,6 +602,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-030",
+      "headline": "HeartSciences Inc. Enters Into Debt Exchange Agreement in Connection With Proposed Transaction",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/heartsciences-inc-enters-debt-exchange-agreement-connection-proposed-transaction",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:38:39Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "HeartSciences entered into a debt exchange agreement, signaling a restructuring of its existing debt obligations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "HeartSciences entered into a debt exchange agreement, signaling a restructuring of its existing debt obligations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HeartSciences Inc.",
+          "ticker": "HSCS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-023",
       "headline": "Infobird Co., Ltd Entered into a Securities Purchase Agreement for the Issuance of Convertible Promissory Notes",
       "headline_en": null,
@@ -543,6 +696,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-033",
+      "headline": "Brookfield Renewable Corporation Enters into an Amending Agreement Regarding Arrangement Agreement and Plan of Arrangement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/brookfield-renewable-corporation-enters-amending-agreement-regarding-arrangement-agreement",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:18:41Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Brookfield Renewable Corporation amended an existing arrangement agreement, indicating a change in the terms of a pending transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Brookfield Renewable Corporation amended an existing arrangement agreement, indicating a change in the terms of a pending transaction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield Renewable Corporation",
+          "ticker": "BEPC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -694,6 +896,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-026",
+      "headline": "Icahn Enterprises L.P. Amends Employment Agreements for CEO Ted Papapostolou and CFO Robert Flint, Increasing Base Salaries to $6,500,000 and $2,250,000",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/icahn-enterprises-lp-amends-employment-agreements-ceo-ted-papapostolou-and-cfo-robert",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:38:37Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Icahn Enterprises increased executive base salaries to $6.5M and $2.25M, representing a significant increase in fixed compensation costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Icahn Enterprises increased executive base salaries to $6.5M and $2.25M, representing a significant increase in fixed compensation costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Icahn Enterprises L.P.",
+          "ticker": "IEP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-001",
       "headline": "Suzano S.A. Announces Engagement of Independent Auditor",
       "headline_en": null,
@@ -792,6 +1043,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-028",
+      "headline": "Banco Macro S.A. Reports Relevant Event Regarding Share Acquisition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/banco-macro-sa-reports-relevant-event-regarding-share-acquisition-0",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:28:40Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Banco Macro S.A. disclosed a share acquisition, which may impact capital structure or ownership concentration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Banco Macro S.A. disclosed a share acquisition, which may impact capital structure or ownership concentration.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banco Macro S.A.",
+          "ticker": "BMA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-025",
       "headline": "India Inc tightens third-party vendor checks over data breach liability ahead of DPDP Act deadline",
       "headline_en": null,
@@ -830,6 +1130,153 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-029",
+      "headline": "Safe & Green Holdings Corp. Reports Unregistered Sales of Common Stock",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/safe-green-holdings-corp-reports-unregistered-sales-common-stock",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:38:39Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Safe & Green Holdings reported unregistered sales of common stock, which typically indicates equity dilution for existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Safe & Green Holdings reported unregistered sales of common stock, which typically indicates equity dilution for existing shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Safe & Green Holdings Corp.",
+          "ticker": "SGBX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-031",
+      "headline": "Moleculin Biotech, Inc. Regains Compliance With Nasdaq Bid Price Rule",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/moleculin-biotech-inc-regains-compliance-nasdaq-bid-price-rule",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:18:50Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Moleculin Biotech regained compliance with Nasdaq's minimum bid price rule, avoiding potential delisting risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Moleculin Biotech regained compliance with Nasdaq's minimum bid price rule, avoiding potential delisting risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moleculin Biotech, Inc.",
+          "ticker": "MBRX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-034",
+      "headline": "As convenience stores face pressure, 7-Eleven set to open largest China outlet in Kunming",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/companies/article/3376061/convenience-stores-face-pressure-7-eleven-set-open-largest-china-outlet-kunming",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:00:08Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "7-Eleven is expanding its footprint in China with its largest outlet, signaling a strategic growth effort despite sector pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "7-Eleven is expanding its footprint in China with its largest outlet, signaling a strategic growth effort despite sector pressure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "7-Eleven",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -306524,7 +306971,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5392,
+    "inbox_unconsumed": 5401,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -306533,9 +306980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 137,
-    "news_picked_today": 25,
-    "news_dropped_today": 112
+    "news_seen_today": 161,
+    "news_picked_today": 34,
+    "news_dropped_today": 127
   },
   "book_momentum": {
     "live_count": 8,
