@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T04:50:41Z",
+  "generated_at": "2026-11-28T04:59:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -547,6 +547,114 @@
       "companies": [
         {
           "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-109",
+      "headline": "OpenAI countersues Apple for stealing trade secrets",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/openai-countersues-apple-for-stealing-trade-secrets-20043500.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:54:42Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "OpenAI has filed a countersuit against Apple alleging theft of trade secrets, escalating legal risk for both companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "OpenAI has filed a countersuit against Apple alleging theft of trade secrets, escalating legal risk for both companies.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-112",
+      "headline": "More airlines, more choice? Adani seeks govt nod to invest in aviation, challenge Air India-IndiGo duopoly",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/more-airlines-more-choice-adani-seeks-govt-nod-to-invest-in-aviation-challenge-air-india-indigo-duopoly-570051-2026-11-28?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T04:36:27Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Adani Group is seeking government approval to enter the aviation sector, which would disrupt the current duopoly held by Air India and IndiGo.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Adani Group is seeking government approval to enter the aviation sector, which would disrupt the current duopoly held by Air India and IndiGo.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "IndiGo",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1870,98 +1978,6 @@
         {
           "name": "Avalon GloboCare Corp.",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-035",
-      "headline": "Japan to revise AI law to introduce penalties",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/28/japan/politics/japan-revise-ai-law-penalties/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T23:39:00Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Japan is planning to introduce penalties for AI-related legal violations, increasing compliance risk for the technology sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Japan is planning to introduce penalties for AI-related legal violations, increasing compliance risk for the technology sector.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-075",
-      "headline": "SCHEDULE 13D/A - COMPASS MINERALS INTERNATIONAL INC (0001227654) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1227654/000119312526480531/0001193125-26-480531-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-28T02:58:24Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Amended 13D filing indicates a change in a significant ownership stake in Compass Minerals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Amended 13D filing indicates a change in a significant ownership stake in Compass Minerals.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "COMPASS MINERALS INTERNATIONAL INC",
-          "ticker": "CMP",
           "listing_country": "US"
         }
       ],
