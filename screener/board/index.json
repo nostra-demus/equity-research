@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T02:50:18Z",
+  "generated_at": "2026-11-28T03:00:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -51,6 +51,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-074",
+      "headline": "Norse Atlantic Airways: Another European airline goes bankrupt amid Iran war, rising fuel costs: All you need to know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/norse-atlantic-airways-another-european-airline-goes-bankrupt-amid-iran-war-rising-fuel-costs-all-you-need-to-know-11795833764321.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T02:55:44Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Norse Atlantic Airways has filed for bankruptcy, representing a total loss of equity value for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic Airways has filed for bankruptcy, representing a total loss of equity value for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic Airways",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,55 +1943,6 @@
           "name": "Tata Sons",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-028",
-      "headline": "Banco Macro S.A. Reports Relevant Event Regarding Share Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/banco-macro-sa-reports-relevant-event-regarding-share-acquisition-0",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:28:40Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Banco Macro S.A. disclosed a share acquisition, which may impact capital structure or ownership concentration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Banco Macro S.A. disclosed a share acquisition, which may impact capital structure or ownership concentration.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Banco Macro S.A.",
-          "ticker": "BMA",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -307283,9 +307283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 342,
-    "news_picked_today": 68,
-    "news_dropped_today": 260
+    "news_seen_today": 369,
+    "news_picked_today": 77,
+    "news_dropped_today": 278
   },
   "book_momentum": {
     "live_count": 8,
