@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T03:00:24Z",
+  "generated_at": "2026-11-28T03:00:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -265615,6 +265615,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-1eabb760282930ef",
+      "idea_version_started_at": "2026-11-28T03:00:32Z",
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The escalation of a trade secrets dispute and allegations of anti-competitive pressure on suppliers creates significant legal and regulatory overhang for Apple.",
+      "why_now": "The news cycle regarding the OpenAI dispute has intensified as of 2026-11-28, signaling a move toward formal litigation.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-edf0728c9be9",
+        "EVT-5f1ec73202e7"
+      ],
+      "primary_source_event_id": "EVT-5f1ec73202e7",
+      "source_headlines": [
+        "OpenAI vs Apple: What is the trade secrets dispute, and why are the two tech giants heading for a legal battle?",
+        "OpenAI says Apple pressured suppliers to shun its devices"
+      ],
+      "source_headline": "OpenAI vs Apple: What is the trade secrets dispute, and why are the two tech giants heading for a legal battle?",
+      "source_url": "https://www.livemint.com/companies/news/openai-vs-apple-what-is-the-trade-secrets-dispute-and-why-are-the-two-tech-giants-heading-for-a-legal-battle-11795830326678.html",
+      "source_name": "Mint",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-28T02:09:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T03:00:32Z",
+      "updated_at": "2026-11-28T03:00:32Z",
+      "decay_at": "2026-11-29T14:09:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1d0bde7005f1",
       "idea_version": "IDEAV-60891f198a1bd8e2",
       "idea_version_started_at": "2026-11-28T00:51:27Z",
@@ -307263,8 +307334,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2736,
-    "live_count": 54,
+    "surfaced_total": 2737,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
