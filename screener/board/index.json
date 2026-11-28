@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T10:21:30Z",
+  "generated_at": "2026-11-28T10:30:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -1027,6 +1027,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-216",
+      "headline": "Norway’s Wealth Fund Again Votes No to Musk’s Tesla Pay Package",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-28/norway-s-wealth-fund-again-votes-no-to-musk-s-tesla-pay-package",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T10:15:53Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "A major sovereign wealth fund voting against the CEO's pay package signals significant governance friction and potential management instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A major sovereign wealth fund voting against the CEO's pay package signals significant governance friction and potential management instability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla, Inc.",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-206",
       "headline": "Adnoc channels Dh307 billion into UAE economy, targets another Dh220 billion over five years",
       "headline_en": null,
@@ -1943,55 +1993,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-012",
-      "headline": "Telus picks up pace on sale of health, agriculture and VC divisions",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-telus-divestiture-plan-health-agriculture-vc-divisions/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:08:49Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Telus is accelerating the divestiture of non-core business units, which is a significant strategic shift for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Telus is accelerating the divestiture of non-core business units, which is a significant strategic shift for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telus",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -267789,149 +267790,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7ab38d2ca2a7",
-      "idea_version": "IDEAV-8ee51c5dd6070861",
-      "idea_version_started_at": "2026-11-26T23:10:21Z",
-      "ticker": "EMR",
-      "company": "Empresaria Group",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY26 profit forecast, signaling stronger-than-expected operational performance and margin expansion.",
-      "why_now": "The guidance upgrade was released on 2026-11-26, providing an immediate catalyst for a valuation re-rating.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-727a42147637"
-      ],
-      "primary_source_event_id": "EVT-727a42147637",
-      "source_headlines": [
-        "Empresaria Raises FY26 Profit Forecast"
-      ],
-      "source_headline": "Empresaria Raises FY26 Profit Forecast",
-      "source_url": "https://www.nasdaq.com/articles/empresaria-raises-fy26-profit-forecast",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T22:28:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T23:10:21Z",
-      "updated_at": "2026-11-26T23:10:21Z",
-      "decay_at": "2026-11-28T10:28:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-26c273375813",
-      "idea_version": "IDEAV-cf378893f860b455",
-      "idea_version_started_at": "2026-11-26T22:38:38Z",
-      "ticker": "G6M",
-      "company": "Group 6 Metals",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Group 6 Metals' early debt repayment of $11.5 million reduces its financial leverage and interest expense, improving its balance sheet health.",
-      "why_now": "The company announced the early debt repayment on November 26, 2026, indicating an immediate positive impact on its financial position.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1d187054f22d"
-      ],
-      "primary_source_event_id": "EVT-1d187054f22d",
-      "source_headlines": [
-        "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]"
-      ],
-      "source_headline": "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.G6M?key=2924-03167643-2A1713348",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T22:23:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T22:38:38Z",
-      "updated_at": "2026-11-26T22:38:38Z",
-      "decay_at": "2026-11-28T10:23:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aec8b5beea0b",
       "idea_version": "IDEAV-767971dba7c28d24",
       "idea_version_started_at": "2026-11-27T06:36:29Z",
@@ -269866,6 +269724,149 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-7ab38d2ca2a7",
+      "idea_version": "IDEAV-8ee51c5dd6070861",
+      "idea_version_started_at": "2026-11-26T23:10:21Z",
+      "ticker": "EMR",
+      "company": "Empresaria Group",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its FY26 profit forecast, signaling stronger-than-expected operational performance and margin expansion.",
+      "why_now": "The guidance upgrade was released on 2026-11-26, providing an immediate catalyst for a valuation re-rating.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-727a42147637"
+      ],
+      "primary_source_event_id": "EVT-727a42147637",
+      "source_headlines": [
+        "Empresaria Raises FY26 Profit Forecast"
+      ],
+      "source_headline": "Empresaria Raises FY26 Profit Forecast",
+      "source_url": "https://www.nasdaq.com/articles/empresaria-raises-fy26-profit-forecast",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T22:28:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T23:10:21Z",
+      "updated_at": "2026-11-26T23:10:21Z",
+      "decay_at": "2026-11-28T10:28:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-26c273375813",
+      "idea_version": "IDEAV-cf378893f860b455",
+      "idea_version_started_at": "2026-11-26T22:38:38Z",
+      "ticker": "G6M",
+      "company": "Group 6 Metals",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Group 6 Metals' early debt repayment of $11.5 million reduces its financial leverage and interest expense, improving its balance sheet health.",
+      "why_now": "The company announced the early debt repayment on November 26, 2026, indicating an immediate positive impact on its financial position.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1d187054f22d"
+      ],
+      "primary_source_event_id": "EVT-1d187054f22d",
+      "source_headlines": [
+        "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]"
+      ],
+      "source_headline": "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.G6M?key=2924-03167643-2A1713348",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T22:23:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T22:38:38Z",
+      "updated_at": "2026-11-26T22:38:38Z",
+      "decay_at": "2026-11-28T10:23:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8ec8d93bd8fb",
       "idea_version": "IDEAV-6de0bf48a674d4e6",
       "idea_version_started_at": "2026-11-26T22:38:38Z",
@@ -270746,14 +270747,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 517,
+    "total_count": 519,
     "shown_count": 499,
-    "hidden_count": 18,
+    "hidden_count": 20,
     "side_counts": {
       "long": {
-        "total_count": 255,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 5
+        "hidden_count": 7
       },
       "short": {
         "total_count": 263,
@@ -270777,6 +270778,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7ab38d2ca2a7",
+        "idea_version": "IDEAV-8ee51c5dd6070861",
+        "idea_version_started_at": "2026-11-26T23:10:21Z",
+        "ticker": "EMR",
+        "company": "Empresaria Group",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its FY26 profit forecast, signaling stronger-than-expected operational performance and margin expansion.",
+        "why_now": "The guidance upgrade was released on 2026-11-26, providing an immediate catalyst for a valuation re-rating.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-727a42147637"
+        ],
+        "primary_source_event_id": "EVT-727a42147637",
+        "source_headlines": [
+          "Empresaria Raises FY26 Profit Forecast"
+        ],
+        "source_headline": "Empresaria Raises FY26 Profit Forecast",
+        "source_url": "https://www.nasdaq.com/articles/empresaria-raises-fy26-profit-forecast",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T22:28:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T23:10:21Z",
+        "updated_at": "2026-11-26T23:10:21Z",
+        "decay_at": "2026-11-28T10:28:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T10:28:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-26c273375813",
+        "idea_version": "IDEAV-cf378893f860b455",
+        "idea_version_started_at": "2026-11-26T22:38:38Z",
+        "ticker": "G6M",
+        "company": "Group 6 Metals",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Group 6 Metals' early debt repayment of $11.5 million reduces its financial leverage and interest expense, improving its balance sheet health.",
+        "why_now": "The company announced the early debt repayment on November 26, 2026, indicating an immediate positive impact on its financial position.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1d187054f22d"
+        ],
+        "primary_source_event_id": "EVT-1d187054f22d",
+        "source_headlines": [
+          "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]"
+        ],
+        "source_headline": "G6M: Group 6 Metals Delivers $11.5 Million Early Debt Repayment [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.G6M?key=2924-03167643-2A1713348",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T22:23:26Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T22:38:38Z",
+        "updated_at": "2026-11-26T22:38:38Z",
+        "decay_at": "2026-11-28T10:23:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T10:23:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-498be75da1c9",
         "idea_version": "IDEAV-35af70835ea75a35",
@@ -304605,154 +304755,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-65f4ff924ce7",
-        "idea_version": "IDEAV-7d629aea956b968b",
-        "idea_version_started_at": "2026-11-06T20:30:17Z",
-        "ticker": "BAM",
-        "company": "Brookfield Asset Management",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported strong Q3 2026 results with $25 billion in fundraising and $864 million in fee-related earnings, demonstrating sustained growth in assets under management.",
-        "why_now": "Results were reported on 2026-11-06.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d462f40fb2b2"
-        ],
-        "primary_source_event_id": "EVT-d462f40fb2b2",
-        "source_headlines": [
-          "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings"
-        ],
-        "source_headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
-        "source_url": "https://www.nasdaq.com/articles/brookfield-asset-management-ltd-reports-third-quarter-2026-results-25-billion-fundraised",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T17:11:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-06T20:30:17Z",
-        "updated_at": "2026-11-06T20:30:17Z",
-        "decay_at": "2026-11-08T05:11:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T17:16:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-04ff478f1d78",
-        "idea_version": "IDEAV-b3c870deee36cfb6",
-        "idea_version_started_at": "2026-11-07T22:29:24Z",
-        "ticker": "TTKPRESTIG",
-        "company": "TTK Prestige",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 65% surge in Q2 profit to ₹104.4 crore, driven by strong domestic demand for kitchen appliances.",
-        "why_now": "The earnings report was released on 2026-11-06, providing a fresh catalyst for growth momentum.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b06bc41a107d"
-        ],
-        "primary_source_event_id": "EVT-b06bc41a107d",
-        "source_headlines": [
-          "TTK Prestige Q2 profit surges 65% to ₹104.4 crore as domestic sales drive growth"
-        ],
-        "source_headline": "TTK Prestige Q2 profit surges 65% to ₹104.4 crore as domestic sales drive growth",
-        "source_url": "https://www.thehindubusinessline.com/companies/ttk-prestige-q2-profit-surges-65-to-1044-crore-as-domestic-sales-drive-growth/article71675549.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-06T16:39:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-07T22:29:24Z",
-        "updated_at": "2026-11-07T22:29:24Z",
-        "decay_at": "2026-11-08T04:39:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-09T17:16:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6c88bb7ea3e",
         "idea_version": "IDEAV-c57e0ba0c487a383",
         "idea_version_started_at": "2026-11-06T22:25:06Z",
@@ -307880,7 +307882,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2746,
-    "live_count": 57,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -307899,9 +307901,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2866,
-    "news_picked_today": 289,
-    "news_dropped_today": 1695
+    "news_seen_today": 2894,
+    "news_picked_today": 293,
+    "news_dropped_today": 1719
   },
   "book_momentum": {
     "live_count": 8,
