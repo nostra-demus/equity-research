@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T08:51:24Z",
+  "generated_at": "2026-11-28T08:54:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -874,6 +874,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-206",
+      "headline": "Adnoc channels Dh307 billion into UAE economy, targets another Dh220 billion over five years",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/energy/adnoc-channels-dh307-billion-into-uae-economy-targets-another-dh220-billion-over-five-years-1.500764022",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T08:21:35Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Adnoc committed Dh220 billion (approximately $60 billion USD) in capital investment over five years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Adnoc committed Dh220 billion (approximately $60 billion USD) in capital investment over five years.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,56 +1984,6 @@
       "event_types": [
         "litigation_enforcement",
         "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bisleri",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-121",
-      "headline": "Bisleri Faces Fresh FSSAI Prosecution After Coliform Bacteria Found In Packaged Drinking Water Sample In West Bengal",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/bisleri-faces-fresh-fssai-prosecution-after-coliform-bacteria-found-in-packaged-drinking-water-sample-in-west-bengal",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T05:00:30Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Bisleri is facing prosecution by the FSSAI due to quality control failures, which poses a risk to brand reputation and operational compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Bisleri is facing prosecution by the FSSAI due to quality control failures, which poses a risk to brand reputation and operational compliance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -307759,9 +307758,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2297,
-    "news_picked_today": 256,
-    "news_dropped_today": 1255
+    "news_seen_today": 2315,
+    "news_picked_today": 257,
+    "news_dropped_today": 1272
   },
   "book_momentum": {
     "live_count": 8,
