@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T00:15:34Z",
+  "generated_at": "2026-11-28T00:20:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-005",
@@ -580,6 +580,92 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-015",
+      "headline": "Iran war live: Italy says drone in deadly Kuwait attack was made in Iran",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/11/28/iran-war-live-italy-says-drone-in-deadly-kuwait-attack-was-made-in-iran?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran and a deadly attack in Kuwait increases regional conflict risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation involving Iran and a deadly attack in Kuwait increases regional conflict risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-016",
+      "headline": "US disables ship attempting to breach Iran blockade",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/27/us-disables-ship-attempting-to-breach-iran-blockade?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-27T23:55:16Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Direct military confrontation between the US and Iran regarding a blockade significantly elevates geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Direct military confrontation between the US and Iran regarding a blockade significantly elevates geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -305779,7 +305865,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5381,
+    "inbox_unconsumed": 5383,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -305788,9 +305874,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 64,
-    "news_picked_today": 14,
-    "news_dropped_today": 50
+    "news_seen_today": 74,
+    "news_picked_today": 16,
+    "news_dropped_today": 58
   },
   "book_momentum": {
     "live_count": 8,
