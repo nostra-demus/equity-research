@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T01:54:17Z",
+  "generated_at": "2026-11-28T01:54:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -266521,6 +266521,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b87206fa7c59",
+      "idea_version": "IDEAV-b374a51c45ffe2ae",
+      "idea_version_started_at": "2026-11-28T01:54:24Z",
+      "ticker": "GURE",
+      "company": "Gulf Resources, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is divesting bromine and crude salt assets, which typically allows for a capital reallocation or debt reduction that can improve the balance sheet.",
+      "why_now": "The asset purchase agreement was announced on 2026-11-28.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b8954333a07b"
+      ],
+      "primary_source_event_id": "EVT-b8954333a07b",
+      "source_headlines": [
+        "Gulf Resources, Inc. Enters Into Asset Purchase Agreement for Bromine and Crude Salt Assets"
+      ],
+      "source_headline": "Gulf Resources, Inc. Enters Into Asset Purchase Agreement for Bromine and Crude Salt Assets",
+      "source_url": "https://www.nasdaq.com/articles/gulf-resources-inc-enters-asset-purchase-agreement-bromine-and-crude-salt-assets",
+      "source_name": "Nasdaq",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-28T00:18:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T01:54:24Z",
+      "updated_at": "2026-11-28T01:54:24Z",
+      "decay_at": "2026-11-29T12:18:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-af6cf8030aa7",
       "idea_version": "IDEAV-eaafdb34cfa963f0",
       "idea_version_started_at": "2026-11-27T00:49:33Z",
@@ -269968,77 +270038,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-b1daaee67f8a",
-      "idea_version": "IDEAV-f27470cf4e2578cc",
-      "idea_version_started_at": "2026-11-25T05:25:03Z",
-      "ticker": "NXG",
-      "company": "NexGen Energy",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported high-grade uranium mineralization expansion both vertically and along strike, which increases the estimated resource potential of the project.",
-      "why_now": "The filing was released on 2026-11-25, providing immediate confirmation of asset quality improvement.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1a33cae2998e"
-      ],
-      "primary_source_event_id": "EVT-1a33cae2998e",
-      "source_headlines": [
-        "NXG: NexGen Grows High-Grade Subdomain Vertically & along strike [price-sensitive]"
-      ],
-      "source_headline": "NXG: NexGen Grows High-Grade Subdomain Vertically & along strike [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXG?key=2924-03166407-6A1356910",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 92,
-      "newest_source_at": "2026-11-25T01:42:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T05:25:03Z",
-      "updated_at": "2026-11-25T05:25:03Z",
-      "decay_at": "2026-11-26T13:42:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -270051,14 +270050,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 514,
+    "total_count": 513,
     "shown_count": 499,
-    "hidden_count": 15,
+    "hidden_count": 14,
     "side_counts": {
       "long": {
-        "total_count": 254,
+        "total_count": 253,
         "shown_count": 250,
-        "hidden_count": 4
+        "hidden_count": 3
       },
       "short": {
         "total_count": 261,
@@ -270068,12 +270067,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2167,
+      "evicted_count": 2168,
       "oldest_retained_at": "2026-11-02T20:27:30Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1384,
-          "oldest_retained_at": "2026-11-07T22:51:00Z"
+          "evicted_count": 1385,
+          "oldest_retained_at": "2026-11-08T01:21:18Z"
         },
         "short": {
           "evicted_count": 785,
@@ -271192,8 +271191,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T13:42:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-28T01:54:31Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -307185,8 +307184,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2733,
-    "live_count": 51,
+    "surfaced_total": 2734,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
