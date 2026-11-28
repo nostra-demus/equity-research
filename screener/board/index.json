@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T05:26:23Z",
+  "generated_at": "2026-11-28T05:30:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -977,6 +977,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-121",
+      "headline": "Bisleri Faces Fresh FSSAI Prosecution After Coliform Bacteria Found In Packaged Drinking Water Sample In West Bengal",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/bisleri-faces-fresh-fssai-prosecution-after-coliform-bacteria-found-in-packaged-drinking-water-sample-in-west-bengal",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T05:00:30Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Bisleri is facing prosecution by the FSSAI due to quality control failures, which poses a risk to brand reputation and operational compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Bisleri is facing prosecution by the FSSAI due to quality control failures, which poses a risk to brand reputation and operational compliance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bisleri",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-114",
       "headline": "La succession: France’s wealthiest family said to be battling over who will take over LVMH",
       "headline_en": null,
@@ -1937,49 +1987,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-087",
-      "headline": "Israel Political Crisis: Netanyahu Offers Gadi Eisenkot Rotational Premiership, Proposes Serving As Second PM To Form Unity Government",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/israel-political-crisis-netanyahu-offers-gadi-eisenkot-rotational-premiership-proposes-serving-as-second-pm-to-form-unity-government",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T02:56:56Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Political instability in Israel creates uncertainty for the regional business environment and government policy continuity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Political instability in Israel creates uncertainty for the regional business environment and government policy continuity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -307672,9 +307679,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 660,
-    "news_picked_today": 130,
-    "news_dropped_today": 516
+    "news_seen_today": 697,
+    "news_picked_today": 136,
+    "news_dropped_today": 547
   },
   "book_momentum": {
     "live_count": 8,
