@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T01:44:28Z",
+  "generated_at": "2026-11-28T01:54:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -456,6 +456,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-052",
+      "headline": "OpenAI says Apple pressured suppliers to shun its devices",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/28/tech/openai-apple-pressured-suppliers/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:09:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Allegations of anti-competitive pressure on suppliers by Apple could lead to regulatory scrutiny or legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Allegations of anti-competitive pressure on suppliers by Apple could lead to regulatory scrutiny or legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-022",
       "headline": "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement",
       "headline_en": null,
@@ -647,6 +701,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-050",
+      "headline": "Lupin Launches Generic Sitagliptin Tablets In U.S. After FDA Approval",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/lupin-launches-generic-sitagliptin-tablets-us-after-fda-approval",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:20:25Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Lupin launched a generic version of Sitagliptin in the US following FDA approval, expanding its product portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Lupin launched a generic version of Sitagliptin in the US following FDA approval, expanding its product portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lupin",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1506,6 +1609,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-053",
+      "headline": "Etihad launches Maldives travel partnership allowing passengers to redeem miles on island flights",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/abnews/etihad-launches-maldives-travel-partnership-allowing-passengers-to-redeem-miles-on-island-flights",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:30:37Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Etihad Airways is expanding its loyalty program utility through a new partnership, which is a routine commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Etihad Airways is expanding its loyalty program utility through a new partnership, which is a routine commercial development.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Etihad Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-048",
       "headline": "Abu Dhabi real estate: Aldar generates $245m in Yas Island property sales as expats and overseas buyers drive demand",
       "headline_en": null,
@@ -1751,149 +1903,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261128-049",
-      "headline": "Son of Hamas chief survives Israeli strike, militant group says",
+      "inbox_id": "INB-20261128-051",
+      "headline": "U.S. military fires on ship violating Iran blockade",
       "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/28/world/son-hamas-chief-survives-israeli-strike/",
+      "url": "https://www.japantimes.co.jp/news/2026/11/28/world/us-military-fires-ship-iran-blockade/",
       "source_name": "The Japan Times",
       "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:08:00Z",
+      "found_at": "2026-11-28T01:09:00Z",
       "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "The report of an Israeli strike on a Hamas leader's family member indicates an escalation in the ongoing regional conflict.",
+      "prelim_note": "Military engagement involving a blockade in a major shipping region represents a significant geopolitical escalation and supply chain risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 47,
-      "triage_reason": "The report of an Israeli strike on a Hamas leader's family member indicates an escalation in the ongoing regional conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-042",
-      "headline": "US disables ship trying to leave Iran, as Tehran vows to confront blockade",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/west-asia/us-disables-ship-trying-to-leave-iran-as-tehran-vows-to-confront-blockade-4234183",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T01:07:57Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Geopolitical escalation involving a US-Iran maritime confrontation increases regional conflict risk and potential supply chain disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical escalation involving a US-Iran maritime confrontation increases regional conflict risk and potential supply chain disruption.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-038",
-      "headline": "US military fires on ship attempting to breach Iran blockade",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/us-military-fires-ship-attempting-breach-iran-blockade",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:44:39Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "US military engagement with a ship attempting to breach an Iran blockade represents a significant geopolitical escalation in a critical maritime region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "US military engagement with a ship attempting to breach an Iran blockade represents a significant geopolitical escalation in a critical maritime region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-015",
-      "headline": "Iran war live: Italy says drone in deadly Kuwait attack was made in Iran",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/11/28/iran-war-live-italy-says-drone-in-deadly-kuwait-attack-was-made-in-iran?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-28T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Geopolitical escalation involving Iran and a deadly attack in Kuwait increases regional conflict risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical escalation involving Iran and a deadly attack in Kuwait increases regional conflict risk.",
+      "triage_reason": "Military engagement involving a blockade in a major shipping region represents a significant geopolitical escalation and supply chain risk.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -307182,9 +307205,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 236,
-    "news_picked_today": 50,
-    "news_dropped_today": 172
+    "news_seen_today": 254,
+    "news_picked_today": 54,
+    "news_dropped_today": 186
   },
   "book_momentum": {
     "live_count": 8,
