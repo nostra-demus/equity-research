@@ -1,6 +1,864 @@
 {
-  "generated_at": "2026-11-27T18:49:10Z",
+  "generated_at": "2026-11-28T00:40:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261128-017",
+      "headline": "Press Release: First-Citizens Bank & Trust Company, Raleigh, North Carolina Assumes Substantially All Deposits and Purchases Substantially All Assets of United Fidelity Bank, fsb, Evansville, Indiana",
+      "headline_en": null,
+      "url": "https://content.govdelivery.com/accounts/USFDIC/bulletins/4345523",
+      "source_name": "FDIC (Press Releases, via GovDelivery)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-28T00:22:35Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "First-Citizens Bank & Trust Company is acquiring the assets and deposits of United Fidelity Bank, fsb.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "First-Citizens Bank & Trust Company is acquiring the assets and deposits of United Fidelity Bank, fsb.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First-Citizens Bank & Trust Company",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "United Fidelity Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-005",
+      "headline": "Citigroup’s $35 Billion Bookkeeping Snafu Sparks Shake-Up in Upper Ranks",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/banking/citigroups-35-billion-bookkeeping-snafu-sparks-shake-up-in-upper-ranks-71d8afe9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Internal management shake-up following a $35 billion bookkeeping error.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Internal management shake-up following a $35 billion bookkeeping error.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citigroup",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-012",
+      "headline": "Telus picks up pace on sale of health, agriculture and VC divisions",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-telus-divestiture-plan-health-agriculture-vc-divisions/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:08:49Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Telus is accelerating the divestiture of non-core business units, which is a significant strategic shift for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Telus is accelerating the divestiture of non-core business units, which is a significant strategic shift for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telus",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-018",
+      "headline": "KPMG paid staff departing over complaints more than $1.7m for silence",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/professional-services/kpmg-paid-staff-departing-over-complaints-more-than-1-7m-for-silence-20261128-p61i26?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:30:29Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "KPMG paid over $1.7 million in non-disclosure agreements to departing staff following complaints, raising reputational and governance risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "KPMG paid over $1.7 million in non-disclosure agreements to departing staff following complaints, raising reputational and governance risks.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPMG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-008",
+      "headline": "iQSTEL Inc. Received Nasdaq Notice Regarding Minimum Bid Price Requirement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/iqstel-inc-received-nasdaq-notice-regarding-minimum-bid-price-requirement",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:39:36Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Company received a Nasdaq deficiency notice regarding minimum bid price requirements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Company received a Nasdaq deficiency notice regarding minimum bid price requirements.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "iQSTEL Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-013",
+      "headline": "MP West Discom Detects Over 41,000 Power Theft And Irregularity Cases Across 15 Districts, Recovers ₹70 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/indore/mp-west-discom-detects-over-41000-power-theft-and-irregularity-cases-across-15-districts-recovers-70-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "MP West Discom recovered ₹70 crore from over 41,000 power theft cases, indicating a material improvement in revenue leakage recovery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "MP West Discom recovered ₹70 crore from over 41,000 power theft cases, indicating a material improvement in revenue leakage recovery.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MP West Discom",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-003",
+      "headline": "Trans Mountain to Ship Fully Loaded Tankers by Summer, CEO Says",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-27/trans-mountain-to-ship-fully-loaded-tankers-by-summer-ceo-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:51:19Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Trans Mountain expects to begin shipping fully loaded tankers by summer, indicating progress on a major infrastructure project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Trans Mountain expects to begin shipping fully loaded tankers by summer, indicating progress on a major infrastructure project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trans Mountain",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-006",
+      "headline": "Avalon GloboCare Corp. Agrees to Sell 4,200 Series G Preferred Shares for $3,500,000",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/avalon-globocare-corp-agrees-sell-4200-series-g-preferred-shares-3500000",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:58:44Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Company raised $3,500,000 through a preferred share issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Company raised $3,500,000 through a preferred share issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avalon GloboCare Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-014",
+      "headline": "IRGC says two oil tankers catch fire after hitting naval mines",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/irgc-says-two-oil-tankers-catch-fire-after-hitting-naval-mines",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:06:49Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The report of oil tankers hitting naval mines in the Middle East represents a significant supply shock risk to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "The report of oil tankers hitting naval mines in the Middle East represents a significant supply shock risk to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-001",
+      "headline": "Suzano S.A. Announces Engagement of Independent Auditor",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/suzano-sa-announces-engagement-independent-auditor",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:58:43Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Suzano S.A. has appointed a new independent auditor, which is a standard but significant corporate governance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Suzano S.A. has appointed a new independent auditor, which is a standard but significant corporate governance update.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzano S.A.",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-002",
+      "headline": "Suzano S.A. Engages BDO RCS Auditores Independentes as Independent Auditor for CVM",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/suzano-sa-engages-bdo-rcs-auditores-independentes-independent-auditor-cvm",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:39:37Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Suzano S.A. has formally engaged BDO RCS Auditores Independentes as its independent auditor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Suzano S.A. has formally engaged BDO RCS Auditores Independentes as its independent auditor.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzano S.A.",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-009",
+      "headline": "Amazon takes its car store abroad for the first time in 2027",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/automotive/amazon-takes-its-car-store-abroad-britain-uk-for-first-time-2027",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Expansion of existing retail service to new international markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Expansion of existing retail service to new international markets.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-004",
+      "headline": "JPMorgan Plans a Private Club for Well-Heeled Clients in a 1930s Branch",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/banking/jpmorgan-plans-a-private-club-for-well-heeled-clients-in-a-1930s-branch-c609a03c?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Small-scale branch initiative for private banking clients.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Small-scale branch initiative for private banking clients.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-007",
+      "headline": "Viatris Inc. Announces Retirement of Board Member W. Don Cornwell",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/viatris-inc-announces-retirement-board-member-w-don-cornwell",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:39:38Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Routine board retirement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Routine board retirement.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-015",
+      "headline": "Iran war live: Italy says drone in deadly Kuwait attack was made in Iran",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/11/28/iran-war-live-italy-says-drone-in-deadly-kuwait-attack-was-made-in-iran?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran and a deadly attack in Kuwait increases regional conflict risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation involving Iran and a deadly attack in Kuwait increases regional conflict risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-016",
+      "headline": "US disables ship attempting to breach Iran blockade",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/27/us-disables-ship-attempting-to-breach-iran-blockade?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-27T23:55:16Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Direct military confrontation between the US and Iran regarding a blockade significantly elevates geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Direct military confrontation between the US and Iran regarding a blockade significantly elevates geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-011",
+      "headline": "Son of Hamas chief survived Israeli strike, group says",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/middle-east/article/3376106/son-hamas-chief-survives-israeli-strike-group-says",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T23:52:33Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The report of an Israeli strike involving a Hamas leader's family signals a potential escalation in the ongoing regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The report of an Israeli strike involving a Hamas leader's family signals a potential escalation in the ongoing regional conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-010",
+      "headline": "This purple electric Chinese minivan can go up to 559 miles on a charge",
+      "headline_en": null,
+      "url": "https://www.theverge.com/transportation/1044706/this-purple-electric-chinese-minivan-can-go-up-to-559-miles-on-a-charge",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T00:02:49Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Product feature announcement for a consumer vehicle.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Product feature announcement for a consumer vehicle.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261127-718",
       "headline": "25-NSE - Codere Online Luxembourg, S.A. (0001866782) (Subject)",
@@ -536,6 +1394,252 @@
           "name": "Major Holdings Limited",
           "ticker": "01389",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-738",
+      "headline": "Block, Inc. Reaches Agreement in Principle to Settle Federal Securities Class Action for Approximately $442.5 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/block-inc-reaches-agreement-principle-settle-federal-securities-class-action-approximately",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T22:20:17Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Block, Inc. agreed to a $442.5 million settlement for a federal securities class action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Block, Inc. agreed to a $442.5 million settlement for a federal securities class action.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Block, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-732",
+      "headline": "Puig to Buy 75% Stake in Parfums de Marly Owner for €1.2 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-27/puig-to-buy-75-stake-in-artessence-for-about-1-2-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T19:28:32Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Puig is acquiring a 75% stake in the owner of Parfums de Marly for €1.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Puig is acquiring a 75% stake in the owner of Parfums de Marly for €1.2 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Puig",
+          "ticker": null,
+          "listing_country": "ES"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-731",
+      "headline": "Puig to Buy 75% Stake in Artessence for About €1.2 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-27/puig-to-buy-75-stake-in-artessence-for-about-1-2-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T19:28:32Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Puig to acquire a 75% stake in Artessence for €1.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Puig to acquire a 75% stake in Artessence for €1.2 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Puig",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-724",
+      "headline": "NARF Industries H1 Loss Narrows On Strong Revenue Growth, Announces FY27 Revenue Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/narf-industries-h1-loss-narrows-strong-revenue-growth-announces-fy27-revenue-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T18:49:02Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "NARF Industries reported a narrowed H1 loss and provided a forward-looking revenue outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NARF Industries reported a narrowed H1 loss and provided a forward-looking revenue outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NARF Industries",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261127-719",
+      "headline": "Cardiff Oncology, Inc. Received Notice of Delisting or Failure to Satisfy a Continued Listing Rule or Standard from Nasdaq",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cardiff-oncology-inc-received-notice-delisting-or-failure-satisfy-continued-listing-rule",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-27T18:38:47Z",
+      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
+      "prelim_note": "Cardiff Oncology received a notice of delisting from Nasdaq, indicating a failure to satisfy continued listing standards.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cardiff Oncology received a notice of delisting from Nasdaq, indicating a failure to satisfy continued listing standards.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cardiff Oncology",
+          "ticker": "CRDF",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1706,267 +2810,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-499",
-      "headline": "Adani Group targets ₹2.2 lakh crore capex investment in FY27",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-group-targets-22-lakh-crore-capex-investment-in-fy27/article71750655.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T12:48:16Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Adani Group targets ₹2.2 lakh crore capex investment for FY27, a named, quantified capacity-expansion commitment affecting capital structure, leverage outlook, and analyst expectations for growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Group targets ₹2.2 lakh crore capex investment for FY27, a named, quantified capacity-expansion commitment affecting capital structure, leverage outlook, and analyst expectations for growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-545",
-      "headline": "Uber Secures 87.13% Stake In Delivery Hero",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/uber-secures-8713-stake-delivery-hero",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T12:10:20Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Uber secured an 87.13% stake in Delivery Hero, a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber secured an 87.13% stake in Delivery Hero, a major M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Delivery Hero",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-524",
-      "headline": "Volkswagen drags rivals Mercedes, BMW into $1.2 billion India tax fight: Report",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/volkswagen-drags-rivals-mercedes-bmw-into-usd-1-2-billion-india-tax-fight-20043171.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T11:35:05Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Volkswagen is involved in a $1.2 billion tax dispute in India, with potential implications for Mercedes and BMW.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen is involved in a $1.2 billion tax dispute in India, with potential implications for Mercedes and BMW.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Mercedes-Benz",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-421",
-      "headline": "Malaysia's Axiata Group to sell overseas Edotco tower units for combined value of $2.9bn",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/malaysias-axiata-group-to-sell-overseas-edotco-tower-units-for-combined-value-of-29bn/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T11:30:52Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Axiata announced sale of overseas Edotco tower units for $2.9 billion, a material capital redeployment affecting cash position, leverage, and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Axiata announced sale of overseas Edotco tower units for $2.9 billion, a material capital redeployment affecting cash position, leverage, and capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Axiata Group",
-          "ticker": "AXIATA",
-          "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261127-526",
-      "headline": "Nvidia agrees to $290 million settlement over 2018 crypto mining GPU sales",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/big-tech/nvidia-agrees-to-usd290-million-settlement-over-2018-crypto-mining-gpu-sales-ends-eight-year-investor-lawsuit-without-admitting-wrongdoing",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T11:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-27_sweep.json",
-      "prelim_note": "Nvidia agrees to a $290 million settlement regarding 2018 crypto mining GPU sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia agrees to a $290 million settlement regarding 2018 crypto mining GPU sales.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263398,6 +264241,75 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-d9881205f478",
+      "idea_version": "IDEAV-d7275faedef8649d",
+      "idea_version_started_at": "2026-11-27T19:37:04Z",
+      "ticker": "CDRO",
+      "company": "Codere Online Luxembourg, S.A.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification, which typically precedes a total loss of liquidity and significant equity impairment.",
+      "why_now": "The delisting notice was filed on 2026-11-27, signaling immediate distress.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 78,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ccbf052a9c0c"
+      ],
+      "primary_source_event_id": "EVT-ccbf052a9c0c",
+      "source_headlines": [
+        "25-NSE - Codere Online Luxembourg, S.A. (0001866782) (Subject)"
+      ],
+      "source_headline": "25-NSE - Codere Online Luxembourg, S.A. (0001866782) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1866782/000135445726001116/0001354457-26-001116-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T18:25:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:37:04Z",
+      "updated_at": "2026-11-27T19:37:04Z",
+      "decay_at": "2026-11-29T06:25:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-26fd0025147c",
       "idea_version": "IDEAV-79393b7c9f178a06",
       "idea_version_started_at": "2026-11-27T17:45:35Z",
@@ -263469,6 +264381,216 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0c63b840ab2f",
+      "idea_version": "IDEAV-782f2217fca8a46a",
+      "idea_version_started_at": "2026-11-27T19:37:04Z",
+      "ticker": "VZ",
+      "company": "Verizon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Verizon is in active negotiations to acquire Fidium for $6 billion, which would expand its fiber footprint and potentially improve long-term revenue growth.",
+      "why_now": "The report of the $6 billion deal surfaced on 2026-11-27.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d8521f39a6a"
+      ],
+      "primary_source_event_id": "EVT-3d8521f39a6a",
+      "source_headlines": [
+        "Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says"
+      ],
+      "source_headline": "Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says",
+      "source_url": "https://www.livemint.com/companies/verizon-in-talks-to-buy-fidium-in-6-billion-deal-ft-says-11795804342081.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T18:32:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:37:04Z",
+      "updated_at": "2026-11-27T19:37:04Z",
+      "decay_at": "2026-11-29T06:32:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8dd0e6cca9b7",
+      "idea_version": "IDEAV-3a839ad5b37dd9f3",
+      "idea_version_started_at": "2026-11-27T19:37:04Z",
+      "ticker": "CRDF",
+      "company": "Cardiff Oncology",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company failed to satisfy Nasdaq's continued listing requirements, creating a high risk of delisting and restricted access to capital markets.",
+      "why_now": "The notice of failure to satisfy listing rules was issued on 2026-11-27.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-29f22ba919d4"
+      ],
+      "primary_source_event_id": "EVT-29f22ba919d4",
+      "source_headlines": [
+        "Cardiff Oncology, Inc. Received Notice of Delisting or Failure to Satisfy a Continued Listing Rule or Standard from Nasdaq"
+      ],
+      "source_headline": "Cardiff Oncology, Inc. Received Notice of Delisting or Failure to Satisfy a Continued Listing Rule or Standard from Nasdaq",
+      "source_url": "https://www.nasdaq.com/articles/cardiff-oncology-inc-received-notice-delisting-or-failure-satisfy-continued-listing-rule",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T18:38:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:37:04Z",
+      "updated_at": "2026-11-27T19:37:04Z",
+      "decay_at": "2026-11-29T06:38:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fec1fab83fc8",
+      "idea_version": "IDEAV-af95f14d1bf1664b",
+      "idea_version_started_at": "2026-11-27T19:13:17Z",
+      "ticker": "IEP",
+      "company": "Icahn Enterprises",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company explicitly warned of potential inability to refinance $1.4 billion in debt maturing in May 2027, creating a significant solvency risk.",
+      "why_now": "The warning was issued on 2026-11-27 regarding a May 2027 maturity wall.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7739b2f84e27"
+      ],
+      "primary_source_event_id": "EVT-7739b2f84e27",
+      "source_headlines": [
+        "Icahn Enterprises Warns It May Not Be Able to Refinance $1.4 Billion Due in May"
+      ],
+      "source_headline": "Icahn Enterprises Warns It May Not Be Able to Refinance $1.4 Billion Due in May",
+      "source_url": "https://247wallst.com/investing/2026/11/27/icahn-enterprises-warns-it-may-not-be-able-to-refinance-1-4-billion-due-in-may/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T16:47:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:13:17Z",
+      "updated_at": "2026-11-27T19:13:17Z",
+      "decay_at": "2026-11-29T04:47:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6b2cd695b3aa",
       "idea_version": "IDEAV-92552a171a6d3798",
       "idea_version_started_at": "2026-11-27T18:07:52Z",
@@ -263533,6 +264655,76 @@
       "surfaced_at": "2026-11-27T18:07:52Z",
       "updated_at": "2026-11-27T18:07:52Z",
       "decay_at": "2026-11-29T00:10:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5c1710a1bc45",
+      "idea_version": "IDEAV-914a5f1f7cc136c6",
+      "idea_version_started_at": "2026-11-28T00:15:06Z",
+      "ticker": "C",
+      "company": "Citigroup",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $35 billion bookkeeping error and subsequent management shake-up indicate deep-seated operational and internal control failures that typically lead to increased regulatory scrutiny and higher compliance costs.",
+      "why_now": "The news broke on 2026-11-28 and the management turnover creates near-term uncertainty regarding the bank's strategic direction.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-25729989b243"
+      ],
+      "primary_source_event_id": "EVT-25729989b243",
+      "source_headlines": [
+        "Citigroup’s $35 Billion Bookkeeping Snafu Sparks Shake-Up in Upper Ranks"
+      ],
+      "source_headline": "Citigroup’s $35 Billion Bookkeeping Snafu Sparks Shake-Up in Upper Ranks",
+      "source_url": "https://www.wsj.com/finance/banking/citigroups-35-billion-bookkeeping-snafu-sparks-shake-up-in-upper-ranks-71d8afe9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 95,
+      "newest_source_at": "2026-11-28T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:15:06Z",
+      "updated_at": "2026-11-28T00:15:06Z",
+      "decay_at": "2026-11-29T12:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -263890,6 +265082,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-be284ed3fac6",
+      "idea_version": "IDEAV-1583fac6f8fac5c4",
+      "idea_version_started_at": "2026-11-28T00:15:06Z",
+      "ticker": "TU",
+      "company": "Telus",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Divesting non-core health, agriculture, and venture capital divisions allows the company to focus on its core telecommunications business and potentially unlock value through asset sales.",
+      "why_now": "The strategic review was confirmed on 2026-11-28, signaling an active process to monetize these segments.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e8c5f419d27e"
+      ],
+      "primary_source_event_id": "EVT-e8c5f419d27e",
+      "source_headlines": [
+        "Telus picks up pace on sale of health, agriculture and VC divisions"
+      ],
+      "source_headline": "Telus picks up pace on sale of health, agriculture and VC divisions",
+      "source_url": "https://www.theglobeandmail.com/business/article-telus-divestiture-plan-health-agriculture-vc-divisions/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-28T00:08:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-28T00:15:06Z",
+      "updated_at": "2026-11-28T00:15:06Z",
+      "decay_at": "2026-11-29T12:08:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2d93368aeb39",
       "idea_version": "IDEAV-5aa762719f2d6b61",
       "idea_version_started_at": "2026-11-27T00:24:37Z",
@@ -264025,6 +265287,150 @@
       "surfaced_at": "2026-11-27T00:49:33Z",
       "updated_at": "2026-11-27T00:49:33Z",
       "decay_at": "2026-11-28T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-65b6b76d0ad6",
+      "idea_version": "IDEAV-69920db460008c7f",
+      "idea_version_started_at": "2026-11-27T22:50:45Z",
+      "ticker": "SQ",
+      "company": "Block, Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $442.5 million settlement creates a direct, non-recurring cash outflow that impairs the company's liquidity and net income for the current fiscal period.",
+      "why_now": "The settlement was announced on 2026-11-27 and represents a definitive resolution to a long-standing legal overhang, forcing an immediate adjustment to valuation models.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-79dc397d51e4"
+      ],
+      "primary_source_event_id": "EVT-79dc397d51e4",
+      "source_headlines": [
+        "Block, Inc. Reaches Agreement in Principle to Settle Federal Securities Class Action for Approximately $442.5 Million"
+      ],
+      "source_headline": "Block, Inc. Reaches Agreement in Principle to Settle Federal Securities Class Action for Approximately $442.5 Million",
+      "source_url": "https://www.nasdaq.com/articles/block-inc-reaches-agreement-principle-settle-federal-securities-class-action-approximately",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T22:20:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T22:50:45Z",
+      "updated_at": "2026-11-27T22:50:45Z",
+      "decay_at": "2026-11-29T10:20:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-26a4a64ef76e",
+      "idea_version": "IDEAV-9cadca008ae7b87c",
+      "idea_version_started_at": "2026-11-27T19:13:17Z",
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "S&P downgraded the company's credit rating due to persistent cash burn, which increases borrowing costs and signals potential liquidity strain.",
+      "why_now": "The rating action was announced on 2026-11-27.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f730813481eb"
+      ],
+      "primary_source_event_id": "EVT-f730813481eb",
+      "source_headlines": [
+        "S&P cuts Tata Motors PV rating to BBB-; JLR to BB+ on cash burn"
+      ],
+      "source_headline": "S&P cuts Tata Motors PV rating to BBB-; JLR to BB+ on cash burn",
+      "source_url": "https://www.thehindubusinessline.com/companies/sp-cuts-tata-motors-pv-rating-to-bbb-jlr-to-bb-on-cash-burn/article71751339.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-27T14:59:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T19:13:17Z",
+      "updated_at": "2026-11-27T19:13:17Z",
+      "decay_at": "2026-11-29T02:59:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -265188,153 +266594,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4d60d8e457f6",
-      "idea_version": "IDEAV-a64be9e107a11c2d",
-      "idea_version_started_at": "2026-11-26T17:04:53Z",
-      "ticker": "NAY",
-      "company": "Norse Atlantic Airways",
-      "exchange": "OSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has suspended all flight operations and is in active negotiations to avoid a formal bankruptcy filing, signaling near-total equity impairment.",
-      "why_now": "The suspension of operations was announced on 2026-11-26, making the insolvency risk immediate.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 22,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-56071883ef2e",
-        "EVT-86992366a770",
-        "EVT-57c21bcc5d4a"
-      ],
-      "primary_source_event_id": "EVT-56071883ef2e",
-      "source_headlines": [
-        "Norse Suspends Flights, in Talks to Avoid Bankruptcy Filing",
-        "Norse Atlantic suspends all flights, warns it may file for bankruptcy after share price collapse",
-        "Norwegian Airline: Low-cost carrier Norse Atlantic stops flights – insolvency threatens"
-      ],
-      "source_headline": "Norse Suspends Flights, in Talks to Avoid Bankruptcy Filing",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-26/norse-suspends-flights-in-talks-to-avoid-bankruptcy-filing",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T09:42:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T17:04:53Z",
-      "updated_at": "2026-11-26T17:04:53Z",
-      "decay_at": "2026-11-27T21:42:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-bd8777bb8494",
-      "idea_version": "IDEAV-2d860bc3cef5a617",
-      "idea_version_started_at": "2026-11-26T17:04:53Z",
-      "ticker": "01315",
-      "company": "Green Economy",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance that typically precedes further downward revisions.",
-      "why_now": "The profit warning was filed on 2026-11-26.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f2c59203daa4"
-      ],
-      "primary_source_event_id": "EVT-f2c59203daa4",
-      "source_headlines": [
-        "GREEN ECONOMY (01315): Profit Warning"
-      ],
-      "source_headline": "GREEN ECONOMY (01315): Profit Warning",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600598.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-26T09:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-26T17:04:53Z",
-      "updated_at": "2026-11-26T17:04:53Z",
-      "decay_at": "2026-11-27T21:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aec8b5beea0b",
       "idea_version": "IDEAV-767971dba7c28d24",
       "idea_version_started_at": "2026-11-27T06:36:29Z",
@@ -266484,78 +267743,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-205d9d4ce667",
-      "idea_version": "IDEAV-e6dbcd1e11b88324",
-      "idea_version_started_at": "2026-11-25T02:37:44Z",
-      "ticker": "DELL",
-      "company": "Dell Technologies",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Dell reported strong Q3 results and raised its full-year fiscal 2027 outlook by $10 billion, signaling sustained demand in its core infrastructure and server segments.",
-      "why_now": "The earnings and guidance update was released on 2026-11-24.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-23c1233b8e2e",
-        "EVT-32f2aae7a20b"
-      ],
-      "primary_source_event_id": "EVT-23c1233b8e2e",
-      "source_headlines": [
-        "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
-        "Dell Technologies Q3 Profit Soars; Raises FY27 Outlook"
-      ],
-      "source_headline": "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
-      "source_url": "https://www.nasdaq.com/articles/dell-just-reported-earnings-and-raised-its-forecast-10-billion-stock-buy-after-tuesdays",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T22:31:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:37:44Z",
-      "updated_at": "2026-11-25T02:37:44Z",
-      "decay_at": "2026-11-26T10:31:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-657fb7507a470816",
       "idea_version_started_at": "2026-11-26T11:29:32Z",
@@ -267049,35 +268236,36 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-661acc26fe05",
-      "idea_version": "IDEAV-a61ef6fe52c2fb88",
-      "idea_version_started_at": "2026-11-25T02:37:44Z",
-      "ticker": "URBN",
-      "company": "Urban Outfitters",
-      "exchange": "NASDAQ",
+      "idea_id": "IDEA-4d60d8e457f6",
+      "idea_version": "IDEAV-a64be9e107a11c2d",
+      "idea_version_started_at": "2026-11-26T17:04:53Z",
+      "ticker": "NAY",
+      "company": "Norse Atlantic Airways",
+      "exchange": "OSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "The company's Q3 earnings report indicates a miss or operational weakness causing a sharp decline in market sentiment.",
-      "why_now": "The earnings report was released on 2026-11-24.",
-      "conviction": 65,
+      "reason": "The company has suspended all flight operations and is in active negotiations to avoid a formal bankruptcy filing, signaling near-total equity impairment.",
+      "why_now": "The suspension of operations was announced on 2026-11-26, making the insolvency risk immediate.",
+      "conviction": 85,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
+        "impact": 22,
+        "specificity": 7,
         "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
+        "expression": 0,
+        "corroboration": 10,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "priced-in risk",
-        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -267090,30 +268278,105 @@
         "evidenceIds": []
       },
       "priced_in": "priced",
-      "thesis_type": "company_specific",
+      "thesis_type": "balance_sheet_survival",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-45455b40d860"
+        "EVT-56071883ef2e",
+        "EVT-86992366a770",
+        "EVT-57c21bcc5d4a"
       ],
-      "primary_source_event_id": "EVT-45455b40d860",
+      "primary_source_event_id": "EVT-56071883ef2e",
       "source_headlines": [
-        "Urban Outfitters Stock Tumbles After Q3 Earnings"
+        "Norse Suspends Flights, in Talks to Avoid Bankruptcy Filing",
+        "Norse Atlantic suspends all flights, warns it may file for bankruptcy after share price collapse",
+        "Norwegian Airline: Low-cost carrier Norse Atlantic stops flights – insolvency threatens"
       ],
-      "source_headline": "Urban Outfitters Stock Tumbles After Q3 Earnings",
-      "source_url": "https://www.benzinga.com/trading-ideas/movers/26/11/63611280/urban-outfitters-stock-tumbles-after-q3-earnings",
-      "source_name": "Benzinga",
+      "source_headline": "Norse Suspends Flights, in Talks to Avoid Bankruptcy Filing",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-26/norse-suspends-flights-in-talks-to-avoid-bankruptcy-filing",
+      "source_name": "Bloomberg",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-24T21:56:05Z",
+      "newest_source_at": "2026-11-26T09:42:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-11-25T02:37:44Z",
-      "updated_at": "2026-11-25T02:37:44Z",
-      "decay_at": "2026-11-26T09:56:05Z",
+      "surfaced_at": "2026-11-26T17:04:53Z",
+      "updated_at": "2026-11-26T17:04:53Z",
+      "decay_at": "2026-11-27T21:42:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bd8777bb8494",
+      "idea_version": "IDEAV-2d860bc3cef5a617",
+      "idea_version_started_at": "2026-11-26T17:04:53Z",
+      "ticker": "01315",
+      "company": "Green Economy",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance that typically precedes further downward revisions.",
+      "why_now": "The profit warning was filed on 2026-11-26.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f2c59203daa4"
+      ],
+      "primary_source_event_id": "EVT-f2c59203daa4",
+      "source_headlines": [
+        "GREEN ECONOMY (01315): Profit Warning"
+      ],
+      "source_headline": "GREEN ECONOMY (01315): Profit Warning",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600598.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-26T09:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-26T17:04:53Z",
+      "updated_at": "2026-11-26T17:04:53Z",
+      "decay_at": "2026-11-27T21:15:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -267408,77 +268671,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-11b6e2c4e611",
-      "idea_version": "IDEAV-7b2d76197878b1f7",
-      "idea_version_started_at": "2026-11-25T04:58:38Z",
-      "ticker": "MAP",
-      "company": "MAP",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The appointment of voluntary administrators indicates a formal insolvency process, which typically results in a total loss of equity value for shareholders.",
-      "why_now": "The filing was released on 2026-11-24, signaling immediate distress.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aa065a4c2d55"
-      ],
-      "primary_source_event_id": "EVT-aa065a4c2d55",
-      "source_headlines": [
-        "MAP: Appointment of Voluntary Administrators [price-sensitive]"
-      ],
-      "source_headline": "MAP: Appointment of Voluntary Administrators [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAP?key=2924-03166331-2A1712841",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T23:55:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T04:58:38Z",
-      "updated_at": "2026-11-25T04:58:38Z",
-      "decay_at": "2026-11-26T11:55:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ff87b80bbb2f",
       "idea_version": "IDEAV-b8819d27074ec29c",
       "idea_version_started_at": "2026-11-25T04:58:38Z",
@@ -267544,77 +268736,6 @@
       "surfaced_at": "2026-11-25T04:58:38Z",
       "updated_at": "2026-11-25T04:58:38Z",
       "decay_at": "2026-11-26T13:04:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cc5b4717e138",
-      "idea_version": "IDEAV-71016f7c62ef70ba",
-      "idea_version_started_at": "2026-11-25T02:37:44Z",
-      "ticker": "WTC",
-      "company": "WiseTech Global",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The conclusion of the AFP investigation removes a significant governance overhang and legal uncertainty that has pressured the stock's valuation.",
-      "why_now": "The company confirmed the investigation's conclusion on 2026-11-24.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-13567ad83edd"
-      ],
-      "primary_source_event_id": "EVT-13567ad83edd",
-      "source_headlines": [
-        "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]"
-      ],
-      "source_headline": "WTC: Richard White confirms conclusion of AFP investigation [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WTC?key=2924-03166090-2A1712732",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-24T21:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-25T02:37:44Z",
-      "updated_at": "2026-11-25T02:37:44Z",
-      "decay_at": "2026-11-26T09:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -267702,14 +268823,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 517,
+    "total_count": 515,
     "shown_count": 499,
-    "hidden_count": 18,
+    "hidden_count": 16,
     "side_counts": {
       "long": {
-        "total_count": 257,
+        "total_count": 255,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 5
       },
       "short": {
         "total_count": 261,
@@ -267719,20 +268840,173 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 2162,
-      "oldest_retained_at": "2026-11-02T16:26:34Z",
+      "evicted_count": 2166,
+      "oldest_retained_at": "2026-11-02T20:27:30Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1381,
-          "oldest_retained_at": "2026-11-07T18:38:46Z"
+          "evicted_count": 1383,
+          "oldest_retained_at": "2026-11-07T20:58:58Z"
         },
         "short": {
-          "evicted_count": 783,
-          "oldest_retained_at": "2026-11-02T16:26:34Z"
+          "evicted_count": 785,
+          "oldest_retained_at": "2026-11-02T20:27:30Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4d60d8e457f6",
+        "idea_version": "IDEAV-a64be9e107a11c2d",
+        "idea_version_started_at": "2026-11-26T17:04:53Z",
+        "ticker": "NAY",
+        "company": "Norse Atlantic Airways",
+        "exchange": "OSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has suspended all flight operations and is in active negotiations to avoid a formal bankruptcy filing, signaling near-total equity impairment.",
+        "why_now": "The suspension of operations was announced on 2026-11-26, making the insolvency risk immediate.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 22,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-56071883ef2e",
+          "EVT-86992366a770",
+          "EVT-57c21bcc5d4a"
+        ],
+        "primary_source_event_id": "EVT-56071883ef2e",
+        "source_headlines": [
+          "Norse Suspends Flights, in Talks to Avoid Bankruptcy Filing",
+          "Norse Atlantic suspends all flights, warns it may file for bankruptcy after share price collapse",
+          "Norwegian Airline: Low-cost carrier Norse Atlantic stops flights – insolvency threatens"
+        ],
+        "source_headline": "Norse Suspends Flights, in Talks to Avoid Bankruptcy Filing",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-26/norse-suspends-flights-in-talks-to-avoid-bankruptcy-filing",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T09:42:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T17:04:53Z",
+        "updated_at": "2026-11-26T17:04:53Z",
+        "decay_at": "2026-11-27T21:42:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-27T21:42:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-bd8777bb8494",
+        "idea_version": "IDEAV-2d860bc3cef5a617",
+        "idea_version_started_at": "2026-11-26T17:04:53Z",
+        "ticker": "01315",
+        "company": "Green Economy",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance that typically precedes further downward revisions.",
+        "why_now": "The profit warning was filed on 2026-11-26.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f2c59203daa4"
+        ],
+        "primary_source_event_id": "EVT-f2c59203daa4",
+        "source_headlines": [
+          "GREEN ECONOMY (01315): Profit Warning"
+        ],
+        "source_headline": "GREEN ECONOMY (01315): Profit Warning",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1126/2026112600598.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-26T09:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-26T17:04:53Z",
+        "updated_at": "2026-11-26T17:04:53Z",
+        "decay_at": "2026-11-27T21:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-27T21:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0547eb1704d8",
         "idea_version": "IDEAV-d7716ba48751c1d5",
@@ -268838,8 +270112,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T11:55:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-28T00:15:16Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -268913,8 +270187,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T10:31:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-27T22:50:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -268987,8 +270261,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T09:56:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-27T22:50:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269061,8 +270335,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-26T09:22:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-27T22:50:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -304679,161 +305953,12 @@
         "archived_at": "2026-11-05T06:02:09Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5c111fdbe761",
-        "idea_version": "IDEAV-51066f6756d22787",
-        "idea_version_started_at": "2026-11-02T02:07:41Z",
-        "ticker": "G07",
-        "company": "Great Eastern Holdings",
-        "exchange": "SGX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Net profit plunged 72% year-over-year in Q3 due to non-operating losses and weaker portfolio valuations, directly squeezing net income metrics.",
-        "why_now": "Q3 earnings results detailing the 72% profit drop were published on November 2, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-24fc4e076cbb"
-        ],
-        "primary_source_event_id": "EVT-24fc4e076cbb",
-        "source_headlines": [
-          "Great Eastern Q3 profit falls 72% on weaker valuations, divestment loss"
-        ],
-        "source_headline": "Great Eastern Q3 profit falls 72% on weaker valuations, divestment loss",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/great-eastern-q3-profit-falls-72-weaker-valuations-divestment-loss",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T01:01:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T02:07:41Z",
-        "updated_at": "2026-11-02T02:07:41Z",
-        "decay_at": "2026-11-03T13:01:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1e8235393100",
-        "idea_version": "IDEAV-070fcf647665f57d",
-        "idea_version_started_at": "2026-11-02T05:09:22Z",
-        "ticker": "NS1",
-        "company": "NS1",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has been suspended from quotation, indicating severe financial distress or non-compliance issues.",
-        "why_now": "The suspension from quotation is effective as of November 1, 2026, making this a live event.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a595d5aedb1c"
-        ],
-        "primary_source_event_id": "EVT-a595d5aedb1c",
-        "source_headlines": [
-          "NS1: Suspension from Quotation [price-sensitive]"
-        ],
-        "source_headline": "NS1: Suspension from Quotation [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03156900-6A1353192",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-01T22:21:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T05:09:22Z",
-        "updated_at": "2026-11-02T05:09:22Z",
-        "decay_at": "2026-11-03T10:21:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2722,
-    "live_count": 42,
+    "surfaced_total": 2730,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -304843,7 +305968,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 5367,
+    "inbox_unconsumed": 5385,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -304852,9 +305977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122025,
-    "news_picked_today": 1518,
-    "news_dropped_today": 16157
+    "news_seen_today": 100,
+    "news_picked_today": 18,
+    "news_dropped_today": 82
   },
   "book_momentum": {
     "live_count": 8,

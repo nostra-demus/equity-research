@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-65b6b76d0ad6",
+  "idea_version": "IDEAV-69920db460008c7f",
+  "idea_version_started_at": "2026-11-27T22:50:45Z",
+  "ticker": "SQ",
+  "company": "Block, Inc.",
+  "exchange": "NYSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The $442.5 million settlement creates a direct, non-recurring cash outflow that impairs the company's liquidity and net income for the current fiscal period.",
+  "why_now": "The settlement was announced on 2026-11-27 and represents a definitive resolution to a long-standing legal overhang, forcing an immediate adjustment to valuation models.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-79dc397d51e4"
+  ],
+  "primary_source_event_id": "EVT-79dc397d51e4",
+  "source_headlines": [
+    "Block, Inc. Reaches Agreement in Principle to Settle Federal Securities Class Action for Approximately $442.5 Million"
+  ],
+  "source_headline": "Block, Inc. Reaches Agreement in Principle to Settle Federal Securities Class Action for Approximately $442.5 Million",
+  "source_url": "https://www.nasdaq.com/articles/block-inc-reaches-agreement-principle-settle-federal-securities-class-action-approximately",
+  "source_name": "Nasdaq",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-27T22:20:17Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-27T22:50:45Z",
+  "updated_at": "2026-11-27T22:50:45Z",
+  "decay_at": "2026-11-29T10:20:17Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

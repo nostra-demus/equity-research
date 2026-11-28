@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-661acc26fe05",
-  "idea_version": "IDEAV-a61ef6fe52c2fb88",
-  "idea_version_started_at": "2026-11-25T02:37:44Z",
-  "ticker": "URBN",
-  "company": "Urban Outfitters",
-  "exchange": "NASDAQ",
+  "idea_id": "IDEA-0c63b840ab2f",
+  "idea_version": "IDEAV-782f2217fca8a46a",
+  "idea_version_started_at": "2026-11-27T19:37:04Z",
+  "ticker": "VZ",
+  "company": "Verizon",
+  "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company's Q3 earnings report indicates a miss or operational weakness causing a sharp decline in market sentiment.",
-  "why_now": "The earnings report was released on 2026-11-24.",
-  "conviction": 65,
+  "reason": "Verizon is in active negotiations to acquire Fidium for $6 billion, which would expand its fiber footprint and potentially improve long-term revenue growth.",
+  "why_now": "The report of the $6 billion deal surfaced on 2026-11-27.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,31 +42,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-45455b40d860"
+    "EVT-3d8521f39a6a"
   ],
-  "primary_source_event_id": "EVT-45455b40d860",
+  "primary_source_event_id": "EVT-3d8521f39a6a",
   "source_headlines": [
-    "Urban Outfitters Stock Tumbles After Q3 Earnings"
+    "Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says"
   ],
-  "source_headline": "Urban Outfitters Stock Tumbles After Q3 Earnings",
-  "source_url": "https://www.benzinga.com/trading-ideas/movers/26/11/63611280/urban-outfitters-stock-tumbles-after-q3-earnings",
-  "source_name": "Benzinga",
+  "source_headline": "Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says",
+  "source_url": "https://www.livemint.com/companies/verizon-in-talks-to-buy-fidium-in-6-billion-deal-ft-says-11795804342081.html",
+  "source_name": "Mint",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-24T21:56:05Z",
+  "newest_source_at": "2026-11-27T18:32:21Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-25T02:37:44Z",
-  "updated_at": "2026-11-25T02:37:44Z",
-  "decay_at": "2026-11-26T09:56:05Z",
+  "surfaced_at": "2026-11-27T19:37:04Z",
+  "updated_at": "2026-11-27T19:37:04Z",
+  "decay_at": "2026-11-29T06:32:21Z",
   "status": "live",
   "promoted_signal_id": null
 }

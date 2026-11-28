@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-11-04T04:30:07Z",
+  "archived_at": "2026-11-27T22:50:51Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6f9fa5492bbb",
-    "idea_version": "IDEAV-fff09a3823f6635c",
-    "idea_version_started_at": "2026-11-01T06:01:40Z",
-    "ticker": "NIO",
-    "company": "Nio",
+    "idea_id": "IDEA-205d9d4ce667",
+    "idea_version": "IDEAV-e6dbcd1e11b88324",
+    "idea_version_started_at": "2026-11-25T02:37:44Z",
+    "ticker": "DELL",
+    "company": "Dell Technologies",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The company's 15.23% decline in October deliveries marks the end of a 31-month growth streak, signaling a potential loss of market share and momentum in a competitive EV market.",
-    "why_now": "The delivery data was released on November 1, 2026, confirming the immediate break in the long-term growth trend.",
-    "conviction": 75,
+    "reason": "Dell reported strong Q3 results and raised its full-year fiscal 2027 outlook by $10 billion, signaling sustained demand in its core infrastructure and server segments.",
+    "why_now": "The earnings and guidance update was released on 2026-11-24.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 67,
     "trade_score_basis": "event_driven_v3",
@@ -51,26 +51,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-e54de5119d87"
+      "EVT-23c1233b8e2e",
+      "EVT-32f2aae7a20b"
     ],
-    "primary_source_event_id": "EVT-e54de5119d87",
+    "primary_source_event_id": "EVT-23c1233b8e2e",
     "source_headlines": [
-      "Nio October deliveries fall 15.23%, ending 31-month streak of year-on-year growth"
+      "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
+      "Dell Technologies Q3 Profit Soars; Raises FY27 Outlook"
     ],
-    "source_headline": "Nio October deliveries fall 15.23%, ending 31-month streak of year-on-year growth",
-    "source_url": "https://cnevpost.com/2026/11/01/nio-deliveries-oct-2026/",
-    "source_name": "CnEVPost",
+    "source_headline": "Dell Just Reported Earnings and Raised Its Forecast by $10 Billion. Is the Stock a Buy After Tuesday's Selloff?",
+    "source_url": "https://www.nasdaq.com/articles/dell-just-reported-earnings-and-raised-its-forecast-10-billion-stock-buy-after-tuesdays",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-11-01T04:26:34Z",
+    "newest_source_at": "2026-11-24T22:31:50Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-11-01T06:01:40Z",
-    "updated_at": "2026-11-01T06:01:40Z",
-    "decay_at": "2026-11-02T16:26:34Z",
+    "surfaced_at": "2026-11-25T02:37:44Z",
+    "updated_at": "2026-11-25T02:37:44Z",
+    "decay_at": "2026-11-26T10:31:50Z",
     "status": "live",
     "promoted_signal_id": null
   }
