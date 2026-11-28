@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T03:36:20Z",
+  "generated_at": "2026-11-28T03:39:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -1333,6 +1333,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-087",
+      "headline": "Israel Political Crisis: Netanyahu Offers Gadi Eisenkot Rotational Premiership, Proposes Serving As Second PM To Form Unity Government",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/israel-political-crisis-netanyahu-offers-gadi-eisenkot-rotational-premiership-proposes-serving-as-second-pm-to-form-unity-government",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T02:56:56Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Political instability in Israel creates uncertainty for the regional business environment and government policy continuity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Political instability in Israel creates uncertainty for the regional business environment and government policy continuity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-006",
       "headline": "Avalon GloboCare Corp. Agrees to Sell 4,200 Series G Preferred Shares for $3,500,000",
       "headline_en": null,
@@ -1910,55 +1953,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-055",
-      "headline": "SCHEDULE 13D/A - Xerox Holdings Corp (0001770450) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1770450/000149315226054525/0001493152-26-054525-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-28T01:59:56Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Amended Schedule 13D filing for Xerox Holdings Corp indicates an update to a major shareholder's position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Amended Schedule 13D filing for Xerox Holdings Corp indicates an update to a major shareholder's position.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Xerox Holdings Corp",
-          "ticker": "XRX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307434,9 +307428,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 431,
-    "news_picked_today": 90,
-    "news_dropped_today": 327
+    "news_seen_today": 439,
+    "news_picked_today": 93,
+    "news_dropped_today": 332
   },
   "book_momentum": {
     "live_count": 8,
