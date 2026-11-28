@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T01:35:38Z",
+  "generated_at": "2026-11-28T01:38:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -1180,6 +1180,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-046",
+      "headline": "RBI eases CRR stance amid liquidity squeeze",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/rbi-eases-crr-stance-amid-liquidity-squeeze/articleshow/136236314.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:25:32Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "RBI eases Cash Reserve Ratio in response to liquidity squeeze, lowering capital costs and freeing reserves for all Indian banks and corporates — sector-wide policy action, not company-specific.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "RBI eases Cash Reserve Ratio in response to liquidity squeeze, lowering capital costs and freeing reserves for all Indian banks and corporates — sector-wide policy action, not company-specific.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-028",
       "headline": "Banco Macro S.A. Reports Relevant Event Regarding Share Acquisition",
       "headline_en": null,
@@ -1458,6 +1501,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-048",
+      "headline": "Abu Dhabi real estate: Aldar generates $245m in Yas Island property sales as expats and overseas buyers drive demand",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/real-estate/abu-dhabi-real-estate-aldar-generates-245m-in-yas-island-property-sales-as-expats-and-overseas-buyers-drive-demand",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T01:20:02Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Aldar reports $245m in Yas Island property sales driven by expat and overseas buyer demand; reporting period unspecified, routine development-phase revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Aldar reports $245m in Yas Island property sales driven by expat and overseas buyer demand; reporting period unspecified, routine development-phase revenue.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aldar",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1826,98 +1918,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-011",
-      "headline": "Son of Hamas chief survived Israeli strike, group says",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3376106/son-hamas-chief-survives-israeli-strike-group-says",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T23:52:33Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "The report of an Israeli strike involving a Hamas leader's family signals a potential escalation in the ongoing regional conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The report of an Israeli strike involving a Hamas leader's family signals a potential escalation in the ongoing regional conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-024",
-      "headline": "Why Monte Rosa Therapeutics Stock Slumped Today",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/27/why-monte-rosa-therapeutics-stock-slumped-today/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:34:55Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Opinion/recap piece explaining past stock price movement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Opinion/recap piece explaining past stock price movement.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte Rosa Therapeutics",
-          "ticker": "GLUE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307182,9 +307182,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 210,
-    "news_picked_today": 45,
-    "news_dropped_today": 151
+    "news_seen_today": 224,
+    "news_picked_today": 48,
+    "news_dropped_today": 162
   },
   "book_momentum": {
     "live_count": 8,
