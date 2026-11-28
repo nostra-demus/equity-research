@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T06:58:14Z",
+  "generated_at": "2026-11-28T07:07:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-017",
@@ -56,6 +56,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261128-131",
+      "headline": "Norse Founder’s Lifelong Aviation Dream Crumbles in Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-28/norse-founder-s-lifelong-aviation-dream-crumbles-in-bankruptcy",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T07:00:17Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "Norse Atlantic Airways has filed for bankruptcy, representing a total loss of equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norse Atlantic Airways has filed for bankruptcy, representing a total loss of equity value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norse Atlantic Airways",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261128-130",
       "headline": "Banks facing bond price-fixing trial agree to pay over US$400 million",
       "headline_en": null,
@@ -94,6 +143,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-135",
+      "headline": "United Fidelity Is Shut in Biggest US Bank Collapse in Two Years",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-28/united-fidelity-is-shut-in-biggest-us-bank-collapse-in-two-years",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T06:24:35Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "United Fidelity Bank has been shut down by regulators, representing a significant bank failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "United Fidelity Bank has been shut down by regulators, representing a significant bank failure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Fidelity Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1897,104 +1995,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-022",
-      "headline": "60 Degrees Pharmaceuticals, Inc. Received Nasdaq Staff Determination Letter Regarding Stockholders’ Equity Requirement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/60-degrees-pharmaceuticals-inc-received-nasdaq-staff-determination-letter-regarding",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T00:08:39Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "The company received a Nasdaq deficiency notice regarding stockholders' equity requirements, risking future delisting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The company received a Nasdaq deficiency notice regarding stockholders' equity requirements, risking future delisting.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "60 Degrees Pharmaceuticals, Inc.",
-          "ticker": "SXTP",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-008",
-      "headline": "iQSTEL Inc. Received Nasdaq Notice Regarding Minimum Bid Price Requirement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/iqstel-inc-received-nasdaq-notice-regarding-minimum-bid-price-requirement",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-27T23:39:36Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Company received a Nasdaq deficiency notice regarding minimum bid price requirements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Company received a Nasdaq deficiency notice regarding minimum bid price requirements.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "iQSTEL Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307757,9 +307757,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 981,
-    "news_picked_today": 171,
-    "news_dropped_today": 796
+    "news_seen_today": 1019,
+    "news_picked_today": 178,
+    "news_dropped_today": 827
   },
   "book_momentum": {
     "live_count": 8,
