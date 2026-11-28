@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T10:01:07Z",
+  "generated_at": "2026-11-28T10:11:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261128-172",
@@ -913,6 +913,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261128-213",
+      "headline": "Delhi High Court sets aside stay on NHAI's 3-year debarment of PNC Infratech",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/delhi-high-court-sets-aside-stay-on-nhais-3-year-debarment-of-pnc-infratech-share-price-20043602.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-28T10:01:08Z",
+      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
+      "prelim_note": "The Delhi High Court upheld the 3-year debarment of PNC Infratech by NHAI, creating a significant operational and revenue risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The Delhi High Court upheld the 3-year debarment of PNC Infratech by NHAI, creating a significant operational and revenue risk for the company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PNC Infratech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1989,6 @@
           "name": "Telus",
           "ticker": null,
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261128-194",
-      "headline": "Swiggy Instamart to lay off 340 employees amid mounting losses, growing competition: Here's who will be impacted",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/swiggy-instamart-to-lay-off-340-employees-amid-mounting-losses-growing-competition-heres-who-will-be-impacted-11795850655855.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-28T07:32:00Z",
-      "sweep_file": "screener/inbox/2026-11-28_sweep.json",
-      "prelim_note": "Swiggy Instamart announces layoff of 340 employees amid mounting losses and competitive pressure, signaling operational restructuring and cash-burn concerns for the parent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Swiggy Instamart announces layoff of 340 employees amid mounting losses and competitive pressure, signaling operational restructuring and cash-burn concerns for the parent.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Swiggy",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -268435,77 +268435,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a56bbb35e55e",
-      "idea_version": "IDEAV-f88c2c1569f4fbca",
-      "idea_version_started_at": "2026-11-27T00:08:42Z",
-      "ticker": "1088",
-      "company": "China Shenhua Energy Company",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is placing new H shares under a general mandate, creating immediate equity dilution and downside price pressure.",
-      "why_now": "Announcement of the share placing was filed on November 26, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-644db31af706"
-      ],
-      "primary_source_event_id": "EVT-644db31af706",
-      "source_headlines": [
-        "CHINA SHENHUA (01088): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "CHINA SHENHUA (01088): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700003.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-11-26T22:04:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-27T00:08:42Z",
-      "updated_at": "2026-11-27T00:08:42Z",
-      "decay_at": "2026-11-28T10:04:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b10efdc47dfb",
       "idea_version": "IDEAV-abb11ed94905a2a8",
       "idea_version_started_at": "2026-11-27T00:08:42Z",
@@ -270662,6 +270591,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-a56bbb35e55e",
+      "idea_version": "IDEAV-f88c2c1569f4fbca",
+      "idea_version_started_at": "2026-11-27T00:08:42Z",
+      "ticker": "1088",
+      "company": "China Shenhua Energy Company",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is placing new H shares under a general mandate, creating immediate equity dilution and downside price pressure.",
+      "why_now": "Announcement of the share placing was filed on November 26, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-644db31af706"
+      ],
+      "primary_source_event_id": "EVT-644db31af706",
+      "source_headlines": [
+        "CHINA SHENHUA (01088): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
+      ],
+      "source_headline": "CHINA SHENHUA (01088): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-11-26T22:04:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-27T00:08:42Z",
+      "updated_at": "2026-11-27T00:08:42Z",
+      "decay_at": "2026-11-28T10:04:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -270674,9 +270674,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 515,
+    "total_count": 516,
     "shown_count": 499,
-    "hidden_count": 16,
+    "hidden_count": 17,
     "side_counts": {
       "long": {
         "total_count": 254,
@@ -270684,9 +270684,9 @@
         "hidden_count": 4
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -270705,6 +270705,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a56bbb35e55e",
+        "idea_version": "IDEAV-f88c2c1569f4fbca",
+        "idea_version_started_at": "2026-11-27T00:08:42Z",
+        "ticker": "1088",
+        "company": "China Shenhua Energy Company",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is placing new H shares under a general mandate, creating immediate equity dilution and downside price pressure.",
+        "why_now": "Announcement of the share placing was filed on November 26, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-644db31af706"
+        ],
+        "primary_source_event_id": "EVT-644db31af706",
+        "source_headlines": [
+          "CHINA SHENHUA (01088): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
+        ],
+        "source_headline": "CHINA SHENHUA (01088): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1127/2026112700003.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 90,
+        "newest_source_at": "2026-11-26T22:04:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-27T00:08:42Z",
+        "updated_at": "2026-11-27T00:08:42Z",
+        "decay_at": "2026-11-28T10:04:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-28T10:04:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8ec8d93bd8fb",
         "idea_version": "IDEAV-6de0bf48a674d4e6",
@@ -307728,88 +307802,12 @@
         "archived_at": "2026-11-05T11:07:45Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b0b475f9cb2a",
-        "idea_version": "IDEAV-0bdf6deeeba4d15b",
-        "idea_version_started_at": "2026-11-02T06:53:24Z",
-        "ticker": "9202",
-        "company": "Japan Airlines",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 42.2% drop in net profit for the April-September period indicates significant margin compression and operational headwinds.",
-        "why_now": "The earnings report was released on November 02, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-063c7de07476"
-        ],
-        "primary_source_event_id": "EVT-063c7de07476",
-        "source_headlines": [
-          "JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
-        ],
-        "source_headline": "JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
-        "source_url": "https://mainichi.jp/english/articles/20261102/p2g/00m/0bu/027000c",
-        "source_name": "The Mainichi",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-02T05:00:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-02T06:53:24Z",
-        "updated_at": "2026-11-02T06:53:24Z",
-        "decay_at": "2026-11-03T17:00:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-05T06:02:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2745,
-    "live_count": 58,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -307828,9 +307826,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2797,
-    "news_picked_today": 280,
-    "news_dropped_today": 1635
+    "news_seen_today": 2842,
+    "news_picked_today": 287,
+    "news_dropped_today": 1673
   },
   "book_momentum": {
     "live_count": 8,
